@@ -602,7 +602,7 @@ public class SDAgent {
                     doc.add( new Field("date", post.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("title", post.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("body", post.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("contents", post.getTitle()+" "+Arrays.toString(tags)+" "+post.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                     doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -750,7 +750,7 @@ public class SDAgent {
                 doc.add( new Field("date", reply.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("title", reply.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("body", reply.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contents", reply.getTitle()+" "+Arrays.toString(tags)+" "+reply.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("workflowid", reply.getParent().getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -1013,7 +1013,7 @@ public class SDAgent {
                         doc.add( new Field("date", post.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("title", post.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("body", post.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                        doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                        doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("contents", post.getTitle()+" "+Arrays.toString(tags)+" "+post.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                         doc.add( new Field("workflowid", post.getDiscussion().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                         doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );

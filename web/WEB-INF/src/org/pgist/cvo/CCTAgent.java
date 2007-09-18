@@ -1281,7 +1281,8 @@ public class CCTAgent {
             return map;
         }
         
-        String[] tags = StringUtil.splitCSL((String) params.get("tags"));
+        String tagStr = (String) params.get("tags");
+        String[] tags = StringUtil.splitCSL(tagStr);
         
         Comment comment = null;
         
@@ -1308,7 +1309,7 @@ public class CCTAgent {
                 doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("title", comment.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("body", comment.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contents", comment.getTitle()+" "+Arrays.toString(tags)+" "+comment.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("commentid", comment.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("cctid", comment.getConcern().getCct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -1387,7 +1388,8 @@ public class CCTAgent {
             return map;
         }
         
-        String[] tags = StringUtil.splitCSL((String) params.get("tags"));
+        String tagStr = (String) params.get("tags");
+        String[] tags = StringUtil.splitCSL(tagStr);
         
         Comment comment = null;
         
@@ -1410,7 +1412,7 @@ public class CCTAgent {
                 doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("title", comment.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("body", comment.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("tags", Arrays.toString(tags), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contents", comment.getTitle()+" "+Arrays.toString(tags)+" "+comment.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
                 doc.add( new Field("workflowid", comment.getConcern().getCct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );

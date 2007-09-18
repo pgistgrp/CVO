@@ -54,8 +54,6 @@ public class ScriptHandler implements Handler {
         do {
             ScriptCommandDefinition definition = parser.getNextCommand();
             
-            if (definition!=null) System.out.println("sql - "+definition.getSQL());
-            
             if (definition==null) break;
             
             String sql = definition.getSQL();
