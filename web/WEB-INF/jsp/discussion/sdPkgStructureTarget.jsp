@@ -67,7 +67,7 @@
 									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">${infoObject.object.description}</a></div>
 								</div>
 								<div class="col2 floatLeft">
-								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.totalCost/1000000}" /> million
+								$<fmt:formatNumber maxFractionDigits="1" value="${infoObject.object.totalCost/1000000000}" /> billion
 								</div>
 								<div class="col3 floatLeft">Unknown</div>
 								<div class="col4 floatLeft">
@@ -86,7 +86,7 @@
 									<div class="floatLeft"><a href="javascript:io.goToPackage(${infoObject.object.id});">${infoObject.object.description}</a></div>
 								</div>
 								<div class="col2 floatLeft">
-								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.totalCost/1000000}" /> million </div>
+								$<fmt:formatNumber maxFractionDigits="1" value="${infoObject.object.totalCost/1000000000}" /> billion </div>
 								<div class="col3 floatLeft">Unknown</div>
 								<div class="col4 floatLeft">$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost/1000000}" /> / year</div>
 								<div class="clearBoth"></div>
