@@ -339,7 +339,7 @@ function filterNum(str) {
 			
 		<div id="step-bar" class="box5 padding5 clearfix">
 				<p class="floatLeft" id="step-progress">Step 3 of 3</p>
-				<p class="floatLeft" id="submit-description" style="width:450px;">When you are finished with the questionnaire Click &quot;complete registration&quot; get started on the Let’s Improve Transportation challenge!</p>
+				<p class="floatLeft" id="submit-description" style="width:450px;">When you are finished with the questionnaire Click &quot;complete registration&quot; get started on the LetÂ’s Improve Transportation challenge!</p>
 				<p class="floatRight" id="submit-button"><input type="button" name="submitq" value="Complete registration" style="font-size:14pt;" onclick="submitQ(this.form)"/></p>
 		</div>
 		</form>

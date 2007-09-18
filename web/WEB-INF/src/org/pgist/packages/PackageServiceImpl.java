@@ -708,7 +708,7 @@ public class PackageServiceImpl implements PackageService {
 			tempAltRef = iProjectAltRefs.next();
 			tempAlt = tempAltRef.getAlternative();
 						
-			if(tempAlt.getGeoType() == ProjectAlternative.PGIST_PROJECT_MODE_ROAD) {
+			if(tempAlt.getProject().getTransMode() == ProjectAlternative.PGIST_PROJECT_MODE_ROAD) {
 				//Now pull the source back out of the hash 
 				tempProject = sources.get(tempAlt.getId());
 				
@@ -734,8 +734,8 @@ public class PackageServiceImpl implements PackageService {
 					
 					//Sort it
 					fsDTO.sort();
-				}				
-			}			
+				}
+			}
 		}
 		Collections.sort(result);
 		return result;
@@ -776,7 +776,7 @@ public class PackageServiceImpl implements PackageService {
 			tempAltRef = iProjectAltRefs.next();
 			tempAlt = tempAltRef.getAlternative();
 						
-			if(tempAlt.getGeoType() == ProjectAlternative.PGIST_PROJECT_MODE_TRANSIT) {
+			if(tempAlt.getProject().getTransMode() == ProjectAlternative.PGIST_PROJECT_MODE_TRANSIT) {
 				//Now pull the source back out of the hash 
 				tempProject = sources.get(tempAlt.getId());
 				

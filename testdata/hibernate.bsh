@@ -3,6 +3,14 @@
  * Testing script for hibernate execution.
  */
 
+hql = "from FundingSource fs order by fs.name";
+query = session.createQuery(hql);
+for (one : query.list()) {
+    print(one.name+", "+one.location);
+}
+
+return;
+
 userPackageSuiteId = 10223;
 projectSuiteId = 10217;
 fundingSuiteId = 10218;
