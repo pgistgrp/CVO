@@ -21,11 +21,11 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td><h3>Total money needed</h3></td>
-		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalCost/1000000}" /> million</td>
+		<td>$<fmt:formatNumber maxFractionDigits="1" value="${package.totalCost/1000000000}" /> billion</td>
 	</tr>
 	<tr>
 		<td><h3>Total money raised</h3></td>
-		<td>$<fmt:formatNumber maxFractionDigits="0" value="${package.totalFunding/1000000}" /> million</td>
+		<td>$<fmt:formatNumber maxFractionDigits="1" value="${package.totalFunding/1000000000}" /> billion</td>
 	</tr>
 	
 	<tr>
