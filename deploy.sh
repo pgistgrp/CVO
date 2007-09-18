@@ -5,3 +5,4 @@ ant createdb
 ant loadTaxData
 ant staticpage
 
+echo "Now don't forget to run script doAll.sql"
