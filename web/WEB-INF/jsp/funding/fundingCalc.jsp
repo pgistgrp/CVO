@@ -77,9 +77,7 @@
 					}
 				Util.loading(false)
 				},
-				errorHandler:function(errorString, exception){ 
-				alert("FundingAgent.addVehicle( error:" + errorString + exception);
-				}
+				errorHandler:function(errorString, exception){}
 			});
 		}
 		
