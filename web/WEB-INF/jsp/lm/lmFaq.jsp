@@ -7,9 +7,9 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html:html>
 	<head>
-	<title>FAQ</title>
+	<title>Let's Improve Transportation - Learn More FAQ</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -85,11 +85,16 @@
 		
 		<p>The transportation projects under consideration are at widely varying levels of completion. Some are nearly ready for construction, others have barely begun the planning and design process. In some cases a great deal of information is known about the projects, in others it is too early in their development to have many details.</p>
 		<p>One important piece of information about each project for which there is varying levels of information is cost. Some projects, for which costs estimates and project development are more mature, state or federal funds have already been specifically allocated for implementation. For others, little has been done to develop the project, and no funds have been allocated. "Money needed" is the best estimate for a project's full cost minus money already guaranteed to complete it, given available information about what the cost is an how much money has been allocated for it. </p>
-		<p>For example, $2.4 billion in federal, state and local funding has already been committed to the Alaska Way Viaduct. However, current cost estimates for the elevated structure show the total price of this alternative to be $2.82 billion. So, additional "money needed" to complete the project is $416.5 million.  Alternatively, the estimated cost of extending light rail above ground from Seattle to Bellevue is $1.7 bfrillion. But no money has been allocated for this project, so the "money needed" remains $1.7 billion.</p>
+		<p>For example, $2.4 billion in federal, state and local funding has already been committed to the Alaska Way Viaduct. However, current cost estimates for the elevated structure show the total price of this alternative to be $2.82 billion. So, additional "money needed" to complete the project is approximately $420 million.  Alternatively, the estimated cost of extending light rail above ground from Seattle to Bellevue is $1.7 bfrillion. But no money has been allocated for this project, so the "money needed" remains $1.7 billion.</p>
+		
+		<a name="step3-helpme"><h4 class="headerColor">How does "Help me create a package" work in step 3c?</h4></a>		
+		
+		<p>In step 3c, participants create their own transportation package.  A participant can get assistance by clicking on the button that says, "Help me create a package".  This tool uses a mathematical procedure to select transportation improvement projects and funding sources. The procedure is called a "greedy algorithm" (Martello and Toth, 1990).  It has this name because it starts by choosing the very best project, and then chooses the next best, and so on until no additional projects can be afforded due to the user's limit on annual personal cost.  The "best" projects are those with the highest weighted average grade (based on the participant's improvement factor weights).</p>
 
 		<a name="step4"><h3 class="headerColor">Step 4: Select a recommended package</h3></a>
 		
-		<a name="step4-clustered"><h4 class="headerColor">How were participants' individual packages clustered into new "candidate" packages?</h4></a>		
+		<a name="step4-clustered"><h4 class="headerColor">Where do the candidate packages come from?</h4></a>	
+		<p>After every participant submits their package in step 3c, a statistical procedure is used to identify a small set of packages that best represent the diversity of packages created by all participants.  These packages are the candidate packages.  The statistical procedure is called "cluster analysis".  In this procedure, all of the participant packages are separated into clusters (subgroups of packages) based on the package's project and funding selections.  Then, for each cluster, one representative package is identified as a candidate package. (Kaufman and Rousseeuw, 1990).</p>	
 		
 		<a name="step4-ej"><h4 class="headerColor">What is environmental justice?</h4></a>		
 		<p>Environmental justice (EJ) is the notion that certain people bear a disproportional share of environmental burdens. According to Newton (1996) the people that tend to bear this geographic inequality the most are poor people of color. People of color within the EJ movement represent "[i]ndividuals whose skin pigmentation may be other than white (such as brown, black, or yellow), but, more importantly, whose culture is different from that of white Americans from a European culture. African Americans, Hispanic Americans, Native Americans, Asian Americans, and Pacific Island Americans are usually regarded as belonging to communities of color" (p. 254). According to Shrader-Frechette (2002) people or organizations promoting EJ are attempting to "equalize the burdens of pollution, noxious development, and resource depletion"; to that end, EJ "requires both a more equitable distribution of environmental goods and bads and greater public participation in evaluating and apportioning these goods and bads" (p. 6). Further, studies "consistently show that socioeconomically deprived groups are more likely than affluent whites to live near pollution facilities, eat contaminated fish, and be employed at risky occupations. Research also confirms that they are less able to prevent and to remedy such inequities" (Shrader-Frechette, 2002, p. 7).</p>
@@ -120,6 +125,8 @@
 		<p><img src="images/faq-table4.png" title="County quartiles and maximum values"></p>
 				<a name="references"><h4 class="headerColor">References</h4></a>	
 				<ul>
+					<li>Kaufman, L. and P.J. Rousueeuw. Finding Groups in Data: an Introduction to Cluster Analysis, John Wiley & Sons Ltd, 1990.</li>
+					<li>Martello, S. and P. Toth. Knapsack problems: Algorithms and computer implementation. John Wiley and Sons Ltd, 1990.</li>
 					<li>Newton, D. E. (1996). <em>Environmental justice: a reference handbook</em>. Santa Barbara, Calif.: ABC-CLIO. </li>
 					<li>Shrader-Frechette, K. (2002). <em>Environmental justice: creating equality, reclaiming democracy</em>. Oxford; New York: Oxford University Press. </li>
 				</ul>
@@ -147,4 +154,4 @@
 	<!-- Begin footer -->
 	<!-- End footer -->
 	</body>
-</html>
+</html:html>
