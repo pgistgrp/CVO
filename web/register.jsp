@@ -202,8 +202,8 @@
 	<div id="register">
 	<!-- begin SIGN-IN -->
 	<div>
-		<h3>Already have an account at Let's Improve Transportation? 
-		<a href="login.do">Sign in</a>.</h3>
+		<p>Already have an account at Let's Improve Transportation? <a href="login.do">Sign in</a>.</p
+		<h3>Register for Let's Improve Transportation</h3>
 	</div>
 	<!-- end  SIGN-IN -->
 	
