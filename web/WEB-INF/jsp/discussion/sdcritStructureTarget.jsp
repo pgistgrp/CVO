@@ -21,14 +21,14 @@
 	<div id="overview" class="box2">
 		<h3 class="headerColor">Overview and instructions</h3>
 		<c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
-		Here we assess nine "factors" that will be used in Step 3 to evaluate proposed transportation improvement projects. 
+		Here we assess nine "improvement factors" that will be used in Step 3 to evaluate proposed transportation improvement projects. 
 		<ul>
-			<li>Review the factors below and discuss with other participants</li>
+			<li>Review the improvement factors below and discuss with other participants</li>
 			<li>Cast your vote in the poll</li>
 		</ul>
 		<p>When you are ready, move on to <strong>Weigh improvement factors (Step 2b)</strong>.</p>
 		<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-		<p id="hiddenRM" style="display:none">Transportation specialists often define specific transportation improvement factors to help systematically evaluate which proposed transportation improvement projects are best suited to address our transportation needs. To assist in your review of these improvement factors, the moderator determined which concern themes are most closely related to each factor. Consider how well these factors address the range of concerns expressed by participants in Step 1. Consider also which factors may be more important to you in the evaluation of proposed transportation projects. In Step 2b you will weigh the relative importance of each of these factors. This will help you evaluate proposed transportation improvement projects in Step 3.</p>
+		<p id="hiddenRM" style="display:none">Transportation specialists often define specific transportation improvement factors to help systematically evaluate which proposed transportation improvement projects are best suited to address our transportation needs. To assist in your review of these improvement factors, the moderator determined which concern themes are most closely related to each factor. Consider how well these improvement factors address the range of concerns expressed by participants in Step 1. Consider also which improvement factors may be more important to you in the evaluation of proposed transportation projects. In Step 2b you will weigh the relative importance of each of these improvement factors. This will help you evaluate proposed transportation improvement projects in Step 3.</p>
 	</div>
 	<!-- end overview -->
 
@@ -37,9 +37,9 @@
 		<div id="votingMenuTally" class="box1">
 			<span id="structure_question_status">
 			<h2>${infoStructure.numAgree} of ${infoStructure.numVote}</h2>
-			agree with that these planning factors adequately address the concerns expressed by participants in Step 1.</div>
+			agree with that these improvement factors adequately address the concerns expressed by participants in Step 1.</div>
 		</span>
-		<p>Do these planning factors adequately address the concerns expressed by participants in Step 1?</p>
+		<p>Do these improvement factors adequately address the concerns expressed by participants in Step 1?</p>
 		<span id="structure_question">
 			<c:choose>
 				<c:when test="${voting == null}">
@@ -67,7 +67,7 @@
 		</div>
 		<!-- end criteria headers -->
 		<c:if test="${fn:length(infoStructure.infoObjects) == 0}">
-		  <p>There are no planning factors created for this study yet! How did you get to this page?</p>
+		  <p>There are no improvement factors created for this study yet! How did you get to this page?</p>
 		</c:if>
 		<pg:sort name="infoObjects" items="${infoStructure.infoObjects}" key="object.criterion.name" />
 		<c:forEach var="infoObj" items="${infoObjects}" varStatus="loop">
@@ -163,7 +163,7 @@
 					data.infoObjects.each(function(infoObject){   
 					    themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid="+io.structureId+"&ioid="+infoObject.id+"'>"+ infoObject.object.theme.title +"</a>");
 					})
-					$('orphanThemes').innerHTML = "Concern themes that the moderator has determined are unrelated to any of these planning factors include:"
+					$('orphanThemes').innerHTML = "Concern themes that the moderator has determined are unrelated to any of these improvement factors include:"
 					 + themes.toString();
 				}else{
 					alert(data.reason);
