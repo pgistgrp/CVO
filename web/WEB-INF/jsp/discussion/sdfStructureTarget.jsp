@@ -45,7 +45,7 @@
 					<tr class="tableHeading">
 						<th class="first" style="font-size:10pt;">Available funding options</th>
 						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
-						Estimated money raised</span></th>
+						Money raised</span></th>
 						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">
 						Estimated annual cost to the average taxpayer</span></th>
 						<th><span class="hiddenLabel" style="display:none;font-size:10pt;">

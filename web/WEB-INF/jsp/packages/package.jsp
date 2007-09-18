@@ -152,7 +152,7 @@
 					<table cellpadding=0 cellspacing=0>
 						<tr class="tableHeading">
 							<th class="first col1">Funding for ${package.description}</th>
-							<th class="col2">Estimated money raised</th>
+							<th class="col2">Money raised</th>
 							<th class="col3">Estimated annual cost to the average taxpayer</th>
 							<th class="col4">Estimated annual cost to you</th>
 						</tr>
