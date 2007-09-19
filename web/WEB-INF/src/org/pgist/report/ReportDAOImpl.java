@@ -218,59 +218,79 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.setMales(male);
 		}
 		
-		//combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
-		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
-		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
-		
-		RegisterObject incomeRange1 = new RegisterObject();
-		incomeRange1.setType("newIncome");
-		incomeRange1.setValue("$0-$30,000");
-		save(incomeRange1);
-		
-		RegisterObject incomeRange2 = new RegisterObject();
-		incomeRange2.setType("newIncome");
-		incomeRange2.setValue("$30,000-$50,000");
-		save(incomeRange2);
-		
-		RegisterObject incomeRange3 = new RegisterObject();
-		incomeRange3.setType("newIncome");
-		incomeRange3.setValue("$50,000-$80,000");
-		save(incomeRange3);
-		
-		RegisterObject incomeRange4 = new RegisterObject();
-		incomeRange4.setType("newIncome");
-		incomeRange4.setValue("$80,000-$100,000");
-		save(incomeRange4);
-		
-		RegisterObject incomeRange5 = new RegisterObject();
-		incomeRange5.setType("newIncome");
-		incomeRange5.setValue("$100,000 or more");
-		save(incomeRange5);
-		
-		newIncomeRanges.add(incomeRange1);
-		newIncomeRanges.add(incomeRange2);
-		newIncomeRanges.add(incomeRange3);
-		newIncomeRanges.add(incomeRange4);
-		newIncomeRanges.add(incomeRange5);
-		
-		newIncomeSet.put(incomeRange1, incomeSet.get("$0-$20,000")+incomeSet.get("$20,000-$30,000"));
-		newIncomeSet.put(incomeRange2, incomeSet.get("$30,000-$40,000")+incomeSet.get("$40,000-$50,000"));
-		newIncomeSet.put(incomeRange3, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
-		newIncomeSet.put(incomeRange4, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
-		
-		newIncomeSet.put(
-				incomeRange5, 
-				incomeSet.get("$80,000-$90,000") + incomeSet.get("$90,000-$100,000") + incomeSet.get("$100,000-$120,000")
-				+ incomeSet.get("$120,000-$140,000") + incomeSet.get("$140,000-$160,000") + incomeSet.get("$160,000-$180,000")
-				+ incomeSet.get("$180,000-$200,000") + incomeSet.get("$200,000 or more")
-				);
+//		combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
+//		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
+//		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
+//		
+//		RegisterObject incomeRange1 = new RegisterObject();
+//		incomeRange1.setType("newIncome");
+//		incomeRange1.setValue("$0-$30,000");
+//		incomeRange1.setUsed(false);
+//		save(incomeRange1);
+//		
+//		RegisterObject incomeRange2 = new RegisterObject();
+//		incomeRange2.setType("newIncome");
+//		incomeRange2.setValue("$30,000-$50,000");
+//		save(incomeRange2);
+//		
+//		RegisterObject incomeRange3 = new RegisterObject();
+//		incomeRange3.setType("newIncome");
+//		incomeRange3.setValue("$50,000-$80,000");
+//		save(incomeRange3);
+//		
+//		RegisterObject incomeRange4 = new RegisterObject();
+//		incomeRange4.setType("newIncome");
+//		incomeRange4.setValue("$80,000-$100,000");
+//		save(incomeRange4);
+//		
+//		RegisterObject incomeRange5 = new RegisterObject();
+//		incomeRange5.setType("newIncome");
+//		incomeRange5.setValue("$100,000 or more");
+//		save(incomeRange5);
+//		
+//		newIncomeRanges.add(incomeRange1);
+//		newIncomeRanges.add(incomeRange2);
+//		newIncomeRanges.add(incomeRange3);
+//		newIncomeRanges.add(incomeRange4);
+//		newIncomeRanges.add(incomeRange5);
+//		
+//		Set<RegisterObject> incomekeys = incomeSet.keySet();
+//		Iterator itIncomeKeys = incomekeys.iterator();
+//		
+//		int IR1 = 0;
+//		int IR2 = 0;
+//		int IR3 = 0;
+//		int IR4 = 0;
+//		int IR5 = 0;
+//		
+//		while(itIncomeKeys.hasNext()) {
+//			RegisterObject ro = (RegisterObject) itIncomeKeys.next();
+//			
+//			if(ro.getValue().equals("$0-$20,000") || ro.getValue().equals("$20,000-$30,000")) {
+//				IR1 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$30,000-$40,000") || ro.getValue().equals("$40,000-$50,000")) {
+//				IR2 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$50,000-$60,000") || ro.getValue().equals("$60,000-$70,000") || ro.getValue().equals("$70,000-$80,000")) {
+//				IR3 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$80,000-$90,000") || ro.getValue().equals("$90,000-$100,000")) {
+//				IR4 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$100,000-$120,000") || ro.getValue().equals("$120,000-$140,000") || ro.getValue().equals("$140,000-$160,000") || ro.getValue().equals("$160,000-$180,000") || ro.getValue().equals("$180,000-$200,000") || ro.getValue().equals("$200,000 or more")) {
+//				IR5 += incomeSet.get(ro);
+//			}
+//		}
+//		
+//		newIncomeSet.put(incomeRange1, IR1);
+//		newIncomeSet.put(incomeRange2, IR2);
+//		newIncomeSet.put(incomeRange3, IR3);
+//		newIncomeSet.put(incomeRange4, IR4);
+//		newIncomeSet.put(incomeRange5, IR5);
 		//End new income ranges
 		
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
-		rs.setIncomeStats(newIncomeSet);
+		rs.setIncomeStats(incomeSet);
 		rs.setTransportStats(transportSet);
-		rs.setIncomeRanges(newIncomeRanges);
+		rs.setIncomeRanges(incomeRanges);
 		rs.setTransTypes(transTypes);
 		//Complete: Add counties, incomeranges, transporttypes
 		countySet.remove("");
@@ -497,59 +517,80 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.setFemales(female);
 			rs.setMales(male);
 		}
-		//combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
-		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
-		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
 		
-		RegisterObject incomeRange1 = new RegisterObject();
-		incomeRange1.setType("newIncome");
-		incomeRange1.setValue("$0-$30,000");
-		save(incomeRange1);
-		
-		RegisterObject incomeRange2 = new RegisterObject();
-		incomeRange2.setType("newIncome");
-		incomeRange2.setValue("$30,000-$50,000");
-		save(incomeRange2);
-		
-		RegisterObject incomeRange3 = new RegisterObject();
-		incomeRange3.setType("newIncome");
-		incomeRange3.setValue("$50,000-$80,000");
-		save(incomeRange3);
-		
-		RegisterObject incomeRange4 = new RegisterObject();
-		incomeRange4.setType("newIncome");
-		incomeRange4.setValue("$80,000-$100,000");
-		save(incomeRange4);
-		
-		RegisterObject incomeRange5 = new RegisterObject();
-		incomeRange5.setType("newIncome");
-		incomeRange5.setValue("$100,000 or more");
-		save(incomeRange5);
-		
-		newIncomeRanges.add(incomeRange1);
-		newIncomeRanges.add(incomeRange2);
-		newIncomeRanges.add(incomeRange3);
-		newIncomeRanges.add(incomeRange4);
-		newIncomeRanges.add(incomeRange5);
-		
-		newIncomeSet.put(incomeRange1, incomeSet.get("$0-$20,000")+incomeSet.get("$20,000-$30,000"));
-		newIncomeSet.put(incomeRange2, incomeSet.get("$30,000-$40,000")+incomeSet.get("$40,000-$50,000"));
-		newIncomeSet.put(incomeRange3, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
-		newIncomeSet.put(incomeRange4, incomeSet.get("$50,000-$60,000")+incomeSet.get("$60,000-$70,000")+incomeSet.get("$70,000-$80,000"));
-		
-		newIncomeSet.put(
-				incomeRange5, 
-				incomeSet.get("$80,000-$90,000") + incomeSet.get("$90,000-$100,000") + incomeSet.get("$100,000-$120,000")
-				+ incomeSet.get("$120,000-$140,000") + incomeSet.get("$140,000-$160,000") + incomeSet.get("$160,000-$180,000")
-				+ incomeSet.get("$180,000-$200,000") + incomeSet.get("$200,000 or more")
-				);
+//		combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
+//		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
+//		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
+//		
+//		RegisterObject incomeRange1 = new RegisterObject();
+//		incomeRange1.setType("newIncome");
+//		incomeRange1.setValue("$0-$30,000");
+//		incomeRange1.setUsed(false);
+//		save(incomeRange1);
+//		
+//		RegisterObject incomeRange2 = new RegisterObject();
+//		incomeRange2.setType("newIncome");
+//		incomeRange2.setValue("$30,000-$50,000");
+//		save(incomeRange2);
+//		
+//		RegisterObject incomeRange3 = new RegisterObject();
+//		incomeRange3.setType("newIncome");
+//		incomeRange3.setValue("$50,000-$80,000");
+//		save(incomeRange3);
+//		
+//		RegisterObject incomeRange4 = new RegisterObject();
+//		incomeRange4.setType("newIncome");
+//		incomeRange4.setValue("$80,000-$100,000");
+//		save(incomeRange4);
+//		
+//		RegisterObject incomeRange5 = new RegisterObject();
+//		incomeRange5.setType("newIncome");
+//		incomeRange5.setValue("$100,000 or more");
+//		save(incomeRange5);
+//		
+//		newIncomeRanges.add(incomeRange1);
+//		newIncomeRanges.add(incomeRange2);
+//		newIncomeRanges.add(incomeRange3);
+//		newIncomeRanges.add(incomeRange4);
+//		newIncomeRanges.add(incomeRange5);
+//		
+//		Set<RegisterObject> incomekeys = incomeSet.keySet();
+//		Iterator itIncomeKeys = incomekeys.iterator();
+//		
+//		int IR1 = 0;
+//		int IR2 = 0;
+//		int IR3 = 0;
+//		int IR4 = 0;
+//		int IR5 = 0;
+//		
+//		while(itIncomeKeys.hasNext()) {
+//			RegisterObject ro = (RegisterObject) itIncomeKeys.next();
+//			
+//			if(ro.getValue().equals("$0-$20,000") || ro.getValue().equals("$20,000-$30,000")) {
+//				IR1 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$30,000-$40,000") || ro.getValue().equals("$40,000-$50,000")) {
+//				IR2 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$50,000-$60,000") || ro.getValue().equals("$60,000-$70,000") || ro.getValue().equals("$70,000-$80,000")) {
+//				IR3 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$80,000-$90,000") || ro.getValue().equals("$90,000-$100,000")) {
+//				IR4 += incomeSet.get(ro);
+//			} else if (ro.getValue().equals("$100,000-$120,000") || ro.getValue().equals("$120,000-$140,000") || ro.getValue().equals("$140,000-$160,000") || ro.getValue().equals("$160,000-$180,000") || ro.getValue().equals("$180,000-$200,000") || ro.getValue().equals("$200,000 or more")) {
+//				IR5 += incomeSet.get(ro);
+//			}
+//		}
+//		
+//		newIncomeSet.put(incomeRange1, IR1);
+//		newIncomeSet.put(incomeRange2, IR2);
+//		newIncomeSet.put(incomeRange3, IR3);
+//		newIncomeSet.put(incomeRange4, IR4);
+//		newIncomeSet.put(incomeRange5, IR5);
 		//End new income ranges
 		
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
-		rs.setIncomeStats(newIncomeSet);
+		rs.setIncomeStats(incomeSet);
 		rs.setTransportStats(transportSet);
-		rs.setIncomeRanges(newIncomeRanges);
+		rs.setIncomeRanges(incomeRanges);
 		rs.setTransTypes(transTypes);
 		rs.setTotalPackages(totalPackages);
 		
