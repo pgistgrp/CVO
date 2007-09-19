@@ -92,7 +92,7 @@ public class EditClusteredPackageAction extends Action {
     		Long fundSuite = new Long(tempFundSuiteId);
     		Long pkgId = new Long(tempPkgId);
     		Long critSuite = new Long(tempCritSuiteId);
-    		    		
+    		
     		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);
     		
     		request.setAttribute("package", uPack);    		
