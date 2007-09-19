@@ -551,8 +551,9 @@ public class FundingServiceImpl implements FundingService {
 				try {
 					fundingDAO.linkFundingSource(tollHome);
 				} catch (UnknownFundingSourceException e) {
-					System.out.println(e.getMessage());
-				}				
+					e.printStackTrace();
+					throw e;
+				}
 				commute.getTolls().add(tollHome);
 				this.fundingDAO.save(tollHome);
 				this.fundingDAO.save(commute);
