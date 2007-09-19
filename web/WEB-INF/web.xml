@@ -73,6 +73,7 @@
                 /resetpassword.do,
                 /registercomplete.do,
                 /publicprofile.do,
+                /publicReport.do,
                 /lmAbout.do,
                 /lmAlt.do,
                 /lmGallery.do,

@@ -89,6 +89,10 @@
             <forward name="report" path="/WEB-INF/jsp/report/report.jsp" />
         </action>
         
+        <action path="/publicReport" scope="request" type="org.pgist.report.ReportAction">
+            <forward name="report" path="/WEB-INF/jsp/report/report.jsp" />
+        </action>
+        
         <action path="/lmAlt" scope="request" type="org.pgist.lm.LmAltAction">
             <forward name="main" path="/WEB-INF/jsp/lm/lmAlt.jsp" />
         </action>
