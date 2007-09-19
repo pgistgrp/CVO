@@ -106,7 +106,7 @@ public class ProjectAlternativeDTO implements Comparable<ProjectAlternativeDTO> 
 	 */
 	public int compareTo(ProjectAlternativeDTO o) {
 		return this.getName().compareTo(o.getName());
-	}	
+	}
 	
 	/**
 	 * Just to keep a copy of the footprint IDs.

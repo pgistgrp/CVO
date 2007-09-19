@@ -11,11 +11,6 @@ import java.io.Serializable;
 public class ProjectAlternative implements Serializable, Comparable {
     
     
-    public static int PGIST_PROJECT_MODE_ROAD = 0;
-    
-    public static int PGIST_PROJECT_MODE_TRANSIT = 1;
-    
-    
     private Long id;
     
     private String name;

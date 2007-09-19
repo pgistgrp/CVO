@@ -5,6 +5,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.funding.FundingService;
+import org.pgist.projects.Project;
 import org.pgist.projects.ProjectService;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
@@ -81,11 +82,11 @@ public class PackageAction extends Action {
     	User user = this.packageService.getUser(WebUtils.currentUser());		
 		
 		request.setAttribute("package", uPack);    		
-		request.setAttribute("packageRoadProjects", this.packageService.createPackageRoadProjectDTOs(uPack, critSuite, projSuite, user));
-		request.setAttribute("packageTransitProjects", this.packageService.createPackageTransitProjectDTOs(uPack, critSuite, projSuite, user));
+		request.setAttribute("packageRoadProjects", this.packageService.createPackageProjectDTOs(uPack, critSuite, projSuite, user, Project.TRANSMODE_ROAD));
+		request.setAttribute("packageTransitProjects", this.packageService.createPackageProjectDTOs(uPack, critSuite, projSuite, user, Project.TRANSMODE_TRANSIT));
 		request.setAttribute("packageFunding", this.packageService.createPackageFundingDTOs(uPack, user, fundSuite));
 		
-    	System.out.println("***uPackid" + uPack.getId() + " crit " + critSuite + " proj " + projSuite + " user " + user.getLoginname() + "crap " + this.packageService.createPackageRoadProjectDTOs(uPack, critSuite, projSuite, user));
+    	System.out.println("***uPackid" + uPack.getId() + " crit " + critSuite + " proj " + projSuite + " user " + user.getLoginname() + "crap " + this.packageService.createPackageProjectDTOs(uPack, critSuite, projSuite, user, Project.TRANSMODE_ROAD));
     	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

@@ -22,6 +22,7 @@ public class Project implements Serializable {
     
     
     public static final int TRANSMODE_ROAD    = 1;
+    
     public static final int TRANSMODE_TRANSIT = 2;
     
     private Long id;

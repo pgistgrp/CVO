@@ -35,7 +35,6 @@ import org.pgist.packages.cluster.PackageItem;
 import org.pgist.packages.cluster.ProjectItemFactory;
 import org.pgist.packages.knapsack.GAKnapsackEngine;
 import org.pgist.packages.knapsack.KSChoices;
-import org.pgist.packages.knapsack.KSEngine;
 import org.pgist.packages.knapsack.KSItem;
 import org.pgist.projects.GradedCriteria;
 import org.pgist.projects.Project;
@@ -672,11 +671,9 @@ public class PackageServiceImpl implements PackageService {
 		vSuite.setNumVoters(totalUserVotes);
 		this.packageDAO.save(vSuite);
 	}
-
-	/* (non-Javadoc)
-	 * @see org.pgist.packages.PackageService#formPackageRoadProjectDTOs(org.pgist.packages.ClusteredPackage)
-	 */
-	public List<ProjectDTO> createPackageRoadProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId, User user) throws Exception {
+	
+	
+	public List<ProjectDTO> createPackageProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId, User user, int transMode) throws Exception {
 		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
 		
 		//Get the criteria suite
@@ -704,27 +701,25 @@ public class PackageServiceImpl implements PackageService {
 		ProjectAlternative tempAlt;
 		ProjectAlternativeDTO tempAltDTO;
 		
+		HashMap<Long, ProjectDTO> dtos = new HashMap<Long, ProjectDTO>();
+		
 		while(iProjectAltRefs.hasNext()) {
 			tempAltRef = iProjectAltRefs.next();
 			tempAlt = tempAltRef.getAlternative();
-						
-			if(tempAlt.getProject().getTransMode() == ProjectAlternative.PGIST_PROJECT_MODE_ROAD) {
-				//Now pull the source back out of the hash 
+			
+			if(tempAlt.getProject().getTransMode() == transMode) {
+				//Now pull the source back out of the hash
 				tempProject = sources.get(tempAlt.getId());
 				
 				if(tempProject == null) {
 					System.out.println("ERROR: A alternative with no parent was found in the clustered package");
 				} else {
-			        System.out.println("===> "+result.size());
-			        
 					//Create a new DTO
-					ProjectDTO fsDTO = new ProjectDTO(tempProject);
-
-					//See if it has already been added to the result
-					if(result.contains(fsDTO)) {
-						fsDTO = result.get(result.indexOf(fsDTO));
-					} else {
-						result.add(fsDTO);
+					ProjectDTO fsDTO = dtos.get(tempProject.getId());
+					if (fsDTO==null) {
+					    fsDTO = new ProjectDTO(tempProject);
+                        result.add(fsDTO);
+					    dtos.put(tempProject.getId(), fsDTO);
 					}
 					
 					//Add the new alternative
@@ -740,83 +735,13 @@ public class PackageServiceImpl implements PackageService {
 			}
 		}
 		
-        System.out.println("---> "+result.size());
-        
+		dtos.clear();
+		
 		Collections.sort(result);
 		
-		System.out.println("---> "+result.size());
-		
 		return result;
-	}
+	}//createPackageProjectDTOs()
 	
-	/* (non-Javadoc)
-	 * @see org.pgist.packages.PackageService#formPackageTransitProjectDTOs(org.pgist.packages.ClusteredPackage)
-	 */
-	public List<ProjectDTO> createPackageTransitProjectDTOs(ClusteredPackage cPackage, long critSuiteId, long projSuiteId, User user) throws Exception {
-		List<ProjectDTO> result = new ArrayList<ProjectDTO>();
-		
-		//Get the criteria suite
-		CriteriaSuite cSuite = this.criteriaDAO.getCriteriaSuiteById(critSuiteId);
-		
-		//First put all of the project in a hash with the key being the alternativeID, we will use this to lookup the correct
-		//source
-		ProjectSuite fSuite = this.projectDAO.getProjectSuite(projSuiteId);
-		HashMap<Long, Project> sources = new HashMap<Long, Project>();
-		Iterator<ProjectRef> iRefs = fSuite.getReferences().iterator();
-		Project tempProject;
-		Iterator<ProjectAlternative> iProjectAlts;
-		
-		while(iRefs.hasNext()) {
-			tempProject = iRefs.next().getProject();
-			iProjectAlts = tempProject.getAlternatives().iterator();
-			while(iProjectAlts.hasNext()) {
-				sources.put(iProjectAlts.next().getId(), tempProject);
-			}
-		}
-				
-		//Now loop through the alternatives in the package and create the dto
-		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.projAltRefs.iterator();
-		ProjectAltRef tempAltRef;
-		ProjectAlternative tempAlt;
-		ProjectAlternativeDTO tempAltDTO;
-		
-		while(iProjectAltRefs.hasNext()) {
-			tempAltRef = iProjectAltRefs.next();
-			tempAlt = tempAltRef.getAlternative();
-						
-			if(tempAlt.getProject().getTransMode() == ProjectAlternative.PGIST_PROJECT_MODE_TRANSIT) {
-				//Now pull the source back out of the hash 
-				tempProject = sources.get(tempAlt.getId());
-				
-				if(tempProject == null) {
-					System.out.println("ERROR: A alternative with no parent was found in the clustered package");
-				} else {
-					//Create a new DTO
-					ProjectDTO fsDTO = new ProjectDTO(tempProject);
-
-					//See if it has already been added to the result
-					if(result.contains(fsDTO)) {
-						fsDTO = result.get(result.indexOf(fsDTO));
-					} else {
-						result.add(fsDTO);
-					}
-					
-					//Add the new alternative
-					tempAltDTO = new ProjectAlternativeDTO(tempAlt);
-					tempAltDTO.setProjGrade(getProjectGrade(tempAltRef));
-					tempAltDTO.setAvgGrade(getAvgGrade(tempAltRef, cSuite, user));
-					tempAltDTO.setYourGrade(getYourGrade(tempAltRef, cSuite, user));
-					fsDTO.getProjectAlternatives().add(tempAltDTO);
-					
-					//Sort it
-					fsDTO.sort();
-				}				
-			}			
-		}
-		Collections.sort(result);
-		return result;
-	}
-
 	
     public User getUser(UserInfo userInfo) throws Exception {
         return this.fundingDAO.getUserById(userInfo.getId());

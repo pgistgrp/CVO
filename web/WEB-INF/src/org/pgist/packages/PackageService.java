@@ -11,7 +11,6 @@ import org.pgist.users.User;
 import org.pgist.users.UserInfo;
 
 
-
 /**
  * 
  * @author kenny
@@ -51,9 +50,7 @@ public interface PackageService {
 
 	ClusteredPackage getClusteredPackage(Long pkgId) throws Exception;
 
-	List<ProjectDTO> createPackageRoadProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId, User user) throws Exception; 
-
-	List<ProjectDTO> createPackageTransitProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId, User user) throws Exception; 
+	List<ProjectDTO> createPackageProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId, User user, int transMode) throws Exception; 
 
 	List<FundingSourceDTO> createPackageFundingDTOs(ClusteredPackage pack, User user, long fundSuiteId) throws Exception;
 
