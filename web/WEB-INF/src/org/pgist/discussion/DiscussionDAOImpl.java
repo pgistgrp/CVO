@@ -1029,13 +1029,15 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         Connection connection = getSession().connection();
         Statement stmt = connection.createStatement();
         
-        StringBuilder sb = new StringBuilder(structure.getId().toString());
+        StringBuilder sb = new StringBuilder(structure.getDiscussion().getId().toString());
         
         for (InfoObject obj : (Set<InfoObject>) structure.getInfoObjects()) {
             sb.append(",").append(obj.getDiscussion().getId().toString());
         }//for
         
         String ids = sb.toString();
+        
+        System.out.println("ids ====> "+ids);
         
         ResultSet rs = stmt.executeQuery(sql_getTagCloud_1.replace("##", ids));
         

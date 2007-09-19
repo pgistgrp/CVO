@@ -25,5 +25,5 @@ public class PersonalFundingCostAlternativeDTO {
 
 	public void setData(List<String> data) {
 		this.data = data;
-	}	
+	}
 }

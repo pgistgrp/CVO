@@ -276,7 +276,7 @@ public class TaxCalcUtils {
 			
 			tempAlt = alt.next();
 			datas.add(createSalesTaxAlternative(tempAlt, consumption));
-		}			
+		}
 		
 		return pfcost;
 	}
