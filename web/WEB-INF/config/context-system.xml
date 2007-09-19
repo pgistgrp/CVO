@@ -46,6 +46,7 @@
         </property>
         <property name="contentType"><value>text/html; charset=UTF-8</value></property>
         <property name="from"><value>moderator@letsimprovetransportation.org</value></property>
+        <property name="fromThrough"><value>letsimprovetransportation@gmail.com</value></property>
         <property name="username"><value>letsimprovetransportation</value></property>
         <property name="password"><value>ppgis.02</value></property>
     </bean>

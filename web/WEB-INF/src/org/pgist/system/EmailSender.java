@@ -34,6 +34,8 @@ public class EmailSender {
     
     private String from;
     
+    private String fromThrough = "";
+    
     private String username;
     
     private String password;
@@ -60,6 +62,11 @@ public class EmailSender {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+
+    public void setFromThrough(String fromThrough) {
+        this.fromThrough = fromThrough;
     }
 
 
@@ -118,7 +125,10 @@ public class EmailSender {
         
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(from));
-        msg.setReplyTo(new Address[] { new InternetAddress(from) });
+        if (fromThrough!=null && fromThrough.length()>3) {
+            msg.addFrom(new InternetAddress[] { new InternetAddress(fromThrough) });
+        }
+        //msg.setReplyTo(new Address[] { new InternetAddress(from) });
         InternetAddress[] address = InternetAddress.parse(to);
         msg.setRecipients(Message.RecipientType.TO, address);
         msg.setSubject(subject);
