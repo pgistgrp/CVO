@@ -150,6 +150,7 @@
                 <ins>
                     <var name="pmethod.proj_suite_id"/>
                     <var name="pmethod.fund_suite_id"/>
+                    <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.proj_isid"/>
                     <var name="pmethod.fund_isid"/>
                 </ins>
@@ -190,14 +191,11 @@
                 </outs>
             </declaration>
             <sequence>
-            
                 <pgame name="pgame-define.travelPath">
                     <declaration>
                     </declaration>
                 </pgame>
-                
                 <branch>
-                
                     <sequence>
                         <pgame name="pgame-cvo.cct">
                             <declaration>
@@ -207,7 +205,6 @@
                             </declaration>
                         </pgame>
                     </sequence>
-                    
                     <sequence>
                         <pgame name="pgame-cvo.cst">
                             <declaration>
@@ -217,9 +214,7 @@
                             </declaration>
                         </pgame>
                     </sequence>
-                    
                 </branch>
-                
                 <pgame name="pgame-publish.theme">
                     <declaration>
                         <ins>
@@ -230,7 +225,6 @@
                         </outs>
                     </declaration>
                 </pgame>
-                
                 <pgame name="pgame-sd.concerns">
                     <declaration>
                         <ins>
@@ -238,7 +232,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                
             </sequence>
         </pmethod>
         
@@ -312,7 +305,6 @@
                 </ins>
             </declaration>
             <sequence>
-            
                 <pgame name="pgame-grade.projects">
                     <declaration>
                         <ins>
@@ -321,28 +313,27 @@
                         </ins>
                     </declaration>
                 </pgame>
-                
                 <branch>
-                        <sequence>
-                                <pgame name="pgame-sd.projects">
-                                    <declaration>
-                                        <ins>
-                                            <var name="isid" ref="pmethod.proj_is_id"/>
-					    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
-                                        </ins>
-                                    </declaration>
-                                </pgame>
-                        </sequence>
-                        <sequence>
-                                <pgame name="pgame-sd.fundings">
-                                    <declaration>
-                                        <ins>
-                                            <var name="isid" ref="pmethod.fund_is_id"/>
-                                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
-                                        </ins>
-                                    </declaration>
-                                </pgame>
-                        </sequence>
+                    <sequence>
+                        <pgame name="pgame-sd.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.proj_is_id"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sd.fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.fund_is_id"/>
+                                    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
                 </branch>
                  <pgame name="pgame-create.user.package">
                     <declaration>
@@ -372,7 +363,6 @@
                 </outs>
             </declaration>
             <sequence>
-                
                 <!--pgame name="pgame-planning.factor.reweigh">
                     <declaration>
                         <outs>
@@ -380,7 +370,6 @@
                         </outs>
                     </declaration>
                 </pgame-->
-               
                 <pgame name="pgame-group.packages">
                     <declaration>
                         <ins>
@@ -388,7 +377,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                
                 <pgame name="pgame-manage.packages">
                     <declaration>
                         <ins>
@@ -399,7 +387,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                
                 <pgame name="pgame-publish.packages">
                     <declaration>
                         <ins>
@@ -411,8 +398,7 @@
                         </outs>
                     </declaration>
                 </pgame>
-                
-               <pgame name="pgame-create.vote.suite">
+                <pgame name="pgame-create.vote.suite">
                     <declaration>
                         <ins>
                             <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
@@ -423,7 +409,6 @@
                         </outs>
                     </declaration>
                 </pgame>
-
                 <pgame name="pgame-sd.packages">
                     <declaration>
                         <ins>
@@ -436,7 +421,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-
                 <pgame name="pgame-vote.packages">
                     <declaration>
                         <ins>
@@ -448,7 +432,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                        
                 <pgame name="pgame-tally.packages">
                     <declaration>
                         <ins>
@@ -457,7 +440,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                   
             </sequence>
         </pmethod>
         
@@ -480,7 +462,6 @@
                 </outs>
             </declaration>
             <sequence>
-                    
                 <pgame name="pgame-create.report.stats">
                     <declaration>
                         <ins>
@@ -493,7 +474,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                
                 <pgame name="pgame-define.report">
                     <declaration>
                         <ins>
@@ -501,7 +481,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                
                 <pgame name="pgame-publish.report">
                     <declaration>
                         <ins>
@@ -513,7 +492,6 @@
                         </outs>
                     </declaration>
                 </pgame>
-
                 <pgame name="pgame-sd.report">
                     <declaration>
                         <ins>
@@ -528,7 +506,6 @@
                         </ins>
                     </declaration>
                 </pgame>
-                
                 <pgame name="pgame-vote.report">
                     <declaration>
                         <ins>
@@ -542,10 +519,8 @@
                         </ins>
                     </declaration>
                 </pgame>
-        
-        </sequence>
+            </sequence>
         </pmethod>
-        
         
     </pmethods>
     

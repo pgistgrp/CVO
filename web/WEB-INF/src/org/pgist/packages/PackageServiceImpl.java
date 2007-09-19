@@ -697,7 +697,7 @@ public class PackageServiceImpl implements PackageService {
 				sources.put(iProjectAlts.next().getId(), tempProject);
 			}
 		}
-				
+        
 		//Now loop through the alternatives in the package and create the dto
 		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.projAltRefs.iterator();
 		ProjectAltRef tempAltRef;
@@ -715,6 +715,8 @@ public class PackageServiceImpl implements PackageService {
 				if(tempProject == null) {
 					System.out.println("ERROR: A alternative with no parent was found in the clustered package");
 				} else {
+			        System.out.println("===> "+result.size());
+			        
 					//Create a new DTO
 					ProjectDTO fsDTO = new ProjectDTO(tempProject);
 
@@ -737,7 +739,13 @@ public class PackageServiceImpl implements PackageService {
 				}
 			}
 		}
+		
+        System.out.println("---> "+result.size());
+        
 		Collections.sort(result);
+		
+		System.out.println("---> "+result.size());
+		
 		return result;
 	}
 	
