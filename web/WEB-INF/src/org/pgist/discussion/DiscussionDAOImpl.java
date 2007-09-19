@@ -1037,8 +1037,6 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         
         String ids = sb.toString();
         
-        System.out.println("ids ====> "+ids);
-        
         ResultSet rs = stmt.executeQuery(sql_getTagCloud_1.replace("##", ids));
         
         rs.next();
