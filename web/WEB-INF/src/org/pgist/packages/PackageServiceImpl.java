@@ -409,9 +409,9 @@ public class PackageServiceImpl implements PackageService {
 				sources.put(iSourceAlts.next().getId(), tempSource);
 			}
 		}
-				
+		
 		//Now loop through the alternatives in the package and create the dto
-		Iterator<FundingSourceAltRef> iSourceAltRefs = cPackage.fundAltRefs.iterator();
+		Iterator<FundingSourceAltRef> iSourceAltRefs = cPackage.getFundAltRefs().iterator();
 		FundingSourceAltRef tempAltRef;
 		FundingSourceAlternative tempAlt;
 		while(iSourceAltRefs.hasNext()) {
@@ -701,7 +701,7 @@ public class PackageServiceImpl implements PackageService {
 		}
         
 		//Now loop through the alternatives in the package and create the dto
-		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.projAltRefs.iterator();
+		Iterator<ProjectAltRef> iProjectAltRefs = cPackage.getProjAltRefs().iterator();
 		ProjectAltRef tempAltRef;
 		ProjectAlternative tempAlt;
 		ProjectAlternativeDTO tempAltDTO;

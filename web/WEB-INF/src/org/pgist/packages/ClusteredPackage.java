@@ -29,14 +29,14 @@ public class ClusteredPackage extends Package {
     
     private float avgResidentCost;
     
-    protected Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
+    private Set<ProjectAltRef> projAltRefs = new HashSet<ProjectAltRef>();
     
-    protected Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();    
+    private Set<FundingSourceAltRef> fundAltRefs = new HashSet<FundingSourceAltRef>();    
 
     /**
      * This is a list of all the user pkgs that were combined into this package
      */
-    protected Set<UserPackage> userPkgs = new HashSet<UserPackage>();    
+    private Set<UserPackage> userPkgs = new HashSet<UserPackage>();    
 
 
     /**

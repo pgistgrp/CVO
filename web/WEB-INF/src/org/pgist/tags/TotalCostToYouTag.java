@@ -64,12 +64,18 @@ public class TotalCostToYouTag extends SimpleTagSupport {
             
             for (FundingSourceAltRef fsRef : pkg.getFundAltRefs()) {
                 suiteId = fsRef.getSourceRef().getSuite().getId();
+                if (suiteId!=null) break;
             }
+            
+            System.out.println("@ suiteId ----> "+suiteId);
             
             if (suiteId!=null) {
                 List<FundingSourceDTO> dtos = packageService.createPackageFundingDTOs(pkg, new Long(suiteId));
+                System.out.println("@ dtos.size() ----> "+dtos.size());
                 for (FundingSourceDTO dto : dtos) {
+                    System.out.println("@====> "+dto);
                     for (FundingSourceAlternativeDTO alt : dto.getFundingSourceAlternatives()) {
+                        System.out.println("@----> "+alt.getYourCost());
                         total += alt.getYourCost();
                     }
                 }
