@@ -4,13 +4,13 @@
 //### Author:																						 ###
 //### Martin Swobodzinski																 ###
 //### San Diego State University												 ###
-//### September, 05 2007																 ###
+//### September, 09 2007																 ###
 //##########################################################
 
 var map; //the google map
 var gdir; //the google directions object
 
-var userId = -1; //has to be initialized through some context; assuming here that i know the userId when the page is loaded
+var userId; //has to be initialized through some context; assuming here that i know the userId when the page is loaded
 
 //geocode variables
 var global_geocodePoint = null;
@@ -59,8 +59,6 @@ var global_routeFrequency = "Less than once"; // travel frequency information fo
 var global_routeMode = "Car"; // travel mode information for current route NEW
 
 //variables of the trip collector
-//var global_tripsJSON = {};
-//var global_tripsArray = [];
 var global_tripsLabelArray = [];
 var global_tripsVertices = []; // the array for the vertices of the polyline after calculation of the trip
 var global_tripsMarkers = []; // the array for the markers of the polyline after calculation of the trip
@@ -71,17 +69,23 @@ var global_tripsMode = []; //stores the travel mode information of all trips
 var global_tmp_routeMarkers = [];
 var global_tmp_polyline = null;
 
+//variable that stores the ids of saved trips on page load
+var savedTripIds = [];
+var tripDelete_OK = true;
+
 //#########################################################################################
 //#########################################################################################
 
-function load() 
+function init()  
   {
+ 	console.log("Processing load().");
  	
 	if (GBrowserIsCompatible()) 
  		{      
 	  map = new GMap2(document.getElementById("map"));
 	  map.addControl(new GLargeMapControl());
 	  map.setCenter(new GLatLng(47.658345,-122.303017), 10); //UW Seattle
+		console.log("GMap loaded after setCenter? Answer: " + map.isLoaded());
 	
 	  gdir = new GDirections(null, null);
 	        
@@ -134,6 +138,8 @@ function load()
 	  
 	  try
 	  	{
+	  	userId = getUserId();
+	  	console.log("The userId before calling retrieveUserTrips: " + userId);	
 	  	//call retrieveUserTrips to see if the user continues an earlier session
 			retrieveUserTrips(userId);
 			}
@@ -143,6 +149,11 @@ function load()
 			}	
 	  
 	 	}
+	 	
+	 	else
+	 		{
+	 		alert("Sorry, based on you settings and/or type of browser, your browser is not compatible with this application.");
+	 		}
 	}
 
 //#########################################################################################
@@ -246,10 +257,136 @@ function closeTripFreqModeWindow()
 
 
 //#########################################################################################
+//#########################################################################################
 
-function saveTripsAndExit()
+// retrieves the trips of a user; should be called during onLoad() at the beginning of the session
+function retrieveUserTrips(userId)
+	{
+		
+	RegisterAgent.getUserTrips(userId, function(data)
+		{
+		//data.trips is now an array of trips
+		if (data.successful)
+			{
+	
+			//if there are any trips, save the trips in the trips list; otherwise don't do anything
+			if (data.trips.length !== 0)
+				{
+	
+				//iterate through the returned trips and save each trip one by one through saveCurrentTrip()
+				for (var i = 0; i < data.trips.length; i++)
+					{
+					
+					//first save the id of the returned trip (so it can be deleted later on
+					savedTripIds[i] = data.trips[i].id;
+					
+					//convert the array of x/y coordinates to an array of GLatLng	and save it in global_routeVertices
+					global_routeVertices = getVerticesFromXY(data.trips[i].coords);	
+					
+					//convert the numerical values coming from the DB into the respective string values of travel mode and frequency
+					global_routeFrequency = getFrequencyFromInt(data.trips[i].frequency);
+					global_routeMode = getModeFromInt(data.trips[i].mode);
+										
+					//now get the markers data from the trip and create new PdMArkers and add them to global_routeMarkers array
+					for (var j = 0; j < data.trips[i].markers.length; j++)
+						{
+							
+						var pnt;
+						
+ 						var icon;
+  			  	var tooltipString;
+					
+						var baseIcon = new GIcon();
+						baseIcon.shadow = "images/markers/shadow.png";
+						baseIcon.iconSize = new GSize(20, 34);
+						baseIcon.shadowSize = new GSize(37, 34);
+						baseIcon.iconAnchor = new GPoint(9, 34);
+						baseIcon.infoWindowAnchor = new GPoint(9, 2);
+						baseIcon.infoShadowAnchor = new GPoint(18, 25);
+						
+						icon = new GIcon(baseIcon);
+					
+						//stores the data of the current DWR marker as coming from the DB
+						var currentMarker = data.trips[i].markers[j];					
+						
+						//origin
+						if (currentMarker.type === 0)
+							{
+	 						icon.image = "images/markers/start2.png";	
+							}
+						
+						//waypoint(s)
+						else if (currentMarker.type == 1)
+							{
+							if (currentMarker.index > 98)
+  							{
+  							icon.image = "images/markers/marker0.png";	
+  							}
+  				
+  						else
+  							{	
+  							icon.image = "images/markers/marker" + (currentMarker.index) + ".png";
+  			  			}
+							}
+						
+						//destination	
+						else if (currentMarker.type == 2)
+							{
+							icon.image = "images/markers/end2.png";	
+							}
+						
+						pnt = new GLatLng(currentMarker.lat, currentMarker.lng);	
+ 						
+ 						
+ 						//stores the DWR marker data in form of an instance of PdMarker
+ 						var tmpMarker = new PdMarker(pnt, {icon: icon});
+ 						
+						tmpMarker.setOpacity(100);
+							  						
+						tmpMarker.setName(data.trips[i].markers[j].name);
+  		
+  					//numbering of marker ids starts with 0
+  					tmpMarker.setId(data.trips[i].markers[j].index);
+  						  		
+  					tmpMarker.setUserData(data.trips[i].markers[j].data1);	  		
+  					tmpMarker.setUserData2(data.trips[i].markers[j].data2);	
+  		
+  					tmpMarker.setTooltip(tmpMarker.getUserData());
+
+						global_routeMarkers[tmpMarker.getId()] = tmpMarker;		
+							
+						}
+						
+					//now call saveCurrentTrip() to save the data in the respective storage arrays
+					saveCurrentTrip();	
+					} 
+				}
+			}
+			
+		else
+			console.log("There seems to be a problem with the retieval of the user trips. data.successful returns: " + data.successful +". data.reason returns: " + data.reason + ".");	
+		});
+	}
+
+//#########################################################################################		
+//#########################################################################################
+
+function saveTripList()
 	{
 	
+	var tripsJSON = prepareTripList();
+	
+	deleteAndSaveTrips(tripsJSON);
+
+	}
+
+//#########################################################################################
+//#########################################################################################
+
+function prepareTripList()
+	{
+	
+	var dwrOneTripMarkers;
 	var dwrMarkers = [];
 	var dwrTrips = [];
 	
@@ -261,6 +398,7 @@ function saveTripsAndExit()
 		var pdMarkerArray = global_tripsMarkers[i];
 		
 		var typeInt;
+		dwrOneTripMarkers = [];
 		
 		//loop through the markers of the trip i; these markers are of type pdMarker and have to be converted into DWR/JSON objects	
 		for (var j = 0; j <	pdMarkerArray.length; j++)
@@ -285,7 +423,7 @@ function saveTripsAndExit()
 				}
 			
 			//add marker data in form of DWR/JSON objects to the dwrMarkers array
-			dwrMarkers[j] = {type:typeInt, index:pdMarker.getId(), name:pdMarker.getName(), data1:pdMarker.getUserData(), data2:pdMarker.getUserData2(), lat:pdMarker.getPoint().lat(), lng:pdMarker.getPoint().lng()};
+			dwrOneTripMarkers[j] = {type:typeInt, index:pdMarker.getId(), name:pdMarker.getName(), data1:pdMarker.getUserData(), data2:pdMarker.getUserData2(), lat:pdMarker.getPoint().lat(), lng:pdMarker.getPoint().lng()};
 				
 			}
 			
@@ -295,27 +433,69 @@ function saveTripsAndExit()
 		var tripCoords = getXYFromVertices(global_tripsVertices[i]);
 		
 		dwrTrips[i] = {mode:modeInt, frequency:freqInt, coords:tripCoords};
+		dwrMarkers[i] = dwrOneTripMarkers;
 		}
-				
-	//now call RegisterAgent and save all the trips data
-	RegisterAgent.saveUserTrip(userId, dwrMarkers, dwrTrips, function(data)
-		{
-			
-		if (data.successful) 
-			{
-			console.log("All trips have been saved successfully");
-			}
-		
-		else
-			{
-			alert("There was a problem during the communication with the database. Trips could not be saved.");	
-			}	
-		});
 	
-	//something has to happen at the end of this function that takes the user to LIT challenge overview page	
+	return {trips:dwrTrips, markers:dwrMarkers};		
+
 	}
 
 
+//#########################################################################################
+//#########################################################################################
+
+function deleteAndSaveTrips(tripsJSON_in)
+	{
+	
+	//savedTripIds is a global variable that contains the ids of previously stored trips
+	if (savedTripIds.length !== 0 && tripDelete_OK)
+		{
+		var lastId = savedTripIds[savedTripIds.length - 1];
+			
+		RegisterAgent.removeTravelTrip(lastId, function(data)	
+			{
+			if(data.successful)
+				{
+				console.info("Trip #" + lastId + " has been deleted successfully.");
+				
+				//pop the last element in savedTripIds and call deleteTrip again with shortened array
+				savedTripIds.pop();
+				tripDelete_OK = true;
+				deleteAndSaveTrips(tripsJSON_in);
+				}
+			else
+				{
+				console.info("RegisterAgent.removeTravelTrip(trip# " + lastId + ") was not successful. data.reason: " + data.reason);
+				tripDelete_OK = false;
+				}
+			});
+		}
+		
+	else if (savedTripIds.length === 0 && tripDelete_OK)
+		{
+		//call RegisterAgent and save all the trips that are stored client-side
+		RegisterAgent.saveUserTrip(userId, tripsJSON_in.markers, tripsJSON_in.trips, function(data)
+			{
+			
+			if (data.successful) 
+				{
+				alert("Your trips have been saved successfully! You can now return to the agenda and come back to 'Map your daily travel' at a later time without loosing your trips. If you add new trips to the trip list don't forget to press the 'Save my Trips!' button again.");
+				savedTripIds = data.tripIds;
+				}
+		
+			else
+				{
+				alert("There was a problem during the communication with the database. Trips could not be saved. Please try again.");	
+				}	
+			});
+		}
+		
+	else
+		{
+		console.log("This is deleteAndSaveTrips(). At least one trip has not been deleted successfully.");	
+		}		
+	}	
+		
 //#########################################################################################
 //#########################################################################################
 
@@ -2173,7 +2353,7 @@ function updateWaypointList()
 	//write new options to the myWaypointListDiv
   var myWaypointListDiv = document.getElementById("waypointListDiv");
 
-	var myWaypoinytListHtmlLeftPart = "<select class='lists' onChange='waypointSelectionChanged();' id='waypointList' size='4' />";
+	var myWaypoinytListHtmlLeftPart = "<select class='lists' onClick='waypointSelectionChanged();' id='waypointList' size='4' />";
 	var myWaypoinytListHtmlRigthPart = "</select>";
     	
   myWaypointListDiv.innerHTML = myWaypoinytListHtmlLeftPart + myOptionsHtmlString + myWaypoinytListHtmlRigthPart;
@@ -2193,7 +2373,7 @@ function updateTripList()
 	for (var i = 0; i < global_tripsLabelArray.length; i++)
   	{
  
-    myOptionsHtmlString += "<option name='trip" + i + "' onClick='tripSelectionChanged()'>" + global_tripsLabelArray[i] + "</option>";
+    myOptionsHtmlString += "<option name='trip" + i + "'>" + global_tripsLabelArray[i] + "</option>";
         
     }
     
@@ -2202,7 +2382,7 @@ function updateTripList()
 	//write new options to the myTripListDiv
   var myTripListDiv = document.getElementById("triplistDiv");
 
-	var myTripListHtmlLeftPart = "<select class='tripList' onChange='tripSelectionChanged();' id='triplist' size='4' />";
+	var myTripListHtmlLeftPart = "<select class='tripList' onClick='tripSelectionChanged();' id='triplist' size='4' />";
 	var myTripListHtmlRigthPart = "</select>";
     	
   myTripListDiv.innerHTML = myTripListHtmlLeftPart + myOptionsHtmlString + myTripListHtmlRigthPart;
@@ -2218,7 +2398,11 @@ function waypointSelectionChanged()
 	{
 	
 	var mySelectedIndex = document.getElementById("waypointList").selectedIndex;
-	map.setCenter(global_waypointMarkers[mySelectedIndex].getPoint(), map.getZoom());	
+	
+	if (mySelectedIndex !== -1)
+		{
+		map.setCenter(global_waypointMarkers[mySelectedIndex].getPoint(), map.getZoom());	
+		}
 		
 	}
 	
@@ -2230,54 +2414,57 @@ function tripSelectionChanged()
 		
 	var mySelectedIndex = document.getElementById("triplist").selectedIndex;
 	
-	if (global_tmp_polyline !== null)
+	if (mySelectedIndex !== -1)
 		{
-		map.removeOverlay(global_tmp_polyline);
-		global_tmp_polyline = null;	
+	
+		if (global_tmp_polyline !== null)
+			{
+			map.removeOverlay(global_tmp_polyline);
+			global_tmp_polyline = null;	
 		
-		var i;
+			var i;
 		
-		for (i = 0; i < global_tmp_routeMarkers.length; i++)
-  		{
-     	map.removeOverlay(global_tmp_routeMarkers[i]);
-     	}
+			for (i = 0; i < global_tmp_routeMarkers.length; i++)
+  			{
+     		map.removeOverlay(global_tmp_routeMarkers[i]);
+     		}
     
-    global_tmp_routeMarkers = [];     	
-		}
-	
-	map.clearOverlays();
-	clearAllControls(false);	
-	
-	global_tmp_routeMarkers = global_tripsMarkers[mySelectedIndex];
-	
-	var myMarkerCount = global_tmp_routeMarkers.length;
-	
-	for (i = 0; i < myMarkerCount; i++)
-  	{
-		
-		if (i === 0)
-			{
-			map.addOverlay(global_tmp_routeMarkers[i]);
+ 	 		global_tmp_routeMarkers = [];     	
 			}
-			
-		else if (i == (myMarkerCount - 1))
-			{
-			map.addOverlay(global_tmp_routeMarkers[i]);
-			}	
-			
-		else
-			{	
-			map.addOverlay(global_tmp_routeMarkers[i]);
-			}	
+	
+		map.clearOverlays();
+		clearAllControls(false);	
+	
+		global_tmp_routeMarkers = global_tripsMarkers[mySelectedIndex];
+	
+		var myMarkerCount = global_tmp_routeMarkers.length;
+	
+		for (i = 0; i < myMarkerCount; i++)
+  		{
 		
+			if (i === 0)
+				{
+				map.addOverlay(global_tmp_routeMarkers[i]);
+				}
+			
+			else if (i == (myMarkerCount - 1))
+				{
+				map.addOverlay(global_tmp_routeMarkers[i]);
+				}	
+			
+			else
+				{	
+				map.addOverlay(global_tmp_routeMarkers[i]);
+				}	
+		
+			}
+	
+		global_tmp_polyline = setPolylineAppearance(global_tripsVertices[mySelectedIndex], global_tripsMode[mySelectedIndex]);
+	
+		map.addOverlay(global_tmp_polyline);
+		map.setZoom(map.getBoundsZoomLevel(global_tmp_polyline.getBounds()));
+		map.setCenter(global_tmp_polyline.getBounds().getCenter());
 		}
-	
-	global_tmp_polyline = setPolylineAppearance(global_tripsVertices[mySelectedIndex], global_tripsMode[mySelectedIndex]);
-	
-	map.addOverlay(global_tmp_polyline);
-	map.setZoom(map.getBoundsZoomLevel(global_tmp_polyline.getBounds()));
-	map.setCenter(global_tmp_polyline.getBounds().getCenter());
-	
 	}
 
 //#########################################################################################
@@ -2367,7 +2554,7 @@ function helpInstruction(e)
   			
  			}
   	
-  	myHelpMeDiv.innerHTML = "The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names) or any combination of street address, city name, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant. And don't forget to click the Add button once you are done entering the information!"; 
+  	myHelpMeDiv.innerHTML = "The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names) or any combination of street address, city name, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant.<br>&nbsp;<br/>And don't forget to click the Add button once you are done entering the information!"; 
   	
 		}
 		
@@ -2739,113 +2926,6 @@ function getIntFromFrequency(string_freq)
 				
 	return myFreqInt;
 	}
-	
-//#########################################################################################			
-// retrieves the trips of a user; should be called during onLoad() at the beginning of the session
 
-function retrieveUserTrips(userId)
-	{
-		
-	RegisterAgent.getUserTrips(userId, function(data)
-		{
-		//data.trips is now an array of trips
-		if (data.successful)
-			{
-	
-			//if there are any trips, save the trips in the trips list; otherwise don't do anything
-			if (data.trips.length !== 0)
-				{
-	
-				//iterate through the returned trips and save each trip one by one through saveCurrentTrip()
-				for (var i = 0; i < data.trips.length; i++)
-					{
-					
-					//convert the array of x/y coordinates to an array of GLatLng	and save it in global_routeVertices
-					global_routeVertices = getVerticesFromXY(data.trips[i].coords);	
-					
-					//convert the numerical values coming from the DB into the respective string values of travel mode and frequency
-					global_routeFrequency = getFrequencyFromInt(data.trips[i].frequency);
-					global_routeMode = getModeFromInt(data.trips[i].mode);
-										
-					//now get the markers data from the trip and create new PdMArkers and add them to global_routeMarkers array
-					for (var j = 0; j < data.trips[i].markers.length; j++)
-						{
-						
-						var pnt;
-						
- 						var icon;
-  			  	var tooltipString;
-					
-						var baseIcon = new GIcon();
-						baseIcon.shadow = "images/markers/shadow.png";
-						baseIcon.iconSize = new GSize(20, 34);
-						baseIcon.shadowSize = new GSize(37, 34);
-						baseIcon.iconAnchor = new GPoint(9, 34);
-						baseIcon.infoWindowAnchor = new GPoint(9, 2);
-						baseIcon.infoShadowAnchor = new GPoint(18, 25);
-						
-						icon = new GIcon(baseIcon);
-					
-						//stores the data of the current DWR marker as coming from the DB
-						var currentMarker = data.trips[i].markers[j];					
-						
-						//origin
-						if (currentMarker.type === 0)
-							{
-	 						icon.image = "images/markers/start2.png";	
-							}
-						
-						//waypoint(s)
-						else if (currentMarker.type == 1)
-							{
-							if (currentMarker.index > 98)
-  							{
-  							icon.image = "images/markers/marker0.png";	
-  							}
-  				
-  						else
-  							{	
-  							icon.image = "images/markers/marker" + (currentMarker.index) + ".png";
-  			  			}
-							}
-						
-						//destination	
-						else if (currentMarker.type == 2)
-							{
-							icon.image = "images/markers/end2.png";	
-							}
-						
-						pnt = new GLatLng(currentMarker.lat, currentMarker.lng);	
- 						
- 						
- 						//stores the DWR marker data in form of an instance of PdMarker
- 						var tmpMarker = new PdMarker(pnt, {icon: icon});
- 						
-						tmpMarker.setOpacity(100);
-							  						
-						tmpMarker.setName(data.trips[i].markers[j].name);
-  		
-  					//numbering of marker ids starts with 0
-  					tmpMarker.setId(data.trips[i].markers[j].index);
-  						  		
-  					tmpMarker.setUserData(data.trips[i].markers[j].data1);	  		
-  					tmpMarker.setUserData2(data.trips[i].markers[j].data2);	
-  		
-  					tmpMarker.setTooltip(tmpMarker.getUserData());
-
-						global_routeMarkers[tmpMarker.getId()] = tmpMarker;		
-							
-						}
-						
-					//now call saveCurrentTrip() to save the data in the respective storage arrays
-					saveCurrentTrip();	
-					} 
-				}
-			}
-			
-		else
-			alert("There seems to be a problem with the communication with the server. Couldn't retrieve the trips of the user.");	
-		});
-	}
-
-//#########################################################################################			
+//#########################################################################################
+//#########################################################################################
