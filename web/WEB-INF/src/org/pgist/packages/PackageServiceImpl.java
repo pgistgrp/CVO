@@ -380,6 +380,11 @@ public class PackageServiceImpl implements PackageService {
 	}	
 	
 	
+    public List<FundingSourceDTO> createPackageFundingDTOs(ClusteredPackage cPackage, long fundSuiteId) throws Exception {
+        return createPackageFundingDTOs(cPackage, packageDAO.getUserById(WebUtils.currentUserId()), fundSuiteId);
+    }//createPackageFundingDTOs()
+    
+
 	/* (non-Javadoc)
 	 * @see org.pgist.packages.PackageService#formPackageFundingDTOs(org.pgist.packages.ClusteredPackage)
 	 */

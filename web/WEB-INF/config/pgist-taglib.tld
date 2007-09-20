@@ -523,5 +523,23 @@
   </tag>
   
 
+  <tag>
+    <name>totalCost2u</name>
+    <tag-class>org.pgist.tags.TotalCostToYouTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab the total cost for the current user</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>pkg</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

@@ -55,7 +55,7 @@
 							<div class="floatLeft">&nbsp;</div>
 						</div>
 						<div class="col2 floatLeft">Total</div>
-						<div class="col3 floatLeft">Cost for you</div>
+						<div class="col3 floatLeft">Total Cost for you</div>
 						<div class="col4 floatLeft">Cost for avg. resident</div>
 						<div class="clearBoth"></div>
 					</div>
@@ -69,7 +69,10 @@
 								<div class="col2 floatLeft">
 								$<fmt:formatNumber maxFractionDigits="1" value="${infoObject.object.totalCost/1000000000}" /> billion
 								</div>
-								<div class="col3 floatLeft">Unknown</div>
+								<div class="col3 floatLeft">
+                <pg:totalCost2u var="cost2u" pkg="${infoObject.object}" />
+                $<fmt:formatNumber maxFractionDigits="0" value="${cost2u}" /> / year
+                </div>
 								<div class="col4 floatLeft">
 								$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost}" /> / year</div>
 								<div class="clearBoth"></div>

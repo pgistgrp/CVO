@@ -153,7 +153,7 @@ public class ClusteredPackage extends Package {
     		fAlt = funding.next().getAlternative();
     		totalFunding = totalFunding + (float)fAlt.getRevenue();
     		avgResidentCost = avgResidentCost + fAlt.getAvgCost();
-    	}    	    	
+    	}
     }
     
 }//class ClusteredPackage

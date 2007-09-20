@@ -1,15 +1,17 @@
 package org.pgist.tags;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.pgist.funding.FundingSourceAltRef;
+import org.pgist.packages.ClusteredPackage;
+import org.pgist.packages.FundingSourceAlternativeDTO;
+import org.pgist.packages.FundingSourceDTO;
 import org.pgist.packages.PackageService;
-import org.pgist.packages.UserPackage;
-import org.pgist.util.WebUtils;
 import org.springframework.web.context.WebApplicationContext;
 
 
@@ -18,19 +20,19 @@ import org.springframework.web.context.WebApplicationContext;
  * @author kenny
  *
  */
-public class CostToYouTag extends SimpleTagSupport {
+public class TotalCostToYouTag extends SimpleTagSupport {
     
     
     private static final long serialVersionUID = 1L;
     
     
-    private String suiteId = "";
-    
     private String var = "";
     
+    private ClusteredPackage pkg = null;
     
-    public void setSuiteId(String suiteId) {
-        this.suiteId = suiteId;
+    
+    public void setPkg(ClusteredPackage pkg) {
+        this.pkg = pkg;
     }
 
 
@@ -46,7 +48,6 @@ public class CostToYouTag extends SimpleTagSupport {
     
     public void doTag() throws JspException, IOException {
         PageContext context = (PageContext) getJspContext();
-        HttpServletRequest request = (HttpServletRequest) context.getRequest();
         
         /*
          * Get the PackageService from spring
@@ -56,15 +57,28 @@ public class CostToYouTag extends SimpleTagSupport {
         
         PackageService packageService = (PackageService) appContext.getBean("packageService");
         
-        UserPackage uPkg = new UserPackage();
-        
         try {
-            packageService.calcUserValues(uPkg, WebUtils.currentUser(), new Long(suiteId));
+            float total = 0.0f;
+            
+            Long suiteId = null;
+            
+            for (FundingSourceAltRef fsRef : pkg.getFundAltRefs()) {
+                suiteId = fsRef.getSourceRef().getSuite().getId();
+            }
+            
+            if (suiteId!=null) {
+                List<FundingSourceDTO> dtos = packageService.createPackageFundingDTOs(pkg, new Long(suiteId));
+                for (FundingSourceDTO dto : dtos) {
+                    for (FundingSourceAlternativeDTO alt : dto.getFundingSourceAlternatives()) {
+                        total += alt.getYourCost();
+                    }
+                }
+            }
+            
+            context.setAttribute(var, total);
         } catch (Exception e) {
             throw new JspException(e);
         }
-        
-        context.setAttribute(var, uPkg);
     }//doTag()
     
     

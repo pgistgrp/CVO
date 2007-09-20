@@ -52,6 +52,8 @@ public interface PackageService {
 
 	List<ProjectDTO> createPackageProjectDTOs(ClusteredPackage pack, long critSuiteId, long projSuiteId, User user, int transMode) throws Exception; 
 
+	List<FundingSourceDTO> createPackageFundingDTOs(ClusteredPackage cPackage, long fundSuiteId) throws Exception;
+	
 	List<FundingSourceDTO> createPackageFundingDTOs(ClusteredPackage pack, User user, long fundSuiteId) throws Exception;
 
 	Long createVotingPackage(Long pkgId) throws Exception;
@@ -66,7 +68,7 @@ public interface PackageService {
     
     Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     
-    public void calcUserValues(Package pkg, UserInfo userInfo, Long funSuiteId) throws Exception;
+    void calcUserValues(Package pkg, UserInfo userInfo, Long funSuiteId) throws Exception;
     
     void calculatePreferredPackage(Long pkgSuiteId, Long voteSuiteId) throws Exception;
     
