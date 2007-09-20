@@ -505,5 +505,23 @@
   </tag>
   
 
+  <tag>
+    <name>cost2u</name>
+    <tag-class>org.pgist.tags.CostToYouTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab the user tax info calculation</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>suiteId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

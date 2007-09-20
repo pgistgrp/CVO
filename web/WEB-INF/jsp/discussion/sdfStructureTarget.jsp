@@ -19,7 +19,8 @@
 			[ ] Integrate static text and link to static page - see mockup (Adam)
 	#### -->
 
-
+  <pg:cost2u var="userPkg" suiteId="${infoStructure.suiteId}" />
+  
 	<!-- #container is the container that wraps around all the main page content -->
 	
 	<div id="container">
@@ -72,7 +73,7 @@
 											<td>$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.revenue/1000000}" /> million
 												</td>
 											<td>$<fmt:formatNumber type="number">${altRef.alternative.avgCost}</fmt:formatNumber></td>
-											<td>$<c:out value="${userPkg.personalCost[altRef.id]}" /></td>
+											<td>$<fmt:formatNumber maxFractionDigits="0" value="${userPkg.personalCost[altRef.alternative.id]}" /></td>
 										</tr>
 									</c:forEach>
 									<!-- end project alt-->

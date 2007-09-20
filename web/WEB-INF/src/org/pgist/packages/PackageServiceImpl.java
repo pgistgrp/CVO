@@ -951,6 +951,7 @@ public class PackageServiceImpl implements PackageService {
         structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(cct.getId());
+        structure.setSuiteId(suiteId);
         discussionDAO.save(structure);
         
         for (ClusteredPackage pkg : suite.getClusteredPkgs()) {
@@ -990,6 +991,12 @@ public class PackageServiceImpl implements PackageService {
     	this.calcUserValues(pkg, pkg.getAuthor(), funSuiteId);
     }
     
+    public void calcUserValues(Package pkg, UserInfo userInfo, Long funSuiteId) throws Exception {
+        User user = packageDAO.getUserById(userInfo.getId());
+        calcUserValues(pkg, user, funSuiteId);
+    }//calcUserValues()
+    
+    
     /**
      * Utility method that does all of the user calculations regarding the estimated annual cost
      * to you.  All the estimates are stored in the hash map for the user
@@ -1000,9 +1007,9 @@ public class PackageServiceImpl implements PackageService {
      */
     public void calcUserValues(Package pkg, User user, Long funSuiteId) throws Exception {
     	if(user.getUserCommute() == null) {
-    		fundingDAO.initializeUser(user);    		
+    		fundingDAO.initializeUser(user);
     	}
-		//Get the users last commute object		
+		//Get the users last commute object
 		UserCommute commute = user.getUserCommute();
 		FundingSourceSuite fsuite = fundingDAO.getFundingSuite(funSuiteId);
 		
@@ -1020,7 +1027,7 @@ public class PackageServiceImpl implements PackageService {
 			
 		}
 		avgMPG = avgMPG / user.getVehicles().size();
-		    	
+		
 		float peakTrips = 0;
 		float offPeakTrips = 0;
 //		float gasCost = fundingDAO.getZipCodeGasByZipCode(tempUser.getZipcode()).getAvgGas();

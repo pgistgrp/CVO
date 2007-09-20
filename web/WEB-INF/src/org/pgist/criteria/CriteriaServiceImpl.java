@@ -197,6 +197,7 @@ public class CriteriaServiceImpl implements CriteriaService {
         	structure.deleteInfoObjects();
         }
         
+        structure.setSuiteId(suiteId);
         structure.setType("sdcrit");
         structure.setTitle(title);
         structure.setRespTime(date);

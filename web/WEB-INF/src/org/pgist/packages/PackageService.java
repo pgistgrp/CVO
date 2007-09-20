@@ -66,6 +66,8 @@ public interface PackageService {
     
     Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     
+    public void calcUserValues(Package pkg, UserInfo userInfo, Long funSuiteId) throws Exception;
+    
     void calculatePreferredPackage(Long pkgSuiteId, Long voteSuiteId) throws Exception;
     
     String getYourGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) throws Exception;

@@ -723,9 +723,9 @@ public class FundingAgent {
             
         	map.put("reason", "Bike Days = " + user.getBikeDays() + " ID = " + user.getUserId());
 			
-        	//Find the commute object       	
+        	//Find the commute object
         	map.put("user", fundingService.createCommute(user));
-                       
+            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

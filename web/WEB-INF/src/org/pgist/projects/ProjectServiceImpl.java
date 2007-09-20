@@ -555,6 +555,7 @@ public class ProjectServiceImpl implements ProjectService {
         structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(cct.getId());
+        structure.setSuiteId(suiteId);
         discussionDAO.save(structure);
         
         for (ProjectRef ref : suite.getReferences()) {

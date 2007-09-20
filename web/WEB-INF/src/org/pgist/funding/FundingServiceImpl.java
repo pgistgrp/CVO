@@ -78,7 +78,7 @@ public class FundingServiceImpl implements FundingService {
 		//Get the users last commute object		
 		UserCommute commute = tempUser.getUserCommute();
 		copyAcrossTolls(user.getTolls(), commute);
-				
+		
 		String zipcode = user.getZipcode();		
 		//Check for a valid zipcode
 		try {
@@ -103,7 +103,7 @@ public class FundingServiceImpl implements FundingService {
 		Iterator<UserFundingSourceToll> tolls = commute.getTolls().iterator();
 		while(tolls.hasNext()) {
 			setTripRates(tolls.next(), zcf, carFactor, driveAlone, carpool, numPassengers);			
-		}						
+		}
 		
 				
 		//Include the gas cost
@@ -625,6 +625,7 @@ public class FundingServiceImpl implements FundingService {
         structure.setTitle("Step 3b: Review Fundings.");
         structure.setRespTime(date);
         structure.setCctId(cct.getId());
+        structure.setSuiteId(suiteId);
         discussionDAO.save(structure);
         
         for (FundingSourceRef ref : suite.getReferences()) {

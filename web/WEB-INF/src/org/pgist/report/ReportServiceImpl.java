@@ -78,6 +78,7 @@ public class ReportServiceImpl implements ReportService{
 	        structure.setTitle(title);
 	        structure.setRespTime(date);
 	        structure.setCctId(cct.getId());
+	        structure.setSuiteId(suiteId);
 	        discussionDAO.save(structure);
 	        
    

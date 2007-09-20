@@ -75,5 +75,7 @@ public class TaxCalculatorAction extends Action {
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");
-    }//execute()    
+    }//execute()
+    
+    
 }//class TaxCalculatorAction

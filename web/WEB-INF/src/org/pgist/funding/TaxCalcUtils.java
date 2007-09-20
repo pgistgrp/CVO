@@ -63,11 +63,6 @@ public class TaxCalcUtils {
 		UserFundingSourceToll tempToll;
 		while(i.hasNext()) {
 			tempToll = i.next();
-			System.out.println("  tempToll ---> "+tempToll);
-			System.out.println("  tempToll.getFundingSource() ---> "+tempToll.getFundingSource());
-			System.out.println("  tempToll.getFundingSource().getId() ---> "+tempToll.getFundingSource().getId());
-			System.out.println("  source ---> "+source);
-			System.out.println("  source.getId ---> "+source.getId());
 			if(tempToll.getFundingSource().getId() == source.getId()) {
 				estimate = tempToll.getPeakTrips();
 				break;
