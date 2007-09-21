@@ -536,15 +536,20 @@ public class TaxCalcUtils {
 		float percentage = EMPLOYER_PERCENTAGE;
 		float taxRate = alt.getTaxRate();
 		data.add(alt.getName());
-		if(calcUserEmployerExciseAlternativeCost(taxRate, percentage) == 0 ) {
+		/*
+        if(calcUserEmployerExciseAlternativeCost(taxRate, percentage) == 0 ) {
 			data.add("No direct cost to you");			
 		} else {
 			data.add(calcUserEmployerExciseAlternativeCost(taxRate, percentage));						
 		}
+        */
+        data.add(taxRate*12);
+        
 		data.add("=");
 		data.add(TAX_FORMAT.format(alt.getTaxRate()));
 		data.add("X");
-		data.add(PERCENT_FORMAT.format(percentage));
+		//data.add(PERCENT_FORMAT.format(percentage));
+        data.add(12);
 		data.add(" ");
 		data.add(" ");
 		data.add(" ");
