@@ -294,7 +294,7 @@
 	io.loadDynamicFile('/styles/table.css');
 	//io.loadDynamicFile('/dwr/interface/ProjectAgent.js');
     
-		io.goToProjectAlt = function(altRefid){
+	io.goToProjectAlt = function(altRefid){
 		window.open("projectAlt.do?"+io.wfInfo+"&altrefId="+altRefid+"&critSuiteId="+io.critSuiteId,'_blank');
 	}
 	

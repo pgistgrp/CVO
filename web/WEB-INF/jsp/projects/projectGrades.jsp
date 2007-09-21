@@ -91,16 +91,6 @@ xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
     });
 xml+='\
     </projects>\r\n\
-    <fundings>\r\n'
-    /*
-    data.fundSuite.references.each(function(fRef){
-        xml += '\t<funding name="'+fRef.source.name +'">\r\n'; 
-        fRef.altRefs.each(function(faRef){
-            xml+= '\t\t<alternative>'+faRef.alternative.name+'</alternative\r\n'
-        })
-        xml += '\t</funding>\r\n'
-    })*/
-    xml += '</fundings>\r\n\
 </template>';
                             
                             $('xmlDataTemplate').value = xml;

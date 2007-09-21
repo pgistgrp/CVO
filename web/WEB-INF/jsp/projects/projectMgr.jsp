@@ -32,7 +32,7 @@
 		[x] JavaScript Tree menu (Jordan)
 		[x] Persist map edits (Guirong)
 		[x] Links and detailed description as a rich text box editor (Jordan)
-		[ ] Play with tree script to only link the first link (Jordan)
+		[x] Play with tree script to only link the first link (Jordan)
 		[x] Polish it up a little (Adam)
 #### -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -362,7 +362,7 @@ body{font-size:11pt;font-family:arial,sans-serif;}
 			callback:function(data){
 				if (data.successful){
 					getProjects();
-					setTimeout(function() {new Effect.Highlight('alt-'+ id, {duration:5});}, 100);
+					setTimeout(function() {new Effect.Highlight('alt-'+ id, {duration:5});}, 200);
 				}else{
 					alert(data.reason);
 				}
