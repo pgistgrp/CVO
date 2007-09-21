@@ -159,7 +159,7 @@ public class TaxCalcUtils {
 	 * Calculates the employer exciste cost to the user
 	 */
 	public static float calcUserEmployerExciseAlternativeCost(float taxRate, float expectedPercentage) {
-		return taxRate*expectedPercentage;
+		return taxRate*12;
 	}
 
 	/**
@@ -543,7 +543,7 @@ public class TaxCalcUtils {
 			data.add(calcUserEmployerExciseAlternativeCost(taxRate, percentage));						
 		}
         */
-        data.add(taxRate*12);
+        data.add(PRICE_FORMAT.format(calcUserEmployerExciseAlternativeCost(taxRate, 12)));
         
 		data.add("=");
 		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
