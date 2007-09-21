@@ -482,7 +482,7 @@ public class TaxCalcUtils {
 		data.add(alt.getName());
 		data.add(PRICE_FORMAT.format(cost));
 		data.add("=");
-		data.add(TAX_FORMAT.format(alt.getTaxRate()));
+		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
 		data.add("X");
 		data.add(NUM_FORMAT.format(milesDriven));
 		data.add("/");
