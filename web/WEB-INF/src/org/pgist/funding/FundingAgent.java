@@ -10,6 +10,7 @@ import org.directwebremoting.WebContextFactory;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * 
@@ -411,6 +412,8 @@ public class FundingAgent {
             fundingService.deleteFundingSource(id);
             
             map.put("successful", true);
+        } catch (DataIntegrityViolationException dive) {
+            map.put("reason", "This funding source is already used, you can't delete it.");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
@@ -565,7 +568,10 @@ public class FundingAgent {
             fundingService.deleteFundingSourceAlt(id);
             
             map.put("successful", true);
+        } catch (DataIntegrityViolationException dive) {
+            map.put("reason", "This funding source alternative is already used, you can't delete it.");
         } catch (Exception e) {
+            System.out.println("-----> "+e.getClass().getName());
             e.printStackTrace();
             map.put("reason", e.getMessage());
             return map;

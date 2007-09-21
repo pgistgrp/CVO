@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.discussion.DiscussionDAO;
@@ -441,8 +442,8 @@ public class FundingServiceImpl implements FundingService {
 
 
     public void deleteFundingSource(Long id) throws Exception {
-    	FundingSource source = fundingDAO.getFundingSourceById(id);
-    	fundingDAO.delete(source);
+        FundingSource source = fundingDAO.getFundingSourceById(id);
+        fundingDAO.delete(source);
     }//deleteFundingSource()
 
 
@@ -487,12 +488,8 @@ public class FundingServiceImpl implements FundingService {
 
 
     public void deleteFundingSourceAlt(Long id) throws Exception {
-    	
-    	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAltById(id);
-    	fundingDAO.delete(alternative);
-
-    	
-    	
+        	FundingSourceAlternative alternative = fundingDAO.getFundingSourceAltById(id);
+        	fundingDAO.delete(alternative);
     }//deleteFundingSourceAlt()
 
 

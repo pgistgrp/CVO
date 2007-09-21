@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.directwebremoting.WebContextFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 
 
 /**
@@ -458,6 +459,8 @@ public class ProjectAgent {
             projectService.deleteProject(id);
             
             map.put("successful", true);
+        } catch (DataIntegrityViolationException dive) {
+            map.put("reason", "This project is already used, you can't delete it.");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
@@ -492,6 +495,8 @@ public class ProjectAgent {
             projectService.deleteProjectAlt(id);
             
             map.put("successful", true);
+        } catch (DataIntegrityViolationException dive) {
+            map.put("reason", "This project alternative is already used, you can't delete it.");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
