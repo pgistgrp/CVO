@@ -546,7 +546,7 @@ public class TaxCalcUtils {
         data.add(taxRate*12);
         
 		data.add("=");
-		data.add(TAX_FORMAT.format(alt.getTaxRate()));
+		data.add(PRICE_FORMAT.format(alt.getTaxRate()));
 		data.add("X");
 		//data.add(PERCENT_FORMAT.format(percentage));
         data.add(12);
