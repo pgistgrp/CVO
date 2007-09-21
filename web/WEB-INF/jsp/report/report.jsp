@@ -607,7 +607,7 @@ After a period of discussion about the relevance of the improvement factors to t
 
 		<div class="projSummary clearfix">
 			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum">${pp.description} (The winning/preferred package)</span>
+				<span class="packageNum" style="background:#ADCFDE">${pp.description} (The winning/preferred package)</span>
 				<span class="totalCost">Total cost: $<fmt:formatNumber type="number" maxFractionDigits="1" value="${pp.totalCost/1000000000}" /> 
 				billion</span>
 				<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
@@ -623,9 +623,6 @@ After a period of discussion about the relevance of the improvement factors to t
 					</div>
 					<div class="projCol2 floatLeft">
 						<h4>Money Needed</h4>
-					</div>
-					<div class="projCol3 floatRight">
-						<h4>County</h4>
 					</div>
 					<div class="clearBoth"></div>
 				</div>
@@ -651,7 +648,6 @@ After a period of discussion about the relevance of the improvement factors to t
 					</c:if>
 					  
 					  </div>
-					  <div class="projCol3 floatRight">${alt.alternative.county}</div>
 					  <div class="clearBoth"></div>	 
 				  </div>
 
@@ -783,7 +779,7 @@ After a period of discussion about the relevance of the improvement factors to t
 					<span class="totalCost">Total cost:
 							
 							<c:if test="${cPkg.totalCost > 999999 && cPkg.totalCost < 1000000000}">
-							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000}</fmt:formatNumber> million
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000}</fmt:formatNumber> illion
 							</c:if>
 							<c:if test="${cPkg.totalCost > 999999999 && cPkg.totalCost < 1000000000000}">
 							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000000}</fmt:formatNumber> billion
@@ -802,9 +798,6 @@ After a period of discussion about the relevance of the improvement factors to t
 						</div>
 						<div class="projCol2 floatLeft">
 							<h4>Money Needed</h4>
-						</div>
-						<div class="projCol3 floatRight">
-							<h4>County</h4>
 						</div>
 						<div class="clearBoth"></div>
 					</div>
@@ -829,7 +822,6 @@ After a period of discussion about the relevance of the improvement factors to t
 							</c:if>
 							
 							</div>
-							<div class="projCol3 floatRight">${altRef.alternative.county}</div>
 							<div class="clearBoth"></div>
 						</div>
 					</c:forEach>
