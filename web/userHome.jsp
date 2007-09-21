@@ -222,7 +222,6 @@
 			</pg:show>
 		</div>
 		<div class="clearBoth"></div>
-
 	</div>
 	<!-- end container -->
 	<!-- start feedback form -->
