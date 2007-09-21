@@ -65,7 +65,7 @@
 	<div id="summary" class="box3 floatLeft">
 		<h3 class="headerColor">Let's Improve Transportation Final Report: Executive Summary (DRAFT)</h3>
 		<div id="executiveSummary">
-			<p>This report describes the results of the </em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. 298 residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. On October 29, 2007 they released the results of their efforts. </p>
+			<p>This report describes the results of the </em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. 298 residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs.</p>
 			<p>The recommended package contains 32 road and transit projects across the three-county region.
 				It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				fees. The total cost of the package is $16 billion. The package was endorsed
