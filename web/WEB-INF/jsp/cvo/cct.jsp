@@ -602,9 +602,8 @@ function editTags(concernId){
 				<li>Read concerns posted by other participants.</li>
 				<li>Share your own concerns.</li>
 			</ul>
-			<p>Brainstorming will conclude at midnight on <strong><fmt:formatDate value="${current.endTime}" dateStyle="long" /></strong>.</p>
 			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-				<p id="hiddenRM" style="display:none">When step 1b concludes on October 3 the moderators will review and summarize them according to themes. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
+				<p id="hiddenRM" style="display:none">When step 1b concludes the moderators will review and summarize them according to themes. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
 			</pg:termHighlight>
     </div>
     <!-- end overview -->
