@@ -27,7 +27,7 @@
 
 <p>Thank you for casting your vote.</p>
 
-<p>The final vote tally will be available on October 29. You will
+<p>You will
 receive an email announcing the vote results. The results of the
 endorsement vote will also be added to the executive summary of the
 final report. The email you receive will include a link to the final
@@ -39,5 +39,5 @@ to complete one final survey in which you can describe your
 experiences as a LIT participant. Please take the time to complete
 this survey, as it will greatly help our effort to evaluate the
 strengths and weaknesses of this method of involving the public in
-regional transportation decision making. A link the the final survey
-will be emailed to you on October 29. </p>
+regional transportation decision making. A link to the final survey
+will be emailed to you.</p>

@@ -144,7 +144,7 @@ background:#FFF1DC;
   <!-- begin "overview and instructions" area -->
   <div id="overview" class="box2">
     <h3>Overview and instructions</h3>
-    <p>It is now time to vote for the package (or packages) you are willing to recommend to decision makers. You have until midnight October 22 to submit your vote. You can only vote once, and you cannot change your vote. The results of this vote will be included in a report to decision makers which you can review in Step 5.</p>
+    <p>It is now time to vote for the package (or packages) you are willing to recommend to decision makers. You can only vote once, and you cannot change your vote. The results of this vote will be included in a report to decision makers which you can review in Step 5.</p>
     <a href="#" onClick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a>
 		<p id="hiddenRM" style="display:none">The purpose of this vote is to determine which package can get the greatest degree of collective support by <em>LIT Challenge</em> participants. Feel free to refer to the package poll or discussion in Step 4a before casting your vote. Keep in mind that a recommendation that is supported by a strong majority of participants is likely to carry more weight. In the event that strong majority consensus does not emerge, the moderator will identify a minority endorsement package based on an analysis of final vote results.</p>
   </div>

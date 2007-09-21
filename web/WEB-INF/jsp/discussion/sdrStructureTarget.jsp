@@ -22,7 +22,7 @@
 			[ ] Integrate Layout (Adam)
 	#### -->
 	<!-- begin "overview and instructions" area -->
-	<div id="overview" class="box2">
+	<div id="overview" class="box2"> 
 		<h3>Overview and instructions</h3>
 		Our final step is to prepare a final report to communicate the results of the <em>LIT Challenge</em>. A draft report has already been created for your review.
 		<ul><strong>Activities in this step</strong>
@@ -30,11 +30,10 @@
 			<li>Suggest revisions to the report in the discussion forum (below)</li>
 			<li>Vote in the draft report poll</li>
 		</ul>
-		<p>A final vote on report endorsement will begin <strong>October 27</strong>.</p>
 		<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
 			<div id="hiddenRM" style="display:none">
-				<ul><li>On October 26, the moderator will begin making revisions to the draft report. Once the revisions are complete, all participants will have the opportunity to vote to endorse (or not) the report. The vote results will appear in the executive summary of the final report.</li>
-				<li>On October 29, the final report will be published online for the public to view. Special invitations to read the report will be sent to transportation decision makers and members of the media.</li></ul>				
+				<ul><li>The moderator will begin making revisions to the draft report. Once the revisions are complete, all participants will have the opportunity to vote to endorse (or not) the report. The vote results will appear in the executive summary of the final report.</li>
+				<li>The final report will be published online for the public to view. Special invitations to read the report will be sent to transportation decision makers and members of the media.</li></ul>				
 			</div>
 	</div>
 	<!-- end overview -->
