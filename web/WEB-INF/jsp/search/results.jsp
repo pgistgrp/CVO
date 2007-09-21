@@ -43,11 +43,13 @@
 
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-        <html:form action="/search.do" method="GET">
-            <html:hidden property="workflowId" name="searchForm" value="${param['workflowId']}"/>
-            <html:text property="queryStr" name="searchForm" maxlength="25" size="25"/>
+		<form action="/sdSearch.do" method="GET">
+            <input type="hidden" name="workflowId" value="${param.workflowId}" />
+            <input type="hidden" name="count" value="${param.count}" />
+            <input type="hidden" name="page" value="${param.page}" />
+            <input type="text" name="queryStr" value="${param.queryStr}" />
             <input type="submit" value="Search"> 
-		</html:form>
+		</form>
 		
 		<c:choose>
             <c:when test="${param.page}">
