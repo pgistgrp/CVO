@@ -198,7 +198,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 		<div class="clearBoth"></div>
 	</div>
 	<!-- Begin participants + concerns -->
-	<div id="participants" class="box3 padding5 section">
+	<div id="participants" class="box3 padding5 section" style="font-size:10pt">
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
 			about transportation </h3>
 		<p>
@@ -329,9 +329,6 @@ After a period of discussion about the relevance of the improvement factors to t
 					<div class="weighCriteriaCol1 floatLeft">
 						<h4 class="headerColor">Planning factor</h4>
 					</div>
-					<div class="weighCriteriaCol2 floatLeft">
-						<h4 class="headerColor">Your weight</h4>
-					</div>
 					<div class="clearBoth"></div>
 				</div>
 				
@@ -340,7 +337,6 @@ After a period of discussion about the relevance of the improvement factors to t
 						<div class="weighCriteriaCol1 floatLeft">
 							<div class="floatLeft">${ref.criterion.name}</div>
 						</div>
-						<div class="weighCriteriaCol2 floatLeft">${ref.grade}</div>
 						<div class="clearBoth"></div>
 						<div class="objectives" id="objectives${loop.index}">
 							<ul>
@@ -369,7 +365,7 @@ After a period of discussion about the relevance of the improvement factors to t
 		</p>
 			
 			<p>${part3a}</p>
-		<table cellpadding=0 cellspacing=0>
+		<table cellpadding=0 cellspacing=0 style="font-size:10pt">
 			<tr class="tableHeading">
 				<th class="col1">Project</th>
 				<th class="col2">Money needed</th>
@@ -424,7 +420,7 @@ After a period of discussion about the relevance of the improvement factors to t
 			</c:forEach>
 		</table>
 		
-		<table cellpadding=0 cellspacing=0>
+		<table cellpadding=0 cellspacing=0 style="font-size:10pt">
 			<tr class="tableHeading">
 				<th class="col1">Funding source</th>
 				<th class="col2">Money raised</th>
@@ -493,7 +489,7 @@ After a period of discussion about the relevance of the improvement factors to t
 		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
 		<p>${part4a}</p>
 		<h3 class="headingColor padding5">Participants in the package recommendation vote</h3>
-		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:10pt">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
 				<td>
