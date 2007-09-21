@@ -243,7 +243,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				</td>
 			</tr>
 			<tr>
-				<td><strong>County of residence:</strong></td>
+				<td><strong>Area of residence:</strong></td>
 				<td>
 				<!-- display counties -->
 				<c:choose>	
@@ -489,8 +489,8 @@ After a period of discussion about the relevance of the improvement factors to t
 		<h3 class="headingColor padding5 centerAlign"><a name="packages">4. Evaluation
 				of candidate packages and package selection</a></h3>
 				
-		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, five new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these five packages, as well as the methodology used to create them is available in Appendix C. </p>
-		<p>In the fourth step, participants reviewed and evaluated these five candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
+		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, a small set of new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these packages, as well as the methodology used to create them is available in Appendix C. </p>
+		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
 		<p>${part4a}</p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
