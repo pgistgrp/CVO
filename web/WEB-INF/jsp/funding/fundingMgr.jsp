@@ -118,7 +118,7 @@
 				"annual cost = sum( (tax rate) * (vehicle value) )",
 				"annual cost = sum( (tax rate) / (miles per galon) * (miles driven per year) )",
 				"annual cost = sum( (tax rate) / (miles per galon) * (miles driven per year) )",
-				"annual cost = (tax rate) *",
+				"annual cost = (tax rate) * 12",
 				"annual cost = (tax rate) * (parkings per year)",
 				"annual cost = (tax rate) * (trips per year)"];
 		
