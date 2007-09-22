@@ -58,7 +58,7 @@ public interface ProjectService {
 
     InfoStructure publish(Long workflowId, Long cctId, Long suiteId, String title) throws Exception;
 
-    void indexProjectSuite(Long workflowId, Long suiteId) throws Exception;
+    void indexProjectSuite(Long workflowId, Long contextId, Long activityId, Long suiteId) throws Exception;
     
     User getCurrentUser() throws Exception;
     

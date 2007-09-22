@@ -92,14 +92,6 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         IntegerGene gene = null;
         KSItem item = null;
         
-        /*
-        for (int i = 0; i < chromosome.size(); i++) {
-            gene = (IntegerGene) chromosome.getGene(i);
-            item = (KSItem) gene.getApplicationData();
-            totalBenefit += gene.intValue() * item.getProfit();
-        }//for i
-        */
-        
         int k = 0;
         for (int i=0; i<choices.length; i++) {
             if (choices[i].isSingle()) {
@@ -137,7 +129,7 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         } else if (costDifference < 0) {
             return -MAX_BOUND;
         } else {
-            return MAX_BOUND - (costDifference * costDifference);
+            return MAX_BOUND/2.0 - (costDifference * costDifference);
         }
     }//costDifferenceBonus()
     
@@ -150,7 +142,7 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
      * @return bonus for given volume difference
      */
     protected double benefitBonus(double totalBenefit) {
-        return (Math.min(MAX_BOUND, totalBenefit * totalBenefit));
+        return (Math.min(MAX_BOUND, MAX_BOUND/2 + totalBenefit * totalBenefit));
     }//benefitBonus()
     
     
@@ -168,6 +160,8 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         double costDifference = limit - totalCost;
         double totalBenefit = getTotalBenefit(chromosome);
         double fitness = 0.0d;
+        
+        System.out.println("totalBenefit ----> "+totalBenefit);
         
         fitness += costDifferenceBonus(costDifference);
         fitness += benefitBonus(totalBenefit);

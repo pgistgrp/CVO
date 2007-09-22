@@ -34,7 +34,7 @@ public class IndexProjectsTask implements WorkflowTask {
         
         Long suiteId = new Long(inouts.getIntValue(IN_SUITE_ID));
         
-        projectService.indexProjectSuite(info.getWorkflow().getId(), suiteId);
+        projectService.indexProjectSuite(info.getWorkflow().getId(), info.getContext().getId(), info.getActivity().getId(), suiteId);
     }//execute()
     
     

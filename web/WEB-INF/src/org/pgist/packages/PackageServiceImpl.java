@@ -1311,7 +1311,7 @@ public class PackageServiceImpl implements PackageService {
 					case TunerConfig.NEVER:
 						//Do nothing, the user hates this option
 						break;
-				}				
+				}
 			}
 			
 			if(choices.getChoices().size() > 0) {
@@ -1323,7 +1323,6 @@ public class PackageServiceImpl implements PackageService {
 		if(totalFunding < 0) throw new BudgetExceededException("The projects selected exceed the budget limits you provided");
 		
 		//Send the collection to the KSAlgorithm
-        System.out.println("findBestProjectSolution ---> "+totalFunding);
 		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, totalFunding);
 		
 		//Add the resulting items to the users package

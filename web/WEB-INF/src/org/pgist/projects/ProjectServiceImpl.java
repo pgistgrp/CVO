@@ -585,7 +585,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @param workflowId
      * @param suiteId
      */
-    public void indexProjectSuite(Long workflowId, Long suiteId) throws Exception {
+    public void indexProjectSuite(Long workflowId, Long contextId, Long activityId, Long suiteId) throws Exception {
         ProjectSuite suite = projectDAO.getProjectSuite(suiteId);
         
         if (suite==null) throw new Exception("Project suite with id "+suiteId+" is not found");
@@ -607,6 +607,8 @@ public class ProjectServiceImpl implements ProjectService {
                     doc.add( new Field("body", contents, Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("contents", contents, Field.Store.YES, Field.Index.TOKENIZED) );
                     doc.add( new Field("workflowid", workflowId.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("contextid", contextId.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+                    doc.add( new Field("activityid", activityId.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("suiteid", suiteId.toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("projectid", projectRef.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                     doc.add( new Field("projectaltid", altRef.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );

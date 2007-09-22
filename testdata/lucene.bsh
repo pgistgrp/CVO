@@ -24,7 +24,7 @@ reader.close();
 */
 
 
-queryStr = "impro tes";
+queryStr = "cars";
 
 String[] words = queryStr.split(" ");
 StringBuilder sb = new StringBuilder("(");
@@ -39,7 +39,7 @@ sb.append(")");
 
 queryStr = sb.toString();
 
-String luceneQuery = "tutor*";
+String luceneQuery = "cars*";
 
 searcher = searchHelper.getIndexSearcher();
 try {
