@@ -9,6 +9,9 @@
 
 
 <pg:fragment type="html">
+  <pg:grab var="statsES" name="org.pgist.report.ReportSuite" id="${infoStructure.suiteId}" />
+  ----- ${infoStructure.suiteId} - ${statsES.id}
+  
 	<!--####
 		Project: Let's Improve Transportation!
 		Page: SDR Structure Target

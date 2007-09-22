@@ -3,7 +3,6 @@ package org.pgist.packages.knapsack;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -12,7 +11,6 @@ import org.jgap.IChromosome;
 import org.jgap.Population;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
-import org.jgap.impl.MutationOperator;
 
 
 /**

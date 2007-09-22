@@ -1,17 +1,13 @@
 package org.pgist.projects;
 
-import java.util.Set;
-import java.util.Iterator;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-
-import org.pgist.users.User;
-import org.pgist.packages.PackageService;
 import org.pgist.criteria.CriteriaService;
 import org.pgist.criteria.CriteriaSuite;
+import org.pgist.packages.PackageService;
+import org.pgist.users.User;
 /**
  * Project Alternative Details Action.<br>
  * 

@@ -54,6 +54,11 @@ public class SystemServiceImpl implements SystemService {
      */
     
     
+    public Object getObject(String entityName, Long id) throws Exception {
+        return systemDAO.getObject(entityName, id);
+    }//getObject()
+    
+    
     public User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception {
         return userDAO.getUserByName(loginname, enabled, deleted);
     }//getUserByName()

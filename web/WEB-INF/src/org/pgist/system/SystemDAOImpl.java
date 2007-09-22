@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Query;
-import org.pgist.users.Role;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -25,13 +24,21 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     
-
-    
     private EmailSender emailSender;
     
     public void setEmailSender(EmailSender emailSender) {
         this.emailSender = emailSender;
     }
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+
+    
+    public Object getObject(String entityName, Long id) throws Exception {
+        return getHibernateTemplate().get(entityName, id);
+    }//getObject()
 
 
     private static final String hql_getFeedbacks_1 = "select count(fb.id) from Feedback fb";

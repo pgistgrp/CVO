@@ -15,6 +15,9 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 public interface SystemDAO extends BaseDAO {
     
     
+    Object getObject(String entityName, Long id) throws Exception;
+    
+    
     Collection getFeedbacks(PageSetting setting) throws Exception;
     
     

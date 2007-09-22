@@ -15,6 +15,9 @@ import org.pgist.web.DelegatingHttpServletRequestWrapper;
 public interface SystemService {
     
     
+    Object getObject(String entityName, Long id) throws Exception;
+    
+    
     User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception;
     
     

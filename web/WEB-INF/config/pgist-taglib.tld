@@ -541,5 +541,28 @@
   </tag>
   
 
+  <tag>
+    <name>grab</name>
+    <tag-class>org.pgist.tags.GrabTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab any persisted object by id</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

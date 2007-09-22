@@ -1,7 +1,6 @@
 package org.pgist.tests;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 import org.apache.tools.ant.AntClassLoader;

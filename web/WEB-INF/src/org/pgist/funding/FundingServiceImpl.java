@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.CCTDAO;
 import org.pgist.discussion.DiscussionDAO;

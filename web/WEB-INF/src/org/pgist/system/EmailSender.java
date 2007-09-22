@@ -7,7 +7,6 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;

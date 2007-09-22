@@ -3,10 +3,10 @@
  * Testing script for hibernate execution.
  */
 
-hql = "from FundingSource fs order by fs.name";
+hql = "from java.lang.Object where id=12639";
 query = session.createQuery(hql);
 for (one : query.list()) {
-    print(one.name+", "+one.location);
+    print(one.id);
 }
 
 return;
