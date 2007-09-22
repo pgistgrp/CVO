@@ -599,7 +599,7 @@
 														<td>
 															<label>
 															<input type="radio" ${(doNothing) ? "checked" : ""}  onclick="clearSelectionThenDefine('${projectRef.project.id}', 'project');" name="project-${projectRef.project.id}"  />
-															something else</label>
+															Do nothing</label>
 														</td>
 														<td class="cost">&nbsp;</td>
 													</tr>
@@ -684,7 +684,7 @@
 								<td class="fundingSourceItem">
 									<label>
 									<input type="radio" ${(doNothing) ? "CHECKED" : ""} name="source-${fundingRef.source.id}" onclick="clearSelectionThenDefine('${fundingRef.source.id}', 'source');" />
-									something else</label>
+									None</label>
 								</td>
 								<td class="cost">&nbsp;</td>
 								<td class="cost">&nbsp;</td>
