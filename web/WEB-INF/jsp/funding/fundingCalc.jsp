@@ -182,24 +182,21 @@
 							<th>&nbsp;</th>\
 							<th>Peak Hour Trips</th>\
 							<th>Off-peak trips</th>\
-							</tr>";
-						$('tollRoadsCont').innerHTML = trText; 
+							</tr>";						
 						var tolls = data.user.tolls;
 						for(i=0;i<tolls.length;i++){
 							var tollTr = '<tr>\
-									<td class="fundingSourceItem">'+tolls[i].name+'</td>\
-									<td><input id="tollPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].peakTrips+'"></td>\
-									<td><input id="tollOffPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].offPeakTrips+'"></td>\
+							    <td class="fundingSourceItem">'+tolls[i].name+'</td>\
+								<td><input id="tollPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].peakTrips+'"></td>\
+								<td><input id="tollOffPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].offPeakTrips+'"></td>\
 							</tr>';
-							
-							new Insertion.Bottom("tollRoadsCont", tollTr);
-							
+							trText += tollTr;
 						}
-						new Insertion.Bottom("tollRoadsCont", "</table>");
+						trText += "</table>";
+						$('tollRoadsCont').innerHTML = trText; 
+						
 						Element.show('estimates')
 						new Effect.ScrollTo('estimates', {duration:0.2, afterFinish:function(){new Effect.Highlight('estimates');}});
-						
-						
 					}else{
 						alert("reason: " + data.reason);
 					}
