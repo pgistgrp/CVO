@@ -29,6 +29,8 @@ public class SortTag extends SimpleTagSupport {
     
     private String key = null;
     
+    private String type = "";
+    
     
     public void setName(String name) {
         this.name = name;
@@ -45,6 +47,11 @@ public class SortTag extends SimpleTagSupport {
     }
 
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -58,9 +65,18 @@ public class SortTag extends SimpleTagSupport {
                         String value1 = BeanUtils.getProperty(o1, key);
                         String value2 = BeanUtils.getProperty(o2, key);
                         
-                        if (value1==null || value2==null) throw new Exception("null values is compared");
-                        
-                        return value1.compareTo(value2);
+                        if ("number".equalsIgnoreCase(type)) {
+                            Long v1 = new Long(value1);
+                            Long v2 = new Long(value2);
+                            return v1.compareTo(v2);
+                        } else if ("float".equalsIgnoreCase(type)) {
+                            Double d1 = new Double(value1);
+                            Double d2 = new Double(value2);
+                            return d1.compareTo(d2);
+                        } else {
+                            if (value1==null || value2==null) throw new Exception("null values is compared");
+                            return value1.compareTo(value2);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                         throw new ClassCastException(e.getMessage());

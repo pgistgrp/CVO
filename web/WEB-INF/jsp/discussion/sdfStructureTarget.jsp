@@ -66,7 +66,7 @@
 							<td colspan="4">
 								<table>
 									<!-- start project alt -->
-									<pg:sort name="altRefs" items="${infoObject.object.altRefs}" key="alternative.revenue" />
+									<pg:sort name="altRefs" items="${infoObject.object.altRefs}" key="alternative.revenue" type="float"/>
 									<c:forEach var="altRef" items="${altRefs}" varStatus="loop2">
 										<tr>
 											<td>${altRef.alternative.name}</td>
