@@ -200,7 +200,7 @@
 	
 	io.goToCalc = function(){
 		var fsUrl="fundingCalc.do?&fundSuiteId="+io.fundSuiteId;
-		window.open(fsUrl,'_blank','width=1000,height=600,resizable=yes,scrollbars=yes');
+		window.open(fsUrl,'_blank');
 	}
 	
 </pg:fragment>

@@ -72,8 +72,8 @@ width:50%;
 
 #estimates th {background:none;}
 
-table#tollRoads {font-size:1em;width:100%;}
-#tollRoads td {padding:.1em .3em;text-align:center;}
+table#tollRoads {font-size:1em;width:100%;background:green;}
+#tollRoads td {padding:.1em .3em;text-align:center;background:cyan}
 #tollRoads th {text-align:center;}
 #tollRoads input {width:2.1em;text-align:center;}
 

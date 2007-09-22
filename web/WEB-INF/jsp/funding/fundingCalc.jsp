@@ -166,33 +166,6 @@
 				user.tolls[i].used = ($F("myCommute-"+user.tolls[i].id) ? true : false);
 			}
 
-			//Grabbing checkboxes for toll.used
-			//selectedTolls = [];			
-			/*
-			myTolls = document.getElementsByName('myCommute');
-			for(i=0; i<myTolls.length; i++){
-				if(myTolls[i].checked){
-					//grab just the toll id
-					var start = myTolls[i].id.indexOf("-");
-					var finish = myTolls[i].id.length;
-					
-					var tollId = myTolls[i].id.substring(start+1,finish);
-					selectedTolls.push(tollId);
-				}
-			}
-			
-			for(i=0; i<user.tolls.length;i++){
-				if(selectedTolls.include(user.tolls[i].id)){
-					user.tolls[i].used = true;
-				}
-			}
-			*/
-			
-			//for(i=0;i<user.tolls.length;i++){
-			//	alert(user.tolls[i].used);
-			//}
-
-
 			//alert('income: ' +user.income+ ' familyCount: ' +user.familyCount+ ' zipcode: ' + user.zipcode + ' workzip: '+ user.workZipcode + ' driveDays: ' + user.driveDays + ' carpoolDays:' +user.carpoolDays+ ' carpoolPeeps: ' + user.carpoolPeople + ' bus days ' +user.carpoolPeople+' busDays:' + user.busDays+ ' walkDays: ' + user.walkDays + ' bikeDays: ' + user.bikeDays + ' userTolls: ' + user.tolls);
 			Util.loading(true,"Calculating");
 			FundingAgent.calcCommute(user, {
@@ -201,16 +174,16 @@
 						//alert("data:" + data.user);
 						
 						//RENDER COST ESTIMATES
-						$('gasCost').value = data.user.costPerGallon
-						$('annualConsume').value = data.user.annualConsume
+						$('gasCost').value = data.user.costPerGallon;
+						$('annualConsume').value = data.user.annualConsume;
 						
 						//RENDER TOLL ESTIMATES
-						$('tollRoads').innerHTML = '<tr>\
+						var trText = "<table border=0 cellpadding=0 cellspacing=1 id='tollRoads'><tr>\
 							<th>&nbsp;</th>\
 							<th>Peak Hour Trips</th>\
 							<th>Off-peak trips</th>\
-							</tr>';
-						
+							</tr>";
+						$('tollRoadsCont').innerHTML = trText; 
 						var tolls = data.user.tolls;
 						for(i=0;i<tolls.length;i++){
 							var tollTr = '<tr>\
@@ -218,9 +191,11 @@
 									<td><input id="tollPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].peakTrips+'"></td>\
 									<td><input id="tollOffPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].offPeakTrips+'"></td>\
 							</tr>';
-
-							new Insertion.Bottom("tollRoads", tollTr);
+							
+							new Insertion.Bottom("tollRoadsCont", tollTr);
+							
 						}
+						new Insertion.Bottom("tollRoadsCont", "</table>");
 						Element.show('estimates')
 						new Effect.ScrollTo('estimates', {duration:0.2, afterFinish:function(){new Effect.Highlight('estimates');}});
 						
@@ -231,7 +206,7 @@
 				Util.loading(false)
 				},
 				errorHandler:function(errorString, exception){ 
-				alert("FundingAgent.setEstimates( error:" + errorString + exception);
+				//alert("FundingAgent.calcCommute( error:" + errorString + exception);
 				}
 			});
 		}
@@ -375,9 +350,9 @@
 				on your home zip code, your usual commute mode of travel, and your commute route.
 				You may change these estimates.</p>
 		<div id="estimates-left">
-			<table border="0" cellpadding="1" cellspacing="0" id="tollRoads">
+			<span id="tollRoadsCont">
 				<!-- load the tolls here via js loop-->
-			</table>
+			</span>
 		</div>
 		<div id="estimates-right">
 			<table>
