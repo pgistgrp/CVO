@@ -99,7 +99,7 @@
 	  	<tr>
 	  		<td width="862px">
 	  			<div class="helpme" id="helpMeDiv">
-	  				<label><b>Welcome to Map your daily travel!</b><br/>&nbsp;<br/>Here you can easily input and visualize your daily trips.<br/>A good way to start your trip creation would be to enter the address of the origin in the address field in Step 1.<br>Subsequently, you can proceed to Step 2 and 3 and input the destination and, respectively, specific waypoints. 
+	  				<label>In this step you can make a map of how you regularly use the transportation system. To map your first trip, enter an address for the start point, end point, and any stops you make along the way.<br/>&nbsp;<br/>In the following step we will brainstorm concerns about the transportation system so you might want to think about the problems you often encounter or alternative travel options you wish were available. Your daily travel map will be used again in Step 3 when we evaluate proposed improvements to the transportation system.
 	  			</div>
 	  		<td>
 	  	<tr>
@@ -126,14 +126,14 @@
   								</tr>
   								<tr>
     								<td align="left">
-  										<input type="text" class="fieldsInitial" id="fromAddressField" onClick='return helpInstruction(event)' name="from" value="Street, City, State, Placename or Intersection"/>&nbsp;<input type="button" class="menu_btns" value="Add" id="originAddButton" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="geocodeAddress(document.getElementById('fromAddressField').value, 'origin');" />
+    									<input type="text" class="fieldsInitial" id="fromAddressField" onClick='return helpInstruction(event)' name="from" value="Street, City, State, Place Name or Intersection"/>&nbsp;<input type="button" class="menu_btns" value="Add" id="originAddButton" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="geocodeAddress(document.getElementById('fromAddressField').value, 'origin');" />
     								</td>
   								</tr>
   								<tr>
   									<td align="left">
     									<input type="button" class="menu_btns" value="Clear" id="originClearButton" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="clearStartStop('origin');" />
     									<input type="button" class="menu_btns" value="Relabel" id="originEditButton" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="assignNewLabel('origin');" />
-    									<input type="button" class="menu_btns" id="originZoomButton" value="Zoom To" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="map.setCenter(origin_marker.getPoint(), map.getZoom());" />
+    									<input type="button" class="menu_btns" id="originZoomButton" value="Zoom To" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="zoomTo('origin');" />
     								</td>
     							</tr>
     							<tr>
@@ -148,14 +148,14 @@
   								</tr>
   								<tr>
     								<td align="left">
-    									<input type="text" class="fieldsInitial" id="toAddressField" onClick='return helpInstruction(event)' name="to" value="Street, City, State, Placename or Intersection" />&nbsp;<input type="button" class="menu_btns" id="destinationAddButton" value="Add" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="geocodeAddress(document.getElementById('toAddressField').value, 'destination')" />
+    									<input type="text" class="fieldsInitial" id="toAddressField" onClick='return helpInstruction(event)' name="to" value="Street, City, State, Place Name or Intersection" />&nbsp;<input type="button" class="menu_btns" id="destinationAddButton" value="Add" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="geocodeAddress(document.getElementById('toAddressField').value, 'destination')" />
     								</td>
     							</tr>
     							<tr>
   									<td align="left">
     									<input type="button" class="menu_btns" id="destinationClearButton" value="Clear" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="clearStartStop('destination');" />
     									<input type="button" class="menu_btns" id="destinationEditButton" value="Relabel" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="assignNewLabel('destination');" />
-    									<input type="button" class="menu_btns" id="destinationZoomButton" value="Zoom To" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="map.setCenter(destination_marker.getPoint(), map.getZoom());" />
+    									<input type="button" class="menu_btns" id="destinationZoomButton" value="Zoom To" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="zoomTo('destination');" />
     								</td>
   								</tr>
   								<tr>
@@ -170,7 +170,7 @@
   								</tr>
   								<tr>
     								<td align="left">
-    									<input type="text" class="fieldsInitial" id="viaAddressField" onClick='return helpInstruction(event)' name="via" value="Street, City, State, Placename or Intersection" />&nbsp;<input type="button" class="menu_btns" id="waypointAddButton" value="Add" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="geocodeAddress(document.getElementById('viaAddressField').value, 'waypoint')" />
+    									<input type="text" class="fieldsInitial" id="viaAddressField" onClick='return helpInstruction(event)' name="via" value="Street, City, State, Place Name or Intersection" />&nbsp;<input type="button" class="menu_btns" id="waypointAddButton" value="Add" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="geocodeAddress(document.getElementById('viaAddressField').value, 'waypoint')" />
     								</td>
     							</tr>
     							<tr height="5px">
@@ -227,7 +227,7 @@
     									<table cellpadding="0" cellspacing="0" border="0" width="100%">
     										<tr>
     											<td align="left">
-    												<input type="button" class="fill_btn" id="saveTripButton" value="Add your Trip&nbsp;&nbsp;&nbsp;&darr;" onmouseover="this.className='btnhov_fbtn'" onmouseout="this.className='fill_btn'" onClick="storeTripFreqMode();" />
+    												<input type="button" class="dis_fill_btn" id="addTripButton" value="Add your Trip&nbsp;&nbsp;&nbsp;&darr;" onClick="storeTripFreqMode();" />
     											</td>
     											<td align="right">
 														<input type="button" class="fill_btn" id="calcDirectionsButton" value="Map your Trip&nbsp;&nbsp;&nbsp;&rarr;" onmouseover="this.className='btnhov_fbtn'" onmouseout="this.className='fill_btn'" onClick="setDirections(document.getElementById('fromAddressField').value, document.getElementById('toAddressField').value); return false" />&nbsp;
@@ -268,7 +268,7 @@
 									</select>  
 								</div>
 								<!--<input type="button" class="midsize_btns" value="Delete Trip" id="tripDeleteButton" onmouseover="this.className='btnhov_msb'" onmouseout="this.className='midsize_btns'" onClick="deleteSelectedTrip();" />&nbsp;<input type="button" class="huge_btns2" value="Save Trip List!" id="tripDeleteButton" onmouseover="this.className='btnhov_hb2'" onmouseout="this.className='huge_btns2'" onClick="saveTripList();" />-->
-								<input type="button" class="fill_btn" value="Delete Trip" id="tripDeleteButton" onmouseover="this.className='btnhov_fbtn'" onmouseout="this.className='fill_btn'" onClick="deleteSelectedTrip();" />&nbsp;<input type="button" class="fill_btn" value="Save my Trips!" id="tripDeleteButton" onmouseover="this.className='btnhov_fbtn'" onmouseout="this.className='fill_btn'" onClick="saveTripList();" />
+								<input type="button" class="dis_fill_btn" value="Delete Trip" id="tripDeleteButton" onClick="alert('This button is currenly disabled since you have not created any trips yet.');" />&nbsp;<input type="button" class="dis_fill_btn" value="Save my Trips!" id="saveTripsButton" onClick="alert('This button is currenly disabled since you have not created any trips yet.');" />
 							</td>
 						</tr>
 					</table>	

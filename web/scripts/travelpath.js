@@ -4,7 +4,7 @@
 //### Author:																						 ###
 //### Martin Swobodzinski																 ###
 //### San Diego State University												 ###
-//### September, 09 2007																 ###
+//### September, 24 2007																 ###
 //##########################################################
 
 var map; //the google map
@@ -16,6 +16,9 @@ var userId; //has to be initialized through some context; assuming here that i k
 var global_geocodePoint = null;
 var geocode_success;
 var geocode_counter = 1;
+var geocode_success_origin = false;
+var geocode_success_destination = false;
+var geocode_hadErrors = false;
 
 //variables that relate somehow to the three different marker types
 var origin_marker = null;
@@ -39,6 +42,8 @@ var global_radioObject;
 var is_formOK = false;
 var global_itIsMe;
 var is_msie;
+var any_changes = false;
+var is_init = true;
 
 //dhtml window variables      
 var placemarkPopup;
@@ -185,25 +190,40 @@ function check_msie()
 
 function storeTripFreqMode()
 	{
-	
-	if (geocode_success)
-		{	
 		
-		map.closeInfoWindow();
-		tripFreqModePopup = dhtmlwindow.open('tripFreqModeWindow', 'div', 'tripFreqModeDiv', 'Save Trip', 'width=430px,height=425px,center=1,resize=0,scrolling=1');
-	
-		tripFreqModePopup.onclose=function()
-			{
-		
-			saveCurrentTrip();		
-
-			return true;	
-			};
-		}
-		
-	else 
+	if (document.getElementById("addTripButton").className == "dis_fill_btn")
 		{
-		alert("There was a problem with your trip. It is not defined. Please check your input and try again.");
+		alert("This button is currently disabled. Please complete your input first and then map your trip before adding it to the trip list.");	
+		}
+	
+	else
+		{
+		
+		if (geocode_success)
+			{	
+			
+			//inform the user that trips can only be looked at after they have been added to the trip list	
+			var response = confirm("Please note: Once you add the trip to the list you won't be able to make any changes to it. Do you want to proceed?");
+		
+			if (response)
+				{	
+				map.closeInfoWindow();
+				tripFreqModePopup = dhtmlwindow.open('tripFreqModeWindow', 'div', 'tripFreqModeDiv', 'Save Trip', 'width=430px,height=425px,center=1,resize=0,scrolling=1');
+	
+				tripFreqModePopup.onclose = function()
+					{
+		
+					saveCurrentTrip(false);		
+
+					return true;	
+					};
+				}
+			}
+		
+		else 
+			{
+			alert("There was a problem with adding your trip to the trip list. Please make sure that you trip has been mapped successfully. If so, please try again.");
+			}
 		}
 		
 	}
@@ -211,7 +231,7 @@ function storeTripFreqMode()
 //#########################################################################################
 //#########################################################################################
 
-function saveCurrentTrip()
+function saveCurrentTrip(is_init)
 	{
 
 	var myTripIndex = global_tripsLabelArray.length;
@@ -240,7 +260,7 @@ function saveCurrentTrip()
 	global_tripsMode[myTripIndex] = global_routeMode;
 	global_tripsLabelArray[myTripIndex] = "By " + global_tripsMode[myTripIndex].toLowerCase() + " " + global_tripsFrequency[myTripIndex].toLowerCase() + " per week.";
 	
-	updateTripList();
+	updateTripList(is_init);
 	
 	//calls clearAllControls with the boolean signalizing that no alert message box should be opened
 	clearAllControls(false);
@@ -272,7 +292,44 @@ function retrieveUserTrips(userId)
 			//if there are any trips, save the trips in the trips list; otherwise don't do anything
 			if (data.trips.length !== 0)
 				{
-	
+					
+				//turn on both the 'Delete trip' and the 'Save my trips!' button
+				var myTmpDelButton = document.getElementById("tripDeleteButton");
+				myTmpDelButton.className = "fill_btn";
+								
+				myTmpDelButton.onmouseover = function()
+					{
+					myTmpDelButton.className = "btnhov_fbtn";	
+					};
+					
+				myTmpDelButton.onmouseout = function()
+					{
+					myTmpDelButton.className = "fill_btn";	
+					};
+					
+				myTmpDelButton.onclick = function()
+					{
+					deleteSelectedTrip();	
+					};
+				
+				var myTmpSaveButton = document.getElementById("saveTripsButton");
+				myTmpSaveButton.className = "fill_btn";
+								
+				myTmpSaveButton.onmouseover = function()
+					{
+					myTmpSaveButton.className = "btnhov_fbtn";	
+					};
+					
+				myTmpSaveButton.onmouseout = function()
+					{
+					myTmpSaveButton.className = "fill_btn";	
+					};
+					
+				myTmpSaveButton.onclick = function()
+					{
+					saveTripList();	
+					};					
+					
 				//iterate through the returned trips and save each trip one by one through saveCurrentTrip()
 				for (var i = 0; i < data.trips.length; i++)
 					{
@@ -357,8 +414,8 @@ function retrieveUserTrips(userId)
 							
 						}
 						
-					//now call saveCurrentTrip() to save the data in the respective storage arrays
-					saveCurrentTrip();	
+					//now call saveCurrentTrip() to save the data in the respective storage arrays; flag indicates that it is a method invocation during page load
+					saveCurrentTrip(true);	
 					} 
 				}
 			}
@@ -374,9 +431,20 @@ function retrieveUserTrips(userId)
 function saveTripList()
 	{
 	
-	var tripsJSON = prepareTripList();
+	if (any_changes)
+		{
+		var myHelpMeDiv = document.getElementById("helpMeDiv");
+		myHelpMeDiv.innerHTML = "Sending your trips to the server.<br/>&nbsp;<br/>This should only take a few seconds. Please wait...";
+		
+		var tripsJSON = prepareTripList();
 	
-	deleteAndSaveTrips(tripsJSON);
+		deleteAndSaveTrips(tripsJSON);
+		}
+		
+	else
+		{
+		alert("The list on the server is already up to date.");	
+		}
 
 	}
 
@@ -479,8 +547,12 @@ function deleteAndSaveTrips(tripsJSON_in)
 			
 			if (data.successful) 
 				{
-				alert("Your trips have been saved successfully! You can now return to the agenda and come back to 'Map your daily travel' at a later time without loosing your trips. If you add new trips to the trip list don't forget to press the 'Save my Trips!' button again.");
+				var myHelpMeDiv = document.getElementById("helpMeDiv");
+				myHelpMeDiv.innerHTML = "Your trips were saved successfully!<br/>You can now return to the agenda and come back to 'Map your daily travel' at a later time without loosing your trips. You can also view your trips together with the footprints of the proposed projects in Step 3.<br/>&nbsp;<br/>If you continue to add new trips to the trip list don't forget to press the 'Save my Trips!' button again!";	
+					
+				alert("Your trips were saved successfully! If you continue to add new trips to the trip list don't forget to press the 'Save my Trips!' button again.");
 				savedTripIds = data.tripIds;
+				any_changes = false;
 				}
 		
 			else
@@ -589,11 +661,13 @@ function onGDirectionsLoad()
 	if (gstat == G_GEO_SUCCESS)
 		{
 		console.log("Route loaded successfully: code " + gstat);
+		turnOnOffAddTripButton("on");
 	  }
 	  
 	else
 		{
 	  console.log("Route could not be loaded: error code " + gstat); //should not occur since errors are handled in handleDirErrors()
+		turnOnOffAddTripButton("off"); //the button should already be disabled at this point
 		}
 		  	
 	var gdirPolyTemp = gdir.getPolyline();
@@ -650,7 +724,7 @@ function checkInputField(type_in)
 	if (type_in == 'origin')
 		{
 			
-		if (document.getElementById("fromAddressField").value === "") 
+		if (document.getElementById("fromAddressField").value === "" || document.getElementById("fromAddressField").value == "Street, City, State, Place Name or Intersection") 
 			{
 			is_formOK = false;
 			alert("Please provide an address for the origin before clicking the 'ADD' button."); 	
@@ -665,7 +739,7 @@ function checkInputField(type_in)
 	else if (type_in == 'destination')
 		{
 			
-		if (document.getElementById("toAddressField").value === "") 
+		if (document.getElementById("toAddressField").value === "" || document.getElementById("toAddressField").value == "Street, City, State, Place Name or Intersection") 
 			{
 			is_formOK = false;
 			alert("Please provide an address for the destination before clicking the 'ADD' button."); 	
@@ -680,7 +754,7 @@ function checkInputField(type_in)
 	else if (type_in == 'waypoint')
 		{
 			
-		if (document.getElementById("viaAddressField").value === "") 
+		if (document.getElementById("viaAddressField").value === "" || document.getElementById("viaAddressField").value == "Street, City, State, Place Name or Intersection")  
 			{
 			is_formOK = false;
 			alert("Please provide an address for the waypoint before clicking the 'ADD' button."); 	
@@ -742,23 +816,44 @@ function geocodeAddress(address, marker_type)
 				
 function setDirections(fromAdd, toAdd) 
 	{
-	//gdir.load("from: " + fromAdd + " to: " + toAdd, { "locale": "en_US","getPolyline":"true","preserveViewport":"true"});
 	
-	//call createRouteArray() in order to put the point array together for the GDirections object
-	console.log("global_routePoints.length BEFORE createRouteArray(): " + global_routePoints.length);	
-	createRouteArray();
-	
-	for (var ind = 0; ind < global_routePoints.length; ind++)
+	//if the origin and the destination geocode flags indicate that the geocoding was successful
+	//then create the array of coordinates and send it to gdir
+	if (geocode_success_origin && geocode_success_destination)
 		{
-		console.log("global_routePoints.length after createRouteArray(): " + global_routePoints.length);
+
+		//call createRouteArray() in order to put the point array together for the GDirections object
+		console.log("global_routePoints.length BEFORE createRouteArray(): " + global_routePoints.length);	
+		createRouteArray();
+	
+		for (var ind = 0; ind < global_routePoints.length; ind++)
+			{
+			console.log("global_routePoints.length after createRouteArray(): " + global_routePoints.length);
 		
-		console.log("global_routePoints lat coord of point #" + ind + " is: " + global_routePoints[ind].lat());	
-		console.log("global_routePoints lng coord of point #" + ind + " is: " + global_routePoints[ind].lng());
+			console.log("global_routePoints lat coord of point #" + ind + " is: " + global_routePoints[ind].lat());	
+			console.log("global_routePoints lng coord of point #" + ind + " is: " + global_routePoints[ind].lng());
 			
+			}
+	
+		gdir.loadFromWaypoints(global_routePoints, { "locale": "en_US", "getPolyline":"true", "preserveViewport":"true" });
+		console.log("I just sent off the routePoints array through gdir.loadFromWaypoints()");
+		}
+		
+	else if (!geocode_success_origin && geocode_success_destination)
+		{
+		alert("There was a problem with the start address. It has not been defined yet. Please check your input and try again.");	
+		}
+		
+	else if (geocode_success_origin && !geocode_success_destination)
+		{
+		alert("There was a problem with the end address. It has not been defined yet. Please check your input and try again.");	
+		}
+		
+	else if (!geocode_success_origin && !geocode_success_destination)
+		{
+		alert("There was a problem with both the start address and the end address. Neither has been defined yet. Please check your input and try again.");		
 		}
 	
-	gdir.loadFromWaypoints(global_routePoints, { "locale": "en_US", "getPolyline":"true", "preserveViewport":"true" });
-	console.log("I just sent off the routePoints array through gdir.loadFromWaypoints()");
 	}
 
 //#########################################################################################
@@ -778,46 +873,55 @@ function handleDirErrors()
   if (gstat == G_GEO_BAD_REQUEST) //400
   	{
 		alert("A directions request could not be successfully parsed.\n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
 	
 	else if (gstat == G_GEO_SERVER_ERROR) //500
 		{
 		alert("A geocoding or directions request could not be successfully processed, yet the exact reason for the failure is not known.\n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
 	
 	else if (gstat == G_GEO_MISSING_QUERY) //601
 		{
 		alert("The HTTP q parameter was either missing or had no value. For geocoder requests, this means that an empty address was specified as input. For directions requests, this means that no query was specified in the input.\n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
     
   else if (gstat == G_GEO_MISSING_ADDRESS) //601
   	{
 		alert("The HTTP q parameter was either missing or had no value. For geocoder requests, this means that an empty address was specified as input. For directions requests, this means that no query was specified in the input.\n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
   
   else if (gstat == G_GEO_UNKNOWN_ADDRESS) //602
   	{
 		alert("No corresponding geographic location could be found for the specified address. This may be due to the fact that the address is relatively new, or it may be incorrect.\nError code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
 	
 	else if (gstat == G_GEO_UNAVAILABLE_ADDRESS)  //603. Possible doc bug. This might be either not defined, or Doc is wrong.
 		{
 		alert("No corresponding geographic location could be found for the specified address. This may be due to the fact that the address is relatively new, or it may be incorrect.\n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
 	
 	else if (gstat == G_GEO_UNKNOWN_DIRECTIONS) //604
 		{
 		alert("The GDirections object could not compute directions between the points mentioned in the query. This is usually because there is no route available between the two points, or because we do not have data for routing in that region.\n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
 	
 	else if (gstat == G_GEO_BAD_KEY) //610
 		{
 		alert("The given key is either invalid or does not match the domain for which it was given. \n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
 	
 	else 
 		{
-		alert("An unknown error occurred. Maybe a spelling error?\n Error code: " + gstat);
+		alert("An unknown error occurred (due to a spelling error?). Please check your input and try again.\n Error code: " + gstat);
+		turnOnOffAddTripButton("off");
 		}
         	
   }//end handleDirErrors
@@ -849,6 +953,21 @@ function handleGeocodeResponse()
   	{
     geocode_success = true;
     
+    if (global_markerType == "origin")
+    	{
+    	geocode_success_origin = true;	
+    	}
+    	
+    else if (global_markerType == "destination")
+    	{
+    	geocode_success_destination = true;	
+    	}
+    	
+    else if (global_markerType == "waypoint")
+    	{
+    	geocode_success_waypoint = true;	
+    	}	
+        
     //successful so check if there is more than one placemark
     
     var placemarks_array = handleGeocodeResponse.arguments[0].Placemark;
@@ -895,6 +1014,7 @@ function handleGeocodeResponse()
   else if (gstat == G_GEO_BAD_REQUEST) //400
   	{
     geocode_success = false;
+    geocode_hadErrors = true;
 		alert("A directions request could not be successfully parsed.\n Error code: " + gstat);
 		}
 	
@@ -942,8 +1062,29 @@ function handleGeocodeResponse()
 	
 	else 
 		{
-		alert("An unknown error occurred. Maybe a spelling error?\n Error code: " + gstat);
+		alert("An unknown error occurred probably due to a spelling spelling error. Please check your input and try again.\n Error code: " + gstat);
 		geocode_success = false;
+		}
+	
+	//This uses geocode_success to set a flag for the respective address field that failed the geocode request	
+	if (!geocode_success)
+		{
+		geocode_hadErrors = true;
+				
+		if (global_markerType == "origin")
+    	{
+    	geocode_success_origin = false;	
+    	}
+    	
+    else if (global_markerType == "destination")
+    	{
+    	geocode_success_destination = false;	
+    	}
+    	
+    else if (global_markerType == "waypoint")
+    	{
+    	geocode_success_waypoint = false;	
+    	}	
 		}
         	
 	}//end handleGeocodeResponse()
@@ -1096,6 +1237,7 @@ function moveWaypointUp()
 			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
+				turnOnOffAddTripButton("off");
 				}	
 			
 			//switch the selected marker in the waypoint array with the one that comes after it	
@@ -1168,6 +1310,7 @@ function moveWaypointDown()
 			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
+				turnOnOffAddTripButton("off");
 				}	
 			
 			//switch the selected marker in the waypoint array with the one that comes after it	
@@ -1270,7 +1413,10 @@ function clearAllControls(flag)
 				
 		map.clearOverlays();
 						
-		document.getElementById("viaAddressField").value = "";
+		document.getElementById("fromAddressField").value = "Street, City, State, Place Name or Intersection";				
+		document.getElementById("toAddressField").value = "Street, City, State, Place Name or Intersection";
+		document.getElementById("viaAddressField").value = "Street, City, State, Place Name or Intersection";
+		document.getElementById("viaAddressField").className = "fieldsInitial";
 		
 		waypoint_marker = null;
 		
@@ -1290,6 +1436,10 @@ function clearAllControls(flag)
 		global_openOriginInfoWindowHtml = false;
 		global_openDestinationInfoWindowHtml = false;
 		global_openWaypointInfoWindowHtml = false;
+		
+		geocode_success_origin = false;
+		geocode_success_destination = false;
+		geocode_hadErrors = false;
 		
 		updateWaypointList();
 			
@@ -1314,6 +1464,7 @@ function deleteSelectedWaypoint()
 		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 			{
 			map.removeOverlay(global_polyline);
+			turnOnOffAddTripButton("off");
 			}
 		
 		map.closeInfoWindow();	
@@ -1377,7 +1528,8 @@ function deleteSelectedTrip()
 		
 	else //no waypoint selected in the list so don't do anything
 		{
-		console.log("no trip selected so refusing to do anything!");	
+		console.log("no trip selected so refusing to do anything!");
+		alert("Please select a trip in the trip list in order to delete the selected trip from the list.");	
 		}	
 	
 	}
@@ -1586,11 +1738,14 @@ function assignNewLabel(marker_type)
 // A function to create the marker and set up the event window
 function createClickMarker(marker, point) 
 	{
+	
+	var myHelpMeDiv = document.getElementById("helpMeDiv");
 		
 	if (global_tmp_polyline !== null)
 		{
 		map.removeOverlay(global_tmp_polyline);
-		global_tmp_polyline = null;	
+		global_tmp_polyline = null;
+		turnOnOffAddTripButton("off");	
 		
 		var i;
 		
@@ -1645,6 +1800,7 @@ function createClickMarker(marker, point)
   		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
+				turnOnOffAddTripButton("off");
 				}
 				
 				map.closeInfoWindow();
@@ -1700,9 +1856,12 @@ function createClickMarker(marker, point)
 	  if (global_polyline !== null && typeof global_polyline !== 'undefined')
 			{
 			map.removeOverlay(global_polyline);
+			turnOnOffAddTripButton("off");
 			}
 	  			
   	map.addOverlay(waypoint_marker);
+  	
+  	myHelpMeDiv.innerHTML = "You have just created a marker representing a stop. You can drag and drop the marker to another location if you are not satisfied with the placement of the marker. You can also change the label of the marker by clicking on the marker itself or on the 'Relabel' button underneath the respective text field.<br/>&nbsp;<br/>The trip will traverse the stops according to their number (starting at the start location, proceeding to stop #1, #2, and so forth, and ending at the end location). You can change the sequence of stops by using the up and down arrow next to the list of stops.";
   	
   	var j = num_waypoints + 1;
   	
@@ -1784,7 +1943,8 @@ function createMarker(marker, point, type_in)
 	if (global_tmp_polyline !== null)
 		{
 		map.removeOverlay(global_tmp_polyline);
-		global_tmp_polyline = null;	
+		global_tmp_polyline = null;
+		turnOnOffAddTripButton("off");	
 		
 		var i;
 		
@@ -1809,6 +1969,8 @@ function createMarker(marker, point, type_in)
 	baseIcon.iconAnchor = new GPoint(9, 34);
 	baseIcon.infoWindowAnchor = new GPoint(9, 2);
 	baseIcon.infoShadowAnchor = new GPoint(18, 25);
+	
+	var myHelpMeDiv = document.getElementById("helpMeDiv");
       		
   if (type_in == "origin")
   	{
@@ -1827,6 +1989,7 @@ function createMarker(marker, point, type_in)
   			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
+					turnOnOffAddTripButton("off");
 					}
 				
 				map.closeInfoWindow();
@@ -1864,6 +2027,9 @@ function createMarker(marker, point, type_in)
   		
   		map.addOverlay(origin_marker);
   		map.setCenter(origin_marker.getPoint(), 14);
+  		
+  		//change helpMe text here (give feedback that the origin marker has been created)
+  		myHelpMeDiv.innerHTML = "A marker showing the location of the start address has been added to the map.<br/>&nbsp;<br/>You can drag and drop the marker to another location if you are not satisfied with the placement of the marker. You can also change the label of the marker by clicking on the marker itself or on the 'Relabel' button underneath the respective text field.";
   		
   		disableAddressInput('origin');
   		
@@ -1928,6 +2094,7 @@ function createMarker(marker, point, type_in)
   			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
+					turnOnOffAddTripButton("off");
 					}
 				
 				map.closeInfoWindow();
@@ -1964,6 +2131,9 @@ function createMarker(marker, point, type_in)
 	 		
   		map.addOverlay(destination_marker);
   		map.setCenter(destination_marker.getPoint(), 14);
+  		
+  		//change helpMe text here (give feedback that the origin marker has been created)
+			myHelpMeDiv.innerHTML = "A marker showing the location of the end address has been added to the map.<br/>&nbsp;<br/>You can drag and drop the marker to another location if you are not satisfied with the placement of the marker. You can also change the label of the marker by clicking on the marker itself or on the 'Relabel' button underneath the respective text field.";
   		
   		disableAddressInput('destination');
   		
@@ -2086,6 +2256,7 @@ function createMarker(marker, point, type_in)
   				if (global_polyline !== null && typeof global_polyline !== 'undefined')
 						{
 						map.removeOverlay(global_polyline);
+						turnOnOffAddTripButton("off");
 						}
 					
 					map.closeInfoWindow();	
@@ -2097,43 +2268,43 @@ function createMarker(marker, point, type_in)
   				});
   			
  		 		GEvent.addListener(waypoint_marker, "infowindowclose", function() 
-				{
+					{
 	
-				if (global_openWaypointInfoWindowHtml)
-  				{
-					var labelString;
+					if (global_openWaypointInfoWindowHtml)
+  					{
+						var labelString;
 				
-					if (global_labelIndex == 5)
-						{
-						labelString = global_ownLabel;//document.getElementById("ownLabel").value;
-						}
+						if (global_labelIndex == 5)
+							{
+							labelString = global_ownLabel;//document.getElementById("ownLabel").value;
+							}
 				
-					else
-						{
-						labelString = document.getElementById(global_labelIndex).value;	
-						}
+						else
+							{
+							labelString = document.getElementById(global_labelIndex).value;	
+							}
 			 				
- 					this.setTooltip(labelString);
-  				this.setUserData(labelString);
-  				this.setOpacity(100);
+ 						this.setTooltip(labelString);
+  					this.setUserData(labelString);
+  					this.setOpacity(100);
   							
-  				global_labelIndex = 0;
+  					global_labelIndex = 0;
   			 			
-  				var htmlInfoCloud = "<p>This location is:<br/><b>";
-  				//htmlInfoCloud += waypoint_marker.getUserData();
-  				htmlInfoCloud += this.getUserData();
-  				//htmlInfoCloud += "</b></p><div align='right'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() +"\");' /></div>";
-  				//htmlInfoCloud += "</b></p><div align='right'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + this.getId() +"\");' /></div>";
-  			  htmlInfoCloud += "</b></p><div align='left'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + this.getId() +"\");' />&nbsp;<input type='button' class='menu_btns' value='Close' id='htmlCloudCloseButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='map.closeInfoWindow();' /></div>";
+  					var htmlInfoCloud = "<p>This location is:<br/><b>";
+  					//htmlInfoCloud += waypoint_marker.getUserData();
+  					htmlInfoCloud += this.getUserData();
+  					//htmlInfoCloud += "</b></p><div align='right'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + waypoint_marker.getId() +"\");' /></div>";
+  					//htmlInfoCloud += "</b></p><div align='right'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + this.getId() +"\");' /></div>";
+  			  	htmlInfoCloud += "</b></p><div align='left'><input type='button' class='menu_btns' value='Relabel' id='htmlCloudRelabelButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='assignNewLabel(\"" + this.getId() +"\");' />&nbsp;<input type='button' class='menu_btns' value='Close' id='htmlCloudCloseButton' onmouseover='this.className=\"btnhov\"' onmouseout='this.className=\"menu_btns\"' onClick='map.closeInfoWindow();' /></div>";
   			  
-  			  global_openWaypointInfoWindowHtml = false;	  			
-    			//waypoint_marker.openInfoWindowHtml(htmlInfoCloud);
-    			this.openInfoWindowHtml(htmlInfoCloud);
-    			}
+  			  	global_openWaypointInfoWindowHtml = false;	  			
+    				//waypoint_marker.openInfoWindowHtml(htmlInfoCloud);
+    				this.openInfoWindowHtml(htmlInfoCloud);
+    				}
   			
-  			//return true so that close() does not abort
-				return true;	
-  			});
+  				//return true so that close() does not abort
+					return true;	
+  				});
   			    		
     		waypoint_marker.setTooltip("No Label");
   			waypoint_marker.setOpacity(100);
@@ -2141,10 +2312,14 @@ function createMarker(marker, point, type_in)
     		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
+					turnOnOffAddTripButton("off");
 					}
     			
 				map.addOverlay(waypoint_marker);
   			map.setCenter(waypoint_marker.getPoint(), 14);
+  			
+  			//change helpMe text here (give feedback that the origin marker has been created)
+				myHelpMeDiv.innerHTML = "You have just created a marker representing a stop. You can drag and drop the marker to another location if you are not satisfied with the placement of the marker. You can also change the label of the marker by clicking on the marker itself or on the 'Relabel' button underneath the respective text field.<br/>&nbsp;<br/>The trip will traverse the stops according to their number (starting at the start location, proceeding to stop #1, #2, and so forth, and ending at the end location). You can change the sequence of stops by using the up and down arrow next to the list of stops.";
   			
   			//waypoint markers have to be stored in the global_waypointMarkers array; it will append a new marker to the end of the array
   			global_waypointMarkers[num_waypoints] = waypoint_marker;
@@ -2207,6 +2382,7 @@ function createMarker(marker, point, type_in)
   			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 					{
 					map.removeOverlay(global_polyline);
+					turnOnOffAddTripButton("off");
 					}
 					
 				map.closeInfoWindow();					
@@ -2261,10 +2437,14 @@ function createMarker(marker, point, type_in)
   		if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
 				map.removeOverlay(global_polyline);
+				turnOnOffAddTripButton("off");
 				}
   		  			
   		map.addOverlay(waypoint_marker);
   		map.setCenter(waypoint_marker.getPoint(), 14);
+  		
+  		//change helpMe text here (give feedback that the origin marker has been created)
+			myHelpMeDiv.innerHTML = "You have just created a marker representing a stop. You can drag and drop the marker to another location if you are not satisfied with the placement of the marker. You can also change the label of the marker by clicking on the marker itself or on the 'Relabel' button underneath the respective text field.<br/>&nbsp;<br/>The trip will traverse the stops according to their number (starting at the start location, proceeding to stop #1, #2, and so forth, and ending at the end location). You can change the sequence of stops by using the up and down arrow next to the list of stops.";
   		
   		console.log("just after the addOverlay");
   		
@@ -2365,7 +2545,7 @@ function updateWaypointList()
 //#########################################################################################
 //#########################################################################################
 
-function updateTripList()
+function updateTripList(is_init)
 	{
 		
 	var myOptionsHtmlString = "";
@@ -2387,8 +2567,13 @@ function updateTripList()
     	
   myTripListDiv.innerHTML = myTripListHtmlLeftPart + myOptionsHtmlString + myTripListHtmlRigthPart;
       	
-  console.log("myTripListDiv.innerHTML: " + myTripListDiv.innerHTML);	
-		
+  console.log("myTripListDiv.innerHTML: " + myTripListDiv.innerHTML);
+  
+  //set flag that indicates changes to the trip list
+  if (!is_init)
+  	{
+		any_changes = true;
+		}	
 	}
 
 //#########################################################################################
@@ -2432,8 +2617,9 @@ function tripSelectionChanged()
  	 		global_tmp_routeMarkers = [];     	
 			}
 	
-		map.clearOverlays();
-		clearAllControls(false);	
+		map.clearOverlays(); //clear all overlays when a trip in the list is clicked
+		turnOnOffAddTripButton("off"); //disable the 'add your trip' button
+		clearAllControls(false); //clear all controls
 	
 		global_tmp_routeMarkers = global_tripsMarkers[mySelectedIndex];
 	
@@ -2554,7 +2740,7 @@ function helpInstruction(e)
   			
  			}
   	
-  	myHelpMeDiv.innerHTML = "The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names) or any combination of street address, city name, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant.<br>&nbsp;<br/>And don't forget to click the Add button once you are done entering the information!"; 
+  	myHelpMeDiv.innerHTML = "The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names) or any combination of street address, city name, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant.<br>&nbsp;<br/>And don't forget to click the 'Add' button once you are done entering the information!"; 
   	
 		}
 		
@@ -2570,25 +2756,113 @@ function helpInstruction(e)
 function disableAddressInput(type_in)
 	{
 		
+	var myTempTxtField;	
 	var myTempButton;
 	
 	if (type_in == 'origin')
 		{
-		document.getElementById("fromAddressField").disabled = true;	
-		myTempButton = document.getElementById("originAddButton");
-		myTempButton.disabled = true;
-		myTempButton.src = "images/add2_grey.png";
+		myTempTxtField = document.getElementById("fromAddressField");
+		myTempTxtField.className = "dis_fields";
+		myTempTxtField.readOnly = "true";
+		
+		myTempTxtField.onclick = function()
+			{
+			alert("This text field is currently disabled since you have already entered a start address. Please click the 'Clear' button if you want to enter a different start address.");			
+			};	
+		
+		myTempButton = document.getElementById("originAddButton");	
+		myTempButton.className = "dis_menu_btns";
+		
+		myTempButton.onmouseover = function()
+			{
+			//do nothing
+			};
+			
+		myTempButton.onmouseout = function()
+			{
+			//do nothing
+			};
+		
+		myTempButton.onclick = function()
+			{
+			alert("This button is currently disabled since you have already entered a start address. Please click the 'Clear' button if you want to enter a different start address.");		
+			};		
 		}
 		
 	else if (type_in == 'destination')
 		{
-		document.getElementById("toAddressField").disabled = true;	
-		myTempButton = document.getElementById("destinationAddButton");
-		myTempButton.disabled = true;
-		myTempButton.src = "images/add2_grey.png";
+		myTempTxtField = document.getElementById("toAddressField");
+		myTempTxtField.className = "dis_fields";
+		myTempTxtField.readOnly = "true";
+		
+		myTempTxtField.onclick = function()
+			{
+			alert("This text field is currently disabled since you have already entered an end address. Please click the 'Clear' button if you want to enter a different end address.");			
+			};	
+		
+		myTempButton = document.getElementById("destinationAddButton");	
+		myTempButton.className = "dis_menu_btns";
+		
+		myTempButton.onmouseover = function()
+			{
+			//do nothing
+			};
+			
+		myTempButton.onmouseout = function()
+			{
+			//do nothing
+			};
+		
+		myTempButton.onclick = function()
+			{
+			alert("This button is currently disabled since you have already entered an end address. Please click the 'Clear' button if you want to enter a different end address.");		
+			};		
 		}	
 		
 	}
+	
+//#########################################################################################
+//#########################################################################################
+
+//Called whenever a start or end marker is added to the map after a successful geocode
+function turnOnOffAddTripButton(onOrOff)
+	{
+		
+	var myTempButton;
+	
+	if (onOrOff == 'on')
+		{
+		myTempButton = document.getElementById("addTripButton");	
+		myTempButton.className = "fill_btn";
+		
+		myTempButton.onmouseover = function()
+			{
+			this.className = 'btnhov_fbtn';
+			};
+			
+		myTempButton.onmouseout = function()
+			{
+			this.className = "fill_btn";
+			};
+		}
+		
+	else if (onOrOff == 'off')
+		{
+		myTempButton = document.getElementById("addTripButton");	
+		myTempButton.className = "dis_fill_btn";
+		
+		myTempButton.onmouseover = function()
+			{
+			this.className = 'dis_fill_btn';
+			};
+			
+		myTempButton.onmouseout = function()
+			{
+			this.className = "dis_fill_btn";
+			};	
+		}	
+		
+	}	
 
 //#########################################################################################
 //#########################################################################################	
@@ -2599,6 +2873,7 @@ function clearStartStop(type_in)
 	{
 	
 	var myButton;
+	var myTxtField;
 	
 	if (type_in == 'origin')
 		{
@@ -2610,8 +2885,16 @@ function clearStartStop(type_in)
 			
 		else
 			{
-			document.getElementById("fromAddressField").disabled = false;	
-			document.getElementById("fromAddressField").value = "";
+				
+			myTxtField = document.getElementById("fromAddressField");
+			myTxtField.className = "fieldsInitial";	
+			myTxtField.value = "Street, City, State, Place Name or Intersection";
+			myTxtField.readOnly = "false";
+			
+			myTxtField.onclick = function()
+				{
+				return helpInstruction(event);
+				};
 
 			map.closeInfoWindow();
 			map.removeOverlay(origin_marker);
@@ -2619,8 +2902,22 @@ function clearStartStop(type_in)
 			console.log("Origin marker was removed!");
 			origin_marker = null;	
 			myButton = document.getElementById("originAddButton");
-			myButton.disabled = false;
-			//myButton.src = "images/add2.png";
+			myButton.className = "menu_btns";
+		
+			myButton.onmouseover = function()
+				{
+				myButton.className = "btnhov";
+				};
+			
+			myButton.onmouseout = function()
+				{
+				myButton.className = "menu_btns";
+				};	
+				
+			myButton.onclick = function()
+				{
+				geocodeAddress(document.getElementById('fromAddressField').value, 'origin');
+				};	
 			
 			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
@@ -2640,16 +2937,40 @@ function clearStartStop(type_in)
 		
 		else
 			{
-			document.getElementById("toAddressField").disabled = false;
-			document.getElementById("toAddressField").value = "";
+				
+			myTxtField = document.getElementById("toAddressField");
+			myTxtField.className = "fieldsInitial";	
+			myTxtField.value = "Street, City, State, Place Name or Intersection";
+			myTxtField.readOnly = "false";
+			
+			myTxtField.onclick = function()
+				{
+				return helpInstruction(event);
+				};	
 
 			map.closeInfoWindow();
 			map.removeOverlay(destination_marker);
 			
 			console.log("Destination marker was removed!");
 			destination_marker = null;
+			
 			myButton = document.getElementById("destinationAddButton");
-			myButton.disabled = false;
+			myButton.className = "menu_btns";
+		
+			myButton.onmouseover = function()
+				{
+				myButton.className = "btnhov";
+				};
+			
+			myButton.onmouseout = function()
+				{
+				myButton.className = "menu_btns";
+				};
+								
+			myButton.onclick = function()
+				{
+				geocodeAddress(document.getElementById('toAddressField').value, 'destination');
+				};			
 			
 			if (global_polyline !== null && typeof global_polyline !== 'undefined')
 				{
@@ -2925,6 +3246,45 @@ function getIntFromFrequency(string_freq)
 		}
 				
 	return myFreqInt;
+	}
+
+//#########################################################################################
+//#########################################################################################
+
+function zoomTo(marker_type)
+	{
+	
+	if (marker_type == "origin")
+		{
+		
+		if (origin_marker !== null)
+			{
+			map.setCenter(origin_marker.getPoint(), map.getZoom());	
+			global_labelIndex = 0;
+			}
+			
+		else
+			{
+			alert("Can't zoom to the start address because it has not been specified yet.");
+			}	
+			
+		}
+		
+	else if (marker_type == "destination")
+		{
+			
+		if (destination_marker !== null)
+			{
+			map.setCenter(destination_marker.getPoint(), map.getZoom());
+			global_labelIndex = 0;	
+			}
+			
+		else
+			{
+			alert("Can't zoom to the end address because it has not been specified yet.");
+			}
+		}			
+	
 	}
 
 //#########################################################################################

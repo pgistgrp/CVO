@@ -27,6 +27,18 @@ input.menu_btns,select.menu_btns
 	border:1px solid;
 	border-color:#669966;
 	}
+	
+input.dis_menu_btns
+	{
+	width:55px;
+	height:19px;
+	font-size:10px;
+	color:#A0A0A0;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:#C0C0C0;
+	border:1px solid;
+	border-color:#669966;
+	}	
 
 input.updown_btns,select.updown_btns
 	{
@@ -59,13 +71,21 @@ input.fill_btn,select.fill_btn
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	font-size:16px;
-	/*font-weight:bold;*/
-	/*background-color:#E6E6FA;*/
 	background-color:#87CEEB;
 	border:1px solid;
 	border-color:#669966;
 	}
-
+	
+input.dis_fill_btn
+	{
+	width:150px;
+	color:#A0A0A0;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	font-size:16px;
+	background-color:#C0C0C0;
+	border:1px solid;
+	border-color:#669966;
+	}
 
 input.btnhov_fbtn
 	{
@@ -137,10 +157,6 @@ input.btnhov
 	background-color:#E6E6FA;
 	border:1px solid;
 	border-color:#66ccff;
-	/*border-top-color:#6cf;
-	border-left-color:#6cf;
-	border-right-color:#3c3;
-	border-bottom-color:#3c3;*/
 	}
 
 input.btnhov_lb
@@ -237,7 +253,18 @@ input.fieldsInitial
 	background-color:white;
 	border:1px solid;
 	border-color:#669966;
-	}	
+	}
+	
+input.dis_fields
+	{
+	width:43ex;
+	font-size:11px;
+	color:#A0A0A0;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:#C0C0C0;
+	border:1px solid;
+	border-color:#669966;
+	}		
 
 input.lists,select.lists
 	{
@@ -269,7 +296,7 @@ input.dhtml_fields,select.dhtml_fields
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	background-color:#F5F5F5;
 	}
-	
+
 .heading
 	{
 	margin-left:20px;
@@ -361,4 +388,5 @@ input.dhtml_fields,select.dhtml_fields
 	background-color:#F5F5F5;
 	padding:10px;
 	margin-top:10px;
+	font-weight:600;
 	}
