@@ -859,6 +859,7 @@ public class PackageServiceImpl implements PackageService {
 		while(iRef.hasNext()) {
 			tempRef = iRef.next();
 			tempWeight = (CriteriaUserWeight)cSuite.getWeights().get(tempRef);
+			System.out.println("@@@@ "+tempWeight.getWeights());
 			value = tempWeight.getWeights().get(user);
 			if(value != null) {
 				crits.put(tempRef.getCriterion(), value);				
