@@ -143,7 +143,8 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
      * @return bonus for given volume difference
      */
     protected double benefitBonus(double totalBenefit) {
-        return (Math.min(MAX_BOUND, MAX_BOUND/2 + totalBenefit * totalBenefit));
+        return (Math.min(MAX_BOUND, totalBenefit * totalBenefit));
+        //return (Math.min(MAX_BOUND, MAX_BOUND/2 + totalBenefit * totalBenefit));
     }//benefitBonus()
     
     
