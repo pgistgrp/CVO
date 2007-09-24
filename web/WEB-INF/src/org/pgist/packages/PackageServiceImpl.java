@@ -1325,7 +1325,7 @@ public class PackageServiceImpl implements PackageService {
 		if(totalFunding < 0) throw new BudgetExceededException("The projects selected exceed the budget limits you provided");
 		
 		//Send the collection to the KSAlgorithm
-		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, totalFunding);
+		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, totalFunding, 500, 200);
 		
 		//Add the resulting items to the users package
 		Iterator<KSItem> resultIter = result.iterator();

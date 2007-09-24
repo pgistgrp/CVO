@@ -127,6 +127,16 @@ public class GAKnapsackEngine {
     }//mcknap()
     
     
+    public static Collection<KSItem> mcknap(
+        Collection<KSChoices> choices,
+        double limit,
+        final int evolutionTimes,
+        final int populationSize
+    ) throws Exception {
+        return mcknap(choices.toArray(new KSChoices[0]), limit, evolutionTimes, populationSize);
+    }
+    
+    
     public static Collection<KSItem> mcknap(KSChoices[] choices, double limit) throws Exception {
         return mcknap(choices, limit, 100, 100);
     }//mcknap()
