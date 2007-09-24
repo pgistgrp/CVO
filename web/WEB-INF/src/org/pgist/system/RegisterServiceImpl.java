@@ -140,11 +140,19 @@ public class RegisterServiceImpl implements RegisterService {
 	}
 	
     public Long saveUserTravelTrip(Long uid, TravelTrip trip) throws Exception{
+       if(uid == null || uid == -1){
+           uid = WebUtils.currentUserId();
+       }
+       System.out.println("save trip for user: " + uid);
     	User user = registerDAO.getCurrentUser(uid);
     	return registerDAO.saveUserTravelTrip(user, trip);
     }
     
     public ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception{
+        if(uid == null || uid == -1){
+            uid = WebUtils.currentUserId();
+        }
+        System.out.println("get trips for user: " + uid);
     	return registerDAO.getUserTravelTrips(uid);
     }
     
