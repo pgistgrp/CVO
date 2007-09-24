@@ -161,7 +161,7 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         double totalBenefit = getTotalBenefit(chromosome);
         double fitness = 0.0d;
         
-        System.out.println("totalBenefit ----> "+totalBenefit);
+        //System.out.println("totalBenefit ----> "+totalBenefit);
         
         fitness += costDifferenceBonus(costDifference);
         fitness += benefitBonus(totalBenefit);

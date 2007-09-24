@@ -1359,6 +1359,7 @@ public class PackageServiceImpl implements PackageService {
 			weight = cWeights.get(crit);
 			//If the weight is null then the user didn't grade it
 			if(weight != null) {
+			    System.out.println(crit.getValue()+" ))))) "+weight.floatValue());
 				total = total + crit.getValue() *  weight.floatValue()/100;				
 			}
 		}
