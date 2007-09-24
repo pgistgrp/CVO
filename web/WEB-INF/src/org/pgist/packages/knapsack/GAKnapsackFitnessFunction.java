@@ -129,7 +129,8 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         } else if (costDifference < 0) {
             return -MAX_BOUND;
         } else {
-            return MAX_BOUND/2.0 - (costDifference * costDifference);
+            //return MAX_BOUND/2.0 - (costDifference * costDifference);
+            return 1;
         }
     }//costDifferenceBonus()
     
