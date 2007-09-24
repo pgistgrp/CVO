@@ -1232,6 +1232,8 @@ public class PackageServiceImpl implements PackageService {
 		//Get the users weights for this project and store them in an easier to access format
 		HashMap<Criteria, Integer> cWeights = findUserWeights(conf.getCritSuiteId(), upack.getAuthor());
 		
+		System.out.println("cWeights ------ "+cWeights);
+		
 		//Using the total funding available, not figure out what projects should be in the package
 		findBestProjectSolution(upack, conf, upack.getTotalFunding(), cWeights);
 
