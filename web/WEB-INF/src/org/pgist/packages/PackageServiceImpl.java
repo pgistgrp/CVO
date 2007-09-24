@@ -1357,7 +1357,7 @@ public class PackageServiceImpl implements PackageService {
 		while(crits.hasNext()) {
 			crit = crits.next();
 			weight = cWeights.get(crit);
-			System.out.println("weight ----> "+weight);
+			System.out.println("cWeights ----> "+cWeights);
 			//If the weight is null then the user didn't grade it
 			if(weight != null) {
 			    System.out.println(crit.getValue()+" ))))) "+weight.floatValue());
