@@ -1322,13 +1322,6 @@ public class PackageServiceImpl implements PackageService {
 		//Check that the package isn't already over buget
 		if(totalFunding < 0) throw new BudgetExceededException("The projects selected exceed the budget limits you provided");
 		
-		//temp
-		for (KSChoices ch : choiceCol) {
-		    for (KSItem it : ch.getChoices()) {
-		        System.out.println("profit : "+it.getProfit());
-		    }
-		}
-		
 		//Send the collection to the KSAlgorithm
 		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, totalFunding);
 		
@@ -1357,10 +1350,8 @@ public class PackageServiceImpl implements PackageService {
 		while(crits.hasNext()) {
 			crit = crits.next();
 			weight = cWeights.get(crit.getCriteria());
-			System.out.println("cWeights ----> "+cWeights);
 			//If the weight is null then the user didn't grade it
 			if(weight != null) {
-			    System.out.println(crit.getValue()+" ))))) "+weight.floatValue());
 				total = total + crit.getValue() *  weight.floatValue()/100;				
 			}
 		}
@@ -1449,7 +1440,6 @@ public class PackageServiceImpl implements PackageService {
 		mylimit = mylimit - mybudget;
 		
 		//Send the collection to the KSAlgorithm
-        System.out.println("findBestFundingSourceSolution ---> "+mylimit);
 		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, mylimit);
 		
 		//Add the resulting items to the users package
