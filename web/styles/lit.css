@@ -378,7 +378,7 @@ text-align:center;
 #sortingMenu input#txtCustomFilter {width:90px;}
 
 #sm-left{text-align:left;}
-#sm-left input{width:80px;margin-left:10px;}
+#sm-left input{width:70px;margin-left:10px;}
 #sm-left form {display:inline;}
 #sm-right{
 float:right;
