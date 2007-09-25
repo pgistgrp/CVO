@@ -9,8 +9,7 @@
 
 
 <pg:fragment type="html">
-  <pg:grab var="statsES" name="org.pgist.report.ReportSuite" id="${infoStructure.suiteId}" />
-  ----- ${infoStructure.suiteId} - ${statsES.id}
+  <pg:grab var="suite" name="org.pgist.report.ReportSuite" id="${infoStructure.suiteId}" />
   
 	<!--####
 		Project: Let's Improve Transportation!
@@ -68,11 +67,34 @@
 	<div id="summary" class="box3 floatLeft">
 		<h3 class="headerColor">Let's Improve Transportation Final Report: Executive Summary (DRAFT)</h3>
 		<div id="executiveSummary">
-			<p>This report describes the results of the </em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. 298 residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs.</p>
-			<p>The recommended package contains 32 road and transit projects across the three-county region.
+			<p>This report describes the results of the </em>Let's Improve Transportation Challenge</em>, 
+			  an online experiment in participatory democracy facilitated by researchers at the University of Washington. 
+			  ${statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn 
+			  about transportation problems, discuss their concerns, and collectively recommend a package of improvement 
+			  projects and funding sources to address regional transportation needs.</p>
+			<p>The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region.
 				It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
-				fees. The total cost of the package is $16 billion. The package was endorsed
-				by 81% of the participants (256 our of 298 participating).</p>
+				fees. The total cost of the package is
+				
+				<c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
+				$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.
+				</c:if>
+				<c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
+				$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.
+				</c:if>.
+				
+				<c:set var="numEndorsed" value="${statsES.numEndorsed}" />
+        <c:set var="totalVotes" value="${statsES.totalVotes}" />
+        <c:choose>
+        	<c:when test="${totalVotes == 0}">
+        		*** Error no users voted on this package ***
+        	</c:when>
+        	<c:otherwise>
+        	The package was endorsed by 
+        	<fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
+        	of the participants (${numEndorsed} out of ${totalVotes} participating).		
+        	</c:otherwise>
+        </c:choose></p>
 			<div>
 			    <strong>This report includes 4 sections:</strong>
 				<ol>
