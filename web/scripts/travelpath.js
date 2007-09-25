@@ -4,7 +4,7 @@
 //### Author:																						 ###
 //### Martin Swobodzinski																 ###
 //### San Diego State University												 ###
-//### September, 24 2007																 ###
+//### September, 25 2007																 ###
 //##########################################################
 
 var map; //the google map
@@ -841,17 +841,17 @@ function setDirections(fromAdd, toAdd)
 		
 	else if (!geocode_success_origin && geocode_success_destination)
 		{
-		alert("There was a problem with the start address. It has not been defined yet. Please check your input and try again.");	
+		alert("There was a problem with the start address. It has not been defined yet. Please enter a start location and try again.");	
 		}
 		
 	else if (geocode_success_origin && !geocode_success_destination)
 		{
-		alert("There was a problem with the end address. It has not been defined yet. Please check your input and try again.");	
+		alert("There was a problem with the end address. It has not been defined yet. Please enter an end location and try again.");	
 		}
 		
 	else if (!geocode_success_origin && !geocode_success_destination)
 		{
-		alert("There was a problem with both the start address and the end address. Neither has been defined yet. Please check your input and try again.");		
+		alert("There was a problem with both the start address and the end address. Neither has been defined yet. Please enter a start and end location and try again.");		
 		}
 	
 	}
@@ -1224,11 +1224,14 @@ function updateWaypointMarkerProperties(splice_index)
 
 function moveWaypointUp()
 	{
-	
+		
 	var selectedWaypointIndex = document.getElementById("waypointList").selectedIndex;	
 	
 	if (selectedWaypointIndex !== -1) //an option was selected and its index was returned
 		{
+		
+		var myHelpMeDiv = document.getElementById("helpMeDiv"); 
+		myHelpMeDiv.innerHTML = "When you map your trip, waypoints will be traversed in a sequential order. That means that waypoint #1 will be traversed right after the start location, then the remaining waypoints (in ascending order), and finally the end location.<br/>&nbsp;<br/>Waypoints have two purposes: (1) You can use waypoints to route the trip through these specific locations and (2) you can capture actual stops (e.g., a grocery store, your gym, your place of work) that are part of a chain of trips (such as home-work-gym-home). The labeling functionality lets you assign proper labels to these types of waypoints.";
 		
 		if (selectedWaypointIndex !==  0) //if the selected waypoint is the first in the array then there is nothing to do
 			{
@@ -1289,7 +1292,13 @@ function moveWaypointUp()
 			document.getElementById("waypointList").selectedIndex = selectedWaypointIndex - 1;
 			
 			}
-		}	
+		}
+		
+	else
+		{
+		alert("You first have to select a waypoint from the list in order to change the position of the waypoint in the succession of waypoints."); 	
+		}
+				
 	}
 
 //#########################################################################################
@@ -1297,11 +1306,14 @@ function moveWaypointUp()
 
 function moveWaypointDown()
 	{
-	
+		
 	var selectedWaypointIndex = document.getElementById("waypointList").selectedIndex;	
 	
 	if (selectedWaypointIndex !== -1) //an option was selected and its index was returned
 		{
+		
+		var myHelpMeDiv = document.getElementById("helpMeDiv"); 
+		myHelpMeDiv.innerHTML = "When you map your trip, waypoints will be traversed in a sequential order. That means that waypoint #1 will be traversed right after the start location, then the remaining waypoints (in ascending order), and finally the end location.<br/>&nbsp;<br/>Waypoints have two purposes: (1) You can use waypoints to route the trip through these specific locations and (2) you can capture actual stops (e.g., a grocery store, your gym, your place of work) that are part of a chain of trips (such as home-work-gym-home). The labeling functionality lets you assign proper labels to these types of waypoints.";
 		
 		if (selectedWaypointIndex !==  global_waypointMarkers.length - 1) //if the selected waypoint is the last in the array then there is nothing to do  
 			{
@@ -1362,7 +1374,12 @@ function moveWaypointDown()
 			document.getElementById("waypointList").selectedIndex = selectedWaypointIndex + 1;
 			
 			}
-		}	
+		}
+		
+	else
+		{
+		alert("You first have to select a waypoint from the list in order to change the position of the waypoint in the succession of waypoints."); 	
+		}		
 	}
 
 //#########################################################################################
@@ -1381,6 +1398,7 @@ function labelSelectedWaypoint()
 		
 	else //no waypoint selected in the list so don't do anything
 		{
+		alert("Please select a waypoint in the waypoint list first.");	
 		console.log("no waypoint selected so refusing to do anything!");	
 		}	
 	
@@ -1407,17 +1425,25 @@ function clearAllControls(flag)
 	if (response)
 		{
 		
-		clearStartStop("origin");	
-		clearStartStop("destination");
+		clearStartStop("origin",'function');	
+		clearStartStop('destination','function');
 		global_waypointMarkers = [];
 				
 		map.clearOverlays();
-						
-		document.getElementById("fromAddressField").value = "Street, City, State, Place Name or Intersection";				
-		document.getElementById("toAddressField").value = "Street, City, State, Place Name or Intersection";
-		document.getElementById("viaAddressField").value = "Street, City, State, Place Name or Intersection";
-		document.getElementById("viaAddressField").className = "fieldsInitial";
+					
+		//var txtField = document.getElementById("fromAddressField");
+		//txtField.value = "Street, City, State, Place Name or Intersection";
+		//txtField.readOnly = false;
 		
+		//txtField = document.getElementById("toAddressField");
+		//txtField.value = "Street, City, State, Place Name or Intersection";
+		//txtField.readOnly = false;
+		
+		var txtField = document.getElementById("viaAddressField");
+		txtField.value = "Street, City, State, Place Name or Intersection";
+		txtField.readOnly = false;
+		txtField.className = "fieldsInitial";
+
 		waypoint_marker = null;
 		
 		geocode_counter = 1;
@@ -1488,6 +1514,7 @@ function deleteSelectedWaypoint()
 		
 	else //no waypoint selected in the list so don't do anything
 		{
+		alert("Please select a waypoint in the waypoint list first.");
 		console.log("no waypoint selected so refusing to do anything!");	
 		}	
 	
@@ -1698,7 +1725,13 @@ function assignNewLabel(marker_type)
   		origin_marker.openInfoWindowHtml(document.getElementById("labelLocationDiv").innerHTML);
 	  	global_openOriginInfoWindowHtml = true;  
 	  	  		
-  		}  				
+  		}
+  		
+  	else
+  		{
+  		alert("Please enter a start location first.");	
+  		}
+  			  				
   	}
   	
   else if (marker_type == "destination")
@@ -1711,6 +1744,12 @@ function assignNewLabel(marker_type)
   		global_openDestinationInfoWindowHtml = true; 		  		  			
 
   		}
+  		
+  	else
+  		{
+  		alert("Please enter an end location first.");	
+  		}
+  			
    	}
    	
   else
@@ -1861,7 +1900,7 @@ function createClickMarker(marker, point)
 	  			
   	map.addOverlay(waypoint_marker);
   	
-  	myHelpMeDiv.innerHTML = "You have just created a marker representing a stop. You can drag and drop the marker to another location if you are not satisfied with the placement of the marker. You can also change the label of the marker by clicking on the marker itself or on the 'Relabel' button underneath the respective text field.<br/>&nbsp;<br/>The trip will traverse the stops according to their number (starting at the start location, proceeding to stop #1, #2, and so forth, and ending at the end location). You can change the sequence of stops by using the up and down arrow next to the list of stops.";
+  	myHelpMeDiv.innerHTML = "You have just created a waypoint marker. You can drag and drop the marker to another location if you are not satisfied with the placement of the marker. You can also change the label of the marker by clicking on the marker itself or on the 'Relabel' button underneath the respective text field.<br/>&nbsp;<br/>The trip will traverse the waypoints sequentially (starting at the start location, proceeding to waypoint #1, #2, and so forth, and ending at the end location). You can change the sequence of waypoints by using the up and down arrow next to the waypoint list.";
   	
   	var j = num_waypoints + 1;
   	
@@ -2601,7 +2640,10 @@ function tripSelectionChanged()
 	
 	if (mySelectedIndex !== -1)
 		{
-	
+		
+		var myHelpMeDiv = document.getElementById("helpMeDiv"); 
+		myHelpMeDiv.innerHTML = "You just clicked on one of your stored trips in your trip list. The respective trip is being shown on the map. You can view one trip at a time.<br/>&nbsp;<br/>Please note that you can not make any changes to the trip. As for now, the only way to modify a trip is to create a new trip that incorporates the desired changes and delete the trip that is no longer necessary.";
+		
 		if (global_tmp_polyline !== null)
 			{
 			map.removeOverlay(global_tmp_polyline);
@@ -2740,7 +2782,15 @@ function helpInstruction(e)
   			
  			}
   	
-  	myHelpMeDiv.innerHTML = "The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names) or any combination of street address, city name, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant.<br>&nbsp;<br/>And don't forget to click the 'Add' button once you are done entering the information!"; 
+  	if (obj.id == "viaAddressField")
+  		{
+  		myHelpMeDiv.innerHTML = "Waypoints can be created by either clicking on the map or by entering an address. The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names), or any combination of street address, city name, state, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant.<br>&nbsp;<br/>A short tip: Don't forget to click the 'Add' button once you are done entering the information!"; 	
+  		}
+  	
+  	else
+  		{
+  		myHelpMeDiv.innerHTML = "The start and end location of your trip can be entered as address. The format of the address can be a place name (e.g., Seattle Airport), the name of an intersection (comprised of the respective street names), or any combination of street address, city name, state, and 5-digit zip code. The more specific you are, the higher the probability that we will find the place that you meant.<br>&nbsp;<br/>A short tip: Don't forget to click the 'Add' button once you are done entering the information!"; 	
+  		}		
   	
 		}
 		
@@ -2763,7 +2813,7 @@ function disableAddressInput(type_in)
 		{
 		myTempTxtField = document.getElementById("fromAddressField");
 		myTempTxtField.className = "dis_fields";
-		myTempTxtField.readOnly = "true";
+		myTempTxtField.readOnly = true;
 		
 		myTempTxtField.onclick = function()
 			{
@@ -2793,7 +2843,7 @@ function disableAddressInput(type_in)
 		{
 		myTempTxtField = document.getElementById("toAddressField");
 		myTempTxtField.className = "dis_fields";
-		myTempTxtField.readOnly = "true";
+		myTempTxtField.readOnly = true;
 		
 		myTempTxtField.onclick = function()
 			{
@@ -2869,7 +2919,7 @@ function turnOnOffAddTripButton(onOrOff)
 
 //Called when the clear button underneath the address fields is clicked; clears the respective field,
 //sets the respective marker = null, and enables the add button again
-function clearStartStop(type_in)
+function clearStartStop(type_in, invoker)
 	{
 	
 	var myButton;
@@ -2880,7 +2930,25 @@ function clearStartStop(type_in)
 			
 		if (origin_marker === null)
 			{
-			document.getElementById("fromAddressField").value = "";
+				
+			if (invoker == "button")
+				{
+				document.getElementById("fromAddressField").value = "";	
+				}
+			
+			else
+				{
+				myTxtField = document.getElementById("fromAddressField");
+				myTxtField.className = "fieldsInitial";	
+				myTxtField.value = "Street, City, State, Place Name or Intersection";
+				myTxtField.readOnly = false;
+			
+				myTxtField.onclick = function(e)
+					{
+					return helpInstruction(e);
+					};	
+				}
+	
 			}
 			
 		else
@@ -2889,11 +2957,11 @@ function clearStartStop(type_in)
 			myTxtField = document.getElementById("fromAddressField");
 			myTxtField.className = "fieldsInitial";	
 			myTxtField.value = "Street, City, State, Place Name or Intersection";
-			myTxtField.readOnly = "false";
+			myTxtField.readOnly = false;
 			
-			myTxtField.onclick = function()
+			myTxtField.onclick = function(e)
 				{
-				return helpInstruction(event);
+				return helpInstruction(e);
 				};
 
 			map.closeInfoWindow();
@@ -2932,7 +3000,25 @@ function clearStartStop(type_in)
 			
 		if (destination_marker === null)
 			{
-			document.getElementById("toAddressField").value = "";	
+			
+			if (invoker == "button")
+				{
+				document.getElementById("toAddressField").value = "";
+				}
+			
+			else
+				{
+				myTxtField = document.getElementById("toAddressField");
+				myTxtField.className = "fieldsInitial";	
+				myTxtField.value = "Street, City, State, Place Name or Intersection";
+				myTxtField.readOnly = false;
+			
+				myTxtField.onclick = function(e)
+					{
+					return helpInstruction(e);
+					};	
+				}
+
 			}
 		
 		else
@@ -2941,11 +3027,11 @@ function clearStartStop(type_in)
 			myTxtField = document.getElementById("toAddressField");
 			myTxtField.className = "fieldsInitial";	
 			myTxtField.value = "Street, City, State, Place Name or Intersection";
-			myTxtField.readOnly = "false";
+			myTxtField.readOnly = false;
 			
-			myTxtField.onclick = function()
+			myTxtField.onclick = function(e)
 				{
-				return helpInstruction(event);
+				return helpInstruction(e);
 				};	
 
 			map.closeInfoWindow();

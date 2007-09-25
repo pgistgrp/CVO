@@ -234,8 +234,8 @@ input.btnhov_hb2
 
 input.fields,select.fields
 	{
-	width:43ex;
 	font-size:11px;
+	width:250px;
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	background-color:white;
@@ -246,7 +246,7 @@ input.fields,select.fields
 input.fieldsInitial
 	{
 	font-size:11px;
-	width:43ex;
+	width:250px;
 	color:gray;
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	font-style:italic;
@@ -257,8 +257,8 @@ input.fieldsInitial
 	
 input.dis_fields
 	{
-	width:43ex;
 	font-size:11px;
+	width:250px;
 	color:#A0A0A0;
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	background-color:#C0C0C0;
@@ -379,7 +379,7 @@ input.dhtml_fields,select.dhtml_fields
 .helpme
 	{
 	color:black;
-	height:12ex;
+	height:90px;
 	font-size:12px;
 	border:1px solid;
 	border-color:#009999;

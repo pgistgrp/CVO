@@ -43,6 +43,8 @@
 <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
 <script type='text/javascript' src='scripts/pgistmap2.js'></script>
 <script type='text/javascript' src='/dwr/interface/RegisterAgent.js'></script>
+<script language="javascript" type="text/javascript" src="scripts/pdmarker.js"></script>
+<link rel="stylesheet" href="styles/travelpath.css" type="text/css" />
 <!--END Mapping  Libraries-->
 
 <script type="text/javascript">

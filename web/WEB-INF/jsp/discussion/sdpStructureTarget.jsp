@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 
-
 <pg:fragment type="html">
 	<!--####
 		Project: Let's Improve Transportation!
@@ -126,6 +125,7 @@
 </pg:fragment>
 
 <pg:fragment type="script">
+
 	//All Javascript that is internal to this page must go here - not sdRoomMain.
 	/* *************** load a dynamic javascript or css file ****************/
 
@@ -254,15 +254,22 @@
     }
     
     var travelPath = [];
+    var pathMarkers = [];
     function loadTravelPath(){
         if(travelPath.length == 0){
             RegisterAgent.getUserTrips(-1, function(data){//use -1 for user id for the current user
                 //data.trips is now an array of trips
                 pgistmap.disableMapLogger();
                 if(data.successful){
-                    for(k=0; k<data.trips.length; k++){
-                        travelPath.push( drawTrip(pgistmap, data.trips[k].coords) );
-                    }
+                    for(var k=0; k<data.trips.length; k++)
+                    	{
+                      travelPath.push( drawTrip(pgistmap, data.trips[k].coords) );
+                      
+                      for(var j=0; j<data.trips[k].markers.length; j++)
+                        	{
+                        	pathMarkers.push( drawMarker(pgistmap, data.trips[k].markers[j]) ); 
+                        	}
+                    	}
                 }
                 PESAgent.saveAct({mapaction:"show personal travel trip"}, {callback:function(data){},
                     errorHandler:function(errorString, exception){} });
@@ -272,6 +279,7 @@
         }else{
             pgistmap.disableMapLogger();
             while(travelPath.length>0)pgistmap.map.removeOverlay( travelPath.pop() );
+            while(pathMarkers.length>0)pgistmap.map.removeOverlay( pathMarkers.pop() );
             PESAgent.saveAct({mapaction:"hide personal travel trip"}, {callback:function(data){},
                 errorHandler:function(errorString, exception){} });
             pgistmap.enableMapLogger();
@@ -287,6 +295,23 @@
         pgmap.map.addOverlay( tripline );
         pgmap.scaleToCoords(points, true);
         return(tripline);
+    }
+    
+    function drawMarker(pgmap, currentMarker)
+    	{
+      //stores the data of the current DWR marker as coming from the DB
+									
+			var pnt = new GLatLng(currentMarker.lat, currentMarker.lng);	
+ 								
+ 			//stores the DWR marker data in form of an instance of PdMarker
+ 			var tmpMarker = new PdMarker(pnt);
+			tmpMarker.setOpacity(100);
+   		tmpMarker.setTooltip(currentMarker.data1);
+      
+      //add tmpMarker to the map
+      pgmap.map.addOverlay( tmpMarker );
+      
+      return(tmpMarker);
     }
     
 	/* *************** loading on getTargets() in SDRoomMain *************** */
@@ -313,3 +338,4 @@
     loadFootprints();
     
 </pg:fragment>
+

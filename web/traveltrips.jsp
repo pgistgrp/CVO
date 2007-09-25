@@ -131,7 +131,7 @@
   								</tr>
   								<tr>
   									<td align="left">
-    									<input type="button" class="menu_btns" value="Clear" id="originClearButton" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="clearStartStop('origin');" />
+    									<input type="button" class="menu_btns" value="Clear" id="originClearButton" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="clearStartStop('origin','button');" />
     									<input type="button" class="menu_btns" value="Relabel" id="originEditButton" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="assignNewLabel('origin');" />
     									<input type="button" class="menu_btns" id="originZoomButton" value="Zoom To" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="zoomTo('origin');" />
     								</td>
@@ -153,7 +153,7 @@
     							</tr>
     							<tr>
   									<td align="left">
-    									<input type="button" class="menu_btns" id="destinationClearButton" value="Clear" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="clearStartStop('destination');" />
+    									<input type="button" class="menu_btns" id="destinationClearButton" value="Clear" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="clearStartStop('destination','button');" />
     									<input type="button" class="menu_btns" id="destinationEditButton" value="Relabel" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="assignNewLabel('destination');" />
     									<input type="button" class="menu_btns" id="destinationZoomButton" value="Zoom To" onmouseover="this.className='btnhov'" onmouseout="this.className='menu_btns'" onClick="zoomTo('destination');" />
     								</td>
