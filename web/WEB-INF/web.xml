@@ -126,13 +126,13 @@
         <filter-class>org.pgist.wfengine.web.WorkflowFilter</filter-class>
     </filter>
     
-    <filter-mapping>
+    <!--filter-mapping>
         <filter-name>StaticPageFilter</filter-name>
         <servlet-name>action</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
         <url-pattern>*.html</url-pattern>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
+    </filter-mapping-->
     
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
