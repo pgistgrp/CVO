@@ -17,5 +17,6 @@ public interface ImportService {
 
     Experiment createExperiment(Long workflowId, Long cctId, Long projSuiteId, Long fundSuiteId, Long pkgSuiteId, Long critSuiteId, Long reportSuiteId) throws Exception;
     
+    public Experiment getExperimentByWorkflowId(Long workflowId) throws Exception;
     
 }//interface ImportService

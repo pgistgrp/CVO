@@ -13,6 +13,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.other.Experiment;
+import org.pgist.other.ImportService;
 import org.pgist.util.PageSetting;
 
 
@@ -26,9 +28,16 @@ public class SearchAction extends Action {
     
     private SearchHelper searchHelper;
     
+    private ImportService importService;
+    
     
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
+    }
+
+
+    public void setImportService(ImportService importService) {
+        this.importService = importService;
     }
 
 
@@ -57,6 +66,8 @@ public class SearchAction extends Action {
         
         if (queryStr==null || queryStr.length()==0) return mapping.findForward("index");
         
+        String workflowId = request.getParameter("workflowId");
+        
         IndexSearcher indexSearcher = null;
         PageSetting setting = null;
         
@@ -65,7 +76,7 @@ public class SearchAction extends Action {
             
             String luceneQuery =
                 //discussion and concern and project
-                "(workflowid:"+request.getParameter("workflowId")+" AND ("+queryStr+"))"
+                "(workflowid:"+workflowId+" AND ("+queryStr+"))"
                 //user profile
                 +" OR (type:userprofile AND ("+queryStr+"))"
                 //static pages
@@ -138,7 +149,9 @@ public class SearchAction extends Action {
             indexSearcher.close();
         }
         
-        request.setAttribute("setting", setting);
+        Experiment experiment = importService.getExperimentByWorkflowId(new Long(workflowId));
+        
+        request.setAttribute("experiment", experiment);
         request.setAttribute("results", list);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);

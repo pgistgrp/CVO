@@ -309,6 +309,11 @@ public class ImportServiceImpl implements ImportService {
         
         return experiment;
     }//createExperiment()
+    
+    
+    public Experiment getExperimentByWorkflowId(Long workflowId) throws Exception {
+        return importDAO.getExperimentByWorkflowId(workflowId);
+    }//getExperimentByWorkflowId()
 
 
 }//ImportService

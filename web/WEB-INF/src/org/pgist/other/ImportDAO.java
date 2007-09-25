@@ -15,6 +15,8 @@ public interface ImportDAO extends BaseDAO {
     Collection getTemplates() throws Exception;
 
     SituationTemplate getTemplateById(Long templateId) throws Exception;
+
+    Experiment getExperimentByWorkflowId(Long workflowId) throws Exception;
     
 	
 }//interface ImportDAO
