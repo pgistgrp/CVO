@@ -68,7 +68,7 @@
 		<div id="executiveSummary">
 			<p>This report describes the results of the </em>Let's Improve Transportation Challenge</em>, 
 			  an online experiment in participatory democracy facilitated by researchers at the University of Washington. 
-			  ${suite.statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn 
+			  ${suite.statsES.totalUsers} residents of King, Pierce, and Snohomish counties worked together over the course of four weeks to learn 
 			  about transportation problems, discuss their concerns, and collectively recommend a package of improvement 
 			  projects and funding sources to address regional transportation needs.</p>
 			<p>The recommended package contains ${suite.statsES.totalProjects} road and transit projects across the three-county region.
