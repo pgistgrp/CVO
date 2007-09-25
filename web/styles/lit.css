@@ -362,11 +362,12 @@ font-size:.9em;
 z-index:2000;
 padding:5px;
 margin:5px 0px;
+font-size:8pt;
 }
 
-#sm-left{width:210px}
-#sm-middle{width:190px;}
-#sm-right{width:200px;}
+#sm-left{width:250px;}
+#sm-middle{width:170px;}
+#sm-right{}
 
 
 #sm-left,#sm-middle,#sm-right {
@@ -377,10 +378,11 @@ text-align:center;
 #sortingMenu input#txtCustomFilter {width:90px;}
 
 #sm-left{text-align:left;}
-
+#sm-left input{width:80px;margin-left:10px;}
+#sm-left form {display:inline;}
 #sm-right{
 float:right;
-width:260px;
+width:240px;
 }
 
 #sortingMenu img {vertical-align:middle;}
