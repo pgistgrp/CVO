@@ -129,8 +129,7 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         } else if (costDifference < 0) {
             return -MAX_BOUND;
         } else {
-            //return MAX_BOUND/2.0 - (costDifference * costDifference);
-            return 0;
+            return MAX_BOUND/3 - (costDifference * costDifference);
         }
     }//costDifferenceBonus()
     
@@ -143,9 +142,7 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
      * @return bonus for given volume difference
      */
     protected double benefitBonus(double totalBenefit) {
-        return (Math.min(MAX_BOUND, totalBenefit));
-        //return (Math.min(MAX_BOUND, totalBenefit * totalBenefit));
-        //return (Math.min(MAX_BOUND, MAX_BOUND/2 + totalBenefit * totalBenefit));
+        return (Math.min(MAX_BOUND, MAX_BOUND/3+ totalBenefit * totalBenefit));
     }//benefitBonus()
     
     
