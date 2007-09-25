@@ -16,98 +16,110 @@
 
 </head>
 
+<body><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<!--####
+	Project: Let's Improve Transportation!
+	Page: Main index page - http://www.letsimprovetransportation.org
+	Description: This page serves as the main index.  Here the user can read info 
+	about the project, click to learn more, and/or log into the system.
+	Author(s): 
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Zhong Wang, John Le
+	Todo Items:
+		[x] Initial Skeleton Code (Jordan)
+		[ ] Txt and layout changes (Jordan and Adam)
+		[x] Make it look all web 2.0 (Adam)
+#### -->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Let's Improve Transportation!</title>
+<script src="scripts/search.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+		background:url('images/home-background2.png') repeat-x #E8F7CC;
+		text-align:center;
+		margin:0px;
+		font-size:11pt;
+		font-family:Arial, Verdana, sans-serif;
+	}
+	
+	img.splash {
+		margin:auto;
+		position:relative;
+		top:2px;
+	}
+	
+	div#text {
+		width:611px;
+		margin:20px auto 0px auto;
+		text-align:left;
+	}
+	
+	h2{color:#355800}
+	
+	ul {color:#355800;font-size:11pt;line-height:1.2em;}
+	ul span {color:#333;}
+	
+	a{color:#316786;}
+
+	#login * {margin:0px;padding:0px;}
+	
+	#login {
+		background:#D5E7A1;
+		padding:15px;
+	}
+	
+	#login div.cell {float:left;margin-right:20px;}
+	#login input {width:180px;font-size:12pt;padding:2px;}
+	
+	input#sub {
+	padding:10px;
+	font-size:12pt;
+  height:80%;
+	width:100px;     
+	}
+
+	#facts{
+		background:#B4D579;
+		padding:10px;
+		text-align:center;
+		color:#32480B;
+		font-size:13pt;
+	}
+
+	#facts p{padding:0px;margin:7px 0px;}
+
+	small {display:block;margin-top:20px;}
+	.rightAlign{text-align:right}
+
+</style>
+</head>
 <body>
- <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<div id="header-wrap" class="clearBoth">
-
-		<div id="header-logo">
-			<a href="index-static.html"><img src="/images/mainlogo.png" alt="LIT LOGO" border="0"/></a>
-		</div>
-
-		<div id="header-navigation">
-			<span><a href="index-static.html">Home</a></span>
-		</div>
-
-	</div>	
-	<div class="clearBoth"></div>
-	<!-- End header -->
-  </div>
-  <!-- End header -->
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-
-  </div>
-  <!-- End header menu -->
-  <!-- #container is the container that wraps around all the main page content -->
- 	<div id="container" style="width:600px;">
- 		<h3 class="contrast2" style="text-transform:none">What is Let's Improve Transportation and the LIT Challenge?</h3>
-
-		<p>
-			Let's Improve Transportation (LIT) is an experiment in participatory democracy. A research team based at the 
-			University of Washington has developed an innovative new website where you can:
-		</p>
-		
-		<ul>
-			<li>learn about proposed improvements to the central Puget Sound regional transportation system,</li>
-			<li>consider the potential impacts of these changes on our communities, and</li>
-			<li>work collaboratively with other residents to determine which changes the region should support.</li>
-		</ul>
-		
-		<p>
-			This October, residents of King, Pierce, and Snohomish counties are invited to participate in the LIT Challenge, 
-			a 4-week long online experiment in which 300 or more individuals will participate via the Internet at their own 
-			convenience. The purpose of this experiment is to evaluate a new and potentially more meaningful way to involve 
-			citizens in the process of regional transportation decision making.
-		</p>
-
-		<p>
-			Participants in the LIT Challenge are asked to imagine they are a member of a large citizen advisory committee 
-			charged with providing policy makers with their recommendations regarding the make-up of a regional transportation 
-			ballot measure. The (hypothetical) measure will ask voters in the region if they wish to raise taxes to pay for a 
-			package of road and transit improvement projects. The task of LIT Challenge participants is to determine which 
-			proposed transportation improvement projects to build and which funding mechanisms (such as taxes or bridge tolls) 
-			should be used to pay for these improvements. The challenging part is to get as many participants as possible to 
-			collectively recommend a single "package" of projects and funding options. Fortunately, the LIT website was 
-			designed to support exactly this kind of challenge. The website, as well as a small team of online moderators, 
-			will facilitate a process in which participants:
-		</p>
-		
-		<ul>
-			<li>brainstorm concerns,</li>
-			<li>assess different goals for transportation improvement,</li>
-			<li>create personal "packages" of transportation projects and funding,</li>
-			<li>discuss and evaluate 5 representative packages in order to determine which ones can gain the greatest degree of 
-				participant support,</li>
-			<li>and compose a report to communicate the final recommendations to the public and policy makers.</li>
-		</ul>
-		
-		<p>
-			While this may sound complicated, the website is designed to lead any interested citizen through the process. No prior 
-			experience with transportation issues is necessary. It is estimated that full participation in the LIT Challenge will 
-			take as little as 8-10 hours over the four week period. Qualified participants who complete the LIT Challenge will 
-			receive compensation for their efforts.
-		</p>
+	<div><img class="splash" src="images/home-splashimage.png" alt="Let's Improve Transportation!"></div>
+	<div id="text">
+ 	<h2 style="text-transform:none"><a name="whatis" class="headerColor">What is Let's Improve Transportation?</a></h3>
+	<p>Let's Improve Transportation (LIT) is an experiment in participatory democracy. A research team based at the University of Washington has developed an innovative new website where you can: </p>
+	<ul>
+	  <li>learn about proposed improvements to the central Puget Sound regional transportation system,</li>
+	  <li>consider the potential impacts of these changes on our communities, and </li>
+	  <li>work collaboratively with other residents to determine which changes the region should support. </li>
+	</ul>
+	<p>This October, residents of King, Pierce, and Snohomish counties are invited to participate in the LIT Challenge, a 4-week long online experiment in which 300 or more individuals will participate via the Internet at their own convenience. The purpose of this experiment is to evaluate a new and potentially more meaningful way to involve citizens in the process of regional transportation decision making. </p>
+	<p>Participants in the LIT Challenge are asked to imagine they are a member of a large citizen advisory committee charged with providing policy makers with their recommendations regarding the make-up of a regional transportation ballot measure. The (hypothetical) measure will ask voters in the region if they wish to raise taxes to pay for a package of road and transit improvement projects. The task of LIT Challenge participants is to determine which proposed transportation improvement projects to build and which funding mechanisms (such as taxes or bridge tolls) should be used to pay for these improvements. The challenging part is to get as many participants as possible to collectively recommend a single "package" of projects and funding options. Fortunately, the LIT website was designed to support exactly this kind of challenge. The website, as well as a small team of online moderators, will facilitate a process in which participants: </p>
+	<ul>
+		<li>brainstorm concerns,</li>
+		<li>assess different goals for transportation improvement, </li>
+		<li>create personal "packages" of transportation projects and funding, </li>
+		<li>discuss and evaluate 5 representative packages in order to determine which ones can gain the greatest degree of participant support, </li>
+		<li>and compose a report to communicate the final recommendations to the public and policy makers.</li>
+	</ul>
+	<p>While this may sound complicated, the website is designed to lead any interested citizen through the process. No prior experience with transportation issues is necessary. It is estimated that full participation in the LIT Challenge will take as little as 8-10 hours over the four week period. Qualified participants who complete the LIT Challenge will receive compensation for their efforts. </p><br/>
 	</div>
-  <!-- end container -->
-  
-  
-
-  <!-- Begin header menu - The wide ribbon underneath the logo -->
-  <div id="headerMenu">
-
-  </div>
-
-	<!-- Begin footer -->
-	<div id="footer">
-		<div id="footer-text" class="floatLeft">
-		This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.    </div>
-		<div id="footer-logo" class="floatRight">
-		<a href="http://www.pgist.org" target="_blank"><img src="/images/footerlogo.png" alt="PGIST Logo" width="156" height="51" border="0"/></a>
-		</div>
-	</div>
-	<!-- End footer -->
+</body>
+</html>
 </body>
 </html:html>
 
