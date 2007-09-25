@@ -4,7 +4,7 @@
 
     <pmethods>
     
-        <pmethod name="pmethod-init.situation" description="Current steps are highlighted" access="moderator">
+        <pmethod name="pmethod-init.situation" access="moderator">
             <declaration>
                 <outs>
                     <var name="pmethod.cct_id"/>
@@ -145,7 +145,7 @@
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-global" description="Always Available">
+        <pmethod name="pmethod-global">
             <declaration>
                 <ins>
                     <var name="pmethod.proj_suite_id"/>

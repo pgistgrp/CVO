@@ -193,7 +193,7 @@
 				<h3 style="display:inline;margin:0px;padding:0px;margin-left:20px">Your participant ID is <strong>${webq}</strong></h3>
 		<div id="left-col">
 			<h3 class="headerColor">Agenda</h3>
-			<div class="box12 clearfix">
+			<div class="box12 clearfix"><h4 style="font-weight:normal">Current steps are highlighted</h4>
 				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading overview...</div>
 			</div>
 		</div>
