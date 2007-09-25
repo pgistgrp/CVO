@@ -64,14 +64,7 @@
 	<li>discuss and evaluate 5 representative packages in order to determine which ones can gain the greatest degree of participant support, </li>
 	<li>and compose a report to communicate the final recommendations to the public and policy makers.</li>
 </ul>
-<p>While this may sound complicated, the website is designed to lead any interested citizen through the process. No prior experience with transportation issues is necessary. It is estimated that full participation in the LIT Challenge will take as little as 8-10 hours over the four week period. Qualified participants who complete the LIT Challenge will receive compensation for their efforts. </p>
- <h3 class="headerColor" style="text-transform:none"><a name="realworld" class="headerColor">How is LIT related to the (real world) "Roads and Transit" ballot measure in November 2007?
-</a></h3>
-
-<p>In the real world, regional policy makers have already created a single "Roads and Transit" package and will be asking voters in King, Pierce, and Snohomish counties whether or not it should become law. The "Roads and Transit" package is the result of years of negotiations between county elected officials as well as pressure from businesses, transportation advocacy organizations, and concerned members of the public. Transportation funding ballot measures such as this one have become increasingly common in metropolitan regions across the U.S. </p>
-
-<p>LIT is an attempt to design a more meaningful way to involve members of the public in regional transportation decision making before a single package is placed on the ballot. Therefore the outcome of the LIT Challenge will no effect on the make-up of the "Roads and Transit" package. However participants will have the opportunity to carefully examine the "Roads and Transit" package and compare it to alternative packages created based on participant input. Researchers also hope that the LIT Challenge will serve as a model for how to involve the public in future regional transportation decisions. 
-</p>
+<p>While this may sound complicated, the website is designed to lead any interested citizen through the process. No prior experience with transportation issues is necessary. It is estimated that full participation in the LIT Challenge will take as little as 8-10 hours over the four week period. Qualified participants who complete the LIT Challenge will receive compensation for their efforts. </p><br/>
 </pg:termHighlight>
   </div>
 </div>
