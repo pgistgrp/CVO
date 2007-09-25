@@ -114,7 +114,7 @@ left:530px;
 				<p class="floatRight" id="step-progress">Page 1 of 2</p>
 		</div>
 		<h2>Tutorial</h2>
-		<p>There are some cool features on this website wed like you to know about, so
+		<p>There are some cool features on this website we'd like you to know about, so
 			you can better make use of them!</p>
 		<h2>Keyword your concerns, discussion posts, and the map!</h2>
 		<p>By adding keywords to things you care about, you can direct other users to specific
