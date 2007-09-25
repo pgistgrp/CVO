@@ -143,7 +143,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 	<c:forEach var="i" begin="0" end="${size-2}" step="1" varStatus ="status">
 		${counties[i].name},
 	</c:forEach>
-	and ${counties[size-1].name} county 	
+	and ${counties[size-1].name} counties 	
 	</c:otherwise>
 </c:choose>
 
@@ -177,7 +177,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 	<c:otherwise>
 	The package was endorsed by 
 	<fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
-	of the participants (${numEndorsed} our of ${totalVotes} participating).		
+	of the participants (${numEndorsed} out of ${totalVotes} participating).		
 	</c:otherwise>
 </c:choose>
 </p>
