@@ -1333,7 +1333,7 @@ public class PackageServiceImpl implements PackageService {
 		while(resultIter.hasNext()) {
 			tempProjectKSI = (ProjectKSItem)resultIter.next();
 			upack.getProjAltRefs().add(tempProjectKSI.getProjectAltRef());
-		}			
+		}
 	}
 	
 	/**
