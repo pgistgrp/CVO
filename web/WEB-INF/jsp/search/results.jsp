@@ -115,7 +115,7 @@
     					        <c:if test="${result.type=='comment'}"><a href="/concern.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&id=${result.concernid}">id=${result.concernid}#commentAnchor${result.commentid}">${result.title}</a></c:if>
     					        <c:if test="${result.type=='project'}"><a target="_blank" href="/projectAlt.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&altrefId=${result.projectaltid}&critSuiteId=${experiment.critSuite.id}">${result.projectaltname}</a></c:if>
     					        <c:if test="${result.type=='userprofile'}"><a href="/publicprofile.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&user=${result.loginname}">${result.loginname}</a></c:if>
-                      <c:if test="${result.type=='staticpage'}"><a href="${result.url}?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&">${result.title}</a></c:if>
+                      <c:if test="${result.type=='staticpage'}"><a href="${result.url}?workflowId=${param.workflowId}">${result.title}</a></c:if>
     					    </h3> 
     					    <p>
     					        <c:if test="${result.type != 'staticpage'}">
@@ -128,7 +128,7 @@
     					        <c:if test="${result.type=='comment'}"><a href="/concern.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&id=${result.concernid}">id=${result.concernid}#commentAnchor${result.commentid}">View this ${result.type}</a></c:if>
     					        <c:if test="${result.type=='project'}"><a target="_blank" href="/projectAlt.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&altrefId=${result.projectaltid}&critSuiteId=${experiment.critSuite.id}">View this ${result.type}</a></c:if>
     					        <c:if test="${result.type=='userprofile'}"><a href="/publicprofile.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&user=${result.loginname}">View ${result.loginname}'s Profile</a></c:if>
-                      <c:if test="${result.type=='staticpage'}"><a href="${result.url}?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&">View ${result.title}</a></c:if>
+                      <c:if test="${result.type=='staticpage'}"><a href="${result.url}?workflowId=${param.workflowId}">View ${result.title}</a></c:if>
         					</p>
     					</li>
 		                </c:forEach>
