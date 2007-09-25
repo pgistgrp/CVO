@@ -9,8 +9,6 @@
 
 
 <pg:fragment type="html">
-  <pg:grab var="suite" name="org.pgist.report.ReportSuite" id="${infoStructure.suiteId}" />
-  
 	<!--####
 		Project: Let's Improve Transportation!
 		Page: SDR Structure Target
@@ -63,28 +61,29 @@
 		</span></div>
 	</div>
 		<!-- end voting tally menu -->
-
+  <pg:grab var="suite" name="org.pgist.report.ReportSuite" id="${infoStructure.suiteId}" />
+  <pg:narrow name="suite" />
 	<div id="summary" class="box3 floatLeft">
 		<h3 class="headerColor">Let's Improve Transportation Final Report: Executive Summary (DRAFT)</h3>
 		<div id="executiveSummary">
 			<p>This report describes the results of the </em>Let's Improve Transportation Challenge</em>, 
 			  an online experiment in participatory democracy facilitated by researchers at the University of Washington. 
-			  ${statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn 
+			  ${suite.statsES.totalUsers} residents of King, Pierce, and Snohomish county worked together over the course of four weeks to learn 
 			  about transportation problems, discuss their concerns, and collectively recommend a package of improvement 
 			  projects and funding sources to address regional transportation needs.</p>
-			<p>The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region.
+			<p>The recommended package contains ${suite.statsES.totalProjects} road and transit projects across the three-county region.
 				It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				fees. The total cost of the package is
 				
-				<c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
-				$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.
+				<c:if test="${suite.statsES.totalCost > 999999 && suite.statsES.totalCost < 1000000000}">
+				$<fmt:formatNumber type="number" maxFractionDigits="1">${suite.statsES.totalCost/1000000}</fmt:formatNumber> Million.
 				</c:if>
-				<c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
-				$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.
+				<c:if test="${suite.statsES.totalCost > 999999999 && suite.statsES.totalCost < 1000000000000}">
+				$<fmt:formatNumber type="number" maxFractionDigits="1">${suite.statsES.totalCost/1000000000}</fmt:formatNumber> Billion.
 				</c:if>.
 				
-				<c:set var="numEndorsed" value="${statsES.numEndorsed}" />
-        <c:set var="totalVotes" value="${statsES.totalVotes}" />
+				<c:set var="numEndorsed" value="${suite.statsES.numEndorsed}" />
+        <c:set var="totalVotes" value="${suite.statsES.totalVotes}" />
         <c:choose>
         	<c:when test="${totalVotes == 0}">
         		*** Error no users voted on this package ***
