@@ -144,7 +144,7 @@ public class FundingServiceImpl implements FundingService {
 		//Get the users last commute object		
 		UserCommute commute = tempUser.getUserCommute();
 		copyAcrossTolls(user.getTolls(), commute);
-				
+		
 		float totalVValue = 0;
 		float totalMilesDrive = 0;
 		float avgMPG = 0;
@@ -174,7 +174,7 @@ public class FundingServiceImpl implements FundingService {
 		user.getCosts().clear();
 		Iterator<FundingSourceRef> refs = suite.getReferences().iterator();
 		while(refs.hasNext()) {
-			TaxCalcUtils.createReport(refs.next().getSource(), user.getCosts(), 
+			TaxCalcUtils.createReport(refs.next(), user.getCosts(), 
 					user.getAnnualConsume(), tempUser.getVehicles().size(), totalVValue, totalMilesDrive, avgMPG, user.getCostPerGallon() );
 		}
 		

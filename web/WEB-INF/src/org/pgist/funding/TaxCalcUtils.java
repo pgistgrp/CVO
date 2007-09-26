@@ -204,55 +204,55 @@ public class TaxCalcUtils {
 	 * @param	source	The funding source
 	 * @param	costs	The costs object to put the report into
 	 */
-	public static void createReport(FundingSource source,
+	public static void createReport(FundingSourceRef sourceRef,
 			List<PersonalFundingCostDTO> costs, float consumption,
 			int numVehicles, float vehicleValue, float milesDriven, float mpg,
-			float gasCost) {		
-		if(source.getAlternatives().size() > 0) {
+			float gasCost) {
+	    FundingSource source = sourceRef.getSource();
+	    
+		if(sourceRef.getAltRefs().size() > 0) {
 			switch (source.getType()) {
-
-			case FundingSource.TYPE_EMPLOYER_EXCISE_TAX:	
-				costs.add(createEmployerExciseTaxReport(source));
-				break;
-			case FundingSource.TYPE_GAS_TAX:			
-				costs.add(createGasTaxReport(source, milesDriven, mpg));
-				break;
-			case FundingSource.TYPE_LICENSE:			
-				costs.add(createVehicleLicenseTaxReport(source, numVehicles));
-				break;
-			case FundingSource.TYPE_MOTOR_TAX:			
-				costs.add(createVehicleExciseReport(source, vehicleValue));
-				break;
-			case FundingSource.TYPE_PARKING_TAX:
-				//TODO I'm ignoring this type because you can only calculate it if it is already
-				//loaded as a UserFundingSourceToll
-				//costs.add(createParkingTaxReport(source));
-				break;
-			case FundingSource.TYPE_SALES_GAS_TAX:			
-				costs.add(createGasSalesTaxReport(source, gasCost, milesDriven, mpg));
-				break;
-			case FundingSource.TYPE_SALES_TAX:			
-				costs.add(createSalesTaxReport(source, consumption));
-				break;
-			case FundingSource.TYPE_TOLLS:			
-				//TODO I'm ignoring this type because you can only calculate it if it is already
-				//loaded as a UserFundingSourceToll
-				//costs.add(createTollsTaxReport(source));
-				break;
-
-			default:
-				break;
-			} 			
+    			case FundingSource.TYPE_EMPLOYER_EXCISE_TAX:	
+    				costs.add(createEmployerExciseTaxReport(sourceRef));
+    				break;
+    			case FundingSource.TYPE_GAS_TAX:			
+    				costs.add(createGasTaxReport(sourceRef, milesDriven, mpg));
+    				break;
+    			case FundingSource.TYPE_LICENSE:			
+    				costs.add(createVehicleLicenseTaxReport(sourceRef, numVehicles));
+    				break;
+    			case FundingSource.TYPE_MOTOR_TAX:			
+    				costs.add(createVehicleExciseReport(sourceRef, vehicleValue));
+    				break;
+    			case FundingSource.TYPE_PARKING_TAX:
+    				//TODO I'm ignoring this type because you can only calculate it if it is already
+    				//loaded as a UserFundingSourceToll
+    				//costs.add(createParkingTaxReport(source));
+    				break;
+    			case FundingSource.TYPE_SALES_GAS_TAX:			
+    				costs.add(createGasSalesTaxReport(sourceRef, gasCost, milesDriven, mpg));
+    				break;
+    			case FundingSource.TYPE_SALES_TAX:			
+    				costs.add(createSalesTaxReport(sourceRef, consumption));
+    				break;
+    			case FundingSource.TYPE_TOLLS:			
+    				//TODO I'm ignoring this type because you can only calculate it if it is already
+    				//loaded as a UserFundingSourceToll
+    				//costs.add(createTollsTaxReport(sourceRef));
+    				break;
+    
+    			default:
+    				break;
+			}//switch
 		}
 	}
 	
 	
-	
-	private static PersonalFundingCostDTO createSalesTaxReport(FundingSource source, float consumption) {
+	private static PersonalFundingCostDTO createSalesTaxReport(FundingSourceRef sourceRef, float consumption) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
 		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
 		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
+		headers.add(sourceRef.getSource().getName());						
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("tax rate");
@@ -263,18 +263,14 @@ public class TaxCalcUtils {
 		headers.add(" ");
 		headers.add(" ");
 		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createSalesTaxAlternative(tempAlt, consumption));
+		
+		for (FundingSourceAltRef altRef : sourceRef.getAltRefs()) {
+		    datas.add(createSalesTaxAlternative(altRef.getAlternative(), consumption));
 		}
 		
 		return pfcost;
 	}
+	
 	
 	private static PersonalFundingCostAlternativeDTO createSalesTaxAlternative(FundingSourceAlternative alt, float consumption) {
 
@@ -297,11 +293,11 @@ public class TaxCalcUtils {
 	
 
 	
-	private static PersonalFundingCostDTO createGasSalesTaxReport(FundingSource source, float gasCost, float milesDriven, float mpg) {
+	private static PersonalFundingCostDTO createGasSalesTaxReport(FundingSourceRef sourceRef, float gasCost, float milesDriven, float mpg) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
 		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
 		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
+		headers.add(sourceRef.getSource().getName());						
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("tax rate");
@@ -312,15 +308,10 @@ public class TaxCalcUtils {
 		headers.add(" ");
 		headers.add("mpg");
 		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createGasSalesTaxAlternative(tempAlt,gasCost, milesDriven, mpg));
-		}			
+		
+		for (FundingSourceAltRef altRef : sourceRef.getAltRefs()) {
+		    datas.add(createGasSalesTaxAlternative(altRef.getAlternative(),gasCost, milesDriven, mpg));
+		}
 		
 		return pfcost;
 	}
@@ -346,11 +337,11 @@ public class TaxCalcUtils {
 		return pfcost;
 	}	
 	
-	private static PersonalFundingCostDTO createVehicleLicenseTaxReport(FundingSource source, int numVehicles) {
+	private static PersonalFundingCostDTO createVehicleLicenseTaxReport(FundingSourceRef sourceRef, int numVehicles) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
 		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
 		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
+		headers.add(sourceRef.getSource().getName());						
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("Tax Rate");
@@ -361,15 +352,10 @@ public class TaxCalcUtils {
 		headers.add(" ");
 		headers.add(" ");
 		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createMotorAlternative(tempAlt, numVehicles));
-		}			
+		
+		for (FundingSourceAltRef altRef : sourceRef.getAltRefs()) {
+		    datas.add(createMotorAlternative(altRef.getAlternative(), numVehicles));
+		}
 		
 		return pfcost;
 	}
@@ -394,11 +380,11 @@ public class TaxCalcUtils {
 		return pfcost;
 	}	
 			
-	private static PersonalFundingCostDTO createVehicleExciseReport(FundingSource source, float vehicleValue) {
+	private static PersonalFundingCostDTO createVehicleExciseReport(FundingSourceRef sourceRef, float vehicleValue) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
 		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
 		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
+		headers.add(sourceRef.getSource().getName());						
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("tax rate");
@@ -409,15 +395,10 @@ public class TaxCalcUtils {
 		headers.add(" ");
 		headers.add(" ");
 		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createVehicleExciseAlternative(tempAlt, vehicleValue));
-		}			
+		
+		for (FundingSourceAltRef altRef : sourceRef.getAltRefs()) {
+		    datas.add(createVehicleExciseAlternative(altRef.getAlternative(), vehicleValue));
+		}
 		
 		return pfcost;
 	}
@@ -443,11 +424,11 @@ public class TaxCalcUtils {
 		return pfcost;
 	}	
 	
-	private static PersonalFundingCostDTO createGasTaxReport(FundingSource source, float milesDrive, float mpg) {
+	private static PersonalFundingCostDTO createGasTaxReport(FundingSourceRef sourceRef, float milesDrive, float mpg) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
 		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
 		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
+		headers.add(sourceRef.getSource().getName());						
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("tax rate");
@@ -458,15 +439,10 @@ public class TaxCalcUtils {
 		headers.add(" ");
 		headers.add(" ");
 		pfcost.setHeaders(headers);
-
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createGasTaxAlternative(tempAlt, milesDrive, mpg));
-		}			
+		
+		for (FundingSourceAltRef altRef : sourceRef.getAltRefs()) {
+		    datas.add(createGasTaxAlternative(altRef.getAlternative(), milesDrive, mpg));
+		}
 		
 		return pfcost;
 	}
@@ -493,11 +469,11 @@ public class TaxCalcUtils {
 		return pfcost;
 	}	
 		
-	private static PersonalFundingCostDTO createEmployerExciseTaxReport(FundingSource source) {
+	private static PersonalFundingCostDTO createEmployerExciseTaxReport(FundingSourceRef sourceRef) {
 		PersonalFundingCostDTO pfcost = new PersonalFundingCostDTO();
 		List<PersonalFundingCostAlternativeDTO> datas = pfcost.getAlternatives();		
 		List<String> headers = new ArrayList<String>();
-		headers.add(source.getName());						
+		headers.add(sourceRef.getSource().getName());						
 		headers.add("Cost to you");
 		headers.add("=");
 		headers.add("Tax Rate");
@@ -509,14 +485,9 @@ public class TaxCalcUtils {
 		headers.add(" ");
 		pfcost.setHeaders(headers);
 
-		Iterator<FundingSourceAlternative> alt = source.getAlternatives().iterator();
-		FundingSourceAlternative tempAlt;
-		PersonalFundingCostAlternativeDTO p1;
-		while(alt.hasNext()) {
-			
-			tempAlt = alt.next();
-			datas.add(createEmployerExciseAlternative(tempAlt));
-		}			
+        for (FundingSourceAltRef tempAltRef : sourceRef.getAltRefs()) {
+            datas.add(createEmployerExciseAlternative(tempAltRef.getAlternative()));
+        }//for
 		
 		return pfcost;
 	}
