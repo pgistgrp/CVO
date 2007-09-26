@@ -185,10 +185,12 @@
 							</tr>";						
 						var tolls = data.user.tolls;
 						for(i=0;i<tolls.length;i++){
+						  var peakRate = (tolls[i].peakTrips) ? tolls[i].peakTrips : 2;
+						  var offPeakRate = (tolls[i].offPeakTrips) ? tolls[i].peakTrips : 8;
 							var tollTr = '<tr>\
-							    <td class="fundingSourceItem">'+tolls[i].name+'</td>\
-								<td><input id="tollPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].peakTrips+'"></td>\
-								<td><input id="tollOffPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+tolls[i].offPeakTrips+'"></td>\
+							  <td class="fundingSourceItem">'+tolls[i].name+'</td>\
+								<td><input id="tollPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+ peakRate +'"></td>\
+								<td><input id="tollOffPeak'+tolls[i].id+'" size="3" maxlength="3" type="text" value="'+ offPeakRate +'"></td>\
 							</tr>';
 							trText += tollTr;
 						}
