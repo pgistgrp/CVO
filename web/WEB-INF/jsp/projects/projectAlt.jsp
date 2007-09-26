@@ -279,15 +279,15 @@ the column labels. */
 									<p><b>Objectives:</b></p>	
 									<c:forEach var="gradeObj" items="${critGrade.objectives}" varStatus="loop">
 								        <li>
-								        ${gradeObj.objective.description}:
-									    <c:choose>
+								        									    <div class="rating"><c:choose>
 									        <c:when test="${gradeObj.grade != null}">                                                    
     									        <c:out value="${pg:verboseGradeSwitch(gradeObj.grade)}"/>
     									    </c:when>
     									    <c:otherwise>
     									        No grade available.
 									        </c:otherwise>
-								        </c:choose>
+								        </c:choose></div>
+								        ${gradeObj.objective.description}
 								        </li>
 									</c:forEach>
 								</ul>
