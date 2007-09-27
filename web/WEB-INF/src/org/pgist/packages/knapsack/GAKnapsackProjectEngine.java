@@ -18,7 +18,7 @@ import org.jgap.impl.IntegerGene;
  * @author kenny
  *
  */
-public class GAKnapsackEngine {
+public class GAKnapsackProjectEngine {
     
     
     /**
@@ -33,7 +33,7 @@ public class GAKnapsackEngine {
      * @throws Exception
      */
     private static IChromosome findBestSolution(
-        GAKnapsackFitnessFunction fitnessFunction,
+        GAKnapsackProjectFitnessFunction fitnessFunction,
         final int evolutionTimes,
         final int populationSize
     ) throws Exception {
@@ -152,7 +152,7 @@ public class GAKnapsackEngine {
     ) throws Exception {
         ArrayList<KSItem> result = new ArrayList<KSItem>();
         
-        GAKnapsackFitnessFunction fitnessFunction = new GAKnapsackFitnessFunction(choices, limit);
+        GAKnapsackProjectFitnessFunction fitnessFunction = new GAKnapsackProjectFitnessFunction(choices, limit);
         
         IChromosome chromosome = findBestSolution(fitnessFunction, evolutionTimes, populationSize);
         

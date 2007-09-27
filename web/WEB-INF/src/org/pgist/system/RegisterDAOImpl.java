@@ -171,7 +171,14 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		user.setBusDays(bus);
 		user.setBikeDays(bike);
 		user.setWalkDays(walk);
-		user.setEnabled(true);
+        user.setEnabled(true);
+        
+        /*
+         * Temp: Zhong Wang
+         *       At present we temporarily disable registered users.
+         */
+        user.setEnabled(false);
+        
 		save(user);
 	} //addQuestionnaire()
 	

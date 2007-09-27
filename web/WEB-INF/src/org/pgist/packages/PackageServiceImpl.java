@@ -34,6 +34,8 @@ import org.pgist.packages.cluster.PAMClusterer;
 import org.pgist.packages.cluster.PackageItem;
 import org.pgist.packages.cluster.ProjectItemFactory;
 import org.pgist.packages.knapsack.GAKnapsackEngine;
+import org.pgist.packages.knapsack.GAKnapsackFundingEngine;
+import org.pgist.packages.knapsack.GAKnapsackProjectEngine;
 import org.pgist.packages.knapsack.KSChoices;
 import org.pgist.packages.knapsack.KSItem;
 import org.pgist.projects.GradedCriteria;
@@ -1242,8 +1244,9 @@ public class PackageServiceImpl implements PackageService {
 		
 		//Save the result
 		this.packageDAO.save(upack);		
-	}    
-
+	}//createKSUserPackage()
+	
+	
 	/**
 	 * Returns all of the users weights they assigned for the different criteria
 	 * 
@@ -1325,7 +1328,7 @@ public class PackageServiceImpl implements PackageService {
 		if(totalFunding < 0) throw new BudgetExceededException("The projects selected exceed the budget limits you provided");
 		
 		//Send the collection to the KSAlgorithm
-		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, totalFunding, 500, 200);
+		Collection<KSItem> result = GAKnapsackProjectEngine.mcknap(choiceCol, totalFunding);
 		
 		//Add the resulting items to the users package
 		Iterator<KSItem> resultIter = result.iterator();
@@ -1334,7 +1337,8 @@ public class PackageServiceImpl implements PackageService {
 			tempProjectKSI = (ProjectKSItem)resultIter.next();
 			upack.getProjAltRefs().add(tempProjectKSI.getProjectAltRef());
 		}
-	}
+	}//findBestProjectSolution()
+	
 	
 	/**
 	 * Calculates the profit for the user (meaining how much they like this project) based off of
@@ -1408,14 +1412,14 @@ public class PackageServiceImpl implements PackageService {
 				
 				//Get the users opinion on this alternative
 				choice = (Integer)conf.getFundingChoices().get(tempFSourceAlt.getId());
-//System.out.println("User choose a " + choice + " for tempFSourceAlt" + tempFSourceAlt.getId() + " Cost " + myFundingCost);				
+				//System.out.println("User choose a " + choice + " for tempFSourceAlt" + tempFSourceAlt.getId() + " Cost " + myFundingCost);				
 				if(choice == null) choice = TunerConfig.MAYBE;
 				
 				//figure out what to do with the item
 				switch (choice) {
 					case TunerConfig.MAYBE:
                         //Set the profit and cost for this item, we only sort on the users cost
-						FundingSourceKSItem tempFSKSI = new FundingSourceKSItem(choices, tempFSourceAltRef, myFundingCost);
+						FundingSourceKSItem tempFSKSI = new FundingSourceKSItem(choices, tempFSourceAltRef, myFundingCost, tempFSourceAltRef.getAlternative().getAvgCost());
 						break;
 					case TunerConfig.MUST_HAVE:
 						//Find the must haves and add them to the package
@@ -1442,7 +1446,7 @@ public class PackageServiceImpl implements PackageService {
 		mylimit = mylimit - mybudget;
 		
 		//Send the collection to the KSAlgorithm
-		Collection<KSItem> result = GAKnapsackEngine.mcknap(choiceCol, mylimit);
+		Collection<KSItem> result = GAKnapsackFundingEngine.mcknap(choiceCol, mylimit);
 		
 		//Add the resulting items to the users package
 		Iterator<KSItem> resultIter = result.iterator();
@@ -1451,7 +1455,7 @@ public class PackageServiceImpl implements PackageService {
 			tempFSKSI = (FundingSourceKSItem)resultIter.next();
 			upack.getFundAltRefs().add(tempFSKSI.getFundingSourceAltRef());
 		}
-	}
+	}//findBestFundingSourceSolution()
 
 
     public PackageVoteSuite createPackageVoteSuite(Long pkgSuiteId, boolean finalVote) throws Exception {

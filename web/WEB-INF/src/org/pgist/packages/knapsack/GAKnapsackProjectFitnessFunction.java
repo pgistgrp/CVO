@@ -10,18 +10,18 @@ import org.jgap.impl.IntegerGene;
  * @author kenny
  *
  */
-class GAKnapsackFitnessFunction extends FitnessFunction {
+class GAKnapsackProjectFitnessFunction extends FitnessFunction {
     
     
     public static final double MAX_BOUND = 1E20;
-
+    
     
     private KSChoices[] choices;
     
     private double limit;
     
     
-    public GAKnapsackFitnessFunction(KSChoices[] choices, double limit) {
+    public GAKnapsackProjectFitnessFunction(KSChoices[] choices, double limit) {
         if (limit<1 || limit>=MAX_BOUND) {
             throw new IllegalArgumentException("Knapsack volumen must be between 1 and " + MAX_BOUND + ".");
         }
@@ -55,14 +55,13 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
         IntegerGene gene = null;
         KSItem item = null;
         
-        /**/
+        /*
         for (int i=0; i<chromosome.size(); i++) {
             gene = (IntegerGene) chromosome.getGene(i);
-            //item = (KSItem) gene.getApplicationData();
-            System.out.println("---> "+gene.getApplicationData());
-            //totalCost += gene.intValue() * item.getCost();
+            item = (KSItem) gene.getApplicationData();
+            totalCost += gene.intValue() * item.getCost();
         }//for i
-        /**/
+        */
         
         int k = 0;
         for (int i=0; i<choices.length; i++) {
@@ -172,4 +171,4 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
     }//evaluate()
     
     
-}//class KnapsackFitnessFunction
+}//class GAKnapsackProjectFitnessFunction

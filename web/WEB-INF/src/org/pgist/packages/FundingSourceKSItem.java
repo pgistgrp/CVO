@@ -14,9 +14,19 @@ public class FundingSourceKSItem extends KSItem {
     
     FundingSourceAltRef fundingSourceAltRef;
     
+    private double avgCost;
     
-    public FundingSourceKSItem(KSChoices choices, FundingSourceAltRef fundingSourceAltRef, double cost) {
+    
+    /**
+     * 
+     * @param choices
+     * @param fundingSourceAltRef
+     * @param cost
+     * @param avgCost cost to average person
+     */
+    public FundingSourceKSItem(KSChoices choices, FundingSourceAltRef fundingSourceAltRef, double cost, double avgCost) {
         super(choices, cost, fundingSourceAltRef.getAlternative().getRevenue());
+        this.avgCost = avgCost;
         this.fundingSourceAltRef = fundingSourceAltRef;
     }
     
@@ -29,4 +39,9 @@ public class FundingSourceKSItem extends KSItem {
 	}
 	
 	
+    public double getAvgCost() {
+        return avgCost;
+    }
+
+
 }//class FundingSourceKSItem
