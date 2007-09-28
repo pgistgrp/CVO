@@ -182,13 +182,15 @@
     
     <filter-mapping>
         <filter-name>CheckRoleFilter</filter-name>
+        <!-- Agenda -->
         <url-pattern>/agendaManager.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.createInstance.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.nextStep.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.startWorkflow.dwr</url-pattern>
-        <url-pattern>/usermgr.do</url-pattern>
+        <!-- Situation Templates -->
         <url-pattern>/templateSelect.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/OtherAgent.setSituationTemplate.dwr</url-pattern>
+        <!-- CVO/CST -->
         <url-pattern>/catsTree.do</url-pattern>
         <url-pattern>/cstview.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/CSTAgent.addCategory.dwr</url-pattern>
@@ -200,11 +202,13 @@
         <url-pattern>/dwr/call/plaincall/CSTAgent.moveCategory.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CSTAgent.relateTag.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CSTAgent.saveSummary.dwr</url-pattern>
+        <!-- Tag Management -->
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.createStopWord.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.createTag.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteStopWord.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteTag.dwr</url-pattern>
+        <!-- Project Management -->
         <url-pattern>/projectManage.do</url-pattern>
         <url-pattern>/projectDefine.do</url-pattern>
         <url-pattern>/projectGrading.do</url-pattern>
@@ -219,6 +223,7 @@
         <url-pattern>/dwr/call/plaincall/ProjectAgent.setGrading.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/ProjectAgent.setProjectDefine.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/ProjectAgent.useFootprint.dwr</url-pattern>
+        <!-- Funding Management -->
         <url-pattern>/fundingManage.do</url-pattern>
         <url-pattern>/fundingDefine.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/FundingAgent.createFundingSource.dwr</url-pattern>
@@ -228,18 +233,21 @@
         <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSource.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSourceAlt.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/FundingAgent.setFundingDef.dwr</url-pattern>
+        <!-- Pakcage Management -->
         <url-pattern>/editClusteredPackage.do</url-pattern>
         <url-pattern>/packageMgr.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/PackageAgent.createClusteredPackage.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/PackageAgent.createClusteredPackages.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/PackageAgent.deleteClusteredPackage.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/PackageAgent.setManualPkgDesc.dwr</url-pattern>
+        <!-- Glossary Managemenet -->
         <url-pattern>/glossaryManage.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.acceptTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteComment.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.rejectTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.saveTerm.dwr</url-pattern>
+        <!-- Criteria Management -->
         <url-pattern>/criteriaMgr.do</url-pattern>
         <url-pattern>/criteriaDefine.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.getEditCriterion.dwr</url-pattern>
@@ -248,6 +256,31 @@
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.deleteCriterion.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.deleteObjective.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/CriteriaAgent.addAssocCriterion.dwr</url-pattern>
+        <!-- System -->
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/feedback.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getAllUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getUserById.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.editUser.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.disableUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteUser.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.enableUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getEnabledUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getDisabledUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getEmailList.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.resetPassword.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.setQuota.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.setQuotaLimit.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.createQuotaStats.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.addCounty.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.addZipCodes.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.editCountyName.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteZipCodes.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getAllCounties.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteCounty.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.addAnnouncement.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.editAnnouncement.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteAnnouncement.dwr</url-pattern>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>REQUEST</dispatcher>

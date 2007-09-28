@@ -411,7 +411,6 @@ public class RegisterAgent {
     	Map map = new HashMap();
         map.put("successful", false);
         
-        
         try {
         	registerService.deleteUser();
             map.put("successful", true);

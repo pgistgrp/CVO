@@ -33,7 +33,6 @@ public class FeedbackAction extends Action {
     private SystemService systemService;
     
     
-    
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
     }
