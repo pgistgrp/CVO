@@ -125,12 +125,10 @@ class GAKnapsackFitnessFunction extends FitnessFunction {
      * @return bonus for given volume difference
      */
     private double costDifferenceBonus(double costDifference) {
-        if (costDifference == 0) {
-            return MAX_BOUND;
-        } else if (costDifference < 0) {
+        if (costDifference < 0) {
             return -MAX_BOUND;
         } else {
-            return MAX_BOUND/3 - (costDifference * costDifference);
+            return MAX_BOUND/2 - (costDifference * costDifference * costDifference * costDifference);
         }
     }//costDifferenceBonus()
     
