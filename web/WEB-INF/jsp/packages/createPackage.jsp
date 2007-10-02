@@ -590,9 +590,19 @@
 														<td class="cost">
 															$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.cost/1000000}" /> million</td>
 													</tr>
-													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
-														<c:set var="doNothing"value="false"/>
-													</c:if>
+													<c:choose>
+													 <c:when test="${userPkg != nul}">
+													   <c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
+   														<c:set var="doNothing"value="false"/>
+   													</c:if>
+													 </c:when>
+													 <c:otherwise>
+													   <c:if test="${pg:contains(package.projAltRefs,altRef) && package != null}">
+   														<c:set var="doNothing"value="false"/>
+   													</c:if>
+													 </c:otherwise>
+													</c:choose>
+
 												</c:forEach>
 												<c:if test="${projectRef.project.inclusive}">
 													<tr>
