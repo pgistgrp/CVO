@@ -146,7 +146,7 @@ class GAKnapsackFundingFitnessFunction extends FitnessFunction {
     
     
     private double costToAvgResBonus(double costToAvgRes) {
-        return MAX_BOUND/3 - (costToAvgRes * costToAvgRes * costToAvgRes);
+        return MAX_BOUND/2 - (costToAvgRes * costToAvgRes);
     }//costToAvgResBonus()
 
     
