@@ -193,11 +193,13 @@ class GAKnapsackFundingFitnessFunction extends FitnessFunction {
         double costToAvgRes = getCostToAvgRes(chromosome);
         double totalBenefit = getTotalBenefit(chromosome);
         
+        /*
         double maxValue = Math.max(Math.max(costDifference, costToAvgRes), totalBenefit);
         double minValue = Math.min(Math.min(costDifference, costToAvgRes), totalBenefit);
         costDifference = (1+(costDifference - minValue)/(maxValue - minValue))*100;
         costToAvgRes = (1+(costToAvgRes - minValue)/(maxValue - minValue))*100;
         totalBenefit = (1+(totalBenefit - minValue)/(maxValue - minValue))*100;
+        */
         
         double fitness = 0.0d;
         
