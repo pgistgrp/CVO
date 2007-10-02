@@ -200,6 +200,7 @@ class GAKnapsackFundingFitnessFunction extends FitnessFunction {
         fitness += costToAvgResBonus(costToAvgRes);
         
         // Make sure fitness value is always positive.
+        System.out.println("***** Fitness: "+fitness);
         return Math.max(1.0d, fitness);
     }//evaluate()
     
