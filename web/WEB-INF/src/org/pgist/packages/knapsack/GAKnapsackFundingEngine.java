@@ -115,8 +115,8 @@ public class GAKnapsackFundingEngine {
         
         for (int i=0; i<initGenes.size(); i++) {
             temp[i] = initGenes.get(i);
-            for (int j=temp[i].getLowerBounds()+1; j<temp[i].getUpperBounds(); j++) {
-                temp[i].setAllele(j);
+            for (int j=temp[i].getLowerBounds(); j<temp[i].getUpperBounds(); j++) {
+                temp[i].setAllele(j+1);
                 IChromosome possibility = new Chromosome(conf, temp);
                 initialPopulation.addChromosome(possibility);
             }
