@@ -196,7 +196,7 @@ class GAKnapsackFundingFitnessFunction extends FitnessFunction {
         double fitness = 0.0d;
         
         fitness += costDifferenceBonus(costDifference);
-        fitness += benefitBonus(totalBenefit);
+        //fitness += benefitBonus(totalBenefit);
         fitness += costToAvgResBonus(costToAvgRes);
         
         // Make sure fitness value is always positive.
