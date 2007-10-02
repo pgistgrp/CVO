@@ -14,6 +14,8 @@ public class UserFundingSourceTollDTO implements Comparable<UserFundingSourceTol
 	 */
 	private String name;
 	
+	private String location;
+	
 	/**
 	 * Records if the user uses this funding source at all
 	 */
@@ -55,7 +57,17 @@ public class UserFundingSourceTollDTO implements Comparable<UserFundingSourceTol
 		this.name = name;
 	}
 
-	/**
+	public String getLocation() {
+        return location;
+    }
+
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+
+    /**
 	 * @return the offPeakTrips
    	 */
 	public int getOffPeakTrips() {
@@ -109,7 +121,8 @@ public class UserFundingSourceTollDTO implements Comparable<UserFundingSourceTol
 
 	
 	public void loadFromToll(UserFundingSourceToll tempToll) {
-		this.setName(tempToll.getName());
+	    this.setName(tempToll.getName());
+		this.setLocation(tempToll.getFundingSource().getLocation());
 		this.setId(tempToll.getId());
 		this.setUsed(tempToll.isUsed());
 		this.setPeakTrips(tempToll.getPeakTrips());
