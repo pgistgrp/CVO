@@ -66,16 +66,19 @@ public class GAKnapsackProjectEngine {
         List<IntegerGene> initGenes = new ArrayList<IntegerGene>();
         
         IntegerGene gene = null;
+        int choiceCount = 0;
         for (KSChoices choices : fitnessFunction.getChoices()) {
             if (choices.isSingle()) {
                 sampleGenes.add(new IntegerGene(conf, 0, choices.getChoices().size()));
                 initGenes.add(new IntegerGene(conf, 0, choices.getChoices().size()));
+                choiceCount++;
             } else {
                 for (KSItem item : choices.getChoices()) {
                     gene = new IntegerGene(conf, 0, 1);
                     //gene.setApplicationData(item);
                     sampleGenes.add(gene);
                     initGenes.add(new IntegerGene(conf, 0, 1));
+                    choiceCount++;
                 }
             }
         }
@@ -109,6 +112,16 @@ public class GAKnapsackProjectEngine {
         }
         IChromosome initial1 = new Chromosome(conf, temp);
         initialPopulation.addChromosome(initial1);
+        
+        for (int i=0; i<initGenes.size(); i++) {
+            temp[i] = initGenes.get(i);
+            for (int j=temp[i].getLowerBounds()+1; j<temp[i].getUpperBounds(); j++) {
+                temp[i].setAllele(j);
+                IChromosome possibility = new Chromosome(conf, temp);
+                initialPopulation.addChromosome(possibility);
+            }
+            temp[i].setAllele(0);
+        }
         
         Genotype population = new Genotype(conf, initialPopulation);
         
