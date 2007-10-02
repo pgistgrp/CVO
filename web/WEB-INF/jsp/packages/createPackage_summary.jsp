@@ -53,14 +53,14 @@
 		</td>
 	</tr>
 	
-	<c:if test="${userPkg != null}">
+	<c:if test="${package != null}">
 		<tr>
-			<td><strong>Cost to you:</strong></td>
+			<td><strong>Total cost to you:</strong></td>
 			<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
 		</tr>
 	</c:if>
 	<tr>
-		<td><strong>Cost to the average resident:</strong></td>
+		<td><strong>Total cost to the average resident:</strong></td>
 		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
 	</tr>
 	<tr>
