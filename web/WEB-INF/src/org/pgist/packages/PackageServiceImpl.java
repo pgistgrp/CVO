@@ -1446,7 +1446,7 @@ public class PackageServiceImpl implements PackageService {
 		mylimit = mylimit - mybudget;
 		
 		//Send the collection to the KSAlgorithm
-		Collection<KSItem> result = GAKnapsackFundingEngine.mcknap(choiceCol, mylimit, 100, 300);
+		Collection<KSItem> result = GAKnapsackFundingEngine.mcknap(choiceCol, mylimit, 500, 500);
 		
 		//Add the resulting items to the users package
 		Iterator<KSItem> resultIter = result.iterator();
