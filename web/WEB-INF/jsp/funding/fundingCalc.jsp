@@ -331,7 +331,7 @@
 			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
 				<c:forEach var="toll" items="${user.tolls}" varStatus="loop">
 					<input name="myCommute" id="myCommute-${toll.id}" type="checkbox" ${(toll.used) ? "CHECKED": ""}/>
-					${toll.fundingSource.location}<br />
+					${toll.fundingSource}<br />
 				</c:forEach>
 			</div>
 			
