@@ -165,7 +165,7 @@
 				<br />
 				<div id="newTable" class="stripWS">
 					<h3 class="headerColor">3. Which choices are you sure about?</h3>
-         <label>Mark the projects and funding sources that you want to include or exclude from the package that will be created.</label><br/>
+         <label>Mark the projects and funding sources that you want to include or exclude from the package that will be created. Feel free to leave any or all the choices as "No opinion".</label><br/><br/>
 					<div id="left" class="floatLeft">
 						<table cellpadding=0 cellspacing=0>
 							<!-- begin CATEGORY LABEL -->
@@ -270,8 +270,8 @@
 			<div class="clearBoth">
 			</div>
 			<div id="finished" class="box7">
-				<h3>Finished fine tuning your package?</h3>
-				<input type="button" id="goBtn" onClick="getTunerConfig();" value="I'm done. Show me my created package."/>
+				<h3>Are you ready to create a package?</h3>
+				<input type="button" id="goBtn" onClick="getTunerConfig();" value="I have completed this form. Show me a package."/>
 				<div class="clearBoth"></div>
 			</div>
 		</div>
