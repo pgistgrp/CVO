@@ -77,7 +77,12 @@ function redirectcancel() {
 <div id="reg2a">
 	<div class="">
 		<h3>Welcome ${baseuser.loginname}. You qualify to participate in Let's Improve Transportation!</h3>
-		<p>Congratulations! You are eligible to receive $40 if you participate in each stage of the Let’s Improve Transportation experiment (AKA the “<em>LIT Challenge</em>”), and an additional $20 for completing three questionnaires during the experiment. You can participate at your own convenience wherever you have access to the Internet. The LIT Challenge will take place over a 4 week period, starting <strong>October 1, 2007</strong> and concluding <strong>October 29, 2007</strong>. We estimate that full participation will take about 8-10 hours of your time, spread out over the 4-week period. However you are encouraged to spend as much time on the LIT website as you like. Details about the requirements for payment can be found in the informed consent agreement at the bottom of this page. If you prefer, you can also choose to participate as an <a href="#">unpaid volunteer</a>, with no requirements for your participation.</p>
+		<p>Congratulations! You are eligible to receive $40 if you participate in each stage of the Let's Improve Transportation experiment (AKA the "<em>LIT Challenge</em>"), 
+		  and an additional $20 for completing three questionnaires during the experiment. You can participate at your own convenience wherever 
+		  you have access to the Internet. The LIT Challenge will take place over a 4 week period, with an anticipated start date of <strong>October 15, 2007</strong>. 
+		  We estimate that full participation will take about 8-10 hours of your time, spread out over the 4-week period. However you are encouraged to spend as much time on the 
+		  LIT website as you like. Details about the requirements for payment can be found in the informed consent agreement at the bottom of this page. If you prefer, you can also choose 
+		  to participate as an <a href="#">unpaid volunteer</a>, with no requirements for your participation.</p>
 	</div>
 	<!-- begin OPPORTUNITIES -->
 	<form name="formreg2a">

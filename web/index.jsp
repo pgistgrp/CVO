@@ -92,7 +92,8 @@ small {display:block;margin-top:20px;}
 	<div id="text">
 		<div id="facts"><p>During the next 25 years the central Puget Sound population is expected to grow by <strong>1.2 million people</strong>.</p><p>How will this growth impact our already congested <strong>transportation system?</strong></p><p>What <strong>improvements</strong> are necessary to keep our region moving?</p><p><strong>Who</strong> gets to have a voice in this decision?</p><div class="clearBoth"></div></div>
 		<p>
-		<h1>Let's Improve Transportation is an experiment in participatory democracy. <a href="lmAbout.do">Learn more</a> about this research study or <a href="register.do">register now</a>.</h1>
+
+		<h1>Let's Improve Transportation is an experiment in participatory democracy. <a href="lmAbout.do">Learn more</a> about this research study or <b><a href="register.do">register now</a><b>.</h1>
 		<h4>Qualified participants may be eligible for compensation.</h4>
 		
 		<div id="login">
