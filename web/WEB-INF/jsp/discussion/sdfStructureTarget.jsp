@@ -86,16 +86,11 @@
 			</div>
 			<!-- begin cell containing Google Map object -->
 			<div id="obj-right" class="floatRight">
-				<h4 style="margin-top:0px;padding-top:0px;" class="headerColor centerAlign">The
-					cost of tax increases</h4>
-				<p>How did we come up with the annual personal cost figures?</p>
-				<ul>
-					<li>The estimates are based on data about residents in our region, such as income, miles driven per year, and average miles per gallon.</li>
-					<li>Your personal annual cost figures are estimated based on the information you provided during registration.</li>
-				</ul>
+				<h4 style="margin-top:0px;padding-top:0px;" class="headerColor centerAlign">How did we estimate the annual cost to you for the different funding options?</h4>
+				<p>The estimates are based on the information you provided during registration, like income, miles driven per year, and average miles per gallon.  To learn more about these estimates and make adjustments to the information you provided click the button below.</p>
 				<div class="floatLeft" style="margin:1em">
 				<a href="javascript:io.goToCalc();"><img src="images/calculator2.gif" border="0"></a> </div>
-				<div class="floatLeft padding5" style="width:190px;margin-top:50px;"> <a href="javascript:io.goToCalc();">Learn how these costs are estimated and make adjustments</a> </div>
+				<div class="floatLeft padding5" style="width:190px;margin-top:50px;"> <a href="javascript:io.goToCalc();">Click here to make adjustments and learn more</a> </div>
 			</div>
 			<!-- end cell containing Google Map object -->
 			<!-- begin firefox height hack -->
