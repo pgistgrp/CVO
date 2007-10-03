@@ -493,9 +493,13 @@
 					</c:choose>
 
 					<div id="helpMe" style="display:none;">
-						<p>*Using the information you provided during registration, we can put together
+									<p>We can help you get started on your package by creating one for you automatically.  You can then adjust the package and submit it when you are finished. To use this tool click the button and follow the instructions on the new browser window that opens.</p>
+   							<p></p>
+                  <div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Click here to use this tool</a></div>
+                 <!--Code commented out by Mike	
+					<p>Using the information you provided during registration, we can put together
 							a package for you automatically.  Enter the amount of money that you would be willing to pay annually to fund a package. Then click the button below. </p>
-						<form action="javascript:createMyPackage();">
+            <form action="javascript:createMyPackage();">
 							<h4>Cost per year that you are willing to pay</h4>
 			
               <div class="floatRight"> <span style="font-size:1.3em;">$<input type="text" size="3" id="mylimit" /></span></div>
@@ -503,6 +507,7 @@
 							<div style="margin-top:15px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
 							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">More tool options</a></div>
 						</form>
+            end code commented out by mike-->
 					</div><!--end help me-->
 					<div class="clearBoth"></div>
 
