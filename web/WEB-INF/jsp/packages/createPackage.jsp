@@ -493,7 +493,7 @@
 					</c:choose>
 
 					<div id="helpMe" style="display:none;">
-									<p>We can help you get started on your package by creating one for you automatically.  You can then adjust the package and submit it when you are finished. To use this tool click the button and follow the instructions on the new browser window that opens.</p>
+									<p>We can help you get started on your package by creating one for you automatically.  You can then adjust the package and submit it when you are finished. To use this tool click the button and follow the instructions on the new page that opens in another browser window.</p>
    							<p></p>
                   <div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Click here to use this tool</a></div>
                  <!--Code commented out by Mike	
