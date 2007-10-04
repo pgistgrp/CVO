@@ -67,7 +67,7 @@ public class GAKnapsackProjectEngine {
         
         IntegerGene gene = null;
         int choiceCount = 0;
-        for (KSChoices choices : fitnessFunction.getChoices()) {
+        for (KSChoices choices : fitnessFunction.getCalculator().getChoices()) {
             if (choices.isSingle()) {
                 sampleGenes.add(new IntegerGene(conf, 0, choices.getChoices().size()));
                 initGenes.add(new IntegerGene(conf, 0, choices.getChoices().size()));
@@ -160,12 +160,16 @@ public class GAKnapsackProjectEngine {
     public static Collection<KSItem> mcknap(
         KSChoices[] choices,
         double limit,
-        final int evolutionTimes,
-        final int populationSize
+        int evolutionTimes,
+        int populationSize
     ) throws Exception {
         ArrayList<KSItem> result = new ArrayList<KSItem>();
         
-        GAKnapsackProjectFitnessFunction fitnessFunction = new GAKnapsackProjectFitnessFunction(choices, limit);
+        GAKnapsackCalculator calculator = new GAKnapsackCalculator(choices, limit);
+        GAKnapsackProjectFitnessFunction fitnessFunction = new GAKnapsackProjectFitnessFunction(calculator, "/WEB-INF/config/knapsack-project.bsh");
+        
+        evolutionTimes = fitnessFunction.getEvolutionTimes();
+        populationSize = fitnessFunction.getPopulationSize();
         
         IChromosome chromosome = findBestSolution(fitnessFunction, evolutionTimes, populationSize);
         

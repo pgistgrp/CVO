@@ -263,6 +263,11 @@
         </action>
 
 
+        <action path="/gaTesting" scope="request" type="org.pgist.packages.knapsack.GATestingAction">
+            <forward name="view" path="/WEB-INF/jsp/packages/gaTesting.jsp" />
+        </action>
+
+
     </action-mappings>
 
 

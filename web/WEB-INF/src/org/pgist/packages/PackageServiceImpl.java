@@ -33,7 +33,6 @@ import org.pgist.packages.cluster.ItemCluster;
 import org.pgist.packages.cluster.PAMClusterer;
 import org.pgist.packages.cluster.PackageItem;
 import org.pgist.packages.cluster.ProjectItemFactory;
-import org.pgist.packages.knapsack.GAKnapsackEngine;
 import org.pgist.packages.knapsack.GAKnapsackFundingEngine;
 import org.pgist.packages.knapsack.GAKnapsackProjectEngine;
 import org.pgist.packages.knapsack.KSChoices;

@@ -145,6 +145,10 @@
 		</div>
 	<div id="top">
 			<h2 class="headerColor">Help me create a package</h2>
+      <pg:show roles="admin">
+        <a href="/gaTesting.do?type=Funding" target="_blank">Funding Algorithm</a> |
+        <a href="/gaTesting.do?type=Project" target="_blank">Project Algorithm</a>
+      </pg:show>
 			<div id="overview" class="box2">
 			<h3 class="headerColor">Instructions</h3>
 				<p>Complete this form and click the button at the bottom of this page to create a package.  You are able to adjust the package before you submit it on the main page.</p>

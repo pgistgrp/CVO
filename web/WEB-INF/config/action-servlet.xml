@@ -305,5 +305,9 @@
     </bean>
     
     
+    <bean name="/gaTesting" class="org.pgist.packages.knapsack.GATestingAction">
+    </bean>
+    
+    
 </beans>
 

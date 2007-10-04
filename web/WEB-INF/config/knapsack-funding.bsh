@@ -1,0 +1,61 @@
+/*
+ * Fitness function for selecting funding sources.
+**/
+
+import org.pgist.packages.knapsack.GAKnapsackCalculator;
+import org.pgist.packages.knapsack.GAKnapsackFitnessProxy;
+
+evolutionTimes = 100;
+populationSize = 100;
+
+fitnessFunction = new GAKnapsackFitnessProxy() {
+    
+    protected GAKnapsackCalculator calculator;
+    
+    /*
+     * Calculator.
+    **/
+    public void setCalculator(GAKnapsackCalculator calculator1) {
+        calculator = calculator1;
+    }
+    
+    /*
+     * -----------------------------------------------------------
+    **/
+    
+    double costDifferenceBonus(double costDifference) {
+        if (costDifference < 0) {
+            return -GAKnapsackCalculator.MAX_BOUND;
+        } else {
+            return GAKnapsackCalculator.MAX_BOUND/2 - (costDifference * costDifference * costDifference * costDifference);
+        }
+    }//costDifferenceBonus()
+    
+    double benefitBonus(double totalBenefit) {
+        return Math.min(GAKnapsackCalculator.MAX_BOUND, GAKnapsackCalculator.MAX_BOUND/3 + (totalBenefit * totalBenefit));
+    }//benefitBonus()
+    
+    double costToAvgResBonus(double costToAvgRes) {
+        return GAKnapsackCalculator.MAX_BOUND/2 - (costToAvgRes * costToAvgRes);
+    }//costToAvgResBonus()
+    
+    /*
+     * -----------------------------------------------------------
+    **/
+    
+    public double evaluate(chromosome) {
+        totalCost = calculator.getTotalCost(chromosome);
+        costDifference = calculator.limit - totalCost;
+        costToAvgRes = calculator.getCostToAvgRes(chromosome);
+        totalBenefit = calculator.getTotalBenefit(chromosome);
+        
+        fitness = 0.0d;
+        fitness += costDifferenceBonus(costDifference);
+        fitness += benefitBonus(totalBenefit);
+        fitness += costToAvgResBonus(costToAvgRes);
+        
+        return Math.max(1.0d, fitness);
+    }//evaluate()
+    
+};//class GAKnapsackFitnessProxy
+

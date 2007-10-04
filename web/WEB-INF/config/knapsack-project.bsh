@@ -1,0 +1,58 @@
+/*
+ * Fitness function for selecting projects.
+**/
+
+import org.pgist.packages.knapsack.GAKnapsackCalculator;
+import org.pgist.packages.knapsack.GAKnapsackFitnessProxy;
+
+evolutionTimes = 100;
+populationSize = 100;
+
+fitnessFunction = new GAKnapsackFitnessProxy() {
+    
+    protected GAKnapsackCalculator calculator;
+    
+    /*
+     * Calculator.
+    **/
+    public void setCalculator(GAKnapsackCalculator calculator1) {
+        calculator = calculator1;
+    }
+    
+    /*
+     * -----------------------------------------------------------
+    **/
+    
+    double costDifferenceBonus(double costDifference) {
+        if (costDifference == 0) {
+            return GAKnapsackCalculator.MAX_BOUND;
+        } else if (costDifference < 0) {
+            return -GAKnapsackCalculator.MAX_BOUND;
+        } else {
+            return GAKnapsackCalculator.MAX_BOUND/3 - (costDifference * costDifference);
+        }
+    }//costDifferenceBonus()
+    
+    double benefitBonus(double totalBenefit) {
+        return Math.min(GAKnapsackCalculator.MAX_BOUND, GAKnapsackCalculator.MAX_BOUND/3+ totalBenefit * totalBenefit);
+    }//benefitBonus()
+    
+    /*
+     * -----------------------------------------------------------
+    **/
+    
+    public double evaluate(chromosome) {
+        double totalCost = calculator.getTotalCost(chromosome);
+        double costDifference = calculator.limit - totalCost;
+        double totalBenefit = calculator.getTotalBenefit(chromosome);
+        double fitness = 0.0d;
+        
+        fitness += costDifferenceBonus(costDifference);
+        fitness += benefitBonus(totalBenefit);
+        
+        // Make sure fitness value is always positive.
+        return Math.max(1.0d, fitness);
+    }//evaluate()
+    
+};//class GAKnapsackFitnessProxy
+
