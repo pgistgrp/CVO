@@ -18,6 +18,7 @@
             <include method="getWorkflow"/>
             <include method="startWorkflow"/>
             <include method="nextStep"/>
+            <include method="setOpenAccess"/>
         </create>
 
 

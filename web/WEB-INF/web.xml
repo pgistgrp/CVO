@@ -187,6 +187,7 @@
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.createInstance.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.nextStep.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.startWorkflow.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.setOpenAccess.dwr</url-pattern>
         <!-- Situation Templates -->
         <url-pattern>/templateSelect.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/OtherAgent.setSituationTemplate.dwr</url-pattern>
