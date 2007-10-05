@@ -268,7 +268,7 @@
 									</select>  
 								</div>
 								<!--<input type="button" class="midsize_btns" value="Delete Trip" id="tripDeleteButton" onmouseover="this.className='btnhov_msb'" onmouseout="this.className='midsize_btns'" onClick="deleteSelectedTrip();" />&nbsp;<input type="button" class="huge_btns2" value="Save Trip List!" id="tripDeleteButton" onmouseover="this.className='btnhov_hb2'" onmouseout="this.className='huge_btns2'" onClick="saveTripList();" />-->
-								<input type="button" class="dis_fill_btn" value="Delete Trip" id="tripDeleteButton" onClick="alert('This button is currenly disabled since you have not created any trips yet.');" />&nbsp;<input type="button" class="dis_fill_btn" value="Save my Trips!" id="saveTripsButton" onClick="alert('This button is currenly disabled since you have not created any trips yet.');" />
+								<input type="button" class="dis_fill_btn" value="Delete Trip" id="tripDeleteButton" onClick="alert('This button is currenly disabled since your trip list is empty.');" />&nbsp;<input type="button" class="dis_fill_btn" value="Save my Trips!" id="saveTripsButton" onClick="alert('This button is currenly disabled since you have not created any trips yet.');" />
 							</td>
 						</tr>
 					</table>	
