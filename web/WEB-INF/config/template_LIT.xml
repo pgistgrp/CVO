@@ -458,58 +458,58 @@
 	<project name="I-405 Improvements">
 		<alternative name="Bellevue to Renton">
 			<criterion name="1. Economic Vitality">
-				<objective description="Impact on access to terminal (sea, air, multimodal)">null</objective>
-				<objective description="Impact on general economic development">null</objective>
-				<objective description="Impact on the value of residential and nonresidential properties">null</objective>
-				<objective description="Impact on worker movement and accessibility to jobs for a variety of income levels">null</objective>
+				<objective description="Impact on access to terminal (sea, air, multimodal)">0</objective>
+				<objective description="Impact on general economic development">0</objective>
+				<objective description="Impact on the value of residential and nonresidential properties">0</objective>
+				<objective description="Impact on worker movement and accessibility to jobs for a variety of income levels">0</objective>
 			</criterion>
 			<criterion name="2. Security">
-				<objective description="Impact on monitoring and tracking within the system (e.g. visual surveillance technology)">null</objective>
-				<objective description="Impact on the handling of hazardous materials movement">null</objective>
-				<objective description="Impact on the patrolling of the system">null</objective>
-				<objective description="Impact on unauthorized access to the system">null</objective>
+				<objective description="Impact on monitoring and tracking within the system (e.g. visual surveillance technology)">0</objective>
+				<objective description="Impact on the handling of hazardous materials movement">0</objective>
+				<objective description="Impact on the patrolling of the system">0</objective>
+				<objective description="Impact on unauthorized access to the system">0</objective>
 			</criterion>
 			<criterion name="3. Access, Mobility, Connectivity">
-				<objective description="Impact on accessibility for people">null</objective>
-				<objective description="Impact on intermodal connectivity">null</objective>
-				<objective description="Impact on mobility of people">null</objective>
-				<objective description="Impact on overall system connectivity and integration">null</objective>
+				<objective description="Impact on accessibility for people">0</objective>
+				<objective description="Impact on intermodal connectivity">0</objective>
+				<objective description="Impact on mobility of people">0</objective>
+				<objective description="Impact on overall system connectivity and integration">0</objective>
 			</criterion>
 			<criterion name="4. Efficient System Management">
-				<objective description="Impact on administrative productivity/efficiency">null</objective>
-				<objective description="Impact on transportation system cost">null</objective>
-				<objective description="Impact on travel demand (e.g. decreasing VMT using transportation demand management (TDM) strategies)">null</objective>
-				<objective description="Impact on travel supply (e.g. increasing throughput using Intelligent Transportation System (ITS) technologies)">null</objective>
+				<objective description="Impact on administrative productivity/efficiency">0</objective>
+				<objective description="Impact on transportation system cost">0</objective>
+				<objective description="Impact on travel demand (e.g. decreasing VMT using transportation demand management (TDM) strategies)">0</objective>
+				<objective description="Impact on travel supply (e.g. increasing throughput using Intelligent Transportation System (ITS) technologies)">0</objective>
 			</criterion>
 			<criterion name="5. System Preservation">
-				<objective description="Impact on maintenance capabilities">null</objective>
-				<objective description="Impact on system condition monitoring capabilities">null</objective>
-				<objective description="Impact on system degradation">null</objective>
-				<objective description="Impact on system size (i.e. expansion or rehabilitation)">null</objective>
+				<objective description="Impact on maintenance capabilities">0</objective>
+				<objective description="Impact on system condition monitoring capabilities">0</objective>
+				<objective description="Impact on system degradation">0</objective>
+				<objective description="Impact on system size (i.e. expansion or rehabilitation)">0</objective>
 			</criterion>
 			<criterion name="6. Environment">
-				<objective description="Impact on fuel consumption">null</objective>
-				<objective description="Impact on vehicle emissions and air pollution">null</objective>
-				<objective description="Impact on water pollution">null</objective>
-				<objective description="Impact on wetlands or other natural habitats">null</objective>
+				<objective description="Impact on fuel consumption">0</objective>
+				<objective description="Impact on vehicle emissions and air pollution">0</objective>
+				<objective description="Impact on water pollution">0</objective>
+				<objective description="Impact on wetlands or other natural habitats">0</objective>
 			</criterion>
 			<criterion name="7. Quality of Life">
-				<objective description="Impact on ambient noise">null</objective>
-				<objective description="Impact on community cohesion and aesthetic design including the preservation of cultural or historic areas">null</objective>
-				<objective description="Impact on equity ">null</objective>
-				<objective description="Impact on physical activity (e.g. promotes nonmotorized travel, provides access to parks etc.)">null</objective>
+				<objective description="Impact on ambient noise">0</objective>
+				<objective description="Impact on community cohesion and aesthetic design including the preservation of cultural or historic areas">0</objective>
+				<objective description="Impact on equity ">0</objective>
+				<objective description="Impact on physical activity (e.g. promotes nonmotorized travel, provides access to parks etc.)">0</objective>
 			</criterion>
 			<criterion name="8. Safety">
-				<objective description="Impact on bicyclists and pedestrians">null</objective>
-				<objective description="Impact on incident response">null</objective>
-				<objective description="Impact on traffic calming">null</objective>
-				<objective description="Impact on vehicular accidents and traffic volume">null</objective>
+				<objective description="Impact on bicyclists and pedestrians">0</objective>
+				<objective description="Impact on incident response">0</objective>
+				<objective description="Impact on traffic calming">0</objective>
+				<objective description="Impact on vehicular accidents and traffic volume">0</objective>
 			</criterion>
 			<criterion name="9. Freight Movement">
-				<objective description="Impact on export/import efficiency">null</objective>
-				<objective description="Impact on information/telecommunications networks">null</objective>
-				<objective description="Impact on intermodal connectivity">null</objective>
-				<objective description="Impact on overall system accessibility, mobility, and connectivity">null</objective>
+				<objective description="Impact on export/import efficiency">0</objective>
+				<objective description="Impact on information/telecommunications networks">0</objective>
+				<objective description="Impact on intermodal connectivity">0</objective>
+				<objective description="Impact on overall system accessibility, mobility, and connectivity">0</objective>
 			</criterion>
 		</alternative>
 	</project>
