@@ -4,7 +4,6 @@
 
 
     <form-beans>
-        <form-bean name="searchForm" type="org.pgist.search.SearchForm" />
         <form-bean name="userForm" type="org.pgist.system.UserForm" />
         <form-bean name="reportForm" type="org.pgist.report.ReportForm" />
         <form-bean name="cctForm" type="org.pgist.cvo.CCTForm" />
@@ -129,7 +128,7 @@
             <forward name="main" path="/WEB-INF/jsp/system/feedbackMain.jsp" />
         </action>
 
-        <action name="searchForm" path="/search" scope="request" type="org.pgist.search.SearchAction">
+        <action path="/search" scope="request" type="org.pgist.search.SearchAction">
             <forward name="index" path="/WEB-INF/jsp/search/index.jsp" />
             <forward name="results" path="/WEB-INF/jsp/search/results.jsp" />
         </action>

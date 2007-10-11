@@ -85,6 +85,7 @@ public class UserProfileAction extends Action {
         		return mapping.findForward("publicprofile");
         		
             } catch (Exception e) {
+                e.printStackTrace();
             	User user = new User();
             	user.setLoginname("Unkown User");
             	request.setAttribute("username", user);

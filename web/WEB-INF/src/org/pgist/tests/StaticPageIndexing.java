@@ -91,8 +91,9 @@ public class StaticPageIndexing extends MatchingTask {
             Element root = doc.getRootElement();
             
             for (Element one : (List<Element>) root.elements("page")) {
-                String url = one.attributeValue("url");
-                String path = one.getTextTrim();
+                String url = one.elementTextTrim("url");
+                String path = one.elementTextTrim("path");
+                String title = one.elementTextTrim("title");
                 
                 File file = new File(sourcePath, path);
                 
@@ -103,16 +104,16 @@ public class StaticPageIndexing extends MatchingTask {
                 
                 HTMLParser parser = new HTMLParser(new FileInputStream(file));
                 
-                System.out.println("title: "+parser.getTitle()+"   "+url+" ----> "+path);
-                
                 org.apache.lucene.document.Document document = new org.apache.lucene.document.Document();
                 document.add(new Field("type", "staticpage", Field.Store.YES, Field.Index.UN_TOKENIZED));
                 document.add(new Field("path", file.getPath(), Field.Store.YES, Field.Index.UN_TOKENIZED));
                 document.add(new Field("url", url, Field.Store.YES, Field.Index.UN_TOKENIZED));
                 document.add(new Field("contents", parser.getReader()));
                 document.add(new Field("body", parser.getSummary(), Field.Store.YES, Field.Index.NO));
-                document.add(new Field("title", parser.getTitle(), Field.Store.YES, Field.Index.TOKENIZED));
+                document.add(new Field("title", title, Field.Store.YES, Field.Index.TOKENIZED));
                 writer.addDocument(document);
+                
+                System.out.println("Index one: "+ title + ", " + file.toString());
             }
             
             writer.optimize();

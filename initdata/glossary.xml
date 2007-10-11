@@ -264,9 +264,6 @@
             <category>public</category>
             <category>PSR</category>
         </categories>
-        <variations>
-            <variation>viaduct</variation>
-        </variations>
         <viewCount>0</viewCount>
         <highlightCount>0</highlightCount>
         <commentCount>0</commentCount>
@@ -1240,30 +1237,6 @@
         <commentCount>0</commentCount>
     </term>
 
-    <term name="concern">
-        <shortDefinition>The expression of something that is of interest to a person.</shortDefinition>
-        <extDefinition>A concern is of interest to a person because it has personal importance, or some effect on their lives. Concerns can be expressed in terms of values, goals, objectives and criteria.</extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>goal</term>
-            <term>objective</term>
-            <term>criterion</term>
-            <term>value</term>
-        </relatedTerms>
-        <links/>
-        <sources>
-            <source><citation>"Concern", <![CDATA[in <i>WordNet 2.1</i>, Princeton University, 2005.]]></citation></source>
-        </sources>
-        <categories>
-            <category>developer</category>
-            <category>TIP</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
     <term name="Conciliation">
         <shortDefinition>Efforts by an impartial third party to encourage agreement between a labor union and management by counseling each side and facilitating negotiations. Also known as "mediation".</shortDefinition>
         <extDefinition></extDefinition>
@@ -1345,10 +1318,6 @@
         <extDefinition>A convener is a person who has authority to invite people to participate in the transportation improvement decision process, and to establish the timeframe for carrying out the decision process. A convener is responsible for making sure that all who should participate are invited to participate, for suggesting an initial agenda that addresses all aspects of the transportation improvement decision situation, for reviewing input from others, and for approving the final version.</extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>moderator</term>
-            <term>group</term>
-        </relatedTerms>
         <links/>
         <sources>
             <source><citation>"Convenor", <![CDATA[in <i>WordNet 2.1</i>, Princeton University, 2005.]]></citation></source>
@@ -2343,24 +2312,6 @@
         <commentCount>0</commentCount>
     </term>
 
-    <term name="group">
-        <shortDefinition>A number of people (or objects) that are assembled together, or have some unifying relationship.</shortDefinition>
-        <extDefinition>The defining characteristic of a group is that its members all have something in common that they do not have in common with people who are outside of the group. This can be a shared concern, interest, physical location, or any other difference.</extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms/>
-        <links/>
-        <sources><source><citation><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12.]]></citation><url><![CDATA[http://transweb.sjsu.edu/comglos.htm]]></url></source></sources>
-        <categories>
-            <category>public</category>
-            <category>developer</category>
-            <category>TIP</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
     <term name="growth management">
         <shortDefinition>The use of specific techniques to ensure that the type, amount, and rate of development adheres to community known community goals.</shortDefinition>
         <extDefinition>Growth management techniques aim to make sure that the needs of a population will be met by the amount of services a city can provide, regardless of how that population grows. A growth management plan might call for zoning regulations that control the number of particular types of businesses in different parts of a city, or for impact fees that fund the creation of new parks, schools, transportation projects, etc.</extDefinition>
@@ -2826,24 +2777,6 @@
         <commentCount>0</commentCount>
     </term>
 
-    <term name="Let's Improve Transportation">
-        <shortDefinition>A public participation exercise where a diverse group of concerned citizens go online to collectively determine objectives and criteria for transportation improvement in central Puget Sound region of Washington State, analyze the impacts of proposed transportation improvement projects, and recommend their preferred improvement scenario to elected officials.</shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:20 AM PDT</createTime>
-        <relatedTerms/>
-        <links/>
-        <sources><source><citation><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12.]]></citation><url><![CDATA[http://transweb.sjsu.edu/comglos.htm]]></url></source></sources>
-        <categories>
-            <category>developer</category>
-            <category>PSR</category>
-            <category>TIP</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
     <term name="Level Playing Field">
         <shortDefinition>A balanced approach to federal funding proportions for highway projects and transit projects.</shortDefinition>
         <extDefinition>May also refer to employee transportation benefits so that the monthly, tax-free value of a transit pass is equal to that of a parking space; generally, any situation in which transit and highways receive equal treatment in federal funding and other federal procedures.</extDefinition>
@@ -3276,43 +3209,6 @@ sustainable choices for a variety of elements that include housing, transportati
         <commentCount>0</commentCount>
     </term>
 
-    <term name="Model">
-        <shortDefinition>An analytical tool (often mathematical) used by transportation planners to assist in making forecasts of land use, economic activity, travel activity and their effects on the quality of resources such as land, air and water.</shortDefinition>
-        <extDefinition></extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms/>
-        <links/>
-        <sources><source><citation><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12.]]></citation><url><![CDATA[http://transweb.sjsu.edu/comglos.htm]]></url></source></sources>
-        <categories>
-            <category>public</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="moderator">
-        <shortDefinition>A moderator facilitates and chauffeurs the decision situation process.</shortDefinition>
-        <extDefinition>A moderator works to see that the discussion progresses smoothly and is fair for all participants. A moderator arbitrates and mediates in order to avoid violence, or the breakdown of discussion. The moderator works to see that the agenda is addressed.</extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>agenda</term>
-        </relatedTerms>
-        <links/>
-        <sources>
-            <source><citation>"Moderator", <![CDATA[in <i>WordNet 2.1</i>, Princeton University, 2005.]]></citation></source>
-        </sources>
-        <categories>
-            <category>developer</category>
-            <category>TIP</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
     <term name="Monorail">
         <shortDefinition>An electric railway in which a rail car or train of cars is suspended from or straddles a guideway formed by a single beam or rail. Most monorails are either heavy rail or automated guideway systems.</shortDefinition>
         <extDefinition></extDefinition>
@@ -3431,9 +3327,6 @@ sustainable choices for a variety of elements that include housing, transportati
         <extDefinition></extDefinition>
         <creator type="loginname">admin</creator>
         <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>group</term>
-        </relatedTerms>
         <links/>
         <sources>
             <source><citation>American Heritage Dictionary, 4th Ed.</citation></source>
@@ -3902,28 +3795,6 @@ sustainable choices for a variety of elements that include housing, transportati
         <commentCount>0</commentCount>
     </term>
 
-    <term name="project">
-        <shortDefinition>A temporary undertaking requiring concerted effort.</shortDefinition>
-        <extDefinition>The defining features of a project are that it requires directed effort, and has some end point at which it will stop. In the realm of transportation planning, the term is often used to describe government or community-sponsored efforts to build, repair, or study something.</extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>mega-project</term>
-        </relatedTerms>
-        <links/>
-        <sources>
-            <source><citation>"Project." Wikipedia, The Free Encyclopedia. 10 Jul 2006, 10:24 UTC. Wikimedia Foundation, Inc. 13 Jul 2006</citation><url><![CDATA[http://en.wikipedia.org/w/index.php?title=Project&oldid=63023491>.]]></url></source>
-            <source><citation>Merriam-Webster Online Dictionary</citation></source>
-        </sources>
-        <categories>
-            <category>public</category>
-            <category>TIP</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
     <term name="Propane">
         <shortDefinition>An alternative fuel; a liquid petroleum gas (LPG) which is stored under moderate pressure and with vapor heavier than air; produced as a by-product of natural gas and oil production.</shortDefinition>
         <extDefinition></extDefinition>
@@ -3937,23 +3808,6 @@ sustainable choices for a variety of elements that include housing, transportati
         <sources><source><citation><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12.]]></citation><url><![CDATA[http://transweb.sjsu.edu/comglos.htm]]></url></source></sources>
         <categories>
             <category>public</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="public involvement">
-        <shortDefinition>Aspects of the design and implementation of a project that arise from the general public</shortDefinition>
-        <extDefinition>Public involvement might take the form of community meetings where transportation proposals are explained and comments are sought out by officials, considered, and included in a revised proposal.</extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms/>
-        <links/>
-        <sources><source><citation><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12.]]></citation><url><![CDATA[http://transweb.sjsu.edu/comglos.htm]]></url></source></sources>
-        <categories>
-            <category>public</category>
-            <category>TIP</category>
         </categories>
         <viewCount>0</viewCount>
         <highlightCount>0</highlightCount>
@@ -4073,26 +3927,6 @@ sustainable choices for a variety of elements that include housing, transportati
         <relatedTerms/>
         <links/>
         <sources><source><citation><![CDATA[<i>Mineta Transportation Institute Glossary</i>. The Norman Y. Mineta International Institute for Surface Transportation Policy Studies. Accessed 2006/07/12.]]></citation><url><![CDATA[http://transweb.sjsu.edu/comglos.htm]]></url></source></sources>
-        <categories>
-            <category>public</category>
-            <category>TIP</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="region">
-        <shortDefinition>A broad geographical area that is considered as a unit for the user\'s purpose.</shortDefinition>
-        <extDefinition>Regions can be of any size, but are usually made up of contiguous areas. The locations that make up a region are often loosely-defined, chosen to reflect geographic or cultural similarities, or to express the area of interest of some group or organization. For this reason, it is not always possible to say exactly where a region begins and ends.</extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms/>
-        <links/>
-        <sources>
-            <source><citation>American Heritage Dictionary, 4th ed.</citation></source>
-            <source><citation>"Puget Sound." Wikipedia, The Free Encyclopedia. 10 Jul 2006, 18:42 UTC. Wikimedia Foundation, Inc. 13 Jul 2006</citation><url><![CDATA[http://en.wikipedia.org/w/index.php?title=Puget_Sound&oldid=63087784>.]]></url></source>
-        </sources>
         <categories>
             <category>public</category>
             <category>TIP</category>
@@ -4256,28 +4090,6 @@ sustainable choices for a variety of elements that include housing, transportati
         </sources>
         <categories>
             <category>public</category>
-            <category>TIP</category>
-        </categories>
-        <viewCount>0</viewCount>
-        <highlightCount>0</highlightCount>
-        <commentCount>0</commentCount>
-    </term>
-
-    <term name="score">
-        <shortDefinition>A tally indicating how often something has occured.</shortDefinition>
-        <extDefinition>Scores are given to record when or how often some criterion has been met. Can be measured either absolutely or in comparison to a standard, for instance on a scale of 1 to 10.</extDefinition>
-        <creator type="loginname">admin</creator>
-        <createTime>July 1, 2006 9:25:19 AM PDT</createTime>
-        <relatedTerms>
-            <term>standard</term>
-            <term>criterion</term>
-        </relatedTerms>
-        <links/>
-        <sources>
-            <source><citation>Merriam-Webster Online Dictionary</citation></source>
-        </sources>
-        <categories>
-            <category>developer</category>
             <category>TIP</category>
         </categories>
         <viewCount>0</viewCount>
@@ -5118,7 +4930,6 @@ sustainable choices for a variety of elements that include housing, transportati
         <relatedTerms>
             <term>rank</term>
             <term>preference</term>
-            <term>score</term>
         </relatedTerms>
         <links/>
         <sources>
