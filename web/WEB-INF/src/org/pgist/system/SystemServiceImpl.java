@@ -59,6 +59,11 @@ public class SystemServiceImpl implements SystemService {
     }//getObject()
     
     
+    public User getUserByName(String loginname, boolean deleted) throws Exception {
+        return userDAO.getUserByName(loginname, deleted);
+    }//getUserByName()
+    
+    
     public User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception {
         return userDAO.getUserByName(loginname, enabled, deleted);
     }//getUserByName()

@@ -25,7 +25,7 @@ public class ProfileServiceImpl implements ProfileService {
 	
 	
     public User getUserInfo(String username) throws Exception {
-    	User user = systemService.getUserByName(username, true, false);
+    	User user = systemService.getUserByName(username, false);
     	return profileDAO.getUserInfo(user);
     }
     

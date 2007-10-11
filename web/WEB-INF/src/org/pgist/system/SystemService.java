@@ -18,6 +18,9 @@ public interface SystemService {
     Object getObject(String entityName, Long id) throws Exception;
     
     
+    User getUserByName(String loginname, boolean deleted) throws Exception;
+    
+    
     User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception;
     
     
