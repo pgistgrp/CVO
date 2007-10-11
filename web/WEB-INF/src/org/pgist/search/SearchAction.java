@@ -151,6 +151,7 @@ public class SearchAction extends Action {
         
         Experiment experiment = importService.getExperimentByWorkflowId(new Long(workflowId));
         
+        request.setAttribute("setting", setting);
         request.setAttribute("experiment", experiment);
         request.setAttribute("results", list);
         
