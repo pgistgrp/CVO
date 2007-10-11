@@ -172,6 +172,7 @@
           <prop key="reject*">PROPAGATION_REQUIRED</prop>
           <prop key="log*">PROPAGATION_REQUIRED</prop>
           <prop key="import*">PROPAGATION_REQUIRED</prop>
+          <prop key="calcUserValues">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>
