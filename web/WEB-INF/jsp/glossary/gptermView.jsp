@@ -229,16 +229,23 @@ tinyMCE.init({
 <event:pageunload />
 </head>
 <body>
- <!-- Begin the header - loaded from a separate file -->
-  <div id="header">
-	<!-- Begin header -->
-	<jsp:include page="/header.jsp" />
-	<!-- End header -->
-  </div>
-  <!-- End header -->
+  <!-- Start Global Headers  -->
+  	<wf:nav />
+  <!-- End Global Headers -->
   <!-- Begin header menu - The wide ribbon underneath the logo -->
   <div id="headerMenu">
-
+  	<div id="headerContainer">
+  		<div id="headerTitle" class="floatLeft">
+  			<h3 class="headerColor">Learn More</h3>
+  		</div>
+  		<div class="floatLeft headerButton"> <a href="lmMenu.do">Menu</a> </div>
+  		<div class="floatLeft headerButton"> <a href="lmAbout.do">About LIT</a> </div>
+  		<div class="floatLeft headerButton"> <a href="lmFaq.do">FAQ</a> </div>
+  		<div class="floatLeft headerButton"> <a href="lmTutorial1.do">Tutorial</a> </div>
+  		<div class="floatLeft headerButton"> <a href="lmGallery.do">Project gallery</a> </div>
+  		<div class="floatLeft headerButton currentBox"> <a href="glossaryPublic.do">Glossary</a> </div>
+  		<div class="floatLeft headerButton"> <a href="lmResources.do">More resources</a> </div>
+  	</div>
   </div>
   <!-- End header menu -->
   <!-- #container is the container that wraps around all the main page content -->

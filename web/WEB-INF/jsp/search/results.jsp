@@ -43,7 +43,7 @@
 
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<form action="/sdSearch.do" method="GET">
+		<form action="/search.do" method="GET">
             <input type="hidden" name="workflowId" value="${param.workflowId}" />
             <input type="hidden" name="count" value="${param.count}" />
             <input type="hidden" name="page" value="${param.page}" />
