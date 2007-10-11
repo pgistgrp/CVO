@@ -345,7 +345,7 @@
 		<div id="estimates" style="display:none;">
 			<h3 class="headerColor peekaboobugfix">Estimated use of toll roads, taxed parking
 				facilities, and annual taxable consumption</h3>
-			<p class="peekaboobugfix">Your estimates number of tolls has been estimated based
+			<p class="peekaboobugfix">Tool estimates are based
 				on your home zip code, your usual commute mode of travel, and your commute route.
 				You may change these estimates.</p>
 		<div id="estimates-left">
