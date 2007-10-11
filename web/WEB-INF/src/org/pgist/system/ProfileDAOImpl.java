@@ -88,6 +88,9 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     public Date getLastLogin(String username) throws Exception {
     	User user = (User) getUserByUsername(username);
     	List list = getHibernateTemplate().find(hql_getLastLogin, new Object[] {user.getId(),});
+    	if(list.size() < 1) {
+    		return null;
+    	}
     	SystemLog sl = (SystemLog) list.get((list.size()-1));
     	Date date = sl.getTime();
     	return date;

@@ -64,13 +64,15 @@ public class UserProfileAction extends Action {
     			User u = profileService.getUserInfo(username);
     			Date date = profileService.getLastLogin(username);
     			Collection concerns = profileService.getUserConcerns(username);
-    			String strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
+    			String strDate = "";
+    			if(date != null) {
+    				strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
+    			}
     			int post = profileService.getPostCount(username);
     			int visits = profileService.getTotalVisits(username);
     			//Collection discussions = profileService.getUserDiscussion(username);
     			String[] tags = profileService.getAllTags(username);
     			Collection criterias = profileService.getUserCriteria(username);
-    			
     			
     			request.setAttribute("user", u);
     			request.setAttribute("tags", tags);
