@@ -642,7 +642,8 @@
 							</c:if>
 						</tr>
 						<!-- begin FUNDING source -->
-						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop1">
+						<pg:sort name="fundRefs" items="${fundingRefs}" key="source.name" />
+						<c:forEach var="fundingRef" items="${fundRefs}" varStatus="loop1">
 							<tr class="fundingType">
 								<td class="fundingSourceItem">${fundingRef.source.name}</td>
 								<td colspan="3"></td>
