@@ -103,6 +103,19 @@ Workflow.prototype.getWorkflow = function(workflowId) {
   );
 };
 
+Workflow.prototype.setOpenAccess = function(setting) {
+  WorkflowAgent.setOpenAccess(
+    { openAccess : setting },
+    function(data) {
+      if (data.successful) {
+        workflow.getWorkflows('mod');
+      } else {
+        alert(data.reason);
+      }
+    }
+  );
+};
+
 Workflow.prototype.nextStep = function(workflowId, contextId, activityId) {
   Util.loading(true, "Starting next step");
   var buttons = document.getElementsByName("completedButton")
