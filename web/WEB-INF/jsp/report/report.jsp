@@ -246,7 +246,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				<td><strong>Area of residence:</strong></td>
 				<td>
 				<!-- display counties -->
-				<c:choose>	
+				<c:choose>
 					<c:when test="${fn:length(statsPart1.counties) < 1}">
 						<p>No Counties Available</p>
 					</c:when>
