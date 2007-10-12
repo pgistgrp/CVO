@@ -236,7 +236,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					</c:when>
 					<c:otherwise>
 					
-					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> Male<br/>
+					44444 Male<br/>
 					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> Female
 					</c:otherwise>
 				</c:choose>
