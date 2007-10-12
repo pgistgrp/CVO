@@ -204,7 +204,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 		<p>
 		${statsPart1.totalUsers} residents
 		<c:choose>
-			<c:when test="${fn:length(statsPart1.counties) == 0}">
+			<c:when test="${fn:length(statsPart1.counties) < 1}">
 				
 			</c:when>
 			<c:otherwise>
@@ -264,7 +264,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				<td><strong>Primary mode of transportation (daily commute):</strong></td>
 			  <td>
 				<c:choose>	
-					<c:when test="${fn:length(statsPart1.transTypes) == 0}">
+					<c:when test="${fn:length(statsPart1.transTypes) < 1}">
 						<p>No Transportation Types Available</p>
 					</c:when>
 					<c:otherwise>
@@ -283,7 +283,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 				<td><strong>Yearly household income</strong></td>
 				<td>
 				<c:choose>	
-					<c:when test="${fn:length(statsPart1.incomeRanges) == 0}">
+					<c:when test="${fn:length(statsPart1.incomeRanges) < 1}">
 						<p>No Transportation Types Available</p>
 					</c:when>
 					<c:otherwise>
@@ -507,7 +507,7 @@ After a period of discussion about the relevance of the improvement factors to t
 			<tr>
 				<td><strong>County of residence:</strong></td>
 				<td><c:choose>	
-					<c:when test="${fn:length(statsPart4.counties) == 0}">
+					<c:when test="${fn:length(statsPart4.counties) < 1}">
 						<p>No Counties Available</p>
 					</c:when>
 					<c:otherwise>
@@ -521,7 +521,7 @@ After a period of discussion about the relevance of the improvement factors to t
 			<tr class="odd">
 				<td><strong>Primary mode of transportation (daily commute):</strong></td>
 				<td><c:choose>	
-					<c:when test="${fn:length(statsPart4.transTypes) == 0}">
+					<c:when test="${fn:length(statsPart4.transTypes) < 1}">
 						<p>No Transportation Types Available</p>
 					</c:when>
 					<c:otherwise>
@@ -538,7 +538,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<td><strong>Yearly household income</strong></td>
 				<td>
 				<c:choose>	
-					<c:when test="${fn:length(statsPart4.incomeRanges) == 0}">
+					<c:when test="${fn:length(statsPart4.incomeRanges) < 1}">
 						<p>No Transportation Types Available</p>
 					</c:when>
 					<c:otherwise>
