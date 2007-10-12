@@ -53,12 +53,6 @@
 		</td>
 	</tr>
 	
-	<c:if test="${userPkg != null}">
-		<tr>
-			<td><strong>Cost to you:</strong></td>
-			<td><fmt:formatNumber type="currency">${package.yourCost}</fmt:formatNumber> per year</td>
-		</tr>
-	</c:if>
 	<tr>
 		<td><strong>Total cost to the average resident:</strong></td>
 		<td><fmt:formatNumber type="currency">${package.avgResidentCost}</fmt:formatNumber> per year</td>
@@ -71,5 +65,3 @@
 
 	<input class="finishedButton" type="button" onclick="finished();" value="Finished? Submit your package" 
 	${((package.totalFunding - package.totalCost) < 0) ? "disabled='true'" : ""} />
-	
-	
