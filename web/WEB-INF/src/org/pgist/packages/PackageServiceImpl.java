@@ -789,6 +789,38 @@ public class PackageServiceImpl implements PackageService {
 		return uPack;
 	}
 
+	
+	/**
+	 * Returns the average grade for everyone based on the average weight everyone used
+	 * 
+	 * @param altRef
+	 * @param cSuite
+	 * @param user
+	 * @return
+	 */
+	public String getAvgGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) throws Exception{
+		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
+		
+		HashMap<Criteria, Integer> crits = createEveryoneCritsMap(cSuite, user);
+
+		//viewCritMap(crits);
+		
+		//Return NA if there are no criteria associated to this project
+		if(gradedC.size() == 0 || crits.size() == 0) return "NA";
+		
+		Iterator<GradedCriteria> iGC = gradedC.iterator();
+		GradedCriteria gc;
+		float total = 0;
+		while(iGC.hasNext()) {
+			gc = iGC.next();
+			float temp = (gc.getValue()*crits.get(gc.getCriteria()))/100;
+			total += temp;
+		}
+		System.out.println("***getAvgGrade:" + total);
+		return GradedCriteria.convertGrade(total);
+	}
+	
+	
 	/**
 	 * Figures out the composite grade for the entire project by averaging the graded criteria
 	 * 
@@ -804,7 +836,7 @@ public class PackageServiceImpl implements PackageService {
 		float total = 0;
 		while(iGC.hasNext()) {
 			gc = iGC.next();
-			total = total + gc.getValue();
+			total += gc.getValue();
 		}
 		total = total/gradedC.size();
 		return GradedCriteria.convertGrade(total);
@@ -832,7 +864,8 @@ public class PackageServiceImpl implements PackageService {
 		float total = 0;
 		while(iGC.hasNext()) {
 			gc = iGC.next();
-			total = total + (gc.getValue()*crits.get(gc.getCriteria()))/100;
+			float temp = (gc.getValue()*crits.get(gc.getCriteria()))/100;
+			total += temp;
 		}
 		return GradedCriteria.convertGrade(total);
 	}
@@ -868,33 +901,6 @@ public class PackageServiceImpl implements PackageService {
 		return crits;
 	}
 	
-	/**
-	 * Returns the average grade for everyone based on the average weight everyone used
-	 * 
-	 * @param altRef
-	 * @param cSuite
-	 * @param user
-	 * @return
-	 */
-	public String getAvgGrade(ProjectAltRef altRef, CriteriaSuite cSuite, User user) throws Exception{
-		Set<GradedCriteria> gradedC = altRef.getGradedCriteria();
-		
-		HashMap<Criteria, Integer> crits = createEveryoneCritsMap(cSuite, user);
-
-		//viewCritMap(crits);
-		
-		//Return NA if there are no criteria associated to this project
-		if(gradedC.size() == 0 || crits.size() == 0) return "NA";
-		
-		Iterator<GradedCriteria> iGC = gradedC.iterator();
-		GradedCriteria gc;
-		float total = 0;
-		while(iGC.hasNext()) {
-			gc = iGC.next();
-			total = total + (gc.getValue()*crits.get(gc.getCriteria()))/100;
-		}
-		return GradedCriteria.convertGrade(total);
-	}
 	
 	/**
 	 * Creates a map of all the criteria and the value this user assigned

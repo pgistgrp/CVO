@@ -71,9 +71,9 @@ public class ProjectAltAction extends Action {
         
         //Get avg weights using matt's functions
         User user = projectService.getCurrentUser();
-        String avg = packageService.getAvgGrade(reference, critSuite, user);
+        String avg = packageService.getProjectGrade(reference); // this is actually the avg
         String personalAvg = packageService.getYourGrade(reference, critSuite, user);
-        String everyoneAvg = packageService.getProjectGrade(reference);
+        String everyoneAvg = packageService.getAvgGrade(reference, critSuite, user); // this is actually everyones average
         
         //Set Varaibles
         request.setAttribute("reference", reference);
