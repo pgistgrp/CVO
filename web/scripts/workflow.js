@@ -103,9 +103,9 @@ Workflow.prototype.getWorkflow = function(workflowId) {
   );
 };
 
-Workflow.prototype.setOpenAccess = function(setting) {
+Workflow.prototype.setOpenAccess = function(workflowId, setting) {
   WorkflowAgent.setOpenAccess(
-    { openAccess : setting },
+    { workflowId : workflowId, openAccess : setting },
     function(data) {
       if (data.successful) {
         workflow.getWorkflows('mod');
