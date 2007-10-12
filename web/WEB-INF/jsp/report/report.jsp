@@ -159,10 +159,10 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 	
 
 							<c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
-							$00000 Million.
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.
 							</c:if>
 							<c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
-							$11111 Billion.
+							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.
 							</c:if>
 							
 	</c:otherwise>
@@ -176,7 +176,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 	</c:when>
 	<c:otherwise>
 	The package was endorsed by 
-	222222
+	<fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
 	of the participants (${numEndorsed} out of ${totalVotes} participating).		
 	</c:otherwise>
 </c:choose>
@@ -236,8 +236,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					</c:when>
 					<c:otherwise>
 					
-					44444 Male<br/>
-					55555 Female
+					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> Male<br/>
+					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> Female
 					</c:otherwise>
 				</c:choose>
 				</td>
