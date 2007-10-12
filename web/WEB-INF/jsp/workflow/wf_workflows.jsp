@@ -53,22 +53,46 @@
 					<th class="last">Operation</th>
 				</tr>
 				<c:forEach var="workflow" items="${runningWorkflows}">
-					<tr class="${(workflow.openAccess) ? '' : 'disabled'}">
-						<td>${workflow.name}</td>
-						<td>${workflow.description}</td>
-						<td><fmt:formatDate dateStyle="full" value="${workflow.beginTime}" /> at <fmt:formatDate type="time" value="${workflow.beginTime}" /></td>
-						<td id="lastCol">
-						    <input type="button" value="Participate" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}';" />
-						    <pg:show roles="moderator"><input type="button" value="Manage Agenda" onclick="javascript:location.href='agendaManager.do?workflowId=${workflow.id}';" /></pg:show>
-                <c:if test="${workflow.openAccess}">
-                  <pg:show roles="moderator"><input type="button" value="Disable Public Access" onclick="javascript:workflow.setOpenAccess(${workflow.id}, false);" /></pg:show>
-                </c:if>
-                
-                <c:if test="${workflow.openAccess == false}">
-                  <pg:show roles="moderator"><input type="button" value="Enable Public Access" onclick="javascript:workflow.setOpenAccess(${workflow.id}, true);" /></pg:show>
-                </c:if>
-						</td>
-					</tr>
+				  <c:choose>
+				    <c:when test="${workflow.openAccess}">
+				      <tr>
+    						<td>${workflow.name}</td>
+    						<td>${workflow.description}</td>
+    						<td><fmt:formatDate dateStyle="full" value="${workflow.beginTime}" /> at <fmt:formatDate type="time" value="${workflow.beginTime}" /></td>
+    						<td id="lastCol">
+    						    <input type="button" value="Participate" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}';" />
+    						    <pg:show roles="moderator"><input type="button" value="Manage Agenda" onclick="javascript:location.href='agendaManager.do?workflowId=${workflow.id}';" /></pg:show>
+                    <c:if test="${workflow.openAccess}">
+                      <pg:show roles="moderator"><input type="button" value="Disable Public Access" onclick="javascript:workflow.setOpenAccess(${workflow.id}, false);" /></pg:show>
+                    </c:if>
+
+                    <c:if test="${workflow.openAccess == false}">
+                      <pg:show roles="moderator"><input type="button" value="Enable Public Access" onclick="javascript:workflow.setOpenAccess(${workflow.id}, true);" /></pg:show>
+                    </c:if>
+    						</td>
+    					</tr>
+				    </c:when>
+				    <c:otherwise>
+				      <pg:show roles="moderator"><!-- had to duplicate because of the way show roles works -->
+				      <tr class="disabled">
+    						<td>${workflow.name}</td>
+    						<td>${workflow.description}</td>
+    						<td><fmt:formatDate dateStyle="full" value="${workflow.beginTime}" /> at <fmt:formatDate type="time" value="${workflow.beginTime}" /></td>
+    						<td id="lastCol">
+    						    <input type="button" value="Participate" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}';" />
+    						    <pg:show roles="moderator"><input type="button" value="Manage Agenda" onclick="javascript:location.href='agendaManager.do?workflowId=${workflow.id}';" /></pg:show>
+                    <c:if test="${workflow.openAccess}">
+                      <pg:show roles="moderator"><input type="button" value="Disable Public Access" onclick="javascript:workflow.setOpenAccess(${workflow.id}, false);" /></pg:show>
+                    </c:if>
+
+                    <c:if test="${workflow.openAccess == false}">
+                      <pg:show roles="moderator"><input type="button" value="Enable Public Access" onclick="javascript:workflow.setOpenAccess(${workflow.id}, true);" /></pg:show>
+                    </c:if>
+    						</td>
+    					</tr>
+    					</pg:show>
+				    </c:otherwise>
+				  </c:choose>
 				</c:forEach>
 			</table>
 		</c:when>

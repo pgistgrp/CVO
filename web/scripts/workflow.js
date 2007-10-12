@@ -54,7 +54,7 @@ Workflow.prototype.getWorkflows = function(mod) {
 	WorkflowAgent.getWorkflows({type:"all"}, {
 		callback:function(data){
 			if (data.successful){
-				if(!mod && data.runningTotal == 1){
+				if(!mod && data.openRunningTotal == 1){
 					location.href="userhome.do?workflowId="+ data.instanceId;
 				}else{
 					$(thePanel).innerHTML = data.html;
