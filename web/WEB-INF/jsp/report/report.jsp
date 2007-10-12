@@ -159,7 +159,7 @@ The recommended package contains ${statsES.totalProjects} road and transit proje
 It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 	
 
 							<c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
-							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.
+							$00000 Million.
 							</c:if>
 							<c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
 							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.
