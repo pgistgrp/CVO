@@ -270,7 +270,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
-						77777
+						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
 						: 
 						  ${transport.value}<br/>
 					</c:forEach>
