@@ -176,7 +176,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 	</c:when>
 	<c:otherwise>
 	The package was endorsed by 
-	<fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
+	222222
 	of the participants (${numEndorsed} out of ${totalVotes} participating).		
 	</c:otherwise>
 </c:choose>
