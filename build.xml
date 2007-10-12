@@ -263,6 +263,7 @@
         <mkdir dir="${webapp}"/>
         <copy todir="${webapp}">
             <fileset dir="${web}">
+                <exclude name="WEB-INF/web.xml"/>
                 <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
                 <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
                 <exclude name="WEB-INF/src/**"/>
