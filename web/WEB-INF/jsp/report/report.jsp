@@ -237,7 +237,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 					
 					44444 Male<br/>
-					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> Female
+					55555 Female
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -253,7 +253,7 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					<c:otherwise>
 
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers} </fmt:formatNumber>
+						66666
 						: ${county.name}<br/>				
 					</c:forEach>
 					
