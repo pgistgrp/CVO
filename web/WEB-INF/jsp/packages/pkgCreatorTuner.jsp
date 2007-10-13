@@ -27,6 +27,7 @@
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
+<script src="scripts/util.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
 <!-- DWR JavaScript Libraries -->
@@ -59,6 +60,7 @@
 		var critSuiteId = "${critSuiteId}";
 		
 		function getTunerConfig(){
+
 			//alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId); 
 			PackageAgent.getTunerConfig({usrPkgId:usrPkgId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
 				callback:function(data){
@@ -80,8 +82,12 @@
 						//alert("data: " + data.config + " fcs: " + fcs + " pcs: " + pcs)
 						createMyConfiguredPackage(data.config,fcs,pcs);
 					}else{
+						$('goBtn').disabled = false;
+						$('goBtn').value = "Re-submit Adjustments"
 						alert(data.reason);
+
 					}
+					
 				},
 				errorHandler:function(errorString, exception){ 
 				alert("PackageAgent.getTunerConfig( error:" + errorString + exception);
@@ -118,15 +124,21 @@
 							//alert("createmyconfiguredpackage worked");
 							location.href="closeWindowAndReload.jsp";
 						}else{
+						  $('goBtn').disabled = false;
+  						$('goBtn').value = "Re-submit Adjustments"
 							alert(data.reason);
 						}
 					},
 					errorHandler:function(errorString, exception){ 
 					alert("PackageAgent.createMyConfiguredPackage( error:" + errorString + exception);
+					$('goBtn').disabled = false;
+					$('goBtn').value = "Re-submit Adjustments"
 					}
 				});
 			}else{
 				alert("Please enter how much you are willing to pay per year.")
+				$('goBtn').disabled = false;
+				$('goBtn').value = "Re-submit Adjustments"
 			}
 		}
 
@@ -275,10 +287,11 @@
 			</div>
 			<div id="finished" class="box7">
 				<h3>Are you ready to create a package?</h3>
-				<input type="button" id="goBtn" onClick="getTunerConfig();" value="I have completed this form. Show me a package."/>
+				<input type="button" id="goBtn" onClick="getTunerConfig();this.value='Calculating please wait...'; this.disabled='true'; Util.loading(true); Util.loading(true, 'Creating Package');" value="I have completed this form. Show me a package."/>
 				<div class="clearBoth"></div>
 			</div>
 		</div>
+
 		
 		<script type="text/javascript" charset="utf-8">
 			//getWeights();
