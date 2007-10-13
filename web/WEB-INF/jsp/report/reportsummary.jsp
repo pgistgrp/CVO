@@ -41,8 +41,12 @@
 <div id="container">
 
 	<h2 class="headerColor">Report builder</h2>
-	<html:form action="/reportsummary.do?suite_id=${suite_id}" method="POST">
+	<html:form action="/reportsummary.do" method="POST">
 	<html:hidden property="save" value="true"/>
+	<html:hidden property="suite_id" value="${suite_id}"/>
+	<html:hidden property="workflowId" value="${param.workflowId}"/>
+	<html:hidden property="contextId" value="${param.contextId}"/>
+	<html:hidden property="activityId" value="${param.activityId}"/>
 
 	<p class="box6 padding5" style="width:500px"><strong>System Msg:</strong> ${reportForm.reason}</p>
 
