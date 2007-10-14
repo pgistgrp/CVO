@@ -148,7 +148,6 @@ public class GAKnapsackFundingEngine {
         //fill in the other chromosomes to random ones
         for (int i=0; i<populationSize-initGenes.size()-1; i++) {
             possibility = Chromosome.randomInitialChromosome(conf);
-            possibility.setGenes(newGenes);
             pop.addChromosome(possibility);
         }
         
