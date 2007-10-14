@@ -595,6 +595,12 @@ public class FundingServiceImpl implements FundingService {
         } else if(toll.getName().equals(UserFundingSourceToll.I405S)) {
             toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI405S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
             toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI405S(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.I5N)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI5N(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI5N(), carFactor, toll.isUsed()));
+        } else if(toll.getName().equals(UserFundingSourceToll.I5S)) {
+            toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getI5S(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
+            toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getI5S(), carFactor, toll.isUsed()));
         } else if(toll.getName().equals(UserFundingSourceToll.SR520)) {
             toll.setPeakTrips(TaxCalcUtils.calcPeakHours(zcf.getSR520(), carFactor, driveAlone, carpool, numPassengers, toll.isUsed()));
             toll.setOffPeakTrips(TaxCalcUtils.calcOffPeakHours(zcf.getSR520(), carFactor, toll.isUsed()));

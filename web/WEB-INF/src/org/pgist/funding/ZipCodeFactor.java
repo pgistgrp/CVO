@@ -13,11 +13,11 @@ public class ZipCodeFactor implements Serializable {
     
 	private String zipcode;
 	private int SR99;
-	private int I405S;
 	private int SR520;
-	private int I90;
 	private int SR167;
 	private int parking;
+    private int I90;
+    private int I405S;
 	private int I405N;
 	private int I5N;
 	private int I5S;

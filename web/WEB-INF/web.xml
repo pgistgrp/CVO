@@ -183,6 +183,8 @@
     
     <filter-mapping>
         <filter-name>CheckRoleFilter</filter-name>
+        <!-- Others -->
+        <url-pattern>/gaTesting.do</url-pattern>
         <!-- Agenda -->
         <url-pattern>/agendaManager.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.createInstance.dwr</url-pattern>

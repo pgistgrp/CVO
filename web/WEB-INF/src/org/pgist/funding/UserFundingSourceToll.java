@@ -12,6 +12,8 @@ public class UserFundingSourceToll {
     public static final String ALASKA_WAY_VIADUCT = "Toll on Alaska Way Viaduct";
     public static final String I405N = "Toll on I-405, north of I-90";
     public static final String I405S = "Toll on I-405, south of I-90";
+    public static final String I5N = "Toll on I-5, north of I-90";
+    public static final String I5S = "Toll on I-5, south of I-90";
     public static final String SR520 = "Toll on SR 520 bridge";
     public static final String I90 = "Toll on I-90";
     public static final String SR167 = "Toll on SR 167";

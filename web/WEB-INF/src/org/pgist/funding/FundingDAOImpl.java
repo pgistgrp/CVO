@@ -45,6 +45,8 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     	tolls.add(createToll(UserFundingSourceToll.ALASKA_WAY_VIADUCT));
     	tolls.add(createToll(UserFundingSourceToll.I405N));
     	tolls.add(createToll(UserFundingSourceToll.I405S));
+        tolls.add(createToll(UserFundingSourceToll.I5N));
+        tolls.add(createToll(UserFundingSourceToll.I5S));
     	tolls.add(createToll(UserFundingSourceToll.SR520));
     	tolls.add(createToll(UserFundingSourceToll.I90));
     	tolls.add(createToll(UserFundingSourceToll.SR167));

@@ -152,11 +152,11 @@ public class GAKnapsackProjectEngine {
             pop.addChromosome(possibility);
         }
         
-        printPopulation(pop);
+        //printPopulation(pop);
         
         Genotype population = new Genotype(conf, pop);
         
-        printPopulation(population.getPopulation());
+        //printPopulation(population.getPopulation());
         
         /*
          * Evolve the population. Since we don't know what the best answer
