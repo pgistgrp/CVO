@@ -25,12 +25,17 @@ public class GAKnapsackFundingEngine {
     private static void printPopulation(String message, Population pop) {
         System.out.println(message+" ------------------->");
         for (IChromosome ch : (List<IChromosome>) pop.getChromosomes()) {
-            for (Gene one : (Gene[]) ch.getGenes()) {
-                System.out.print(one.getAllele());
-            }
-            System.out.println();
+            printChromosome(ch);
         }
         System.out.println(" <-------------------");
+    }//printPopulation()
+    
+    
+    private static void printChromosome(IChromosome ch) {
+        for (Gene one : (Gene[]) ch.getGenes()) {
+            System.out.print(one.getAllele());
+        }
+        System.out.println();
     }//printPopulation()
     
     
@@ -55,6 +60,8 @@ public class GAKnapsackFundingEngine {
         // Start with a DefaultConfiguration, which comes setup with the most common settings.
         DefaultConfiguration conf = new DefaultConfiguration();
         conf.setPreservFittestIndividual(true);
+        
+        conf.setKeepPopulationSizeConstant(true);
         
         // Mutation Rate
         //MutationOperator mutationOperator = new MutationOperator(conf, 2);
@@ -166,6 +173,8 @@ public class GAKnapsackFundingEngine {
         for (int i=0; i<evolutionTimes; i++) {
             population.evolve();
             printPopulation("Loop "+i, population.getPopulation());
+            System.out.print("Fittest chromosome: ");
+            printChromosome(population.getFittestChromosome());
         }
         
         return population.getFittestChromosome();
