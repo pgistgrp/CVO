@@ -168,6 +168,7 @@
         <url-pattern>/catsTree.do</url-pattern>
         <url-pattern>/cstview.do</url-pattern>
         <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/feedback.do</url-pattern>
         <url-pattern>/projectManage.do</url-pattern>
         <url-pattern>/projectDefine.do</url-pattern>
         <url-pattern>/projectGrading.do</url-pattern>
