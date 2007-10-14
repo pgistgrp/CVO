@@ -22,8 +22,8 @@ import org.jgap.impl.IntegerGene;
 public class GAKnapsackFundingEngine {
     
     
-    private static void printPopulation(Population pop) {
-        System.out.println(" ------------------->");
+    private static void printPopulation(String message, Population pop) {
+        System.out.println(message+" ------------------->");
         for (IChromosome ch : (List<IChromosome>) pop.getChromosomes()) {
             for (Gene one : (Gene[]) ch.getGenes()) {
                 System.out.print(one.getAllele());
@@ -162,8 +162,10 @@ public class GAKnapsackFundingEngine {
          * Evolve the population. Since we don't know what the best answer
          * is going to be, we just evolve the max number of times.
          */
+        printPopulation("Before Loop", pop);
         for (int i=0; i<evolutionTimes; i++) {
             population.evolve();
+            printPopulation("Loop "+i, pop);
         }
         
         return population.getFittestChromosome();
