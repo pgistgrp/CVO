@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
+import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.Population;
@@ -19,6 +20,18 @@ import org.jgap.impl.IntegerGene;
  *
  */
 public class GAKnapsackProjectEngine {
+    
+    
+    private static void printPopulation(Population pop) {
+        System.out.println(" ------------------->");
+        for (IChromosome ch : (List<IChromosome>) pop.getChromosomes()) {
+            for (Gene one : (Gene[]) ch.getGenes()) {
+                System.out.print(one.getAllele());
+            }
+            System.out.println();
+        }
+        System.out.println(" <-------------------");
+    }//printPopulation()
     
     
     /**
@@ -35,7 +48,7 @@ public class GAKnapsackProjectEngine {
     private static IChromosome findBestSolution(
         GAKnapsackProjectFitnessFunction fitnessFunction,
         final int evolutionTimes,
-        final int populationSize
+        int populationSize
     ) throws Exception {
         Configuration.reset();
         
@@ -98,32 +111,52 @@ public class GAKnapsackProjectEngine {
          * finding the answer), but the longer it will take to evolve
          * the population (which could be seen as bad).
          */
+        if (populationSize<sampleGenes.size()+1) populationSize = sampleGenes.size()+1;
         conf.setPopulationSize(populationSize);
         
-        /*
-         * Create random initial population of Chromosomes.
-         */
-        //Genotype population = Genotype.randomInitialGenotype(conf);
-        Population initialPopulation = new Population(conf, populationSize);
-        temp = new IntegerGene[initGenes.size()];
-        for (int i=0; i<initGenes.size(); i++) {
-            temp[i] = initGenes.get(i);
-            temp[i].setAllele(0);
+        Population pop = new Population(conf, populationSize);
+        
+        IntegerGene[] sGenes = (IntegerGene[]) sampleChromosome.getGenes();
+        IntegerGene[] newGenes = new IntegerGene[sGenes.length];
+        
+        //create an all-0 chromosome
+        for (int i=0; i<sGenes.length; i++) {
+            newGenes[i] = (IntegerGene) sGenes[i].newGene();
+            newGenes[i].setAllele(0);
         }
-        IChromosome initial1 = new Chromosome(conf, temp);
-        initialPopulation.addChromosome(initial1);
+        IChromosome possibility = Chromosome.randomInitialChromosome(conf);
+        possibility.setGenes(newGenes);
+        pop.addChromosome(possibility);
+        
+        //create equal possibility chromosome
         
         for (int i=0; i<initGenes.size(); i++) {
-            temp[i] = initGenes.get(i);
-            for (int j=temp[i].getLowerBounds(); j<temp[i].getUpperBounds(); j++) {
-                temp[i].setAllele(j+1);
-                IChromosome possibility = new Chromosome(conf, temp);
-                initialPopulation.addChromosome(possibility);
+            for (int j=sGenes[i].getLowerBounds(); j<sGenes[i].getUpperBounds(); j++) {
+                newGenes = new IntegerGene[sGenes.length];
+                
+                for (int k=0; k<sGenes.length; k++) {
+                    newGenes[k] = (IntegerGene) sGenes[k].newGene();
+                    newGenes[k].setAllele(0);
+                }
+                
+                newGenes[i].setAllele(j+1);
+                possibility = Chromosome.randomInitialChromosome(conf);
+                possibility.setGenes(newGenes);
+                pop.addChromosome(possibility);
             }
-            temp[i].setAllele(0);
         }
         
-        Genotype population = new Genotype(conf, initialPopulation);
+        //fill in the other chromosomes to random ones
+        for (int i=0; i<populationSize-initGenes.size()-1; i++) {
+            possibility = Chromosome.randomInitialChromosome(conf);
+            pop.addChromosome(possibility);
+        }
+        
+        printPopulation(pop);
+        
+        Genotype population = new Genotype(conf, pop);
+        
+        printPopulation(population.getPopulation());
         
         /*
          * Evolve the population. Since we don't know what the best answer

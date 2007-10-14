@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
+import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.Population;
@@ -24,8 +25,8 @@ public class GAKnapsackFundingEngine {
     private static void printPopulation(Population pop) {
         System.out.println(" ------------------->");
         for (IChromosome ch : (List<IChromosome>) pop.getChromosomes()) {
-            for (IntegerGene one : (IntegerGene[]) ch.getGenes()) {
-                System.out.print(one.intValue());
+            for (Gene one : (Gene[]) ch.getGenes()) {
+                System.out.print(one.getAllele());
             }
             System.out.println();
         }
