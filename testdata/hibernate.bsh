@@ -3,11 +3,51 @@
  * Testing script for hibernate execution.
  */
 
-hql = "select u from User u inner join u.roles as r where r.name='moderator'";
-query = session.createQuery(hql);
-for (one : query.list()) {
-    print(one.id);
+import org.pgist.funding.UserFundingSourceToll;
+
+getFundingSource(name) {
+    query = session.createQuery("from FundingSource where name=?");
+    query.setString(0, name);
+    fs = query.uniqueResult();
+    if (fs==null) throw new RuntimeException(name + " is not found");
+    return fs;
 }
+
+shouldDoIt(user, toll) {
+    if (user==null) throw new RuntimeException("user is null");
+    if (user.userCommute==null) return false;
+    
+    for (one : user.userCommute.tolls) {
+        if (one.fundingSource.name==toll.name) return false;
+    }
+    
+    return true;
+}
+
+doIt(user, fs) {
+    toll = new UserFundingSourceToll();
+    toll.setName(fs.name);
+    toll.setOffPeakTrips(0);
+    toll.setPeakTrips(0);
+    toll.setUsed(false);
+    toll.setFundingSource(fs);
+    user.userCommute.tolls.add(toll);
+}
+
+i5n = getFundingSource("Toll on I-5, north of I-90");
+i5s = getFundingSource("Toll on I-5, south of I-90");
+
+print("Toll on I-5, north of I-90: "+i5n.id);
+print("Toll on I-5, south of I-90: "+i5s.id);
+
+hql = "from User";
+query = session.createQuery(hql);
+for (user : query.list()) {
+    print(user.loginname);
+    if (shouldDoIt(user, i5n)) doIt(user, i5n);
+    if (shouldDoIt(user, i5s)) doIt(user, i5s);
+}
+
 
 return;
 
