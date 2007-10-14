@@ -162,6 +162,7 @@
         <url-pattern>/dwr/*</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
         <url-pattern>/main.jsp</url-pattern>
+        <url-pattern>/gaTesting.do</url-pattern>
         <url-pattern>/agendaManager.do</url-pattern>
         <url-pattern>/usermgr.do</url-pattern>
         <url-pattern>/templateSelect.do</url-pattern>
