@@ -21,6 +21,18 @@ import org.jgap.impl.IntegerGene;
 public class GAKnapsackFundingEngine {
     
     
+    private static void printPopulation(Population pop) {
+        System.out.println(" ------------------->");
+        for (IChromosome ch : (List<IChromosome>) pop.getChromosomes()) {
+            for (IntegerGene one : (IntegerGene[]) ch.getGenes()) {
+                System.out.print(one.intValue());
+            }
+            System.out.println();
+        }
+        System.out.println(" <-------------------");
+    }//printPopulation()
+    
+    
     /**
      * Executes the genetic algorithm to determine the best solution.
      *
@@ -122,6 +134,8 @@ public class GAKnapsackFundingEngine {
             }
             temp[i].setAllele(0);
         }
+        
+        printPopulation(initialPopulation);
         
         Genotype population = new Genotype(conf, initialPopulation);
         
