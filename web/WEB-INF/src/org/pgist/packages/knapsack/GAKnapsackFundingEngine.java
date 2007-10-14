@@ -139,7 +139,7 @@ public class GAKnapsackFundingEngine {
         
         Genotype population = new Genotype(conf, initialPopulation);
         
-        printPopulation(population);
+        printPopulation(population.getPopulation());
         
         /*
          * Evolve the population. Since we don't know what the best answer
