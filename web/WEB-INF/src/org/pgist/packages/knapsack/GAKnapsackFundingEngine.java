@@ -139,6 +139,8 @@ public class GAKnapsackFundingEngine {
         
         Genotype population = new Genotype(conf, initialPopulation);
         
+        printPopulation(population);
+        
         /*
          * Evolve the population. Since we don't know what the best answer
          * is going to be, we just evolve the max number of times.
