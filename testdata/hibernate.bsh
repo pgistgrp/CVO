@@ -3,7 +3,7 @@
  * Testing script for hibernate execution.
  */
 
-hql = "from java.lang.Object where id=12639";
+hql = "select u from User u inner join u.roles as r where r.name='moderator'";
 query = session.createQuery(hql);
 for (one : query.list()) {
     print(one.id);

@@ -462,7 +462,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     }//updateProfile()
 
 
-    private static final String hql_getUsersByRole = "from User where roles.name=?";
+    private static final String hql_getUsersByRole = "select u from User u inner join u.roles r where r.name=?";
     
     
     public Collection getUsersByRole(String role) throws Exception {
