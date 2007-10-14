@@ -18,7 +18,7 @@ public class UserCommute implements Serializable {
     private Long id;
     
     private FundingSourceSuite fundingSuite;
-        
+    
     private float annualConsume;
     
     private float costPerGallon;

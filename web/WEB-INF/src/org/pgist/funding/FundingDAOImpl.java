@@ -26,7 +26,7 @@ public class FundingDAOImpl extends BaseDAOImpl implements FundingDAO {
     		user.setUserCommute(commute);
     		save(commute);
     		save(user);       		
-    	}   
+    	}
     	if(user.getUserCommute().getTolls().size() == 0) {
     		//Add the tolls
     		user.getUserCommute().setTolls(createUserTolls());
