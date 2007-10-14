@@ -147,7 +147,7 @@ public class GAKnapsackFundingEngine {
         }
         
         //fill in the other chromosomes to random ones
-        for (int i=0; i<populationSize-initGenes.size()-1; i++) {
+        for (int i=0; i<populationSize-choiceCount-1; i++) {
             possibility = Chromosome.randomInitialChromosome(conf);
             pop.addChromosome(possibility);
         }
@@ -162,10 +162,10 @@ public class GAKnapsackFundingEngine {
          * Evolve the population. Since we don't know what the best answer
          * is going to be, we just evolve the max number of times.
          */
-        printPopulation("Before Loop", pop);
+        printPopulation("Before Loop", population.getPopulation());
         for (int i=0; i<evolutionTimes; i++) {
             population.evolve();
-            printPopulation("Loop "+i, pop);
+            printPopulation("Loop "+i, population.getPopulation());
         }
         
         return population.getFittestChromosome();
