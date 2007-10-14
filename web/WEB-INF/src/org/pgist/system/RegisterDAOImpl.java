@@ -437,20 +437,20 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
         query.setBoolean(1, false);
         
         ArrayList<TravelTrip> trips = new ArrayList<TravelTrip>(query.list());
+        ArrayList<TravelTrip> trips_empty = new ArrayList<TravelTrip>();
         for(TravelTrip trip : trips){
         	//handle lat lngs for markers in each trip:
-        	Iterator itMarkers = trip.getMarkers().iterator();
-        	while(itMarkers.hasNext()){
-        		TravelMarker m = (TravelMarker)itMarkers.next();
-        		Point p = (Point)m.getPoint();
-        		m.setLat(p.getY());
-        		m.setLng(p.getX());
-        	}
-        	
-        	//convert line into x y series
-        	Geometry gm = trip.getRoute();
-        	if(gm != null){
-            	LineString ls = (LineString)gm;
+           try{
+            	Iterator itMarkers = trip.getMarkers().iterator();
+            	while(itMarkers.hasNext()){
+            		TravelMarker m = (TravelMarker)itMarkers.next();
+            		Point p = (Point)m.getPoint();
+            		m.setLat(p.getY());
+            		m.setLng(p.getX());
+            	}
+            	
+            	//convert line into x y series
+            	LineString ls = (LineString)trip.getRoute();
             	Point[] points = ls.getPoints();
             	double[] coords = new double[points.length*2];
             	for(int i=0; i<points.length; i++){
@@ -458,9 +458,15 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
             		coords[i*2 + 1] = points[i].getY();
             	}
             	trip.setCoords(coords);
-        	}
+
+           }catch(Exception e){
+               trips_empty.add(trip);
+           }
         }
-        return trips;
+        for(TravelTrip trip : trips_empty){
+            trips.remove(trip);
+        }
+       return trips;
     }// end of getUserTravelTrips
     
     //needed: deleteTravelTrip(long tripId)
