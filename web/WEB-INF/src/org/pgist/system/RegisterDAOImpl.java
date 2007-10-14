@@ -18,7 +18,6 @@ import org.pgist.users.Role;
 import org.pgist.users.TravelMarker;
 import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
-import org.postgis.Geometry;
 import org.postgis.LineString;
 import org.postgis.Point;
 
@@ -173,12 +172,6 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 		user.setBikeDays(bike);
 		user.setWalkDays(walk);
         user.setEnabled(true);
-        
-        /*
-         * Temp: Zhong Wang
-         *       At present we temporarily disable registered users.
-         */
-        user.setEnabled(false);
         
 		save(user);
 	} //addQuestionnaire()
