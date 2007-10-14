@@ -18,6 +18,7 @@ import org.pgist.users.Role;
 import org.pgist.users.TravelMarker;
 import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
+import org.postgis.Geometry;
 import org.postgis.LineString;
 import org.postgis.Point;
 
@@ -447,15 +448,17 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
         	}
         	
         	//convert line into x y series
-        	LineString ls = (LineString)trip.getRoute();
-        	Point[] points = ls.getPoints();
-        	double[] coords = new double[points.length*2];
-        	for(int i=0; i<points.length; i++){
-        		coords[i*2] = points[i].getX();
-        		coords[i*2 + 1] = points[i].getY();
+        	Geometry gm = trip.getRoute();
+        	if(gm != null){
+            	LineString ls = (LineString)gm;
+            	Point[] points = ls.getPoints();
+            	double[] coords = new double[points.length*2];
+            	for(int i=0; i<points.length; i++){
+            		coords[i*2] = points[i].getX();
+            		coords[i*2 + 1] = points[i].getY();
+            	}
+            	trip.setCoords(coords);
         	}
-        	trip.setCoords(coords);
-        	
         }
         return trips;
     }// end of getUserTravelTrips
