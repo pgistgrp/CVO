@@ -47,7 +47,7 @@ public class GAKnapsackFundingEngine {
     private static IChromosome findBestSolution(
         GAKnapsackFundingFitnessFunction fitnessFunction,
         final int evolutionTimes,
-        final int populationSize
+        int populationSize
     ) throws Exception {
         Configuration.reset();
         
@@ -110,12 +110,8 @@ public class GAKnapsackFundingEngine {
          * finding the answer), but the longer it will take to evolve
          * the population (which could be seen as bad).
          */
+        if (populationSize<sampleGenes.size()+1) populationSize = sampleGenes.size()+1;
         conf.setPopulationSize(populationSize);
-        
-        /*
-         * Create random initial population of Chromosomes.
-         */
-        //Genotype population = Genotype.randomInitialGenotype(conf);
         
         Population pop = new Population(conf, populationSize);
         
@@ -147,6 +143,13 @@ public class GAKnapsackFundingEngine {
                 possibility.setGenes(newGenes);
                 pop.addChromosome(possibility);
             }
+        }
+        
+        //fill in the other chromosomes to random ones
+        for (int i=0; i<populationSize-initGenes.size()-1; i++) {
+            possibility = Chromosome.randomInitialChromosome(conf);
+            possibility.setGenes(newGenes);
+            pop.addChromosome(possibility);
         }
         
         printPopulation(pop);
