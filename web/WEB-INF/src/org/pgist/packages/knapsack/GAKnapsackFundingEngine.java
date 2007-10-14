@@ -116,28 +116,42 @@ public class GAKnapsackFundingEngine {
          * Create random initial population of Chromosomes.
          */
         //Genotype population = Genotype.randomInitialGenotype(conf);
-        Population initialPopulation = new Population(conf, populationSize-choiceCount-1);
-        temp = new IntegerGene[initGenes.size()];
-        for (int i=0; i<initGenes.size(); i++) {
-            temp[i] = initGenes.get(i);
-            temp[i].setAllele(0);
+        
+        Population pop = new Population(conf, populationSize);
+        
+        IntegerGene[] sGenes = (IntegerGene[]) sampleChromosome.getGenes();
+        IntegerGene[] newGenes = new IntegerGene[sGenes.length];
+        
+        //create an all-0 chromosome
+        for (int i=0; i<sGenes.length; i++) {
+            newGenes[i] = (IntegerGene) sGenes[i].newGene();
+            newGenes[i].setAllele(0);
         }
-        IChromosome initial1 = new Chromosome(conf, temp);
-        initialPopulation.addChromosome(initial1);
+        IChromosome possibility = Chromosome.randomInitialChromosome(conf);
+        possibility.setGenes(newGenes);
+        pop.addChromosome(possibility);
+        
+        //create equal possibility chromosome
         
         for (int i=0; i<initGenes.size(); i++) {
-            temp[i] = initGenes.get(i);
-            for (int j=temp[i].getLowerBounds(); j<temp[i].getUpperBounds(); j++) {
-                temp[i].setAllele(j+1);
-                IChromosome possibility = new Chromosome(conf, temp);
-                initialPopulation.addChromosome(possibility);
+            newGenes = new IntegerGene[sGenes.length];
+            
+            for (int j=sGenes[i].getLowerBounds(); j<sGenes[i].getUpperBounds(); j++) {
+                for (int k=0; k<sGenes.length; k++) {
+                    newGenes[k] = (IntegerGene) sGenes[k].newGene();
+                    newGenes[k].setAllele(0);
+                }
+                
+                newGenes[i].setAllele(j+1);
+                possibility = Chromosome.randomInitialChromosome(conf);
+                possibility.setGenes(newGenes);
+                pop.addChromosome(possibility);
             }
-            temp[i].setAllele(0);
         }
         
-        printPopulation(initialPopulation);
+        printPopulation(pop);
         
-        Genotype population = new Genotype(conf, initialPopulation);
+        Genotype population = new Genotype(conf, pop);
         
         printPopulation(population.getPopulation());
         
