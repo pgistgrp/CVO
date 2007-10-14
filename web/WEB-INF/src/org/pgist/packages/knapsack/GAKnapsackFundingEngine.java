@@ -134,9 +134,9 @@ public class GAKnapsackFundingEngine {
         //create equal possibility chromosome
         
         for (int i=0; i<initGenes.size(); i++) {
-            newGenes = new IntegerGene[sGenes.length];
-            
             for (int j=sGenes[i].getLowerBounds(); j<sGenes[i].getUpperBounds(); j++) {
+                newGenes = new IntegerGene[sGenes.length];
+                
                 for (int k=0; k<sGenes.length; k++) {
                     newGenes[k] = (IntegerGene) sGenes[k].newGene();
                     newGenes[k].setAllele(0);
