@@ -1,0 +1,151 @@
+/*
+ * Fitness function for selecting funding sources.
+**/
+
+import java.util.List;
+import org.jgap.*;
+import org.jgap.impl.*;
+import org.pgist.tests.GAKnapsackFitnessProxy;
+
+MAX_BOUND = 1E20;
+
+fitnessFunction = new GAKnapsackFitnessProxy() {
+    
+    protected Object[] choices;
+    protected double limit;
+    
+    public void setChoices(Object[] _choices) {
+        choices = _choices;
+    }
+    
+    public void setLimit(_limit) {
+        limit = _limit;
+    }
+    
+    /*
+     * -----------------------------------------------------------
+    **/
+    
+    getTotalCost(chromosome) {
+        totalCost = 0.0d;
+        
+        k = 0;
+        for (i=0; i<choices.length; i++) {
+            if (choices[i].single) {
+                gene = chromosome.getGene(k);
+                if (gene.intValue()>0) {
+                    option = choices[i].options.get(gene.intValue()-1);
+                    totalCost += option.cost;
+                }
+                k++;
+            } else {
+                for (j=0; j<choices[i].options.size(); j++) {
+                    gene = chromosome.getGene(k);
+                    option = choices[i].options.get(j);
+                    totalCost += gene.intValue() * option.cost;
+                    k++;
+                }
+            }
+        }//for i
+        
+        return totalCost;
+    }//getTotalCost()
+
+    
+    getTotalBenefit(chromosome) {
+        totalBenefit = 0.0d;
+        
+        k = 0;
+        for (i=0; i<choices.length; i++) {
+            if (choices[i].single) {
+                gene = (IntegerGene) chromosome.getGene(k);
+                if (gene.intValue()>0) {
+                    option = choices[i].options.get(gene.intValue()-1);
+                    totalBenefit += option.profit;
+                }
+                k++;
+            } else {
+                for (j=0; j<choices[i].options.size(); j++) {
+                    gene = chromosome.getGene(k);
+                    option = choices[i].options.get(j);
+                    totalBenefit += gene.intValue() * option.profit;
+                    k++;
+                }
+            }
+        }//for i
+        
+        return totalBenefit;
+    }//getTotalBenefit()
+    
+    
+    getCostToAvgRes(chromosome){
+        totalCostToAvgRes = 0.0;
+        
+        k = 0;
+        for (i=0; i<choices.length; i++) {
+            if (choices[i].single) {
+                gene = chromosome.getGene(k);
+                if (gene.intValue()>0) {
+                    option = choices[i].options.get(gene.intValue()-1);
+                    totalCostToAvgRes += option.avgcost;
+                }
+                k++;
+            } else {
+                for (j=0; j<choices[i].options.size(); j++) {
+                    gene = chromosome.getGene(k);
+                    option = choices[i].options.get(j);
+                    totalCostToAvgRes += gene.intValue() * option.avgcost;
+                    k++;
+                }
+            }
+        }//for i
+        
+        return totalCostToAvgRes;
+    }//getCostToAvgRes()
+    
+    
+    /*
+     * -----------------------------------------------------------
+    **/
+    
+    double costDifferenceBonus(double costDifference) {
+        if (costDifference < 0) {
+            return -MAX_BOUND;
+        } else {
+            return MAX_BOUND/2 - (costDifference * costDifference * costDifference * costDifference);
+        }
+    }//costDifferenceBonus()
+    
+    double benefitBonus(double totalBenefit) {
+        return Math.min(MAX_BOUND, MAX_BOUND/3 + (totalBenefit * totalBenefit));
+    }//benefitBonus()
+    
+    double costToAvgResBonus(double costToAvgRes) {
+        if (costToAvgRes == 11){
+            return MAX_BOUND;
+        }else{
+            return -1;
+        }
+    }//costToAvgResBonus()
+    
+    /*
+     * -----------------------------------------------------------
+    **/
+    
+    public double evaluate(chromosome) {
+        totalCost = getTotalCost(chromosome);
+        costDifference = limit - totalCost;
+        costToAvgRes = getCostToAvgRes(chromosome);
+        totalBenefit = getTotalBenefit(chromosome);
+        
+        fitness = 0.0d;
+        fitness += costDifferenceBonus(costDifference);
+        fitness += benefitBonus(totalBenefit);
+        fitness += costToAvgResBonus(costToAvgRes);
+        
+        print("fitness: "+Math.max(1.0d, fitness));
+        return Math.max(1.0d, fitness);
+    }//evaluate()
+    
+};//class GAKnapsackFitnessProxy
+
