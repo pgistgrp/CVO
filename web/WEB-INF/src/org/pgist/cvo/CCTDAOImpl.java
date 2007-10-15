@@ -136,12 +136,12 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
     }//getRandomConcerns()
 
 
-    private static final String hql_getConcernByTag = "from Concern c where c.deleted=? and c.tags.id=?";
+    private static final String hql_getConcernsByTag = "select c from Concern c inner join c.tags t where c.deleted=? and t.id=?";
     
     
     public Collection getConcernsByTag(TagReference tagRef, int count) throws Exception {
         if (count>0) getHibernateTemplate().setMaxResults(count);
-        return getHibernateTemplate().find(hql_getConcernByTag, new Object[] {
+        return getHibernateTemplate().find(hql_getConcernsByTag, new Object[] {
                 new Boolean(false),
                 tagRef.getId()
         });

@@ -3,24 +3,160 @@
  * Testing script for matrix execution.
  */
 
-import org.pgist.packages.knapsack.*;
+import org.jgap.*;
+import org.jgap.impl.*;
 
-//constants to define the input
-evolutionTimes = 100;
-populationSize = 50;
-numberOfProjects = 20;
-numberOfAltsPerProject = 20; //Note: there will be one single selection per numberOfAltsPerProject projects
-limit = 800;
 
-Random random = new Random();
+/* constants to define the input */
+evolutionTimes = 20;
+populationSize = 15;
+limit = 80;
 
-KSChoices[] choices = new KSChoices[numberOfProjects];
-for (int i=0; i<choices.length; i++) {
-    choices[i] = new KSChoices(i%numberOfAltsPerProject==0 || i%numberOfAltsPerProject==3);
-    for (int j=0; j<numberOfAltsPerProject; j++) {
-        new TempItem(choices[i], random.nextInt(100), random.nextInt(100));
+printPopulation(message, pop) {
+    print(message+" ------------------->");
+    for (ch : pop.getChromosomes()) {
+        printChromosome(ch);
+    }
+    print(" <-------------------");
+}//printPopulation()
+
+printChromosome(ch) {
+    for (Gene one : ch.getGenes()) {
+        System.out.print(one.getAllele());
+    }
+    System.out.println();
+}//printChromosome()
+
+Option() {
+    cost = 0.0;
+    avgcost = 0.0;
+    profit = 0.0;
+    return this;
+}//Option()
+
+Choice() {
+    single = false;
+    options = new ArrayList();
+    add(cost, avgcost, profit) {
+        option = Option();
+        option.cost = cost;
+        option.avgcost = avgcost;
+        option.profit = profit;
+        options.add(option);
+    }
+    return this;
+}//Choice()
+
+generateChoices() {
+    matrix = new float[][] {
+       //cost      avgcost   profit   group    single (1 for multiple)
+        {10.5,     17.5,     8.0e6,     0,     0},
+        {15.5,     27.5,     5.4e6,     0,     0},
+        {5.55,     8.50,     4.0e6,     0,     0},
+        {23.5,     26.5,     1.3e7,     1,     1},
+        {100.0,    37.0,     2.5e6,     1,     1},
+        {70.0,     19.5,     3.3e5,     2,     0},
+        {77.3,     60.0,     8.1e5,     2,     0},
+        {20.1,     37.5,     2.2e8,     2,     0},
+        {21.5,     55.5,     5.2e5,     2,     0},
+        {30.0,     45.0,     3.0e4,     3,     1},
+        {36.0,     15.0,     8.0e5,     3,     1},
+        {10.0,     24.0,     5.0e6,     3,     1},
+    };
+    
+    choices = new ArrayList();
+    group = -1;
+    for (line : matrix) {
+        if (group!=line[3]) {
+            choice = Choice();
+            choice.single = (line[4]==0);
+            choices.add(choice);
+            group = line[3];
+        }
+        
+        choice.add(line[0], line[1], line[2]);
+    }
+    
+    return choices;
+}
+
+generateSampleGenes(choices) {
+    genes = new ArrayList();
+    for (choice : choices) {
+        if (choice.single) {
+            genes.add(new IntegerGene(conf, 0, choice.options.size()));
+        } else {
+            for (option: choice.options) genes.add(new IntegerGene(conf, 0, 1));
+        }
+    }
+    return genes.toArray(new Gene[] {});
+}
+
+genesis(population, sampleGenes) {
+    //all-0 chromosome
+    newGenes = new IntegerGene[sampleGenes.length];
+    for (int i=0; i<sampleGenes.length; i++) {
+        newGenes[i] = sampleGenes[i].newGene();
+        newGenes[i].setAllele(0);
+    }
+    IChromosome possibility = Chromosome.randomInitialChromosome(conf);
+    possibility.setGenes(newGenes);
+    population.addChromosome(possibility);
+    
+    //equal possibility chromosome
+    for (i=0; i<sampleGenes.length; i++) {
+        for (j=sampleGenes[i].lowerBounds; j<sampleGenes[i].upperBounds; j++) {
+            newGenes = new IntegerGene[sampleGenes.length];
+            
+            for (k=0; k<sampleGenes.length; k++) {
+                newGenes[k] = sampleGenes[k].newGene();
+                newGenes[k].setAllele(0);
+            }
+            
+            newGenes[i].setAllele(j+1);
+            possibility = Chromosome.randomInitialChromosome(conf);
+            possibility.setGenes(newGenes);
+            population.addChromosome(possibility);
+        }
+    }
+    
+    //fill in the other chromosomes to random ones
+    for (i=0; i<populationSize-sampleGenes.length-1; i++) {
+        possibility = Chromosome.randomInitialChromosome(conf);
+        population.addChromosome(possibility);
     }
 }
 
-GAKnapsackEngine.mcknap(choices, limit, evolutionTimes, populationSize);
 
+/* Main Program */
+choices = generateChoices();
+
+Configuration.reset();
+DefaultConfiguration conf = new DefaultConfiguration();
+conf.setPreservFittestIndividual(true);
+conf.setKeepPopulationSizeConstant(true);
+conf.setFitnessFunction(fitnessFunction);
+proxy.setChoices(choices.toArray());
+proxy.setLimit(limit);
+
+sampleGenes = generateSampleGenes(choices);
+sampleChromosome = new Chromosome(conf, sampleGenes);
+conf.setSampleChromosome(sampleChromosome);
+if (populationSize<sampleGenes.length+1) populationSize = sampleGenes.length+1;
+conf.setPopulationSize(populationSize);
+
+Population initPopulation = new Population(conf, populationSize);
+genesis(initPopulation, sampleGenes);
+
+printPopulation("Init Population: ", initPopulation);
+
+genotype = new Genotype(conf, initPopulation);
+
+printPopulation("Population Before Loop: ", genotype.population);
+
+for (i=0; i<evolutionTimes; i++) {
+    genotype.evolve();
+    printPopulation("Loop "+i, genotype.population);
+    System.out.print("Fittest chromosome: ");
+    printChromosome(genotype.fittestChromosome);
+}
