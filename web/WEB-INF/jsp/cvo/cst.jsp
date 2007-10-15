@@ -178,9 +178,9 @@ tinyMCE.init({
 		function keepBreaks(string){
 			return string.replace(/\n/g,"<br>");
 		}
-		
+ 
 		function getOrphanTags(){
-				CSTAgent.getOrphanTags({cctId:cctId, page:0, count: -1}, {
+				CSTAgent.getOrphanTags({cctId:cctId, count: 1000000000}, {
 				callback:function(data){
 						if (data.successful){
 							$('sidebar_tags').innerHTML += data.html;
