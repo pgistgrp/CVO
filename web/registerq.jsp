@@ -124,7 +124,7 @@ function submitQ(form) {
 	RegisterAgent.addQuestionnaire({income:income, householdsize:householdsize, drive:drive, carpool:carpool, carpoolpeople:carpoolpeople, bus:bus, bike:bike, walk:walk}, {
 		callback:function(data){
 			if (data.successful){
-				window.location = "registercomplete.do";
+				window.location = "main.do";
 			}else{
 				alert(data.reason);
 			}
