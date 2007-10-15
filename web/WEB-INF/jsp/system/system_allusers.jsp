@@ -117,8 +117,10 @@
   </c:choose>
 </table>
 <p align="center">
+<c:if test="${totalusers > 0}">
 <strong>Total Users:</strong> ${totalusers}  &nbsp;
 <strong>Quota Users:</strong> ${quotausers} (<fmt:formatNumber type="percent">${quotausers / totalusers}</fmt:formatNumber>)  &nbsp;
 <strong>Non-Quota Users:</strong> ${nonquotausers} (<fmt:formatNumber type="percent">${nonquotausers / totalusers}</fmt:formatNumber>)&nbsp;
 <strong>Error Users:</strong> ${errorusers} (<fmt:formatNumber type="percent">${errorusers / totalusers}</fmt:formatNumber>)
+</c:if>
 </p>

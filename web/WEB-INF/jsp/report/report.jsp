@@ -287,13 +287,45 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 						<p>No Transportation Types Available</p>
 					</c:when>
 					<c:otherwise>
-
+					
+					<c:set var="s1income1" value="0" />
+					<c:set var="s1income2" value="0" />
+					<c:set var="s1income3" value="0" />
+					<c:set var="s1income4" value="0" />
+					<c:set var="s1income5" value="0" />
+					
 					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
 						<c:if test="${statsPart1.incomeStats[income] > 0}">
-						<fmt:formatNumber type="percent">${statsPart1.incomeStats[income]/statsPart1.totalUsers}</fmt:formatNumber>
-						: ${income.value}<br/>
+						
+						<c:if test='${income.value == "$0-$20,000" || income.value == "$20,000-$30,000" || income.value == "$30,000-$40,000"}'>
+							<c:set var="s1income1" value="${s1income1+statsPart1.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$40,000-$50,000" || income.value == "$50,000-$60,000" || income.value == "$60,000-$70,000"}'>
+							<c:set var="s1income2" value="${s1income2+statsPart1.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$70,000-$80,000" || income.value == "$80,000-$90,000" || income.value == "$90,000-$100,000"}'>
+							<c:set var="s1income3" value="${s1income3+statsPart1.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$100,000-$120,000" || income.value == "$120,000-$140,000" || income.value == "$140,000-$160,000"}'>
+							<c:set var="s1income4" value="${s1income4+statsPart1.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$160,000-$180,000" || income.value == "$180,000-$200,000" || income.value == "$200,000 or more"}'>
+							<c:set var="s1income5" value="${s1income5+statsPart1.incomeStats[income]}" />
+						</c:if>
+						
 						</c:if>
 					</c:forEach>
+					<fmt:formatNumber type="percent">${s1income1/statsPart1.totalUsers}</fmt:formatNumber>
+						: $0-$39,999<br/>
+					<fmt:formatNumber type="percent">${s1income2/statsPart1.totalUsers}</fmt:formatNumber>
+						: $40,000-$69,999<br/>
+					<fmt:formatNumber type="percent">${s1income3/statsPart1.totalUsers}</fmt:formatNumber>
+						: $70,000-$99,999<br/>
+					<fmt:formatNumber type="percent">${s1income4/statsPart1.totalUsers}</fmt:formatNumber>
+						: $100,000-$159,999<br/>
+					<fmt:formatNumber type="percent">${s1income5/statsPart1.totalUsers}</fmt:formatNumber>
+						: $160,000 or more<br/>
+							
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -543,12 +575,44 @@ After a period of discussion about the relevance of the improvement factors to t
 					</c:when>
 					<c:otherwise>
 
+					<c:set var="s4income1" value="0" />
+					<c:set var="s4income2" value="0" />
+					<c:set var="s4income3" value="0" />
+					<c:set var="s4income4" value="0" />
+					<c:set var="s4income5" value="0" />
+					
 					<c:forEach var="income" items="${statsPart4.incomeRanges}" varStatus="loop">
 						<c:if test="${statsPart4.incomeStats[income] > 0}">
-						<fmt:formatNumber type="percent">${statsPart4.incomeStats[income]/statsPart4.totalUsers}</fmt:formatNumber>
-						: ${income.value}<br/>
+						
+						<c:if test='${income.value == "$0-$20,000" || income.value == "$20,000-$30,000" || income.value == "$30,000-$40,000"}'>
+							<c:set var="s4income1" value="${s4income1+statsPart4.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$40,000-$50,000" || income.value == "$50,000-$60,000" || income.value == "$60,000-$70,000"}'>
+							<c:set var="s4income2" value="${s4income2+statsPart4.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$70,000-$80,000" || income.value == "$80,000-$90,000" || income.value == "$90,000-$100,000"}'>
+							<c:set var="s4income3" value="${s4income3+statsPart4.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$100,000-$120,000" || income.value == "$120,000-$140,000" || income.value == "$140,000-$160,000"}'>
+							<c:set var="s4income4" value="${s4income4+statsPart4.incomeStats[income]}" />
+						</c:if>
+						<c:if test='${income.value == "$160,000-$180,000" || income.value == "$180,000-$200,000" || income.value == "$200,000 or more"}'>
+							<c:set var="s4income5" value="${s4income5+statsPart4.incomeStats[income]}" />
+						</c:if>
+						
 						</c:if>
 					</c:forEach>
+					<fmt:formatNumber type="percent">${s4income1/statsPart4.totalUsers}</fmt:formatNumber>
+						: $0-$39,999<br/>
+					<fmt:formatNumber type="percent">${s4income2/statsPart4.totalUsers}</fmt:formatNumber>
+						: $40,000-$69,999<br/>
+					<fmt:formatNumber type="percent">${s4income3/statsPart4.totalUsers}</fmt:formatNumber>
+						: $70,000-$99,999<br/>
+					<fmt:formatNumber type="percent">${s4income4/statsPart4.totalUsers}</fmt:formatNumber>
+						: $100,000-$159,999<br/>
+					<fmt:formatNumber type="percent">${s4income5/statsPart4.totalUsers}</fmt:formatNumber>
+						: $160,000 or more<br/>
+							
 					</c:otherwise>
 				</c:choose>
 				</td>
