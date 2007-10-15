@@ -47,11 +47,9 @@
 	<!-- #container is the container that wraps around all the main page content -->
 
   <div id="container">
-
-	<h3 class="headerColor" align="center">Thanks for registering!</h3>
-	<p style="text-align:center">The LIT Challenge will take place over a 4 week period, with an anticipated start date of <strong>October 15, 2007</strong>. You will receive an email when the website is ready for your participation. In the meantime, feel free to contact <a href="mailto:moderator@letsimprovetransportation.org">moderator@letsimprovetransportation.org</a> if you have any questions.</p>
-
+	  <h3 align="center" class="headerColor">Your Registration is Complete</h3>
 		
+		<div align="center"><a href="login.do" class="style1">Please click here to login</a></div>
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
