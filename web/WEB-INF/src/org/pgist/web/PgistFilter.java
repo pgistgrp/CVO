@@ -108,7 +108,8 @@ public class PgistFilter implements Filter {
         
         String httpsPrefix = "https://" + req.getServerName() + ":" + httpsPort;
         req.setAttribute("httpsPrefix", httpsPrefix);
-        String httpPrefix = "http://" + req.getServerName() + ":" + httpPort;
+        String httpPrefix = "http://" + req.getServerName();
+        if (httpPort!=80) httpPrefix += ":" + httpPort;
         req.setAttribute("httpPrefix", httpPrefix);
         
         /*
