@@ -195,7 +195,7 @@ tinyMCE.init({
 		var relatedTagsArr = [];
 		function getTags(categoryId, page, type, orphanpage){
 			Util.loading(true,"Working")
-			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, type: type, orphanPage:orphanpage}, {
+			CSTAgent.getTags({cctId:cctId, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
 			callback:function(data){
 				if (data.successful){
 					if (type == 0){			
@@ -281,7 +281,7 @@ tinyMCE.init({
 		function getConcernsByTags(visibility){
 			//eventually make  paginated
 				Util.loading(true,"Working");
-				CSTAgent.getConcernsByTags({cctId:cctId, page: 1, count: -1}, relatedTagsArr, {
+				CSTAgent.getConcernsByTags({cctId:cctId, page: 1, count: 100000000}, relatedTagsArr, {
 				callback:function(data){
 						if (data.successful){
 							if (visibility == 1){	
