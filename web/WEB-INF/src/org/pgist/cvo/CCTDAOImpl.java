@@ -383,16 +383,16 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
         if("all".equalsIgnoreCase(type)) {
             pstmt = connection.prepareStatement(sql1.replace("#type", ""));
             pstmt.setLong(1, cct.getId());
-            pstmt.setString(2, filter);
+            pstmt.setString(2, filter.toLowerCase());
         } else if ("owner".equalsIgnoreCase(type)) {
             pstmt = connection.prepareStatement(sql1.replace("#type", " and c.author.id=? "));
             pstmt.setLong(1, cct.getId());
-            pstmt.setString(2, filter);
+            pstmt.setString(2, filter.toLowerCase());
             pstmt.setLong(3, uid);
         } else if ("other".equalsIgnoreCase(type)) {
             pstmt = connection.prepareStatement(sql1.replace("#type", " and c.author.id<>? "));
             pstmt.setLong(1, cct.getId());
-            pstmt.setString(2, filter);
+            pstmt.setString(2, filter.toLowerCase());
             pstmt.setLong(3, uid);
         } else {
             throw new Exception("unknown type: "+type);
@@ -415,20 +415,20 @@ public class CCTDAOImpl extends BaseDAOImpl implements CCTDAO {
         if("all".equalsIgnoreCase(type)) {
             pstmt = connection.prepareStatement(sql2.replace("#type", ""));
             pstmt.setLong(1, cct.getId());
-            pstmt.setString(2, filter);
+            pstmt.setString(2, filter.toLowerCase());
             pstmt.setInt(3, setting.getFirstRow());
             pstmt.setInt(4, setting.getRowOfPage());
         } else if ("owner".equalsIgnoreCase(type)) {
             pstmt = connection.prepareStatement(sql2.replace("#type", " and c.author.id=? "));
             pstmt.setLong(1, cct.getId());
-            pstmt.setString(2, filter);
+            pstmt.setString(2, filter.toLowerCase());
             pstmt.setLong(3, uid);
             pstmt.setInt(4, setting.getFirstRow());
             pstmt.setInt(5, setting.getRowOfPage());
         } else if ("other".equalsIgnoreCase(type)) {
             pstmt = connection.prepareStatement(sql2.replace("#type", " and c.author.id<>? "));
             pstmt.setLong(1, cct.getId());
-            pstmt.setString(2, filter);
+            pstmt.setString(2, filter.toLowerCase());
             pstmt.setLong(3, uid);
             pstmt.setInt(4, setting.getFirstRow());
             pstmt.setInt(5, setting.getRowOfPage());
