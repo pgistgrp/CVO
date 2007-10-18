@@ -54,7 +54,7 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     	u.setCity(city);
     	u.setState(state);
     	u.setZipcode(zipcode);
-    	u.setLoginname(username);
+    	u.setLoginname(username.trim());
     	u.setPassword(password1);
     	u.setEnabled(false);
     	u.encodePassword();
