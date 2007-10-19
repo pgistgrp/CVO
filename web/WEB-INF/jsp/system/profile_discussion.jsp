@@ -49,10 +49,8 @@
 			</c:choose>
 		
 			<div class="profile-col1 floatLeft">
-				<div class="floatLeft">
-					 <pg:url page="/sdThread.do" params="pid=${discussion.id}">${discussion.title}</pg:url><br />
-
-					<span>Some how get the step</span>
+			  <div class="floatLeft">
+					 ${discussion.title}<br />
 				</div>
 			</div>
 			<div class="profile-col2 floatRight"><fmt:formatDate value="${discussion.createTime}" pattern="MM/dd" var="discussionDate" />${discussionDate}</div>

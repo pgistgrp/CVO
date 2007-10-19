@@ -87,7 +87,7 @@ width:650px;
 #password #errors {width:550px;}
 .submit {margin-bottom:1em;font-size:1.1em;}
 
-</style>
+    </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -262,7 +262,7 @@ function formOther(){
 			<div class="clearBoth"></div>
 			<div class="settings-col1">Why I'm here<br />
 				<span> Tell us about your interest in transportation and why you've chosen to
-				take on the LIT challenge.</span> </div>
+				take on the LIT challenge. (255 character limit)</span>  </div>
 			<div class="settings-col2">
 				<html:textarea property="profileDesc" value="${user.profileDesc}" rows="5" cols="50"/>
 			</div>
