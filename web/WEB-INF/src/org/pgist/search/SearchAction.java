@@ -122,12 +122,12 @@ public class SearchAction extends Action {
                     map.put("tags", doc.get("tags"));
                 } else if ("concern".equals(type)) {
                     map.put("concernid", doc.get("concernid"));
-                    map.put("title", doc.get("title"));
+                    map.put("title", doc.get("body").substring(0, 50));
                     map.put("tags", doc.get("tags"));
                 } else if ("comment".equals(type)) {
                     map.put("concernid", doc.get("concernid"));
                     map.put("commentid", doc.get("commentid"));
-                    map.put("title", doc.get("title"));
+                    map.put("title", doc.get("body").substring(0, 50));
                     map.put("tags", doc.get("tags"));
                 } else if ("project".equals(type)) {
                     map.put("suiteid", doc.get("suiteid"));
