@@ -25,6 +25,7 @@ import org.pgist.packages.PackageSuite;
 import org.pgist.packages.PackageVoteSuite;
 import org.pgist.packages.UserPackage;
 import org.pgist.packages.VoteSuiteStat;
+import org.pgist.packages.PackageUserVote;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectService;
@@ -34,6 +35,12 @@ import org.pgist.system.County;
 import org.pgist.system.RegisterObject;
 import org.pgist.system.SystemService;
 import org.pgist.users.User;
+import org.pgist.discussion.InfoStructure;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.Discussion;
+import org.pgist.discussion.DiscussionPost;
+import org.pgist.discussion.DiscussionReply;
+
 
 
 
@@ -79,6 +86,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	private static final String hql_createStatsPart1_1 = "from CategoryReference cr where cr.theme=?"; 
 	private static final String hql_createStatsPart1_2 = "from InfoObject io where io.object.id=?"; 
 	private static final String hql_createStatsPart1_3 = "from RegisterObject ro where ro.type=?"; 
+	private static final String hql_createStatsPart1_4 = "from County c"; 
 	
 	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsPart1()");
@@ -86,7 +94,20 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
 		ReportStats rs = new ReportStats();
 		
-		//Get Themes and stats
+
+		//Variables to store stats
+		Set<User> users = new HashSet<User>();
+		Set<User> allUsers = new HashSet<User>();
+		Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
+		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
+		Set<County> counties = new HashSet<County>();
+		Map<County, Integer> countySet = new HashMap<County, Integer>();
+		Map<RegisterObject, Integer> incomeSet = new HashMap<RegisterObject, Integer>();		
+		Map<RegisterObject, Integer> transportSet = new HashMap<RegisterObject, Integer>();	
+		int male = 0;
+		int female = 0;
+		
+//		Get Themes and stats
 		List themelist = cstService.getThemes(cct);
 		Set themes = new HashSet();
 		themes.addAll(themelist);
@@ -98,7 +119,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			List catRefList = getHibernateTemplate().find(hql_createStatsPart1_1, new Object[] {theme,});			
 			CategoryReference cr = (CategoryReference)catRefList.get(0);
 			System.out.println("***ReportStats1 cr size: " + catRefList.size());
-			
+
 			List InfoObjList = getHibernateTemplate().find(hql_createStatsPart1_2, new Object[] {cr.getId(),});
 			InfoObject io = (InfoObject) InfoObjList.get(0);
 			System.out.println("***ReportStats1 io size: " + InfoObjList.size());
@@ -109,15 +130,14 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.getReportThemeStats().add(tempRTS);
 		}
 		
-		//Variables to store stats
-		Set<User> users = new HashSet<User>();
-		Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
-		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
-		Map<County, Integer> countySet = new HashMap<County, Integer>();
-		Map<RegisterObject, Integer> incomeSet = new HashMap<RegisterObject, Integer>();		
-		Map<RegisterObject, Integer> transportSet = new HashMap<RegisterObject, Integer>();	
-		int male = 0;
-		int female = 0;
+		//Get all counties
+		List countiesList = getHibernateTemplate().find(hql_createStatsPart1_4);
+		Iterator itC = countiesList.iterator();
+		while(itC.hasNext()){
+			County c = (County)itC.next();
+			counties.add(c);
+		}
+		
 		
 		//get Income ReportObjects
 		Collection roIncome = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"income",});
@@ -127,10 +147,15 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		transTypes.addAll(roTransport);
 		
 		Set<Concern> concerns = cct.getConcerns();
-		System.out.println("*** Concerns" + concerns.size());
 		for(Concern c : concerns) {
-			User u = c.getAuthor();
-			
+			allUsers.add(c.getAuthor());
+		}
+		allUsers.addAll(this.getDiscussionUsers("sdc"));
+		
+		
+		for(User u : allUsers) {
+		//for(Concern c : concerns) {
+			//User u = c.getAuthor();
 			//Check if users were already counted
 			if(!users.contains(u)) {
 				//Gender
@@ -141,14 +166,16 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//County
-				if(u.getCountyId()!=null) {
+				if(u.getCountyId()!=null && !(u.getCountyId().equals(""))) {
 					County county = (County) load(County.class, u.getCountyId());
-					
-					if(countySet.get(county)==null) {
-						countySet.put(county, 1);
-					} else {
-						int num = countySet.get(county);
-						countySet.put(county, num+1);
+					if(county != null) {
+						if(countySet.get(county)==null) {
+							countySet.put(county, 1);
+						} else {
+							int num = countySet.get(county);
+							countySet.remove(county);
+							countySet.put(county, num+1);
+						}	
 					}
 				}
 				
@@ -164,30 +191,30 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 							incomeSet.remove(ro);
 							incomeSet.put(ro, num+1);
 						}
-						
 					}
 				}
 				
 				//Primary Transport
 				//System.out.println("CreateStatsPart4: PrimaryTransport Username: " +u.getLoginname() + " primaryTransport: " + u.getPrimaryTransport().getValue());
+				RegisterObject pt = null;
 				if(u.getPrimaryTransport()!=null && !(u.getPrimaryTransport().equals(""))) {
-					RegisterObject pt = u.getPrimaryTransport();
-					if(pt!=null){
-						transTypes.add(pt);
-						if(transportSet.get(pt)==null) {
-							transportSet.put(pt, 1);
-						} else {
-							int num = transportSet.get(pt);
-							transportSet.remove(pt);
-							transportSet.put(pt, num+1);
-						}
-						
+					pt = u.getPrimaryTransport();
+				} else {
+					pt = this.getPrimaryTransport(u);
+				}
+				if(pt!=null){
+					transTypes.add(pt);
+					if(transportSet.get(pt)==null) {
+						transportSet.put(pt, 1);
+					} else {
+						int num = transportSet.get(pt);
+						transportSet.remove(pt);
+						transportSet.put(pt, num+1);
 					}
 				}
 				
-				//add user Users set
-				users.add(u);
 			} //if()	
+			users.add(u);
 		} //for()
 		
 		//calculate stats
@@ -218,83 +245,16 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.setMales(male);
 		}
 		
-//		combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
-//		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
-//		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
-//		
-//		RegisterObject incomeRange1 = new RegisterObject();
-//		incomeRange1.setType("newIncome");
-//		incomeRange1.setValue("$0-$30,000");
-//		incomeRange1.setUsed(false);
-//		save(incomeRange1);
-//		
-//		RegisterObject incomeRange2 = new RegisterObject();
-//		incomeRange2.setType("newIncome");
-//		incomeRange2.setValue("$30,000-$50,000");
-//		save(incomeRange2);
-//		
-//		RegisterObject incomeRange3 = new RegisterObject();
-//		incomeRange3.setType("newIncome");
-//		incomeRange3.setValue("$50,000-$80,000");
-//		save(incomeRange3);
-//		
-//		RegisterObject incomeRange4 = new RegisterObject();
-//		incomeRange4.setType("newIncome");
-//		incomeRange4.setValue("$80,000-$100,000");
-//		save(incomeRange4);
-//		
-//		RegisterObject incomeRange5 = new RegisterObject();
-//		incomeRange5.setType("newIncome");
-//		incomeRange5.setValue("$100,000 or more");
-//		save(incomeRange5);
-//		
-//		newIncomeRanges.add(incomeRange1);
-//		newIncomeRanges.add(incomeRange2);
-//		newIncomeRanges.add(incomeRange3);
-//		newIncomeRanges.add(incomeRange4);
-//		newIncomeRanges.add(incomeRange5);
-//		
-//		Set<RegisterObject> incomekeys = incomeSet.keySet();
-//		Iterator itIncomeKeys = incomekeys.iterator();
-//		
-//		int IR1 = 0;
-//		int IR2 = 0;
-//		int IR3 = 0;
-//		int IR4 = 0;
-//		int IR5 = 0;
-//		
-//		while(itIncomeKeys.hasNext()) {
-//			RegisterObject ro = (RegisterObject) itIncomeKeys.next();
-//			
-//			if(ro.getValue().equals("$0-$20,000") || ro.getValue().equals("$20,000-$30,000")) {
-//				IR1 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$30,000-$40,000") || ro.getValue().equals("$40,000-$50,000")) {
-//				IR2 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$50,000-$60,000") || ro.getValue().equals("$60,000-$70,000") || ro.getValue().equals("$70,000-$80,000")) {
-//				IR3 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$80,000-$90,000") || ro.getValue().equals("$90,000-$100,000")) {
-//				IR4 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$100,000-$120,000") || ro.getValue().equals("$120,000-$140,000") || ro.getValue().equals("$140,000-$160,000") || ro.getValue().equals("$160,000-$180,000") || ro.getValue().equals("$180,000-$200,000") || ro.getValue().equals("$200,000 or more")) {
-//				IR5 += incomeSet.get(ro);
-//			}
-//		}
-//		
-//		newIncomeSet.put(incomeRange1, IR1);
-//		newIncomeSet.put(incomeRange2, IR2);
-//		newIncomeSet.put(incomeRange3, IR3);
-//		newIncomeSet.put(incomeRange4, IR4);
-//		newIncomeSet.put(incomeRange5, IR5);
-		//End new income ranges
 		
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
+		rs.setCounties(counties);
 		rs.setIncomeStats(incomeSet);
-		rs.setTransportStats(transportSet);
 		rs.setIncomeRanges(incomeRanges);
+		rs.setTransportStats(transportSet);
 		rs.setTransTypes(transTypes);
-		//Complete: Add counties, incomeranges, transporttypes
-		countySet.remove("");
-		rs.setCounties(countySet.keySet());
+
+		System.out.println("***ReportDAO: " + counties.size());
 		
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
@@ -427,10 +387,33 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Collection roTransport = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"transport",});
 		transTypes.addAll(roTransport);
 		
+		//
+		Set<User> allUsers = new HashSet<User>();
+		Set voteSuites = pkgSuite.getVoteSuites();
+		Iterator vsIt = voteSuites.iterator();
+		
+		allUsers.addAll(this.getVoteUsers(pkgSuiteId));
+		int numCompleted = allUsers.size();
+		allUsers.addAll(this.getDiscussionUsers("sdPkg"));		
+		while(vsIt.hasNext()) {
+			PackageVoteSuite pvs = (PackageVoteSuite) vsIt.next();
+			Map<ClusteredPackage, PackageUserVote> uservotes = pvs.getUserVotes();
+			Collection<PackageUserVote> puv = uservotes.values();
+			for(PackageUserVote p : puv) {
+				allUsers.addAll(p.getVotes().keySet());
+			}
+		}
+		
+
+
+
 		Set<UserPackage> packages = pkgSuite.getUserPkgs();
-		totalPackages = packages.size();
-		for(UserPackage up : packages) {
-			User u = up.getAuthor();
+     	totalPackages = packages.size();
+//		for(UserPackage up : packages) {
+		for(User u : allUsers) {
+			//User u = up.getAuthor();
+			
+			System.out.println("ReportDAOImpl Stats part 4 User: " + u.getLoginname());
 			
 			// Check if users were already counted
 			if(!users.contains(u)) {
@@ -471,18 +454,20 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				
 				//Primary Transport
 				//System.out.println("CreateStatsPart4: PrimaryTransport Username: " +u.getLoginname() + " primaryTransport: " + u.getPrimaryTransport().getValue());
+				RegisterObject pt = null;
 				if(u.getPrimaryTransport()!=null && !(u.getPrimaryTransport().equals(""))) {
-					RegisterObject pt = u.getPrimaryTransport();
-					if(pt!=null){
-						transTypes.add(pt);
-						if(transportSet.get(pt)==null) {
-							transportSet.put(pt, 1);
-						} else {
-							int num = transportSet.get(pt);
-							transportSet.remove(pt);
-							transportSet.put(pt, num+1);
-						}
-						
+					pt = u.getPrimaryTransport();
+				} else {
+					pt = this.getPrimaryTransport(u);
+				}
+				if(pt!=null){
+					transTypes.add(pt);
+					if(transportSet.get(pt)==null) {
+						transportSet.put(pt, 1);
+					} else {
+						int num = transportSet.get(pt);
+						transportSet.remove(pt);
+						transportSet.put(pt, num+1);
 					}
 				}
 				
@@ -517,74 +502,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			rs.setFemales(female);
 			rs.setMales(male);
 		}
-		
-//		combine income ranges for Kevin. It is hardcoded which is bad and its inefficient
-//		Set<RegisterObject> newIncomeRanges = new HashSet<RegisterObject>();
-//		Map<RegisterObject, Integer> newIncomeSet = new HashMap<RegisterObject, Integer>();
-//		
-//		RegisterObject incomeRange1 = new RegisterObject();
-//		incomeRange1.setType("newIncome");
-//		incomeRange1.setValue("$0-$30,000");
-//		incomeRange1.setUsed(false);
-//		save(incomeRange1);
-//		
-//		RegisterObject incomeRange2 = new RegisterObject();
-//		incomeRange2.setType("newIncome");
-//		incomeRange2.setValue("$30,000-$50,000");
-//		save(incomeRange2);
-//		
-//		RegisterObject incomeRange3 = new RegisterObject();
-//		incomeRange3.setType("newIncome");
-//		incomeRange3.setValue("$50,000-$80,000");
-//		save(incomeRange3);
-//		
-//		RegisterObject incomeRange4 = new RegisterObject();
-//		incomeRange4.setType("newIncome");
-//		incomeRange4.setValue("$80,000-$100,000");
-//		save(incomeRange4);
-//		
-//		RegisterObject incomeRange5 = new RegisterObject();
-//		incomeRange5.setType("newIncome");
-//		incomeRange5.setValue("$100,000 or more");
-//		save(incomeRange5);
-//		
-//		newIncomeRanges.add(incomeRange1);
-//		newIncomeRanges.add(incomeRange2);
-//		newIncomeRanges.add(incomeRange3);
-//		newIncomeRanges.add(incomeRange4);
-//		newIncomeRanges.add(incomeRange5);
-//		
-//		Set<RegisterObject> incomekeys = incomeSet.keySet();
-//		Iterator itIncomeKeys = incomekeys.iterator();
-//		
-//		int IR1 = 0;
-//		int IR2 = 0;
-//		int IR3 = 0;
-//		int IR4 = 0;
-//		int IR5 = 0;
-//		
-//		while(itIncomeKeys.hasNext()) {
-//			RegisterObject ro = (RegisterObject) itIncomeKeys.next();
-//			
-//			if(ro.getValue().equals("$0-$20,000") || ro.getValue().equals("$20,000-$30,000")) {
-//				IR1 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$30,000-$40,000") || ro.getValue().equals("$40,000-$50,000")) {
-//				IR2 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$50,000-$60,000") || ro.getValue().equals("$60,000-$70,000") || ro.getValue().equals("$70,000-$80,000")) {
-//				IR3 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$80,000-$90,000") || ro.getValue().equals("$90,000-$100,000")) {
-//				IR4 += incomeSet.get(ro);
-//			} else if (ro.getValue().equals("$100,000-$120,000") || ro.getValue().equals("$120,000-$140,000") || ro.getValue().equals("$140,000-$160,000") || ro.getValue().equals("$160,000-$180,000") || ro.getValue().equals("$180,000-$200,000") || ro.getValue().equals("$200,000 or more")) {
-//				IR5 += incomeSet.get(ro);
-//			}
-//		}
-//		
-//		newIncomeSet.put(incomeRange1, IR1);
-//		newIncomeSet.put(incomeRange2, IR2);
-//		newIncomeSet.put(incomeRange3, IR3);
-//		newIncomeSet.put(incomeRange4, IR4);
-//		newIncomeSet.put(incomeRange5, IR5);
-		//End new income ranges
+	
 		
 		//save stats to reportStats
 		rs.setCountyStats(countySet);
@@ -593,6 +511,10 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setIncomeRanges(incomeRanges);
 		rs.setTransTypes(transTypes);
 		rs.setTotalPackages(totalPackages);
+		rs.setUserCompleted(numCompleted);
+		//Complete: Add counties, incomeranges, transporttypes
+		//countySet.remove("");
+		//rs.setCounties(countySet.keySet());
 		
 		rs.setUsers(users);
 		rs.setTotalUsers(totalUsers);
@@ -763,6 +685,31 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
+ 
+	public Set<User> getVoteUsers(Long suiteId) throws Exception {
+		System.out.println("***ReportDAOImpl start getVoteUsers");
+		Set<User> allUsers = new HashSet<User>();
+		
+		PackageSuite ps = (PackageSuite) load(PackageSuite.class, suiteId);
+		Set<PackageVoteSuite> allpvs = ps.getVoteSuites();
+		
+		Iterator it = allpvs.iterator();
+		while(it.hasNext()) {
+			PackageVoteSuite pvs = (PackageVoteSuite) it.next();
+			Map<ClusteredPackage, PackageUserVote> puvMap = pvs.getUserVotes();
+			Set<ClusteredPackage> keys = puvMap.keySet();
+			for(ClusteredPackage cp : keys) {
+				PackageUserVote puv = puvMap.get(cp);
+				Map<User, Integer> votes = puv.getVotes();
+				allUsers.addAll(votes.keySet());
+				System.out.println("***ReportDAOImpl getVoteUsers, Users found " + votes.keySet().size());
+			}		
+		}
+		System.out.println("***ReportDAOImpl end getVoteUsers, All Users found " + allUsers.size());
+		return allUsers;
+	}
+	
+	
 	public Set getFundRefbySuiteId(Long suiteId) throws Exception {
 		FundingSourceSuite fss = (FundingSourceSuite) load(FundingSourceSuite.class, suiteId);
 			
@@ -780,11 +727,103 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	}
 	
 	
-	private static final String hql_getNumUsers = "from User u where u.deleted=? and u.enabled=?";
+	private static final String hql_getNumUsers = "from User u where u.deleted=? and u.enabled=? and u.roles.size < 2";
 
 	public int getNumUsers() throws Exception {
 		List userlist = getHibernateTemplate().find(hql_getNumUsers, new Object[] {new Boolean(false), new Boolean(true)});	
+		
 		return userlist.size();
+	}
+	
+	
+	private static final String hql_getPrimaryTransport1 = "from RegisterObject ro where ro.value=?"; 
+	
+	public RegisterObject getPrimaryTransport(User u) throws Exception {		
+		Map<String, Integer> trans = new HashMap<String, Integer>();
+		trans.put("Walk or Bike", u.getBikeDays()+u.getWalkDays());
+		trans.put("Drive Alone", u.getDriveDays());
+		trans.put("Bus or Transit", u.getBusDays());
+		trans.put("Carpool or Vanpool", u.getCarpoolDays());
+		
+		String highTrans = "Other";
+		int highValue = 0;
+		
+		Iterator it = trans.keySet().iterator();
+		while(it.hasNext()) {
+			String key = (String)it.next();
+			int temp = trans.get(key);
+			if(temp > highValue) {
+				highValue = temp;
+				highTrans = key;
+			}
+		}
+		
+		List list = getHibernateTemplate().find(hql_getPrimaryTransport1, new Object[] {highTrans,});	
+		if(list.size()<1) {
+			System.out.println("ReportDAOImpl, getPrimaryTransport, no transport found");
+			return null;
+		}
+		RegisterObject ro = (RegisterObject) list.get(0);
+		return ro;
+	}
+	
+	
+	private static final String hql_getDiscussionUsers1 = "from InfoStructure info where info.type=?"; 
+	private static final String hql_getDiscussionUsers2 = "from DiscussionPost dp where dp.discussion=?"; 
+	private static final String hql_getDiscussionUsers3 = "from DiscussionReply dr where dr.parent=?"; 
+	
+	public Set<User> getDiscussionUsers(String type) throws Exception {
+		System.out.println("--***Start getDiscussionUsers");
+		Set<Discussion> allDisc = new HashSet<Discussion>();
+		Set<User> allUsers = new HashSet<User>();
+		List list = getHibernateTemplate().find(hql_getDiscussionUsers1, new Object[] {type,});
+		if(list.size()<1) {
+			System.out.println("ReportDAOImpl, getInfoObjects, no InfoStructure found");
+			return null;
+		}
+		System.out.println("--**list size" + list.size());
+		InfoStructure infoStructure = (InfoStructure) list.get(0);
+		allDisc.add(infoStructure.getDiscussion());
+		Set infoObjects = infoStructure.getInfoObjects();
+		Iterator ioIt = infoObjects.iterator();
+		while(ioIt.hasNext()) {
+			InfoObject io = (InfoObject) ioIt.next();
+			allDisc.add(io.getDiscussion());
+		}
+		
+		
+		Iterator idIt = allDisc.iterator();
+		while(idIt.hasNext()) {
+			Discussion discussion = (Discussion)idIt.next();
+			System.out.println("--**discussion id" + discussion.getId());
+			List discussionList = getHibernateTemplate().find(hql_getDiscussionUsers2, new Object[] {discussion,});
+			System.out.println("--**discussion list size" + discussionList.size());
+			
+			Iterator it = discussionList.iterator();
+			while(it.hasNext()) {
+				DiscussionPost dp = (DiscussionPost) it.next();
+				if(dp.getOwner().getRoles().size() < 2) {
+					allUsers.add(dp.getOwner());
+					System.out.println("--***User found post " + dp.getOwner().getLoginname());
+				}
+				
+				List replyList = getHibernateTemplate().find(hql_getDiscussionUsers3, new Object[] {dp,});
+				System.out.println("--**reply list size" + replyList.size());
+				
+				Iterator itR = replyList.iterator();
+				while(itR.hasNext()) {
+					DiscussionReply dr = (DiscussionReply) itR.next();
+					if(dr.getOwner().getRoles().size() < 2) {
+						allUsers.add(dr.getOwner());
+						System.out.println("--***User found reply " + dr.getOwner().getLoginname());
+					}
+					
+				}
+			}
+		}
+
+		System.out.println("--***End getDiscussionUsers " + allUsers.size());
+		return allUsers;
 	}
 	
 }

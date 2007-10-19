@@ -133,54 +133,44 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 
 
 <c:choose>
-	<c:when test="${fn:length(counties) == 0}">
-		
-	</c:when>
+	<c:when test="${fn:length(counties) == 0}">	</c:when>
 	<c:otherwise>
 	of 
 	<c:set var="size" value="${fn:length(counties)}" />
 
 	<c:forEach var="i" begin="0" end="${size-2}" step="1" varStatus ="status">
-		${counties[i].name},
-	</c:forEach>
-	and ${counties[size-1].name} counties 	
-	</c:otherwise>
+		${counties[i].name},	</c:forEach>
+	and ${counties[size-1].name} counties	</c:otherwise>
 </c:choose>
 
 
- worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. On ${finalReportDate} they released the results of their efforts. 
-
-The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region. 
-<c:choose>
-	<c:when test="${statsES.totalCost == null}">
-		*** Error Total Cost for project was null ***
-	</c:when>
-	<c:otherwise>
-It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 	
-
-							<c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
-							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.
-							</c:if>
-							<c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
-							$<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.
-							</c:if>
-							
-	</c:otherwise>
-</c:choose>
-
-<c:set var="numEndorsed" value="${statsES.numEndorsed}" />
-<c:set var="totalVotes" value="${statsES.totalVotes}" />
-<c:choose>
-	<c:when test="${totalVotes == 0}">
-		*** Error no users voted on this package ***
-	</c:when>
-	<c:otherwise>
-	The package was endorsed by 
-	<fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
-	of the participants (${numEndorsed} out of ${totalVotes} participating).		
-	</c:otherwise>
-</c:choose>
-</p>
+ worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. </p>
+		<p> 
+		  The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region.
+		  <c:choose>
+		    <c:when test="${statsES.totalCost == null}">
+		      *** Error Total Cost for project was null ***	        </c:when>
+		    <c:otherwise>
+		      It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 	
+		      
+		      <c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
+		        $<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.		        </c:if>
+		      <c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
+		        $<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.		        </c:if>
+	        </c:otherwise>
+            </c:choose>
+		  
+          <c:set var="numEndorsed" value="${statsES.numEndorsed}" />
+          <c:set var="totalVotes" value="${statsES.totalVotes}" />
+          <c:choose>
+            <c:when test="${totalVotes == 0}">
+              *** Error no users voted on this package ***            </c:when>
+            <c:otherwise>
+              The package was endorsed by 
+              <fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
+              of the ${totalVotes} voting participants. </c:otherwise>
+          </c:choose>
+		</p>
 		<p>${executiveSummary}</p>
 		<div class="floatLeft" style="margin:0em 2em"><strong>This report includes 4 sections:</strong>
 			<ol>
@@ -236,8 +226,8 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 					</c:when>
 					<c:otherwise>
 					
-					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> Male<br/>
-					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> Female
+					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> : Male<br/>
+					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> : Female
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -251,12 +241,12 @@ It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
 						<p>No Counties Available</p>
 					</c:when>
 					<c:otherwise>
-
+					<c:set var="s1countytotal" value="0" />
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers} </fmt:formatNumber>
-						: ${county.name}<br/>				
+						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber> : ${county.name}<br/>
+						<c:set var="s1countytotal" value="${s1countytotal + statsPart1.countyStats[county]/statsPart1.totalUsers}" />
 					</c:forEach>
-					
+					<fmt:formatNumber type="percent">${1 - s1countytotal}</fmt:formatNumber> : Other <br/>
 					</c:otherwise>
 				</c:choose>		</td>
 			</tr>
@@ -518,7 +508,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				of candidate packages and package selection</a></h3>
 				
 		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, a small set of new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these packages, as well as the methodology used to create them is available in Appendix C. </p>
-		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote.</p>
+		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote. Note: only ${totalVotes} of the total ${statsES.totalUsers} participants cast their vote.</p>
 		<p>${part4a}</p>
 		<h3 class="headingColor padding5">Participants in the package recommendation vote</h3>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:10pt">
@@ -531,22 +521,26 @@ After a period of discussion about the relevance of the improvement factors to t
 					</c:when>
 					<c:otherwise>
 					
-					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber> Male<br/>
-					<fmt:formatNumber type="percent">${statsPart4.females / statsPart4.totalUsers}</fmt:formatNumber> Female
+					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber> : Male<br/>
+					<fmt:formatNumber type="percent">${statsPart4.females / statsPart4.totalUsers}</fmt:formatNumber> : Female
 					</c:otherwise>
 				</c:choose>
 			</tr>
 			<tr>
-				<td><strong>County of residence:</strong></td>
+				<td><strong>Area of residence:</strong></td>
 				<td><c:choose>	
-					<c:when test="${fn:length(statsPart4.counties) < 1}">
+					<c:when test="${fn:length(statsPart1.counties) < 1}">
 						<p>No Counties Available</p>
 					</c:when>
 					<c:otherwise>
-
+					<c:set var="s4countytotal" value="0" />
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						${statsPart4.countyStats[county]/statsPart4.totalUsers} ${county.name},
+						<fmt:formatNumber type="percent">${statsPart4.countyStats[county]/statsPart4.totalUsers} </fmt:formatNumber>
+						: ${county.name}<br/>		
+						<c:set var="s4countytotal" value="${s4countytotal + statsPart4.countyStats[county]/statsPart4.totalUsers}" />		
 					</c:forEach>
+					
+					<fmt:formatNumber type="percent">${1 - s4countytotal}</fmt:formatNumber> : Other <br/>
 					</c:otherwise>
 				</c:choose>	</td>
 			</tr>
@@ -561,8 +555,8 @@ After a period of discussion about the relevance of the improvement factors to t
 					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
 						<fmt:formatNumber type="percent">${statsPart4.transportStats[transport]/statsPart4.totalUsers}
 						</fmt:formatNumber>
-						 ${transport.value}<br>
-</c:forEach>
+						 : ${transport.value}<br>
+					</c:forEach>
 					</c:otherwise>
 				</c:choose></td>
 			</tr>
