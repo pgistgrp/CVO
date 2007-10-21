@@ -49,21 +49,22 @@
 		if(jump){
 			location.href = sd.filterAnchor;
 		}
-		alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount);
+		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount);
     var params = {isid:sd.isid, ioid: sd.ioid, tags: tagId, type:"tag", page: page, count: sd.concernCount};
-		// SDAgent.getConcerns(params, <pg:wfinfo/>, {
-		// 	callback:function(data){
-		// 			if (data.successful){
-		// 			   	$(sd.divDiscussion).innerHTML = (data.source.html);
-		// 			}else{
-		// 				alert(data.reason);
-		// 			}
-		// 		},
-		// 	errorHandler:function(errorString, exception){ 
-		// 			alert("delete post error:" + errorString + exception);
-		// 	}
-		// 	});
-	}
+    alert(SDAgent.getConcerns);
+	// 	SDAgent.getConcerns(params, <pg:wfinfo/>, {
+	// 		callback:function(data){
+	// 				if (data.successful){
+	// 				   	$(sd.divDiscussion).innerHTML = (data.source.html);
+	// 				}else{
+	// 					alert(data.reason);
+	// 				}
+	// 			},
+	// 		errorHandler:function(errorString, exception){ 
+	// 				alert("delete post error:" + errorString + exception);
+	// 		}
+	// 		});
+	// }
 	
 	function goToPage(page){
 		getConcerns(sd.currentFilter, page, true)
