@@ -1098,7 +1098,7 @@ public class DiscussionDAOImpl extends BaseDAOImpl implements DiscussionDAO {
         for (String s : ids.split(",")) {
             if (s!=null && s.length()>0) {
                 Long id = new Long(s);
-                if (tagId)  id = processId(isid, id);
+                if (tagId) id = processId(isid, id);
                 if (id!=null) list.add(id);
             }
         }

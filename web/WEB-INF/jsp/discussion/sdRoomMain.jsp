@@ -61,7 +61,7 @@
 
 		///////////////////////////////////////// START INFO OBJECT //////////////////////////////////////
 		
-		var io = new Object;
+		var io = new Object();
 		//Global Var Settings
 		io.sdcStructureId = "${themeIsid}";
 		io.structureId = "${structure.id}";
