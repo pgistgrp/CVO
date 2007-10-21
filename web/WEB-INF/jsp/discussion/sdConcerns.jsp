@@ -47,7 +47,7 @@
 		if(jump){
 			location.href = sd.filterAnchor;
 		}
-		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount); 
+		alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount); 
 		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tagId, type:"tag", page: page, count: sd.concernCount},<pg:wfinfo/>, {
 			callback:function(data){
 					if (data.successful){
