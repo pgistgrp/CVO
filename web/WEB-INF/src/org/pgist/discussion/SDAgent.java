@@ -1491,6 +1491,13 @@ public class SDAgent {
      *       <li>page - int, current page number (Optional, default is 1).</li>
      *     </ul>
      * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
      * @return a map contains:<br>
      *     <ul>
      *       <li>successful - a boolean value denoting if the operation succeeds</li>
