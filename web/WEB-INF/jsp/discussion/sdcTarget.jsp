@@ -83,8 +83,9 @@
 		});
 	
 	io.getThemeConcerns = function(tag){
-	    tag = tag || "";
-		window.open("sdConcerns.do?"+io.wfInfo+"&ioid="+io.objectId+"&isid="+io.structureId+"&tag="+tag+"",'Theme Concerns','width=1000,height=600,resizable=yes,scrollbars=yes');
+    tag = tag || "";
+    var url = "sdConcerns.do?"+io.wfInfo+"&ioid="+io.objectId+"&isid="+io.structureId+"&tag="+tag+"";
+    window.open(url,'Theme Concerns','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 	io.jumpToTheme = function(id){
