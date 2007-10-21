@@ -100,7 +100,7 @@
 						</c:if>
 					</c:forEach>
 					
-					<p style="margin-top:20px;font-size:14pt;">Express your preferences in the <strong><a href="javascript:io.goToPackagePoll();">package poll</a></strong></p>
+					
 					<br>
 
 				</div>
@@ -109,7 +109,8 @@
 			<!-- end obj-left -->
 			<!-- begin cell containing Google Map object -->
 			<div id="obj-right" class="floatRight">
-				<img src="images/gmaps.gif"> </div>
+			  <p style="margin-top:20px;font-size:14pt;">Express your preferences in the <strong><a href="javascript:io.goToPackagePoll();">package poll</a></strong></p>
+      </div>
 			<!-- end cell containing Google Map object -->
 			<!-- begin firefox height hack -->
 			<div class="clearBoth"></div>
