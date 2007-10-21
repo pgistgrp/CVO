@@ -86,7 +86,7 @@
     tag = tag || "";
     var url = "sdConcerns.do?"+io.wfInfo+"&ioid="+io.objectId+"&isid="+io.structureId+"&tag="+tag+"";
     alert(url);
-    window.open(url,'Theme Concerns');
+    window.open(url);
 	}
 	
 	io.jumpToTheme = function(id){
