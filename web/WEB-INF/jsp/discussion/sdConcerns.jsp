@@ -64,7 +64,7 @@
 	// 				alert("delete post error:" + errorString + exception);
 	// 		}
 	// 		});
-	// }
+	}
 	
 	function goToPage(page){
 		getConcerns(sd.currentFilter, page, true)
