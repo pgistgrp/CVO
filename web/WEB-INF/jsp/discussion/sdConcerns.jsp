@@ -5,7 +5,9 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm Concerns</title>
 <!-- Site Wide CSS -->
@@ -162,9 +164,13 @@
 			});	
 	};
 */
+  function pageLoaded() {
+    var defaultTagId = "${param.tag}";
+		changeCurrentFilter(defaultTagId, 'tag');
+  }
 </script>
 <event:pageunload />
-  </head><body style="margin-top:50px;">
+  </head><body style="margin-top:50px;" onLoad="pageLoaded();">
 
   <!-- #container is the container that wraps around all the main page content -->
   <div id="containerPopUp">
@@ -187,14 +193,5 @@
     <!-- end discussion -->
   </div>
   <!-- end container -->
-  
-
-  
-   
-  <script type="text/javascript">
-
-		var defaultTagId = "${param.tag}";
-		changeCurrentFilter(defaultTagId, 'tag');
-</script>
   </body>
-
+</html>
