@@ -510,7 +510,7 @@ After a period of discussion about the relevance of the improvement factors to t
 		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, a small set of new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these packages, as well as the methodology used to create them is available in Appendix C. </p>
 		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote. Note: only ${totalVotes} of the total ${statsES.totalUsers} participants cast their vote.</p>
 		<p>${part4a}</p>
-		<h3 class="headingColor padding5">Participants in the package recommendation vote</h3>
+		<h3 class="headingColor padding5">Participants in the final package recommendation vote</h3>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:10pt">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
@@ -661,7 +661,7 @@ After a period of discussion about the relevance of the improvement factors to t
 
 		<div class="projSummary clearfix">
 			<h3 class="headingColor padding5 clearfix">
-				<span class="packageNum" style="background:#ADCFDE">${pp.description} (The winning/preferred package)</span>
+				<span class="packageNum" style="background:#ADCFDE">${pp.description} (The Preferred Package)</span>
 				<span class="totalCost">Total cost: $<fmt:formatNumber type="number" maxFractionDigits="1" value="${pp.totalCost/1000000000}" /> 
 				billion</span>
 				<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
@@ -831,14 +831,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<h3 class="headingColor padding5 clearfix">
 					<span class="packageNum">${cPkg.description}</span>
 					<span class="totalCost">Total cost:
-							
-							<c:if test="${cPkg.totalCost > 999999 && cPkg.totalCost < 1000000000}">
-							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000}</fmt:formatNumber> illion
-							</c:if>
-							<c:if test="${cPkg.totalCost > 999999999 && cPkg.totalCost < 1000000000000}">
 							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000000}</fmt:formatNumber> billion
-							</c:if>
-					
 					</span>
 					<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
 				</h3>
