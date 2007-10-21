@@ -83,6 +83,6 @@
     tag = tag || "";
     var url = "sdConcerns.do?"+io.wfInfo+"&ioid="+io.objectId+"&isid="+io.structureId+"&tag="+tag+"";
     alert(url);
-    window.open(url,'Theme Concerns','width=1000,height=600,resizable=yes,scrollbars=yes');
+    window.open(url,'Theme Concerns');
 	}
 </pg:fragment>
