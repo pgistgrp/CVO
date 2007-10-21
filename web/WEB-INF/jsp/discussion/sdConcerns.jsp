@@ -52,7 +52,7 @@
 		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount);
     var params = {isid:sd.isid, ioid: sd.ioid, tags: tagId, type:"tag", page: page, count: sd.concernCount};
     alert(params);
-		SDAgent.getConcerns({}, <pg:wfinfo/>, {
+		SDAgent.getConcerns('', <pg:wfinfo/>, {
 			callback:function(data){
 					if (data.successful){
 					   	$(sd.divDiscussion).innerHTML = (data.source.html);
