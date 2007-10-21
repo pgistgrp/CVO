@@ -85,7 +85,7 @@
 	io.getThemeConcerns = function(tag){
     tag = tag || "";
     var url = "sdConcerns.do?"+io.wfInfo+"&ioid="+io.objectId+"&isid="+io.structureId+"&tag="+tag+"";
-    window.open(url);
+    window.open(url, "hello");
 	}
 	
 	io.jumpToTheme = function(id){
