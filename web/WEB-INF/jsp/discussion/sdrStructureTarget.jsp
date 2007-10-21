@@ -71,9 +71,7 @@
 			  ${suite.statsES.totalUsers} residents of King, Pierce, and Snohomish counties worked together over the course of four weeks to learn 
 			  about transportation problems, discuss their concerns, and collectively recommend a package of improvement 
 			  projects and funding sources to address regional transportation needs.</p>
-			<p>The recommended package contains ${suite.statsES.totalProjects} road and transit projects across the three-county region.
-				It is funded by a combination of bridge tolls, parking taxes, and vehicle excise
-				fees. The total cost of the package is
+			<p>The recommended package contains ${suite.statsES.totalProjects} road and transit projects across the three-county region. The total cost of the package is
 				
 				<c:if test="${suite.statsES.totalCost > 999999 && suite.statsES.totalCost < 1000000000}">
 				$<fmt:formatNumber type="number" maxFractionDigits="1">${suite.statsES.totalCost/1000000}</fmt:formatNumber> Million.
@@ -91,7 +89,7 @@
         	<c:otherwise>
         	The package was endorsed by 
         	<fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
-        	of the participants (${numEndorsed} out of ${totalVotes} participating).		
+        	of the ${totalVotes} voting participants.		
         	</c:otherwise>
         </c:choose></p>
 			<div>
@@ -100,8 +98,8 @@
 					<li>
 					    <a href="javascript:io.goToFullReport('participants');">The participants and their concerns about transportation</a></li>
 					<li><a href="javascript:io.goToFullReport('planningfactors');">Improvement factors used in project evaluation</a></li>
-					<li><a href="javascript:io.goToFullReport('projects');">Individual project review and package creation</a></li>
-					<li><a href="javascript:io.goToFullReport('packages');">The participants' recommended transportation package</a></li>
+					<li><a href="javascript:io.goToFullReport('projects');">Project selection, funding selection, and personal package creation</a></li>
+					<li><a href="javascript:io.goToFullReport('packages');">Evaluation of candidate packages and package selection</a></li>
 				</ol>
 			</div>
 			<input type="button" class="floatRight" onclick="io.goToFullReport();" value="Read the full report" />

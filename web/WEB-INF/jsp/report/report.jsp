@@ -151,7 +151,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 		    <c:when test="${statsES.totalCost == null}">
 		      *** Error Total Cost for project was null ***	        </c:when>
 		    <c:otherwise>
-		      It is funded by a combination of bridge tolls, parking taxes, and vehicle excise fees. The total cost of the package is 	
+		      The total cost of the package is 	
 		      
 		      <c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
 		        $<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.		        </c:if>
@@ -176,8 +176,8 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 			<ol>
 				<li><a href="#participants">The participants and their concerns about transportation</a></li>
 				<li><a href="#planningFactors">Improvement factors used in project evaluation</a></li>
-				<li><a href="#projects">Individual project review and  package creation</a></li>
-				<li><a href="#packages">The participants' recommended transportation package </a></li>
+				<li><a href="#projects">Project selection, funding selection, and personal package creation</a></li>
+				<li><a href="#packages">Evaluation of candidate packages and package selection</a></li>
 			</ol>
 		</div>
 		<div class="floatLeft" style="margin-right:1em"> <strong>Report appendices</strong><p>
@@ -191,8 +191,8 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 	<div id="participants" class="box3 padding5 section" style="font-size:10pt">
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
 			about transportation </h3>
-		<p>
-		${statsPart1.totalUsers} residents
+		<p><strong>
+		${statsPart1.totalUsers}</strong> residents
 		<c:choose>
 			<c:when test="${fn:length(statsPart1.counties) < 1}">
 				
@@ -215,7 +215,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 			</c:otherwise>
 		</c:choose>
 
-		contributed their ideas and concerns in the LIT Challenge. Here is some demographic information about these contributors. </p>
+		contributed their ideas and concerns in the LIT Challenge. Here is some information about these contributors. </p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
@@ -337,7 +337,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 	<!-- End participants + concerns -->
 	<!-- Begin planning factors -->
 	<div id="planningFactors" class="box3 padding5 section">
-		<h3 class="headingColor padding5 centerAlign">2. Planning factors used in project
+		<h3 class="headingColor padding5 centerAlign">2. Improvement factors used in project
 			evaluation</h3>
       <p>
 		The second step included a review, discussion, and weighting of ${statsPart2.quanity} "improvement factors" used to evaluate the proposed transportation projects. They were used by a panel of transportation specialists to qualitatively "score" proposed projects. (Appendix B includes a detailed discussion of the factors and scoring process). 
@@ -349,7 +349,7 @@ After a period of discussion about the relevance of the improvement factors to t
 			<div id="allCriteriaList">
 				<div class="criteriaListHeader">
 					<div class="weighCriteriaCol1 floatLeft">
-						<h4 class="headerColor">Planning factor</h4>
+						<h4 class="headerColor">Improvement factor</h4>
 					</div>
 					<div class="clearBoth"></div>
 				</div>
@@ -716,7 +716,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<div class="listRow row heading">
 					<div class="fundingCol1 floatLeft" style="margin-left:.2em">
 						<div class="floatLeft">
-							<h4>Projects included in this package</h4>
+							<h4>Funding sources included in this package</h4>
 						</div>
 					</div>
 					<div class="fundingCol2 floatRight">

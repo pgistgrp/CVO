@@ -47,7 +47,8 @@ p.nomargin {margin-left:0px;}
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<h2 class="headerColor">Learn More</h2>
+		<h2 class="headerColor">Learn More</h2> 
+		<p>This is just a small section of our website where you can learn more about the Let's Improve Transportation experiment in participatory democracy, review a map of proposed transportation improvement projects, and browse other resources. The entire website will be available to registered participants. <a href="register.do">Register now</a>.</p>
 		<h3 class="headerColor"><pg:url page="lmAbout.do">Read More about <em>Let's Improve Transportation</em></pg:url></h3>
 		<h3 class="headerColor"><pg:url page="lmFaq.do">Read our Frequently Asked Questions</pg:url></h3>
 		<h3 class="headerColor"><pg:url page="lmTutorial1.do">Learn about the more advanced features of this site</pg:url></h3>
