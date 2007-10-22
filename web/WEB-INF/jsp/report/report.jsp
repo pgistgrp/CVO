@@ -146,7 +146,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
           </c:choose>
 		  
           <c:set var="numEndorsed" value="${statsES.numEndorsed}" />
-          <c:set var="totalVotes" value="${statsES.totalVotes}" />
+          <c:set var="totalVotes" value="${statsPart4.totalUsers}" />
           <c:choose>
             <c:when test="${totalVotes == 0}">
               *** Error no users voted on this package ***            </c:when>
