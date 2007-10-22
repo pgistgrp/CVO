@@ -36,6 +36,9 @@
     <convert converter="bean" match="org.pgist.users.TravelTrip">
         <param name="include" value="id, mode, frequency, markers, coords"/>
     </convert>
+    <convert converter="bean" match="org.pgist.system.SystemLog">
+        <param name="include" value="id, userId, time, url, query, method, postData, referer"/>
+    </convert>
 
     <create creator="spring" javascript="SystemAgent">
         <param name="beanName" value="systemAgent"/>
@@ -106,6 +109,8 @@
     <create creator="spring" javascript="PESAgent">
         <param name="beanName" value="pesAgent"/>
         <include method="saveAct"/>
+        <include method="getLogs"/>
+        <include method="getUsers"/>
     </create>
     
   </allow>

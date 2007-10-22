@@ -123,8 +123,19 @@
         <property name="profileService" ref="profileService"/>
     </bean>
     
+    <bean id="logDAO" class="org.pgist.pes.LogDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    <bean id="logService" class="org.pgist.pes.LogServiceImpl">
+        <property name="logDAO" ref="logDAO"/>
+    </bean>
     
     <bean id="pesAgent" class="org.pgist.pes.SimpleLogger">
+        <property name="logService" ref="logService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     
