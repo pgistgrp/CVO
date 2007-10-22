@@ -9,7 +9,7 @@ import org.pgist.users.User;
 
 public interface ReportDAO extends BaseDAO {
 
-	void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception;
+	void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId) throws Exception;
 	
 	void createStatsPart2(Long workflowId, Long cctId, Long repoSuiteId, Long critSuiteId) throws Exception;
 	

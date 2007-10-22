@@ -129,25 +129,10 @@ function pollresults() {
 	<div id="executiveSummary" class="box3 padding5 section peekaboobugfix">
 		<h3 class="headingColor padding5 centerAlign">Executive Summary</h3>
 		<p>
-This report describes the results of the <em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. ${statsES.totalUsers} residents 
-
-
-<c:choose>
-	<c:when test="${fn:length(counties) == 0}">	</c:when>
-	<c:otherwise>
-	of 
-	<c:set var="size" value="${fn:length(counties)}" />
-
-	<c:forEach var="i" begin="0" end="${size-2}" step="1" varStatus ="status">
-		${counties[i].name},	</c:forEach>
-	and ${counties[size-1].name} counties	</c:otherwise>
-</c:choose>
-
-
- worked together over the course of four weeks to learn about transportation problems, discuss their concerns, and collectively recommend a package of improvement projects and funding sources to address regional transportation needs. </p>
+This report describes the results of the <em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. ${statsPart1.totalUsers} residents of King, Pierce, and Shohomish and neighboring counties  contributed  their ideas and concerns in the LIT Challenge.</p>
 		<p> 
-		  The recommended package contains ${statsES.totalProjects} road and transit projects across the three-county region.
-		  <c:choose>
+		  The recommended package contains ${statsES.totalProjects} road and transit projects.
+		    <c:choose>
 		    <c:when test="${statsES.totalCost == null}">
 		      *** Error Total Cost for project was null ***	        </c:when>
 		    <c:otherwise>
@@ -158,7 +143,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 		      <c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
 		        $<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.		        </c:if>
 	        </c:otherwise>
-            </c:choose>
+          </c:choose>
 		  
           <c:set var="numEndorsed" value="${statsES.numEndorsed}" />
           <c:set var="totalVotes" value="${statsES.totalVotes}" />
@@ -167,8 +152,8 @@ This report describes the results of the <em>Let's Improve Transportation Challe
               *** Error no users voted on this package ***            </c:when>
             <c:otherwise>
               The package was endorsed by 
-              <fmt:formatNumber type="percent">${numEndorsed / totalVotes}</fmt:formatNumber>
-              of the ${totalVotes} voting participants. </c:otherwise>
+              <fmt:formatNumber type="percent">${numEndorsed/statsPart4.totalUsers}</fmt:formatNumber>
+              of the ${statsPart4.totalUsers} voting participants. </c:otherwise>
           </c:choose>
 		</p>
 		<p>${executiveSummary}</p>
@@ -192,30 +177,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 		<h3 class="headingColor padding5 centerAlign">1. The participants and their concerns
 			about transportation </h3>
 		<p><strong>
-		${statsPart1.totalUsers}</strong> residents
-		<c:choose>
-			<c:when test="${fn:length(statsPart1.counties) < 1}">
-				
-			</c:when>
-			<c:otherwise>
-			of 
-			<c:set var="stats1size" value="${fn:length(statsPart1.counties)}" />
-			<c:set var="temp" value="0" />
-				<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-					<c:set var="temp" value="${temp+1}"/>
-					<c:choose>
-						<c:when test="${temp == stats1size && stats1size > 1}">
-						and ${county.name}
-						</c:when>
-						<c:otherwise>
-						${county.name}<c:if test="${stats1size > 1}">, </c:if>
-						</c:otherwise>
-					</c:choose>				
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-
-		contributed their ideas and concerns in the LIT Challenge. Here is some information about these contributors. </p>
+		${statsPart1.totalUsers} </strong>residents of King, Pierce, and Shohomish and neighboring counties  contributed  their ideas and concerns in the LIT Challenge.. Here is some information about these contributors. </p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr class="odd">
 				<td><strong>Gender:</strong></td>
@@ -258,13 +220,14 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 						<p>No Transportation Types Available</p>
 					</c:when>
 					<c:otherwise>
-
+					<c:set var="s1transtotal" value="0" />
 					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
 						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
 						: 
 						  ${transport.value}<br/>
+						  <c:set var="s1transtotal" value="${s1transtotal + statsPart1.transportStats[transport]/statsPart1.totalUsers}" />
 					</c:forEach>
-
+					<fmt:formatNumber type="percent">${1 - s1transtotal}</fmt:formatNumber> : Undeclared <br/>
 					</c:otherwise>
 				</c:choose>
 			  </td>
@@ -508,7 +471,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				of candidate packages and package selection</a></h3>
 				
 		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, a small set of new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these packages, as well as the methodology used to create them is available in Appendix C. </p>
-		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote. Note: only ${totalVotes} of the total ${statsES.totalUsers} participants cast their vote.</p>
+		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote. Note: only ${statsPart4.totalUsers} of the total ${statsPart1.totalUsers} participants cast their vote.</p>
 		<p>${part4a}</p>
 		<h3 class="headingColor padding5">Participants in the final package recommendation vote</h3>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:10pt">
@@ -551,12 +514,14 @@ After a period of discussion about the relevance of the improvement factors to t
 						<p>No Transportation Types Available</p>
 					</c:when>
 					<c:otherwise>
-
+					<c:set var="s4transtotal" value="0" />
 					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
 						<fmt:formatNumber type="percent">${statsPart4.transportStats[transport]/statsPart4.totalUsers}
 						</fmt:formatNumber>
 						 : ${transport.value}<br>
+						 <c:set var="s4transtotal" value="${s4transtotal + statsPart4.transportStats[transport]/statsPart4.totalUsers}" />
 					</c:forEach>
+					<fmt:formatNumber type="percent">${1 - s4transtotal}</fmt:formatNumber> : Undeclared <br/>
 					</c:otherwise>
 				</c:choose></td>
 			</tr>

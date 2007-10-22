@@ -40,7 +40,7 @@ import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.Discussion;
 import org.pgist.discussion.DiscussionPost;
 import org.pgist.discussion.DiscussionReply;
-
+import org.pgist.system.YesNoVoting;
 
 
 
@@ -88,7 +88,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	private static final String hql_createStatsPart1_3 = "from RegisterObject ro where ro.type=?"; 
 	private static final String hql_createStatsPart1_4 = "from County c"; 
 	
-	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId) throws Exception {
+	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsPart1()");
 		CCT cct = (CCT)load(CCT.class, cctId);
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
@@ -96,8 +96,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		
 
 		//Variables to store stats
-		Set<User> users = new HashSet<User>();
 		Set<User> allUsers = new HashSet<User>();
+		Set<User> adminUsers = new HashSet<User>();
 		Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
 		Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
 		Set<County> counties = new HashSet<County>();
@@ -150,14 +150,19 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		for(Concern c : concerns) {
 			allUsers.add(c.getAuthor());
 		}
+		allUsers.addAll(this.getDiscussionUsers("sdp"));
+		allUsers.addAll(this.getDiscussionUsers("sdf"));
 		allUsers.addAll(this.getDiscussionUsers("sdc"));
-		
+		allUsers.addAll(this.getDiscussionUsers("sdcrit"));
+		allUsers.addAll(this.getDiscussionUsers("sdPkg"));
+		//allUsers.addAll(this.getDiscussionUsers("sdr"));
+		allUsers.addAll(this.getVoteUsers(packSuiteId, false));
+		allUsers.addAll(this.getYesNoVotingUsers());
+		allUsers.addAll(this.getPackageUsers(packSuiteId));
 		
 		for(User u : allUsers) {
-		//for(Concern c : concerns) {
-			//User u = c.getAuthor();
-			//Check if users were already counted
-			if(!users.contains(u)) {
+
+			if(u.getRoles().size()<2) { //make sure they aren't a mod or admin
 				//Gender
 				if(u.isGender()) {
 					male++;
@@ -213,9 +218,13 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 					}
 				}
 				
-			} //if()	
-			users.add(u);
+			} else { //if()
+				adminUsers.add(u);
+				System.out.println("Mod/admin removed " + u.getLoginname() + " count " + adminUsers.size());
+			}
 		} //for()
+		
+		allUsers.removeAll(adminUsers); //remove admins from the count
 		
 		//calculate stats
 		int totalUsers = male + female;
@@ -256,7 +265,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 
 		System.out.println("***ReportDAO: " + counties.size());
 		
-		rs.setUsers(users);
+		rs.setUsers(allUsers);
 		rs.setTotalUsers(totalUsers);
 		save(rs);
 		repoSuite.setStatsPart1(rs);
@@ -370,7 +379,8 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		}
 		
 		//Variables to store stats
-		Set<User> users = new HashSet<User>();
+		Set<User> allUsers = new HashSet<User>();
+		Set<User> adminUsers = new HashSet<User>();
 		Map<County, Integer> countySet = new HashMap<County, Integer>();
 		Map<RegisterObject, Integer> incomeSet = new HashMap<RegisterObject, Integer>();		
 		Map<RegisterObject, Integer> transportSet = new HashMap<RegisterObject, Integer>();	
@@ -387,25 +397,21 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Collection roTransport = getHibernateTemplate().find(hql_createStatsPart1_3, new Object[] {"transport",});
 		transTypes.addAll(roTransport);
 		
-		//
-		Set<User> allUsers = new HashSet<User>();
-		Set voteSuites = pkgSuite.getVoteSuites();
-		Iterator vsIt = voteSuites.iterator();
+
+		//Set voteSuites = pkgSuite.getVoteSuites();
+		//Iterator vsIt = voteSuites.iterator();
 		
-		allUsers.addAll(this.getVoteUsers(pkgSuiteId));
+		allUsers.addAll(this.getVoteUsers(pkgSuiteId, true));
 		int numCompleted = allUsers.size();
-		allUsers.addAll(this.getDiscussionUsers("sdPkg"));		
-		while(vsIt.hasNext()) {
-			PackageVoteSuite pvs = (PackageVoteSuite) vsIt.next();
-			Map<ClusteredPackage, PackageUserVote> uservotes = pvs.getUserVotes();
-			Collection<PackageUserVote> puv = uservotes.values();
-			for(PackageUserVote p : puv) {
-				allUsers.addAll(p.getVotes().keySet());
-			}
-		}
-		
-
-
+//		allUsers.addAll(this.getDiscussionUsers("sdPkg"));		
+//		while(vsIt.hasNext()) {
+//			PackageVoteSuite pvs = (PackageVoteSuite) vsIt.next();
+//			Map<ClusteredPackage, PackageUserVote> uservotes = pvs.getUserVotes();
+//			Collection<PackageUserVote> puv = uservotes.values();
+//			for(PackageUserVote p : puv) {
+//				allUsers.addAll(p.getVotes().keySet());
+//			}
+//		}
 
 		Set<UserPackage> packages = pkgSuite.getUserPkgs();
      	totalPackages = packages.size();
@@ -416,7 +422,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			System.out.println("ReportDAOImpl Stats part 4 User: " + u.getLoginname());
 			
 			// Check if users were already counted
-			if(!users.contains(u)) {
+			if(u.getRoles().size()<2) {
 				//Gender
 				if(u.isGender()) {
 					male++;
@@ -472,9 +478,13 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				}
 				
 				//add user Users set
-				users.add(u);
-			} //if()	
+			} else {
+				adminUsers.add(u);
+				System.out.println("Mod/admin removed " + u.getLoginname() + " count " + adminUsers.size());
+			}
 		} //for()
+		
+		allUsers.removeAll(adminUsers); //remove admins from the count
 		
 		//calculate stats
 		int totalUsers = male + female;
@@ -516,7 +526,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		//countySet.remove("");
 		//rs.setCounties(countySet.keySet());
 		
-		rs.setUsers(users);
+		rs.setUsers(allUsers);
 		rs.setTotalUsers(totalUsers);
 		save(rs);
 		repoSuite.setStatsPart4(rs);
@@ -547,7 +557,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setTotalVotes(totalVotes);
 		rs.setNumEndorsed(numEndorsed);
 		rs.setTotalCost(totalCost);
-		rs.setTotalProjects(preferredPackage.getFundAltRefs().size());
+		rs.setTotalProjects(preferredPackage.getProjAltRefs().size());
 		rs.setPreferredPackage(preferredPackage);
 		save(rs);
 		repoSuite.setStatsES(rs);
@@ -686,7 +696,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	
 	
  
-	public Set<User> getVoteUsers(Long suiteId) throws Exception {
+	public Set<User> getVoteUsers(Long suiteId, boolean finalvote) throws Exception {
 		System.out.println("***ReportDAOImpl start getVoteUsers");
 		Set<User> allUsers = new HashSet<User>();
 		
@@ -696,14 +706,28 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Iterator it = allpvs.iterator();
 		while(it.hasNext()) {
 			PackageVoteSuite pvs = (PackageVoteSuite) it.next();
-			Map<ClusteredPackage, PackageUserVote> puvMap = pvs.getUserVotes();
-			Set<ClusteredPackage> keys = puvMap.keySet();
-			for(ClusteredPackage cp : keys) {
-				PackageUserVote puv = puvMap.get(cp);
-				Map<User, Integer> votes = puv.getVotes();
-				allUsers.addAll(votes.keySet());
-				System.out.println("***ReportDAOImpl getVoteUsers, Users found " + votes.keySet().size());
-			}		
+			if(finalvote) {
+				if(pvs.isFinalVote()) {
+					Map<ClusteredPackage, PackageUserVote> puvMap = pvs.getUserVotes();
+					Set<ClusteredPackage> keys = puvMap.keySet();
+					for(ClusteredPackage cp : keys) {
+						PackageUserVote puv = puvMap.get(cp);
+						Map<User, Integer> votes = puv.getVotes();
+						allUsers.addAll(votes.keySet());
+						System.out.println("***ReportDAOImpl getVoteUsers, Users found " + votes.keySet().size());
+					}	
+				}
+			} else {
+				Map<ClusteredPackage, PackageUserVote> puvMap = pvs.getUserVotes();
+				Set<ClusteredPackage> keys = puvMap.keySet();
+				for(ClusteredPackage cp : keys) {
+					PackageUserVote puv = puvMap.get(cp);
+					Map<User, Integer> votes = puv.getVotes();
+					allUsers.addAll(votes.keySet());
+					System.out.println("***ReportDAOImpl getVoteUsers, Users found " + votes.keySet().size());
+				}
+			}
+				
 		}
 		System.out.println("***ReportDAOImpl end getVoteUsers, All Users found " + allUsers.size());
 		return allUsers;
@@ -745,7 +769,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		trans.put("Bus or Transit", u.getBusDays());
 		trans.put("Carpool or Vanpool", u.getCarpoolDays());
 		
-		String highTrans = "Other";
+		String highTrans = "Undefined";
 		int highValue = 0;
 		
 		Iterator it = trans.keySet().iterator();
@@ -778,10 +802,10 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Set<User> allUsers = new HashSet<User>();
 		List list = getHibernateTemplate().find(hql_getDiscussionUsers1, new Object[] {type,});
 		if(list.size()<1) {
-			System.out.println("ReportDAOImpl, getInfoObjects, no InfoStructure found");
-			return null;
+			//System.out.println("ReportDAOImpl, getInfoObjects, no InfoStructure found");
+			return allUsers;
 		}
-		System.out.println("--**list size" + list.size());
+		//System.out.println("--**list size" + list.size());
 		InfoStructure infoStructure = (InfoStructure) list.get(0);
 		allDisc.add(infoStructure.getDiscussion());
 		Set infoObjects = infoStructure.getInfoObjects();
@@ -795,34 +819,62 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		Iterator idIt = allDisc.iterator();
 		while(idIt.hasNext()) {
 			Discussion discussion = (Discussion)idIt.next();
-			System.out.println("--**discussion id" + discussion.getId());
+			//System.out.println("--**discussion id" + discussion.getId());
 			List discussionList = getHibernateTemplate().find(hql_getDiscussionUsers2, new Object[] {discussion,});
-			System.out.println("--**discussion list size" + discussionList.size());
+			//System.out.println("--**discussion list size" + discussionList.size());
 			
 			Iterator it = discussionList.iterator();
 			while(it.hasNext()) {
 				DiscussionPost dp = (DiscussionPost) it.next();
-				if(dp.getOwner().getRoles().size() < 2) {
-					allUsers.add(dp.getOwner());
-					System.out.println("--***User found post " + dp.getOwner().getLoginname());
-				}
+				allUsers.add(dp.getOwner());
+				//System.out.println("--***User found post " + dp.getOwner().getLoginname());
 				
 				List replyList = getHibernateTemplate().find(hql_getDiscussionUsers3, new Object[] {dp,});
-				System.out.println("--**reply list size" + replyList.size());
+				//System.out.println("--**reply list size" + replyList.size());
 				
 				Iterator itR = replyList.iterator();
 				while(itR.hasNext()) {
-					DiscussionReply dr = (DiscussionReply) itR.next();
-					if(dr.getOwner().getRoles().size() < 2) {
-						allUsers.add(dr.getOwner());
-						System.out.println("--***User found reply " + dr.getOwner().getLoginname());
-					}
-					
+					DiscussionReply dr = (DiscussionReply) itR.next();		
+					allUsers.add(dr.getOwner());
+					//System.out.println("--***User found reply " + dr.getOwner().getLoginname());
+
 				}
 			}
 		}
 
 		System.out.println("--***End getDiscussionUsers " + allUsers.size());
+		return allUsers;
+	}
+	
+	
+	private static final String hql_getYesNoVotingUsers1 = "from YesNoVoting ynv"; 
+	
+	public Set<User> getYesNoVotingUsers() throws Exception {
+		Set<User> allUsers = new HashSet<User>();
+		List list = getHibernateTemplate().find(hql_getYesNoVotingUsers1);
+		//System.out.println("--**YesNoVoting list size" + list.size());
+		
+		Iterator it = list.iterator();
+		while(it.hasNext()) {
+			YesNoVoting ynv = (YesNoVoting) it.next();
+			allUsers.add(ynv.getOwner());
+		}
+		System.out.println("--**YesNoVoting users size" + allUsers.size());
+		return allUsers;
+	}
+	
+	
+	public Set<User> getPackageUsers(Long pkgSuiteId) throws Exception {
+		Set<User> allUsers = new HashSet<User>();
+		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, pkgSuiteId);
+		Set userPackages = pkgSuite.getUserPkgs();
+		Iterator it = userPackages.iterator();
+		
+		while(it.hasNext()) {
+			UserPackage up = (UserPackage) it.next();
+			allUsers.add(up.getAuthor());
+		}
+		System.out.println("--**User Packages users size" + allUsers.size());
 		return allUsers;
 	}
 	

@@ -211,7 +211,7 @@ INSERT INTO pgist_funding_source_alter (id, sourceurl, offpeaktripsrate, peakhou
 
 
 INSERT INTO pgist_county (id, name, quotalimit, tempquotanumber, reportstats_id) VALUES (3084, 'Snohomish', 0, 0, NULL);
-INSERT INTO pgist_county (id, name, quotalimit, tempquotanumber, reportstats_id) VALUES (3089, 'Seattle', 0, 0, NULL);
+INSERT INTO pgist_county (id, name, quotalimit, tempquotanumber, reportstats_id) VALUES (3089, 'Seattle and North King', 0, 0, NULL);
 INSERT INTO pgist_county (id, name, quotalimit, tempquotanumber, reportstats_id) VALUES (3112, 'South King', 0, 0, NULL);
 INSERT INTO pgist_county (id, name, quotalimit, tempquotanumber, reportstats_id) VALUES (3117, 'East King', 0, 0, NULL);
 INSERT INTO pgist_county (id, name, quotalimit, tempquotanumber, reportstats_id) VALUES (3122, 'Pierce', 0, 0, NULL);
