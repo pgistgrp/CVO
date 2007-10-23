@@ -114,18 +114,17 @@
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="1">	
 							<!--a href="javascript:io.switchPage(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
-							<a href="javascript:io.goToPage(${setting.page - 1}, "posts");"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<a href="javascript:io.goToPage(${setting.page - 1}, 'posts');"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
 						</logic:notEqual>
-						
 						
 						<logic:equal name="setting" property="page" value="${setting.pageSize}">
 							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
 						</logic:equal>
 						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<a href="javascript:io.goToPage(${setting.page - 1}, "posts");"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+							<!--a href="javascript:io.switchPage(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
+							<a href="javascript:io.goToPage(${setting.page + 1}, 'posts');"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
 						</logic:notEqual>
-		  			</div>
-
+		  		</div>
 
 	</c:otherwise>
 
