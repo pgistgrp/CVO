@@ -235,7 +235,7 @@ public class CriteriaServiceImpl implements CriteriaService {
         /*
          * Search the isid for sdc from the given isid for sdcrit
          */
-        //isid = criteriaDAO.getSDCIsidFromSDCritIsid(isid);
+        isid = criteriaDAO.getSDCIsidFromSDCritIsid(isid);
         
     	Collection infoObjects = criteriaDAO.getInfoObjects(isid);
     	
