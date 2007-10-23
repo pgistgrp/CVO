@@ -52,7 +52,11 @@ public class WebUtils {
     
     
     public static boolean checkRole(String roleName) {
-        return threadLocalCurrentUser.get().checkRole(roleName);
+        UserInfo info = threadLocalCurrentUser.get();
+        
+        if (info!=null && info.checkRole(roleName)) return true;
+        
+        return false;
     }//checkRole()
     
     

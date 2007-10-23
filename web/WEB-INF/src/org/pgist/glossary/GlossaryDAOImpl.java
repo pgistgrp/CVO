@@ -237,21 +237,26 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
     
     
     synchronized public void setViewedByCurrentUser(Term term) throws Exception {
-        User user = getUserById(WebUtils.currentUserId());
-        
-        List list = getHibernateTemplate().find(hql_setViewedByCurrentUser, new Object[] {
-                term.getId(),
-                user.getId(),
-        });
-        
-        int count = ((Number) list.get(0)).intValue();
-        
-        if (count==0) {
-            TermParticipantRecord record = new TermParticipantRecord();
-            record.setTerm(term);
-            record.setUser(user);
-            getHibernateTemplate().save(record);
+        Long userId = WebUtils.currentUserId();
+        if (userId!=null) {
+            User user = getUserById(WebUtils.currentUserId());
             
+            List list = getHibernateTemplate().find(hql_setViewedByCurrentUser, new Object[] {
+                    term.getId(),
+                    user.getId(),
+            });
+            
+            int count = ((Number) list.get(0)).intValue();
+            
+            if (count==0) {
+                TermParticipantRecord record = new TermParticipantRecord();
+                record.setTerm(term);
+                record.setUser(user);
+                getHibernateTemplate().save(record);
+                
+                adjustStatistics(term);
+            }
+        } else {
             adjustStatistics(term);
         }
     }//setViewedByCurrentUser()
