@@ -193,6 +193,9 @@
     
     <filter-mapping>
         <filter-name>CheckRoleFilter</filter-name>
+	<!-- Moderator tool (log data viewer) -->
+	<url-pattern>/dwr/call/plaincall/PESAgent.getLogs.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/PESAgent.getUsers.dwr</url-pattern>
         <!-- Others -->
         <url-pattern>/gaTesting.do</url-pattern>
         <!-- Agenda -->
