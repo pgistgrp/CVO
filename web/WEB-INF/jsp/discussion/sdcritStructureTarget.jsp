@@ -155,14 +155,14 @@
     
     
     function getOrphanInfoObjects(){
-		//alert("critSuiteId: " + io.critSuiteId + " isid: " + io.sdcStructureId); 
-		CriteriaAgent.getOrphanInfoObjects({critSuiteId:io.critSuiteId,isid:io.sdcStructureId}, {
+		//alert("critSuiteId: " + io.critSuiteId + " isid: " + io.structureId); 
+		CriteriaAgent.getOrphanInfoObjects({critSuiteId:io.critSuiteId,isid:io.structureId}, {
 			callback:function(data){
 				if (data.successful){
-				    var themes = [];
-					data.infoObjects.each(function(infoObject){   
-					    themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid="+io.structureId+"&ioid="+infoObject.id+"'>"+ infoObject.object.theme.title +"</a>");
-					})
+          var themes = [];
+					data.infoObjects.each(function(infoObject){
+					  themes.push("<a href='sdRoom.do?"+io.wfInfo+"&isid="+io.structureId+"&ioid="+infoObject.id+"'>"+ infoObject.title +"</a>");
+					});
 					$('orphanThemes').innerHTML = "Concern themes that the moderator has determined are unrelated to any of these improvement factors include:"
 					 + themes.toString();
 				}else{
@@ -170,7 +170,7 @@
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("CriteriaAgent.getOrphanThemes( error:" + errorString + exception);
+			  alert("CriteriaAgent.getOrphanThemes( error:" + errorString + exception);
 			}
 		});
 	}

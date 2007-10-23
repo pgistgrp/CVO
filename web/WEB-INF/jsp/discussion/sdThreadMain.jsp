@@ -67,7 +67,7 @@
 		var io = new Object;
 		//Global Var Settings
 		io.structureId = "${structure.id}";
-		io.critSuiteId = "${critSuiteId}";
+		io.critSuiteId = "${structure.suiteId}";
 		io.objectId = "${object.id}";
 		io.postId = "${post.id}";
 		io.replyId = null;
