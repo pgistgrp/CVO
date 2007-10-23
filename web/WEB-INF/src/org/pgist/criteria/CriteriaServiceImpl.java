@@ -232,6 +232,11 @@ public class CriteriaServiceImpl implements CriteriaService {
     
     
     public Collection getOrphanInfoObjects(Long suiteId, Long isid) throws Exception {
+        /*
+         * Search the isid for sdc from the given isid for sdcrit
+         */
+        //isid = criteriaDAO.getSDCIsidFromSDCritIsid(isid);
+        
     	Collection infoObjects = criteriaDAO.getInfoObjects(isid);
     	
     	return criteriaDAO.getOrphanInfoObjects(suiteId, infoObjects);

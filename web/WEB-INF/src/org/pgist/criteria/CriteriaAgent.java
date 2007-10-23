@@ -932,7 +932,7 @@ public class CriteriaAgent {
      * @param params a Map contains:
      *   <ul>
      *     <li>critSuiteId - long, id of a CriteriaSuite object</li>
-     *     <li>isid - long, isid</li>
+     *     <li>isid - long, isid of SD Concern</li>
      *   </ul>
      * @return a Map contains:
      *   <ul>

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.hibernate.Query;
 import org.pgist.discussion.InfoObject;
 import org.pgist.discussion.InfoStructure;
 import org.pgist.system.BaseDAOImpl;
@@ -389,6 +390,17 @@ public class CriteriaDAOImpl extends BaseDAOImpl implements CriteriaDAO {
         // TODO Auto-generated method stub
         
     }
+
+
+    private static final String hql_getSDCIsidFromSDCritIsid = "select i.id from InfoStructure i where i.type=? and i.cctId=(select s.cctId from InfoStructure s where s.id=?)";
+    
+    
+    public Long getSDCIsidFromSDCritIsid(Long isid) throws Exception {
+        Query query = getSession().createQuery(hql_getSDCIsidFromSDCritIsid);
+        query.setString(0, InfoStructure.TYPE_SDC);
+        query.setLong(1, isid);
+        return (Long) query.uniqueResult();
+    }//getSDCIsidFromSDCritIsid()
 
 
 }//class CriteriaDAOImpl

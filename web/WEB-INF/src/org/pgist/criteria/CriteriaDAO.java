@@ -80,4 +80,8 @@ public interface CriteriaDAO extends BaseDAO {
 	
 	Set getInfoObjects(Long isid) throws Exception;
 
+
+    Long getSDCIsidFromSDCritIsid(Long isid) throws Exception;
+    
+    
 }//interface CriteriaDAO

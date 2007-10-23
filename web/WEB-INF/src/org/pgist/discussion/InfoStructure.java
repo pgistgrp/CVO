@@ -17,37 +17,37 @@ public class InfoStructure extends GenericInfo {
     /*
      * sd for concern summary
      */
-    private static final String TYPE_SDC = "sdc";
+    public static final String TYPE_SDC = "sdc";
     
     /*
      * sd for criteria
      */
-    private static final String TYPE_SDCRIT = "sdcrit";
+    public static final String TYPE_SDCRIT = "sdcrit";
     
     /*
      * sd for projects
      */
-    private static final String TYPE_SDP = "sdp";
+    public static final String TYPE_SDP = "sdp";
     
     /*
      * sd for funding sources
      */
-    private static final String TYPE_SDF = "sdf";
+    public static final String TYPE_SDF = "sdf";
     
     /*
      * sd for packages
      */
-    private static final String TYPE_SDPKG = "sdpkg";
+    public static final String TYPE_SDPKG = "sdpkg";
     
     /*
      * sd for create package, maybe deleted later
      */
-    private static final String TYPE_SDCP = "sdcp";
+    public static final String TYPE_SDCP = "sdcp";
     
     /*
      * sd for review report
      */
-    private static final String TYPE_SDRR = "sdrr";
+    public static final String TYPE_SDRR = "sdrr";
     
     
     private Long cctId;
