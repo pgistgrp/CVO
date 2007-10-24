@@ -293,6 +293,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				User user = (User) itKeys.next();
 				int weight = userWeights.get(user);
 				sumWeight += weight;
+				System.out.println("**Stats Part 2 " + user.getLoginname());
 			}
 			if(userWeights.size() > 0) {
 				cr.setGrade(sumWeight/userWeights.size());
@@ -319,8 +320,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		rs.setQuanity(projectNum);
 		
 		PackageSuite pkgSuite = (PackageSuite) load(PackageSuite.class, packSuiteId); 
-		int userNumCompleted = pkgSuite.getUserPkgs().size(); 
-    	rs.setUserCompleted(userNumCompleted);
+
 //		rs.setProjRefs(ps.getReferences());
 //		
 //		FundingSourceSuite fundSuite = (FundingSourceSuite) load(FundingSourceSuite.class, fundSuiteId);
@@ -328,41 +328,50 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 //		save(rs);
 		
 		Set userPkgs = pkgSuite.getUserPkgs();
+		Set modPkgs = new HashSet();
 		Iterator itPkg = userPkgs.iterator();
 		while(itPkg.hasNext()) {
 			
 			UserPackage up = (UserPackage) itPkg.next();
-			Set ProjAltRefs = up.getProjAltRefs();
-			Iterator itPar = ProjAltRefs.iterator();
-			while(itPar.hasNext()) {
-				ProjectAltRef par = (ProjectAltRef) itPar.next(); 
-				ProjectAlternative pa = par.getAlternative();
-				if(pa.getNumVotes()==0) {
-					pa.setYesVotes(1);
-					pa.setNumVotes(1);					
-				} else {
-					pa.setYesVotes(pa.getYesVotes()+1);
-					pa.setNumVotes(pa.getNumVotes()+1);
+			if(up.getAuthor().getRoles().size()<2) {
+				Set ProjAltRefs = up.getProjAltRefs();
+				Iterator itPar = ProjAltRefs.iterator();
+				while(itPar.hasNext()) {
+					ProjectAltRef par = (ProjectAltRef) itPar.next(); 
+					ProjectAlternative pa = par.getAlternative();
+					if(pa.getNumVotes()==0) {
+						pa.setYesVotes(1);
+						pa.setNumVotes(1);					
+					} else {
+						pa.setYesVotes(pa.getYesVotes()+1);
+						pa.setNumVotes(pa.getNumVotes()+1);
+					}
+					save(pa);
 				}
-				save(pa);
-			}
-			
-			Set fundAltRefs = up.getFundAltRefs();
-			Iterator itFar = fundAltRefs.iterator();
-			while(itFar.hasNext()) {
-				FundingSourceAltRef far = (FundingSourceAltRef) itFar.next(); 
-				FundingSourceAlternative fsa = far.getAlternative();
-				if(fsa.getNumVotes()==0) {
-					fsa.setYesVotes(1);
-					fsa.setNumVotes(1);					
-				} else {
-					fsa.setYesVotes(fsa.getYesVotes()+1);
-					fsa.setNumVotes(fsa.getNumVotes()+1);
+				
+				Set fundAltRefs = up.getFundAltRefs();
+				Iterator itFar = fundAltRefs.iterator();
+				while(itFar.hasNext()) {
+					FundingSourceAltRef far = (FundingSourceAltRef) itFar.next(); 
+					FundingSourceAlternative fsa = far.getAlternative();
+					if(fsa.getNumVotes()==0) {
+						fsa.setYesVotes(1);
+						fsa.setNumVotes(1);					
+					} else {
+						fsa.setYesVotes(fsa.getYesVotes()+1);
+						fsa.setNumVotes(fsa.getNumVotes()+1);
+					}
+					save(fsa);
 				}
-				save(fsa);
+			} else {
+				modPkgs.add(up);
+				System.out.println("**Mod package found " + up.getAuthor().getLoginname());
 			}
 		}
+		userPkgs.removeAll(modPkgs);
 		
+		int userNumCompleted = pkgSuite.getUserPkgs().size(); 
+    	rs.setUserCompleted(userNumCompleted);
 		save(rs);
 		repoSuite.setStatsPart3(rs);
 		save(repoSuite);
