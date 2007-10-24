@@ -15,6 +15,7 @@ import org.pgist.cvo.CCT;
 import org.pgist.cvo.CSTService;
 import org.pgist.cvo.CategoryReference;
 import org.pgist.cvo.Concern;
+import org.pgist.cvo.Comment;
 import org.pgist.cvo.Theme;
 import org.pgist.discussion.InfoObject;
 import org.pgist.funding.FundingSourceAltRef;
@@ -88,7 +89,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 	private static final String hql_createStatsPart1_3 = "from RegisterObject ro where ro.type=?"; 
 	private static final String hql_createStatsPart1_4 = "from County c"; 
 	
-	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId) throws Exception {
+	public void createStatsPart1(Long workflowId, Long cctId, Long repoSuiteId, Long packSuiteId, Long critSuiteId, Long projSuiteId, Long fundSuiteId) throws Exception {
 		System.out.println("***Excecute CreateStatsPart1()");
 		CCT cct = (CCT)load(CCT.class, cctId);
 		ReportSuite repoSuite = (ReportSuite) load(ReportSuite.class, repoSuiteId);
@@ -157,7 +158,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		allUsers.addAll(this.getDiscussionUsers("sdPkg"));
 		//allUsers.addAll(this.getDiscussionUsers("sdr"));
 		allUsers.addAll(this.getVoteUsers(packSuiteId, false));
-		allUsers.addAll(this.getYesNoVotingUsers());
+		allUsers.addAll(this.getYesNoVotingUsers(cctId, packSuiteId, critSuiteId, projSuiteId, fundSuiteId));
 		allUsers.addAll(this.getPackageUsers(packSuiteId));
 		
 		for(User u : allUsers) {
@@ -809,6 +810,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 		System.out.println("--***Start getDiscussionUsers");
 		Set<Discussion> allDisc = new HashSet<Discussion>();
 		Set<User> allUsers = new HashSet<User>();
+		Set<Long> allIds = new HashSet<Long>();
 		List list = getHibernateTemplate().find(hql_getDiscussionUsers1, new Object[] {type,});
 		if(list.size()<1) {
 			//System.out.println("ReportDAOImpl, getInfoObjects, no InfoStructure found");
@@ -836,6 +838,7 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 			while(it.hasNext()) {
 				DiscussionPost dp = (DiscussionPost) it.next();
 				allUsers.add(dp.getOwner());
+				allIds.add(dp.getId());
 				//System.out.println("--***User found post " + dp.getOwner().getLoginname());
 				
 				List replyList = getHibernateTemplate().find(hql_getDiscussionUsers3, new Object[] {dp,});
@@ -845,30 +848,84 @@ public class ReportDAOImpl extends BaseDAOImpl implements ReportDAO {
 				while(itR.hasNext()) {
 					DiscussionReply dr = (DiscussionReply) itR.next();		
 					allUsers.add(dr.getOwner());
+					allIds.add(dr.getId());
 					//System.out.println("--***User found reply " + dr.getOwner().getLoginname());
 
 				}
 			}
 		}
+		
+		System.out.println("--***DiscussionUsers found " + allUsers.size());
+		
+		//Get yes no voting users on these discussions
+		allUsers.addAll(this.getYesNoVotingUsersById(allIds));
+		
+		System.out.println("--***End getDiscussionUsers, discussion yes no users added, total size " + allUsers.size());
 
-		System.out.println("--***End getDiscussionUsers " + allUsers.size());
 		return allUsers;
 	}
 	
 	
-	private static final String hql_getYesNoVotingUsers1 = "from YesNoVoting ynv"; 
 	
-	public Set<User> getYesNoVotingUsers() throws Exception {
+	private static final String hql_getYesNoVotingUsers2 = "from Concern c where c.cct.id=?"; 
+	private static final String hql_getYesNoVotingUsers3 = "from Comment c where c.concern=?"; 
+	private static final String hql_getYesNoVotingUsers4 = "from InfoStructure infoS where infoS.cctId=?"; 
+	
+	public Set<User> getYesNoVotingUsers(Long cctId, Long packSuiteId, Long critSuiteId, Long projSuiteId, Long fundSuiteId) throws Exception {
 		Set<User> allUsers = new HashSet<User>();
-		List list = getHibernateTemplate().find(hql_getYesNoVotingUsers1);
-		//System.out.println("--**YesNoVoting list size" + list.size());
+		Set<Long> allIds = new HashSet<Long>();
 		
-		Iterator it = list.iterator();
-		while(it.hasNext()) {
-			YesNoVoting ynv = (YesNoVoting) it.next();
-			allUsers.add(ynv.getOwner());
+		
+		//Get all Concerns & comments
+		System.out.println("***YesNoVoting Start Concerns and comments");
+		List listConcerns = getHibernateTemplate().find(hql_getYesNoVotingUsers2, new Object[] {cctId,});
+		Iterator itConcerns = listConcerns.iterator();
+		while(itConcerns.hasNext()) {
+			Concern concern = (Concern) itConcerns.next();
+			allIds.add(concern.getId());
+			List listComments = getHibernateTemplate().find(hql_getYesNoVotingUsers3, new Object[] {concern,});
+			Iterator itComments = listComments.iterator();
+			while(itComments.hasNext()) {
+				Comment comments = (Comment) itComments.next();
+				allIds.add(comments.getId());
+			}
 		}
+		System.out.println("***YesNoVoting End Concerns and comments, Ids List size " + allIds.size());
+		
+		//Get InfoStructure 
+		System.out.println("***YesNoVoting Start InfoStructure");
+		List listInfoS = getHibernateTemplate().find(hql_getYesNoVotingUsers4, new Object[] {cctId,});
+		Iterator itInfoS = listInfoS.iterator();
+		while(itInfoS.hasNext()) {
+			InfoStructure infoS = (InfoStructure) itInfoS.next();
+			allIds.add(infoS.getId());
+		}
+		System.out.println("***YesNoVoting End InfoStructure, Ids List size " + allIds.size());
+		
+		allUsers.addAll(this.getYesNoVotingUsersById(allIds));
+		
 		System.out.println("--**YesNoVoting users size" + allUsers.size());
+		return allUsers;
+	}
+	
+	
+	private static final String hql_getYesNoVotingUsersById1 = "from YesNoVoting ynv where ynv.targetId=?";
+	
+	public Set<User> getYesNoVotingUsersById(Set<Long> allIds) throws Exception {
+		Set<User> allUsers = new HashSet<User>();
+		
+		Iterator itIds = allIds.iterator();
+		while(itIds.hasNext()) {
+			Long targetId = (Long) itIds.next();
+			List list = getHibernateTemplate().find(hql_getYesNoVotingUsersById1, new Object[] {targetId,});
+			
+			Iterator it = list.iterator();
+			while(it.hasNext()) {
+				YesNoVoting ynv = (YesNoVoting) it.next();
+				allUsers.add(ynv.getOwner());
+			}
+		}
+		
 		return allUsers;
 	}
 	
