@@ -186,7 +186,7 @@
 		<p>Remaining Weight: <b id="remainingWeight"><!--load remaining weight here --></b></p>
 		
 		<h4>2) How much are you willing to pay per year?</h4>
-			<p>What is the total annual cost <b>you</b> are willing to pay to fund your preferred transportation package? ${min} | ${max}<input type="text" name="yourCost" /></p>
+			<p>What is the total annual cost <b>you</b> are willing to pay to fund your preferred transportation package? <input type="text" name="yourCost" /></P>
 			<p>What is the total annual cost that the <b>average resident</b> should have to pay to fund your preferred transportation package? <input type="text" name="avgCost" /></p>
 		<h4>3) Do you want us to include projects and funding sources already selected in your package, or suggest a new package?</h4>
 			<label><input type="radio" name="includeCurrent" /> Include my current selection</label>

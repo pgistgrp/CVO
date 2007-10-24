@@ -1,11 +1,14 @@
 package org.pgist.packages;
 
+import java.util.Map;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.funding.FundingService;
 import org.pgist.projects.ProjectService;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -82,6 +85,18 @@ public class UserPackageCreatorTunerAction extends Action {
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		
+            UserPackage uPack = packageService.createUserPackage(usrPkgId, WebUtils.currentUser(), fundSuite);             
+            float min = Float.MAX_VALUE;
+            float max = Float.MIN_VALUE;
+            for (Map.Entry<Long, Float> entry : uPack.getPersonalCost().entrySet()) {
+                float value = entry.getValue();
+                if (value<min) min = value;
+                if (value>max) max = value;
+            }
+            
+            request.setAttribute("min", min);
+            request.setAttribute("max", max);
+            
     		//Return the user package
     		request.setAttribute("usrPkgId", usrPkgId);
     		request.setAttribute("projSuiteId", projSuite);

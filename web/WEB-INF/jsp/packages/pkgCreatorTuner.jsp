@@ -167,7 +167,7 @@
 			</div>
 			<div class="box6 padding5">
 				<h3 class="headerColor">1. How much are you willing to pay per year?</h3>
-				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package?</label> <span class="dollarSign">$</span><input type="text" id="mylimit" size="5"/><br/>
+				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package?</label> <span class="dollarSign">$</span> ${min} | ${max} <input type="text" id="mylimit" size="5"/><br/>
 				<div class="clearBoth"></div>
 			</div>
 		</div>
