@@ -122,7 +122,6 @@ public class GAKnapsackProjectEngine {
         IChromosome possibility = null;
         
         //create an all-0 chromosome
-        /*
         for (int i=0; i<sGenes.length; i++) {
             newGenes[i] = (IntegerGene) sGenes[i].newGene();
             newGenes[i].setAllele(0);
@@ -130,10 +129,8 @@ public class GAKnapsackProjectEngine {
         possibility = Chromosome.randomInitialChromosome(conf);
         possibility.setGenes(newGenes);
         pop.addChromosome(possibility);
-        */
         
         //create equal possibility chromosome
-        /*
         for (int i=0; i<initGenes.size(); i++) {
             for (int j=sGenes[i].getLowerBounds(); j<sGenes[i].getUpperBounds(); j++) {
                 newGenes = new IntegerGene[sGenes.length];
@@ -149,11 +146,9 @@ public class GAKnapsackProjectEngine {
                 pop.addChromosome(possibility);
             }
         }
-        */
         
         //fill in the other chromosomes to random ones
-        //for (int i=0; i<populationSize-initGenes.size()-1; i++) {
-        for (int i=0; i<populationSize; i++) {
+        for (int i=0; i<populationSize-initGenes.size()-1; i++) {
             possibility = Chromosome.randomInitialChromosome(conf);
             pop.addChromosome(possibility);
         }
