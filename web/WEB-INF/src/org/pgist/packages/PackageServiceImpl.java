@@ -1338,7 +1338,7 @@ public class PackageServiceImpl implements PackageService {
 		}
 		
 		//Check that the package isn't already over buget
-		if(totalFunding < 0) throw new BudgetExceededException("The projects selected exceed the budget limits you provided");
+		if(totalFunding < 0) throw new BudgetExceededException("The projects you want to include exceed the limit you are willing to pay");
 		
 		//Send the collection to the KSAlgorithm
 		Collection<KSItem> result = GAKnapsackProjectEngine.mcknap(choiceCol, totalFunding);
