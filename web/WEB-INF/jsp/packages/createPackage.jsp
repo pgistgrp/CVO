@@ -457,7 +457,7 @@
 				<ul>Create your own transportation package.
 					<li>Select projects and funding options to include in your package.</li>
 					<li>Be sure to provide enough funding to pay for your projects!</li>
-					<li>Click "Help me create a package" if you’d like help selecting projects and funding options which match your preferences.</li>
+					<li>Click "Help me create a package" if you’d like help selecting projects and funding options.</li>
 				</ul>
 			<p>You can only submit one package.</p>
 			<p><a href="#" onclick="Effect.toggle('hiddenRM','blind',{duration:0});">Read more about this step</a></p>
@@ -493,7 +493,7 @@
 					</c:choose>
 
 					<div id="helpMe" style="display:none;">
-									<p>We can help you get started on your package by creating one for you automatically.  You can then adjust the package and submit it when you are finished. To use this tool click the button and follow the instructions on the new page that opens in another browser window.</p>
+									<p>We can help you get started on your package. To use this tool click the button and follow the instructions on the new page that opens in another browser window.</p>
    							<p></p>
                   <div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Click here to use this tool</a></div>
                  <!--Code commented out by Mike	

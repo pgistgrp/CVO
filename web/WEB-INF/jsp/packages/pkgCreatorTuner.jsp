@@ -163,26 +163,26 @@
       </pg:show>
 			<div id="overview" class="box2">
 			<h3 class="headerColor">Instructions</h3>
-				<p>Complete this form and click the button at the bottom of this page to create a package.  You are able to adjust the package before you submit it on the main page.</p>
+				<p>Complete this form and click the button at the bottom of this page to get started on a package.  Finish the package by making adjustments on the main page or reopen this tool to use it again.  Please be patient, this tool requires about 30 seconds to make selections. </p>
 			</div>
 			<div class="box6 padding5">
 				<h3 class="headerColor">1. How much are you willing to pay per year?</h3>
-				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package?</label>
-        Please input a number between $${min} and $1000. <span class="dollarSign">$</span> <input type="text" id="mylimit" size="5"/><br/>
+				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package?   This tool will select funding options so as not to exceed your personal limit.</label><br/>
+        Please enter a number between $${min} and $1000. <span class="dollarSign">$</span> <input type="text" id="mylimit" size="5"/><br/>
 				<div class="clearBoth"></div>
 			</div>
 		</div>
 	<div id="object" class="stripWS">
 				<h3 class="headerColor">2. What is the relative importance of each improvement factor?</h3>
-        <label>You can keep your weights from Step 2b or you can change them here.</label>
-				<div id="criteria">
+        <label>You can keep your weights from Step 2b or you can change them here.  This tool will select projects that have high grades in your preferred improvement factors.</label>
+        <div id="criteria">
 					<!--load the criteria partial here -->
 				</div>
 				<!-- begin NewTable-->
 				<br />
 				<div id="newTable" class="stripWS">
 					<h3 class="headerColor">3. Which choices are you sure about?</h3>
-         <label>Mark the projects and funding sources that you want to include or exclude from the package that will be created. Feel free to leave any or all the choices as "No opinion".</label><br/><br/>
+         <label>Mark the projects and funding sources that you want to include or exclude from the package that will be created. Feel free to leave any or all the choices as "No opinion".  This tool will be sure to include or exclude your choices.</label><br/><br/>
 					<div id="left" class="floatLeft">
 						<table cellpadding=0 cellspacing=0>
 							<!-- begin CATEGORY LABEL -->
@@ -287,8 +287,8 @@
 			<div class="clearBoth">
 			</div>
 			<div id="finished" class="box7">
-				<h3>Are you ready to create a package?</h3>
-				<input type="button" id="goBtn" onClick="getTunerConfig();this.value='Calculating please wait...'; this.disabled='true'; Util.loading(true); Util.loading(true, 'Creating Package');" value="I have completed this form. Show me a package."/>
+				<h3>Are you ready to get started on a package?</h3>
+				<input type="button" id="goBtn" onClick="getTunerConfig();this.value='Calculating please wait...'; this.disabled='true'; Util.loading(true); Util.loading(true, 'Creating Package');" value="I have completed this form. Start my package."/>
 				<div class="clearBoth"></div>
 			</div>
 		</div>
