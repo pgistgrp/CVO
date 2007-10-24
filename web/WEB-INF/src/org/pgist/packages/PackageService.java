@@ -68,6 +68,8 @@ public interface PackageService {
     
     Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
     
+    UserPackage calcUserValues(Long userPkgId, Long funSuiteId) throws Exception;
+    
     void calcUserValues(Package pkg, UserInfo userInfo, Long funSuiteId) throws Exception;
     
     void calculatePreferredPackage(Long pkgSuiteId, Long voteSuiteId) throws Exception;

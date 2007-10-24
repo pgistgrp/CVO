@@ -1005,6 +1005,12 @@ public class PackageServiceImpl implements PackageService {
     	this.calcUserValues(pkg, pkg.getAuthor(), funSuiteId);
     }
     
+    public UserPackage calcUserValues(Long userPkgId, Long funSuiteId) throws Exception {
+        UserPackage up = getUserPackage(userPkgId);
+        calcUserValues(up, funSuiteId);
+        return up;
+    }
+    
     public void calcUserValues(Package pkg, UserInfo userInfo, Long funSuiteId) throws Exception {
         User user = packageDAO.getUserById(userInfo.getId());
         calcUserValues(pkg, user, funSuiteId);
