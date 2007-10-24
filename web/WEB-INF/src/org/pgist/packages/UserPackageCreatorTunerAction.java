@@ -8,7 +8,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.funding.FundingService;
 import org.pgist.projects.ProjectService;
-import org.pgist.util.WebUtils;
 
 
 /**
