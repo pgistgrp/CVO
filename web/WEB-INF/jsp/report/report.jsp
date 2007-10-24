@@ -346,8 +346,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				and personal package creation</a></h3>
 		
 		<p>
-		In the third step participants first reviewed and discussed a list of proposed transportation improvement projects in the 3 county region. This was followed by a review and discussion of available options for funding these transportation improvements. Finally, participants were each given the opportunity to create their own personal transportation package including both a set of projects and a set of funding sources which provide enough money to pay for the projects. The results of participant project and funding source selection are described below. Note: only ${statsPart3.userCompleted} of the total ${statsES.totalUsers} participants completed this step.
-		</p>
+		In the third step participants first reviewed and discussed a list of proposed transportation improvement projects in the 3 county region. This was followed by a review and discussion of available options for funding these transportation improvements. Finally, participants were each given the opportunity to create their own personal transportation package including both a set of projects and a set of funding sources which provide enough money to pay for the projects. The results of participant project and funding source selection are described below. Note: only ${statsPart3.userCompleted} of the total ${statsPart1.totalUsers} participants completed this step.		</p>
 			
 			<p>${part3a}</p>
 		<table cellpadding=0 cellspacing=0 style="font-size:10pt">
