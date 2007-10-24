@@ -324,7 +324,7 @@ public class PackageServiceImpl implements PackageService {
 				if(tempRef.getId().equals(funAltRefId)) {
 					uPack.getFundAltRefs().remove(tempRef);
 					
-					this.calcUserValues(uPack, fundingSuiteId);					
+					this.calcUserValues(uPack, fundingSuiteId);
 					uPack.updateCalculations();
 					this.packageDAO.save(uPack);
 					return uPack;
@@ -367,7 +367,9 @@ public class PackageServiceImpl implements PackageService {
 	 * @return	The user package
 	 */
 	public UserPackage getUserPackage(Long pkgId) throws Exception {
-		return this.packageDAO.getUserPackage(pkgId);		
+	    UserPackage up = packageDAO.getUserPackage(pkgId);
+	    up.updateCalculations();
+		return up;
 	}
 	
 	/**
