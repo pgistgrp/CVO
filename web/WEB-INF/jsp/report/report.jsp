@@ -320,7 +320,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<c:forEach var="ref" items="${cr}" varStatus="loop">
 					<div class="criteriaListRow row">
 						<div class="weighCriteriaCol1 floatLeft">
-							<div class="floatLeft">${ref.criterion.name}</div>
+							<div class="floatLeft">${ref.criterion.name} - ${ref.grade}</div>
 						</div>
 						<div class="clearBoth"></div>
 						<div class="objectives" id="objectives${loop.index}">
