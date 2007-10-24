@@ -85,7 +85,7 @@ public class UserPackageCreatorTunerAction extends Action {
     		request.setAttribute("projectRefs", projectService.getProjectSuite(projSuite).getReferences());
     		request.setAttribute("fundingRefs", fundingService.getFundingSuite(fundSuite).getReferences());
     		
-            UserPackage uPack = packageService.createUserPackage(usrPkgId, WebUtils.currentUser(), fundSuite);             
+            UserPackage uPack = packageService.getUserPackage(usrPkgId);             
             float min = Float.MAX_VALUE;
             float max = Float.MIN_VALUE;
             for (Map.Entry<Long, Float> entry : uPack.getPersonalCost().entrySet()) {
