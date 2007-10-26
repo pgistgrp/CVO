@@ -866,6 +866,9 @@ public class PackageServiceImpl implements PackageService {
 		float total = 0;
 		while(iGC.hasNext()) {
 			gc = iGC.next();
+			if(crits.get(gc.getCriteria())==null) {
+				return "NA";
+			}
 			float temp = (gc.getValue()*crits.get(gc.getCriteria()))/100;
 			total += temp;
 		}
