@@ -175,7 +175,7 @@ function PGIST_Map_Logger(){
         
         var b = PGISTMapEditor_Global_Accessor.map.getBounds();
         logstr += b.getSouthWest().lng() + ',' + b.getSouthWest().lat() + ' ';
-        logstr += b.getNorthEast().lng() + ',' + b.getSouthWest().lat();
+        logstr += b.getNorthEast().lng() + ',' + b.getNorthEast().lat();
     
         PESAgent.saveAct({mapaction:logstr}, {callback:function(data){
                     
