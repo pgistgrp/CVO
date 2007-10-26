@@ -163,7 +163,7 @@
       </pg:show>
 			<div id="overview" class="box2">
 			<h3 class="headerColor">Instructions</h3>
-				<p>Complete this form and click the button at the bottom of this page to get started on a package.  Finish the package by making adjustments on the main page or reopen this tool to use it again.  Please be patient, this tool requires about 30 seconds to make selections. </p>
+				<p>Complete this form and click the button at the bottom of this page to get started on a package.  Finish the package by making adjustments on the main page or reopen this tool to use it again.  <strong>Please be patient, this tool requires about 30 seconds to make selections.</strong> </p>
 			</div>
 			<div class="box6 padding5">
 				<h3 class="headerColor">1. How much are you willing to pay per year?</h3>
