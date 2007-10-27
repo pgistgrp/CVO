@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.Query;
+import org.pgist.other.Experiment;
 import org.pgist.system.BaseDAOImpl;
 
 
@@ -96,5 +98,16 @@ public class PackageDAOImpl extends BaseDAOImpl implements PackageDAO {
 		set.addAll(collection);
 		return set;
 	}
+	
+	
+	private static final String hql_getFundingSuiteIdFromPackageSuiteId = "from Experiment where pkgSuite.id=?";
+	
+	public Long getFundingSuiteIdFromPackageSuiteId(Long pkgSuiteId) throws Exception {
+	    Query query = getSession().createQuery(hql_getFundingSuiteIdFromPackageSuiteId);
+	    query.setLong(0, pkgSuiteId);
+	    Experiment experiment = (Experiment) query.uniqueResult();
+	    return experiment.getFundingSuite().getId();
+	}//getFundingSuiteIdFromPackageSuiteId()
+	
 	
 }//class PackageDAOImpl

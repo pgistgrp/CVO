@@ -31,5 +31,7 @@ public interface PackageDAO extends BaseDAO {
 	void delete(ClusteredPackage cp) throws Exception;
     
 	Set getVoteSuiteStatsBySuite(Long pkgVoteSuiteId) throws Exception;
+	
+	Long getFundingSuiteIdFromPackageSuiteId(Long pkgSuiteId) throws Exception;
     
 }//interface PackageDAO

@@ -97,6 +97,8 @@ public class UserPackageCreatorTunerAction extends Action {
                 min = (((int) min) / 10 + 1) * 10;
             }
             
+            if (min<10) min = 10;
+            
             request.setAttribute("min", min);
             request.setAttribute("max", max);
             

@@ -198,15 +198,14 @@ public class UserPackage extends Package {
             totalCost = totalCost + (float)projects.next().getAlternative().getCost();
         }
         
-        Iterator<FundingSourceAltRef> funding = this.fundAltRefs.iterator();
         FundingSourceAlternative fAlt;
         
-        while(funding.hasNext()) {
-            fAlt = funding.next().getAlternative();
-            totalFunding = totalFunding + (float)fAlt.getRevenue();
+        for (FundingSourceAltRef altRef : fundAltRefs) {
+            fAlt = altRef.getAlternative();
+            totalFunding = totalFunding + (float) fAlt.getRevenue();
             avgResidentCost = avgResidentCost + fAlt.getAvgCost();
             yourCost = yourCost + this.getPersonalCost(fAlt.getId());
-        }
+        }//for
         
         /*
          * check if this user package is valid

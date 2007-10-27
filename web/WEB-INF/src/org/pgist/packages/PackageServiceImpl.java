@@ -368,6 +368,7 @@ public class PackageServiceImpl implements PackageService {
 	 */
 	public UserPackage getUserPackage(Long pkgId) throws Exception {
 	    UserPackage up = packageDAO.getUserPackage(pkgId);
+	    calcUserValues(up, packageDAO.getFundingSuiteIdFromPackageSuiteId(up.getSuite().getId()));
 	    up.updateCalculations();
 		return up;
 	}
