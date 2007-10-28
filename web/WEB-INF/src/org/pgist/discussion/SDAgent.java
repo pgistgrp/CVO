@@ -723,8 +723,9 @@ public class SDAgent {
                 
                 for (User user : (Set<User>) set) {
                     values.put("user", user);
-                    //TODO, url
-                    values.put("url", "http://"+request.getLocalName()+":"+request.getLocalPort()+"/sdThread.do?isid="+isid+"&ioid="+infoObject.getId()+"&pid="+pid);
+                    String ioid = "";
+                    if (infoObject!=null) ioid = ""+infoObject.getId();
+                    values.put("url", "http://"+request.getServerName()+":"+request.getLocalPort()+"/sdThread.do?isid="+isid+"&ioid="+ioid+"&pid="+pid);
                     emailSender.send(user, "post_reply", values);
                 }
             } catch (Exception e) {
