@@ -5,7 +5,7 @@
 import org.pgist.packages.knapsack.GAKnapsackCalculator;
 import org.pgist.packages.knapsack.GAKnapsackFitnessProxy;
 
-evolutionTimes = 100;
+evolutionTimes = 50;
 populationSize = 100;
 
 fitnessFunction = new GAKnapsackFitnessProxy() {
@@ -23,21 +23,36 @@ fitnessFunction = new GAKnapsackFitnessProxy() {
      * -----------------------------------------------------------
     **/
     
-    double costDifferenceBonus(double costDifference) {
-        if (costDifference < 0) {
-            return -GAKnapsackCalculator.MAX_BOUND;
-        } else {
-            return GAKnapsackCalculator.MAX_BOUND/2 - (costDifference * costDifference * costDifference * costDifference);
+ 
+    double benefitBonus(double limit, double totalBenefit) {
+        return Math.min(GAKnapsackCalculator.MAX_BOUND*1/4, totalBenefit/10000000);
+     }//benefitBonus()
+    
+  
+    double totalCostDiffBonus(double limit, double totalCostDiff) {
+        if(limit < 50){
+            return GAKnapsackCalculator.MAX_BOUND*3/4 - (GAKnapsackCalculator.MAX_BOUND/10000 * totalCostDiff * totalCostDiff);
+        }else if(limit < 100){
+            return GAKnapsackCalculator.MAX_BOUND*3/4 - (GAKnapsackCalculator.MAX_BOUND/100000 * totalCostDiff * totalCostDiff);
+        }else if(limit < 500){
+            return GAKnapsackCalculator.MAX_BOUND*3/4 - (GAKnapsackCalculator.MAX_BOUND/1000000 * totalCostDiff * totalCostDiff);
+        }else if(limit < 1000){
+            return GAKnapsackCalculator.MAX_BOUND*3/4 - (GAKnapsackCalculator.MAX_BOUND/10000000 * totalCostDiff * totalCostDiff);
+        }else if(limit < 2000){
+            return GAKnapsackCalculator.MAX_BOUND*3/4 - (GAKnapsackCalculator.MAX_BOUND/100000000 * totalCostDiff * totalCostDiff);
+        }else{
+            return GAKnapsackCalculator.MAX_BOUND*3/4 - (GAKnapsackCalculator.MAX_BOUND/1000000000 * totalCostDiff * totalCostDiff);
         }
-    }//costDifferenceBonus()
+      }//totalCostDiffBonus()
     
-    double benefitBonus(double totalBenefit) {
-        return Math.min(GAKnapsackCalculator.MAX_BOUND, GAKnapsackCalculator.MAX_BOUND/3 + (totalBenefit * totalBenefit));
-    }//benefitBonus()
+   double costDifferencePenalty(double costDifference) {
+        if (costDifference < -.9) {
+            return -GAKnapsackCalculator.MAX_BOUND;
+        }else{
+            return 0;
+        }
+    }//costDifferencePenalty()
     
-    double costToAvgResBonus(double costToAvgRes) {
-        return GAKnapsackCalculator.MAX_BOUND/2 - (costToAvgRes * costToAvgRes);
-    }//costToAvgResBonus()
     
     /*
      * -----------------------------------------------------------
@@ -45,17 +60,23 @@ fitnessFunction = new GAKnapsackFitnessProxy() {
     
     public double evaluate(chromosome) {
         totalCost = calculator.getTotalCost(chromosome);
-        costDifference = calculator.limit - totalCost;
+        limit = calculator.limit;
+        costDifference = limit - totalCost;
         costToAvgRes = calculator.getCostToAvgRes(chromosome);
         totalBenefit = calculator.getTotalBenefit(chromosome);
+        costToAvgResDiff = limit - costToAvgRes;
+        if(costToAvgResDiff < 0){
+            totalCostDiff = 2 * costDifference - costToAvgResDiff;
+        }else{totalCostDiff = 2 * costDifference + costToAvgResDiff;
+        }
+
         
         fitness = 0.0d;
-        fitness += costDifferenceBonus(costDifference);
-        fitness += benefitBonus(totalBenefit);
-        fitness += costToAvgResBonus(costToAvgRes);
-        
+        fitness += benefitBonus(limit, totalBenefit);
+        fitness += totalCostDiffBonus(limit, totalCostDiff);
+        fitness += costDifferencePenalty(costDifference);
+                
         return Math.max(1.0d, fitness);
     }//evaluate()
     
 };//class GAKnapsackFitnessProxy
-
