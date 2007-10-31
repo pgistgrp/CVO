@@ -5,7 +5,7 @@
 import org.pgist.packages.knapsack.GAKnapsackCalculator;
 import org.pgist.packages.knapsack.GAKnapsackFitnessProxy;
 
-evolutionTimes = 325;
+evolutionTimes = 340;
 populationSize = 150;
 
 fitnessFunction = new GAKnapsackFitnessProxy() {
@@ -30,11 +30,11 @@ fitnessFunction = new GAKnapsackFitnessProxy() {
 
         double costDifferencePenalty(double costDifference, double limit, double totalBenefit) {
         if(costDifference < 0){
-            return (totalBenefit * totalBenefit * totalBenefit) * (costDifference/limit);
-         }else if(costDifference < 10000000){
-            return totalBenefit * totalBenefit * totalBenefit;
+            return Math.min(-GAKnapsackCalculator.MAX_BOUND,(totalBenefit * totalBenefit * totalBenefit) * (costDifference/limit));
+         }else if(costDifference < 100000000){
+            return Math.max(GAKnapsackCalculator.MAX_BOUND, (totalBenefit * totalBenefit * totalBenefit));
                      }else{
-            return totalBenefit * totalBenefit * totalBenefit/4;
+            return Math.max(GAKnapsackCalculator.MAX_BOUND, (totalBenefit * totalBenefit * totalBenefit/4));
         }
     }//costDifferencePenalty()
     
