@@ -478,12 +478,7 @@
 					<h3 id="pkgDesc" class="headerColor">${(package.description == null) ? "Create Your Package" : package.description}</h3>
 					<c:choose>
 						<c:when test="${userPkg.id != null}">
-            	<pg:show roles="moderator">
   							<input type="button" class="helpMeButton" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
-              </pg:show>
-            	<pg:show roles="participant">
-  							<input type="button" class="helpMeButton" disabled="true" onClick="new Effect.toggle('helpMe', 'blind', {duration:0.3})" value="Help me create a package" />
-              </pg:show>
 						</c:when>
 						<c:otherwise>
 							[ <small><a href="javascript:new Effect.toggle('editDesc','blind',{duration:0.2});void(0);">Edit Package Description</a> ]</small>
