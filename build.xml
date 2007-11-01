@@ -43,7 +43,7 @@
 
 
     <target name="config">
-        <copy todir="${temp}">
+        <copy todir="${temp}" overwrite="true">
           <fileset dir="${web}">
             <include name="WEB-INF/web.xml"/>
             <include name="WEB-INF/config/*"/>

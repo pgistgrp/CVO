@@ -1050,7 +1050,10 @@ public class PackageServiceImpl implements PackageService {
 			avgMPG = avgMPG + veh.getMilesPerGallon();
 			
 		}
-		avgMPG = avgMPG / user.getVehicles().size();
+		
+		if (user.getVehicles().size()!=0) {
+		    avgMPG = avgMPG / user.getVehicles().size();
+		}
 		
 		float peakTrips = 0;
 		float offPeakTrips = 0;
