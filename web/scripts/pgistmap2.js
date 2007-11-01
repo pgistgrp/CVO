@@ -138,11 +138,13 @@ var PGISTMapEditor = function(mapcontainer, width, height, enableEdit) {
 	this.transiticon.image = "images/grnpin1.png";
 	this.transiticon.iconSize = new GSize(30,30);
 	this.transiticon.shadow = "images/shadow1.png";
+    this.transiticon.infoWindowAnchor = new GPoint(15,15);
 	
 	this.roadicon = new GIcon(G_DEFAULT_ICON); 
 	this.roadicon.image = "images/redpin1.png";
 	this.roadicon.iconSize = new GSize(30,30);
 	this.roadicon.shadow = "images/shadow1.png";	
+    this.roadicon.infoWindowAnchor = new GPoint(15,15);
 
 	mapcontainer.appendChild(this._mapdiv);
 	

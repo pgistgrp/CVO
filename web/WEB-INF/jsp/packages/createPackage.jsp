@@ -287,7 +287,7 @@
                     {"img":"/images/leg_transit.gif", "descp":"Transit projects"}], true);
 				updateMapSum();
 			}
-			
+			var all_overlays = {};
 			function renderProjects(){
                 pgistmap.disableMapLogger();
 				for(var i=0;i<prjaltlist.length;i++){
@@ -302,11 +302,16 @@
 						
 						var transcolor = (p["mode"]==2)?"#0bc00f":"#FF0000";
 						var transicon = (p["mode"]==2)?pgistmap.transiticon:pgistmap.roadicon;
-						p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
-							overlaypoints[geomkey]["geotype"], transcolor, 4, 0.9, "", transicon));
+                        
+                        if(!all_overlays[geomkey])
+                            all_overlays[geomkey] = pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
+                                overlaypoints[geomkey]["geotype"], transcolor, 4, 0.9, "", transicon);
+                        createListener(p.id, all_overlays[geomkey]);
+                        p["overlays"] = p["overlays"].concat(all_overlays[geomkey]);
 						
 						for(var j=0; j<p["overlays"].length; j++){
 							pgistmap.map.addOverlay( p["overlays"][j] );
+                            //createListener(p["overlays"][j], p);
 						}
 					}
 					//if project alternative selected highlight it
@@ -316,6 +321,44 @@
 				}
                 pgistmap.enableMapLogger();
 			}
+            
+            function createListener(id, overlays){
+                for(var i=0; i<overlays.length; i++){
+                    overlay = overlays[i];
+                    if(overlay.idlist){
+                        overlay.idlist.push(id);
+                    }
+                    else{
+                        overlay.idlist = [id];
+                        GEvent.addListener(overlay, 'click', handleClick);
+                    }
+                }             
+            }
+            
+            function handleClick(point){
+                if(this.idlist == null)return;
+                var html = '';
+                for(var i=0; i<this.idlist.length; i++){
+                  p = findProjectById(this.idlist[i]);
+                  if(p){
+                    html += '<div style="width:300px;padding-top:10px">' + p.name + '</div>';
+                    if(point)
+                        pgistmap.map.openInfoWindowHtml(point,  html);
+                    else
+                        this.openInfoWindowHtml(html);
+                    
+                    var logstr = 'clicked_project=' + p.name + '(id=' + p.id + ')';
+                    PESAgent.saveAct({mapaction:logstr}, {callback:function(data){}, errorHandler:function(errorString, exception){}});
+                  }
+                }
+            }
+            
+            function findProjectById(id){
+                for(var i=0; i<prjaltlist.length; i++){
+                    if(prjaltlist[i].id==id)return prjaltlist[i];
+                }
+                return null;
+            }
 			
 			function highlightProject(project){
 			
@@ -350,7 +393,10 @@
 				
 				for (var i=0;i<project["hioverlays"].length;i++){//add highlight overlays
 					pgistmap.map.addOverlay(project["hioverlays"][i]);
+                    
 				}
+                createListener(project.id, project["hioverlays"]);
+                
 				for (var i=0;i<project["overlays"].length;i++){	//add back original overlays
 					pgistmap.map.addOverlay(project["overlays"][i]);
 				}				
@@ -457,7 +503,7 @@
 				<ul>Create your own transportation package.
 					<li>Select projects and funding options to include in your package.</li>
 					<li>Be sure to provide enough funding to pay for your projects!</li>
-					<li>Click "Help me create a package" if you’d like help selecting projects and funding options.</li>
+					<li>Click "Help me create a package" if you’d like help selecting projects and funding options which match your preferences.</li>
 				</ul>
 			<p>You can only submit one package.</p>
 			<p><a href="#" onclick="Effect.toggle('hiddenRM','blind',{duration:0});">Read more about this step</a></p>
@@ -493,13 +539,9 @@
 					</c:choose>
 
 					<div id="helpMe" style="display:none;">
-									<p>We can help you get started on your package. To use this tool click the button and follow the instructions on the new page that opens in another browser window.</p>
-   							<p></p>
-                  <div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">Click here to use this tool</a></div>
-                 <!--Code commented out by Mike	
-					<p>Using the information you provided during registration, we can put together
+						<p>Using the information you provided during registration, we can put together
 							a package for you automatically.  Enter the amount of money that you would be willing to pay annually to fund a package. Then click the button below. </p>
-            <form action="javascript:createMyPackage();">
+						<form action="javascript:createMyPackage();">
 							<h4>Cost per year that you are willing to pay</h4>
 			
               <div class="floatRight"> <span style="font-size:1.3em;">$<input type="text" size="3" id="mylimit" /></span></div>
@@ -507,7 +549,6 @@
 							<div style="margin-top:15px;" class="floatLeft"><input type="submit" class="floatLeft padding5" value="Create a package"/></div>
 							<div class="floatRight"><a href="javascript:window.open('tuner.do?usrPkgId=${userPkg.id}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}','helpMe','width=1000,height=500,resizable=yes,scrollbars=yes'); void(0);"> <img src="images/tuneup.gif">More tool options</a></div>
 						</form>
-            end code commented out by mike-->
 					</div><!--end help me-->
 					<div class="clearBoth"></div>
 
@@ -595,19 +636,9 @@
 														<td class="cost">
 															$<fmt:formatNumber maxFractionDigits="0" value="${altRef.alternative.cost/1000000}" /> million</td>
 													</tr>
-													<c:choose>
-													 <c:when test="${userPkg != nul}">
-													   <c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
-   														<c:set var="doNothing"value="false"/>
-   													</c:if>
-													 </c:when>
-													 <c:otherwise>
-													   <c:if test="${pg:contains(package.projAltRefs,altRef) && package != null}">
-   														<c:set var="doNothing"value="false"/>
-   													</c:if>
-													 </c:otherwise>
-													</c:choose>
-
+													<c:if test="${pg:contains(userPkg.projAltRefs,altRef) && userPkg != null}">
+														<c:set var="doNothing"value="false"/>
+													</c:if>
 												</c:forEach>
 												<c:if test="${projectRef.project.inclusive}">
 													<tr>
@@ -642,8 +673,7 @@
 							</c:if>
 						</tr>
 						<!-- begin FUNDING source -->
-						<pg:sort name="fundRefs" items="${fundingRefs}" key="source.name" />
-						<c:forEach var="fundingRef" items="${fundRefs}" varStatus="loop1">
+						<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop1">
 							<tr class="fundingType">
 								<td class="fundingSourceItem">${fundingRef.source.name}</td>
 								<td colspan="3"></td>
