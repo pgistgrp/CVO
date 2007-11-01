@@ -129,12 +129,12 @@
 					<c:choose>
 						<c:when test="${(package.totalFunding - package.totalCost) > 0}">
 							<div id="balance" class="balance">
-								<h3>Revenues exceed costs</h3>
+								<h3> </h3>
 							</div>
 						</c:when>
 						<c:when test="${(package.totalFunding - package.totalCost) == 0}">
 							<div id="balance" class="balance">
-								<h3>Revenues equal costs</h3>
+								<h3> </h3>
 							</div>
 						</c:when>
 						<c:otherwise>
