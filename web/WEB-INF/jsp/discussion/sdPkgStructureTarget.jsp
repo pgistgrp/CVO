@@ -27,14 +27,14 @@
 		<!-- begin "overview and instructions" area -->
 		<div id="overview" class="box2">
 			<h3>Overview and instructions</h3>
-			<p>In this step we determine which single package participants are willing to recommend to decision makers. Based on the <strong>283</strong> unique packages created by participants in Step 3, a set of new "candidate packages" were generated through a statistical process.</p>
+			<p>In this step we determine which single package participants are willing to recommend to decision makers. Based on the unique packages created by the participants in Step 3, a set of new "candidate packages" were generated through a statistical process.</p>
 			<ul>
 				<li>Review, compare, and evaluate the candidate packages.</li>
 				<li>Discuss with other participants which package should be collectively recommended to decision makers.</li>
 				<li>When you are ready, express your preferences in the <a href="javascript:io.goToPackagePoll();">package poll</a></li>
 			</ul>
 			<a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a></p>
-				<p id="hiddenRM" style="display:none">Participants created <strong>283</strong> unique packages in Step 3. In order to narrow down the field of packages under consideration we generated a small set of new packages through a statistical process.  These new packages collectively represent the diversity of packages created by participants in Step 3 (<pg:url page="lmFaq.do" target="_blank" anchor="step4-clustered">read about how we did this</pg:url>). The goal of this step is to work together to determine which package can get the greatest degree of collective support by <em>LIT Challenge participants</em>. The <a href="javascript:io.goToPackagePoll();">package poll</a> is intended to help inform this discussion. In the event that strong majority consensus does not emerge in the final vote, the moderator will identify a minority endorsement package based on an analysis of final vote results.</p>
+				<p id="hiddenRM" style="display:none">Every participant created a unique package in Step 3. In order to narrow down the field of packages under consideration we generated a small set of new packages through a statistical process.  These new packages collectively represent the diversity of packages created by participants in Step 3 (<pg:url page="lmFaq.do" target="_blank" anchor="step4-clustered">read about how we did this</pg:url>). The goal of this step is to work together to determine which package can get the greatest degree of collective support by <em>LIT Challenge participants</em>. The <a href="javascript:io.goToPackagePoll();">package poll</a> is intended to help inform this discussion. In the event that strong majority consensus does not emerge in the final vote, the moderator will identify a minority endorsement package based on an analysis of final vote results.</p>
 		</div>
 		<!-- end overview --> 
 		<!-- begin Object -->
