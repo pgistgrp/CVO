@@ -83,7 +83,6 @@
 					<p>
 						
 					<c:forEach var="infoObject" items="${infoStructure.infoObjects}" varStatus="loop">
-            <pg:narrow name="infoObject" />
 						<c:if test="${infoObject.object.manual}">
 							<div class="listRow row">
 								<div class="col1 floatLeft">
@@ -95,7 +94,7 @@
                   <pg:totalCost2u var="cost2u" pkg="${infoObject.object}" />
                   $<fmt:formatNumber maxFractionDigits="0" value="${cost2u}" /> / year
                 </div>
-								<div class="col4 floatLeft">$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost/1000000}" /> / year</div>
+								<div class="col4 floatLeft">$<fmt:formatNumber maxFractionDigits="0" value="${infoObject.object.avgResidentCost}" /> / year</div>
 								<div class="clearBoth"></div>
 							</div>
 						</c:if>
