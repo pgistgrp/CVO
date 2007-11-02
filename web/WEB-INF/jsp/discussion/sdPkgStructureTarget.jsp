@@ -46,7 +46,7 @@
 					<div class="listHeaderHeader">
 						<h3 class="headerColor">LIT packages (created based on participant input)</h3>
 						<br/>
-						<small>The package you created most closely matches the <span class="highlight">highlighted</span> package below.</small>
+						<small> </small>
 						</p>
 						<div class="clearBoth"></div>
 					</div>
