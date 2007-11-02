@@ -121,7 +121,7 @@
 						<td><fmt:formatNumber type="currency" value="${package.avgResidentCost}" /> per year</td>
 					</tr>
 					<tr>
-						<td><strong>Number of projects in your package:</strong></td>
+						<td><strong>Number of projects in the package:</strong></td>
 						<td>${fn:length(package.projAltRefs)}</td>
 					</tr>
 				</table>
