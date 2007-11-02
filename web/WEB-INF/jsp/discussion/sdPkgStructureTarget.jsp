@@ -61,6 +61,7 @@
 					</div>
 					<pg:sort name="infoObjects" items="${infoStructure.infoObjects}" key="object.description" />
 					<c:forEach var="infoObject" items="${infoObjects}" varStatus="loop">
+            <pg:narrow name="infoObject" />
 						<c:if test="${infoObject.object.manual == false}">
 							<div class="listRow row ${(package.id == userClusteredPkgId) ? 'box5': ''}""> <!-- use 'highlight' css class to highlight user's related package -->
 								<div class="col1 floatLeft">
