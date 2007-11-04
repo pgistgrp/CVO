@@ -165,7 +165,20 @@
 	}
 	
 	io.goToPackagePoll = function(){
-		window.open("packagePoll.do?"+io.wfInfo+"&voteSuiteId="+io.voteSuiteId+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&pkgSuiteId="+io.pkgSuiteId,'_blank','width=1000,height=600,resizable=yes,scrollbars=yes');
+    var url = "packagePoll.do?";
+    url += "workflowId=${wfinfo.workflowId}&contextId=${wfinfo.contextId}&activityId=${wfinfo.activityId}";
+    <c:set var="voteSuite" value="null" />
+    <c:forEach var="item" items="${experiment.pkgSuite.voteSuites}">
+      <c:if test="${!item.finalVote}">
+        <c:set var="voteSuite" value="${item}" />
+      </c:if>
+    </c:forEach>
+    url += "&voteSuiteId=${voteSuite.id}";
+    url += "&fundSuiteId=${experiment.fundingSuite.id}";
+    url += "&projSuiteId=${experiment.projectSuite.id}";
+    url += "&critSuiteId=${experiment.critSuite.id}";
+    url += "&pkgSuiteId=${experiment.pkgSuite.id}";
+		window.open(url,'_blank','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 </pg:fragment>
