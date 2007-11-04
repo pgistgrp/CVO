@@ -85,10 +85,10 @@
     <bean id="sdAgent" class="org.pgist.discussion.SDAgent">
         <property name="sdService" ref="sdService"/>
         <property name="systemService" ref="systemService"/>
+        <property name="importService" ref="importService"/>
         <property name="emailSender" ref="emailSender"/>
         <property name="searchHelper" ref="searchHelper"/>
         <property name="workflowUtils" ref="workflowUtils"/>
-        
     </bean>
 
 

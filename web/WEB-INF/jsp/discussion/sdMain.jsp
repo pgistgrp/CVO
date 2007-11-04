@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html:html>
 <head>
 <title>Step 1c: Review Summaries - Main</title>
 <!-- Site Wide CSS -->
@@ -67,7 +68,6 @@
 
 </script>
 
-<html:html>
 <event:pageunload />
 </head>
 

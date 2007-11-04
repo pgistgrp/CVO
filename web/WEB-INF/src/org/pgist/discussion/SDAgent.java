@@ -18,6 +18,8 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.cvo.Concern;
+import org.pgist.other.Experiment;
+import org.pgist.other.ImportService;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
@@ -52,6 +54,8 @@ public class SDAgent {
     
     private WorkflowUtils workflowUtils;
     
+    private ImportService importService;
+    
     
     public void setSdService(SDService sdService) {
         this.sdService = sdService;
@@ -75,6 +79,11 @@ public class SDAgent {
 
     public void setWorkflowUtils(WorkflowUtils workflowUtils) {
         this.workflowUtils = workflowUtils;
+    }
+
+
+    public void setImportService(ImportService importService) {
+        this.importService = importService;
     }
 
 
@@ -1291,6 +1300,9 @@ public class SDAgent {
                 new Long(wfinfo.get("contextId").toString()),
                 new Long(wfinfo.get("activityId").toString())
             );
+            
+            Experiment experiment = importService.getExperimentByWorkflowId(new Long(wfinfo.get("workflowId").toString()));
+            request.setAttribute("experiment", experiment);
             
             String type = null;
             if(ioid != null && isid != null) {
