@@ -734,7 +734,24 @@ public class SDAgent {
                     values.put("user", user);
                     String ioid = "";
                     if (infoObject!=null) ioid = ""+infoObject.getId();
-                    values.put("url", "http://"+request.getServerName()+":"+request.getLocalPort()+"/sdThread.do?isid="+isid+"&ioid="+ioid+"&pid="+pid);
+                    
+                    StringBuilder url = new StringBuilder(100);
+                    url.append("http://").append(request.getServerName());
+                    
+                    int port = request.getLocalPort();
+                    if (port!=80) {
+                        url.append(":").append(port);
+                    }
+                    
+                    url.append("/sdThread.do?");
+                    url.append("workflowId=").append(wfinfo.get("workflowId"));
+                    url.append("&contextId=").append(wfinfo.get("contextId"));
+                    url.append("&activityId=").append(wfinfo.get("activityId"));
+                    url.append("&isid=").append(isid);
+                    url.append("&ioid=").append(ioid);
+                    url.append("&pid=").append(pid);
+                    
+                    values.put("url", url.toString());
                     emailSender.send(user, "post_reply", values);
                 }
             } catch (Exception e) {
