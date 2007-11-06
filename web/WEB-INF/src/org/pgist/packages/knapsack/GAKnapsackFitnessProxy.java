@@ -8,7 +8,7 @@ import org.jgap.IChromosome;
  * @author kenny
  *
  */
-interface GAKnapsackFitnessProxy {
+public interface GAKnapsackFitnessProxy {
     
     
     void setCalculator(GAKnapsackCalculator calculator);

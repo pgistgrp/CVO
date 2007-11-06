@@ -7,6 +7,7 @@ import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.jgap.Configuration;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
+import org.pgist.packages.knapsack.GAKnapsackFitnessProxy;
 
 import bsh.Interpreter;
 
