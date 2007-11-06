@@ -213,7 +213,7 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     
     private static final String hql_getUserCriteria = "from CriteriaRef cr order by lower(cr.criterion.name)";
     
-    public Collection getUserCriteria(String username) throws Exception {
+    public Set getUserCriteria(String username) throws Exception {
     	List list = getHibernateTemplate().find(hql_getUserCriteria);
     	User user = getUserByUsername(username);
     	Set criterias = new LinkedHashSet();

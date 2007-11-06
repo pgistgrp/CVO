@@ -3,6 +3,7 @@ package org.pgist.system;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import org.pgist.users.User;
 
@@ -69,7 +70,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
     
     
-    public Collection getUserCriteria(String username) throws Exception {
+    public Set getUserCriteria(String username) throws Exception {
     	return profileDAO.getUserCriteria(username);
     }
     

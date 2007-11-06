@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import org.pgist.users.User;
 
@@ -23,6 +24,6 @@ public interface  ProfileService {
 	
 	String[] getAllTags(String username) throws Exception;
 	
-	Collection getUserCriteria(String username) throws Exception;
+	Set getUserCriteria(String username) throws Exception;
 	
 }
