@@ -290,7 +290,7 @@ This report describes the results of the <em>Let's Improve Transportation Challe
       <p>
 		The second step included a review, discussion, and weighting of ${statsPart2.quanity} "improvement factors" used to evaluate the proposed transportation projects. They were used by a panel of transportation specialists to qualitatively "score" proposed projects. (Appendix B includes a detailed discussion of the factors and scoring process). 
 
-After a period of discussion about the relevance of the improvement factors to the concerns discussed in Step 1, participants weighted the relative importance of each factor based on their individual preferences. A total weight of 100 was distributed by each participant across the ${statsPart2.quanity} factors. The following table displays information about the improvement factors and participant weight preferences.		</p>
+After a period of discussion about the relevance of the improvement factors to the concerns discussed in Step 1, participants weighted the relative importance of each factor based on their individual preferences. A total weight of 100 was distributed by each participant across the ${statsPart2.quanity} factors. The following table displays information about the improvement factors and average participant weight preferences.		</p>
 		<p>${part2a}</p>
 		<div id="criteria" class="box3 floatLeft">
 			<!-- START All Criteria List -->
@@ -457,7 +457,7 @@ After a period of discussion about the relevance of the improvement factors to t
 		<p>Participants created ${statsPart4.totalPackages} unique packages. In order to narrow the field of packages under consideration for recommendation, a small set of new packages were computationally generated. These new candidate packages collectively represent the diversity of packages created by participants in Step 3. Details about each of these packages, as well as the methodology used to create them is available in Appendix C. </p>
 		<p>In the fourth step, participants reviewed and evaluated these candidate packages. A preliminary poll regarding participants' degree of support for each of the packages was used to inform the discussion. This was followed by a final package recommendation vote. Note: only ${statsPart4.totalUsers} of the total ${statsPart1.totalUsers} participants cast their vote.</p>
 		<p>${part4a}</p>
-		<h3 class="headingColor padding5">Participants in the final package recommendation vote</h3>
+		<h3 class="headingColor padding5">About ${statsPart4.totalUsers} participants in the final package recommendation vote</h3>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:10pt">
 			<tr>
 				<td><strong>Area of residence:</strong></td>
