@@ -179,21 +179,6 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 		<p><strong>
 		${statsPart1.totalUsers} </strong>residents of King, Pierce, and Shohomish and neighboring counties  contributed  their ideas and concerns in the LIT Challenge.. Here is some information about these contributors. </p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
-			<tr class="odd">
-				<td><strong>Gender:</strong></td>
-				<td>
-				<c:choose>
-					<c:when test="${statsPart1.totalUsers == 0}">
-						N/A no users submitted concerns
-					</c:when>
-					<c:otherwise>
-					
-					<fmt:formatNumber type="percent">${statsPart1.males / statsPart1.totalUsers}</fmt:formatNumber> : Male<br/>
-					<fmt:formatNumber type="percent">${statsPart1.females / statsPart1.totalUsers}</fmt:formatNumber> : Female
-					</c:otherwise>
-				</c:choose>
-				</td>
-			</tr>
 			<tr>
 				<td><strong>Area of residence:</strong></td>
 				<td>
@@ -474,20 +459,6 @@ After a period of discussion about the relevance of the improvement factors to t
 		<p>${part4a}</p>
 		<h3 class="headingColor padding5">Participants in the final package recommendation vote</h3>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:10pt">
-			<tr class="odd">
-				<td><strong>Gender:</strong></td>
-				<td>
-				<c:choose>
-					<c:when test="${statsPart4.totalUsers == 0}">
-						N/A no users submitted concerns
-					</c:when>
-					<c:otherwise>
-					
-					<fmt:formatNumber type="percent">${statsPart4.males / statsPart4.totalUsers}</fmt:formatNumber> : Male<br/>
-					<fmt:formatNumber type="percent">${statsPart4.females / statsPart4.totalUsers}</fmt:formatNumber> : Female
-					</c:otherwise>
-				</c:choose>
-			</tr>
 			<tr>
 				<td><strong>Area of residence:</strong></td>
 				<td><c:choose>	
