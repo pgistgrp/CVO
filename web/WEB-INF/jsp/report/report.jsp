@@ -125,6 +125,22 @@ function pollresults() {
 			</c:otherwise>
 	</c:choose>
 	
+	<!-- Ugly bug fix-->
+	<c:set var="totalvoters" value="0" />
+	<c:choose>
+	
+	
+	<c:when test="${fn:length(voteSuite.stats) == 0}">
+	</c:when>
+	<c:otherwise>
+
+
+	<c:forEach var="statb" items="${voteSuite.stats}" varStatus="loop">
+		<c:set var="totalvoters" value="${statb.totalVotes}" />
+	</c:forEach>
+	</c:otherwise>
+	</c:choose>
+	<!-- End ugly bug fix -->
 	
 	<div id="executiveSummary" class="box3 padding5 section peekaboobugfix">
 		<h3 class="headingColor padding5 centerAlign">Executive Summary</h3>
@@ -152,8 +168,8 @@ This report describes the results of the <em>Let's Improve Transportation Challe
               *** Error no users voted on this package ***            </c:when>
             <c:otherwise>
               The package was endorsed by 
-              <fmt:formatNumber type="percent">${numEndorsed/statsPart4.totalUsers}</fmt:formatNumber>
-              of the ${statsPart4.totalUsers} voting participants. </c:otherwise>
+              <fmt:formatNumber type="percent">${numEndorsed/totalvoters}</fmt:formatNumber>
+              of the ${totalvoters} voting participants. </c:otherwise>
           </c:choose>
 		</p>
 		<p>${executiveSummary}</p>
@@ -587,10 +603,11 @@ After a period of discussion about the relevance of the improvement factors to t
 						<div class="voteCol4 floatLeft"><fmt:formatNumber type="percent">${stat.lowVotes / stat.totalVotes}</fmt:formatNumber></div>
 						<div class="clearBoth"></div>
 					</div>
+
 				</c:forEach>
 				</c:otherwise>
 			</c:choose>
-			
+
 			
 		<!-- end PACKAGE ENDORSEMENT VOTE RESULTS -->
 
