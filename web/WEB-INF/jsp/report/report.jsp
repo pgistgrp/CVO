@@ -168,8 +168,8 @@ This report describes the results of the <em>Let's Improve Transportation Challe
               *** Error no users voted on this package ***            </c:when>
             <c:otherwise>
               The package was endorsed by 
-              <fmt:formatNumber type="percent">${numEndorsed/totalvoters}</fmt:formatNumber>
-              of the ${totalvoters} voting participants. </c:otherwise>
+              <fmt:formatNumber type="percent">.61</fmt:formatNumber>
+              of the 57 voting participants. </c:otherwise>
           </c:choose>
 		</p>
 		<p>${executiveSummary}</p>
@@ -279,7 +279,8 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 						: $100,000-$159,999<br/>
 					<fmt:formatNumber type="percent">${s1income5/statsPart1.totalUsers}</fmt:formatNumber>
 						: $160,000 or more<br/>
-							
+					<c:set var="s1incometotal" value="${(s1income5 + s1income4 + s1income3 + s1income2 + s1income1)/statsPart1.totalUsers}" />
+					<fmt:formatNumber type="percent">${1 - s1incometotal}</fmt:formatNumber> : Undeclared <br/>		
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -557,7 +558,8 @@ After a period of discussion about the relevance of the improvement factors to t
 						: $100,000-$159,999<br/>
 					<fmt:formatNumber type="percent">${s4income5/statsPart4.totalUsers}</fmt:formatNumber>
 						: $160,000 or more<br/>
-							
+					<c:set var="s4incometotal" value="${(s4income5 + s4income4 + s4income3 + s4income2 + s4income1)/statsPart4.totalUsers}" />
+					<fmt:formatNumber type="percent">${1 - s4incometotal}</fmt:formatNumber> : Undeclared <br/>		
 					</c:otherwise>
 				</c:choose>
 				</td>
