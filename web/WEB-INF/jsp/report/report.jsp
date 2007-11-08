@@ -155,9 +155,9 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 		      The total cost of the package is 	
 		      
 		      <c:if test="${statsES.totalCost > 999999 && statsES.totalCost < 1000000000}">
-		        $<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000}</fmt:formatNumber> Million.		        </c:if>
+		        $<fmt:formatNumber type="number" maxFractionDigits="1">${pp.totalCost/1000000}</fmt:formatNumber> Million.		        </c:if>
 		      <c:if test="${statsES.totalCost > 999999999 && statsES.totalCost < 1000000000000}">
-		        $<fmt:formatNumber type="number" maxFractionDigits="1">${statsES.totalCost/1000000000}</fmt:formatNumber> Billion.		        </c:if>
+		        $<fmt:formatNumber type="number" maxFractionDigits="1">${pp.totalCost/1000000000}</fmt:formatNumber> Billion.		        </c:if>
 	        </c:otherwise>
           </c:choose>
 		  

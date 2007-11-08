@@ -70,21 +70,8 @@
 			This report describes the results of the <em>Let's Improve Transportation Challenge</em>, an online experiment in participatory democracy facilitated by researchers at the University of Washington. ${suite.statsPart1.totalUsers} residents of King, Pierce, and Shohomish and neighboring counties  contributed  their ideas and concerns in the LIT Challenge.
 			</p>
 		    <p> 
-		  The recommended package contains ${suite.statsES.totalProjects} road and transit projects. The total cost of the package is 	 
-		      <c:if test="${suite.statsES.totalCost > 999999 && suite.statsES.totalCost < 1000000000}">
-				$<fmt:formatNumber type="number" maxFractionDigits="1">${suite.statsES.totalCost/1000000}</fmt:formatNumber> Million.</c:if>
-				<c:if test="${suite.statsES.totalCost > 999999999 && suite.statsES.totalCost < 1000000000000}">
-				$<fmt:formatNumber type="number" maxFractionDigits="1">${suite.statsES.totalCost/1000000000}</fmt:formatNumber> Billion.</c:if>
-          <c:set var="numEndorsed" value="${suite.statsES.numEndorsed}" />
-          <c:set var="totalVotes" value="${suite.statsPart1.totalUsers}" />
-          <c:choose>
-            <c:when test="${totalVotes == 0}">
-              *** Error no users voted on this package ***			</c:when>
-            <c:otherwise>
-              The package was endorsed by 
-              <fmt:formatNumber type="percent">${numEndorsed/suite.statsPart4.totalUsers}</fmt:formatNumber>
-              of the ${suite.statsPart4.totalUsers} voting participants. </c:otherwise>
-          </c:choose>
+		  The recommended package contains ${suite.statsES.totalProjects} road and transit projects. The total cost of the package is $11.8 Billion. The package was endorsed 61% of the voting participants. 
+
 		  <div>
 			    <strong>This report includes 4 sections:</strong>
 				<ol>
@@ -96,7 +83,7 @@
 				</ol>
 		  </div>
 			<input type="button" class="floatRight" onclick="io.goToFullReport();" value="Read the full report" />
-		</div>
+	  </div>
 	</div>
 </pg:fragment>
 
