@@ -121,8 +121,28 @@
 	/* *************** Build Package Link *************** */
 	
 	io.goToFullReport = function(anchor){
-	    anchor = (anchor) ? "#"+anchor : "";
-		window.open("report.do?"+io.wfInfo+"&cct_id="+io.cctId+"&repoSuiteId="+ io.repoSuiteId +"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&voteSuiteId="+io.voteSuiteId+"&pkgSuiteId="+io.pkgSuiteId+anchor,'_blank','width=1000,height=600,resizable=yes,scrollbars=yes');
+    anchor = (anchor) ? "#"+anchor : "";
+    
+    var url = "report.do?";
+    url += "workflowId=${wfinfo.workflowId}&contextId=${wfinfo.contextId}&activityId=${wfinfo.activityId}";
+    url += "&cct_id=${experiment.cct.id}";
+    <c:set var="voteSuite" value="null" />
+    <c:forEach var="item" items="${experiment.pkgSuite.voteSuites}">
+      <c:if test="${item.finalVote}">
+        <c:set var="voteSuite" value="${item}" />
+      </c:if>
+    </c:forEach>
+    url += "&voteSuiteId=${voteSuite.id}";
+    url += "&repoSuiteId=${experiment.reportSuite.id}";
+    url += "&fundSuiteId=${experiment.fundingSuite.id}";
+    url += "&projSuiteId=${experiment.projectSuite.id}";
+    url += "&critSuiteId=${experiment.critSuite.id}";
+    url += "&pkgSuiteId=${experiment.pkgSuite.id}";
+    url += anchor;
+    
+		window.open(url,'_blank','width=1000,height=600,resizable=yes,scrollbars=yes');
+    
+		//window.open("report.do?"+io.wfInfo+"&cct_id="+io.cctId+"&repoSuiteId="+ io.repoSuiteId +"&projSuiteId="+io.projSuiteId+"&critSuiteId="+io.critSuiteId+"&fundSuiteId="+io.fundSuiteId+"&projSuiteId="+io.projSuiteId+"&voteSuiteId="+io.voteSuiteId+"&pkgSuiteId="+io.pkgSuiteId+anchor,'_blank','width=1000,height=600,resizable=yes,scrollbars=yes');
 	}
 	
 </pg:fragment>
