@@ -189,8 +189,10 @@
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
-		<pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View</pg:url> / <pg:url page="/usercp.do">Edit your profile</pg:url>
-				<h3 style="display:inline;margin:0px;padding:0px;margin-left:20px">Your participant ID is <strong>${webq}</strong></h3>
+    <pg:hide roles="guest">
+		  <pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View</pg:url> / <pg:url page="/usercp.do">Edit your profile</pg:url>
+    </pg:hide>
+    <h3 style="display:inline;margin:0px;padding:0px;margin-left:20px">Your participant ID is <strong>${webq}</strong></h3>
 		<div id="left-col">
 			<h3 class="headerColor">Agenda</h3>
 			<div class="box12 clearfix"><h4 style="font-weight:normal">Current steps are highlighted</h4>

@@ -12,7 +12,9 @@
             <span><pg:url page="/lmMenu.do">Learn More</pg:url></span>
             <c:choose>
             <c:when test="${baseuser != null}">
-                <span><pg:url page="/usercp.do">User Settings</pg:url></span>
+                <pg:hide roles="guest">
+                  <span><pg:url page="/usercp.do">User Settings</pg:url></span>
+                </pg:hide>
                 <span><pg:url page="/logout.do">Log out</pg:url></span>
             </c:when>
             <c:otherwise>

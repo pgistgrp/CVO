@@ -93,9 +93,16 @@ small {display:block;margin-top:20px;}
 		<div id="facts"><p>During the next 25 years the central Puget Sound population is expected to grow by <strong>1.2 million people</strong>.</p><p>How will this growth impact our already congested <strong>transportation system?</strong></p><p>What <strong>improvements</strong> are necessary to keep our region moving?</p><p><strong>Who</strong> gets to have a voice in this decision?</p><div class="clearBoth"></div></div>
 		<p>
 
+    <%--
 		<h1>Let's Improve Transportation is an experiment in participatory democracy. <a href="/lmMenu.do?workflowId=&contextId=&activityId=&" title="Learn more about this study">Learn more</a> about this research study or <b><a href="register.do">register now</a><b>.</h1>
 		<h4>Qualified participants may be eligible for compensation.</h4>
+    --%>
 		
+    <p>Let's Improve Transportation is an experiment in participatory democracy which was first conducted during a four-week period in
+October and November 2007. You can learn more about this research study. We are no longer registering participants. If you would like to
+reivew the website and Fall 2007 experiment, please log as follows:
+    <p>User Name: guest<br>Password: guest
+    
 		<div id="login">
 			<form action="/login.do" method="POST">
 				<div class="cell"><strong>User Name</strong><br /><input type="text" name="loginname" value="${user.loginname}" /></div>
