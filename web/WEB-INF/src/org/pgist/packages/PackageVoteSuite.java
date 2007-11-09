@@ -35,8 +35,9 @@ public class PackageVoteSuite {
     private int numVoters;
     
     private boolean finalVote = false;
+
+    private boolean closed = false;
     
-	
 
 	/**
      * @return
@@ -53,20 +54,33 @@ public class PackageVoteSuite {
     }
 
     
-	/**
+    /**
      * @hibernate.property not-null="true"
      */
     public boolean isFinalVote() {
-		return finalVote;
-	}
+        return finalVote;
+    }
 
 
-	public void setFinalVote(boolean finalVote) {
-		this.finalVote = finalVote;
-	}
+    public void setFinalVote(boolean finalVote) {
+        this.finalVote = finalVote;
+    }
 	
-	
-	/**
+
+    /**
+     * @hibernate.property not-null="true"
+     */
+    public boolean isClosed() {
+        return closed;
+    }
+
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+
+    /**
      * @hibernate.property not-null="false"
      */
     public int getNumVoters() {

@@ -169,7 +169,9 @@ background:#FFF1DC;
 			         <div class="clearBoth"></div>
 			       </div>
 			</c:forEach>
-			<p class="floatRight"><input type="reset" class="padding5" value="Reset form and start over" /> <input type="submit" class="padding5" value="Submit Vote" /></p>
+                        <c:if test="voteSuite.closed==false">
+			  <p class="floatRight"><input type="reset" class="padding5" value="Reset form and start over" /> <input type="submit" class="padding5" value="Submit Vote" /></p>
+                        </c:if>
 		</form>
 		
 	</div><!-- end one voting box -->
