@@ -206,10 +206,10 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 					<c:otherwise>
 					<c:set var="s1countytotal" value="0" />
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber> : ${county.name}<br/>
+						<fmt:formatNumber type="percent"  minFractionDigits="1" maxFractionDigits="1">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber> : ${county.name}<br/>
 						<c:set var="s1countytotal" value="${s1countytotal + statsPart1.countyStats[county]/statsPart1.totalUsers}" />
 					</c:forEach>
-					<fmt:formatNumber type="percent">${1 - s1countytotal}</fmt:formatNumber> : Other <br/>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s1countytotal}</fmt:formatNumber> : Other <br/>
 					</c:otherwise>
 				</c:choose>		</td>
 			</tr>
@@ -223,12 +223,12 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 					<c:otherwise>
 					<c:set var="s1transtotal" value="0" />
 					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
+						<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
 						: 
 						  ${transport.value}<br/>
 						  <c:set var="s1transtotal" value="${s1transtotal + statsPart1.transportStats[transport]/statsPart1.totalUsers}" />
 					</c:forEach>
-					<fmt:formatNumber type="percent">${1 - s1transtotal}</fmt:formatNumber> : Undeclared <br/>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s1transtotal}</fmt:formatNumber> : Undeclared <br/>
 					</c:otherwise>
 				</c:choose>
 			  </td>
@@ -269,18 +269,18 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 						
 						</c:if>
 					</c:forEach>
-					<fmt:formatNumber type="percent">${s1income1/statsPart1.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income1/statsPart1.totalUsers}</fmt:formatNumber>
 						: $0-$39,999<br/>
-					<fmt:formatNumber type="percent">${s1income2/statsPart1.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income2/statsPart1.totalUsers}</fmt:formatNumber>
 						: $40,000-$69,999<br/>
-					<fmt:formatNumber type="percent">${s1income3/statsPart1.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income3/statsPart1.totalUsers}</fmt:formatNumber>
 						: $70,000-$99,999<br/>
-					<fmt:formatNumber type="percent">${s1income4/statsPart1.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income4/statsPart1.totalUsers}</fmt:formatNumber>
 						: $100,000-$159,999<br/>
-					<fmt:formatNumber type="percent">${s1income5/statsPart1.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income5/statsPart1.totalUsers}</fmt:formatNumber>
 						: $160,000 or more<br/>
 					<c:set var="s1incometotal" value="${(s1income5 + s1income4 + s1income3 + s1income2 + s1income1)/statsPart1.totalUsers}" />
-					<fmt:formatNumber type="percent">${1 - s1incometotal}</fmt:formatNumber> : Undeclared <br/>		
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s1incometotal}</fmt:formatNumber> : Undeclared <br/>		
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -485,12 +485,12 @@ After a period of discussion about the relevance of the improvement factors to t
 					<c:otherwise>
 					<c:set var="s4countytotal" value="0" />
 					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart4.countyStats[county]/statsPart4.totalUsers} </fmt:formatNumber>
+						<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${statsPart4.countyStats[county]/statsPart4.totalUsers} </fmt:formatNumber>
 						: ${county.name}<br/>		
 						<c:set var="s4countytotal" value="${s4countytotal + statsPart4.countyStats[county]/statsPart4.totalUsers}" />		
 					</c:forEach>
 					
-					<fmt:formatNumber type="percent">${1 - s4countytotal}</fmt:formatNumber> : Other <br/>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s4countytotal}</fmt:formatNumber> : Other <br/>
 					</c:otherwise>
 				</c:choose>	</td>
 			</tr>
@@ -503,12 +503,12 @@ After a period of discussion about the relevance of the improvement factors to t
 					<c:otherwise>
 					<c:set var="s4transtotal" value="0" />
 					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
-						<fmt:formatNumber type="percent">${statsPart4.transportStats[transport]/statsPart4.totalUsers}
+						<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${statsPart4.transportStats[transport]/statsPart4.totalUsers}
 						</fmt:formatNumber>
 						 : ${transport.value}<br>
 						 <c:set var="s4transtotal" value="${s4transtotal + statsPart4.transportStats[transport]/statsPart4.totalUsers}" />
 					</c:forEach>
-					<fmt:formatNumber type="percent">${1 - s4transtotal}</fmt:formatNumber> : Undeclared <br/>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s4transtotal}</fmt:formatNumber> : Undeclared <br/>
 					</c:otherwise>
 				</c:choose></td>
 			</tr>
@@ -548,18 +548,18 @@ After a period of discussion about the relevance of the improvement factors to t
 						
 						</c:if>
 					</c:forEach>
-					<fmt:formatNumber type="percent">${s4income1/statsPart4.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income1/statsPart4.totalUsers}</fmt:formatNumber>
 						: $0-$39,999<br/>
-					<fmt:formatNumber type="percent">${s4income2/statsPart4.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income2/statsPart4.totalUsers}</fmt:formatNumber>
 						: $40,000-$69,999<br/>
-					<fmt:formatNumber type="percent">${s4income3/statsPart4.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income3/statsPart4.totalUsers}</fmt:formatNumber>
 						: $70,000-$99,999<br/>
-					<fmt:formatNumber type="percent">${s4income4/statsPart4.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income4/statsPart4.totalUsers}</fmt:formatNumber>
 						: $100,000-$159,999<br/>
-					<fmt:formatNumber type="percent">${s4income5/statsPart4.totalUsers}</fmt:formatNumber>
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income5/statsPart4.totalUsers}</fmt:formatNumber>
 						: $160,000 or more<br/>
 					<c:set var="s4incometotal" value="${(s4income5 + s4income4 + s4income3 + s4income2 + s4income1)/statsPart4.totalUsers}" />
-					<fmt:formatNumber type="percent">${1 - s4incometotal}</fmt:formatNumber> : Undeclared <br/>		
+					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s4incometotal}</fmt:formatNumber> : Undeclared <br/>		
 					</c:otherwise>
 				</c:choose>
 				</td>
