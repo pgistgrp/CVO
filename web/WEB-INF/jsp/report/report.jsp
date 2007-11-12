@@ -41,20 +41,21 @@ function vote(vote) {
 }
 
 function checkvoted() {
-	 ReportAgent.getUserVoted({suiteId:${repoSuiteId}}, {
+		ReportAgent.getUserVoted({suiteId:${repoSuiteId}}, {
 		callback:function(data){
 			if (data.voted){
 				hide('votingBox');
 				hide('pollresults');
 				pollresults();
 			}else{
-					
+				
 			}
 		},
+		errorHandler:function(errorString, exception){ 
 		
+		}
 	});
 }
-
 function hide(divid){
 	if(document.getElementById(divid).style.display!="none") {
 		document.getElementById(divid).style.display="none";
@@ -64,7 +65,7 @@ function hide(divid){
 }
 
 function pollresults() {
-		 ReportAgent.getVoteStats({suiteId:${repoSuiteId}}, {
+		ReportAgent.getVoteStats({suiteId:${repoSuiteId}}, {
 		callback:function(data){
 			if (data.successful){
 				$('pollresults').innerHTML = data.html;
@@ -80,7 +81,7 @@ function pollresults() {
 }
 </script>
 </head>
-<body>
+<body onload="checkvoted()">
 	
 
 	<!--
@@ -105,7 +106,10 @@ function pollresults() {
 							</div>
 						  <div class="right">
 								<p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
-								<input name="yes" id="yes" type="button" value="yes" onClick="vote('yes');" /> <input name="no" id="no" type="button" value="no" onClick="vote('no');" />
+								<form action="" method="get">
+								<input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> 
+								<input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
+								</form>
 						  </div>		
 						</div>
 						<!--hidden poll results -->
@@ -767,9 +771,7 @@ After a period of discussion about the relevance of the improvement factors to t
 		</div>
 		</c:forEach>
 		
-	<script type="text/javascript">
-	checkvoted();
-	</script>
+
 	<!-- End Appendix C -->
 </body>
 </html:html>
