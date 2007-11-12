@@ -196,95 +196,39 @@ This report describes the results of the <em>Let's Improve Transportation Challe
 		${statsPart1.totalUsers} </strong>residents of King, Pierce, and Shohomish and neighboring counties  contributed  their ideas and concerns in the LIT Challenge.. Here is some information about these contributors. </p>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 			<tr>
-				<td><strong>Area of residence:</strong></td>
-				<td>
-				<!-- display counties -->
-				<c:choose>
-					<c:when test="${fn:length(statsPart1.counties) < 1}">
-						<p>No Counties Available</p>
-					</c:when>
-					<c:otherwise>
-					<c:set var="s1countytotal" value="0" />
-					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent"  minFractionDigits="1" maxFractionDigits="1">${statsPart1.countyStats[county]/statsPart1.totalUsers}</fmt:formatNumber> : ${county.name}<br/>
-						<c:set var="s1countytotal" value="${s1countytotal + statsPart1.countyStats[county]/statsPart1.totalUsers}" />
-					</c:forEach>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s1countytotal}</fmt:formatNumber> : Other <br/>
-					</c:otherwise>
-				</c:choose>		</td>
-			</tr>
+              <td><strong>Area of residence:</strong></td>
+			  <td><!-- display counties -->
+			    52.6% : Seattle and North King<br/>
+				15.6% : Pierce<br/>
+			    14.1% : East King<br/>
+				7.4% : South King<br/>
+			    6.7% : Snohomish<br/>
+			    3.7% : Other <br/>
+              </td>
+		  </tr>
 			<tr class="odd">
-				<td><strong>Primary mode of transportation (daily commute):</strong></td>
+              <td><strong>Primary mode of transportation (daily commute):</strong></td>
 			  <td>
-				<c:choose>	
-					<c:when test="${fn:length(statsPart1.transTypes) < 1}">
-						<p>No Transportation Types Available</p>
-					</c:when>
-					<c:otherwise>
-					<c:set var="s1transtotal" value="0" />
-					<c:forEach var="transport" items="${statsPart1.transTypes}" varStatus="loop">
-						<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${statsPart1.transportStats[transport]/statsPart1.totalUsers}</fmt:formatNumber>
-						: 
-						  ${transport.value}<br/>
-						  <c:set var="s1transtotal" value="${s1transtotal + statsPart1.transportStats[transport]/statsPart1.totalUsers}" />
-					</c:forEach>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s1transtotal}</fmt:formatNumber> : Undeclared <br/>
-					</c:otherwise>
-				</c:choose>
-			  </td>
-			</tr> 
+			    28.1% : Undeclared <br/>
+			    23.7% : Drive Alone<br/>
+				23.0% : Bus or Transit<br/>
+			    18.5% : Walk or Bike<br/>
+				6.7% : Carpool or Vanpool<br/>
+			    0.0% : Ferry<br/>
+			    0.0% : Other<br/> 
+              </td>
+		  </tr>
 			<tr>
-				<td><strong>Yearly household income</strong></td>
-				<td>
-				<c:choose>	
-					<c:when test="${fn:length(statsPart1.incomeRanges) < 1}">
-						<p>No Transportation Types Available</p>
-					</c:when>
-					<c:otherwise>
-					
-					<c:set var="s1income1" value="0" />
-					<c:set var="s1income2" value="0" />
-					<c:set var="s1income3" value="0" />
-					<c:set var="s1income4" value="0" />
-					<c:set var="s1income5" value="0" />
-					
-					<c:forEach var="income" items="${statsPart1.incomeRanges}" varStatus="loop">
-						<c:if test="${statsPart1.incomeStats[income] > 0}">
-						
-						<c:if test='${income.value == "$0-$20,000" || income.value == "$20,000-$30,000" || income.value == "$30,000-$40,000"}'>
-							<c:set var="s1income1" value="${s1income1+statsPart1.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$40,000-$50,000" || income.value == "$50,000-$60,000" || income.value == "$60,000-$70,000"}'>
-							<c:set var="s1income2" value="${s1income2+statsPart1.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$70,000-$80,000" || income.value == "$80,000-$90,000" || income.value == "$90,000-$100,000"}'>
-							<c:set var="s1income3" value="${s1income3+statsPart1.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$100,000-$120,000" || income.value == "$120,000-$140,000" || income.value == "$140,000-$160,000"}'>
-							<c:set var="s1income4" value="${s1income4+statsPart1.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$160,000-$180,000" || income.value == "$180,000-$200,000" || income.value == "$200,000 or more"}'>
-							<c:set var="s1income5" value="${s1income5+statsPart1.incomeStats[income]}" />
-						</c:if>
-						
-						</c:if>
-					</c:forEach>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income1/statsPart1.totalUsers}</fmt:formatNumber>
-						: $0-$39,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income2/statsPart1.totalUsers}</fmt:formatNumber>
-						: $40,000-$69,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income3/statsPart1.totalUsers}</fmt:formatNumber>
-						: $70,000-$99,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income4/statsPart1.totalUsers}</fmt:formatNumber>
-						: $100,000-$159,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s1income5/statsPart1.totalUsers}</fmt:formatNumber>
-						: $160,000 or more<br/>
-					<c:set var="s1incometotal" value="${(s1income5 + s1income4 + s1income3 + s1income2 + s1income1)/statsPart1.totalUsers}" />
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s1incometotal}</fmt:formatNumber> : Undeclared <br/>		
-					</c:otherwise>
-				</c:choose>
-				</td>
-			</tr>
+              <td><strong>Yearly household income</strong></td>
+			  <td> 
+			  	27.4% : Undeclared <br/>
+			    27.4% : $0-$39,999<br/>
+			    20.7% : $40,000-$69,999<br/>
+			    14.8% : $70,000-$99,999<br/>
+			    7.4% : $100,000-$159,999<br/>
+			    2.2% : $160,000 or more<br/>
+              </td>
+		  </tr>
 		</table>
 		<br />
 		<p>${part1a}</p>
@@ -477,93 +421,39 @@ After a period of discussion about the relevance of the improvement factors to t
 		<h3 class="headingColor padding5">About the ${statsPart4.totalUsers} participants in the final package recommendation vote</h3>
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size:10pt">
 			<tr>
-				<td><strong>Area of residence:</strong></td>
-				<td><c:choose>	
-					<c:when test="${fn:length(statsPart1.counties) < 1}">
-						<p>No Counties Available</p>
-					</c:when>
-					<c:otherwise>
-					<c:set var="s4countytotal" value="0" />
-					<c:forEach var="county" items="${statsPart1.counties}" varStatus="loop">
-						<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${statsPart4.countyStats[county]/statsPart4.totalUsers} </fmt:formatNumber>
-						: ${county.name}<br/>		
-						<c:set var="s4countytotal" value="${s4countytotal + statsPart4.countyStats[county]/statsPart4.totalUsers}" />		
-					</c:forEach>
-					
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s4countytotal}</fmt:formatNumber> : Other <br/>
-					</c:otherwise>
-				</c:choose>	</td>
-			</tr>
+              <td><strong>Area of residence:</strong></td>
+			  <td>    
+			    54.4% : Seattle and North King<br/>
+				17.5% : East King<br/>
+			    14.0% : Pierce<br/>
+			    7.0% : South King<br/>
+				5.3% : Snohomish<br/>
+			    1.8% : Other <br/>
+              </td>
+		  </tr>
 			<tr class="odd">
-				<td><strong>Primary mode of transportation (daily commute):</strong></td>
-				<td><c:choose>	
-					<c:when test="${fn:length(statsPart4.transTypes) < 1}">
-						<p>No Transportation Types Available</p>
-					</c:when>
-					<c:otherwise>
-					<c:set var="s4transtotal" value="0" />
-					<c:forEach var="transport" items="${statsPart4.transTypes}" varStatus="loop">
-						<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${statsPart4.transportStats[transport]/statsPart4.totalUsers}
-						</fmt:formatNumber>
-						 : ${transport.value}<br>
-						 <c:set var="s4transtotal" value="${s4transtotal + statsPart4.transportStats[transport]/statsPart4.totalUsers}" />
-					</c:forEach>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s4transtotal}</fmt:formatNumber> : Undeclared <br/>
-					</c:otherwise>
-				</c:choose></td>
-			</tr>
-						<tr>
-				<td><strong>Yearly household income</strong></td>
-				<td>
-				<c:choose>	
-					<c:when test="${fn:length(statsPart4.incomeRanges) < 1}">
-						<p>No Transportation Types Available</p>
-					</c:when>
-					<c:otherwise>
-
-					<c:set var="s4income1" value="0" />
-					<c:set var="s4income2" value="0" />
-					<c:set var="s4income3" value="0" />
-					<c:set var="s4income4" value="0" />
-					<c:set var="s4income5" value="0" />
-					
-					<c:forEach var="income" items="${statsPart4.incomeRanges}" varStatus="loop">
-						<c:if test="${statsPart4.incomeStats[income] > 0}">
-						
-						<c:if test='${income.value == "$0-$20,000" || income.value == "$20,000-$30,000" || income.value == "$30,000-$40,000"}'>
-							<c:set var="s4income1" value="${s4income1+statsPart4.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$40,000-$50,000" || income.value == "$50,000-$60,000" || income.value == "$60,000-$70,000"}'>
-							<c:set var="s4income2" value="${s4income2+statsPart4.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$70,000-$80,000" || income.value == "$80,000-$90,000" || income.value == "$90,000-$100,000"}'>
-							<c:set var="s4income3" value="${s4income3+statsPart4.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$100,000-$120,000" || income.value == "$120,000-$140,000" || income.value == "$140,000-$160,000"}'>
-							<c:set var="s4income4" value="${s4income4+statsPart4.incomeStats[income]}" />
-						</c:if>
-						<c:if test='${income.value == "$160,000-$180,000" || income.value == "$180,000-$200,000" || income.value == "$200,000 or more"}'>
-							<c:set var="s4income5" value="${s4income5+statsPart4.incomeStats[income]}" />
-						</c:if>
-						
-						</c:if>
-					</c:forEach>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income1/statsPart4.totalUsers}</fmt:formatNumber>
-						: $0-$39,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income2/statsPart4.totalUsers}</fmt:formatNumber>
-						: $40,000-$69,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income3/statsPart4.totalUsers}</fmt:formatNumber>
-						: $70,000-$99,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income4/statsPart4.totalUsers}</fmt:formatNumber>
-						: $100,000-$159,999<br/>
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${s4income5/statsPart4.totalUsers}</fmt:formatNumber>
-						: $160,000 or more<br/>
-					<c:set var="s4incometotal" value="${(s4income5 + s4income4 + s4income3 + s4income2 + s4income1)/statsPart4.totalUsers}" />
-					<fmt:formatNumber type="percent" minFractionDigits="1" maxFractionDigits="1">${1 - s4incometotal}</fmt:formatNumber> : Undeclared <br/>		
-					</c:otherwise>
-				</c:choose>
-				</td>
-			</tr>
+              <td><strong>Primary mode of transportation (daily commute):</strong></td>
+			  <td> 
+			    28.1% : Drive Alone<br>
+			    26.3% : Bus or Transit<br>
+				24.6% : Undeclared <br/>
+				15.8% : Walk or Bike<br>
+			    5.3% : Carpool or Vanpool<br>
+			    0.0% : Ferry<br>
+			    0.0% : Other<br>
+              </td>
+		  </tr>
+			<tr>
+              <td><strong>Yearly household income</strong></td>
+			  <td> 
+			    28.1% : Undeclared <br/>
+				28.1% : $40,000-$69,999<br/>
+			    17.5% : $0-$39,999<br/>
+			    14.0% : $70,000-$99,999<br/>
+			    8.8% : $100,000-$159,999<br/>
+			    3.5% : $160,000 or more<br/>
+              </td>
+		  </tr>
 		</table>
 		<div class="clearBoth"></div>
 		<br />
