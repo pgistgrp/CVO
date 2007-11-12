@@ -105,7 +105,7 @@ function pollresults() {
 							</div>
 						  <div class="right">
 								<p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
-								<input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> <input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
+								<input name="yes" id="yes" type="button" value="yes" onClick="vote('yes');" /> <input name="no" id="no" type="button" value="no" onClick="vote('no');" />
 						  </div>		
 						</div>
 						<!--hidden poll results -->
