@@ -112,7 +112,7 @@ function pollresults() {
                   <input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
                   </form>
                 </pg:hide>
-						  </div>		
+						  </div>
 						</div>
 						<!--hidden poll results -->
 						<div id="pollresults" class="clearfix" style="display:none;">
