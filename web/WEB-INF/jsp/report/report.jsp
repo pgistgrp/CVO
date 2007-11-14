@@ -105,17 +105,17 @@ function pollresults() {
 								This final report will be made public on ${finalReportDate}<br/>
 							</div>
 						  <div class="right">
-								<p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
-								<form action="" method="get">
-								<input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> 
-								<input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
-								</form>
+                <pg:show roles="participant">
+                  <p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
+                  <form action="" method="get">
+                  <input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> 
+                  <input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
+                  </form>
+                </pg:show>
 						  </div>		
 						</div>
 						<!--hidden poll results -->
 						<div id="pollresults" class="clearfix" style="display:none;">
-							
-								
 						</div>
 						<br>
 
