@@ -111,7 +111,7 @@ function pollresults() {
                   <input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> 
                   <input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
                   </form>
-                </pg:show>
+                </pg:hide>
 						  </div>		
 						</div>
 						<!--hidden poll results -->
