@@ -105,7 +105,7 @@ function pollresults() {
 								This final report will be made public on ${finalReportDate}<br/>
 							</div>
 						  <div class="right">
-                <pg:show roles="participant">
+                <pg:hide users="guest">
                   <p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
                   <form action="" method="get">
                   <input name="yes" id="yes" type="button" value="yes" onClick="javascript:vote('yes');" /> 
