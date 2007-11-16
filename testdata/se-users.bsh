@@ -1,0 +1,38 @@
+
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+
+
+query = session.createQuery("from User");
+users = query.list();
+
+searcher = searchHelper.getIndexSearcher();
+writer = searchHelper.getIndexWriter();
+parser = searchHelper.parser;
+
+for (user : users) {
+    //print(user.loginname);
+    hits = searcher.search(parser.parse("type:userprofile"));
+    if (hits.length()==0) {
+        print(user.loginname);
+        contents = "<p>" + user.firstname + " " + user.lastname + " is a "
+            + user.vocation + " from " + user.city + ".<p>"
+            + "<p>Reason why " + user.firstname + " is here: "
+            + user.profileDesc + "</p>";
+            
+        doc = new Document();
+        
+        doc.add( new Field("type", "userprofile", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+        doc.add( new Field("body", contents, Field.Store.YES, Field.Index.UN_TOKENIZED) );
+        doc.add( new Field("contents", user.getLoginname() + " " + user.getVocation() + " " + user.getProfileDesc(), Field.Store.NO, Field.Index.TOKENIZED) );
+        doc.add( new Field("userid", user.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+        doc.add( new Field("loginname", user.getLoginname().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+        doc.add( new Field("userprofileid", user.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
+        
+        writer.addDocument(doc);
+    }
+}
+
+writer.optimize();
+
+writer.close();
