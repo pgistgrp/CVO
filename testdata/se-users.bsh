@@ -17,10 +17,9 @@ reader.close();
 writer = searchHelper.getIndexWriter();
 for (user : users) {
     //print(user.loginname);
-    hits = searcher.search(parser.parse("type:userprofile"));
-    if (hits.length()==0) {
+    if (user.enabled && !user.deleted) {
         print(user.loginname);
-        contents = "<p>" + user.firstname + " " + user.lastname + " is a "
+        contents = "<p>" + user.firstname + " " + user.lastname + "(" + user.loginname + ") is a "
             + user.vocation + " from " + user.city + ".<p>"
             + "<p>Reason why " + user.firstname + " is here: "
             + user.profileDesc + "</p>";
