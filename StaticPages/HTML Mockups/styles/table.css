@@ -1,0 +1,42 @@
+/* table CSS */
+
+#newTable {margin-top:1em;}
+#newTable th
+{
+font-weight:bold;
+text-align:center;
+color:#000;
+background:#ADCFDE;
+padding:.2em 0em;
+font-size:1em;
+}
+
+#newTable th.right {text-align:right;padding-right:5px;}
+
+#newTable td.fundingSourceItem
+{
+text-align:left;
+padding-left:10px;
+}
+
+#newTable td.category {text-align:left;border-bottom:2px solid #000;}
+
+#newTable th.first {text-align:left;padding-left:10px;}
+
+#newTable td
+{
+padding:5px;
+font-size:.9em;
+}
+
+#newTable tr.fundingType
+{
+background:#D6E7EF;
+}
+
+#newTable tr.fundingType2
+{
+background:#EEF7DD;
+}
+
+.odd{background:none;}

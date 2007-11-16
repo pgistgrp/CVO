@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+<!--#include virtual="/include/meta.inc" -->
+<META NAME="KEYWORDS" CONTENT="dhtmlxtree, dhtml tree, javascript tree, java, dynamical loading, xml, API, cross-browser, javascript, dhtml, scand, treeview, navigation, menu, bar, script, javascript navigation, web-site, dynamic, dynamic menu, folder, folder tree, internet explorer, firefox, mozilla, opera, safari, tooltip, item, node, asp, .net, jsp, cold fusion, image, custom tag, loading, control, widget, web site, checkbox, drag, drop, drag and drop, component, html, offshore, software, outsourcing, development, company, advanced, efficient">
+<META NAME="DESCRIPTION" CONTENT="Javascript DHTML Tree with XML support, cross-browser compatibility and rich JavaScript API. It allows to create attractive customizable DHTML JavaScript Tree Menu. Has checkboxes and drag-n-drop">
+
+<link rel="STYLESHEET" type="text/css" href="styles/dhtmlXTree/dhtmlXTree.css">
+<script src="scripts/dhtmlXTree/dhtmlXCommon.js"></script>
+<script src="scripts/dhtmlXTree/dhtmlXTree.js"></script>	
+<script>
+	
+	var tree1 = null;
+	function doOnLoad(){
+		preLoadImages();
+		//tree #1
+		tree1=new dhtmlXTreeObject(document.getElementById('treebox1'),"100%","100%",0);
+		tree1.setImagePath("images/dhtmlXTree/");
+		tree1.setDragHandler();
+		tree1.enableCheckBoxes(true)
+		tree1.enableThreeStateCheckboxes(true);
+		tree1.enableDragAndDrop(true);
+		tree1.loadXML("tree3.xml");
+	}
+	function preLoadImages(){
+		var imSrcAr = new Array("line1.gif","line2.gif","line3.gif","line4.gif","minus2.gif","minus3.gif","minus4.gif","plus2.gif","plus3.gif","plus4.gif","book.gif","books_open.gif","books_close.gif","magazines_open.gif","magazines_close.gif","tombs.gif","tombs_mag.gif","book_titel.gif","iconCheckAll.gif")
+		var imAr = new Array(0);
+		for(var i=0;i<imSrcAr.length;i++){
+			imAr[imAr.length] = new Image();
+			imAr[imAr.length-1].src = "images/dhtmlXTree/"+imSrcAr[i];
+		}
+	}
+	
+	function draghandler(){
+		alert("dragged...");
+	}
+	
+	function checkaddcategory(e){
+		if(e.keyCode == 13)addcategory();
+	}
+	
+	function addcategory(){
+		if(document.getElementById("newcatetext").value != "")
+			tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value);
+		document.getElementById("newcatetext").value = "";
+	}
+	
+	function globalKeyHandler(e){
+		if(e.keyCode==46)
+			tree1.deleteSelectedItem();
+	}
+	
+	function treeClickHandler(){
+		if(!tree1.clickedOn)
+			tree1.unSelectAll();
+		
+		tree1.clickedOn = false;
+	}
+	
+	
+</script>
+
+<!--#include virtual="/include/top.shtml" -->
+
+<body onload="doOnLoad()" onkeydown="globalKeyHandler(event);">
+<h3>DHTMLXTree for category management</h3>	
+<table width="100%">
+	<tr>
+		<td valign="top">
+		<input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+		<input type="button" value="Add categoey" onclick="addcategory();">
+		<div onclick="treeClickHandler();"
+			id="treebox1" 
+			style="width:375; height:650;background-color:#f5f5f5;border :1px solid Silver;overflow:auto;">
+		</div>
+		<a href="javascript:void(0);" onclick="tree1.deleteSelectedItem();">delete selected</a>
+		<a href="javascript:void(0);" onclick="tree1.unSelectAll();">unselect all</a>
+		<input type="checkbox" onclick="tree1.switchCopyMode()">drag as copy
+		
+		</td>
+		<td valign="top">
+		<!--textarea id="outputdata" cols="60" rows="20"></textarea-->
+		<div id="testarea" style="font-family:arial;"><h3>Items to check off:</h3>
+		<ul>
+		<li style="padding-bottom:6px;">Multiple highlight: click on a node and all nodes that hava the same label shall be highlighted.</li>
+		<li style="padding-bottom:6px;">Copy mode (Ctrl + drag to copy a node to a new location)</li>
+		<li style="padding-bottom:6px;">Consitency in copying: all nodes with same label are updated when a new relationship is created</li>
+		<li style="padding-bottom:6px;">No cyclic parency: can't drop a node on its offsprings;</li>
+		<li style="padding-bottom:6px;">[found bug when check against top level nodes] Do duplicate under the same parent</li>
+		<li style="padding-bottom:6px;"></li>
+		<li style="padding-bottom:6px;">Add a new item under the selected, update all affected</li>
+		<li style="padding-bottom:6px;">Unselect all (make the tree itself as the target)</li>
+		<li style="padding-bottom:6px;">Delete</li>
+		<li style="padding-bottom:6px;">Consitency after deleting</li>
+		<li style="padding-bottom:6px;">Differentiate the highlighted and the "possible drop target": gray the former a little</li>
+		<li style="padding-bottom:6px;">IE support</li>
+		</ul>
+		
+		</div>
+		<!--div id="testarea" style="height:250;width:400"></div>
+		<textarea id="outputdata" cols="60" rows="20"></textarea-->
+		</td>
+	</tr>
+</table>
+
+</body></html>

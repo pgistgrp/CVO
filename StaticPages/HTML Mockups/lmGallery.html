@@ -1,0 +1,441 @@
+<html>
+<head>
+<title>Let's Improve Transportation - Learnmore: Review Projects</title>
+<!-- Site Wide JS -->
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
+		
+		function expandAll(){
+			var rows = document.getElementsByClassName('objectives');
+			var icons = document.getElementsByClassName('icon');
+			//alert('icons: ' + icons.length + ' rows: ' + rows.length);
+			for (var i = 1;i <= rows.length; i++){
+				var row = 'objective' + i;
+				var icon = 'icon' + i;
+				$(row).show();
+				$(icon).src = "images/minus.gif";
+			}
+			$('hiddenLabel').style.visibility = "";
+		}
+		
+		function collapseAll(){
+			var rows = document.getElementsByClassName('objectives');
+			for (var i = 1;i <= rows.length; i++){
+				var row = 'objective' + i;
+				var icon = 'icon' + i;
+				$(row).hide();
+				$(icon).src = "images/plus.gif";
+			}
+			$('hiddenLabel').style.visibility = "hidden";
+		}
+
+		function testOpenRows(){
+			var rows = document.getElementsByClassName('objectives');
+			hideLabels();
+			for (var i = 1;i <= rows.length; i++){
+				var row = 'objective' + i;
+				if ($(row).style.display != "none"){
+					showLabels();
+				}else{}
+			}
+		}
+
+		function toggleRow(project,icon){
+			Effect.toggle(project, 'appear', {duration: .4, afterFinish:
+				function(){
+					if ($(project).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						testOpenRows();
+						$('hiddenLabel').style.visibility = "hidden";
+						}else{
+							$(icon).src = "images/minus.gif";
+							$('hiddenLabel').style.visibility = "";
+						}
+					}
+			});
+		}
+</script>
+
+<style type="text/css">
+@import "styles/lit.css";
+@import "styles/table.css";
+@import "styles/step3a-reviewprojects.css";
+</style>
+
+</head><body>
+<!-- Begin the header - loaded from a separate file -->
+<div id="header">
+	<!-- Begin header -->
+	<jsp:include page="/header.jsp" />
+	<p>[Load header from separate file]</p>
+	<!-- End header -->
+</div>
+<!-- End header -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Learn More</h3>
+			</div>
+			<div class="headerButton floatLeft"> <a href="#">Home</a> </div>
+			<div class="headerButton floatLeft"> <a href="#">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">Tutorial</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="#">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">More Resources</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+		</div>
+	</div>
+<!-- End header menu -->
+<!-- #container is the container that wraps around all the main page content -->
+<div id="container">
+	<!-- begin Object --> 
+	<h3 class="headerColor">Project Gallery</h3>
+	<p>Explore the projects being considered in Let’s Improve Transportation.
+	  The participants in this website will actually discuss these projects.  
+		<a href="#">Click here to login</a>.</p>
+	<div id="object">
+		<a href="javascript:expandAll();">Expand all</a>
+		<a href="javascript:collapseAll();">Collapse all</a>
+		<div id="rp3a-left" class="floatLeft">
+			<!-- begin collapsible list of projects -->
+			<div id="newtable">
+				<table cellpadding=0 cellspacing=0>
+					<tr class="tableHeading">
+						<th colspan="2" class="first">My Proposed Projects</th>
+						<th class="right"><span id="hiddenLabel" style="visibility:hidden">Money Needed</span></th>
+					</tr>
+					
+					<!-- begin CATEGORY LABEL -->
+					<tr >
+						<td class="category" colspan="3"><strong>Road Projects</strong></td>
+					</tr>
+					<!-- end CATEGORY LABEL -->
+					
+					<!-- begin PROJECT -->
+					<tr class="fundingType">
+						<td class="fundingSourceItem">
+								<a href="javascript:toggleRow('objective1','icon1');">
+								<img src="images/plus.gif" id="icon1" class="icon"></a>
+								Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2">One option will be chosen</td>
+					</tr>
+					<!-- end PROJECT -->
+					
+					<!-- begin HIDDEN ROW of OPTIONS -->
+					<tr style="display:none;" class="objectives" id="objective1">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+					
+					<tr class="fundingType2">
+						<td class="fundingSourceItem">
+							<a href="javascript:toggleRow('objective2','icon2');">
+							<img src="images/plus.gif" id="icon2" class="icon"></a>
+							Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2">&nbsp;</td>
+					</tr>
+					<!-- begin HIDDEN ROW -->
+					<tr style="display:none;" class="objectives" id="objective2">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+
+					<!-- begin PROJECT -->
+					<tr class="fundingType2">
+						<td class="fundingSourceItem">
+								<a href="javascript:toggleRow('objective3','icon3');">
+								<img src="images/plus.gif" id="icon3" class="icon"></a>
+								Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2"></td>
+					</tr>
+					<!-- end PROJECT -->
+					
+					<!-- begin HIDDEN ROW of OPTIONS -->
+					<tr style="display:none;" class="objectives" id="objective3">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+					
+					<tr class="fundingType2">
+						<td class="fundingSourceItem">
+							<a href="javascript:toggleRow('objective4','icon4');">
+							<img src="images/plus.gif" id="icon4" class="icon"></a>
+							Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2">&nbsp;</td>
+					</tr>
+					<!-- begin HIDDEN ROW -->
+					<tr style="display:none;" class="objectives" id="objective4">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+
+					<!-- begin CATEGORY LABEL -->
+					<tr >
+						<td class="category" colspan="3"><strong>Transit Projects</strong></td>
+					</tr>
+					<!-- end CATEGORY LABEL -->
+					
+					<!-- begin PROJECT -->
+					<tr class="fundingType">
+						<td class="fundingSourceItem">
+								<a href="javascript:toggleRow('objective5','icon5');">
+								<img src="images/plus.gif" id="icon5" class="icon"></a>
+								Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2">One option will be chosen</td>
+					</tr>
+					<!-- end PROJECT -->
+					
+					<!-- begin HIDDEN ROW of OPTIONS -->
+					<tr style="display:none;" class="objectives" id="objective5">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+
+					<tr class="fundingType">
+						<td class="fundingSourceItem">
+							<a href="javascript:toggleRow('objective6','icon6');">
+							<img src="images/plus.gif" id="icon6" class="icon"></a>
+							Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2">One option will be chosen</td>
+					</tr>
+					
+					<!-- begin HIDDEN ROW -->
+					<tr style="display:none;" class="objectives" id="objective6">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+
+					<!-- begin PROJECT -->
+					<tr class="fundingType2">
+						<td class="fundingSourceItem">
+								<a href="javascript:toggleRow('objective7','icon7');">
+								<img src="images/plus.gif" id="icon7" class="icon"></a>
+								Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2">&nbsp;</td>
+					</tr>
+					<!-- end PROJECT -->
+					
+					<!-- begin HIDDEN ROW of OPTIONS -->
+					<tr style="display:none;" class="objectives" id="objective7">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+					
+					<tr class="fundingType">
+						<td class="fundingSourceItem">
+							<a href="javascript:toggleRow('objective8','icon8');">
+							<img src="images/plus.gif" id="icon8" class="icon"></a>
+							Alaskan Way Viaduct Options</td>
+						<td class="col2" colspan="2">One option will be chosen</td>
+					</tr>
+					<!-- begin HIDDEN ROW -->
+					<tr style="display:none;" class="objectives" id="objective8">
+						<td colspan="3">
+							<table>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+								<tr>
+									<td class="col1">Elevated Structure</td>
+									<td class="cost">$1,281,101,121</td>
+								</tr>
+								<tr>
+									<td class="col1">Arlington - SR 531 43 Ave NE to 67 Ave NE</td>
+									<td class="cost">$611,102,174</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<!-- end HIDDEN ROW -->
+
+				</table>
+			</div>
+
+			<!-- end collapsible project list -->
+		</div>
+		<!-- end rp3a-left -->
+	</div>
+	<!-- begin cell containing Google Map object -->
+	<!-- GUIRONG: This can be up to 420px wide -->
+	<div id="map" class="floatRight">420px wide GMap goes here</div>
+	<!-- end cell containing Google Map object -->
+	<!-- begin firefox height hack -->
+	<div class="clearBoth"></div>
+	<!-- end firefox height hack -->
+</div>
+<!-- end Object-->
+</div>
+<!-- end container -->
+<!-- start feedback form -->
+<pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu">
+		<div id="headerContainer">
+			<div id="headerTitle" class="floatLeft">
+				<h3 class="headerColor">Learn More</h3>
+			</div>
+			<div class="headerButton floatLeft"> <a href="#">Home</a> </div>
+			<div class="headerButton floatLeft"> <a href="#">About LIT</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">Tutorial</a> </div>
+			<div class="floatLeft headerButton currentBox"> <a href="#">Project Gallery</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
+			<div class="floatLeft headerButton"> <a href="#">More Resources</a> </div>
+			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+		</div>
+	</div>
+<!-- End header menu -->
+<!-- Begin footer -->
+<div id="footer">
+	<jsp:include page="/footer.jsp" />
+</div>
+<!-- End footer -->
+</body>
+</html:html>

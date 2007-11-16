@@ -1,0 +1,53 @@
+/* Template 5 by John Le Beta 1 6/15/2006*/
+
+#col-left {
+	width: 26%;
+	float: left;
+	height: 60%;
+	border: 1px solid #CCCCCC;
+	padding: 0em 0em 0em .2em;
+}
+#col {
+	width: 32%;
+	border: 1px solid #CCCCCC;
+	float: left;
+	margin-left: .3em;
+	height: 60%;
+	padding: 0em 0em 0em .2em;
+}
+#col-right {
+	width: 39%;
+	float: left;
+	margin-left: .3em;
+	height: 60%;
+}
+#slate {
+	margin-bottom: .3em !Important;
+	margin-top: .3em;
+	padding: .4em;
+	height: 35%;
+}
+#spacer {
+	height: .3em;
+}
+#bar {
+	padding: 0em;
+	height: 100%;
+}
+#footer {
+	margin-top: 0em !important;
+}
+.tabberlive .tabbertab{
+	overflow: auto;
+	position: relative;
+	height:97%;	
+}
+#myTab {
+	/*border: 1px solid #00FF00;*/
+	height: 100%;
+	position: normal;
+	margin-top: -23px;
+}
+.cssbox {
+	margin-bottom: 30px;
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    
+    <database-object>
+        <!-- CST CategoryReference - TagReference Link -->
+        <create>
+            CREATE TABLE pgist_cst_cat_tag_link (
+              cctid bigint,
+              isid bigint,
+              ioid bigint,
+              crid bigint,
+              trid bigint
+            );
+        </create>
+        <drop>
+            DROP TABLE pgist_cst_cat_tag_link CASCADE;
+        </drop>
+    </database-object>
+    
+    <database-object>
+        <!-- view for isid-ioid-did link -->
+        <create>
+            CREATE VIEW view_structure_discussions AS
+              SELECT s.id as isid, 0 as ioid, d.id as did from pgist_discussion d, pgist_info_structure s where d.id=s.discussion_id
+              UNION
+              SELECT s.id as isid, o.id as ioid, d.id as did from pgist_discussion d, pgist_info_structure s, pgist_info_object o where d.id=o.discussion_id and o.structure_id=s.id;
+        </create>
+        <drop>
+            DROP VIEW view_structure_discussions CASCADE;
+        </drop>
+    </database-object>
+    
+    <database-object>
+        <!-- view for concern-tagref-isid-ioid-cctid link -->
+        <create>
+            CREATE VIEW view_cct_concern_tags AS
+            SELECT
+              cct.workflowid as workflowid,
+              c.cct_id as cctid,
+              c.id as cid,
+              c.author_id as uid,
+              l.tagref_id as trid,
+              t.id as tid,
+              t.name as tname
+            FROM
+              pgist_cvo_cct cct,
+              pgist_cvo_concerns c,
+              pgist_cvo_concern_tag_link l,
+              pgist_cvo_tag_refs r,
+              pgist_tags t
+            WHERE
+              cct.id=c.cct_id AND
+              c.deleted is false AND
+              c.id=l.concern_id AND
+              r.id=l.tagref_id AND
+              t.id=r.tag_id;
+        </create>
+        <drop>
+            DROP VIEW view_cct_concern_tags CASCADE;
+        </drop>
+    </database-object>
+    
+    <database-object>
+        <!-- view for concern-tagref-isid-ioid-cctid link -->
+        <create>
+            CREATE VIEW view_structure_concern_tags AS
+              SELECT s.cctid as cctid, 0 as isid, 0 as ioid, c.id as cid, l.tagref_id as trid from pgist_info_structure s, pgist_cvo_concerns c, pgist_cvo_concern_tag_link l where s.cctid=c.cct_id and l.concern_id=c.id and l.tagref_id not in (select trid from pgist_cst_cat_tag_link)
+              UNION
+              SELECT l2.cctid as cctid, l2.isid as isid, l2.ioid as ioid, l1.concern_id as cid, l2.trid as trid  from pgist_cvo_concern_tag_link l1 join pgist_cst_cat_tag_link l2 on l1.tagref_id=trid;
+        </create>
+        <drop>
+            DROP VIEW view_structure_concern_tags CASCADE;
+        </drop>
+    </database-object>
+    
+    <database-object>
+        <!-- view for post-reply-tags link -->
+        <create>
+            CREATE VIEW view_post_reply_tags AS
+              SELECT d.workflowid AS workflowid, s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s WHERE d.id=s.discussion_id and p.deleted is false and p.discussion_id=d.id and t.dpost_id=p.id
+              UNION
+              SELECT d.workflowid AS workflowid, s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, 0 AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_dpost_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.id=o.discussion_id and p.deleted is false and p.discussion_id=d.id and t.dpost_id=p.id and o.structure_id=s.id
+              UNION
+              SELECT d.workflowid AS workflowid, s.id AS isid, 0 AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s WHERE d.id=s.discussion_id and p.deleted is false and p.discussion_id=d.id and t.dreply_id=r.id and r.deleted is false and p.id=r.parent_id
+              UNION
+              SELECT d.workflowid AS workflowid, s.id AS isid, o.id AS ioid, d.id AS did, p.id AS pid, r.id AS rid, t.tag_id AS tid FROM pgist_discussion d, pgist_discussion_post p, pgist_discussion_reply r, pgist_dreply_tag_link t, pgist_info_structure s, pgist_info_object o WHERE d.id=o.structure_id and p.discussion_id=d.id and p.deleted is false and t.dreply_id=r.id and r.deleted is false and o.structure_id=s.id and r.parent_id=p.id;
+        </create>
+        <drop>
+            DROP VIEW view_post_reply_tags CASCADE;
+        </drop>
+    </database-object>
+    
+    <database-object>
+        <!-- view for dpost-tags link -->
+        <create>
+            CREATE VIEW view_dpost_tag_link AS
+              SELECT p.discussion_id as did, p.id as pid, l.tag_id as tid, t.name as tname from pgist_discussion_post p, pgist_discussion d, pgist_dpost_tag_link l, pgist_tags t where p.discussion_id=d.id and p.deleted is false and l.dpost_id=p.id and l.tag_id=t.id;
+        </create>
+        <drop>
+            DROP VIEW view_dpost_tag_link CASCADE;
+        </drop>
+    </database-object>
+
+</hibernate-mapping>
+

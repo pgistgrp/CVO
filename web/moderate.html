@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+	<title>PGIST Moderator Tool</title>
+		<link rel="stylesheet" type="text/css" href="css" />
+        <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
+		<script type='text/javascript' src='/dwr/engine.js'></script>
+		<script type="text/javascript">
+        user_list = {};
+        function loadUsers(){
+            PESAgent.getUsers(function(data){
+                if(data.successful){
+                    for(i in data.users){
+                        user_list[i] = {id:i, name:data.users[i], order:-1, count:0, events:[]};
+                    }
+                }
+            });
+        }
+        
+        event_list = [];
+        function loadLogs(){
+             resetOrder();
+            start =  document.getElementById('startdate').value;
+            end =  document.getElementById('enddate').value;
+            document.getElementById('logentries').innerHTML = "Loading data ...";
+            
+            PESAgent.getLogs(start, end, 'DESC', function(data){
+                if(data.successful){
+                    
+                    event_list = data.events;
+                   for(j=0; j<event_list.length; j++){//
+                        var event = event_list[j];
+                        // html += "-" + event.id + ' | '+ event.userId + ' | '+ event.postData + '<hr>';
+                        if(event.userId == null)continue;
+                        user = user_list[event.userId];
+                        if(user==null)continue;
+                        
+                        user.events.push(event);
+                        user.count++;
+                        if(user.order>0){
+                            adjustLogOrder(user);
+                        }else{
+                            insertIntoLog(user);
+                        }
+                    }
+                     tuneLogInfo();
+                }
+            });
+       }
+       
+       function tuneLogInfo(f){
+            html = '';
+             for(j=1; j<log_order.length; j++){
+                user = user_list[log_order[j]];
+                html += "User " + user.name + ": " + user.count + " activity entries [<a onclick=\"showLogInfo('u_" + user.id + "')\">show</a>][<a onclick=\"hideLogInfo('u_" + user.id + "')\">hide</a>]<br>";
+                var div_id = 'u_' + user.id;
+                var d = document.getElementById(div_id);
+                if(d!=null) html += "<div style='display:" + d.style.display + "' class='log_info' id='u_" + user.id + "'>";
+                else  html += "<div style='display:none' class='log_info' id='u_" + user.id + "'>";
+                
+               for(k=0; k<user.events.length; k++){
+                   var info = user.events[k].postData;
+                   if (f){
+                       match = f.exec(info);
+                       if(match) info=match[1];
+                   }
+                   html +=  info + "<br>";
+                }
+                html += '</div><hr>';
+            }
+            document.getElementById('logentries').innerHTML = html;
+            
+       }
+        
+        log_order = [1];
+        
+        function insertIntoLog(user){
+            user.order = log_order[0];
+            log_order[log_order[0]]=user.id;
+            log_order[0] = log_order.length;
+        }
+        
+        function adjustLogOrder(user){
+            for(i=user.order-1; i>0; i--){
+                against =  user_list[log_order[i]];
+                if(user.count >against.count){
+                    neworder = against.order;
+                    against.order = user.order;
+                   
+                    log_order[i] = user.id;
+                    log_order[user.order] = against.id;
+                    user.order = neworder;
+                }
+            }
+        }
+        
+        function resetOrder(){
+            log_order = [1];
+            for (id in user_list){
+                user_list[id].count = 0;
+                user_list[id].events = [];
+                user_list[id].order = -1;
+            }
+        }
+        
+        function showLogInfo(id){
+            document.getElementById(id).style.display = "";
+        }
+        function hideLogInfo(id){
+            document.getElementById(id).style.display = "none";
+        }
+        
+        function filter(){
+            str = document.getElementById("regex_filter").value;
+            if(str==''){
+                tuneLogInfo();
+            }else{
+                ft = new RegExp(str+"=(\\S+)", "i");
+                tuneLogInfo(ft);
+            }
+        }
+        
+        </script>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	</head>
+	<body onload="loadUsers()">
+    <h2>User activity dashboard</h2>
+    
+		<div class="">
+			Start:&nbsp;<input type="text" value="2007-09-01" id='startdate'>&nbsp;&nbsp;
+            End:&nbsp;<input type="text" value="2007-09-25" id='enddate'>&nbsp;&nbsp;
+            <input type="button" style="width:80px" value="Go" onclick="loadLogs()">&nbsp;&nbsp;
+            &nbsp;&nbsp;<br><input type="text" value="scriptName" id='regex_filter'>&nbsp;&nbsp;
+            <input type="button" style="width:80px" value="Apply filter" onclick="filter('')">&nbsp;(eg, page, httpSessionId, scriptName, methodName, and so on.)
+            <input type="button" style="width:80px" value="Clear filter" onclick=" tuneLogInfo();">
+            <hr />
+		</div>
+        <div id="logentries">
+        	
+        </div>
+	</body>
+</html>

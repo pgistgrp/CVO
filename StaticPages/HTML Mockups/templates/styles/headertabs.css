@@ -1,0 +1,164 @@
+/* $Id$ */
+
+/*--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------*/
+.headerlive .headertabhide{
+ display:none;
+}
+
+/*--------------------------------------------------
+  .header = before the header interface is set up
+  .headerlive = after the header interface is set up
+  --------------------------------------------------*/
+.header {
+	height: 100%;
+	overflow: auto;
+}
+
+
+.headerlive {
+	margin-top:1em;
+}
+
+/*--------------------------------------------------
+  ul.headernav = the tab navigation list
+  li.headeractive = the active tab
+  --------------------------------------------------*/
+ 
+
+ul.headernav
+{
+ margin:0;
+ padding: 3px 0;
+ /*border-bottom: 1px solid #F2E3EB; */
+ font-size: 10px;
+ margin-right: 10px;
+ text-align: right;
+}
+
+ul.headernav li
+{
+ list-style: none;
+ margin: 0;
+ display: inline;
+}
+
+ul.headernav li a
+{
+	color: #CCCCCC;
+	padding: 3px 0.5em;
+	margin-left: 3px;
+	border: 1px solid #7888A9;
+	
+	background: #FFF;
+	text-decoration: none;
+	padding-bottom: 5px;
+}
+
+ul.headernav li a:link { color: #666; }
+ul.headernav li a:visited { color: #666; }
+
+ul.headernav li a:hover
+{
+ color: #6C6C6C;
+ background-color: #C0D7F6;
+ border-color: #6C6C6C;
+ /*border-top: 2px solid #FF67B3;*/
+}
+
+ul.headernav li.headeractive a
+{
+
+ font-size: 12px;
+ font-weight: bold;
+ background-color: #7888A9;
+ border-bottom: 1px solid #7888A9;
+ /*border-top: 2px solid #FF67B3;*/
+ color: #FFFFFF;
+ /*cool pink color color: #FF67B3; */
+}
+
+ul.headernav li.headeractive a:hover
+{
+	 color: #FFFFFF;
+	 background: #7888A9;
+	 border-bottom: 1px solid #7888A9;
+	 border-color: #7888A9;
+}
+
+/*--------------------------------------------------
+  .headertab = the tab content
+  Add style only after the header interface is set up (.headerlive)
+  --------------------------------------------------*/
+
+
+.headerlive .headertab{
+	color: #FFFFFF;
+	padding-bottom: 2px;
+	border: 1px solid #7888A9;
+	border-bottom: 4px solid #C0D7F6; /*Light Blue*/
+	text-align: right;
+	background-color: #7888A9;
+	padding-right: 10px;
+	border-left: 0;
+	border-right: 0;
+	/* If you don't want the tab size changing whenever a tab is changed
+	you can set a fixed height */
+	
+	
+	/* If you set a fix height set overflow to auto and you will get a
+	scrollbar when necessary */
+	
+	/* 100% */
+	overflow: visible;
+	position: relative;
+	height: 90%;	
+	}
+
+
+/* If desired, hide the heading since a heading is provided by the tab */
+.headerlive .headertab h2 {
+ display:none;
+}
+.headerlive .headertab h3 {
+ display:none;
+}
+
+/* Example of using an ID to set different styles for the tabs on the page */
+.headerlive#tab1 {
+}
+.headerlive#tab2 {
+}
+.headerlive#tab2 .headertab {
+ height:200px;
+ overflow:auto;
+}
+
+#headerbar {
+	padding: 0em;
+	height: 100%;
+	background-image: url(../images/mainlogo.png);
+	background-position: left;
+	background-repeat: no-repeat;
+	padding-top: 80px;
+	margin-bottom: 10px;
+}
+#myHeader {
+	height: 90%;
+	margin-top: 0px;
+}
+
+.submenulinks a {
+	text-decoration: none;
+	color: #FFFFFF;
+	font-weight: 500;
+	font-size: .9em;
+	margin-left: 5px;
+}
+.submenulinks a:hover {
+	text-decoration: none;
+	color: #C0D7F6;
+	background-color: #7888A9;
+}

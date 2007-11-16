@@ -1,0 +1,50 @@
+/* CSS Document */
+
+/* Main Position CSS Template by John Le BETA 1 6/15/2006*/
+
+body {
+
+}
+#container {
+	border: 1px solid #FF0000;
+}
+#main {
+}
+#overview {
+
+}
+#cont-resize {
+	border: 1px solid #0000FF;
+}
+#col-left {
+	border: 1px solid #CCCCCC;
+}
+#col-right {
+	border: 1px solid #00FF00; 
+}
+#slate {
+
+}
+#suppSlate {
+
+}
+#tagSelector {
+
+}
+#tabber {
+
+}
+#bar {
+
+}
+#bar-content {
+
+}
+#clear {
+
+}
+/*
+#myTab {
+	border: 1px solid #00FF00;
+}
+*/

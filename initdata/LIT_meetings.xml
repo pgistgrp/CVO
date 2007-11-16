@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+
+    <meetings>
+    
+        <meeting name="meeting-init.situation" description="Initialize Decision Situation">
+            <declaration>
+                <outs>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-init.situation">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-cvo" description="Concern Value Object">
+            <declaration>
+                <outs>
+                    <var name="meeting.cct_id"/>
+                    <var name="meeting.is_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-cvo">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.theme_isid" ref="meeting.is_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+       <meeting name="meeting-criteria" description="Criteria and Objectives">
+            <declaration>
+                <outs>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.crit_isid"/>
+                    <var name="meeting.cct_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-criteria">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-projects-fundings" description="Review Projects and Fundings">
+            <declaration>
+                <ins>
+                    <var name="meeting.cct_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <branch>
+                    <sequence>
+                        <pmethod name="pmethod-projects">
+                            <declaration>
+                                <ins>
+                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                                    <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
+                                </ins>
+                                <outs>
+                                    <var name="pmethod.is_id" ref="meeting.proj_isid"/>
+                                </outs>
+                            </declaration>
+                        </pmethod>
+                    </sequence>
+                    <sequence>
+                        <pmethod name="pmethod-fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                                    <var name="pmethod.suite_id" ref="meeting.fund_suite_id"/>
+                                </ins>
+                                <outs>
+                                    <var name="pmethod.is_id" ref="meeting.fund_isid"/>
+                                </outs>
+                            </declaration>
+                        </pmethod>
+                    </sequence>
+                </branch>
+            </sequence>
+        </meeting>
+        
+    </meetings>
+    
+    
+</templates>
+

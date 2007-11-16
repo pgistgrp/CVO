@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+
+    <pgames>
+        <pgame name="pgame-create.project.suite" description="Create a project suite." auto="true">
+            <taskName>task-create.project.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="all">
+            <actionName>task-define.projects</actionName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+            </declaration>
+            <!--timer extension="86400000"/-->
+            <timer extension="86400000"/>
+        </pgame>
+    </pgames>
+    
+    <pmethods>
+        <pmethod name="pmethod-init.projects" description="Initialize Projects">
+            <declaration>
+                <outs>
+                    <var name="pmethod.suite_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-create.project.suite">
+                    <declaration>
+                        <outs>
+                            <var name="suite_id" ref="pmethod.suite_id"/>
+                        </outs>
+                    </declaration>
+	              </pgame>
+                <pgame name="pgame-define.projects">
+                    <declaration>
+                        <ins>
+                            <var name="suite_id" ref="pmethod.suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+    </pmethods>
+    
+    <meetings>
+        <meeting name="meeting-init.situation" description="Initialize Decision Situation">
+            <declaration>
+                <outs>
+                    <var name="meeting.suite_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-init.projects">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+    </meetings>
+    
+    <situations>
+        <situation name="LIT" description="Let's Improve Transportation">
+            <sequence>
+                <meeting name="meeting-init.situation">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.suite_id" ref="situation.suite_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+            </sequence>
+        </situation>
+    </situations>
+    
+</templates>
+

@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Step 5: Start</title>
+<style type="text/css" media="screen">
+        @import "styles/lit.css";
+</style>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+</head>
+<body>
+<!-- Begin conditional styles for the benefit of IE -->
+<!--[if IE]>
+                          <style type="text/css">
+                          #sortingMenu {right:0px;}
+						  #criteriaRuler {width:745px;}
+                          </style>
+          <![endif]-->
+<!-- End conditional styles -->
+<!-- Begin header -->
+<div id="header"> [Load from separate file] </div>
+<!-- End header -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+  <div id="headerContainer">
+    <div id="headerTitle" class="floatLeft">
+      <h3 class="headerColor">Step 5: Prepare Group Report</h3>
+    </div>
+    <div class="headerButton floatLeft currentBox"> <a href="step5-start.html">Review
+        Draft Report</a> </div>
+    <div class="headerButtonCurrent floatLeft "> <a href="step2b.html">Vote
+        to endorse Support</a> </div>
+    <div id="headerNext" class="floatRight box5"> <a href="step2b.html">Next
+        Step</a> </div>
+  </div>
+</div>
+<!-- End header menu -->
+<!-- Begin loading indicator -->
+<div style="display: none;" id="loading-indicator"> Loading... <img src="/images/indicator_arrows.gif"> </div>
+<!-- End loading indicator -->
+<!-- Begin container - Main page content begins here -->
+<div id="container">
+  <!-- begin "overview and instructions" area -->
+  <div id="overview" class="box2">
+    <h3>Overview and Instructions</h3>
+    <p>Our final step is to prepare a final report to communicate
+      the results of our decision process. The moderator has
+      already created a draft report.</p>
+    Now you can:
+    <ul>
+      <li>Review the draft report and discuss with other participants</li>
+      <li>Suggest revisions to the report in the discussion forum</li>
+    </ul>
+    <div id="readMore" style="display:none">
+      <ul>
+        <li>On October 28th, the moderator will make revisions
+          to the draft report. At that point all participants
+          will have the opportunity to vote to endorse the report
+          (or not). The vote results will appear in the executive
+          summary of the final report.</li>
+        <li>On November 2nd the final report will be published
+          online for the public to view. Special invitations
+          to read the report will be sent to transportation decision
+          makers and members of the media.</li>
+      </ul>
+    </div>
+    <input type="button" value="Read more" onClick="Effect.toggle('readMore','blind'); return false" />
+  </div>
+  <!-- end overview -->
+  <!-- begin object -->
+  <div id="object">
+    <!-- begin object content -->
+    <div id="object-content">
+      <h3 class="headerColor">Let's Improve Transportation Final
+        Report: Executive Summary (DRAFT)</h3>
+      <div id="executiveSummary"> 298 residents of King, Pierce,
+        and Snohomish county worked together online over the
+        course of 5 weeks to learn about transportation problems
+        in our region, discuss their own concerns, and create
+        a package of transportation projects and funding sources
+        to address our transportation needs. On November 2, 2007
+        they released the results of their efforts.
+        <p>The package contains 32 road and transit projects
+          across the 3 county region. It is funded by a combination
+          of bridge tolls, parking taxes, and vehicle excise
+          fees. The total cost of the package is $16 billion.
+          The package was endorsed by 81% of the participants
+          (256 our of 298 participating).</p>
+        <div> <strong>This report includes 4 sections:</strong>
+          <ol>
+            <li><a href="#">The participants and their concerns
+                about transportation</a></li>
+            <li><a href="#">“Planning factors” used in project
+                evaluation</a></li>
+            <li><a href="#">Project selection and personal package
+                creation</a></li>
+            <li><a href="#">Evaluation of packages</a></li>
+          </ol>
+        </div>
+        <input type="button" class="floatRight" value="Read the full report" />
+      </div>
+    </div>
+    <!-- Separate file content stops here -->
+  </div>
+  <!--end object content -->
+</div>
+<!-- end object -->
+<a name="filterJump"></a>
+<div class="clearBoth">&nbsp;</div>
+<!-- end container -->
+<!-- Run javascript function after most of the page is loaded, 
+work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
+                        io.getPosts('', 1, false, io.currentSort);
+                        //infoObject.assignTargetHeaders();
+                        io.getTargets();
+                        
+                  </script>
+<!-- start the bottom header menu -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+  <div id="headerContainer">
+    <div id="headerTitle" class="floatLeft">
+      <h3 class="headerColor">Step 5: Prepare Group Report</h3>
+    </div>
+    <div class="headerButton floatLeft currentBox"> <a href="step5-start.html">Review
+        Draft Report</a> </div>
+    <div class="headerButtonCurrent floatLeft "> <a href="step2b.html">Vote
+        to endorse Support</a> </div>
+    <div id="headerNext" class="floatRight box5"> <a href="step2b.html">Next
+        Step</a> </div>
+  </div>
+</div>
+<!-- End header menu -->
+<!-- end the bottom header menu -->
+<!-- Begin footer -->
+<div id="footer"> </div>
+<!-- End footer -->
+</body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+
+<dwr>
+
+
+  <allow>
+
+
+    <!-- Beans Convertor -->
+
+
+    <convert converter="bean" match="org.pgist.criteria.MOE"/>
+    
+    <convert converter="bean" match="org.pgist.criteria.Criteria"/>
+
+
+    <!-- DWR Agents -->
+
+
+    <create creator="spring" javascript="CriteriaAgent">
+        <param name="beanName" value="criteriaAgent"/>
+        <include method="addCriterion"/>
+        <include method="deleteCriterion"/>
+        <include method="editCriterion"/>
+        <include method="relateCriteria"/>
+        <include method="derelateCriteria"/>
+        <include method="getCriteria"/>
+        <include method="getCriterionById"/>
+        <include method="publish"/>
+    </create>
+
+
+  </allow>
+
+
+  <signatures>
+    <![CDATA[
+    ]]>
+  </signatures>
+
+
+</dwr>
+

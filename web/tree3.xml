@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<tree id="0">
+	<item text="Books" id="books" open="1" call="1" select="1">
+		<item text="China" id="china"></item>
+		<item text="Lawrence Block" open="1" id="lb">
+			<item text="Around the World" open="1" id="atw">
+				<item text="China" id="china"></item>
+			</item>
+		</item>
+	</item>
+	<item text="Sport" id="mag_sp">
+	</item>
+</tree> 

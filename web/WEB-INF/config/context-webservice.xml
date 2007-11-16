@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    
+    
+    <!-- Lucene Search Engine -->
+    
+    
+    <bean id="searchHelper" class="org.pgist.search.SearchHelper">
+      <property name="indexPath">
+        <value>/WEB-INF/lucene</value>
+      </property>
+    </bean>
+    
+    
+    <!-- DiscussionAgent -->
+    
+    
+    <bean id="discussionAgent" parent="baseTransactionProxy">
+      <property name="target">
+        <bean class="org.pgist.ws.DiscussionAgent">
+        </bean>
+      </property>
+    </bean>
+    
+    
+</beans>
+

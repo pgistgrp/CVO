@@ -1,0 +1,21 @@
+p{
+	margin-top : 1px;
+	margin-bottom : 1px;
+}
+body{
+	font-weight : normal;
+	font-family : "Arial", "Helvetica", "sans-serif";
+	font-size : small;
+}
+.editorComment{
+	color:gray;
+}
+.editorTags{
+	color: #0000CD;
+}
+.editorCFTags{
+	color: #D2691E;
+}
+.editorQuotes{
+	color: #3CB371;
+}

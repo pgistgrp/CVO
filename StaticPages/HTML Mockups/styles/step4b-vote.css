@@ -1,0 +1,41 @@
+#voteBox
+{
+width:100%;
+border: 1px solid #ADCFDE;
+margin-bottom:1.5em;
+}
+
+#voteBox p {margin:1em .5em;}
+
+.odd {background: #D6E7EF;}
+.even {background: #ffffff;}
+
+.VoteListRow
+{
+padding:.3em 0em;
+}
+
+.voteCol1
+{
+width:10%;
+margin-right:.5em;
+padding-left:2em;
+font-size:1.1em;
+}
+
+.voteCol2,.voteCol3,.voteCol4
+{
+width:28%;
+text-align:center;
+}
+
+h4
+{
+font-size:1em;
+margin:0em auto;
+}
+
+.highlight 
+{
+background:#FFF1DC;
+}

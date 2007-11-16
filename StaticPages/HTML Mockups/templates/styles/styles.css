@@ -1,0 +1,70 @@
+/* CSS Document */
+
+/* Main Position CSS Template by John Le BETA 1 6/15/2006*/
+
+body {
+
+}
+#container {
+
+}
+#main {
+
+}
+
+#overview {
+	border: 1px solid #CCCCCC;
+}
+#object {
+	border: 1px solid #CCCCCC;
+}
+#discussion {
+	border: 1px solid #CCCCCC;
+}
+
+#col-left {
+	
+}
+#col-right {
+
+}
+#slate {
+	border: 1px solid #CCCCCC;
+}
+#suppSlate {
+	border: 1px solid #CCCCCC;
+}
+#tagSelector {
+	border-width: 0px 1px 0px 1px;
+	border-style: solid;
+	border-color: #CCC; 
+	background-color: #EEE;
+}
+#tabber {
+	border-style: solid;
+	border-color: #CCCCCC;
+	border-width: 0px 0px 1px 0px;
+}
+#themesummary {
+	border: 1px solid #CCCCCC;
+}
+#bar {
+	
+}
+#bar-content {
+
+}
+#footer {
+	border: 1px solid #CCCCCC;
+}
+#post {
+	border: 1px solid #CCCCCC;
+}
+#replies {
+	border: 1px solid #CCCCCC;
+	border-top: 0px;
+}
+#clear {
+
+}
+

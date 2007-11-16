@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+
+    <bean id="importDAO" class="org.pgist.other.ImportDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="importService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.other.ImportServiceImpl">
+                <property name="cctDAO" ref="cctDAO"/>
+                <property name="criteriaDAO" ref="criteriaDAO"/>
+                <property name="projectDAO" ref="projectDAO"/>
+                <property name="packageDAO" ref="packageDAO"/>
+                <property name="importDAO" ref="importDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="otherAgent" class="org.pgist.other.OtherAgent">
+        <property name="engine" ref="engine"/>
+    </bean>
+
+
+</beans>
+

@@ -1,0 +1,21 @@
+/* Template 2 by John Le Beta 1 6/15/2006*/
+#container {
+	border: 1px solid #CCCCCC;
+	
+}
+#bar {
+	min-height: auto;
+}
+#body {
+	height: auto;
+	height: 100% !important;
+}
+#col-left {
+	min-height: 100%;
+	height: 100%;
+	border: 1px solid #CCCCCC;
+}
+#col-right {
+	min-height: 100%;
+	border: 1px solid #CCCCCC;
+}

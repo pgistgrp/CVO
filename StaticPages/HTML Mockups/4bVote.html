@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Step 4b: Vote</title>
+<!-- Site Wide CSS -->
+<style type="text/css" media="screen">
+		@import "styles/lit.css";
+	</style>
+<!-- End Site Wide CSS -->
+<style type="text/css">
+
+#voteBox
+{
+width:100%;
+border: 1px solid #ADCFDE;
+margin-bottom:1.5em;
+}
+
+#voteBox p {margin:1em .5em;}
+
+.odd {background: #D6E7EF;}
+.even {background: #ffffff;}
+
+.VoteListRow
+{
+padding:.3em 0em;
+}
+
+.voteCol1
+{
+width:10%;
+margin-right:.5em;
+padding-left:2em;
+font-size:1.1em;
+}
+
+.voteCol2,.voteCol3,.voteCol4
+{
+width:28%;
+text-align:center;
+}
+
+h4
+{
+font-size:1em;
+margin:0em auto;
+}
+
+.highlight 
+{
+background:#FFF1DC;
+}
+
+</style>
+</head>
+<body>
+<!-- Begin the header - loaded from a separate file -->
+<div id="header">
+  <!-- Begin header -->
+  <jsp:include page="/header.jsp" />
+  <p>[Load header from separate file]</p>
+  <!-- End header -->
+</div>
+<!-- End header -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+  <div id="headerContainer">
+    <div id="headerTitle" class="floatLeft">
+      <h3 class="headerColor">Step 4b: Evaluate Candidate Packages</h3>
+    </div>
+    <div class="headerButton floatLeft  currentBox"> <a href="step4.html">4a:
+        Review packages</a> </div>
+    <div class="headerButton floatLeft"> <a href="step4b.html">4b:
+        Vote</a> </div>
+    <div id="headerNext" class="floatRight box5"> <a href="step4b.html">Next
+        Step</a> </div>
+  </div>
+</div>
+<!-- End header menu -->
+<!-- #container is the container that wraps around all the main page content -->
+<div id="container">
+  <!-- begin "overview and instructions" area -->
+  <div id="overview" class="box2">
+    <h3>Overview and Instructions</h3>
+    <p>During this step, the moderator asks participants to determine
+      which packages have the greatest level of collective support.
+      This polling information will help us to decide which package
+      to collectively recommend. The final vote will be held
+      on Thursday Oct. 19.</p>
+  </div>
+  <!-- end overview -->
+  <!-- begin Object -->
+  <div id="object">
+    <!-- begin obj-left -->
+      <!-- begin one voting box -->
+		<h3 class="headerColor">Packages Poll</h3>
+		 <div id="voteBox" class="floatLeft clearBoth">
+		 <p>Moderator_Joanna initiated a new participant poll. Please respond to this poll by <strong>midnight Thursday August 17</strong>.</p>
+		 <p>Please indicate your current willingness to endorse each of the following package to decision makers.</p>
+        <div class="VoteListRow row">
+          <div class="voteCol1 floatLeft">&nbsp;</div>
+          <div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this package</div>
+          <div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this package
+			 											 if it receives greatest participant support</div>
+          <div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package, regardless 
+			 											of its support among other participants</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package A </div>
+          </div>
+          <div class="voteCol2 floatLeft"><input type="radio"></div>
+          <div class="voteCol3 floatLeft"><input type="radio"></div>
+          <div class="voteCol4 floatLeft"><input type="radio"></div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row even">
+          <div class="voteCol1 floatLeft">Package B </div>
+          <div class="voteCol2 floatLeft"><input type="radio"></div>
+          <div class="voteCol3 floatLeft"><input type="radio"></div>
+          <div class="voteCol4 floatLeft"><input type="radio"></div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            Package C </div>
+          <div class="voteCol2 floatLeft"><input type="radio"></div>
+          <div class="voteCol3 floatLeft"><input type="radio"></div>
+          <div class="voteCol4 floatLeft"><input type="radio"></div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row even">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package D </div>
+          </div>
+          <div class="voteCol2 floatLeft"><input type="radio"></div>
+          <div class="voteCol3 floatLeft"><input type="radio"></div>
+          <div class="voteCol4 floatLeft"><input type="radio"></div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package E </div>
+          </div>
+          <div class="voteCol2 floatLeft"><input type="radio"></div>
+          <div class="voteCol3 floatLeft"><input type="radio"></div>
+          <div class="voteCol4 floatLeft"><input type="radio"></div>
+          <div class="clearBoth"></div>
+        </div>		  
+        <div class="VoteListRow row">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">RTID Package</div>
+          </div>
+          <div class="voteCol2 floatLeft"><input type="radio"></div>
+          <div class="voteCol3 floatLeft"><input type="radio"></div>
+          <div class="voteCol4 floatLeft"><input type="radio"></div>
+          <div class="clearBoth"></div>
+        </div>
+		  
+      </div>
+      <!-- end one voting box -->
+		
+		<div class="clearBoth"></div>	
+		<div class="box10 padding5" style="margin-bottom:1.5em;"><h3>Previous polls</h3></div>
+		
+     <!-- begin one voting box -->
+		<h3 class="headerColor">Package Poll Results October 15, 2007</h3>
+		 <div id="voteBox" class="floatLeft clearBoth">
+		 <p>On August 5 Moderator_Joanna initiated a poll. 214 participants
+		   voted in the poll (89% of all participants). Poll results
+		   are displayed below.</p>
+		 <p>Please indicate your current willingness to endorse each of the following package to decision makers.</p>
+        <div class="VoteListRow row">
+          <div class="voteCol1 floatLeft">&nbsp;</div>
+          <div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this package</div>
+          <div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this package
+			 											 if it receives greatest participant support</div>
+          <div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package, regardless 
+			 											of its support among other participants</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package A </div>
+          </div>
+          <div class="voteCol2 floatLeft">50%</div>
+          <div class="voteCol3 floatLeft">44%</div>
+          <div class="voteCol4 floatLeft">6%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row even">
+          <div class="voteCol1 floatLeft">Package B </div>
+          <div class="voteCol2 floatLeft">43%</div>
+          <div class="voteCol3 floatLeft">39%</div>
+          <div class="voteCol4 floatLeft">18%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            Package C </div>
+          <div class="voteCol2 floatLeft">40%</div>
+          <div class="voteCol3 floatLeft">23%</div>
+          <div class="voteCol4 floatLeft">37%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row even">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package D </div>
+          </div>
+          <div class="voteCol2 floatLeft">33%</div>
+          <div class="voteCol3 floatLeft">23%</div>
+          <div class="voteCol4 floatLeft">44%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package E </div>
+          </div>
+          <div class="voteCol2 floatLeft">12%</div>
+          <div class="voteCol3 floatLeft">44%</div>
+          <div class="voteCol4 floatLeft">44%</div>
+          <div class="clearBoth"></div>
+        </div>		  
+        <div class="VoteListRow row">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">RTID Package</div>
+          </div>
+          <div class="voteCol2 floatLeft">12%</div>
+          <div class="voteCol3 floatLeft">44%</div>
+          <div class="voteCol4 floatLeft">44%</div>
+          <div class="clearBoth"></div>
+        </div>
+		  
+    </div>
+      <!-- end one voting box -->
+
+    <!-- begin one voting box -->
+		<h3 class="headerColor">Package Poll Results October 15, 2007</h3>
+		 <div id="voteBox" class="floatLeft clearBoth">
+		 <p>On August 5 Moderator_Joanna initiated a poll. 214 participants
+		   voted in the poll (89% of all participants). Poll results
+		   are displayed below.</p>
+		 <p>Please indicate your current willingness to endorse each of the following package to decision makers.</p>
+        <div class="VoteListRow row">
+          <div class="voteCol1 floatLeft">&nbsp;</div>
+          <div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this package</div>
+          <div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this package
+			 											 if it receives greatest participant support</div>
+          <div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package, regardless 
+			 											of its support among other participants</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package A </div>
+          </div>
+          <div class="voteCol2 floatLeft">50%</div>
+          <div class="voteCol3 floatLeft">44%</div>
+          <div class="voteCol4 floatLeft">6%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row even">
+          <div class="voteCol1 floatLeft">Package B </div>
+          <div class="voteCol2 floatLeft">43%</div>
+          <div class="voteCol3 floatLeft">39%</div>
+          <div class="voteCol4 floatLeft">18%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            Package C </div>
+          <div class="voteCol2 floatLeft">40%</div>
+          <div class="voteCol3 floatLeft">23%</div>
+          <div class="voteCol4 floatLeft">37%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row even">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package D </div>
+          </div>
+          <div class="voteCol2 floatLeft">33%</div>
+          <div class="voteCol3 floatLeft">23%</div>
+          <div class="voteCol4 floatLeft">44%</div>
+          <div class="clearBoth"></div>
+        </div>
+        <div class="VoteListRow row odd">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">Package E </div>
+          </div>
+          <div class="voteCol2 floatLeft">12%</div>
+          <div class="voteCol3 floatLeft">44%</div>
+          <div class="voteCol4 floatLeft">44%</div>
+          <div class="clearBoth"></div>
+        </div>		  
+        <div class="VoteListRow row">
+          <div class="voteCol1 floatLeft">
+            <div class="floatLeft">RTID Package</div>
+          </div>
+          <div class="voteCol2 floatLeft">12%</div>
+          <div class="voteCol3 floatLeft">44%</div>
+          <div class="voteCol4 floatLeft">44%</div>
+          <div class="clearBoth"></div>
+        </div>
+		  
+    </div>
+      <!-- end one voting box -->
+
+		
+  </div>
+    <!-- end obj-left -->
+    <!-- begin firefox height hack -->
+    <div class="clearBoth"></div>
+    <!-- end firefox height hack -->
+  </div>
+  <!-- end Object-->
+</div>
+<!-- End foldable average grades table -->
+</div>
+<!-- end container -->
+<!-- start feedback form -->
+<pg:feedback id="feedbackDiv" action="cctView.do"/>
+<!-- end feedback form -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<div id="headerMenu">
+  <div id="headerContainer">
+    <div id="headerTitle" class="floatLeft">
+      <h3 class="headerColor">Step 4b: Evaluate Candidate Packages</h3>
+    </div>
+    <div class="headerButton floatLeft  currentBox"> <a href="step4.html">4a:
+        Review packages</a> </div>
+    <div class="headerButton floatLeft"> <a href="step4b.html">4b:
+        Vote</a> </div>
+    <div id="headerNext" class="floatRight box5"> <a href="step4b.html">Next
+        Step</a> </div>
+  </div>
+</div>
+<!-- End header menu -->
+<!-- Begin footer -->
+<div id="footer">
+  <jsp:include page="/footer.jsp" />
+</div>
+<!-- End footer -->
+</body>
+</html>

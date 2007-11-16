@@ -1,0 +1,117 @@
+/* ---- */
+/* HTML */
+/* ---- */
+
+body{font-size:12pt}
+
+/* -------- */
+/* Headings */
+/* -------- */
+
+div#container h2.headerColor {
+display:inline;
+margin-right:1em;
+}
+
+div.heading h4 {margin:0px;}
+.box12 h4 {margin:.5em auto;}
+.listRow h4 {margin:.5em 0em;}
+
+/* ------------------ */
+/* Page layout blocks */
+/* ------------------ */
+
+#keywords, #mod-announcements, #recent-discussions, #popular-discussions{
+	margin:0em auto 2em auto;
+}
+
+/* --------------------------------------- */
+/* Left-col, aka the Overview of All Steps */
+/* --------------------------------------- */
+
+.home-col1
+{
+width:320px;
+margin-left:1em;
+}
+
+.home-col2
+{
+width:100px;
+text-align:center;
+}
+
+div.home-col1 > div > span {font-size:.9em;margin-left:.5em}
+
+.heading {margin-bottom:.5em;}
+
+.listRow
+{
+padding:.5em 0em;
+}
+
+.home-row {font-size:.9em;}
+
+#left-col, #right-col {margin-top:1em;}
+
+#left-col{
+width:49%;
+float:left;
+}
+
+.highlighted {background:#FFE3B9}
+.step{float:left;width:320px;margin-bottom:.5em;margin-left:1em;}
+
+.date{float:right;clear:right;margin-bottom:.5em;}
+.disabled{color:#bbb;}
+
+div.disabled a{color:#bbb;text-decoration:none;}
+
+/* -------------------------------------- */
+/* Right-col, aka Moderator Announcements */
+/* -------------------------------------- */
+
+#right-col{
+width:49%;
+float:right;
+}
+
+#announcements{
+background:#FCFFF5;
+border:1px solid #B4D579;
+height:400px;
+padding:10px;
+overflow:auto;
+}
+
+#mod-announcements{
+padding:5px;
+}
+
+/* -------- */
+/* Keywords */
+/* -------- */
+
+#keywords ul{margin:0px;padding:0px;}
+#keywords li {
+list-style-type:none;
+display:inline;
+padding:.2em;
+margin:.2em;
+line-height:2em;
+border:1px solid #FFE3B9;
+background:#FFF1DC;
+}
+
+
+/* ------------------------------------------ */
+/* Popular Discussions and Recent Discussions */
+/* ------------------------------------------ */
+
+.odd {background: #E7F2F7;}
+.even {background: #ffffff;}
+
+#popular-wrapper, #recent-wrapper {width:49%;margin: 1em auto;}
+#popular-wrapper{float:left;}
+#recent-wrapper{float:right;}
+#recent-wrapper h3 {display:inline;}

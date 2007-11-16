@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>Let's Improve Transportation: Help me create a package</title>
+<style type="text/css" media="screen">
+        @import "styles/lit.css";
+				@import "styles/step4b-reweigh.css";
+</style>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script type="text/javascript">
+		function expandList(objective,icon){
+			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
+				//window.setTimeout(toggleIcon,100);
+				function(){
+					if ($(objective).style.display != ""){
+						$(icon).src = "images/plus.gif";
+						}else{
+							$(icon).src = "images/minus.gif";
+						}
+					}
+			});
+		}
+	</script>
+</head>
+<body>
+<!-- Begin conditional styles for the benefit of IE -->
+<!--[if IE]>
+                          <style type="text/css">
+                          #sortingMenu {right:0px;}
+						  #criteriaRuler {width:745px;}
+                          </style>
+          <![endif]-->
+<!-- End conditional styles -->
+<!-- Begin loading indicator -->
+<div style="display: none;" id="loading-indicator"> Loading... <img src="/images/indicator_arrows.gif"> </div>
+<!-- End loading indicator -->
+<!-- Begin container - Main page content begins here -->
+<div id="container">
+<!-- begin object -->
+<div id="object">
+	<!-- begin object content -->
+	<div id="object-content">
+		<!-- Load separate file content starting here -->
+		<!-- begin criteria (summary) -->
+		<div id="criteria" class="floatLeft">
+			<!-- START All Criteria List -->
+			<div id="allCriteriaList">
+				<div class="criteriaListHeader headingColor">
+					<div class="weighCriteriaCol1 floatLeft">
+						<h4>Planning factor</h4>
+					</div>
+					<div class="weighCriteriaCol2 floatLeft">
+						<h4>Your weight</h4>
+					</div>
+					<div class="clearBoth"></div>
+				</div>
+				<div class="criteriaListRow row">
+					<div class="weighCriteriaCol1 floatLeft">
+						<div class="floatLeft">
+							<a href="javascript:expandList('objectives1','icon1');"> 
+							<img src="images/plus.gif" id="icon1"></a>
+						</div>
+						<div class="floatLeft"><a href="#">Economic Vitality</a></div>
+					</div>
+					<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+					</div>
+					<div class="clearBoth"></div>
+					<div class="objectives" id="objectives1" style="display:none;">
+							<ul>
+								<li>Promotes General economic development
+									<span>major positive impact</span>
+								</li>
+								<li>Improves worker movement and accessibility to jobs for a variety of income levels
+									<span>moderate negative impact</span>
+								</li>
+								<li>Improves the value of the residential or nonresidential properties
+									<span>minor positive impact</span>
+								</li>
+								<li>Improves access to terminal (sea, air, multimodal)
+									<span>Minor positive impact</span>
+								</li>
+							</ul></div>
+				</div>
+				<div class="criteriaListRow row">
+					<div class="weighCriteriaCol1 floatLeft">
+						<div class="floatLeft"><a href="javascript:expandList('objectives2','icon2');"> <img src="images/plus.gif" id="icon2"></a></div>
+						<div class="floatLeft"><a href="#">Security</a></div>
+					</div>
+					<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+					</div>
+					<div class="clearBoth"></div>
+					<div class="objectives" id="objectives2" style="display:none;">
+							<ul>
+								<li>Promotes General economic development
+									<span>major positive impact</span>
+								</li>
+								<li>Improves worker movement and accessibility to jobs for a variety of income levels
+									<span>moderate negative impact</span>
+								</li>
+								<li>Improves the value of the residential or nonresidential properties
+									<span>minor positive impact</span>
+								</li>
+								<li>Improves access to terminal (sea, air, multimodal)
+									<span>Minor positive impact</span>
+								</li>
+							</ul>
+					</div>
+				</div>
+				<div class="criteriaListRow row">
+					<div class="weighCriteriaCol1 floatLeft">
+						<div class="floatLeft"><a href="javascript:expandList('objectives3','icon3');"> <img src="images/plus.gif" id="icon3"></a></div>
+						<div class="floatLeft"><a href="#">Accessibility and Mobility</a></div>
+					</div>
+					<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+					</div>
+					<div class="clearBoth"></div>
+					<div class="objectives" id="objectives3" style="display:none;">
+							<ul>
+								<li>Promotes General economic development
+									<span>major positive impact</span>
+								</li>
+								<li>Improves worker movement and accessibility to jobs for a variety of income levels
+									<span>moderate negative impact</span>
+								</li>
+								<li>Improves the value of the residential or nonresidential properties
+									<span>minor positive impact</span>
+								</li>
+								<li>Improves access to terminal (sea, air, multimodal)
+									<span>Minor positive impact</span>
+								</li>
+							</ul>
+					</div>
+				</div>
+				<div class="criteriaListRow row">
+					<div class="weighCriteriaCol1 floatLeft">
+						<div class="floatLeft"><a href="javascript:expandList('objectives4','icon4');"> <img src="images/plus.gif" id="icon4"></a></div>
+						<div class="floatLeft"><a href="#">Environmental / Energy / QOL </a></div>
+					</div>
+					<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+					</div>
+					<div class="clearBoth"></div>
+					<div class="objectives" id="objectives4" style="display:none;">
+						<ul>
+							<li>Promotes General economic development <span>major positive impact</span> </li>
+							<li>Improves worker movement and accessibility to jobs for a variety of income
+								levels <span>moderate negative impact</span> </li>
+							<li>Improves the value of the residential or nonresidential properties <span>minor
+									positive impact</span> </li>
+							<li>Improves access to terminal (sea, air, multimodal) <span>Minor positive
+									impact</span> </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="criteriaListRow row">
+				<div class="weighCriteriaCol1 floatLeft">
+					<div class="floatLeft"><a href="javascript:expandList('objectives5','icon5');"> <img src="images/plus.gif" id="icon5"></a></div>
+					<a href="#">Integration and Connectivity </a></div>
+				<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+				</div>
+				<div class="clearBoth"></div>
+				<div class="objectives" id="objectives5" style="display:none;">
+					<ul>
+						<li>Promotes General economic development <span>major positive impact</span> </li>
+						<li>Improves worker movement and accessibility to jobs for a variety of income
+							levels <span>moderate negative impact</span> </li>
+						<li>Improves the value of the residential or nonresidential properties <span>minor
+								positive impact</span> </li>
+						<li>Improves access to terminal (sea, air, multimodal) <span>Minor positive
+								impact</span> </li>
+					</ul>
+				</div>
+			</div>
+			<div class="criteriaListRow row">
+				<div class="weighCriteriaCol1 floatLeft">
+					<div class="floatLeft"><a href="javascript:expandList('objectives6','icon6');"> <img src="images/plus.gif" id="icon6"></a></div>
+					<div class="floatLeft"><a href="#">Efficient System Management </a></div>
+				</div>
+				<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+				</div>
+				<div class="clearBoth"></div>
+				<div class="objectives" id="objectives6" style="display:none;">
+							<ul>
+								<li>Promotes General economic development
+									<span>major positive impact</span>
+								</li>
+								<li>Improves worker movement and accessibility to jobs for a variety of income levels
+									<span>moderate negative impact</span>
+								</li>
+								<li>Improves the value of the residential or nonresidential properties
+									<span>minor positive impact</span>
+								</li>
+								<li>Improves access to terminal (sea, air, multimodal)
+									<span>Minor positive impact</span>
+								</li>
+							</ul>				
+				</div>
+			</div>
+			<div class="criteriaListRow row">
+				<div class="weighCriteriaCol1 floatLeft">
+					<div class="floatLeft"><a href="javascript:expandList('objectives7','icon7');"> <img src="images/plus.gif" id="icon7"></a></div>
+					<div class="floatLeft"><a href="#">System Preservation</a></div>
+				</div>
+				<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+				</div>
+				<div class="clearBoth"></div>
+				<div class="objectives" id="objectives7" style="display:none;">
+							<ul>
+								<li>Promotes General economic development
+									<span>major positive impact</span>
+								</li>
+								<li>Improves worker movement and accessibility to jobs for a variety of income levels
+									<span>moderate negative impact</span>
+								</li>
+								<li>Improves the value of the residential or nonresidential properties
+									<span>minor positive impact</span>
+								</li>
+								<li>Improves access to terminal (sea, air, multimodal)
+									<span>Minor positive impact</span>
+								</li>
+							</ul>				
+				</div>
+			</div>
+			<div class="criteriaListRow row">
+				<div class="weighCriteriaCol1 floatLeft">
+					<div class="floatLeft"><a href="javascript:expandList('objectives8','icon8');"> <img src="images/plus.gif" id="icon8"></a></div>
+					<div class="floatLeft"><a href="#">Safety</a></div>
+				</div>
+				<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+				</div>
+				<div class="clearBoth"></div>
+				<div class="objectives" id="objectives8" style="display:none;">
+							<ul>
+								<li>Promotes General economic development
+									<span>major positive impact</span>
+								</li>
+								<li>Improves worker movement and accessibility to jobs for a variety of income levels
+									<span>moderate negative impact</span>
+								</li>
+								<li>Improves the value of the residential or nonresidential properties
+									<span>minor positive impact</span>
+								</li>
+								<li>Improves access to terminal (sea, air, multimodal)
+									<span>Minor positive impact</span>
+								</li>
+							</ul>				
+				</div>
+			</div>
+			<div class="criteriaListRow row">
+				<div class="weighCriteriaCol1 floatLeft">
+					<div class="floatLeft"><a href="javascript:expandList('objectives9','icon9');"> <img src="images/plus.gif" id="icon9"></a></div>
+					<span class="floatLeft"><a href="#">Local / Regional Factors </a></span></div>
+				<div class="weighCriteriaCol2 floatLeft">
+						<p>
+							<span class="label">Your weight</span>
+							<span class="value">Slider</span>
+						</p><br />
+						<p>
+							<span class="label">Average of all participants' weights</span>
+							<span class="value">Slider</span>
+						</p><br />
+				</div>
+				<div class="clearBoth"></div>
+				<div class="objectives" id="objectives9" style="display:none;">
+							<ul>
+								<li>Promotes General economic development
+									<span>major positive impact</span>
+								</li>
+								<li>Improves worker movement and accessibility to jobs for a variety of income levels
+									<span>moderate negative impact</span>
+								</li>
+								<li>Improves the value of the residential or nonresidential properties
+									<span>minor positive impact</span>
+								</li>
+								<li>Improves access to terminal (sea, air, multimodal)
+									<span>Minor positive impact</span>
+								</li>
+							</ul>				
+				</div>
+			</div>
+			<!-- END All Criteria List -->
+		</div>
+		<!-- end criteria (summary) -->
+	</div>
+	<!-- Separate file content stops here -->
+</div>
+<!--end object content -->
+<!-- end object -->
+<div class="clearBoth"></div>
+<div>	<input type="submit" value="Submit" class="padding5 floatRight"> </div>
+<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
+	io.getPosts('', 1, false, io.currentSort);
+	//infoObject.assignTargetHeaders();
+	io.getTargets();            
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+/*
+scriptaculous slider css
+*/
+
+/* put the left rounded edge on the track */
+.track-left {
+position: absolute;
+width: 5px;
+height: 9px;
+background: transparent url(/images/slider-track-left.png) no-repeat top left;
+}
+
+/* put the track and the right rounded edge on the track */
+.track {
+background: transparent url(/images/slider-track-right.png) no-repeat top right;
+}
+
+/*end scriptaculous slider css*/
+
+.criteriaListRow
+{
+background:#E7F2F7;
+padding:.3em 0em;
+}
+
+.criteriaListHeader
+{
+background:#ADCFDE;
+padding:5px 0px;
+}
+
+
+.criteriaListHeader .weighCriteriaCol1 {width:205px;padding-left:5px;}
+
+#allCriteriaList
+{
+text-align:left;
+}
+
+.even {background: #ffffff}
+
+.weighCriteriaCol1
+{
+width:210px;
+margin-right:.5em;
+}
+
+.weighCriteriaCol1 img
+{
+margin:0px 3px 0px 0px;
+vertical-align:top;
+border:0px;
+}
+
+.weighCriteriaCol2
+{
+width:330px;
+}
+
+.weighCriteriaCol3
+{
+margin-left:.5em;
+width:375px;
+}	
+
+h4
+{
+font-size:1em;
+margin:0px;
+padding:0px;
+}
+
+.objectives
+{
+padding:0px .5em;
+margin-left:10px;
+border-left:1px solid #ccc;
+}
+
+#saving-indicator{
+display: none;
+background-color: red;
+color: white;
+position:absolute;
+top: 0;
+left:0;
+padding: 3px;
+z-index: 500;
+}
+
+#loading-indicator{
+
+background-color: red;
+color: white;
+position:absolute;
+top: 0;
+left:0;
+padding: 3px;
+z-index: 500;		
+}
+
+p#remainingWeightP, p#remainingWeightP2{
+width:180px;
+text-align:center;
+float:right;
+padding:5px 5px;
+font-size:1.2em;
+margin:10px 0px;
+}
+
+b#remainingWeight, b#remainingWeight2 {font-size:1.4em;}
+.weighCriteriaCol3 input {width:2em;text-align:center;}
+.objectives ul {margin-top:5px;}
+
+#critRowWrapper{border:1px solid #ADCFDE;padding:5px;}
+</style>
+
+<style type="text/css" media="screen">
+#left {margin:0px 15px;_margin:0px 10px;}
+#right {width:500px;}
+body {text-align:left;font-size:12pt;}
+#top {padding:15px;}
+#goBtn {padding:10px;vertical-align:middle;}
+#finished {padding:10px;text-align:center;margin:10px 15px;}
+#finished h3 {display:inline;margin:0px;margin-right:20px;padding:0px;}
+.dollarSign {display:inline;margin-right:20px;}
+.stripWS {margin:0px;padding:0px;}
+.right-col2 {width:15%;}

@@ -1,0 +1,33 @@
+#container {padding:1em;font-size:10pt;}
+
+#obj-right img {margin:0px 0px 20px 20px;}
+h4
+{
+font-size:1em;
+margin:5px 0px;
+padding:0px;
+text-align:left;
+}
+
+/* Table styles for this page */
+
+#newTable td.fundingSourceItem {width:60%;}
+#newTable td.fundingSourceItem + td {width:25%;text-align:center;}
+#newTable td.fundingSourceItem + td +td {width:15%;}
+
+.headingColor{background:#ADCFDE;font-weight:bold;}
+.objectives ul{text-align:left}
+.objectives ul span 
+
+.label 
+{
+float:left;
+font-size:.9em;
+margin:auto 0em auto 2em;
+text-align:left;
+background:#ccc;
+}
+
+.value {float:right;width:200px;}
+
+li span {font-weight:bold;}

@@ -1,0 +1,85 @@
+/* Universal CSS Template by John Le BETA 1 6/15/2006*/
+body {
+	/*Template 2 Only Code*/
+	/*height: auto;*/
+		margin: 0;
+    	padding: 0;
+   		height: 100%;
+}
+#container {
+	min-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	width: 90%;
+	border: 1px solid #CCCCCC;
+	position: relative;
+	position: relative;
+	/*
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	*/
+	background-image: url(images/spacer.gif);
+	background-repeat: repeat-y;
+}
+#main {
+	margin: 0px auto;
+}
+
+#overview {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #CCCCCC;
+	padding: .1em .4em .1em .4em;
+}
+
+#col-left {
+	width: 64%;
+	float: left;
+	height: 80%;
+		border: 1px solid #CCCCCC;
+}
+#col-right {
+	width: 35%;
+	float: right;	
+	height: 80%;
+		border: 1px solid #CCCCCC;
+}
+#slate {
+	margin-bottom: 1em;
+	border: 1px solid #CCCCCC;
+	padding: .4em;
+	height: 40%;
+}
+#suppSlate {
+	margin-bottom: 1em;
+	border: 1px solid #CCCCCC;
+	padding: .4em;
+	height: 29%;
+}
+#tagSelector {
+	border: 1px solid #CCCCCC;
+	padding: 0em .4em .1em .4em;
+	margin: 0em 0em 1em 0em;
+}
+#tabber {
+	border-style: solid;
+	border-color: #CCCCCC;
+	border-width: 0px 0px 1px 0px;
+	padding: 0em .4em .1em .4em;
+}
+#bar {
+	border: 1px solid #CCCCCC;
+	padding: 0em;
+}
+#bar-content {
+	margin: .4em;
+}
+#clear {
+	clear: both;
+}
+

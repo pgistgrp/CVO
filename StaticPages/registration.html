@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PGIST Portal - Let's Improve Transportation</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<style type="text/css" media="screen">@import "/styles/pgist.css";</style>
+<!--
+<script src="./javascripts/prototype.js" type="text/javascript"></script>
+<script src="./javascripts/effects.js" type="text/javascript"></script>
+<script src="./javascripts/combo.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	function doOnLoad() {
+	
+	OpenTab("tab_page2", "Tags", "tags.html", false, '');
+	OpenTab("tab_page1", "Concerns", "concerns.html", false, '');
+		
+	}
+	
+	function validateForm()
+	{
+	
+		if(""==document.forms.brainstorm.addConcern.value)
+		{
+		
+		document.getElementById('validation').innerHTML = 'Please fill in your concern above.';
+		Effect.OpenUp('validation');
+		Effect.CloseDown('tagConcerns');
+		Effect.Yellow('validation', {duration: 4, endcolor:'#EEEEEE'});
+		}else{
+		Effect.CloseDown('validation');
+		
+		Effect.OpenUp('tagConcerns');
+		Effect.Yellow('tagConcerns', {duration: 4, endcolor:'#EEEEEE'});
+		}
+	}
+	
+	function resetForm()
+	{
+	
+	Effect.CloseDown('tagConcerns');
+	Effect.CloseDown('validation');
+	}
+</script>
+-->
+</head>
+
+<!--<body onload="doOnLoad()">-->
+<body>
+<div id="decorBar"></div>
+<div id="header"><img src="images/logo.jpg"></div>
+
+<div id="navigation">
+	<div id="bread">
+	<ul>
+		<li class="first">LIT Process
+		<ul>
+			<li>&#187; Registration Form</li>
+		</ul></li>
+	</ul>
+	</div>
+</div><br><span class="title_page">LIT Registration Form</span>
+
+<div id="container"><br>
+  <div id="overview"><span class="title_overview">Overview and Instructions</span> 
+ 		 <p>Thank you for your interest in the PGIST (Participatory Geographic Information 
+          Systems for Transportation) project. In order to determine your eligibility 
+          for the study, we need to ask a set of screening questions. This will 
+          help us be sure that the people we survey have a diversity of backgrounds 
+          and perspectives. If you wish to receive a gift certificate, you must 
+          answer each question below, as well as the survey questions that follow.</p>
+          <p>After you submit this registration form, we will determine your eligibiltly. 
+          If you are eligible, we will send you an ID code which you must use 
+          to login to the system and respond to the survey. Thank you for participating</p>
+  </div><br>
+<div id="slateRounded">
+	<b class="slateRounded">
+	<b class="slateRounded1"><b></b></b>
+	<b class="slateRounded2"><b></b></b>
+	<b class="slateRounded3"></b>
+	<b class="slateRounded4"></b>
+	<b class="slateRounded5"></b>
+	</b> 
+	<div class="slateRounded_content">
+		  <span class="title_form">Create your LIT ID</span>
+			
+		  <form action="form.php" method="POST" name="Subscribe"><p></p>
+				
+					  <label for="email">E-mail Address</label>
+					  <input align="left" id="email" name="email" size="40" value=""  class="inputBox"> 
+					  <br />
+					  <label for="firstname">First Name</label>
+					  <input class="inputBox" align="left" id="firstname" name="firstname" size="50" value=""> 
+					  <br />
+					  <label for="lastname">Last Name</label>
+					  <input  class="inputBox" align="left" id="lastname" name="lastname" size="50" value=""> 
+					  <br />
+					  <label for="litid">Preferred LIT ID</label>
+					  <input  class="inputBox" align="left" id="litid" name="litid" size="50" value=""> 
+					  <br />
+					  <label for="password">Password</label>
+					  <input  class="inputBox" align="left" type="password" id="password" name="password" size="50" value=""> 
+					  <br />
+					  <label for="rpassword">Re-type Password</label>
+					  <input  class="inputBox" type="password" id="password" align="left" maxlength="30" name="rpassword" size="50" value=""> 
+					  <br />
+
+					  <span class="title_form">Your Profile</span><br />
+					  <p></p>
+					  <label for="address1">Home Address</label>
+					  <input  class="inputBox" align="left" maxlength="50" id="address1" name="address1" size="50" value=""> 
+					  <br />
+					  <label for="address2">City</label>
+					  <input  class="inputBox" align="left" maxlength="50" id="address1" name="city" size="50" value=""> 
+					  <br />
+					  <label for="stateVal">State/Province</label> 
+					  <p></p>
+								
+								<select name="stateVal" class="inputBox" >
+										  <option  value="Alaska">Alaska</option>
+										  <option  value="Alabama">Alabama</option>
+										  <option  value="Arkansas">Arkansas</option>
+										  <option  value="Arizona">Arizona</option>
+										  <option  value="California">California</option>
+							
+										<option  value="Colorado">Colorado</option>
+										  <option  value="Connecticut">Connecticut</option>
+										  <option  value="DC">D.C.</option>
+										  <option  value="Delaware">Delaware</option>
+										  <option  value="Florida">Florida</option>
+										  <option  value="Georgia">Georgia</option>
+							
+										<option  value="Hawaii">Hawaii</option>
+										  <option  value="Iowa">Iowa</option>
+										  <option  value="Idaho">Idaho</option>
+										  <option  value="Illinois">Illinois</option>
+										  <option  value="Indiana">Indiana</option>
+										  <option  value="Kansas">Kansas</option>
+							
+										<option  value="Kentucky">Kentucky</option>
+										  <option  value="Louisiana">Louisiana</option>
+										  <option  value="Massachusetts">Massachusetts</option>
+										  <option  value="Maryland">Maryland</option>
+										  <option  value="Maine">Maine</option>
+										  <option  value="Michigan">Michigan</option>
+							
+										<option  value="Minnesota">Minnesota</option>
+										  <option  value="Missouri">Missouri</option>
+										  <option  value="Mississippi">Mississippi</option>
+										  <option  value="Montana">Montana</option>
+										  <option  value="North Carolina">North Carolina</option>
+										  <option  value="North Dakota">North Dakota</option>
+							
+										<option  value="Nebraska">Nebraska</option>
+										  <option  value="New Hampshire">New Hampshire</option>
+										  <option  value="New Jersey">New Jersey</option>
+										  <option  value="New Mexico">New Mexico</option>
+										  <option  value="Nevada">Nevada</option>
+										  <option  value="New York">New York</option>
+							
+										<option  value="Ohio">Ohio</option>
+										  <option  value="Oklahoma">Oklahoma</option>
+										  <option  value="Oregon">Oregon</option>
+										  <option  value="Pennsylvania">Pennsylvania</option>
+										  <option  value="Rhode Island">Rhode Island</option>
+										  <option  value="South Carolina">South Carolina</option>
+							
+										<option  value="South Dakota">South Dakota</option>
+										  <option  value="Tennessee">Tennessee</option>
+										  <option  value="Texas">Texas</option>
+										  <option  value="Utah">Utah</option>
+										  <option  value="Virginia">Virginia</option>
+										  <option  value="Vermont">Vermont</option>
+							
+										<option  value="Washington" selected>Washington</option>
+										  <option  value="Wisconsin">Wisconsin</option>
+										  <option  value="West Virginia">West Virginia</option>
+										  <option  value="Wyoming">Wyoming</option>
+								</select>
+								 <p></p>
+								
+						<label for="zip">ZIP/Postal Code</label> 
+						<input class="inputBox"  align="left" maxlength="5" name="zip" size="7" value="">
+						<br />
+				   		<label for="ethnicityVal">Ethnicity</label>
+				   				<p></p>
+								<select  class="inputBox"  name="ethnicityVal" size=1>
+										  <option value=0></option>
+										  <option  value="African-American">African-American</option>
+										  <option  value="Asian-Pacific Islander">Asian/Pacific Islander</option>
+										  <option  value="Native-American">Native American</option>
+										  <option  value="Latino/Hispanic">Latino/Hispanic</option>
+										  <option  value="Caucasian-White">Caucasian/White</option>
+										  <option  value="Other">Other (Please Specify Below)</option>
+								</select> 
+								<p></p>
+					  
+					<label for="other_ethnicity">If other, please specify</label>
+					<input  class="inputBox" align="left" maxlength="30" name="other_ethnicity" size="50" value=""> 
+					<br />
+								
+					<label for="household">How many people live in your household?</label>
+					<p></p>
+								 <select class="inputBox" name="household">
+									<option value="household_1">1</option>
+									<option value="household_2">2</option>
+									<option value="household_3">3</option>
+									<option value="household_4">4</option>
+								    <option value="household_5">5</option>
+									<option value="household_6">6 or more</option>
+								</select>
+					<p></p>
+					<label for="income">Household Income</label>
+					</span>
+					<p></p>
+								<select  class="inputBox"  name="income">
+									<option  value="25000orless">less than $25,000</option>
+									<option  value="25001_35000">$25,001 - $35,000</option>
+									<option  value="35001_50000">$35,001 - $50,000</option>
+									<option  value="50001_75000">$50,001 - $75,000</option>
+									<option  value="75001_100000">$75,001 - $100,000</option>
+									<option  value="100000Plus">more than $100,000</option>
+								</select>
+								
+				    <p></p>
+					<label for="Public_DM">Are you an elected official serving a city, town regional office in King, Pierce, or Snohomish Counties?</label>
+					
+					  <p></p>
+								<select class="inputBox" name="Public_DM">
+									<option value="no">No</option>
+									<option value="yes">Yes</option>
+								</select>
+					  <p></p>
+					<label for="Public_TS">Do you work for a transportation agency (e.g., Washington State Department of Transportation, Puget Sound Regional Council, Sound Transit,  King County Department of Transportation)?</label>
+					  <p></p>
+								 
+								<select class="inputBox" name="Public_TS">
+									<option value="no">No</option>
+								    <option value="yes">Yes</option>
+								</select>
+					  <p></p>
+					<label for="role">If you answered &quot;yes&quot; to the previous question, please check the box that best describes your role. </label>
+								 
+					  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+					  <tr>
+						  <td width="6%" class="registrationform">
+							<input name="role" type="radio" class="inputRadio" value="DecisionMaker">
+						  </td>
+						  <td width="94%"><p class="registrationform">I am a decision maker; I have responsibility for making and implementing decisions about transportation.</p></td>
+					  </tr>
+					  <tr>
+						  <td class="registrationform">
+							<input name="role" type="radio" class="inputRadio" value="TechSpecialist">
+						  </td>
+						  <td>
+							<p class="registrationform"> I am a transportation technical specialist; I have specialized training in transportation planning and advise decision makers on transportation issues. </p></td>
+					  </tr>
+					   <tr>
+						  <td class="registrationform">
+							<input name="role" type="radio" class="inputRadio" value="Role_Other">
+						  </td>
+						  <td><p class="registrationform">Other</p></td>
+					  </tr>
+					  </table>
+					  <p class="title_form">Terms of Agreement </p>
+						  <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Mauris faucibus lacinia neque. Donec diam. Curabitur a orci eu elit tincidunt consectetuer. Vestibulum mattis facilisis nunc. Etiam a augue. Aenean ligula. Suspendisse potenti. In sed velit. Proin posuere. Nunc eu pede. Integer imperdiet. Aenean dolor neque, sollicitudin sed, consectetuer non, molestie id, nisi. Nunc ultricies, diam aliquam varius porta, orci quam tristique sem, commodo sagittis nibh erat id quam. In vel velit. Donec non est. Nunc convallis odio. </p>
+						  <p>Curabitur faucibus. Sed accumsan enim ac eros. Etiam ante sem, volutpat ac, interdum sed, commodo eu, neque. Phasellus tempus leo vel nisl. Vestibulum vel nulla. Phasellus ut odio. Praesent quam tortor, ultrices et, scelerisque non, nonummy sit amet, nibh. Maecenas aliquam aliquet ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent lacinia. Suspendisse potenti.</p>
+						  <p class="title_form">&nbsp;</p>
+						
+					
+							<input type="submit" name="Submit" value="I Agree!">
+							<input type="reset" name="Reset" value="I Do Not Agree">
+						  </p>
+						
+			</form>
+	   </div>
+	<b class="slateRounded">
+	<b class="slateRounded5"></b>
+	<b class="slateRounded4"></b>
+	<b class="slateRounded3"></b>
+	<b class="slateRounded2"><b></b></b>
+	<b class="slateRounded1"><b></b></b>
+	</b>
+</div>
+<div id="footerContainer">
+<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
+<div id="nsf">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</div>
+</div>
+</body>
+</html>

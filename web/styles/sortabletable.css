@@ -1,0 +1,48 @@
+.sort-table {
+	font:		Icon;
+	border:		1px Solid #B4D579;
+	color:		#333;
+}
+
+.sort-table thead {
+	background:#EEF7DD;
+	font-weight:bold;
+}
+
+.sort-table td {
+	padding:	2px 5px;
+}
+
+.sort-table thead td {
+	border:			1px solid;
+	border-top: 0px;
+	border-left:0px;
+	border-color:	#B4D579;
+}
+
+.sort-table thead td:active {
+	border-color:	#BDD7E7;
+	padding:		3px 4px 1px 6px;
+}
+
+.sort-table thead td[_sortType=None]:active {
+	border-color:	#BDD7E7;
+	padding:		2px 5px;
+}
+
+.sort-arrow {
+	width:					11px;
+	height:					11px;
+	background-position:	center center;
+	background-repeat:		no-repeat;
+	margin:					0 2px;
+}
+
+.sort-arrow.descending {
+	background-image:		url("../images/downsimple.png");
+
+}
+
+.sort-arrow.ascending {
+	background-image:		url("../images/upsimple.png");
+}

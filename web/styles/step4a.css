@@ -1,0 +1,82 @@
+/* ################################ step 4a ############################ */
+
+#obj-left
+{
+width:52%;
+margin:.5em .5em .5em 0em;
+}
+
+#obj-right
+{
+width:45%;
+margin:.5em 0em .5em .5em;
+}
+
+.odd {background: #D6E7EF;}
+.even {background: #ffffff;}
+
+.factorOdd{background:#EEF7DD;}
+.factorEven{background:#ffffff;}
+
+.listRow
+{
+padding:.3em 0em;
+}
+
+#allListHeader
+{
+text-align:left;
+}
+
+.col1
+{
+width:100px;
+margin-right:.5em;
+padding-left:2em;
+font-size:1.1em;
+}
+
+.col2
+{
+width:100px;
+text-align:center;
+}
+
+.col3
+{
+width:100px;
+text-align:center;
+}
+
+.col4
+{
+width:125px;
+text-align:center; 
+}
+
+h4
+{
+font-size:1em;
+margin:0em auto;
+}
+
+.highlight 
+{
+background:#FFF1DC;
+}
+
+#avgGradesTable
+{
+
+}
+
+#avgGradesTable th
+{
+font-size:.8em;
+background:#E8F7CC;
+}
+
+#avgGradesTable td 
+{
+text-align:center;
+}

@@ -1,0 +1,277 @@
+<html><head>
+	<title>graphs test</title>
+
+<script src="javascripts/prototype.js" type="text/javascript"></script>
+<script src="javascripts/scriptaculous.js" type="text/javascript"></script>
+
+<style type="text/css">
+
+#whole_graph_container
+{
+	width:100%;
+	height:40%;
+}
+
+#whole_graph_container h3 {
+	font-family:arial;
+	margin-bottom:-.7em;
+	margin-top:0px;
+	font-size:.8em;
+}
+
+#whole_graph_container p 
+{
+	font-size:.75em;
+}
+
+.cell
+{
+	position:relative;
+	height:100%;
+	width:8%;
+	float:left;
+	border-bottom:2px solid #9BBBC8;
+}
+
+.cell div
+{
+	width:35%;
+	position:absolute;
+	bottom:0px;
+}
+
+.odd {background:#E4ECEF;}
+.even {background:#fff}
+#yaxis {border-bottom:0px;width:10%}
+
+#yaxis .label
+{
+	position:absolute;
+	right:3px;
+	font-size:.8em;
+	color:#666;
+}
+
+.label
+{
+	width:8%;
+	float:left;
+	text-align:center;
+	font-family:"arial narrow",arial;
+	margin-top:0px;
+}
+
+.left_column {position:absolute;left:.5em;}
+.right_column {position:absolute;right:.5em}
+
+.blue {background:#ADCFDE;}
+.green {background:#B4D579;position:absolute;right:.5em;}
+
+#yaxislabel {text-align:right;width:10%;}
+
+#legend
+{
+	background:#fff;
+	border-bottom:0px;
+	padding:0px 4px;
+	width:30%;
+}
+
+table#legend_container
+{
+	border:0px;
+	padding:.5em;
+}
+
+.verticaltext{
+font: bold 13px Arial;
+position: absolute;
+right: 3px;
+top: 20px;
+width: 15px;
+writing-mode: tb-rl;
+}
+
+</style>
+
+	<script type="text/javascript">
+	
+		function getElementsByClassName(oElm, strTagName, strClassName){
+			var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+			var arrReturnElements = new Array();
+			strClassName = strClassName.replace(/\-/g, "\\-");
+			var oRegExp = new RegExp("(^|\\s)" + strClassName + "(\\s|$)");
+			var oElement;
+			for(var i=0; i<arrElements.length; i++){
+				oElement = arrElements[i];      
+				if(oRegExp.test(oElement.className)){
+					arrReturnElements.push(oElement);
+				}   
+			}
+			return (arrReturnElements)
+		}
+		
+		
+		function adjustGraph()
+		{
+			var a = getElementsByClassName(document, "*", "left_column");
+			var b = getElementsByClassName(document, "*", "right_column");
+			var leftColumnLength = a.length;
+			var rightColumnLength = b.length;
+			left_columnHeights = new Array(10,20,30,40,50,60,70);
+			right_columnHeights = new Array(70,60,50,40,30,20,10);
+			for (var i = 0; i < leftColumnLength; i++) 
+			{
+				a[i].style.height = left_columnHeights[i] + "%";
+				b[i].style.height = right_columnHeights[i] + "%";
+			}
+		}
+	</script>
+
+</head>
+<body>
+
+<form name="graphForm">
+<input type="button" name="btnAdjustGraph" value="Adjust Graph" onClick="adjustGraph();">
+
+</form>
+
+<script type="text/javascript">
+
+/***********************************************
+* Vertical Text script- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+
+//Enter desired vertical text:
+var myverticaltext='<div class="verticaltext">This page copyright © 1998-2004 <a href="http://www.dynamicdrive.com">Dynamic Drive.</a></div>'
+
+var bodycache=document.body
+if (bodycache && bodycache.currentStyle && bodycache.currentStyle.writingMode)
+document.write(myverticaltext)
+
+</script>
+
+<div id="whole_graph_container">
+		<div class="cell_container">
+			<div class="cell side" id="yaxis">
+				<div class="label" style="bottom:75%;">75%</div>
+				<div class="label" style="bottom:50%;">50%</div>
+				<div class="label" style="bottom:25%;">25%</div>
+				<div class="label" style="bottom:0%;">0%</div>
+			</div>
+			
+			<div class="cell odd" id="cell1">
+				<div class="left_column blue" style="height:55%" id="cell1_a"></div>
+				<div class="right_column green" style="height:50%" id="cell1_b"></div>
+			</div>
+		
+			<div class="cell even" id="cell2">
+				<div class="left_column blue" style="height:75%" name="a"></div>
+				<div class="right_column green" style="height:25%"></div>
+			</div>
+			
+			<div class="cell odd" id="cell3">
+				<div class="left_column blue" style="height:15%"></div>
+				<div class="right_column green" style="height:85%"></div>
+			</div>
+		
+			<div class="cell even" id="cell4">
+				<div class="left_column blue" style="height:35%"></div>
+				<div class="right_column green" style="height:30%"></div>
+			</div>
+			
+			<div class="cell odd" id="cell5">
+				<div class="left_column blue" style="height:5%"></div>
+				<div class="right_column green" style="height:70%"></div>
+			</div>
+			
+			<div class="cell even" id="cell6">
+				<div class="left_column blue" style="height:30%"></div>
+				<div class="right_column green" style="height:99%"></div>
+			</div>
+			
+			<div class="cell odd" id="cell7">
+				<div class="left_column blue" style="height:48%"></div>
+				<div class="right_column green" style="height:52%"></div>
+			</div>
+			
+			<div class="cell" id="legend">
+				<h3>Now Viewing:<br>Overall Weighted Score</h3>
+				<p>Select another criterion for package score comparison</p>
+				<form id="form1" name="form1" method="post" action="">
+				  <select name="Select a Project" id="Select a Project">
+					<option>Select a Criterion</option>
+					<option>Project 1</option>
+					<option>Project 2</option>
+					<option>Project3</option>
+					<option>Etc...</option>
+				  </select>
+			  </form>
+				<table id="legend_container">
+					<tr>
+						<td><div class="blue" style="position:static;height:1em;width:1.5em;border:1px solid #000;"></div></td>
+						<td><p>Overall weighted score based on <strong>all participants</strong> criteria weights</p></td>
+					</tr>
+					<tr>
+						<td><div class="green" style="position:static;height:1em;width:1.5em;border:1px solid #000;"></div></td>
+						<td><p>Overall weighted score based on <strong>your</strong> criteria weights</p></td>
+					</tr>
+				</table>
+			</div>
+		</div id="cell_container">
+		
+		<div id="caption_box" style="clear:both">
+			<div class="label even" id="yaxislabel">
+				<h3>Package</h3>
+				<p style="margin-right:3px;">Total cost<br>
+				   Cost to you<br>
+				   Cost to avg. resident<br></p>
+			</div>
+			<div class="label odd" id="label1">
+				<h3><a href="http://">A</a></h3>
+				<p>6.3 billion<br>
+				   $120/year<br>
+				   $100/year<br></p>
+			</div>
+			<div class="label even" id="label2">
+				<h3><a href="http://">B</a></h3>
+				<p>6.3 billion<br>
+				   $120/year<br>
+				   $100/year<br></p>
+			</div>
+			<div class="label odd" id="label3">
+				<h3><a href="http://">C</a></h3>
+				<p>6.3 billion<br>
+				   $120/year<br>
+				   $100/year<br></p>
+			</div>
+			<div class="label even" id="label4">
+				<h3><a href="http://">D</a></h3>
+				<p>6.3 billion<br>
+				   $120/year<br>
+				   $100/year<br></p>
+			</div>
+			<div class="label odd" id="label5">
+				<h3><a href="http://">E</a></h3>
+				<p>6.3 billion<br>
+				   $120/year<br>
+				   $100/year<br></p>
+			</div>
+			<div class="label even" id="label6">
+				<h3><a href="http://">F</a></h3>
+				<p>6.3 billion<br>
+				   $120/year<br>
+				   $100/year<br></p>
+			</div>
+			<div class="label odd" id="label7">
+				<h3><a href="http://">G</a></h3>
+				<p>6.3 billion<br>
+				   $120/year<br>
+				   $100/year<br></p>
+			</div>
+		</div id="caption_container">
+	</div id="bar_and_legend_container">
+</div id="whole_graph_container">
+</body></html>

@@ -1,0 +1,14 @@
+/* Applies to Step 3a: Review Projects */
+
+#container {margin-bottom:2em;}
+
+#newTable table {width:100%}
+#newTable .fundingSourceItem{width:50%;}
+#newTable .col2{width:50%;font-size:.8em;text-align:right}
+
+#rp3a-left {width:520px;}
+#map {width:420px;}
+
+.objectives table {width:100%;text-align:left;}
+.objectives table td.col1{width:80%}
+.objectives table td.cost{width:20%;text-align:left;}

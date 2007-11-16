@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<title>JavaScript Bs_Slider HOWTO example</title>
+
+<!--Change source to refer to FactorSlider folder-->
+<script type="text/javascript" src="/scripts/FactorSlider/lib/LibCrossBrowser.js"></script>
+<script type="text/javascript" src="/scripts/FactorSlider/lib/EventHandler.js"></script>
+<script type="text/javascript" src="/scripts/FactorSlider/core/form/Bs_FormUtil.lib.js"></script>
+<script type="text/javascript" src="/scripts/FactorSlider/Bs_Slider.class.js"></script>
+
+<script><!--
+
+var sliderArray = new Array();
+var sliderCount=0;
+var availableVals=100;
+function init(){
+
+  sliderCount++;
+  addSlider();
+  addSlider();
+  addSlider();
+   addSlider();
+  addSlider();
+  addSlider();
+   addSlider();
+  addSlider();
+  addSlider();
+   addSlider();
+  addSlider();
+  addSlider();
+  addSlider();
+  removeSlider('sliderDiv1');
+  
+}
+
+function removeSlider(sliderid){
+  document.getElementById(sliderid).style.display='none';
+  for(rs=0;rs<sliderArray.length;rs++){
+    if(sliderArray[rs].objectName==sliderid){
+      availableVals+=sliderArray[rs]._valueInternal;
+       sliderArray.splice(rs,1);
+       break;
+    }
+  
+  }
+  refreshAvailablePoints();
+}
+
+
+
+function refreshAvailablePoints(){
+
+   document.f.t.value=availableVals;
+
+}
+
+
+
+
+//add objectName parameter??
+function addSlider(location){
+a = new Bs_Slider();
+sliderCount++;
+a.attachOnChange(calcMaxSliderValOnChange);
+a.width=400;
+a.height=26;
+a.minVal=0;
+a.maxVal=100;
+a.valueInterval=5;
+a.arrowAmount=5;
+a.valueDefault=0;
+
+//Change this to point to the proper folder containing the images
+a.imgDir='/scripts/FactorSlider/img/';
+
+
+//Change the following to the proper images
+a.setBackgroundImage('random/backgrounds/bg3.h.gif', 'no-repeat'); 
+	a.setSliderIcon('bob/horizontal_knob.gif', 15, 19);
+	a.setArrowIconLeft('img/arrowLeft.gif', 16, 16);
+	a.setArrowIconRight('img/arrowRight.gif', 16, 16);
+	
+	
+	a.useInputField = 2;
+	a.styleValueFieldClass = 'sliderInput';
+	a.colorbar = new Object();
+	a.colorbar['color']           = 'blue';
+	a.colorbar['height']          = 5;
+	a.colorbar['widthDifference'] = -12;
+	a.colorbar['offsetLeft']      = 5;
+	a.colorbar['offsetTop']       = 9;
+	
+	
+	if(location==""||location==undefined){
+	//alert("empty location");
+	}
+	
+	
+	a.objectName='sliderDiv'+sliderCount;
+	
+	
+	removelink=document.createElement('a');
+	removelink.setAttribute('onclick',"javascript: removeSlider('sliderDiv"+sliderCount+"'); return false;");
+	removelink.innerHTML="Remove Slider";
+	removelink.setAttribute('href','');
+	document.getElementById("sliderCollection").appendChild(removelink);
+	
+	
+	d=document.createElement('div');
+	d.setAttribute('id','sliderDiv'+sliderCount);
+
+	document.getElementById("sliderCollection").appendChild(d);
+	
+	
+	br=document.createElement('br');
+	document.getElementById("sliderCollection").appendChild(br);
+	br=document.createElement('br');
+	document.getElementById("sliderCollection").appendChild(br);
+	
+	a.draw('sliderDiv'+sliderCount);
+	sliderArray.push(a);
+	//calcMaxSliderVal(sliderArray);
+}
+
+function calcMaxSliderVal(arr){
+   count=0;
+
+ //if(arr.length%3==0){
+   for(a=1;a<(arr.length);a++){
+    count+=Math.floor(100/arr.length);
+    arr[a].maxVal=Math.floor((100/arr.length));
+   }
+   arr[0].maxVal=(100-count);
+ //}
+
+}
+
+/*
+calculate availableVals for all, if <=100, ok
+else calc all except current and assign availableVal
+
+*/
+function calcMaxSliderValOnChange(sliderObj, val, newPos){
+count=0;
+  for(a=0;a<sliderArray.length;a++){
+
+
+  
+   
+      count+=sliderArray[a]._valueInternal;
+     
+    
+  }
+  availableVals=100-count;
+ if(count>100){
+   ct=0;
+   for(b=0;b<sliderArray.length;b++){
+     if(sliderArray[b]!=sliderObj){
+       ct+=sliderArray[b]._valueInternal;
+     }
+   }
+   sliderObj._valueInternal=100-ct;
+     sliderObj.setValue(100-ct);
+   pos=sliderObj._getPositionByValue(100-ct);
+   sliderObj.updateHandle(pos);
+   sliderObj.updateValueText(100-ct);
+   sliderObj._updateColorbar(pos);
+   sliderObj.updateValueField(100-ct);
+availableVals=100-(ct + (100-ct));
+ }
+  // availableVals=100-count;
+   
+   
+  // for(a=0;a<sliderArray.length;a++){
+  //  sliderArray[a].maxVal=(sliderArray[a]._valueInternal+availableVals);
+  // }
+refreshAvailablePoints();
+}
+
+function calcMinSliderVal(){
+
+}
+
+
+
+
+function drawSliders() {
+	mySlider = new Bs_Slider();
+	sliderCount++;
+	mySlider.objectName = 'mySlider';
+	mySlider.attachOnChange(bsSliderChange);
+	mySlider.width         = 121;
+	mySlider.height        = 26;
+	mySlider.minVal        = 0;
+	mySlider.maxVal        = 100;
+	mySlider.valueInterval = 1;
+	mySlider.arrowAmount   = 1;
+	mySlider.valueDefault  = 50;
+  mySlider.imgDir   = '../img/';
+	mySlider.setBackgroundImage('bob/background.gif', 'no-repeat');
+	mySlider.setSliderIcon('bob/horizontal_knob.gif', 15, 19);
+	mySlider.setArrowIconLeft('img/arrowLeft.gif', 16, 16);
+	mySlider.setArrowIconRight('img/arrowRight.gif', 16, 16);
+	mySlider.useInputField = 2;
+	mySlider.styleValueFieldClass = 'sliderInput';
+	mySlider.colorbar = new Object();
+	mySlider.colorbar['color']           = 'blue';
+	mySlider.colorbar['height']          = 5;
+	mySlider.colorbar['widthDifference'] = -12;
+	mySlider.colorbar['offsetLeft']      = 5;
+	mySlider.colorbar['offsetTop']       = 9;
+	mySlider.draw('sliderDiv1');
+	sliderArray.push(mySlider);
+	
+}
+
+/**
+* @param object sliderObj
+* @param int val (the value)
+*/
+function bsSliderChange(sliderObj, val, newPos) { 
+  document.f.t.value = val;
+}
+// --></script>
+
+</head>
+<body bgColor="white" text="#3366aa" link="#0000ee" alink="#ff0000" vlink="#551a8b" onLoad="init();">
+
+<h1>Bs_Slider HOWTO Example</h1>
+<div id="sliderCollection">
+<div id='sliderDiv1'></div><br><br>
+</div>
+<form name="f">
+Points to distribute: <input type="text" name="t" size="6" style="background:yellow;">
+</form>
+<a href="" onclick="javascript:removeSlider('sliderDiv10'); return false;">Remove Slider</a>
+
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+
+  <display-name>CVO Test Application</display-name>
+
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+      /WEB-INF/config/dataAccessContext-local.xml
+      /WEB-INF/config/applicationContext.xml
+      /WEB-INF/config/action-servlet.xml
+		</param-value>
+	</context-param>
+
+  <context-param>
+      <param-name>org.pgist.CONFIG_DIR</param-name>
+      <param-value>/WEB-INF/config</param-value>
+  </context-param>
+  
+  
+  <filter>
+    	<filter-name>OpenSessionInViewFilter</filter-name>
+      <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+  
+  
+  <filter>
+    <filter-name>pgist filter</filter-name>
+    <filter-class>org.pgist.filters.PgistFilter</filter-class>
+    <init-param>
+      <param-name>force-close-connection</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>login-url</param-name>
+      <param-value>/index.jsp</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ignore-url</param-name>
+      <param-value>/login.do</param-value>
+    </init-param>
+  </filter>
+
+
+  <filter-mapping>
+      <filter-name>OpenSessionInViewFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+      <filter-name>pgist filter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+
+  <servlet>
+    <servlet-name>SystemInitServlet</servlet-name>
+    <servlet-class>org.pgist.servlets.SystemInitServlet</servlet-class>
+    <init-param>
+       <param-name>org.pgist.CONFIG_PATH</param-name>
+       <param-value>/WEB-INF/config</param-value>
+    </init-param>
+    <init-param>
+       <param-name>org.pgist.EMAIL_CONFIG</param-name>
+       <param-value>email-config.xml</param-value>
+    </init-param>
+    <init-param>
+       <param-name>org.pgist.MANAGED_FILE_PATH</param-name>
+       <param-value>/tmp/upload_files</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/config/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+
+  <servlet>
+    <servlet-name>dwr-invoker</servlet-name>
+    <display-name>DWR Servlet</display-name>
+    <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>WEB-INF/config/dwr.xml</param-value>
+    </init-param>
+    <init-param>
+       <param-name>debug</param-name>
+       <param-value>true</param-value>
+    </init-param>
+  </servlet>
+  
+  
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>dwr-invoker</servlet-name>
+    <url-pattern>/dwr/*</url-pattern>
+  </servlet-mapping>
+
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+
+  <error-page>
+		<error-code>400</error-code>
+		<location>/PathNotFound.jsf</location>
+  </error-page>
+
+  <error-page>
+		<error-code>404</error-code>
+		<location>/PageNotFound.jsf</location>
+  </error-page>
+
+
+</web-app>
+

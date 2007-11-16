@@ -1,0 +1,26 @@
+/*
+ * Bean Shell Script.
+ * Testing script for matrix execution.
+ */
+
+import org.pgist.packages.knapsack.*;
+
+//constants to define the input
+evolutionTimes = 100;
+populationSize = 100;
+numberOfProjects = 10;
+numberOfAltsPerProject = 5; //Note: there will be one single selection per numberOfAltsPerProject projects
+limit = 250;
+
+Random random = new Random();
+
+KSChoices[] choices = new KSChoices[numberOfProjects];
+for (int i=0; i<choices.length; i++) {
+    choices[i] = new KSChoices(i%numberOfAltsPerProject==0);
+    for (int j=0; j<numberOfAltsPerProject; j++) {
+        new TempItem(choices[i], random.nextInt(100), random.nextInt(100));
+    }
+}
+
+GAKnapsackEngine.mcknap(choices, limit, evolutionTimes, populationSize);
+
