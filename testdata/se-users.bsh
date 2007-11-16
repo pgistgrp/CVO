@@ -19,9 +19,9 @@ for (user : users) {
     //print(user.loginname);
     if (user.enabled && !user.deleted) {
         print(user.loginname);
-        contents = "<p>" + user.firstname + " " + user.lastname + "(" + user.loginname + ") is a "
+        contents = "<p>" + user.loginname + " is a "
             + user.vocation + " from " + user.city + ".<p>"
-            + "<p>Reason why " + user.firstname + " is here: "
+            + "<p>Reason why " + user.loginname + " is here: "
             + user.profileDesc + "</p>";
             
         doc = new Document();
