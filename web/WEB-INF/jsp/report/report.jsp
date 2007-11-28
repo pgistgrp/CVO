@@ -105,6 +105,7 @@ function pollresults() {
 								This final report will be made public on ${finalReportDate}<br/>
 							</div>
 						  <div class="right">
+                <pg:show roles="none">
                 <pg:hide users="guest">
                   <p>Do you wish to endorse the Let's Improve Transportation Final Report?</p>
                   <form action="" method="get">
@@ -112,6 +113,7 @@ function pollresults() {
                   <input name="no" id="no" type="button" value="no" onClick="javascript:vote('no');" />
                   </form>
                 </pg:hide>
+                </pg:show>
 						  </div>
 						</div>
 						<!--hidden poll results -->
@@ -512,7 +514,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<span class="packageNum" style="background:#ADCFDE">${pp.description} (The Preferred Package)</span>
 				<span class="totalCost">Total cost: $<fmt:formatNumber type="number" maxFractionDigits="1" value="${pp.totalCost/1000000000}" /> 
 				billion</span>
-				<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
+				<span class="yearlyCostToAvg">Estimated cost to an average household: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
 			</h3>
 			
 		  <div class="obj-left floatLeft clearBoth">
@@ -681,7 +683,7 @@ After a period of discussion about the relevance of the improvement factors to t
 					<span class="totalCost">Total cost:
 							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000000}</fmt:formatNumber> billion
 					</span>
-					<span class="yearlyCostToAvg">Yearly cost to the average resident: <fmt:formatNumber type="currency">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
+					<span class="yearlyCostToAvg">Estimated cost to an average household: <fmt:formatNumber type="currency">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
 				</h3>
 				<div class="obj-left floatLeft clearBoth">
 					<!--Begin project list -->
