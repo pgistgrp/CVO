@@ -514,7 +514,7 @@ After a period of discussion about the relevance of the improvement factors to t
 				<span class="packageNum" style="background:#ADCFDE">${pp.description} (The Preferred Package)</span>
 				<span class="totalCost">Total cost: $<fmt:formatNumber type="number" maxFractionDigits="1" value="${pp.totalCost/1000000000}" /> 
 				billion</span>
-				<span class="yearlyCostToAvg">Estimated cost to an average household: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
+				<span class="yearlyCostToAvg">Households are willing to pay maximum of: <fmt:formatNumber type="currency">${pp.avgResidentCost}</fmt:formatNumber>/year</span>
 			</h3>
 			
 		  <div class="obj-left floatLeft clearBoth">
@@ -683,7 +683,7 @@ After a period of discussion about the relevance of the improvement factors to t
 					<span class="totalCost">Total cost:
 							$<fmt:formatNumber type="number" maxFractionDigits="1">${cPkg.totalCost/1000000000}</fmt:formatNumber> billion
 					</span>
-					<span class="yearlyCostToAvg">Estimated cost to an average household: <fmt:formatNumber type="currency">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
+					<span class="yearlyCostToAvg">Households are willing to pay maximum of: <fmt:formatNumber type="currency">${cPkg.avgResidentCost}</fmt:formatNumber> per year</span>
 				</h3>
 				<div class="obj-left floatLeft clearBoth">
 					<!--Begin project list -->
