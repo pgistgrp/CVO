@@ -26,16 +26,16 @@
     </path>
 
 
-    <taskdef name="SearchEngineRunner" classname="org.pgist.tests.SearchEngineRunner" classpathref="classpath">
-    </taskdef>
+    <taskdef name="SearchEngineRunner" classname="org.pgist.tests.SearchEngineRunner" classpathref="classpath" />
     
     
     <target name="users">
-        <SearchEngineRunner
-            indexPath="${webapp}/WEB-INF/lucene"
-            script="testdata/se-users.bsh"
-            configPath="${temp}/WEB-INF/config"
-        >
+        <SearchEngineRunner>
+            <config>
+                <indexPath value="${webapp}/WEB-INF/lucene" />
+                <script value="testdata/se-users.bsh" />
+                <configPath value="${temp}/WEB-INF/config" />
+            </config>
         </SearchEngineRunner>
     </target>
     
