@@ -129,11 +129,11 @@
             <forward name="list" path="/WEB-INF/jsp/tagging/taggingMain.jsp" />
         </action>
 
-        <action name="cctForm" path="/cstview" scope="request" type="org.pgist.sarp.cst.CSTViewAction">
+        <action path="/cstview" scope="request" type="org.pgist.sarp.cst.CSTViewAction">
             <forward name="view" path="/WEB-INF/jsp/sarp/cst/cst.jsp" />
         </action>
 
-        <action name="cctForm" path="/catsTree" scope="request" type="org.pgist.sarp.cst.CatsTreeAction">
+        <action path="/catsTree" scope="request" type="org.pgist.sarp.cst.CatsTreeAction">
             <forward name="view" path="/WEB-INF/jsp/sarp/cst/cstCategories.jsp" />
         </action>
 

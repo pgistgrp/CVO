@@ -16,7 +16,7 @@ public class DBMetaData {
     public static final String SEQ_FOOTPRINT_ID = "gis_proj_footprint_id";
     
     
-    public static final String TABLE_CAT_TAG_IN_CST = "pgist_cst_cat_tag_link";
+    public static final String TABLE_CAT_TAG_IN_CST = "sarp_cst_cat_tag_link";
     
     
     public static final String VIEW_CONCERN_TAG_IN_CCT = "view_cct_concern_tags";

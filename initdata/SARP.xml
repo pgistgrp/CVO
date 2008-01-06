@@ -2,6 +2,8 @@
 <templates>
 
 
+    <!-- PGames -->
+    
     <pgames>
     
         <pgame name="pgame-sarp.create.bct" title="Create a BCT instance." auto="true">
@@ -47,6 +49,7 @@
         
     </pgames>
     
+    <!-- PMethods -->
     
     <pmethods>
     
@@ -103,6 +106,7 @@
         
     </pmethods>
     
+    <!-- PMeetings -->
     
     <meetings>
     
@@ -140,8 +144,26 @@
             </sequence>
         </meeting>
         
+        <meeting name="meeting-sarp.cst" description="Step 2: Concern Synthesis Tool">
+            <declaration>
+                <ins>
+                    <var name="meeting.bct_id"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.cst">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                        </ins>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
     </meetings>
     
+    <!-- Situations -->
     
     <situations>
     
@@ -155,6 +177,13 @@
                     </declaration>
                 </meeting>
                 <meeting name="meeting-sarp.bct">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.bct_id" ref="situation.bct_id"/>
+                        </ins>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.cst">
                     <declaration>
                         <ins>
                             <var name="meeting.bct_id" ref="situation.bct_id"/>

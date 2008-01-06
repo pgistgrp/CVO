@@ -561,7 +561,7 @@ public class CSTServiceImpl implements CSTService {
             }
         }
         
-        cstDAO.save(theme);
+        //cstDAO.save(theme);
     }//saveSummary()
     
     

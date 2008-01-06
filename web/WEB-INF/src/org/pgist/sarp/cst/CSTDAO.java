@@ -26,17 +26,17 @@ public interface CSTDAO extends BaseDAO {
 
     Category getCategoryByName(String name) throws Exception;
     
-    CategoryReference getCategoryReferenceByName(Long cctId, String name) throws Exception;
+    CategoryReference getCategoryReferenceByName(Long bctId, String name) throws Exception;
 
-    Collection getConcernsByTag(Long cctId, Long tagRefId, PageSetting setting) throws Exception;
+    Collection getConcernsByTag(Long bctId, Long tagRefId, PageSetting setting) throws Exception;
     
-    Collection getConcernsByTags(Long cctId, int[] tagIds, PageSetting setting) throws Exception;
+    Collection getConcernsByTags(Long bctId, int[] tagIds, PageSetting setting) throws Exception;
 
-    Collection getRealtedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
+    Collection getRealtedTags(Long bctId, Long categoryId, PageSetting setting) throws Exception;
 
-    Collection getUnrelatedTags(Long cctId, Long categoryId, PageSetting setting) throws Exception;
+    Collection getUnrelatedTags(Long bctId, Long categoryId, PageSetting setting) throws Exception;
 
-    Collection getOrphanTags(Long cctId, PageSetting setting) throws Exception;
+    Collection getOrphanTags(Long bctId, PageSetting setting) throws Exception;
 
     Theme getThemeById(Long themeId) throws Exception;
 

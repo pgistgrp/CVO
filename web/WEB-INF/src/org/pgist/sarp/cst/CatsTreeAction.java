@@ -39,7 +39,7 @@ public class CatsTreeAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        BCT bct = bctService.getBCTById(new Long(request.getParameter("cctId")));
+        BCT bct = bctService.getBCTById(new Long(request.getParameter("bctId")));
         
         request.setAttribute("root", bct.getRootCategory());
         
