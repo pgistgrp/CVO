@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+
+    <pgames>
+    
+        <pgame name="pgame-sarp.create.bct" title="Create a BCT instance." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of BCT</small>]]>
+            </description>
+            <taskName>task-sarp.create.bct</taskName>
+            <declaration>
+                <outs>
+                    <var name="bct_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="BCT" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.bct" title="Brainstorm concerns" auto="false" access="all">
+            <description>
+              <![CDATA[<small>Brainstorm transportation concerns with other participants.</small>]]>
+            </description>
+            <actionName>action-sarp.bct</actionName>
+            <declaration>
+                <ins>
+                    <var name="bctId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cst" title="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
+            </description>
+            <actionName>action-sarp.cst</actionName>
+            <declaration>
+                <ins>
+                    <var name="bctId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+    </pgames>
+    
+    
+    <pmethods>
+    
+        <pmethod name="pmethod-init.situation" access="moderator">
+            <declaration>
+                <outs>
+                    <var name="pmethod.bct_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.bct">
+                    <declaration>
+                        <outs>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.bct" description="Step 1: Brainstorm Concerns Tool">
+            <declaration>
+                <ins>
+                    <var name="pmethod.bct_id"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.bct">
+                    <declaration>
+                        <ins>
+                            <var name="bctId" ref="pmethod.bct_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.cst" description="Step 2: Concern Synthesis Tool">
+            <declaration>
+                <ins>
+                    <var name="pmethod.bct_id"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.cst">
+                    <declaration>
+                        <ins>
+                            <var name="bctId" ref="pmethod.bct_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+        
+    </pmethods>
+    
+    
+    <meetings>
+    
+        <meeting name="meeting-init.situation" access="moderator" description="Initialize Decision Situation">
+            <declaration>
+                <outs>
+                    <var name="meeting.bct_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-init.situation">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-sarp.bct" description="Step 1: Brainstorm Concerns Tool">
+            <declaration>
+                <ins>
+                    <var name="meeting.bct_id"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.bct">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                        </ins>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+    </meetings>
+    
+    
+    <situations>
+    
+        <situation name="SARP" description="SARP">
+            <sequence>
+                <meeting name="meeting-init.situation">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.bct_id" ref="situation.bct_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.bct">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.bct_id" ref="situation.bct_id"/>
+                        </ins>
+                    </declaration>
+                </meeting>
+            </sequence>
+        </situation>
+        
+    </situations>
+    
+    
+</templates>
+

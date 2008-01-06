@@ -97,7 +97,6 @@
 
     <bean id="registerAgent" class="org.pgist.system.RegisterAgent">
         <property name="registerService" ref="registerService"/>
-        <property name="fundingService" ref="fundingService"/>
         <property name="emailSender" ref="emailSender"/>
     </bean>
 

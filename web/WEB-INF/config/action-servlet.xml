@@ -79,7 +79,6 @@
     
     <bean name="/search" class="org.pgist.search.SearchAction">
         <property name="searchHelper" ref="searchHelper"/>
-        <property name="importService" ref="importService"/>
     </bean>
     
     
@@ -110,22 +109,6 @@
     
     <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action" />
     
-    <bean name="/travelPath" class="org.pgist.cvo.TravelPathAction" />
-       
-    <bean name="/report" class="org.pgist.report.ReportAction">
-    	<property name="cctService" ref="cctService"/>
-    	<property name="cstService" ref="cstService"/>
-        <property name="criteriaService" ref="criteriaService"/>
-        <property name="packageService" ref="packageService"/>
-        <property name="reportService" ref="reportService"/>
-	<property name="systemService" ref="systemService"/>
-	<property name="projectService" ref="projectService"/>
-    </bean>
-    
-    <bean name="/reportsummary" class="org.pgist.report.ReportSummaryAction">
-    	<property name="reportService" ref="reportService"/>
-    </bean>
-    
     
     <bean name="/publicprofile" class="org.pgist.system.UserProfileAction">
         <property name="systemService" ref="systemService"/>
@@ -143,18 +126,13 @@
     </bean>
     
     
-    <bean name="/templateSelect" class="org.pgist.other.TemplateImportingAction">
-        <property name="importService" ref="importService"/>
+    <bean name="/bctview" class="org.pgist.sarp.bct.BCTViewAction">
+        <property name="bctService" ref="bctService"/>
     </bean>
     
     
-    <bean name="/cctview" class="org.pgist.cvo.CCTViewAction">
-        <property name="cctService" ref="cctService"/>
-    </bean>
-    
-    
-    <bean name="/concern" class="org.pgist.cvo.ConcernViewAction">
-        <property name="cctService" ref="cctService"/>
+    <bean name="/concern" class="org.pgist.sarp.bct.ConcernViewAction">
+        <property name="bctService" ref="bctService"/>
         <property name="systemService" ref="systemService"/>
     </bean>
     
@@ -164,104 +142,13 @@
     </bean>
     
     
-    <bean name="/cstview" class="org.pgist.cvo.CSTViewAction">
-        <property name="cctService" ref="cctService"/>
+    <bean name="/cstview" class="org.pgist.sarp.cst.CSTViewAction">
+        <property name="bctService" ref="bctService"/>
     </bean>
     
     
-    <bean name="/catsTree" class="org.pgist.cvo.CatsTreeAction">
-        <property name="cctService" ref="cctService"/>
-    </bean>
-    
-    
-    <bean name="/projectManage" class="org.pgist.projects.ProjectMgrAction">
-        <property name="projectService" ref="projectService"/>
-    </bean>
-    
-    
-    <bean name="/projectDefine" class="org.pgist.projects.ProjectDefAction">
-        <property name="projectService" ref="projectService"/>
-    </bean>
-
-    
-    <bean name="/projectGrading" class="org.pgist.projects.ProjectGradingAction">
-        <property name="projectService" ref="projectService"/>
-        <property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
-    <bean name="/projectAlt" class="org.pgist.projects.ProjectAltAction">
-        <property name="projectService" ref="projectService"/>
-	<property name="packageService" ref="packageService"/>
-	<property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
-    <bean name="/fundingManage" class="org.pgist.funding.FundingMgrAction">
-        <property name="fundingService" ref="fundingService"/>
-    </bean>
-    
-    
-    <bean name="/fundingDefine" class="org.pgist.funding.FundingDefAction">
-        <property name="fundingService" ref="fundingService"/>
-    </bean>
-    
-    
-    <bean name="/fundingCalc" class="org.pgist.funding.TaxCalculatorAction">
-        <property name="fundingService" ref="fundingService"/>
-    </bean>
-
-    
-    <bean name="/package" class="org.pgist.packages.PackageAction">
-        <property name="packageService" ref="packageService"/>
-        <property name="fundingService" ref="fundingService"/>
-        <property name="projectService" ref="projectService"/>
-    </bean> 
-
-    
-    <bean name="/packageVote" class="org.pgist.packages.PackageVoteAction">
-        <property name="packageService" ref="packageService"/>
-	<property name="systemService" ref="systemService"/>
-    </bean> 
-    
-    <bean name="/packagePoll" class="org.pgist.packages.PackagePollAction">
-        <property name="packageService" ref="packageService"/>
-	<property name="systemService" ref="systemService"/>
-    </bean> 
-    
-    <bean name="/createPackage" class="org.pgist.packages.CreatePackageAction">
-        <property name="packageService" ref="packageService"/>
-        <property name="fundingService" ref="fundingService"/>
-        <property name="projectService" ref="projectService"/>
-    </bean>    
-
-    
-    <bean name="/editClusteredPackage" class="org.pgist.packages.EditClusteredPackageAction">
-        <property name="packageService" ref="packageService"/>
-        <property name="fundingService" ref="fundingService"/>
-        <property name="projectService" ref="projectService"/>
-    </bean>    
-    
-    
-    <bean name="/tuner" class="org.pgist.packages.UserPackageCreatorTunerAction">
-        <property name="packageService" ref="packageService"/>
-        <property name="fundingService" ref="fundingService"/>
-        <property name="projectService" ref="projectService"/>
-    </bean>
-    
-    
-    <bean name="/criteriaMgr" class="org.pgist.criteria.CriteriaMgrAction">
-        <property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
-    <bean name="/criteriaWeigh" class="org.pgist.criteria.CriteriaWeighAction">
-        <property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
-    <bean name="/criteriaDefine" class="org.pgist.criteria.CriteriaDefinitionAction">
-        <property name="criteriaService" ref="criteriaService"/>
+    <bean name="/catsTree" class="org.pgist.sarp.cst.CatsTreeAction">
+        <property name="bctService" ref="bctService"/>
     </bean>
     
     
@@ -302,10 +189,6 @@
     
     <bean name="/glossaryView" class="org.pgist.glossary.GlossaryViewAction">
         <property name="glossaryService" ref="glossaryService"/>
-    </bean>
-    
-    
-    <bean name="/gaTesting" class="org.pgist.packages.knapsack.GATestingAction">
     </bean>
     
     

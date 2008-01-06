@@ -29,6 +29,9 @@ public class DBMetaData {
     
     
     public static final String VIEW_DPOST_TAG_IN_TARGET = "view_dpost_tag_link";
+
+
+    public static final String VIEW_CONCERN_TAG_IN_BCT = "view_bct_concern_tags";
     
     
 }//class DBMetaData

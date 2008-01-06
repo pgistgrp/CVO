@@ -3,148 +3,21 @@
 <beans>
 
 
-    <bean id="task-import.template" class="org.pgist.other.ImportTemplateTask">
-        <property name="importService" ref="importService"/>
-    </bean>
-    
-    
-    <bean id="task-create.experiment" class="org.pgist.other.CreateExperimentTask">
-        <property name="importService" ref="importService"/>
-    </bean>
-    
-    
-    <bean id="task-create.project.suite" class="org.pgist.projects.CreateProjectSuiteTask">
-        <property name="projectService" ref="projectService"/>
-    </bean>
-    
-    
-    <bean id="task-create.funding.suite" class="org.pgist.funding.CreateFundingSuiteTask">
-        <property name="fundingService" ref="fundingService"/>
-    </bean>
-    
-    
-    <bean id="task-create.packages.preferredpackage" class="org.pgist.packages.CreatePreferredPackageTask">
-        <property name="packageService" ref="packageService"/>
-    </bean>
-    
-    
-    <bean id="task-create.cct" class="org.pgist.cvo.CreateCCTTask">
-        <property name="cctService" ref="cctService"/>
-    </bean>
-    
-    
-    <bean id="task-index.project.suite" class="org.pgist.projects.IndexProjectsTask">
-        <property name="projectService" ref="projectService"/>
-    </bean>
-    
-    
-    <bean id="task-publish.theme" class="org.pgist.cvo.PublishThemeTask">
-        <property name="cstService" ref="cstService"/>
-    </bean>
-    
-    
-    <bean id="task-create.report.suite" class="org.pgist.report.CreateReportSuiteTask">
-        <property name="reportService" ref="reportService"/>
-    </bean>
-    
-    <bean id="task-create.report.stats" class="org.pgist.report.CreateReportStatisticsTask">
-        <property name="reportService" ref="reportService"/>
-    </bean>
-    
-    
-    <bean id="task-publish.report" class="org.pgist.report.PublishReportTask">
-         <property name="reportService" ref="reportService"/>
-    </bean>
-    
-    
-    <bean id="task-create.criteria.suite" class="org.pgist.criteria.CreateCriteriaSuiteTask">
-        <property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
-    <bean id="task-publish.criteria" class="org.pgist.criteria.PublishCriteriaTask">
-        <property name="criteriaService" ref="criteriaService"/>
-    </bean>
-    
-    
-    <bean id="task-publish.projects" class="org.pgist.projects.PublishProjectsTask">
-        <property name="projectService" ref="projectService"/>
-    </bean>
-    
-    
-    <bean id="task-publish.fundings" class="org.pgist.funding.PublishFundingsTask">
-        <property name="fundingService" ref="fundingService"/>
-    </bean>
-    
-    
-    <bean id="task-create.package.suite" class="org.pgist.packages.CreatePackageSuiteTask">
-        <property name="packageService" ref="packageService"/>
-    </bean>
-    
-    
-    <bean id="task-group.packages" class="org.pgist.packages.GroupPackagesTask">
-        <property name="packageService" ref="packageService"/>
-    </bean>
-    
-    
-    <bean id="task-publish.packages" class="org.pgist.packages.PublishPackagesTask">
-        <property name="packageService" ref="packageService"/>
-    </bean>
-    
-    
-    <bean id="task-create.vote.suite" class="org.pgist.packages.CreateVoteSuiteTask">
-        <property name="packageService" ref="packageService"/>
+    <bean id="task-sarp.create.bct" class="org.pgist.sarp.bct.CreateBCTTask">
+        <property name="bctService" ref="bctService"/>
     </bean>
     
     
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
-              <entry><key><value>task-import.template</value></key><ref bean="task-import.template" /></entry>
-              <entry><key><value>task-create.project.suite</value></key><ref bean="task-create.project.suite" /></entry>
-              <entry><key><value>task-create.funding.suite</value></key><ref bean="task-create.funding.suite" /></entry>
-              <entry><key><value>task-create.cct</value></key><ref bean="task-create.cct" /></entry>
-              <entry><key><value>task-index.project.suite</value></key><ref bean="task-index.project.suite" /></entry>
-              <entry><key><value>task-publish.theme</value></key><ref bean="task-publish.theme" /></entry>
-              <entry><key><value>task-create.criteria.suite</value></key><ref bean="task-create.criteria.suite" /></entry>
-              <entry><key><value>task-create.packages.preferredpackage</value></key><ref bean="task-create.packages.preferredpackage" /></entry>
-              <entry><key><value>task-create.report.suite</value></key><ref bean="task-create.report.suite" /></entry>
-              <entry><key><value>task-create.report.stats</value></key><ref bean="task-create.report.stats" /></entry>
-              <entry><key><value>task-create.experiment</value></key><ref bean="task-create.experiment" /></entry>
-              <entry><key><value>task-publish.report</value></key><ref bean="task-publish.report" /></entry>
-              <entry><key><value>task-publish.criteria</value></key><ref bean="task-publish.criteria" /></entry>
-              <entry><key><value>task-publish.projects</value></key><ref bean="task-publish.projects" /></entry>
-              <entry><key><value>task-publish.fundings</value></key><ref bean="task-publish.fundings" /></entry>
-              <entry><key><value>task-create.package.suite</value></key><ref bean="task-create.package.suite" /></entry>
-              <entry><key><value>task-publish.packages</value></key><ref bean="task-publish.packages" /></entry>
-              <entry><key><value>task-create.vote.suite</value></key><ref bean="task-create.vote.suite" /></entry>
+              <entry><key><value>task-sarp.create.bct</value></key><ref bean="task-sarp.create.bct" /></entry>
             </map>
         </property>
         <property name="actions">
             <map>
-              <entry><key><value>action-define.travelPath</value></key><value>/travelPath.do</value></entry>
-              <entry><key><value>action-select.template</value></key><value>/templateSelect.do</value></entry>
-              <entry><key><value>action-define.projects</value></key><value>/projectDefine.do</value></entry>
-              <entry><key><value>action-define.fundings</value></key><value>/fundingDefine.do</value></entry>
-              <entry><key><value>action-grade.projects</value></key><value>/projectGrading.do</value></entry>
-              <entry><key><value>action-cvo.cct</value></key><value>/cctview.do</value></entry>
-              <entry><key><value>action-cvo.cst</value></key><value>/cstview.do</value></entry>
-              <entry><key><value>action-manage.criteria</value></key><value>/criteriaMgr.do</value></entry>
-              <entry><key><value>action-define.criteria</value></key><value>/criteriaDefine.do</value></entry>
-              <entry><key><value>action-sd.concerns</value></key><value>/sd.do</value></entry>
-              <entry><key><value>action-sd.criteria</value></key><value>/sdRoom.do</value></entry>
-              <entry><key><value>action-sd.projects</value></key><value>/sdRoom.do</value></entry>
-              <entry><key><value>action-sd.fundings</value></key><value>/sdRoom.do</value></entry>
-              <entry><key><value>action-sd.packages</value></key><value>/sdRoom.do</value></entry>
-              <entry><key><value>action-sd.report</value></key><value>/sdRoom.do</value></entry>
-              <entry><key><value>action-define.report</value></key><value>/reportsummary.do</value></entry>
-              <entry><key><value>action-view.report</value></key><value>/report.do</value></entry>
-              <entry><key><value>action-weigh.criteria</value></key><value>/criteriaWeigh.do</value></entry>
-              <entry><key><value>action-create.user.package</value></key><value>/createPackage.do</value></entry>
-              <entry><key><value>action-planning.factor.reweigh</value></key><value>/?????.do</value></entry>
-              <entry><key><value>action-manage.packages</value></key><value>/packageMgr.do</value></entry>
-              <entry><key><value>action-vote.packages</value></key><value>/packageVote.do</value></entry>
-              <entry><key><value>action-vote.report</value></key><value>/packageVote.do</value></entry>
+              <entry><key><value>action-sarp.bct</value></key><value>/bctview.do</value></entry>
+              <entry><key><value>action-sarp.cst</value></key><value>/cstview.do</value></entry>
             </map>
         </property>
     </bean>

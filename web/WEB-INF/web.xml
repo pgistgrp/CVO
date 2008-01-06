@@ -12,14 +12,8 @@
             /WEB-INF/config/context-database.xml
             classpath:/config/context-workflow.xml
             /WEB-INF/config/context-system.xml
-            /WEB-INF/config/context-other.xml
             /WEB-INF/config/context-base.xml
-            /WEB-INF/config/context-cvo.xml
-            /WEB-INF/config/context-criteria.xml
-            /WEB-INF/config/context-funding.xml
-            /WEB-INF/config/context-projects.xml
-            /WEB-INF/config/context-packages.xml
-            /WEB-INF/config/context-report.xml
+            /WEB-INF/config/context-sarp.xml
             /WEB-INF/config/context-lm.xml
             /WEB-INF/config/context-tasks.xml
         </param-value>
@@ -86,7 +80,6 @@
                 /glossaryPublic.do,
                 /glossaryView.do,
                 /publicprofile.do,
-                /publicReport.do,
                 /lmAbout.do,
                 /lmAlt.do,
                 /lmGallery.do,
@@ -113,9 +106,6 @@
                 /dwr/call/plaincall/RegisterAgent.checkUsername.dwr,
                 /dwr/call/plaincall/RegisterAgent.checkEmail.dwr,
                 /dwr/call/plaincall/ProfileAgent.getUserDiscussion.dwr,
-                /dwr/call/plaincall/ProjectAgent.getFootprintsByAltId.dwr,
-                /dwr/call/plaincall/ProjectAgent.getGradesByAltRefId.dwr,
-                /dwr/call/plaincall/ProjectAgent.getFootprints.dwr,
                 /dwr/call/plaincall/PESAgent.saveAct.dwr
             </param-value>
         </init-param>
@@ -153,15 +143,6 @@
         <url-pattern>/catsTree.do</url-pattern>
         <url-pattern>/cstview.do</url-pattern>
         <url-pattern>/tagging.do</url-pattern>
-        <url-pattern>/projectManage.do</url-pattern>
-        <url-pattern>/projectDefine.do</url-pattern>
-        <url-pattern>/projectGrading.do</url-pattern>
-        <url-pattern>/fundingManage.do</url-pattern>
-        <url-pattern>/fundingDefine.do</url-pattern>
-        <url-pattern>/editClusteredPackage.do</url-pattern>
-        <url-pattern>/packageMgr.do</url-pattern>
-        <url-pattern>/criteriaMgr.do</url-pattern>
-        <url-pattern>/criteriaDefine.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
     </filter-mapping>
     
@@ -179,22 +160,13 @@
         <url-pattern>/cstview.do</url-pattern>
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/feedback.do</url-pattern>
-        <url-pattern>/projectManage.do</url-pattern>
-        <url-pattern>/projectDefine.do</url-pattern>
-        <url-pattern>/projectGrading.do</url-pattern>
-        <url-pattern>/fundingManage.do</url-pattern>
-        <url-pattern>/fundingDefine.do</url-pattern>
-        <url-pattern>/editClusteredPackage.do</url-pattern>
-        <url-pattern>/packageMgr.do</url-pattern>
-        <url-pattern>/criteriaMgr.do</url-pattern>
-        <url-pattern>/criteriaDefine.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
         <filter-name>CheckRoleFilter</filter-name>
-	<!-- Moderator tool (log data viewer) -->
-	<url-pattern>/dwr/call/plaincall/PESAgent.getLogs.dwr</url-pattern>
+        <!-- Moderator tool (log data viewer) -->
+        <url-pattern>/dwr/call/plaincall/PESAgent.getLogs.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/PESAgent.getUsers.dwr</url-pattern>
         <!-- Others -->
         <url-pattern>/gaTesting.do</url-pattern>
@@ -207,7 +179,7 @@
         <!-- Situation Templates -->
         <url-pattern>/templateSelect.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/OtherAgent.setSituationTemplate.dwr</url-pattern>
-        <!-- CVO/CST -->
+        <!-- BCT/CST -->
         <url-pattern>/catsTree.do</url-pattern>
         <url-pattern>/cstview.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/CSTAgent.addCategory.dwr</url-pattern>
@@ -225,38 +197,6 @@
         <url-pattern>/dwr/call/plaincall/TaggingAgent.createTag.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteStopWord.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteTag.dwr</url-pattern>
-        <!-- Project Management -->
-        <url-pattern>/projectManage.do</url-pattern>
-        <url-pattern>/projectDefine.do</url-pattern>
-        <url-pattern>/projectGrading.do</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.createProject.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.createProjectAlt.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.deleteFootprint.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.deleteProject.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.deleteProjectAlt.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.editProject.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.editProjectAlt.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.saveFootprint.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.setGrading.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.setProjectDefine.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/ProjectAgent.useFootprint.dwr</url-pattern>
-        <!-- Funding Management -->
-        <url-pattern>/fundingManage.do</url-pattern>
-        <url-pattern>/fundingDefine.do</url-pattern>
-        <url-pattern>/dwr/call/plaincall/FundingAgent.createFundingSource.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/FundingAgent.createFundingSourceAlt.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/FundingAgent.deleteFundingSource.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/FundingAgent.deleteFundingSourceAlt.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSource.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/FundingAgent.editFundingSourceAlt.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/FundingAgent.setFundingDef.dwr</url-pattern>
-        <!-- Pakcage Management -->
-        <url-pattern>/editClusteredPackage.do</url-pattern>
-        <url-pattern>/packageMgr.do</url-pattern>
-        <url-pattern>/dwr/call/plaincall/PackageAgent.createClusteredPackage.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/PackageAgent.createClusteredPackages.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/PackageAgent.deleteClusteredPackage.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/PackageAgent.setManualPkgDesc.dwr</url-pattern>
         <!-- Glossary Managemenet -->
         <url-pattern>/glossaryManage.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.acceptTerm.dwr</url-pattern>
@@ -264,15 +204,6 @@
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.rejectTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.saveTerm.dwr</url-pattern>
-        <!-- Criteria Management -->
-        <url-pattern>/criteriaMgr.do</url-pattern>
-        <url-pattern>/criteriaDefine.do</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.getEditCriterion.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.addObjective.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.editObjective.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.deleteCriterion.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.deleteObjective.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CriteriaAgent.addAssocCriterion.dwr</url-pattern>
         <!-- System -->
         <url-pattern>/usermgr.do</url-pattern>
         <url-pattern>/feedback.do</url-pattern>
@@ -365,32 +296,8 @@
             <param-value>WEB-INF/config/dwr.xml</param-value>
         </init-param>
         <init-param>
-            <param-name>config-webservice</param-name>
-            <param-value>WEB-INF/config/dwr-webservice.xml</param-value>
-        </init-param>
-        <init-param>
             <param-name>config-cvo</param-name>
-            <param-value>WEB-INF/config/dwr-cvo.xml</param-value>
-        </init-param>
-        <init-param>
-            <param-name>config-criteria</param-name>
-            <param-value>WEB-INF/config/dwr-criteria.xml</param-value>
-        </init-param>
-        <init-param>
-            <param-name>config-report</param-name>
-        <param-value>WEB-INF/config/dwr-report.xml</param-value>
-        </init-param>
-        <init-param>
-            <param-name>config-package</param-name>
-            <param-value>WEB-INF/config/dwr-package.xml</param-value>
-        </init-param>
-        <init-param>
-            <param-name>config-funding</param-name>
-            <param-value>WEB-INF/config/dwr-funding.xml</param-value>
-        </init-param>
-        <init-param>
-            <param-name>config-projects</param-name>
-            <param-value>WEB-INF/config/dwr-projects.xml</param-value>
+            <param-value>WEB-INF/config/dwr-sarp.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-lm</param-name>
@@ -399,10 +306,6 @@
         <init-param>
             <param-name>config-workflow</param-name>
             <param-value>WEB-INF/config/dwr-workflow.xml</param-value>
-        </init-param>
-        <init-param>
-        <param-name>config-other</param-name>
-            <param-value>WEB-INF/config/dwr-other.xml</param-value>
         </init-param>
         <init-param>
             <param-name>debug</param-name>

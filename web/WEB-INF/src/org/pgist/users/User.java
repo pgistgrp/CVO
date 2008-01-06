@@ -186,7 +186,7 @@ public class User extends BaseUser {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="commute_id" cascade="all"
+     * hibernate.many-to-one column="commute_id" cascade="all"
      */
     public UserCommute getUserCommute() {
         return commute;
@@ -519,9 +519,9 @@ public class User extends BaseUser {
        
     /**
      * @return
-     * @hibernate.set lazy="true" cascade="all" order-by="id"
-     * @hibernate.collection-key column="owner_id"
-     * @hibernate.collection-one-to-many class="org.pgist.users.Vehicle"
+     * hibernate.set lazy="true" cascade="all" order-by="id"
+     * hibernate.collection-key column="owner_id"
+     * hibernate.collection-one-to-many class="org.pgist.users.Vehicle"
      */
     public Set<Vehicle> getVehicles() {
         return vehicles;
@@ -535,7 +535,7 @@ public class User extends BaseUser {
     
     /**
      * @return
-     * @hibernate.many-to-one column="primary_transport_id" lazy="true"
+     * hibernate.many-to-one column="primary_transport_id" lazy="true"
      */
 	public RegisterObject getPrimaryTransport() {
 		return primaryTransport;

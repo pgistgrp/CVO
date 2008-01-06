@@ -166,19 +166,11 @@
     </target>
     
 
-    <target name="criteria">
-        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
-        </taskdef>
-        <WorkflowImporter definition="criteria.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    <target name="SARP">
+		    <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
+        <WorkflowImporter definition="SARP.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
-
-    <target name="test" depends="compile, mapping">
-        <taskdef name="SimpleTest" classname="org.pgist.tests.SimpleTest">
-            <classpath refid="classpath"/>
-        </taskdef>
-        <SimpleTest config="${src}/hibernate.cfg.xml"/>
-    </target>
-
+    
 
     <target name="hibernate" depends="compile">
         <taskdef name="TestHibernate" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
