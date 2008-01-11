@@ -585,7 +585,7 @@ public class CSTServiceImpl implements CSTService {
         
         InfoStructure structure = new InfoStructure();
         structure.getDiscussion().setWorkflowId(workflowId);
-        structure.setType("sdc");
+        structure.setType(InfoStructure.TYPE_SARP_SDC);
         structure.setTitle(title);
         structure.setRespTime(date);
         structure.setCctId(bctId);

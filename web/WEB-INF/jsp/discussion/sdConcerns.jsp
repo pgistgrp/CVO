@@ -27,7 +27,7 @@
 <!-- End DWR JavaScript Libraries -->
 <!--CCT Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
-<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
 <!--End CCT Specific  Libraries-->
 <script type="text/javascript">
 
@@ -70,7 +70,7 @@
 	}
 	
 	function setVote(id, agree){
-			CCTAgent.setVoting({id: id, agree:agree}, {
+			BCTAgent.setVoting({id: id, agree:agree}, {
 			callback:function(data){
 					if (data.successful){ 
 						//effect not working right now...might be a timing issue.
@@ -94,7 +94,7 @@
 		sd.currentFilter = tagId;
 		if (tagId != ''){
 				if(type == 'tagRef'){
-						CCTAgent.getTagByTagRefId(sd.currentFilter, {
+						BCTAgent.getTagByTagRefId(sd.currentFilter, {
 						callback:function(data){
 						if (data.successful){
 							//alert(data.tag.id);
@@ -145,7 +145,7 @@
 	}
 	
 	function customFilterAction(query){
-			CCTAgent.searchTags({cctId:cct.cctId,tag:query},{
+			BCTAgent.searchTags({cctId:cct.cctId,tag:query},{
 				callback:function(data){
 						if (data.successful){
 							if($(sd.divSearchResults).style.display == 'none'){

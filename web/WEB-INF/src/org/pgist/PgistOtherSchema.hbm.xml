@@ -5,6 +5,22 @@
     <database-object>
         <!-- CST CategoryReference - TagReference Link -->
         <create>
+            CREATE TABLE pgist_cst_cat_tag_link (
+              cctid bigint,
+              isid bigint,
+              ioid bigint,
+              crid bigint,
+              trid bigint
+            );
+        </create>
+        <drop>
+            DROP TABLE pgist_cst_cat_tag_link CASCADE;
+        </drop>
+    </database-object>
+    
+    <database-object>
+        <!-- CST CategoryReference - TagReference Link -->
+        <create>
             CREATE TABLE sarp_cst_cat_tag_link (
               bctid bigint,
               isid bigint,
@@ -48,5 +64,18 @@
         </drop>
     </database-object>
 
+    <database-object>
+        <!-- view for concern-tagref-isid-ioid-cctid link -->
+        <create>
+            CREATE VIEW view_structure_concern_tags AS
+              SELECT s.cctid as cctid, 0 as isid, 0 as ioid, c.id as cid, l.tagref_id as trid from pgist_info_structure s, sarp_concerns c, sarp_concern_tag_link l where s.cctid=c.bct_id and l.concern_id=c.id and l.tagref_id not in (select trid from pgist_cst_cat_tag_link)
+              UNION
+              SELECT l2.cctid as cctid, l2.isid as isid, l2.ioid as ioid, l1.concern_id as cid, l2.trid as trid  from sarp_concern_tag_link l1 join pgist_cst_cat_tag_link l2 on l1.tagref_id=trid;
+        </create>
+        <drop>
+            DROP VIEW view_structure_concern_tags CASCADE;
+        </drop>
+    </database-object>
+    
 </hibernate-mapping>
 

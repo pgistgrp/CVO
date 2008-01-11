@@ -23,6 +23,7 @@
             <map>
               <entry><key><value>action-sarp.bct</value></key><value>/bctview.do</value></entry>
               <entry><key><value>action-sarp.cst</value></key><value>/cstview.do</value></entry>
+              <entry><key><value>action-sarp.sd.concerns</value></key><value>/sd.do</value></entry>
             </map>
         </property>
     </bean>

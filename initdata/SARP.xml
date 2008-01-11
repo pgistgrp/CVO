@@ -65,6 +65,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.sd.concerns" title="Review summaries" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate summaries of all participant concerns.</small>]]>
+            </description>
+            <actionName>action-sarp.sd.concerns</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+        </pgame>
+    
     </pgames>
     
     <!-- PMethods -->
@@ -110,6 +122,9 @@
                 <ins>
                     <var name="pmethod.bct_id"/>
                 </ins>
+                <outs>
+                    <var name="pmethod.theme_isid"/>
+                </outs>
             </declaration>
             <sequence>
                 <pgame name="pgame-sarp.cst">
@@ -127,6 +142,23 @@
                         <outs>
                             <var name="is_id" ref="pmethod.theme_isid"/>
                         </outs>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.sd.concerns" description="Step 3: Discuss Concerns">
+            <declaration>
+                <ins>
+                    <var name="pmethod.theme_isid"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.sd.concerns">
+                    <declaration>
+                        <ins>
+                            <var name="isid" ref="pmethod.theme_isid"/>
+                        </ins>
                     </declaration>
                 </pgame>
             </sequence>
@@ -177,12 +209,35 @@
                 <ins>
                     <var name="meeting.bct_id"/>
                 </ins>
+                <outs>
+                    <var name="meeting.theme_isid"/>
+                </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-sarp.cst">
                     <declaration>
                         <ins>
                             <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.theme_isid" ref="meeting.theme_isid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-sarp.sd.concerns" description="Step 3: Discuss Concerns">
+            <declaration>
+                <ins>
+                    <var name="meeting.theme_isid"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.sd.concerns">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.theme_isid" ref="meeting.theme_isid"/>
                         </ins>
                     </declaration>
                 </pmethod>
@@ -215,6 +270,16 @@
                     <declaration>
                         <ins>
                             <var name="meeting.bct_id" ref="situation.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.theme_isid" ref="situation.theme_isid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.sd.concerns">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.theme_isid" ref="situation.theme_isid"/>
                         </ins>
                     </declaration>
                 </meeting>

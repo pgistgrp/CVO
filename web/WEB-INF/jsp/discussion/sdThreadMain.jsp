@@ -39,7 +39,7 @@
 
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
-<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 <!--End SDX Specific  Libraries-->
 <!--Mapping  Libraries-->

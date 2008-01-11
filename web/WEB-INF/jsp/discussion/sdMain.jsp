@@ -9,7 +9,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>Step 1c: Review Summaries - Main</title>
+<title>Review Summaries - Main</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 <!-- End Site Wide CSS -->
@@ -28,7 +28,7 @@
 
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
-<script type='text/javascript' src='/dwr/interface/CCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
 <!--
 <c:if test="${structure.type == 'sdmap'}">
 

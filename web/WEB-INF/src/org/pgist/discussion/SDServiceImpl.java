@@ -208,15 +208,25 @@ public class SDServiceImpl implements SDService {
         DiscussionPost post = discussionDAO.createPost(discussion, title, content, tags, emailNotify);
         
         /*
-         * preload object
+         * preload object, otherwise Hibernate will fail
          */
-        CategoryReference ref = (CategoryReference) object.getObject();
-        ref.getCategory();
-        ref.getCct();
-        ref.getChildren();
-        ref.getParents();
-        ref.getTags();
-        ref.getTheme();
+        if (InfoStructure.TYPE_SDC.equals(object.getStructure().getType())) {
+	        CategoryReference ref = (CategoryReference) object.getObject();
+	        ref.getCategory();
+	        ref.getCct();
+	        ref.getChildren();
+	        ref.getParents();
+	        ref.getTags();
+	        ref.getTheme();
+        } else if (InfoStructure.TYPE_SARP_SDC.equals(object.getStructure().getType())) {
+        	org.pgist.sarp.bct.CategoryReference ref = (org.pgist.sarp.bct.CategoryReference) object.getObject();
+	        ref.getCategory();
+	        ref.getBct();
+	        ref.getChildren();
+	        ref.getParents();
+	        ref.getTags();
+	        ref.getTheme();
+        }
         
         /*
          * record the last post

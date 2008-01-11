@@ -1318,8 +1318,10 @@ public class SDAgent {
                 new Long(wfinfo.get("activityId").toString())
             );
             
-            Experiment experiment = importService.getExperimentByWorkflowId(new Long(wfinfo.get("workflowId").toString()));
-            request.setAttribute("experiment", experiment);
+            if (importService!=null) {
+	            Experiment experiment = importService.getExperimentByWorkflowId(new Long(wfinfo.get("workflowId").toString()));
+	            request.setAttribute("experiment", experiment);
+            }
             
             String type = null;
             if(ioid != null && isid != null) {
