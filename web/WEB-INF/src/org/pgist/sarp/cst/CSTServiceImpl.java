@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.sarp.bct.BCT;
 import org.pgist.sarp.bct.BCTDAO;
 import org.pgist.sarp.bct.CategoryReference;
@@ -574,6 +576,44 @@ public class CSTServiceImpl implements CSTService {
         
         return themes;
     }//getThemes()
+
+
+    public InfoStructure publish(Long workflowId, Long bctId, String title) throws Exception {
+        BCT bct = bctDAO.getBCTById(bctId);
+        
+        Date date = new Date();
+        
+        InfoStructure structure = new InfoStructure();
+        structure.getDiscussion().setWorkflowId(workflowId);
+        structure.setType("sdc");
+        structure.setTitle(title);
+        structure.setRespTime(date);
+        structure.setCctId(bctId);
+        discussionDAO.save(structure);
+        
+        for (CategoryReference ref : (Set<CategoryReference>) bct.getRootCategory().getChildren()) {
+            ref.getCategory();
+            ref.getBct();
+            ref.getChildren();
+            ref.getParents();
+            ref.getTags();
+            ref.getTheme();
+            
+            InfoObject obj = new InfoObject();
+            obj.getDiscussion().setWorkflowId(workflowId);
+            obj.setObject(ref);
+            obj.setRespTime(date);
+            discussionDAO.save(obj);
+            
+            structure.getInfoObjects().add(obj);
+            
+            cstDAO.publish(structure, obj, ref);
+        }//for ref
+        
+        discussionDAO.save(structure);
+        
+        return structure;
+    }//publish()
 
 
 }//class CSTServiceImpl

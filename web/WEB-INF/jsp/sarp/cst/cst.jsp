@@ -340,24 +340,8 @@ tinyMCE.init({
 				});
 		}
 		
-		function publish(){
-				Util.loading(true,"Working");
-				CSTAgent.publish({bctId:bctId}, {
-				callback:function(data){
-						if (data.successful){
-							location.href="/sdlist.do"
-						}
-						if (data.successful != true){
-							alert("There was a problem publishing concern themes:" + data.reason);
-						}
-					Util.loading(false);
-					},
-				errorHandler:function(errorString, exception){ 
-						alert("publish: "+errorString+" "+exception);
-				}
-				});
-		}
 	//--------------------------------------
+  
 	function checkaddcategory(e){
 		if(e.keyCode == 13)addcategory();
 	}

@@ -3,6 +3,7 @@ package org.pgist.sarp.cst;
 import java.util.Collection;
 import java.util.List;
 
+import org.pgist.discussion.InfoStructure;
 import org.pgist.sarp.bct.BCT;
 import org.pgist.sarp.bct.CategoryReference;
 import org.pgist.tagging.Category;
@@ -52,6 +53,8 @@ public interface CSTService {
     void saveSummary(Long cctId, Long themeId, String description, String summary, String tags) throws Exception;
 
     List getThemes(BCT bct) throws Exception;
+    
+    InfoStructure publish(Long workflowId, Long cctId, String title) throws Exception;
     
     
 }//interface CSTService

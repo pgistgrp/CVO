@@ -47,6 +47,24 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.publish.theme" title="Publish Themes." auto="true">
+            <description>
+              <![CDATA[Publish themes.]]>
+            </description>
+            <taskName>task-sarp.publish.theme</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 1: Discuss Concerns" />
+                </props>
+            </declaration>
+        </pgame>
+        
     </pgames>
     
     <!-- PMethods -->
@@ -99,6 +117,16 @@
                         <ins>
                             <var name="bctId" ref="pmethod.bct_id"/>
                         </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.theme">
+                    <declaration>
+                        <ins>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.theme_isid"/>
+                        </outs>
                     </declaration>
                 </pgame>
             </sequence>

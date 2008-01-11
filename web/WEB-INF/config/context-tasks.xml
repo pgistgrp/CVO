@@ -7,11 +7,16 @@
         <property name="bctService" ref="bctService"/>
     </bean>
     
+    <bean id="task-sarp.publish.theme" class="org.pgist.sarp.cst.PublishThemeTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
     
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
               <entry><key><value>task-sarp.create.bct</value></key><ref bean="task-sarp.create.bct" /></entry>
+              <entry><key><value>task-sarp.publish.theme</value></key><ref bean="task-sarp.publish.theme" /></entry>
             </map>
         </property>
         <property name="actions">
