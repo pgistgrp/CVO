@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pgist.discussion.DiscussionDAO;
+import org.pgist.discussion.InfoObject;
+import org.pgist.discussion.InfoStructure;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
@@ -34,6 +37,8 @@ public class BCTServiceImpl implements BCTService {
 
     private SystemDAO systemDAO;
     
+    private DiscussionDAO discussionDAO = null;
+
 
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -59,7 +64,12 @@ public class BCTServiceImpl implements BCTService {
         this.systemDAO = systemDAO;
     }
 
+    
+    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
+        this.discussionDAO = discussionDAO;
+    }
 
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -480,6 +490,21 @@ public class BCTServiceImpl implements BCTService {
     public void increaseViews(Long concernId) throws Exception {
         bctDAO.increaseViews(concernId);
     }//increaseViews()
+
+
+    public InfoStructure publish(Long workflowId, Long bctId, String title) throws Exception {
+        Date date = new Date();
+        
+        InfoStructure structure = new InfoStructure();
+        structure.getDiscussion().setWorkflowId(workflowId);
+        structure.setType(InfoStructure.TYPE_SARP_SD_BCT);
+        structure.setTitle(title);
+        structure.setRespTime(date);
+        structure.setCctId(bctId);
+        discussionDAO.save(structure);
+        
+        return structure;
+    }//publish()
 
 
 }//class BCTServiceImpl

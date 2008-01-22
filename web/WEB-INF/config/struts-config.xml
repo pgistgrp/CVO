@@ -137,6 +137,10 @@
             <forward name="view" path="/WEB-INF/jsp/sarp/cst/cstCategories.jsp" />
         </action>
 
+        <action path="/sdMovements" scope="request" type="org.pgist.discussion.SDAction">
+            <forward name="main" path="/WEB-INF/jsp/discussion/sdMovements.jsp"/>
+        </action>
+
         <action path="/sd" scope="request" type="org.pgist.discussion.SDAction">
             <forward name="main" path="/WEB-INF/jsp/discussion/sdMain.jsp"/>
         </action>

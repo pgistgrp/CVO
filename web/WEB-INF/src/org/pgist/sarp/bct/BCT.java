@@ -24,6 +24,8 @@ public class BCT {
     
     private Date createTime;
     
+    private boolean closed = false;
+    
     private boolean deleted = false;
     
     private int maxConcernPerPerson = Integer.MAX_VALUE;
@@ -116,7 +118,26 @@ public class BCT {
     }
     
     
-    /**
+	/**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public boolean isClosed() {
+		return closed;
+	}
+    
+    
+
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+	
+	
+
+
+	/**
      * @return
      * 
      * @hibernate.property not-null="true"

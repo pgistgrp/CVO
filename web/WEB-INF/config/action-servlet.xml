@@ -152,6 +152,10 @@
     </bean>
     
     
+    <bean name="/sdMovements" class="org.pgist.discussion.SDAction">
+        <property name="sdService" ref="sdService"/>
+    </bean>
+    
     <bean name="/sd" class="org.pgist.discussion.SDAction">
         <property name="sdService" ref="sdService"/>
     </bean>

@@ -26,6 +26,7 @@
                 <property name="tagDAO" ref="tagDAO"/>
                 <property name="analyzer" ref="tagAnalyzer"/>
                 <property name="systemDAO" ref="systemDAO"/>
+                <property name="discussionDAO" ref="discussionDAO"/>
             </bean>
         </property>
     </bean>

@@ -7,6 +7,10 @@
         <property name="bctService" ref="bctService"/>
     </bean>
     
+    <bean id="task-sarp.publish.bct" class="org.pgist.sarp.bct.PublishBCTTask">
+        <property name="bctService" ref="bctService"/>
+    </bean>
+    
     <bean id="task-sarp.publish.theme" class="org.pgist.sarp.cst.PublishThemeTask">
         <property name="cstService" ref="cstService"/>
     </bean>
@@ -16,6 +20,7 @@
         <property name="tasks">
             <map>
               <entry><key><value>task-sarp.create.bct</value></key><ref bean="task-sarp.create.bct" /></entry>
+              <entry><key><value>task-sarp.publish.bct</value></key><ref bean="task-sarp.publish.bct" /></entry>
               <entry><key><value>task-sarp.publish.theme</value></key><ref bean="task-sarp.publish.theme" /></entry>
             </map>
         </property>
@@ -23,7 +28,7 @@
             <map>
               <entry><key><value>action-sarp.bct</value></key><value>/bctview.do</value></entry>
               <entry><key><value>action-sarp.cst</value></key><value>/cstview.do</value></entry>
-              <entry><key><value>action-sarp.sd.concerns</value></key><value>/sd.do</value></entry>
+              <entry><key><value>action-sarp.sd.movements</value></key><value>/sdMovements.do</value></entry>
             </map>
         </property>
     </bean>

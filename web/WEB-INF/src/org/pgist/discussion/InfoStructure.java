@@ -50,9 +50,24 @@ public class InfoStructure extends GenericInfo {
     public static final String TYPE_SDRR = "sdrr";
     
     /*
-     * sd for sarp concern summary
+     * sd for sarp BCT
      */
-    public static final String TYPE_SARP_SDC = "sarp_sdc";
+    public static final String TYPE_SARP_SD_BCT = "sarp_sd_bct";
+    
+    /*
+     * sd for sarp CST
+     */
+    public static final String TYPE_SARP_SD_CST = "sarp_sd_cst";
+    
+    /*
+     * sd for sarp CHT
+     */
+    public static final String TYPE_SARP_SD_CHT = "sarp_sd_cht";
+    
+    /*
+     * sd for sarp VTT
+     */
+    public static final String TYPE_SARP_SD_VTT = "sarp_sd_vtt";
     
     
     private Long cctId;

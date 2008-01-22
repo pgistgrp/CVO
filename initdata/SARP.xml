@@ -23,6 +23,24 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.publish.bct" title="Publish a BCT discussion." auto="true">
+            <description>
+              <![CDATA[<small>Publish a BCT discussion.</small>]]>
+            </description>
+            <taskName>task-sarp.publish.bct</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Discuss Movements" />
+                </props>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.bct" title="Brainstorm concerns" auto="false" access="all">
             <description>
               <![CDATA[<small>Brainstorm transportation concerns with other participants.</small>]]>
@@ -65,15 +83,65 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.sd.concerns" title="Review summaries" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.sd.sarp.bct" title="Discuss Movements" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Discuss and evaluate summaries of all participant concerns.</small>]]>
+              <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
             </description>
-            <actionName>action-sarp.sd.concerns</actionName>
+            <actionName>action-sarp.sd.movements</actionName>
             <declaration>
                 <ins>
                     <var name="isid"/>
                 </ins>
+                <props>
+                    <property name="script" value="/scripts/sarp/bct/target.js" />
+                    <property name="page" value="/WEB-INF/jsp/sarp/bct/info-strcture.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.sd.sarp.cst" title="Discuss Movements" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
+            </description>
+            <actionName>action-sarp.sd.movements</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+                <props>
+                    <property name="script" value="/scripts/sarp/cst/target.js" />
+                    <property name="page" value="/WEB-INF/jsp/sarp/cst/info-strcture.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.sd.sarp.cht" title="Discuss Movements" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
+            </description>
+            <actionName>action-sarp.sd.movements</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+                <props>
+                    <property name="page" value="/WEB-INF/jsp/sarp/cht/info-strcture.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.sd.sarp.cst" title="Discuss Movements" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
+            </description>
+            <actionName>action-sarp.sd.movements</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+                <props>
+                    <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-strcture.jsp" />
+                </props>
             </declaration>
         </pgame>
     
@@ -87,6 +155,7 @@
             <declaration>
                 <outs>
                     <var name="pmethod.bct_id"/>
+                    <var name="pmethod.bct_isid"/>
                 </outs>
             </declaration>
             <sequence>
@@ -97,6 +166,16 @@
                         </outs>
                     </declaration>
                 </pgame>
+                <pgame name="pgame-sarp.publish.bct">
+                    <declaration>
+                        <ins>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.bct_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
             </sequence>
         </pmethod>
         
@@ -104,16 +183,30 @@
             <declaration>
                 <ins>
                     <var name="pmethod.bct_id"/>
+                    <var name="pmethod.bct_isid"/>
                 </ins>
             </declaration>
             <sequence>
-                <pgame name="pgame-sarp.bct">
-                    <declaration>
-                        <ins>
-                            <var name="bctId" ref="pmethod.bct_id"/>
-                        </ins>
-                    </declaration>
-                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sarp.bct">
+                            <declaration>
+                                <ins>
+                                    <var name="bctId" ref="pmethod.bct_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sarp.sd.sarp.bct">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.bct_isid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
             </sequence>
         </pmethod>
         
@@ -127,40 +220,34 @@
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-sarp.cst">
-                    <declaration>
-                        <ins>
-                            <var name="bctId" ref="pmethod.bct_id"/>
-                        </ins>
-                    </declaration>
-                </pgame>
-                <pgame name="pgame-sarp.publish.theme">
-                    <declaration>
-                        <ins>
-                            <var name="bct_id" ref="pmethod.bct_id"/>
-                        </ins>
-                        <outs>
-                            <var name="is_id" ref="pmethod.theme_isid"/>
-                        </outs>
-                    </declaration>
-                </pgame>
-            </sequence>
-        </pmethod>
-        
-        <pmethod name="pmethod-sarp.sd.concerns" description="Step 3: Discuss Concerns">
-            <declaration>
-                <ins>
-                    <var name="pmethod.theme_isid"/>
-                </ins>
-            </declaration>
-            <sequence>
-                <pgame name="pgame-sarp.sd.concerns">
-                    <declaration>
-                        <ins>
-                            <var name="isid" ref="pmethod.theme_isid"/>
-                        </ins>
-                    </declaration>
-                </pgame>
+                <repeat>
+                    <sequence>
+                        <pgame name="pgame-sarp.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="bctId" ref="pmethod.bct_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.publish.theme">
+                            <declaration>
+                                <ins>
+                                    <var name="bct_id" ref="pmethod.bct_id"/>
+                                </ins>
+                                <outs>
+                                    <var name="is_id" ref="pmethod.theme_isid"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.sd.sarp.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.theme_isid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </repeat>
             </sequence>
         </pmethod>
         
@@ -174,6 +261,7 @@
             <declaration>
                 <outs>
                     <var name="meeting.bct_id"/>
+                    <var name="meeting.bct_isid"/>
                 </outs>
             </declaration>
             <sequence>
@@ -181,6 +269,7 @@
                     <declaration>
                         <outs>
                             <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                            <var name="pmethod.bct_isid" ref="meeting.bct_isid"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -191,6 +280,7 @@
             <declaration>
                 <ins>
                     <var name="meeting.bct_id"/>
+                    <var name="meeting.bct_isid"/>
                 </ins>
             </declaration>
             <sequence>
@@ -198,6 +288,7 @@
                     <declaration>
                         <ins>
                             <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                            <var name="pmethod.bct_isid" ref="meeting.bct_isid"/>
                         </ins>
                     </declaration>
                 </pmethod>
@@ -227,23 +318,6 @@
             </sequence>
         </meeting>
         
-        <meeting name="meeting-sarp.sd.concerns" description="Step 3: Discuss Concerns">
-            <declaration>
-                <ins>
-                    <var name="meeting.theme_isid"/>
-                </ins>
-            </declaration>
-            <sequence>
-                <pmethod name="pmethod-sarp.sd.concerns">
-                    <declaration>
-                        <ins>
-                            <var name="pmethod.theme_isid" ref="meeting.theme_isid"/>
-                        </ins>
-                    </declaration>
-                </pmethod>
-            </sequence>
-        </meeting>
-        
     </meetings>
     
     <!-- Situations -->
@@ -256,6 +330,7 @@
                     <declaration>
                         <outs>
                             <var name="meeting.bct_id" ref="situation.bct_id"/>
+                            <var name="meeting.bct_isid" ref="situation.bct_isid"/>
                         </outs>
                     </declaration>
                 </meeting>
@@ -263,6 +338,7 @@
                     <declaration>
                         <ins>
                             <var name="meeting.bct_id" ref="situation.bct_id"/>
+                            <var name="meeting.bct_isid" ref="situation.bct_isid"/>
                         </ins>
                     </declaration>
                 </meeting>
@@ -274,13 +350,6 @@
                         <outs>
                             <var name="meeting.theme_isid" ref="situation.theme_isid"/>
                         </outs>
-                    </declaration>
-                </meeting>
-                <meeting name="meeting-sarp.sd.concerns">
-                    <declaration>
-                        <ins>
-                            <var name="meeting.theme_isid" ref="situation.theme_isid"/>
-                        </ins>
                     </declaration>
                 </meeting>
             </sequence>

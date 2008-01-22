@@ -20,6 +20,8 @@ public class Discussion implements Serializable {
     
     protected int numPosts = 0;
     
+    protected boolean closed;
+    
     protected boolean deleted;
     
     
@@ -81,7 +83,25 @@ public class Discussion implements Serializable {
     }
     
     
-    /**
+	/**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isClosed() {
+		return closed;
+	}
+    
+    
+
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+	
+	
+
+
+	/**
      * @return
      * @hibernate.property not-null="true"
      */

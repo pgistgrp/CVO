@@ -569,5 +569,18 @@
   </tag>
   
 
+  <tag>
+    <name>include</name>
+    <tag-class>org.pgist.tags.WorkflowIncludeTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which includes a page declared in workflow property</description>
+    <attribute>
+      <name>property</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

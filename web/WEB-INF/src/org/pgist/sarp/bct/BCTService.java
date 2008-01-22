@@ -2,6 +2,7 @@ package org.pgist.sarp.bct;
 
 import java.util.Collection;
 
+import org.pgist.discussion.InfoStructure;
 import org.pgist.util.PageSetting;
 
 
@@ -243,4 +244,8 @@ public interface BCTService {
     Comment getCommentById(Long commentId) throws Exception;
 
 
+    InfoStructure publish(Long workflowId, Long bctId, String title) throws Exception;
+    
+    
 }//interface BCTService
+

@@ -14,7 +14,7 @@ import org.pgist.wfengine.WorkflowTask;
 public class PublishThemeTask implements WorkflowTask {
     
     
-    public static final String IN_CCT_ID = "bct_id";
+    public static final String IN_BCT_ID = "bct_id";
     
     public static final String OUT_ISID = "is_id";
     
@@ -33,13 +33,13 @@ public class PublishThemeTask implements WorkflowTask {
     
     
     public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
-        System.out.println("@ PublishThemeTask.execute()");
+        System.out.println("\n@ PublishThemeTask.execute()\n");
         
-        Long cctId = new Long(inouts.getIntValue(IN_CCT_ID));
+        Long bctId = new Long(inouts.getIntValue(IN_BCT_ID));
         
         String title = inouts.getProperty("title");
         
-        InfoStructure structure = cstService.publish(info.getWorkflow().getId(), cctId, title);
+        InfoStructure structure = cstService.publish(info.getWorkflow().getId(), bctId, title);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()
