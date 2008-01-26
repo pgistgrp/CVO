@@ -95,35 +95,6 @@ public class BCTAgent {
 
 
     /**
-     * Get all the BCT instances from the database.
-     *
-     * @param params An empty map.
-     * @return A map contains:<br>
-     *         <ul>
-     *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>reason - reason why operation failed (valid when successful==false)</li>
-     *           <li>bcts - a list of BCT objects</li>
-     *         </ul>
-     * @throws Exception
-     */
-    public Map getBCTs(Map params) throws Exception {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        try {
-            Collection list = bctService.getBCTs();
-            map.put("successful", new Boolean(true));
-            map.put("bcts", list);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//getBCTs()
-
-
-    /**
      * Analyze the given concern, extract and return the recognized tags from it.
      *
      * @param params A map contains:<br>
@@ -1142,7 +1113,7 @@ public class BCTAgent {
     
     
     /**
-     * Get the comments on the given concern.
+     * Get the concern comments on the given concern.
      * 
      * @param params A map contains:
      *   <ul>
@@ -1167,13 +1138,13 @@ public class BCTAgent {
      *       The following variables are available for use in the jsp:
      *       <ul>
      *         <li>concern - a Concern object, "object" field may be a YesNoVoting object, or null.</li>
-     *         <li>comments - A list of Comment objects, each concern's "object" field may be a YesNoVoting object, or null.</li>
+     *         <li>comments - A list of ConcernComment objects, each concern's "object" field may be a YesNoVoting object, or null.</li>
      *         <li>setting - An PageSetting object</li>
      *       </ul>
      *     </li>
      *   </ul>
      */
-    public Map getComments(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map getConcernComments(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1197,8 +1168,8 @@ public class BCTAgent {
             YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_CONCERN, concernId);
             if (voting!=null) concern.setObject(voting);
             
-            Collection comments = bctService.getComments(concernId, setting);
-            for (Comment comment : (Collection<Comment>) comments) {
+            Collection comments = bctService.getConcernComments(concernId, setting);
+            for (ConcernComment comment : (Collection<ConcernComment>) comments) {
                 voting = systemService.getVoting(YesNoVoting.TYPE_COMMENT, comment.getId());
                 if (voting!=null) comment.setObject(voting);
             }
@@ -1222,7 +1193,7 @@ public class BCTAgent {
     
     
     /**
-     * Create a comment on the given concern.
+     * Create a concern comment on the given concern.
      * 
      * @param params A map contains:
      *   <ul>
@@ -1245,7 +1216,7 @@ public class BCTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map createComment(Map params, Map wfinfo) {
+    public Map createConcernComment(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1277,10 +1248,10 @@ public class BCTAgent {
         String tagStr = (String) params.get("tags");
         String[] tags = StringUtil.splitCSL(tagStr);
         
-        Comment comment = null;
+        ConcernComment comment = null;
         
         try {
-            comment = bctService.createComment(concernId, title, content, tags);
+            comment = bctService.createConcernComment(concernId, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -1329,13 +1300,13 @@ public class BCTAgent {
     
     
     /**
-     * Edit the given comment.
+     * Edit the given concern comment.
      * 
      * @param params A map contains:
      *   <ul>
-     *     <li>commentId - int, id of the Comment object. Required.</li>
-     *     <li>title - string, title of the comment. Required.</li>
-     *     <li>content - string, content of the comment. Required.</li>
+     *     <li>commentId - int, id of the ConcernComment object. Required.</li>
+     *     <li>title - string, title of the concern comment. Required.</li>
+     *     <li>content - string, content of the concern comment. Required.</li>
      *     <li>tags - string, comma separated tag name list. Required.</li>
      *   </ul>
      *   
@@ -1352,7 +1323,7 @@ public class BCTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map editComment(Map params, Map wfinfo) {
+    public Map editConcernComment(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1384,10 +1355,10 @@ public class BCTAgent {
         String tagStr = (String) params.get("tags");
         String[] tags = StringUtil.splitCSL(tagStr);
         
-        Comment comment = null;
+        ConcernComment comment = null;
         
         try {
-            comment = bctService.editComment(commentId, title, content, tags);
+            comment = bctService.editConcernComment(commentId, title, content, tags);
             
             IndexWriter writer = null;
             try {
@@ -1432,15 +1403,15 @@ public class BCTAgent {
         }
         
         return map;
-    }//editComment()
+    }//editConcernComment()
     
     
     /**
-     * Delete the given comment.
+     * Delete the given concern comment.
      * 
      * @param params A map contains:
      *   <ul>
-     *     <li>commentId - int, id of the Concern object. Required.</li>
+     *     <li>commentId - int, id of the ConcernComment object. Required.</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -1449,7 +1420,7 @@ public class BCTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map deleteComment(Map params) {
+    public Map deleteConcernComment(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1463,8 +1434,8 @@ public class BCTAgent {
         }
         
         try {
-            Comment comment = bctService.getCommentById(commentId);
-            bctService.deleteComment(commentId);
+        	ConcernComment comment = bctService.getConcernCommentById(commentId);
+            bctService.deleteConcernComment(commentId);
             
             /*
              * delete from lucene
@@ -1503,11 +1474,11 @@ public class BCTAgent {
     
     
     /**
-     * Set voting to the given comment.
+     * Set voting to the given concern comment.
      * 
      * @param params A map contains:
      *   <ul>
-     *     <li>id - int, id of the Comment object. Required.</li>
+     *     <li>id - int, id of the ConcernComment object. Required.</li>
      *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
      *   </ul>
      *   
@@ -1517,7 +1488,7 @@ public class BCTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map setCommentVoting(Map params) {
+    public Map setConcernCommentVoting(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1532,7 +1503,7 @@ public class BCTAgent {
         boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
         
         try {
-            bctService.setVotingOnComment(id, agree);
+            bctService.setVotingOnConcernComment(id, agree);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -1542,7 +1513,7 @@ public class BCTAgent {
         }
         
         return map;
-    }//setCommentVoting()
+    }//setConcernCommentVoting()
     
 
 }//class BCTAgent

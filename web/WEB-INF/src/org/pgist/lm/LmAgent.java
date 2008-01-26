@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pgist.projects.ProjectService;
 import org.pgist.projects.ProjectAlternative;
+import org.pgist.projects.ProjectService;
 
 /**
  * DWR AJAX Agent class.<br>

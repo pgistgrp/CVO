@@ -52,14 +52,10 @@
                <value>org/pgist/users/Vehicle.hbm.xml</value>
                <value>org/pgist/tagging/Category.hbm.xml</value>
                <value>org/pgist/tagging/Tag.hbm.xml</value>
-               <value>org/pgist/discussion/InfoStructure.hbm.xml</value>
-               <value>org/pgist/discussion/InfoObject.hbm.xml</value>
-               <value>org/pgist/discussion/Discussion.hbm.xml</value>
-               <value>org/pgist/discussion/DiscussionPost.hbm.xml</value>
-               <value>org/pgist/discussion/DiscussionReply.hbm.xml</value>
                <value>org/pgist/glossary/Term.hbm.xml</value>
                <value>org/pgist/glossary/TermLink.hbm.xml</value>
                <value>org/pgist/glossary/TermSource.hbm.xml</value>
+               <value>org/pgist/glossary/TermComment.hbm.xml</value>
                <value>org/pgist/glossary/TermCategory.hbm.xml</value>
                <value>org/pgist/glossary/TermAcronym.hbm.xml</value>
                <value>org/pgist/glossary/TermVariation.hbm.xml</value>
@@ -70,12 +66,14 @@
                <value>org/pgist/wfengine/RunningHistory.hbm.xml</value>
                <value>org/pgist/wfengine/Activity.hbm.xml</value>
                <value>org/pgist/wfengine/Workflow.hbm.xml</value>
+               <value>org/pgist/sarp/drt/Comment.hbm.xml</value>
+               <value>org/pgist/sarp/drt/InfoObject.hbm.xml</value>
                <value>org/pgist/sarp/bct/BCT.hbm.xml</value>
-               <value>org/pgist/sarp/bct/Comment.hbm.xml</value>
                <value>org/pgist/sarp/bct/Concern.hbm.xml</value>
-               <value>org/pgist/sarp/bct/CategoryReference.hbm.xml</value>
+               <value>org/pgist/sarp/bct/ConcernComment.hbm.xml</value>
                <value>org/pgist/sarp/bct/TagReference.hbm.xml</value>
-               <value>org/pgist/sarp/bct/Theme.hbm.xml</value>
+               <value>org/pgist/sarp/cst/CST.hbm.xml</value>
+               <value>org/pgist/sarp/cst/CategoryReference.hbm.xml</value>
                <!-- Other schema information -->
                <value>org/pgist/PgistOtherSchema.hbm.xml</value>
            </list>

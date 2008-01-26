@@ -38,6 +38,8 @@ public interface GlossaryDAO extends BaseDAO {
 
     void saveTermSource(TermSource source) throws Exception;
     
+	TermComment getCommentById(Long id) throws Exception;
+    
     void increaseCommentCount(Term term) throws Exception;
     
     void decreaseCommentCount(Term term) throws Exception;
@@ -59,6 +61,6 @@ public interface GlossaryDAO extends BaseDAO {
      * viewed count on the user basis
      */
     void setViewedByCurrentUser(Term term) throws Exception;
-    
+
 
 }//interface GlossaryDAO

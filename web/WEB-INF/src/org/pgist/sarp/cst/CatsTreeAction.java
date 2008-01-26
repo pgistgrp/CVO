@@ -41,7 +41,7 @@ public class CatsTreeAction extends Action {
     ) throws java.lang.Exception {
         BCT bct = bctService.getBCTById(new Long(request.getParameter("bctId")));
         
-        request.setAttribute("root", bct.getRootCategory());
+        //request.setAttribute("root", bct.getRootCategory());
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

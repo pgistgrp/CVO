@@ -11,9 +11,9 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="sarp_concern_comments" lazy="true"
+ * @hibernate.class table="sarp_concern_comment" lazy="true"
  */
-public class Comment {
+public class ConcernComment {
     
     
     private Long id;
@@ -213,4 +213,4 @@ public class Comment {
     }
 
 
-}//class Comment
+}//class ConcernComment

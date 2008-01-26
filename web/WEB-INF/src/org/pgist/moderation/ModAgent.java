@@ -3,8 +3,8 @@
  */
 package org.pgist.moderation;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ModAgent {
     public Map getUserStats(){

@@ -3,9 +3,6 @@ package org.pgist.glossary;
 import java.util.Collection;
 import java.util.Date;
 
-import org.pgist.discussion.Discussion;
-import org.pgist.discussion.DiscussionDAO;
-import org.pgist.discussion.DiscussionPost;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -20,19 +17,12 @@ public class GlossaryServiceImpl implements GlossaryService {
     
     private GlossaryDAO glossaryDAO;
     
-    private DiscussionDAO discussionDAO;
-    
     
     public void setGlossaryDAO(GlossaryDAO glossaryDAO) {
         this.glossaryDAO = glossaryDAO;
     }
     
     
-    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
-        this.discussionDAO = discussionDAO;
-    }
-
-
     /*
      * ------------------------------------------------------------------------
      */
@@ -200,30 +190,33 @@ public class GlossaryServiceImpl implements GlossaryService {
 
 
     public Collection getComments(Term term) throws Exception {
-        return discussionDAO.getPosts(term.getDiscussion(), 0);
+        return null;
     }//getComments()
 
 
-    public DiscussionPost getCommentById(Long id) throws Exception {
-        return discussionDAO.getPostById(id);
+    public TermComment getCommentById(Long id) throws Exception {
+        return glossaryDAO.getCommentById(id);
     }//getCommentById()
 
 
-    synchronized public DiscussionPost createComment(Long id, String comment) throws Exception {
+    synchronized public TermComment createComment(Long id, String comment) throws Exception {
         Term term = glossaryDAO.getTermById(id);
         if (term==null) throw new Exception("term with id "+id+" is not found!");
         
-        Discussion discussion = term.getDiscussion();
+        TermComment termComment = new TermComment();
+        termComment.setComment(comment);
+        
+        term.getComments().add(termComment);
         
         glossaryDAO.increaseCommentCount(term);
         
-        return discussionDAO.createPost(discussion, "", comment, null, false);
+        return termComment;
     }//createComment
 
 
-    synchronized public void deleteComment(Term term, DiscussionPost comment) throws Exception {
+    synchronized public void deleteComment(Term term, TermComment comment) throws Exception {
         glossaryDAO.decreaseCommentCount(term);
-        discussionDAO.deletePost(comment);
+        term.getComments().remove(comment);
     }//deleteComment()
 
 

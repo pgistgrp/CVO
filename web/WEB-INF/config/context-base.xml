@@ -42,7 +42,6 @@
         <property name="target">
             <bean class="org.pgist.glossary.GlossaryServiceImpl">
                 <property name="glossaryDAO" ref="glossaryDAO"/>
-                <property name="discussionDAO" ref="discussionDAO"/>
             </bean>
         </property>
     </bean>

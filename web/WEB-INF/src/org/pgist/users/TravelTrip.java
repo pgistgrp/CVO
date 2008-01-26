@@ -2,6 +2,7 @@ package org.pgist.users;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.postgis.Geometry;
 /**
  * TravelTrip:{mode:tMode, frequency:tFrequency, markers:markerList, 

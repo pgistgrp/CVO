@@ -73,9 +73,9 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
     }//getConcernById()
 
 
-    public Comment getCommentById(Long commentId) throws Exception {
-        return (Comment) load(Comment.class, commentId);
-    }//getCommentById()
+    public ConcernComment getConcernCommentById(Long commentId) throws Exception {
+        return (ConcernComment) load(ConcernComment.class, commentId);
+    }//getConcernCommentById()
 
 
     private static final String hql_getBCTs = "from BCT c where c.deleted=? order by c.id";
@@ -480,25 +480,25 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
     }//decreaseReplies()
 
 
-    private static final String hql_deleteComments = "update Comment set deleted=? where concern_id=?";
+    private static final String hql_deleteConcernComments = "update ConcernComment set deleted=? where concern_id=?";
     
     
-    public void deleteComments(Concern concern) throws Exception {
-        Query query = getSession().createQuery(hql_deleteComments);
+    public void deleteConcernComments(Concern concern) throws Exception {
+        Query query = getSession().createQuery(hql_deleteConcernComments);
         query.setBoolean(0, true);
         query.setLong(1, concern.getId());
         query.executeUpdate();
-    }//deleteComments()
+    }//deleteConcernComments()
 
 
-    private static final String hql_getComments_A_1 = "select count(c.id) from Comment c where c.deleted=? and c.concern.id=?";
+    private static final String hql_getConcernComments_A_1 = "select count(c.id) from ConcernComment c where c.deleted=? and c.concern.id=?";
     
-    private static final String hql_getComments_A_2 = "from Comment c where c.deleted=? and c.concern.id=? order by c.id asc";
+    private static final String hql_getConcernComments_A_2 = "from ConcernComment c where c.deleted=? and c.concern.id=? order by c.id asc";
     
     
-    public Collection getComments(Long concernId, PageSetting setting) throws Exception {
+    public Collection getConcernComments(Long concernId, PageSetting setting) throws Exception {
         //get count
-        Query query = getSession().createQuery(hql_getComments_A_1);
+        Query query = getSession().createQuery(hql_getConcernComments_A_1);
         query.setBoolean(0, false);
         query.setLong(1, concernId);
         
@@ -510,25 +510,25 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
         if (count==0) return new ArrayList();
         
         //get records
-        query = getSession().createQuery(hql_getComments_A_2);
+        query = getSession().createQuery(hql_getConcernComments_A_2);
         query.setBoolean(0, false);
         query.setLong(1, concernId);
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
         return query.list();
-    }//getComments()
+    }//getConcernComments()
 
 
-    private static final String hql_increaseCommentVoting_11 = "update Comment c set c.numVote=c.numVote+1 where c.id=?";
+    private static final String hql_increaseConcernCommentVoting_11 = "update ConcernComment c set c.numVote=c.numVote+1 where c.id=?";
     
-    private static final String hql_increaseCommentVoting_12 = "update Comment c set c.numAgree=c.numAgree+1 where c.id=?";
+    private static final String hql_increaseConcernCommentVoting_12 = "update ConcernComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
-    public void increaseVoting(Comment comment, boolean agree) throws Exception {
-        getSession().createQuery(hql_increaseCommentVoting_11).setLong(0, comment.getId()).executeUpdate();
+    public void increaseVoting(ConcernComment comment, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseConcernCommentVoting_11).setLong(0, comment.getId()).executeUpdate();
         if (agree) {
-            getSession().createQuery(hql_increaseCommentVoting_12).setLong(0, comment.getId()).executeUpdate();
+            getSession().createQuery(hql_increaseConcernCommentVoting_12).setLong(0, comment.getId()).executeUpdate();
         }
     }//increaseVoting()
 

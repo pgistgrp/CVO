@@ -2,7 +2,7 @@ package org.pgist.sarp.bct;
 
 import java.util.Collection;
 
-import org.pgist.discussion.InfoStructure;
+import org.pgist.sarp.drt.InfoObject;
 import org.pgist.util.PageSetting;
 
 
@@ -13,17 +13,6 @@ import org.pgist.util.PageSetting;
  */
 public interface BCTService {
 
-
-    /**
-     * Get all the BCT objects from the database.
-     *
-     * @soap.method
-     * @axis.method
-     * 
-     * @return A collection of BCT objects.
-     * @throws Exception
-     */
-    Collection getBCTs() throws Exception;
 
     /**
      * Create a BCT object.
@@ -223,29 +212,31 @@ public interface BCTService {
     boolean setVotingOnConcern(Long id, boolean agree) throws Exception;
 
     
-    Comment createComment(Long concernId, String title, String content, String[] tags) throws Exception;
+    ConcernComment createConcernComment(Long concernId, String title, String content, String[] tags) throws Exception;
     
     
-    Comment editComment(Long commentId, String title, String content, String[] tags) throws Exception;
+    ConcernComment editConcernComment(Long commentId, String title, String content, String[] tags) throws Exception;
     
     
-    void deleteComment(Long commentId) throws Exception;
+    void deleteConcernComment(Long commentId) throws Exception;
 
     
-    Collection getComments(Long concernId, PageSetting setting) throws Exception;
+    Collection getConcernComments(Long concernId, PageSetting setting) throws Exception;
     
     
-    boolean setVotingOnComment(Long id, boolean agree) throws Exception;
+    boolean setVotingOnConcernComment(Long id, boolean agree) throws Exception;
     
     
     void increaseViews(Long concernId) throws Exception;
     
     
-    Comment getCommentById(Long commentId) throws Exception;
+    ConcernComment getConcernCommentById(Long commentId) throws Exception;
 
 
-    InfoStructure publish(Long workflowId, Long bctId, String title) throws Exception;
+    InfoObject publish(Long bctId, String title) throws Exception;
+    
+    
+	void toggleBCT(Long bctId, boolean equals) throws Exception;
     
     
 }//interface BCTService
-

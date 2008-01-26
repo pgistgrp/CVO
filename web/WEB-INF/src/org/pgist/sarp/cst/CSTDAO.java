@@ -2,11 +2,7 @@ package org.pgist.sarp.cst;
 
 import java.util.Collection;
 
-import org.pgist.discussion.InfoObject;
-import org.pgist.discussion.InfoStructure;
-import org.pgist.sarp.bct.CategoryReference;
 import org.pgist.sarp.bct.TagReference;
-import org.pgist.sarp.bct.Theme;
 import org.pgist.system.BaseDAO;
 import org.pgist.tagging.Category;
 import org.pgist.util.PageSetting;
@@ -38,15 +34,11 @@ public interface CSTDAO extends BaseDAO {
 
     Collection getOrphanTags(Long bctId, PageSetting setting) throws Exception;
 
-    Theme getThemeById(Long themeId) throws Exception;
-
-    void save(Theme theme) throws Exception;
-
     void delete(CategoryReference ref) throws Exception;
 
-    void publish(InfoStructure structure, InfoObject obj, CategoryReference ref) throws Exception;
-
     Long getInfoObjectIdByThemeId(Long themeId) throws Exception;
+
+	CST getCSTById(Long cstId) throws Exception;
 
 
 }//interface CSTDAO

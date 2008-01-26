@@ -3,9 +3,8 @@ package org.pgist.sarp.cst;
 import java.util.Collection;
 import java.util.List;
 
-import org.pgist.discussion.InfoStructure;
 import org.pgist.sarp.bct.BCT;
-import org.pgist.sarp.bct.CategoryReference;
+import org.pgist.sarp.drt.InfoObject;
 import org.pgist.tagging.Category;
 import org.pgist.util.PageSetting;
 
@@ -54,7 +53,11 @@ public interface CSTService {
 
     List getThemes(BCT bct) throws Exception;
     
-    InfoStructure publish(Long workflowId, Long cctId, String title) throws Exception;
+	InfoObject publish(Long cstId, String property) throws Exception;
+
+	CST createCST(Long workflowId, String name, String purpose, String instruction) throws Exception;
+
+	void toggleCST(Long cstId, boolean closed) throws Exception;
     
     
 }//interface CSTService

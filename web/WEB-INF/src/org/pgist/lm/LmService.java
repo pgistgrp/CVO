@@ -1,6 +1,7 @@
 package org.pgist.lm;
 
 import java.util.Collection;
+
 import org.pgist.projects.ProjectAlternative;
 
 public interface LmService {

@@ -11,8 +11,28 @@
         <property name="bctService" ref="bctService"/>
     </bean>
     
-    <bean id="task-sarp.publish.theme" class="org.pgist.sarp.cst.PublishThemeTask">
+    <bean id="task-sarp.toggle.bct" class="org.pgist.sarp.bct.ToggleBCTTask">
+        <property name="bctService" ref="bctService"/>
+    </bean>
+    
+    <bean id="task-sarp.create.cst" class="org.pgist.sarp.cst.CreateCSTTask">
         <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.publish.cst" class="org.pgist.sarp.cst.PublishCSTTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.cst" class="org.pgist.sarp.cst.ToggleCSTTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.drt.clear.vote" class="org.pgist.sarp.drt.ClearVoteTask">
+        <property name="drtService" ref="drtService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.drt" class="org.pgist.sarp.drt.ToggleDRTTask">
+        <property name="drtService" ref="drtService"/>
     </bean>
     
     
@@ -21,14 +41,19 @@
             <map>
               <entry><key><value>task-sarp.create.bct</value></key><ref bean="task-sarp.create.bct" /></entry>
               <entry><key><value>task-sarp.publish.bct</value></key><ref bean="task-sarp.publish.bct" /></entry>
-              <entry><key><value>task-sarp.publish.theme</value></key><ref bean="task-sarp.publish.theme" /></entry>
+              <entry><key><value>task-sarp.toggle.bct</value></key><ref bean="task-sarp.toggle.bct" /></entry>
+              <entry><key><value>task-sarp.create.cst</value></key><ref bean="task-sarp.create.cst" /></entry>
+              <entry><key><value>task-sarp.publish.cst</value></key><ref bean="task-sarp.publish.cst" /></entry>
+              <entry><key><value>task-sarp.toggle.cst</value></key><ref bean="task-sarp.toggle.cst" /></entry>
+              <entry><key><value>task-sarp.drt.clear.vote</value></key><ref bean="task-sarp.drt.clear.vote" /></entry>
+              <entry><key><value>task-sarp.toggle.drt</value></key><ref bean="task-sarp.toggle.drt" /></entry>
             </map>
         </property>
         <property name="actions">
             <map>
               <entry><key><value>action-sarp.bct</value></key><value>/bctview.do</value></entry>
               <entry><key><value>action-sarp.cst</value></key><value>/cstview.do</value></entry>
-              <entry><key><value>action-sarp.sd.movements</value></key><value>/sdMovements.do</value></entry>
+              <entry><key><value>action-sarp.drt</value></key><value>/drt.do</value></entry>
             </map>
         </property>
     </bean>

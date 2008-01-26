@@ -1,10 +1,10 @@
 package org.pgist.criteria;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Collection;
 
 import org.pgist.projects.UnknownObjectiveException;
 

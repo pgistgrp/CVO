@@ -6,7 +6,31 @@
     
     <pgames>
     
-        <pgame name="pgame-sarp.create.bct" title="Create a BCT instance." auto="true">
+        <pgame name="pgame-sarp.drt.clear.vote" title="Clear Vote" auto="true">
+            <description>
+              <![CDATA[Clear DRT Vote.]]>
+            </description>
+            <taskName>task-sarp.drt.clear.vote</taskName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.toggle.drt" title="Toggle DRT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a DRT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.drt</taskName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.create.bct" title="Create BCT." auto="true">
             <description>
               <![CDATA[<small>Start a new instance of BCT</small>]]>
             </description>
@@ -23,7 +47,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.publish.bct" title="Publish a BCT discussion." auto="true">
+        <pgame name="pgame-sarp.publish.bct" title="Publish BCT." auto="true">
             <description>
               <![CDATA[<small>Publish a BCT discussion.</small>]]>
             </description>
@@ -31,12 +55,13 @@
             <declaration>
                 <ins>
                     <var name="bct_id"/>
+                    <var name="oid"/>
                 </ins>
                 <outs>
-                    <var name="is_id"/>
+                    <var name="oid"/>
                 </outs>
                 <props>
-                    <property name="title" value="Discuss Movements" />
+                    <property name="title" value="Discuss and Review for BCT" />
                 </props>
             </declaration>
         </pgame>
@@ -53,6 +78,51 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.drt.bct" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
+            </description>
+            <actionName>action-sarp.drt</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="script" value="/scripts/sarp/bct/target.js" />
+                    <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.toggle.bct" title="Toggle BCT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a BCT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.bct</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.create.cst" title="Create CST." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of CST</small>]]>
+            </description>
+            <taskName>task-sarp.create.cst</taskName>
+            <declaration>
+                <outs>
+                    <var name="cst_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="CST" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.cst" title="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
             <description>
               <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
@@ -65,82 +135,79 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.publish.theme" title="Publish Themes." auto="true">
+        <pgame name="pgame-sarp.publish.cst" title="Publish CST." auto="true">
             <description>
               <![CDATA[Publish themes.]]>
             </description>
-            <taskName>task-sarp.publish.theme</taskName>
+            <taskName>task-sarp.publish.cst</taskName>
             <declaration>
                 <ins>
-                    <var name="bct_id"/>
+                    <var name="cst_id"/>
+                    <var name="oid"/>
                 </ins>
                 <outs>
-                    <var name="is_id"/>
+                    <var name="oid"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 1: Discuss Concerns" />
+                    <property name="title" value="Discuss and Review for CST" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.sd.sarp.bct" title="Discuss Movements" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.cst" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
             </description>
-            <actionName>action-sarp.sd.movements</actionName>
+            <actionName>action-sarp.drt</actionName>
             <declaration>
                 <ins>
-                    <var name="isid"/>
-                </ins>
-                <props>
-                    <property name="script" value="/scripts/sarp/bct/target.js" />
-                    <property name="page" value="/WEB-INF/jsp/sarp/bct/info-strcture.jsp" />
-                </props>
-            </declaration>
-        </pgame>
-    
-        <pgame name="pgame-sarp.sd.sarp.cst" title="Discuss Movements" auto="false" access="all" revisitable="true">
-            <description>
-              <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
-            </description>
-            <actionName>action-sarp.sd.movements</actionName>
-            <declaration>
-                <ins>
-                    <var name="isid"/>
+                    <var name="oid"/>
                 </ins>
                 <props>
                     <property name="script" value="/scripts/sarp/cst/target.js" />
-                    <property name="page" value="/WEB-INF/jsp/sarp/cst/info-strcture.jsp" />
+                    <property name="page" value="/WEB-INF/jsp/sarp/cst/info-object.jsp" />
                 </props>
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.sd.sarp.cht" title="Discuss Movements" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.toggle.cst" title="Toggle CST." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a CST.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.cst</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.drt.cht" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
             </description>
-            <actionName>action-sarp.sd.movements</actionName>
+            <actionName>action-sarp.drt</actionName>
             <declaration>
                 <ins>
-                    <var name="isid"/>
+                    <var name="oid"/>
                 </ins>
                 <props>
-                    <property name="page" value="/WEB-INF/jsp/sarp/cht/info-strcture.jsp" />
+                    <property name="page" value="/WEB-INF/jsp/sarp/cht/info-object.jsp" />
                 </props>
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.sd.sarp.cst" title="Discuss Movements" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.vtt" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
             </description>
-            <actionName>action-sarp.sd.movements</actionName>
+            <actionName>action-sarp.drt</actionName>
             <declaration>
                 <ins>
-                    <var name="isid"/>
+                    <var name="oid"/>
                 </ins>
                 <props>
-                    <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-strcture.jsp" />
+                    <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-object.jsp" />
                 </props>
             </declaration>
         </pgame>
@@ -151,12 +218,12 @@
     
     <pmethods>
     
-        <pmethod name="pmethod-init.situation" access="moderator">
+        <pmethod name="pmethod-sarp.bct" description="Step 1: Brainstorm Concerns Tool">
             <declaration>
-                <outs>
+                <ins>
                     <var name="pmethod.bct_id"/>
-                    <var name="pmethod.bct_isid"/>
-                </outs>
+                    <var name="pmethod.bct_oid"/>
+                </ins>
             </declaration>
             <sequence>
                 <pgame name="pgame-sarp.create.bct">
@@ -169,24 +236,14 @@
                 <pgame name="pgame-sarp.publish.bct">
                     <declaration>
                         <ins>
+                            <var name="oid" ref="pmethod.bct_oid"/>
                             <var name="bct_id" ref="pmethod.bct_id"/>
                         </ins>
                         <outs>
-                            <var name="is_id" ref="pmethod.bct_isid"/>
+                            <var name="oid" ref="pmethod.bct_oid"/>
                         </outs>
                     </declaration>
                 </pgame>
-            </sequence>
-        </pmethod>
-        
-        <pmethod name="pmethod-sarp.bct" description="Step 1: Brainstorm Concerns Tool">
-            <declaration>
-                <ins>
-                    <var name="pmethod.bct_id"/>
-                    <var name="pmethod.bct_isid"/>
-                </ins>
-            </declaration>
-            <sequence>
                 <branch>
                     <sequence>
                         <pgame name="pgame-sarp.bct">
@@ -196,13 +253,33 @@
                                 </ins>
                             </declaration>
                         </pgame>
-                    </sequence>
-                    <sequence>
-                        <pgame name="pgame-sarp.sd.sarp.bct">
+                        <pgame name="pgame-sarp.toggle.bct">
                             <declaration>
                                 <ins>
-                                    <var name="isid" ref="pmethod.bct_isid"/>
+                                    <var name="bct_id" ref="pmethod.bct_id"/>
                                 </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sarp.drt.bct">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.bct_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.bct_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
                             </declaration>
                         </pgame>
                     </sequence>
@@ -216,34 +293,91 @@
                     <var name="pmethod.bct_id"/>
                 </ins>
                 <outs>
-                    <var name="pmethod.theme_isid"/>
+                    <var name="pmethod.cst_id"/>
+                    <var name="pmethod.cst_oid"/>
                 </outs>
             </declaration>
             <sequence>
+                <pgame name="pgame-sarp.create.cst">
+                    <declaration>
+                        <outs>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
                 <repeat>
                     <sequence>
+                        <pgame name="pgame-sarp.toggle.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="cst_id" ref="pmethod.cst_id"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-sarp.cst">
                             <declaration>
                                 <ins>
                                     <var name="bctId" ref="pmethod.bct_id"/>
+                                    <var name="cstId" ref="pmethod.cst_id"/>
                                 </ins>
                             </declaration>
                         </pgame>
-                        <pgame name="pgame-sarp.publish.theme">
+                        <pgame name="pgame-sarp.toggle.cst">
                             <declaration>
                                 <ins>
-                                    <var name="bct_id" ref="pmethod.bct_id"/>
+                                    <var name="cst_id" ref="pmethod.cst_id"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.publish.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="cst_id" ref="pmethod.cst_id"/>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
                                 </ins>
                                 <outs>
-                                    <var name="is_id" ref="pmethod.theme_isid"/>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
                                 </outs>
                             </declaration>
                         </pgame>
-                        <pgame name="pgame-sarp.sd.sarp.cst">
+                        <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
-                                    <var name="isid" ref="pmethod.theme_isid"/>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
                                 </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.clear.vote">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
                             </declaration>
                         </pgame>
                     </sequence>
@@ -257,39 +391,20 @@
     
     <meetings>
     
-        <meeting name="meeting-init.situation" access="moderator" description="Initialize Decision Situation">
+        <meeting name="meeting-sarp.bct" description="Step 1: Brainstorm Concerns Tool">
             <declaration>
                 <outs>
                     <var name="meeting.bct_id"/>
-                    <var name="meeting.bct_isid"/>
+                    <var name="meeting.bct_oid"/>
                 </outs>
-            </declaration>
-            <sequence>
-                <pmethod name="pmethod-init.situation">
-                    <declaration>
-                        <outs>
-                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
-                            <var name="pmethod.bct_isid" ref="meeting.bct_isid"/>
-                        </outs>
-                    </declaration>
-                </pmethod>
-            </sequence>
-        </meeting>
-        
-        <meeting name="meeting-sarp.bct" description="Step 1: Brainstorm Concerns Tool">
-            <declaration>
-                <ins>
-                    <var name="meeting.bct_id"/>
-                    <var name="meeting.bct_isid"/>
-                </ins>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-sarp.bct">
                     <declaration>
-                        <ins>
+                        <outs>
                             <var name="pmethod.bct_id" ref="meeting.bct_id"/>
-                            <var name="pmethod.bct_isid" ref="meeting.bct_isid"/>
-                        </ins>
+                            <var name="pmethod.bct_oid" ref="meeting.bct_oid"/>
+                        </outs>
                     </declaration>
                 </pmethod>
             </sequence>
@@ -301,7 +416,8 @@
                     <var name="meeting.bct_id"/>
                 </ins>
                 <outs>
-                    <var name="meeting.theme_isid"/>
+                    <var name="meeting.cst_id"/>
+                    <var name="meeting.cst_oid"/>
                 </outs>
             </declaration>
             <sequence>
@@ -311,7 +427,8 @@
                             <var name="pmethod.bct_id" ref="meeting.bct_id"/>
                         </ins>
                         <outs>
-                            <var name="pmethod.theme_isid" ref="meeting.theme_isid"/>
+                            <var name="pmethod.cst_id" ref="meeting.cst_id"/>
+                            <var name="pmethod.cst_oid" ref="meeting.cst_oid"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -326,19 +443,11 @@
     
         <situation name="SARP" description="SARP">
             <sequence>
-                <meeting name="meeting-init.situation">
-                    <declaration>
-                        <outs>
-                            <var name="meeting.bct_id" ref="situation.bct_id"/>
-                            <var name="meeting.bct_isid" ref="situation.bct_isid"/>
-                        </outs>
-                    </declaration>
-                </meeting>
                 <meeting name="meeting-sarp.bct">
                     <declaration>
                         <ins>
                             <var name="meeting.bct_id" ref="situation.bct_id"/>
-                            <var name="meeting.bct_isid" ref="situation.bct_isid"/>
+                            <var name="meeting.bct_oid" ref="situation.bct_oid"/>
                         </ins>
                     </declaration>
                 </meeting>
@@ -348,7 +457,7 @@
                             <var name="meeting.bct_id" ref="situation.bct_id"/>
                         </ins>
                         <outs>
-                            <var name="meeting.theme_isid" ref="situation.theme_isid"/>
+                            <var name="meeting.cst_oid" ref="situation.cst_oid"/>
                         </outs>
                     </declaration>
                 </meeting>

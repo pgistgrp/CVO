@@ -26,16 +26,12 @@ public class BCT {
     
     private boolean closed = false;
     
-    private boolean deleted = false;
-    
     private int maxConcernPerPerson = Integer.MAX_VALUE;
     
     private Set concerns = new HashSet();
     
     private Set tagRefs = new HashSet();
     
-    private CategoryReference rootCategory = new CategoryReference();
-
     private Long workflowId;
     
     
@@ -91,21 +87,6 @@ public class BCT {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="root_cat_ref_id" cascade="all" lazy="true"
-     */
-    public CategoryReference getRootCategory() {
-        return rootCategory;
-    }
-
-
-    public void setRootCategory(CategoryReference rootCategory) {
-        this.rootCategory = rootCategory;
-    }
-
-
-    /**
-     * @return
-     * 
      * @hibernate.id generator-class="native"
      */
     public Long getId() {
@@ -128,30 +109,11 @@ public class BCT {
 	}
     
     
-
-
 	public void setClosed(boolean closed) {
 		this.closed = closed;
 	}
 	
 	
-
-
-	/**
-     * @return
-     * 
-     * @hibernate.property not-null="true"
-     */
-    public boolean isDeleted() {
-        return deleted;
-    }
-    
-    
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-
     /**
      * @return
      * 

@@ -485,16 +485,13 @@ function tabberAutomaticOnLoad(tabberArgs)
   if (typeof window.onload != 'function') {
     window.onload = function() {
       tabberAutomatic(tabberArgs);
-      
     };
   } else {
     window.onload = function() {
       oldOnLoad();
       tabberAutomatic(tabberArgs);
-	  
     };
   }
-
 }
 
 
@@ -504,13 +501,9 @@ function tabberAutomaticOnLoad(tabberArgs)
 /* Run tabberAutomaticOnload() unless the "manualStartup" option was specified */
 
 if (typeof tabberOptions == 'undefined') {
-
     tabberAutomaticOnLoad();
-
 } else {
-
   if (!tabberOptions['manualStartup']) {
     tabberAutomaticOnLoad(tabberOptions);
   }
-
 }

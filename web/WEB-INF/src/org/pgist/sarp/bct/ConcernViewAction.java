@@ -59,8 +59,8 @@ public class ConcernViewAction extends Action {
         YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_CONCERN, id);
         if (voting!=null) concern.setObject(voting);
         
-        Collection comments = bctService.getComments(id, setting);
-        for (Comment comment : (Collection<Comment>) comments) {
+        Collection comments = bctService.getConcernComments(id, setting);
+        for (ConcernComment comment : (Collection<ConcernComment>) comments) {
             voting = systemService.getVoting(YesNoVoting.TYPE_COMMENT, comment.getId());
             if (voting!=null) comment.setObject(voting);
         }

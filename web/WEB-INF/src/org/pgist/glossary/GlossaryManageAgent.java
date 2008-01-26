@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.discussion.DiscussionPost;
 import org.pgist.system.EmailSender;
 import org.pgist.util.PageSetting;
 
@@ -530,12 +529,12 @@ public class GlossaryManageAgent {
     
     
     /**
-     * Delete the given comment to the specified term.
+     * Delete the given term comment to the specified term.
      * 
      * @param params - A map contains:<br>
      *         <ul>
      *           <li>termId - int, id of the term object</li>
-     *           <li>commentId - int, id of the DiscussionPost object</li>
+     *           <li>commentId - int, id of the TermComment object</li>
      *         </ul>
      *         
      * @return A map contains:<br>
@@ -559,7 +558,7 @@ public class GlossaryManageAgent {
             
             Long commentId = new Long((String) params.get("commentId"));
             
-            DiscussionPost comment = glossaryService.getCommentById(commentId);
+            TermComment comment = glossaryService.getCommentById(commentId);
             if (comment==null) {
                 map.put("reason", "comment with id "+commentId+" is not found!");
                 return map;

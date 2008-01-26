@@ -8,8 +8,8 @@ import java.util.Set;
 
 import org.pgist.packages.ClusteredPackage;
 import org.pgist.system.County;
-import org.pgist.users.User;
 import org.pgist.system.RegisterObject;
+import org.pgist.users.User;
 
 /**
  * <span style="color:red;">POJO</span>: PGIST Announcement Class<br>

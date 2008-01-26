@@ -2,7 +2,6 @@ package org.pgist.glossary;
 
 import java.util.Collection;
 
-import org.pgist.discussion.DiscussionPost;
 import org.pgist.util.PageSetting;
 
 
@@ -38,13 +37,13 @@ public interface GlossaryService {
     Collection getComments(Term term) throws Exception;
     
     
-    DiscussionPost getCommentById(Long id) throws Exception;
+    TermComment getCommentById(Long id) throws Exception;
 
 
-    DiscussionPost createComment(Long id, String comment) throws Exception;
+    TermComment createComment(Long id, String comment) throws Exception;
     
     
-    void deleteComment(Term term, DiscussionPost comment) throws Exception;
+    void deleteComment(Term term, TermComment comment) throws Exception;
 
 
     void setFlag(Long id) throws Exception;

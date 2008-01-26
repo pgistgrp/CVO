@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.pgist.discussion.DiscussionDAO;
-import org.pgist.discussion.InfoObject;
-import org.pgist.discussion.InfoStructure;
+import org.pgist.sarp.drt.InfoObject;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
@@ -37,10 +35,8 @@ public class BCTServiceImpl implements BCTService {
 
     private SystemDAO systemDAO;
     
-    private DiscussionDAO discussionDAO = null;
-
-
-    public void setUserDAO(UserDAO userDAO) {
+    
+	public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -65,30 +61,15 @@ public class BCTServiceImpl implements BCTService {
     }
 
     
-    public void setDiscussionDAO(DiscussionDAO discussionDAO) {
-        this.discussionDAO = discussionDAO;
-    }
-
-    
     /*
      * ------------------------------------------------------------------------
      */
-
-
-    public Collection getBCTs() throws Exception {
-        return bctDAO.getBCTs();
-    } //getBCTs()
 
 
     public BCT createBCT(Long workflowId, String name, String purpose, String instruction) throws Exception {
         Date time = new Date();
         BCT bct = new BCT();
 
-        CategoryReference catRef = new CategoryReference();
-        catRef.setBct(bct);
-        
-        bct.setRootCategory(catRef);
-        
         bct.setWorkflowId(workflowId);
         bct.setName(name);
         bct.setPurpose(purpose);
@@ -220,9 +201,9 @@ public class BCTServiceImpl implements BCTService {
     } //getConcernById()
 
 
-    public Comment getCommentById(Long commentId) throws Exception {
-        return bctDAO.getCommentById(commentId);
-    }//getCommentById()
+    public ConcernComment getConcernCommentById(Long commentId) throws Exception {
+        return bctDAO.getConcernCommentById(commentId);
+    }//getConcernCommentById()
 
 
     public void deleteConcern(Long concernId) throws Exception {
@@ -256,7 +237,7 @@ public class BCTServiceImpl implements BCTService {
         concern.setDeleted(true);
         concern.setCreateTime(new Date());
         
-        bctDAO.deleteComments(concern);
+        bctDAO.deleteConcernComments(concern);
         bct.getConcerns().remove(concern);
         
         bctDAO.save(concern);
@@ -379,12 +360,12 @@ public class BCTServiceImpl implements BCTService {
     }//setVotingOnConcern()
 
 
-    public Comment createComment(Long concernId, String title, String content, String[] tags) throws Exception {
+    public ConcernComment createConcernComment(Long concernId, String title, String content, String[] tags) throws Exception {
         Concern concern = bctDAO.getConcernById(concernId);
         
         if (concern==null) throw new Exception("can't find the specified concern");
             
-        Comment comment = new Comment();
+        ConcernComment comment = new ConcernComment();
         comment.setConcern(concern);
         comment.setTitle(title);
         comment.setContent(content);
@@ -417,11 +398,11 @@ public class BCTServiceImpl implements BCTService {
         bctDAO.increaseVoting(comment, true);
         
         return comment;
-    }//createComment()
+    }//createConcernComment()
 
 
-    public Comment editComment(Long commentId, String title, String content, String[] tags) throws Exception {
-        Comment comment = bctDAO.getCommentById(commentId);
+    public ConcernComment editConcernComment(Long commentId, String title, String content, String[] tags) throws Exception {
+        ConcernComment comment = bctDAO.getConcernCommentById(commentId);
         
         if (comment==null) throw new Exception("can't find the specified comment");
             
@@ -449,11 +430,11 @@ public class BCTServiceImpl implements BCTService {
         bctDAO.save(comment);
         
         return comment;
-    }//editComment()
+    }//editConcernComment()
 
 
-    public void deleteComment(Long commentId) throws Exception {
-        Comment comment = bctDAO.getCommentById(commentId);
+    public void deleteConcernComment(Long commentId) throws Exception {
+        ConcernComment comment = bctDAO.getConcernCommentById(commentId);
         
         if (comment==null) throw new Exception("can't find the specified comment");
         
@@ -468,23 +449,23 @@ public class BCTServiceImpl implements BCTService {
         bctDAO.decreaseReplies(comment.getConcern());
         
         bctDAO.save(comment);
-    }//deleteComment()
+    }//deleteConcernComment()
 
 
-    public Collection getComments(Long concernId, PageSetting setting) throws Exception {
-        return bctDAO.getComments(concernId, setting);
-    }//getComments()
+    public Collection getConcernComments(Long concernId, PageSetting setting) throws Exception {
+        return bctDAO.getConcernComments(concernId, setting);
+    }//getConcernComments()
 
 
-    public boolean setVotingOnComment(Long id, boolean agree) throws Exception {
+    public boolean setVotingOnConcernComment(Long id, boolean agree) throws Exception {
         if (!systemDAO.setVoting(YesNoVoting.TYPE_COMMENT, id, agree)) return false;
         
-        Comment comment = bctDAO.getCommentById(id);
+        ConcernComment comment = bctDAO.getConcernCommentById(id);
         
         bctDAO.increaseVoting(comment, agree);
         
         return true;
-    }//setVotingOnComment()
+    }//setVotingOnConcernComment()
 
 
     public void increaseViews(Long concernId) throws Exception {
@@ -492,19 +473,33 @@ public class BCTServiceImpl implements BCTService {
     }//increaseViews()
 
 
-    public InfoStructure publish(Long workflowId, Long bctId, String title) throws Exception {
-        Date date = new Date();
+    public InfoObject publish(Long bctId, String title) throws Exception {
+    	BCT bct = bctDAO.getBCTById(bctId);
+    	bct.getId();
+    	bct.getConcerns();
+    	bct.getCreateTime();
+    	bct.getInstruction();
+    	bct.getMaxConcernPerPerson();
+    	bct.getName();
+    	bct.getPurpose();
+    	bct.getTagRefs();
+    	bct.getWorkflowId();
+    	
+        InfoObject infoObject = new InfoObject();
+        infoObject.setTitle(title);
+        infoObject.setTarget(bct);
+        bctDAO.save(infoObject);
         
-        InfoStructure structure = new InfoStructure();
-        structure.getDiscussion().setWorkflowId(workflowId);
-        structure.setType(InfoStructure.TYPE_SARP_SD_BCT);
-        structure.setTitle(title);
-        structure.setRespTime(date);
-        structure.setCctId(bctId);
-        discussionDAO.save(structure);
-        
-        return structure;
+        return infoObject;
     }//publish()
+
+
+	@Override
+	public void toggleBCT(Long bctId, boolean closed) throws Exception {
+		BCT bct = bctDAO.getBCTById(bctId);
+		bct.setClosed(closed);
+		bctDAO.save(bct);
+	}//toggleBCT()
 
 
 }//class BCTServiceImpl

@@ -24,7 +24,7 @@ public interface BCTDAO extends BaseDAO {
     TagReference getTagReferenceById(Long tagRefId) throws Exception;
 
 
-    Comment getCommentById(Long commentId) throws Exception;
+    ConcernComment getConcernCommentById(Long commentId) throws Exception;
 
 
     /**
@@ -167,13 +167,13 @@ public interface BCTDAO extends BaseDAO {
     void decreaseReplies(Concern concern) throws Exception;
 
 
-    void deleteComments(Concern concern) throws Exception;
+    void deleteConcernComments(Concern concern) throws Exception;
 
 
-    Collection getComments(Long concernId, PageSetting setting) throws Exception;
+    Collection getConcernComments(Long concernId, PageSetting setting) throws Exception;
 
 
-    void increaseVoting(Comment comment, boolean agree) throws Exception;
+    void increaseVoting(ConcernComment comment, boolean agree) throws Exception;
 
 
     void increaseViews(Long concernId) throws Exception;

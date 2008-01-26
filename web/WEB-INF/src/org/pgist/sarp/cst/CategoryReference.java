@@ -1,4 +1,4 @@
-package org.pgist.sarp.bct;
+package org.pgist.sarp.cst;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -7,6 +7,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.pgist.model.Node;
+import org.pgist.sarp.bct.TagReferenceComparator;
 import org.pgist.tagging.Category;
 
 
@@ -14,14 +15,12 @@ import org.pgist.tagging.Category;
  * 
  * @author kenny
  *
- * @hibernate.class table="sarp_category_refs" lazy="true"
+ * @hibernate.class table="sarp_cst_category_refs" lazy="true"
  */
 public class CategoryReference implements Node, Serializable {
     
     
     protected Long id;
-    
-    protected BCT bct;
     
     protected Set parents = new HashSet();
     
@@ -29,10 +28,9 @@ public class CategoryReference implements Node, Serializable {
     
     protected Category category;
     
-    protected Theme theme = new Theme();
+    protected String theme = "";
     
     protected SortedSet tags = new TreeSet(new TagReferenceComparator());
-    
     
     /**
      * @return
@@ -50,24 +48,10 @@ public class CategoryReference implements Node, Serializable {
     
     /**
      * @return
-     * @hibernate.many-to-one column="bct_id" lazy="true" class="org.pgist.sarp.bct.BCT"
-     */
-    public BCT getBct() {
-        return bct;
-    }
-
-
-    public void setBct(BCT bct) {
-        this.bct = bct;
-    }
-
-
-    /**
-     * @return
      * 
      * @hibernate.set inverse="true" lazy="true" table="sarp_bct_catref_catref_link" order-by="child_id"
      * @hibernate.collection-key column="parent_id"
-     * @hibernate.collection-many-to-many column="child_id" class="org.pgist.sarp.bct.CategoryReference"
+     * @hibernate.collection-many-to-many column="child_id" class="org.pgist.sarp.cst.CategoryReference"
      */
     public Set getParents() {
         return parents;
@@ -84,7 +68,7 @@ public class CategoryReference implements Node, Serializable {
      * 
      * @hibernate.set lazy="true" table="sarp_bct_catref_catref_link" order-by="parent_id"
      * @hibernate.collection-key column="child_id"
-     * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.sarp.bct.CategoryReference"
+     * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.sarp.cst.CategoryReference"
      */
     public Set getChildren() {
         return children;
@@ -112,14 +96,14 @@ public class CategoryReference implements Node, Serializable {
 
     /**
      * @return
-     * @hibernate.many-to-one column="theme_id" lazy="true" class="org.pgist.sarp.bct.Theme" cascade="all"
+     * @hibernate.property
      */
-    public Theme getTheme() {
+    public String getTheme() {
         return theme;
     }
 
 
-    public void setTheme(Theme theme) {
+    public void setTheme(String theme) {
         this.theme = theme;
     }
 
@@ -127,7 +111,7 @@ public class CategoryReference implements Node, Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="sarp_catref_tagref_link" order-by="tagref_id" sort="org.pgist.sarp.bct.TagReferenceComparator"
+     * @hibernate.set lazy="true" table="pgist_cst_catref_tagref_link" order-by="tagref_id" sort="org.pgist.sarp.bct.TagReferenceComparator"
      * @hibernate.collection-key column="catref_id"
      * @hibernate.collection-many-to-many column="tagref_id" class="org.pgist.sarp.bct.TagReference"
      */

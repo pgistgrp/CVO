@@ -219,12 +219,10 @@ public class SDServiceImpl implements SDService {
 	        ref.getTags();
 	        ref.getTheme();
         } else if (InfoStructure.TYPE_SARP_SD_BCT.equals(object.getStructure().getType())) {
-        	org.pgist.sarp.bct.CategoryReference ref = (org.pgist.sarp.bct.CategoryReference) object.getObject();
+        	org.pgist.sarp.cst.CategoryReference ref = (org.pgist.sarp.cst.CategoryReference) object.getObject();
 	        ref.getCategory();
-	        ref.getBct();
 	        ref.getChildren();
 	        ref.getParents();
-	        ref.getTags();
 	        ref.getTheme();
         }
         

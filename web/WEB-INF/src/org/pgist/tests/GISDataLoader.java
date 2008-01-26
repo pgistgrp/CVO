@@ -2,6 +2,10 @@ package org.pgist.tests;
 
 import java.io.File;
 
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
@@ -15,10 +19,6 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
 
 /**
  * Ant task to load projects, alternatives, and project foorprints 

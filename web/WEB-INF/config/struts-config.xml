@@ -137,28 +137,8 @@
             <forward name="view" path="/WEB-INF/jsp/sarp/cst/cstCategories.jsp" />
         </action>
 
-        <action path="/sdMovements" scope="request" type="org.pgist.discussion.SDAction">
-            <forward name="main" path="/WEB-INF/jsp/discussion/sdMovements.jsp"/>
-        </action>
-
-        <action path="/sd" scope="request" type="org.pgist.discussion.SDAction">
-            <forward name="main" path="/WEB-INF/jsp/discussion/sdMain.jsp"/>
-        </action>
-
-        <action path="/sdSearch" scope="request" type="org.pgist.discussion.SDSearchAction">
-            <forward name="view" path="/WEB-INF/jsp/discussion/search_results.jsp"/>
-        </action>
-
-        <action path="/sdRoom" scope="request" type="org.pgist.discussion.SDRoomAction">
-            <forward name="main" path="/WEB-INF/jsp/discussion/sdRoomMain.jsp"/>
-        </action>
-
-        <action path="/sdThread" scope="request" type="org.pgist.discussion.SDThreadAction">
-            <forward name="main" path="/WEB-INF/jsp/discussion/sdThreadMain.jsp"/>
-        </action>
-
-        <action path="/sdConcerns" scope="request" type="org.pgist.discussion.SDConcernsAction">
-            <forward name="main" path="/WEB-INF/jsp/discussion/sdConcerns.jsp"/>
+        <action path="/drt" scope="request" type="org.pgist.sarp.drt.DRTAction">
+            <forward name="main" path="/WEB-INF/jsp/sarp/drt/drtMain.jsp"/>
         </action>
 
         <action name="cctForm" path="/glossaryManage" scope="request" type="org.pgist.glossary.GlossaryManageAction">

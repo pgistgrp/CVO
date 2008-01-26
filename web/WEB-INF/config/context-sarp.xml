@@ -4,14 +4,32 @@
 <beans>
 
 
-    <bean id="bctDAO" class="org.pgist.sarp.bct.BCTDAOImpl">
+    <!-- DRT : Discuss and Review Tool -->
+    
+    <bean id="drtDAO" class="org.pgist.sarp.drt.DRTDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
 
 
-    <bean id="cstDAO" class="org.pgist.sarp.cst.CSTDAOImpl">
+    <bean id="drtService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.drt.DRTServiceImpl">
+                <property name="drtDAO" ref="drtDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="drtAgent" class="org.pgist.sarp.drt.DRTAgent">
+        <property name="drtService" ref="drtService"/>
+    </bean>
+
+
+    <!-- BCT : Brainstorming Concerns Tool -->
+    
+    <bean id="bctDAO" class="org.pgist.sarp.bct.BCTDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
@@ -26,7 +44,6 @@
                 <property name="tagDAO" ref="tagDAO"/>
                 <property name="analyzer" ref="tagAnalyzer"/>
                 <property name="systemDAO" ref="systemDAO"/>
-                <property name="discussionDAO" ref="discussionDAO"/>
             </bean>
         </property>
     </bean>
@@ -40,13 +57,21 @@
     </bean>
 
 
+    <!-- CST : Concern Synthesis Tool -->
+    
+    <bean id="cstDAO" class="org.pgist.sarp.cst.CSTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
     <bean id="cstService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.sarp.cst.CSTServiceImpl">
                 <property name="bctDAO" ref="bctDAO"/>
                 <property name="cstDAO" ref="cstDAO"/>
                 <property name="tagDAO" ref="tagDAO"/>
-                <property name="discussionDAO" ref="discussionDAO"/>
             </bean>
         </property>
     </bean>
@@ -57,6 +82,10 @@
         <property name="cstService" ref="cstService"/>
     </bean>
 
+    <!-- CHT : Concern Hierarchy Tool -->
+    
+    <!-- VTT : Value Tree Tool -->
+    
 
 </beans>
 

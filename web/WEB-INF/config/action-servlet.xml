@@ -152,31 +152,7 @@
     </bean>
     
     
-    <bean name="/sdMovements" class="org.pgist.discussion.SDAction">
-        <property name="sdService" ref="sdService"/>
-    </bean>
-    
-    <bean name="/sd" class="org.pgist.discussion.SDAction">
-        <property name="sdService" ref="sdService"/>
-    </bean>
-    
-    <bean name="/sdSearch" class="org.pgist.discussion.SDSearchAction">
-        <property name="sdService" ref="sdService"/>
-        <property name="searchHelper" ref="searchHelper"/>
-    </bean>
-    
-    <bean name="/sdRoom" class="org.pgist.discussion.SDRoomAction">
-        <property name="sdService" ref="sdService"/>
-    </bean>
-    
-    
-    <bean name="/sdThread" class="org.pgist.discussion.SDThreadAction">
-        <property name="sdService" ref="sdService"/>
-        <property name="systemService" ref="systemService"/>
-    </bean>
-    
-    
-    <bean name="/sdConcerns" class="org.pgist.discussion.SDConcernsAction">
+    <bean name="/drt" class="org.pgist.discussion.SDAction">
         <property name="sdService" ref="sdService"/>
     </bean>
     

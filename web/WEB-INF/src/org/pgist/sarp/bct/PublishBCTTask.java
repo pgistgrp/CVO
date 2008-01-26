@@ -1,6 +1,6 @@
 package org.pgist.sarp.bct;
 
-import org.pgist.discussion.InfoStructure;
+import org.pgist.sarp.drt.InfoObject;
 import org.pgist.wfengine.EnvironmentInOuts;
 import org.pgist.wfengine.WorkflowInfo;
 import org.pgist.wfengine.WorkflowTask;
@@ -16,7 +16,9 @@ public class PublishBCTTask implements WorkflowTask {
     
     public static final String IN_BCT_ID = "bct_id";
     
-    public static final String OUT_IS_ID = "is_id";
+    public static final String IN_OID = "oid";
+    
+    public static final String OUT_OID = "oid";
     
     
     private BCTService bctService;
@@ -37,10 +39,17 @@ public class PublishBCTTask implements WorkflowTask {
         
         Long bctId = new Long(inouts.getIntValue(IN_BCT_ID));
         
-        InfoStructure infoStructure = bctService.publish(info.getWorkflow().getId(), bctId, inouts.getProperty("title"));
+        long oid = -1;
+        try {
+        	oid = inouts.getIntValue(IN_OID);
+        } catch (Exception e) {
+		}
         
-        inouts.setIntValue(OUT_IS_ID, infoStructure.getId().intValue());
+        if (oid==-1) {
+        	InfoObject infoObject = bctService.publish(bctId, inouts.getProperty("title"));
+            inouts.setIntValue(OUT_OID, infoObject.getId().intValue());
+        }
     }//execute()
     
     
-}//class CreateBCTTask
+}//class PublishBCTTask

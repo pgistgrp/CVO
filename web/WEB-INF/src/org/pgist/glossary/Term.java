@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.pgist.discussion.Discussion;
 import org.pgist.users.User;
 
 
@@ -83,10 +82,10 @@ public class Term implements Serializable {
     
     private Set categories = new HashSet();
     
-    private Discussion discussion = new Discussion();
+    private Set<TermComment> comments = new HashSet<TermComment>();
     
     
-    /**
+	/**
      * @return
      * @hibernate.id generator-class="native"
      */
@@ -406,18 +405,21 @@ public class Term implements Serializable {
     
     /**
      * @return
-     * @hibernate.many-to-one column="discussion_id" lazy="true" cascade="all"
+     * 
+     * @hibernate.set lazy="true" cascade="all" table="pgist_glossary_term_comment_link" order-by="id"
+     * @hibernate.collection-key column="term_id"
+     * @hibernate.collection-one-to-many class="org.pgist.glossary.TermComment"
      */
-    public Discussion getDiscussion() {
-        return discussion;
-    }
+    public Set<TermComment> getComments() {
+		return comments;
+	}
 
 
-    public void setDiscussion(Discussion discussion) {
-        this.discussion = discussion;
-    }
+	public void setComments(Set<TermComment> comments) {
+		this.comments = comments;
+	}
 
-    
+
     /*
      * ------------------------------------------------------------------------
      */

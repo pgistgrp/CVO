@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.discussion.DiscussionPost;
 
 
 /**
@@ -304,12 +303,12 @@ public class GlossaryPublicAgent {
     
     
     /**
-     * Create a new comment to the specified term.
+     * Create a new term comment to the specified term.
      * 
      * @param params - A map contains:<br>
      *         <ul>
      *           <li>id - int, id of the term object</li>
-     *           <li>comment - string, content of comment</li>
+     *           <li>comment - string, content of the term comment</li>
      *         </ul>
      * @return A map contains:<br>
      *         <ul>
@@ -326,7 +325,7 @@ public class GlossaryPublicAgent {
             
             String comment = (String) params.get("comment");
             
-            DiscussionPost newPost = glossaryService.createComment(id, comment);
+            TermComment termComment = glossaryService.createComment(id, comment);
             
             map.put("successful", true);
         } catch (Exception e) {

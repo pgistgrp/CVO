@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.pgist.funding.UserCommute;
-import org.pgist.util.MD5;
 import org.pgist.system.RegisterObject;
+import org.pgist.util.MD5;
 
 
 /**

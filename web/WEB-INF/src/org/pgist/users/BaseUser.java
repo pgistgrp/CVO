@@ -2,8 +2,8 @@ package org.pgist.users;
 
 import java.io.Serializable;
 
-import org.pgist.util.MD5;
 import org.pgist.system.RegisterObject;
+import org.pgist.util.MD5;
 
 /**
  * <span style="color:red;">POJO:</span> Basic User Class<br>

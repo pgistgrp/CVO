@@ -1,22 +1,14 @@
 package org.pgist.sarp.cst;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
 
 import org.hibernate.Query;
-import org.pgist.discussion.InfoObject;
-import org.pgist.discussion.InfoStructure;
-import org.pgist.sarp.bct.CategoryReference;
 import org.pgist.sarp.bct.TagReference;
-import org.pgist.sarp.bct.Theme;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Category;
 import org.pgist.util.DBMetaData;
@@ -246,55 +238,11 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     }//getOrphanTags()
 
 
-    public Theme getThemeById(Long themeId) throws Exception {
-        return (Theme) getHibernateTemplate().load(Theme.class, themeId);
-    }//getThemeById()
-
-
-    public void save(Theme theme) throws Exception {
-        getHibernateTemplate().saveOrUpdate(theme);
-    }//save()
-
-
     public void delete(CategoryReference ref) throws Exception {
         getHibernateTemplate().delete(ref);
     }//delete()
 
     
-    private static final String sql_publish = "INSERT INTO "+DBMetaData.TABLE_CAT_TAG_IN_CST+" (bctid,isid,ioid,crid,trid) VALUES (?,?,?,?,?)";
-    
-
-    public void publish(InfoStructure structure, InfoObject obj, CategoryReference ref) throws Exception {
-        long bctid = structure.getCctId();
-        long isid = structure.getId();
-        long ioid = obj.getId();
-        long crid = ref.getId();
-        
-        Connection connection = getSession().connection();
-        PreparedStatement pstmt = connection.prepareStatement(sql_publish);
-        
-        pstmt.setLong(1, bctid);
-        pstmt.setLong(2, isid);
-        pstmt.setLong(3, ioid);
-        pstmt.setLong(4, crid);
-        
-        Queue<CategoryReference> queue = new LinkedList<CategoryReference>();
-        queue.add(ref);
-        
-        while (!queue.isEmpty()) {
-            CategoryReference one = queue.poll();
-            for (CategoryReference two : (Set<CategoryReference>) one.getChildren()) {
-                queue.offer(two);
-            }//for two
-            
-            for (TagReference two : (Set<TagReference>) one.getTags()) {
-                pstmt.setLong(5, two.getId());
-                pstmt.executeUpdate();
-            }//for two
-        }//while
-    }//publish()
-
-
     private static final String hql_getInfoObjectIdByThemeId = "select cr.id from CategoryReference cr where cr.theme.id=?";
     
     private static final String sql_getInfoObjectIdByThemeId = "select ioid from "+DBMetaData.TABLE_CAT_TAG_IN_CST+" where crid=";
@@ -321,6 +269,12 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         
         return null;
     }//getInfoObjectIdByThemeId()
+
+
+	@Override
+	public CST getCSTById(Long cstId) throws Exception {
+		return (CST) load(CST.class, cstId);
+	}//getCSTById()
 
 
 }//class CSTDAOImpl
