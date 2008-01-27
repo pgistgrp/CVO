@@ -150,8 +150,8 @@
     </create>
 
 
-    <create creator="spring" javascript="SDAgent">
-      <param name="beanName" value="sdAgent"/>
+    <create creator="spring" javascript="DRTAgent">
+      <param name="beanName" value="drtAgent"/>
       <include method="getPostById"/>
       <include method="getPosts"/>
       <include method="getReplies"/>

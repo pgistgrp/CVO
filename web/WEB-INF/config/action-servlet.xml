@@ -152,8 +152,8 @@
     </bean>
     
     
-    <bean name="/drt" class="org.pgist.discussion.SDAction">
-        <property name="sdService" ref="sdService"/>
+    <bean name="/drt" class="org.pgist.sarp.drt.DRTAction">
+        <property name="drtService" ref="drtService"/>
     </bean>
     
     

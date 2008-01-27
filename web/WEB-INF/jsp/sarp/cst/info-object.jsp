@@ -1,2 +1,2 @@
 
-<br><br>ID: ${structure.id}<br><br>
+<br><br>ID: ${infoObject.id}<br><br>

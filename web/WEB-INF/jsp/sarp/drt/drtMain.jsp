@@ -20,7 +20,8 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
-<script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
+
+<pg:outputProperty property="javascript" />
 
 <script type="text/javascript">
     function InfoStructure(){

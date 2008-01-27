@@ -88,7 +88,12 @@
                     <var name="oid"/>
                 </ins>
                 <props>
-                    <property name="script" value="/scripts/sarp/bct/target.js" />
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/bct/drt.js'></script>
+                        ]]>
+                    </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
                 </props>
             </declaration>
@@ -164,7 +169,12 @@
                     <var name="oid"/>
                 </ins>
                 <props>
-                    <property name="script" value="/scripts/sarp/cst/target.js" />
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CSTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/cst/drt.js'></script>
+                        ]]>
+                    </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/cst/info-object.jsp" />
                 </props>
             </declaration>
@@ -192,6 +202,12 @@
                     <var name="oid"/>
                 </ins>
                 <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/cht/drt.js'></script>
+                        ]]>
+                    </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/cht/info-object.jsp" />
                 </props>
             </declaration>
@@ -207,6 +223,12 @@
                     <var name="oid"/>
                 </ins>
                 <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/vtt/drt.js'></script>
+                        ]]>
+                    </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-object.jsp" />
                 </props>
             </declaration>

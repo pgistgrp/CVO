@@ -23,8 +23,8 @@ public class DRTServiceImpl implements DRTService {
 
 
 	@Override
-	public InfoObject getInfoObjectById(Long id) throws Exception {
-		return null;
+	public InfoObject getInfoObjectById(Long oid) throws Exception {
+		return drtDAO.getInfoObjectById(oid);
 	}//getInfoObjectById()
 	
 	

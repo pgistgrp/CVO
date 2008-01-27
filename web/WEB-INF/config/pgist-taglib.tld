@@ -582,5 +582,18 @@
   </tag>
   
 
+  <tag>
+    <name>outputProperty</name>
+    <tag-class>org.pgist.tags.WorkflowOutputPropertyTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which output a property declared in workflow property</description>
+    <attribute>
+      <name>property</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 
