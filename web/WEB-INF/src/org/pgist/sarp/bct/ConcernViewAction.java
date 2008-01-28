@@ -70,6 +70,7 @@ public class ConcernViewAction extends Action {
          */
         bctService.increaseViews(id);
         
+        request.setAttribute("bct", concern.getBct());
         request.setAttribute("concern", concern);
         request.setAttribute("comments", comments);
         

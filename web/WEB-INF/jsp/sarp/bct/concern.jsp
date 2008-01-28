@@ -19,7 +19,9 @@
 </style>
 <!-- End Site Wide CSS -->
 <!-- Site Wide JavaScript -->
+<pg:show condition="${!bct.closed}">
 <script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+</pg:show>
 <script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 
 <script src="scripts/tags.js" type="text/javascript"></script>
@@ -36,6 +38,7 @@
 <!--End BCT Specific  Libraries-->
 
 <script type="text/javascript">
+  <pg:show condition="${!bct.closed}">
 	tinyMCE.init({
 		mode : "exact",
 		theme : "advanced",
@@ -45,6 +48,7 @@
 		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
 		extended_valid_elements : "blockquote[style='']"
 	});
+  </pg:show>
   //START Global Variables
 	var bct = new Object;
 	bct.divDiscussionCont = 'discussionBody';
@@ -68,8 +72,10 @@
 			callback:function(data){
 				if (data.successful){
 					$(divDiscussion).innerHTML = data.html; //uses commentsMain.jsp
+          <pg:show condition="${!bct.closed}">
 					tinyMCE.idCounter=0;
 					tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
+          </pg:show>
 					var anchor = location.hash;
           if (anchor){
               Element.scrollTo(anchor.substr(1,anchor.length));
@@ -421,30 +427,29 @@ function onPageLoaded() {
 
 </script>
 <event:pageunload />
-</head><body onload="onPageLoaded();">
+</head>
+<body onload="onPageLoaded();">
     <!-- Start Global Headers  -->
     <wf:nav />
     <wf:subNav />
     <!-- End Global Headers -->
-<div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
-<div id="container">
-
-	<div id="container-include">
-		<!-- load commentsMain.jsp via AJAX-->
-	</div>
-	<!-- start feedback form -->
-	<pg:feedback id="feedbackDiv" action="sdRoom.do" />
-	<!-- end feedback form -->
-
-</div><!-- end container -->
-<!-- Start Global Headers  -->
-<wf:subNav />
-<!-- End Global Headers -->
-<!-- Begin footer -->
-<div id="footer">
-  <jsp:include page="/footer.jsp" />
-</div>
-<!-- End footer -->
+    <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
+    <div id="container">
+      <div id="container-include">
+        <!-- load commentsMain.jsp via AJAX-->
+      </div>
+      <!-- start feedback form -->
+      <pg:feedback id="feedbackDiv" action="sdRoom.do" />
+      <!-- end feedback form -->
+    </div><!-- end container -->
+    <!-- Start Global Headers  -->
+    <wf:subNav />
+    <!-- End Global Headers -->
+    <!-- Begin footer -->
+    <div id="footer">
+      <jsp:include page="/footer.jsp" />
+    </div>
+  <!-- End footer -->
 </body>
 
 </html:html>

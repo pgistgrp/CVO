@@ -71,6 +71,7 @@
 										<!-- end tag iteration -->
 	
 										</div><!--end discussionTagsList -->
+                    <pg:show condition="${!bct.closed}">
 										<c:if test="${baseuser.id == concern.author.id}">
 											<c:if test="${concern.numVote == 1}">
 												<c:if test="${concern.replies == 0}">
@@ -80,6 +81,7 @@
 												</c:if>
 											</c:if>
 										</c:if>
+                    </pg:show>
 								</div><!-- end discussion body -->	
 							</div><!-- end discussion-left -->
 						</div><!-- end discussion row -->

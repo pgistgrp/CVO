@@ -6,9 +6,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
-
-<html:html>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm</title>
 <!-- Site Wide CSS -->
@@ -579,9 +579,10 @@ function editTags(concernId){
 
 </script>
 
-
   <event:pageunload />
-  </head><body>
+</head>
+  
+<body>
   <!-- Start Global Headers  -->
   <wf:nav />
   <wf:subNav />
@@ -609,7 +610,12 @@ function editTags(concernId){
     <!-- end overview -->
 
     <a name="filterJump"></a>
+    <pg:show condition="${!bct.closed}">
     <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
+    </pg:show>
+    <pg:show condition="${bct.closed}">
+    <div id="discussion">
+    </pg:show>
       <div id="discussionHeader">
         <div class="sectionTitle">
           <h3 id="discussionTitle">All participants' concerns</h3>
@@ -657,15 +663,16 @@ function editTags(concernId){
         <!-- left col -->
       </div>
       <!-- end left col -->
+      <pg:show condition="${!bct.closed}">
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
         <h3>Add your own concern</h3>
-    <p>Consider these questions:</p>
-      <ul>
-        <li>What problems do you encounter in your daily trips to work, shopping, errands, or entertainment? </li>
-        <li>In what ways do you feel our current transportation system 
-        fails to meet the needs of our growing and changing region?</li>
-      </ul></p>
+        <p>Consider these questions:</p>
+        <ul>
+          <li>What problems do you encounter in your daily trips to work, shopping, errands, or entertainment? </li>
+          <li>In what ways do you feel our current transportation system 
+          fails to meet the needs of our growing and changing region?</li>
+        </ul>
         <fieldset>
         <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type in one concern about the transportation system. You can enter more later.</textarea>
         </fieldset>
@@ -687,6 +694,7 @@ function editTags(concernId){
         </div>
       </div>
       <!-- end right col -->
+      </pg:show>
       <div class="clearBoth"></div>
     </div>
     <!-- end discussion -->
@@ -710,7 +718,6 @@ function editTags(concernId){
    
   <script type="text/javascript">
     getContextConcerns('', 1, false, bct.showOnlyMyConcerns, bct.currentSort);
-    
-</script>
+  </script>
   </body>
-</html:html>
+</html>

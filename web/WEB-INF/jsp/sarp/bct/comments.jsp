@@ -11,8 +11,6 @@
 </div>
 <!-- End Breadcrumbs -->
 
-
-
 <!-- Begin voting tally menu -->
 
 <div id="votingMenu" class="floatLeft">
@@ -70,10 +68,11 @@
       <!-- end tag iteration -->
     </div>
     <!--end discussionTagsList -->
-
+    <pg:show condition="${!bct.closed}">
     <c:if test="${baseuser.id == concern.author.id}">
         <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a></div>
     </c:if>
+    </pg:show>
   </div>
   <!-- end discussion body -->
 </div>
@@ -129,6 +128,7 @@
             <h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${comment.owner.loginname}">${comment.owner.loginname}</pg:url></h3>
           </div>
         </div>
+        <pg:show condition="${!bct.closed}">
         <div class="discussionComments peekaboobugfix"> <a href="javascript:setQuote(${comment.id});">Quote</a> </div>
         <!--
 						<c:if test="${fn:length(comment.tags) > 0}">
@@ -153,6 +153,7 @@
             <input type="button" onClick="deleteComment(${comment.id});" value="Delete" />
           </div>
         </pg:show>
+        </pg:show>
       </div>
     </div>
   </div>
@@ -169,6 +170,7 @@
 </div>
 <div class="clearBoth"></div>
 <a id="commentAnchor" name="commentAnchor"></a>
+<pg:show condition="${!bct.closed}">
 <div id="newcomment" class="box8 padding5" style="margin-top: 10px;">
   <h3 class="headerColor">Post a comment</h3>
   <form onsubmit="return false;">
@@ -191,5 +193,6 @@
     <input type="button" onClick="resetNewCommentForm();" value="Cancel" />
   </form>
 </div>
+</pg:show>
 <div class="clearBoth"></div>
 
