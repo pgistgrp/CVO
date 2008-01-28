@@ -46,7 +46,7 @@ padding:0px;
 img {border:0px;}
 
 th
-{		
+{
 color:#3B4429;
 background: #EEF7DD;
 }
@@ -86,26 +86,26 @@ border: 1px solid #BDD7E7;
 border:1px solid #F2AF27;
 background:#FFDF94;
 }
-		
-.box6 /* used in addconcern div */ 
+
+.box6 /* used in addconcern div */
 {
 border:1px solid #FFE3B9;
 background:#FFF1DC;
 }
 
-.box7 /* lighter version of contrast2, used for my concern */ 
+.box7 /* lighter version of contrast2, used for my concern */
 {
 border:1px solid #FFE8B8;
 background:#FFFAF0;
 }
 
-.box8 /* used for other people's concerns */ 
+.box8 /* used for other people's concerns */
 {
 border:1px solid #D6E5EE;
 background:#F4F9FB;
 }
 
-.box9 
+.box9
 {
 color:#3B4429;
 background: #EEF7DD;
@@ -153,7 +153,7 @@ width: 280px;
 
 #colRight ul
 {
-margin-left: 0px; 
+margin-left: 0px;
 padding-left: 15px;
 font-size:.85em;
 }
@@ -189,9 +189,9 @@ margin:1em 2em 1em 0em;
 width:680px;
 height:auto;
 position:relative;
-}		
+}
 
-#footer 
+#footer
 {
 width:950px;
 margin:auto;
@@ -200,12 +200,12 @@ position:relative;
 top:-20px;
 }
 
-#footer-logo 
+#footer-logo
 {
 float:left;
 }
 
-#footer-text 
+#footer-text
 {
 float:left;
 width:790px;
@@ -236,9 +236,9 @@ border-top: 2px solid #ADCFDE;
 border-bottom: 2px solid #ADCFDE;
 margin-bottom:2em;
 height:2.5em;
-}		
+}
 
-#header-navigation 
+#header-navigation
 {
 float:left;
 position:absolute;
@@ -271,10 +271,10 @@ vertical-align:middle;
 padding:2px 5px;
 margin:4px;
 display:inline;
-margin-right10px;
+margin-right:10px;
 margin-left:0px;
 padding-left:0px;
-}		
+}
 
 #header-wrap
 {
@@ -300,9 +300,8 @@ padding:3px;
 color: #733C00;
 position:fixed;
 z-index: 100;
-_position:absolute;
+position:absolute;
 top:0;
-_top:expression(eval(document.body.scrollTop));
 left:0;
 margin:0;
 padding:5;
@@ -312,7 +311,7 @@ padding:5;
 {
 width:795px;
 float:right;
-}	
+}
 
 #noTopicsBox
 {
@@ -334,14 +333,14 @@ border-width:1px;
 
 #overview ul {list-style:inside;}
 
-div#qTip 
+div#qTip
 {
 padding: 5px;
 border:1px solid #F2AF27;
 border-right-width: 2px;
 border-bottom-width: 2px;
 display: none;
-color: #773C00;	
+color: #773C00;
 background:#FFDF94;
 font: bold 0.9em Verdana, Arial, Helvetica, sans-serif;
 text-align: left;
@@ -411,18 +410,18 @@ padding:5px;
 
 input#manualTag[type=text]{width:100px;margin-top:10px;}
 
-#tagCloud{width:673px;_width:680px;}
+#tagCloud{width:673px;}
 
 #tagCloud .pagination{padding:0px 10px}
 
 /* GLOBAL CLASSES */
 /* -------------- */
 
-.clearBoth {clear:both;} /* Including a div with this class between two other divs without 
+.clearBoth {clear:both;} /* Including a div with this class between two other divs without
 height declarations makes sure that they don't overlap.*/
 
 .clearLeft {clear:left}
-.clearRight {clear:right} 
+.clearRight {clear:right}
 
 .inline{display:inline}
 
@@ -435,11 +434,11 @@ height declarations makes sure that they don't overlap.*/
 
 /*marginRight is used on the "close" buttons (close1.gif) */
 .marginRight {margin-right:10px;}
-		
+
 /* SPECIFIC CLASSES */
 /* ------- */
 
-.button 
+.button
 {
 padding:1px 2px;
 margin:1px 2px 0px 0px;
@@ -526,7 +525,7 @@ margin-bottom: 25px;
 
 .pagination2
 {
-border-top: 1px dashed #D6E5EE; 
+border-top: 1px dashed #D6E5EE;
 text-align: right;
 }
 
@@ -554,7 +553,7 @@ padding:0;
 
 .tagSize1
 {
-font-size: 0.9em;	
+font-size: 0.9em;
 }
 
 .tagSize2
@@ -593,6 +592,22 @@ overflow:auto;
 margin:16px;
 margin-left:0px;
 margin-bottom:5px;
+}
+
+.infoObjectBox {
+  height:500px;
+  color:#3B4429;
+  background: #EEF7DD;
+  border: 1px solid #B4D579;
+}
+
+.discussionBox {
+  height:500px;
+  overflow:auto;
+  margin-top:5px;
+  margin-bottom:5px;
+  border:1px solid #FFE3B9;
+  background:#FFF1DC;
 }
 
 /* LINKS */
@@ -676,10 +691,10 @@ background-repeat:no-repeat;
 
 /* Fixes falling-out-of-container-div bug (so does class=clearBoth) */
 .clearfix:after {
-content: "."; 
-display: block; 
-height: 0; 
-clear: both; 
+content: ".";
+display: block;
+height: 0;
+clear: both;
 visibility: hidden;
 }
 

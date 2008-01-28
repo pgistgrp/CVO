@@ -1,2 +1,1 @@
-
-<br><br>ID: ${infoObject.id}<br><br>
+ID: ${infoObject.id}

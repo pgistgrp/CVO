@@ -38,8 +38,6 @@ public class DRTAction extends Action {
      */
     
     
-
-
 	/**
      * Load a InfoObject from the database with the given id of "oid".<br>
      * If the object exists and is loaded successfully, it forwards to page with the

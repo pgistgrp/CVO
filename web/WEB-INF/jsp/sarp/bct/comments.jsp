@@ -5,7 +5,6 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<html:html>
 <!-- Begin Breadcrumbs -->
 <div id="breadCrumbs" class="clearBoth"> 
     <pg:url page="/cctview.do" params="cctId=${cct.id}">Step 1a: Brainstorm</pg:url> &rarr; Comments about a concern
@@ -169,7 +168,7 @@
   </c:if>
 </div>
 <div class="clearBoth"></div>
-<a name="commentAnchor"></a>
+<a id="commentAnchor" name="commentAnchor"></a>
 <div id="newcomment" class="box8 padding5" style="margin-top: 10px;">
   <h3 class="headerColor">Post a comment</h3>
   <form onsubmit="return false;">
@@ -193,4 +192,4 @@
   </form>
 </div>
 <div class="clearBoth"></div>
-</html:html>
+

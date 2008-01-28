@@ -80,8 +80,3 @@ tooltip.hide = function () {
 	this.tip.innerHTML = "";
 	this.tip.style.display = "none";
 }
-
-window.onload = function () {
-	window.setTimeout('tooltip.init()',1000);
-
-}

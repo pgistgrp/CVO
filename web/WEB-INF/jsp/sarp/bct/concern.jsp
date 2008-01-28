@@ -45,7 +45,7 @@
 		content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
 		extended_valid_elements : "blockquote[style='']"
 	});
-//START Global Variables
+  //START Global Variables
 	var bct = new Object;
 	bct.divDiscussionCont = 'discussionBody';
 	var concernId = ${concern.id}
@@ -59,28 +59,27 @@
 	var txtNewCommentTitle = 'txtNewCommentTitle';
 	var txtNewComment = 'txtNewComment';
 	var txtNewCommentTags = 'txtNewCommentTags'
-//END Global variables
+  //END Global variables
 
-
-
-	function getComments(page, jump){
+	function getConcernComments(page, jump){
 		currentPage = page;
 
-		//alert("concernId: " + concernId + " page: " + currentPage + " count: " + commentCount); 
-		BCTAgent.getComments({concernId: concernId, page: currentPage, count: commentCount},<pg:wfinfo/>, {
+		BCTAgent.getConcernComments({concernId: concernId, page: currentPage, count: commentCount},<pg:wfinfo/>, {
 			callback:function(data){
 				if (data.successful){
 					$(divDiscussion).innerHTML = data.html; //uses commentsMain.jsp
 					tinyMCE.idCounter=0;
 					tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
 					var anchor = location.hash;
-                    if(anchor){Element.scrollTo(anchor.substr(1,anchor.length))}
+          if (anchor){
+              Element.scrollTo(anchor.substr(1,anchor.length));
+          }
 				}else{
 					alert(data.reason);
 				}
 			},
 			errorHandler:function(errorString, exception){ 
-			alert("BCTAgent.getComments( error:" + errorString + exception);
+			alert("BCTAgent.getConcernComments( error:" + errorString + exception);
 			}
 		});
 
@@ -93,10 +92,10 @@
 						
 		//alert("concernId: " + concernId + " title: " + title + " content: " + content + " tags: " + tags); 
 
-		BCTAgent.createComment({concernId: concernId, title: title, content: content, tags: tags},<pg:wfinfo/>,{
+		BCTAgent.createConcernComment({concernId: concernId, title: title, content: content, tags: tags},<pg:wfinfo/>,{
 			callback:function(data){
 				if (data.successful){
-					getComments(1, true);
+					getConcernComments(1, true);
 					//setCommentVoting(data.concern.id,'true')
 				}else{
 					alert(data.reason);
@@ -109,7 +108,7 @@
 	}
 	
 	function goToPage(page){
-		getComments(page);
+		getConcernComments(page);
 	}
 	
 	
@@ -118,9 +117,9 @@
 		callback:function(data){
 				if (data.successful){ 
 					if($('concernVote'+id) != undefined){
-           				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getComments(currentPage, false); new Effect.Appear('concernVote'+id);}});
+           				 new Effect.Fade('concernVote'+id, {afterFinish: function(){getConcernComments(currentPage, false); new Effect.Appear('concernVote'+id);}});
            			}else{ //newly created concern
-           				getComments(currentPage, false);
+           				getConcernComments(currentPage, false);
            			}
 				}else{
 					alert(data.reason);
@@ -138,9 +137,9 @@
 			callback:function(data){
 				if (data.successful){
 					if($('voting-post'+id) != undefined){
-           				 new Effect.Fade('voting-post'+id, {afterFinish: function(){getComments(currentPage, false); new Effect.Appear('voting-post'+id);}});
+           				 new Effect.Fade('voting-post'+id, {afterFinish: function(){getConcernComments(currentPage, false); new Effect.Appear('voting-post'+id);}});
            			}else{ //newly created concern
-           				getComments(currentPage, false);
+           				getConcernComments(currentPage, false);
            			}
 				}else{
 					alert(data.reason);
@@ -152,8 +151,6 @@
 		});
 	}
 
-	
-	
 	function resetNewCommentForm(){
 		$(txtNewCommentTitle).value = '';
 		tinyMCE.setContent('');
@@ -189,10 +186,10 @@
 		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tags: " + tags + " page: " + page + " count: " + sd.concernCount); 
 		var destroy = confirm ("Are you sure you want to delete this comment? Note: there is no undo.")
 		if(destroy){
-		    BCTAgent.deleteComment({commentId: id}, {
+		    BCTAgent.deleteConcernComment({commentId: id}, {
     		callback:function(data){
     				if (data.successful){
-    					new Effect.Puff("comment" + id, {afterFinish: function(){getComments(currentPage, false);}});
+    					new Effect.Puff("comment" + id, {afterFinish: function(){getConcernComments(currentPage, false);}});
     				}else{
     					alert(data.reason);
     				}
@@ -230,7 +227,7 @@ function editConcern(concernId){
 	BCTAgent.editConcern({concernId:concernId, concern:newConcern}, <pg:wfinfo/>,{
 		callback:function(data){
 				if (data.successful){
-					getComments(currentPage, false);
+					getConcernComments(currentPage, false);
 				
 				}  
 		},
@@ -357,7 +354,7 @@ function editTags(concernId){
 	BCTAgent.editTags({concernId:concernId, tags:newConcernSelectedTagsString}, <pg:wfinfo/>,{
 		callback:function(data){
 			if (data.successful){ 
-				getComments(currentPage, false);
+				getConcernComments(currentPage, false);
 			}else{
 				alert(data.reason);	
 			}
@@ -397,7 +394,7 @@ function changeCurrentFilter(tagRefId){
 			callback:function(data){
 			if (data.successful){
 						var tagName = data.tag.name;
-						getComments(currentPage, false);
+						getConcernComments(currentPage, false);
 						bct.currentFilter = tagName;
 	          			
 						$(bct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
@@ -411,23 +408,26 @@ function changeCurrentFilter(tagRefId){
 			});
 	}else{	
 		bct.currentFilter='';
-		getComments(currentPage, false);
+		getConcernComments(currentPage, false);
 		$(bct.divFilteredBy).innerHTML = '';
 		
 	}
 }
 
+function onPageLoaded() {
+  window.setTimeout('tooltip.init()',1000);
+  getConcernComments(currentPage, false);
+}
+
 </script>
 <event:pageunload />
-</head><body>
+</head><body onload="onPageLoaded();">
     <!-- Start Global Headers  -->
     <wf:nav />
     <wf:subNav />
     <!-- End Global Headers -->
 <div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
-
-
 
 	<div id="container-include">
 		<!-- load commentsMain.jsp via AJAX-->
@@ -436,10 +436,6 @@ function changeCurrentFilter(tagRefId){
 	<pg:feedback id="feedbackDiv" action="sdRoom.do" />
 	<!-- end feedback form -->
 
-	<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-	<script type="text/javascript">
-		getComments(currentPage, false);
-	</script>
 </div><!-- end container -->
 <!-- Start Global Headers  -->
 <wf:subNav />

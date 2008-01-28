@@ -1189,7 +1189,7 @@ public class BCTAgent {
         }
         
         return map;
-    }//getComments()
+    }//getConcernComments()
     
     
     /**

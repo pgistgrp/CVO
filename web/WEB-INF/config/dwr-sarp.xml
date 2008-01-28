@@ -83,10 +83,10 @@
       <include method="searchTags"/>
       <include method="getContextConcerns"/>
       <include method="setVoting"/>
-      <include method="getComments"/>
-      <include method="createComment"/>
-      <include method="editComment"/>
-      <include method="deleteComment"/>
+      <include method="getConcernComments"/>
+      <include method="createConcernComment"/>
+      <include method="editConcernComment"/>
+      <include method="deleteConcernComment"/>
       <include method="setCommentVoting"/>
       <include method="test"/>
     </create>
