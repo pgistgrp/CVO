@@ -1,6 +1,9 @@
 package org.pgist.sarp.drt;
 
+import java.util.Collection;
+
 import org.pgist.system.BaseDAO;
+import org.pgist.util.PageSetting;
 
 
 /**
@@ -11,6 +14,8 @@ public interface DRTDAO extends BaseDAO {
 	
 	
 	InfoObject getInfoObjectById(Long oid) throws Exception;
+
+	Collection<Comment> getComments(Long oid, PageSetting setting) throws Exception;
 	
 	
 }//interface DRTDAO

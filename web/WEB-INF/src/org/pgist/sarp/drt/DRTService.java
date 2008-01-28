@@ -1,5 +1,9 @@
 package org.pgist.sarp.drt;
 
+import java.util.Collection;
+
+import org.pgist.util.PageSetting;
+
 
 /**
  * DRT Service.
@@ -17,6 +21,8 @@ public interface DRTService {
 	void clearVote(Long oid) throws Exception;
 
 	void toggleDRT(Long oid, boolean closed) throws Exception;
+
+	Collection<Comment> getComments(Long oid, PageSetting setting) throws Exception;
 	
 	
 }//interface DRTService

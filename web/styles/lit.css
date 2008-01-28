@@ -480,6 +480,15 @@ clear:both;
 padding:2px 5px 5px 2px;
 }
 
+.drtComment {
+width:100%;
+clear:both;
+}
+
+.discussionTitle {
+  color:blue;
+}
+
 .discussionText {padding-top:5px;}
 
 .discussionVoting
@@ -603,7 +612,6 @@ margin-bottom:5px;
 
 .discussionBox {
   height:500px;
-  overflow:auto;
   margin-top:5px;
   margin-bottom:5px;
   border:1px solid #FFE3B9;

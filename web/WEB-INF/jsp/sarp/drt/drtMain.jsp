@@ -24,13 +24,15 @@
 <pg:outputProperty property="javascript" />
 
 <script type="text/javascript">
-    var infoObject = new InfoObject();
+    var infoObject = null;
     
-    function InfoObject(){
+    function InfoObject() {
         displayIndicator(true);
         this.oDivElement = 'infoObjectBox';
+        this.discussionDivElement = 'discussionBox';
+        this.page = 1;
         this.getTargets = function(){
-            SDAgent.getTargets({isid:${infoObject.id}}, <pg:wfinfo/>,{
+            DRTAgent.getTargets({oid:${infoObject.id}}, <pg:wfinfo/>,{
                 callback:function(data){
                     if (data.successful){
                         displayIndicator(false);
@@ -46,10 +48,29 @@
                 }
             });
         };
+        this.getComments = function(page){
+            DRTAgent.getComments({oid:${infoObject.id}, page:page}, <pg:wfinfo/>,{
+                callback:function(data){
+                    if (data.successful){
+                        displayIndicator(false);
+                        $(infoObject.discussionDivElement).innerHTML = data.html;
+                        infoObject.page = data.page;
+                    }else{
+                        displayIndicator(false);
+                        alert(data.reason);
+                    }
+                },
+                errorHandler:function(errorString, exception){ 
+                    alert("get targets error: " + errorString +" "+ exception);
+                }
+            });
+        };
     }
     
     function onPageLoaded() {
+        infoObject = new InfoObject();
         window.setTimeout('tooltip.init()',1000);
+        infoObject.getComments(1);
     }
 </script>
 

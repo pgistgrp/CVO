@@ -152,24 +152,14 @@
 
     <create creator="spring" javascript="DRTAgent">
       <param name="beanName" value="drtAgent"/>
-      <include method="getPostById"/>
-      <include method="getPosts"/>
-      <include method="getReplies"/>
-      <include method="getTarget"/>
-      <include method="getTargets"/>
-      <include method="createPost"/>
-      <include method="createReply"/>
-      <include method="editPost"/>
-      <include method="deletePost"/>
-      <include method="deleteReply"/>
-      <include method="getSummary"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="editComment"/>
+      <include method="deleteComment"/>
       <include method="setVoting"/>
-      <include method="getConcerns"/>
-      <include method="getContextPosts"/>
       <include method="searchTags"/>
       <include method="getTagCloud"/>
       <include method="getTagById"/>
-      <include method="getConcernById"/>
       <include method="setupEmailNotify"/>
       <include method="search"/>
     </create>

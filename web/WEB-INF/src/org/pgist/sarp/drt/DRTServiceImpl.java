@@ -1,5 +1,9 @@
 package org.pgist.sarp.drt;
 
+import java.util.Collection;
+
+import org.pgist.util.PageSetting;
+
 
 /**
  * 
@@ -52,6 +56,12 @@ public class DRTServiceImpl implements DRTService {
 		
 		drtDAO.save(infoObject);
 	}//toggleDRT()
+
+
+	@Override
+	public Collection<Comment> getComments(Long oid, PageSetting setting) throws Exception {
+		return drtDAO.getComments(oid, setting);
+	}//getComments()
 	
 	
 }//class DRTServiceImpl

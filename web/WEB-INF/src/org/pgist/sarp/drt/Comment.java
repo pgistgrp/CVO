@@ -22,6 +22,8 @@ public class Comment implements Serializable {
 	
 	
 	private Long id;
+	
+	private InfoObject target;
     
     private String title;
     
@@ -58,6 +60,21 @@ public class Comment implements Serializable {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="target_id" cascade="all" lazy="true"
+     */
+	public InfoObject getTarget() {
+		return target;
+	}
+
+
+	public void setTarget(InfoObject target) {
+		this.target = target;
+	}
+	
+	
     /**
      * @return
      * @hibernate.property
@@ -187,6 +204,11 @@ public class Comment implements Serializable {
     }
 
 
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="parent_id" lazy="true"
+     */
     public Comment getParent() {
 		return parent;
 	}
@@ -195,6 +217,8 @@ public class Comment implements Serializable {
 	public void setParent(Comment parent) {
 		this.parent = parent;
 	}
+
+
 
 
 }//class Comment
