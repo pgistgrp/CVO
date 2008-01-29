@@ -177,7 +177,7 @@
     <p>
       <label>Post title</label>
       <br>
-      <input maxlength=100 size=100 type="text" value="" id="txtNewCommentTitle"/>
+      <input maxlength=100 style="width:90%;" type="text" value="" id="txtNewCommentTitle"/>
     </p>
     <p>
       <label>Your thoughts</label>

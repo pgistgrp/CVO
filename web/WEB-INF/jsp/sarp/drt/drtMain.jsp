@@ -6,11 +6,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Discuss and Review Tool</title>
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
+<style type="text/css" media="screen">
+.blueBB {
+	border-color: #C0D7F6 !important;
+	border-width: 1px;
+}
+</style>
+
+<script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -24,6 +33,16 @@
 <pg:outputProperty property="javascript" />
 
 <script type="text/javascript">
+    tinyMCE.init({
+        mode : "exact",
+        theme : "advanced",
+        theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
+        theme_advanced_buttons2 : "",
+        theme_advanced_buttons3 : "",
+        content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
+        extended_valid_elements : "blockquote[style='']"
+    });
+    
     var infoObject = null;
     
     function InfoObject() {
@@ -55,6 +74,7 @@
                         displayIndicator(false);
                         $(infoObject.discussionDivElement).innerHTML = data.html;
                         infoObject.page = data.page;
+                        Element.scrollTo('newCommentAnchor');
                     }else{
                         displayIndicator(false);
                         alert(data.reason);
@@ -65,12 +85,48 @@
                 }
             });
         };
+        this.cancelComment = function() {
+            $('txtNewCommentTitle').value = '';
+            tinyMCE.setContent('');
+        };
+        this.createComment = function() {
+          var title = $('txtNewCommentTitle').value;
+          var content = tinyMCE.getContent();
+          if (title.length<1) {
+              alert('please input title');
+              return;
+          }
+          if (content.length<1) {
+              alert('please input content');
+              return;
+          }
+          DRTAgent.createComment({oid:${infoObject.id}, title:title, content:content}, <pg:wfinfo/>,{
+                callback:function(data){
+                    if (data.successful){
+                        displayIndicator(false);
+                        $('txtNewCommentTitle').value = '';
+                        tinyMCE.setContent('');
+                        infoObject.getComments(1);
+                    }else{
+                        displayIndicator(false);
+                        alert(data.reason);
+                    }
+                },
+                errorHandler:function(errorString, exception){ 
+                    alert("get targets error: " + errorString +" "+ exception);
+                }
+            });
+
+        };
     }
     
     function onPageLoaded() {
         infoObject = new InfoObject();
         window.setTimeout('tooltip.init()',1000);
+	
         infoObject.getComments(1);
+        tinyMCE.idCounter=0;
+        tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
     }
 </script>
 
@@ -104,8 +160,21 @@
         </div>
         
         <div id="discussionBox" class="discussionBox"></div>
-
+        
+        <a id="newCommentAnchor" name="newCommentAnchor"></a>
+        <div id="newComment" class="box8 padding5">
+          <h3 class="headerColor">Post a comment</h3>
+          <form>
+            <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
+            <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
+            <input type="button" onClick="infoObject.createComment();" value="Submit">
+            <input type="button" onClick="infoObject.cancelComment();" value="Cancel" />
+            <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
+          </form>
+        </div>
+        
         <div class="clearBoth"></div>
+    
     </div>
     
     <wf:subNav />
@@ -118,5 +187,5 @@
     
 </body>
 
-</html:html>
+</html>
 

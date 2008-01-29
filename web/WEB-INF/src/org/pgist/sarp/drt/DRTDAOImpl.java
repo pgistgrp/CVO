@@ -1,8 +1,5 @@
 package org.pgist.sarp.drt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,7 +23,7 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
 	
 	
 	private static final String hql_getComments1 = "select count(id) from Comment c where c.target.id=?";
-	private static final String hql_getComments2 = "from Comment c where c.target.id=?";
+	private static final String hql_getComments2 = "from Comment c where c.target.id=? order by c.id desc";
 	
 	
 	@Override

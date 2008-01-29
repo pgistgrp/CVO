@@ -8,9 +8,7 @@
 
 <c:choose>
 	<c:when test="${fn:length(comments) <= 0}">
-		<div id="noTopicsBox" class="box2 centerAlign"><h3 class="headerColor">There aren't any topics yet!</h3>
-			<p><a href="javascript:Effect.toggle('newDiscussion','blind',{duration: 0.2});">Start a new topic</a>.</p>
-		</div>
+		<div id="noTopicsBox1" style="width:100%; color:#3B4429; text-align:center;"><h3 class="headerColor">There aren't any comments yet!</h3></div>
 	</c:when>
 	<c:otherwise>
 		
@@ -68,28 +66,28 @@
 					</div>
 				</div>
 			</div>
-		
+      <div class="drtComment" style="height:5px; background-color:white;"></div>
 		<!-- End New Style -->
 		</c:forEach>
 		
-				  <div class="pagination discussion-left">
-				  		Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
-						<logic:equal name="setting" property="page" value="1">
-							<img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
-						</logic:equal>
-						<logic:notEqual name="setting" property="page" value="1">	
-							<!--a href="javascript:io.switchPage(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
-							<a href="javascript:io.goToPage(${setting.page - 1}, 'comments');"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
-						</logic:notEqual>
-						
-						<logic:equal name="setting" property="page" value="${setting.pageSize}">
-							<img src="images/btn_next_fade.gif" alt="No Additional Pages" />
-						</logic:equal>
-						<logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-							<!--a href="javascript:io.switchPage(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
-							<a href="javascript:io.goToPage(${setting.page + 1}, 'comments');"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
-						</logic:notEqual>
-		  		</div>
+    <div class="pagination discussion-left">
+        Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
+      <logic:equal name="setting" property="page" value="1">
+        <img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
+      </logic:equal>
+      <logic:notEqual name="setting" property="page" value="1">	
+        <!--a href="javascript:io.switchPage(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
+        <a href="javascript:infoObject.getComments(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
+      </logic:notEqual>
+      
+      <logic:equal name="setting" property="page" value="${setting.pageSize}">
+        <img src="images/btn_next_fade.gif" alt="No Additional Pages" />
+      </logic:equal>
+      <logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
+        <!--a href="javascript:io.switchPage(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
+        <a href="javascript:infoObject.getComments(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
+      </logic:notEqual>
+    </div>
 
 	</c:otherwise>
 		

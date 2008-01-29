@@ -6,33 +6,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html:html>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm</title>
-<!-- Site Wide CSS -->
-<style type="text/css">
-.discussionRow{margin-top:10px;}
-</style>
 <style type="text/css" media="screen">
 @import "styles/lit.css";
 </style>
-<!-- End Site Wide CSS -->
-<!-- Site Wide JavaScript -->
+<style type="text/css">
+.discussionRow{margin-top:10px;}
+</style>
 <pg:show condition="${!bct.closed}">
 <script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 </pg:show>
 <script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
-
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
-<!-- End Site Wide JavaScript -->
-<!-- DWR JavaScript Libraries -->
+
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
-<!-- End DWR JavaScript Libraries -->
+
 <!--BCT Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
 <!--End BCT Specific  Libraries-->

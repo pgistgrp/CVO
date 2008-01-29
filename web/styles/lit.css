@@ -66,7 +66,7 @@ background:#EFEFDE;
 {
 color:#3B4429;
 background: #EEF7DD;
-border: 2px solid #B4D579;
+border: 1px solid #B4D579;
 }
 
 .box3 /* Used in the DIV containing the Summary */
@@ -305,12 +305,6 @@ top:0;
 left:0;
 margin:0;
 padding:5;
-}
-
-#newcomment
-{
-width:795px;
-float:right;
 }
 
 #noTopicsBox
@@ -611,7 +605,6 @@ margin-bottom:5px;
 }
 
 .discussionBox {
-  height:500px;
   margin-top:5px;
   margin-bottom:5px;
   border:1px solid #FFE3B9;
@@ -712,3 +705,4 @@ visibility: hidden;
 
 /* Fixes disappearing text in IE */
 * html .peekaboobugfix { height: 0.01%; }
+

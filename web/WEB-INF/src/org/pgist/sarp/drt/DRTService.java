@@ -23,6 +23,8 @@ public interface DRTService {
 	void toggleDRT(Long oid, boolean closed) throws Exception;
 
 	Collection<Comment> getComments(Long oid, PageSetting setting) throws Exception;
+
+	Comment createComment(Long oid, String title, String content, boolean emailNotify) throws Exception;
 	
 	
 }//interface DRTService
