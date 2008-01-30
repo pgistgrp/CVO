@@ -48,6 +48,20 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
         
         return query.list();
 	}//getComments()
+
+
+    private static final String hql_increaseVoting_1 = "update InfoObject i set i.numVote=i.numVote+1 where i.id=?";
+    
+    private static final String hql_increaseVoting_2 = "update InfoObject i set i.numAgree=i.numAgree+1 where i.id=?";
+    
+    
+	@Override
+    public void increaseVoting(InfoObject object, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_1).setLong(0, object.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_2).setLong(0, object.getId()).executeUpdate();
+        }
+    }//increaseVoting()
 	
 	
 }//class DRTDAOImpl

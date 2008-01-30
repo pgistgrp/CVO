@@ -28,8 +28,8 @@
 							Do you agree with this comment? ${comment.numAgree} of ${comment.numVote} agree so far.
 							<c:choose>
 								<c:when test="${comment.target == null}">
-									<a href="javascript:io.setVote('comment',${comment.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-									<a href="javascript:io.setVote('comment',${comment.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+									<a href="javascript:infoObject.setVoteOnComment(${comment.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:infoObject.setVoteOnComment(${comment.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
 								</c:when>
 								<c:otherwise>
 									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>

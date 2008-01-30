@@ -156,7 +156,9 @@
       <include method="createComment"/>
       <include method="editComment"/>
       <include method="deleteComment"/>
-      <include method="setVoting"/>
+      <include method="getVotingOnInfoObject"/>
+      <include method="setVotingOnInfoObject"/>
+      <include method="setVotingOnComment"/>
       <include method="searchTags"/>
       <include method="getTagCloud"/>
       <include method="getTagById"/>

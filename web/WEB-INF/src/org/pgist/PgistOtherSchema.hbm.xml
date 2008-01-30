@@ -77,5 +77,14 @@
         </drop>
     </database-object>
     
+    <database-object>
+        <create>
+            CREATE UNIQUE INDEX idx_yes_no_voting ON pgist_yes_no_voting (targetid, targettype, owner_id);
+        </create>
+        <drop>
+            DROP INDEX IF EXISTS idx_yes_no_voting;
+        </drop>
+    </database-object>
+    
 </hibernate-mapping>
 

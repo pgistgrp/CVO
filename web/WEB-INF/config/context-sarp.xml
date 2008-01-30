@@ -17,6 +17,7 @@
         <property name="target">
             <bean class="org.pgist.sarp.drt.DRTServiceImpl">
                 <property name="drtDAO" ref="drtDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
             </bean>
         </property>
     </bean>
@@ -24,6 +25,7 @@
 
     <bean id="drtAgent" class="org.pgist.sarp.drt.DRTAgent">
         <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
 
 

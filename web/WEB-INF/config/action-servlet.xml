@@ -154,6 +154,7 @@
     
     <bean name="/drt" class="org.pgist.sarp.drt.DRTAction">
         <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     

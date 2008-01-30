@@ -332,6 +332,16 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
 		
 		save(u);
     }
+
+
+    private static final String hql_deleteVote = "delete from YesNoVoting v where v.targetId=?";
+    
+	@Override
+	public void deleteVote(Long oid) throws Exception {
+		Query query = getSession().createQuery(hql_deleteVote);
+		query.setLong(0, oid);
+		query.executeUpdate();
+	}//deleteVote()
     
     
 }//class SystemDAOImpl

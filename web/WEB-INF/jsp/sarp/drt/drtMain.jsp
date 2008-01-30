@@ -19,7 +19,9 @@
 }
 </style>
 
+<pg:show condition="${!infoObject.closed}">
 <script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+</pg:show>
 <script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -33,6 +35,7 @@
 <pg:outputProperty property="javascript" />
 
 <script type="text/javascript">
+    <pg:show condition="${!infoObject.closed}">
     tinyMCE.init({
         mode : "exact",
         theme : "advanced",
@@ -42,6 +45,7 @@
         content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
         extended_valid_elements : "blockquote[style='']"
     });
+    </pg:show>
     
     var infoObject = null;
     
@@ -74,7 +78,6 @@
                         displayIndicator(false);
                         $(infoObject.discussionDivElement).innerHTML = data.html;
                         infoObject.page = data.page;
-                        Element.scrollTo('newCommentAnchor');
                     }else{
                         displayIndicator(false);
                         alert(data.reason);
@@ -116,7 +119,36 @@
                     alert("get targets error: " + errorString +" "+ exception);
                 }
             });
-
+        };
+        this.setVoteOnInfoObject = function(agree){
+            DRTAgent.setVotingOnInfoObject({oid: ${infoObject.id}, agree:agree}, {
+            callback:function(data){
+              if (data.successful){
+                var votingDiv = 'voting';
+                if($(votingDiv) != undefined){
+                  new Effect.Fade(votingDiv, {
+                    afterFinish:function(){
+                        $('structure_question_status').innerHTML = '<h2>'+data.numAgree+' of '+data.numVote+'</h2> agree to move forward';
+                        if (data.voted) {
+                          $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
+                        }
+                        new Effect.Appear(votingDiv);
+                    }
+                  });
+                }
+              }else{
+                if (data.voted) {
+                  $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
+                } else {
+                  alert(data.reason);
+                }
+              }
+            },
+            errorHandler:function(errorString, exception){ 
+                alert("setVote error:" + errorString + exception);
+            }
+            });
+        
         };
     }
     
@@ -125,8 +157,10 @@
         window.setTimeout('tooltip.init()',1000);
 	
         infoObject.getComments(1);
+        <pg:show condition="${!infoObject.closed}">
         tinyMCE.idCounter=0;
         tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
+        </pg:show>
     }
 </script>
 
@@ -142,6 +176,7 @@
     <div id="container">
 
         <div id="overview" class="box2">
+            <table width="100%"><tr><td width="650px;">
             <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
                 <h3 class="headerColor">Overview and instructions</h3>
                 <p>The moderators have reviewed the concerns and summarized them according to themes. Now you can:</p>
@@ -153,25 +188,53 @@
                 <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
                 <p id="hiddenRM" style="display:none">After the brainstorm concluded, the moderators synthesized and summarized the concerns offered by participants. (<pg:url page="lmFaq.do" target="_blank" anchor="step1-created">Read more about the summarization process</pg:url>). Each concern theme is associated with a group of keywords. As you review summaries let us know if you think these summaries are accurate and if you feel any important themes were left out. The moderator will make revisions based on participant comments. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
             </pg:termHighlight>
+            </td><td></td><td style="padding-left:10px;width:180px;">
+                <div id="votingMenu" class="floatLeft">
+                <div id="voting">
+                  <div id="votingMenuTally" class="box1">
+                    <span id="structure_question_status"><h2>${infoObject.numAgree} of ${infoObject.numVote}</h2> agree to move forward</span>
+                  </div>
+                  <div id="structure_question">
+                      <pg:show condition="${!infoObject.closed}">
+                        <c:choose>
+                          <c:when test="${voting == null}">
+                            <p>Do you think we can move forward?</p>
+                            <span>
+                            <a href="javascript:infoObject.setVoteOnInfoObject('true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:infoObject.setVoteOnInfoObject('false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style="margin-left:5px;"></a></span>
+                            </span>
+                          </c:when>
+                          <c:otherwise>
+                            <span>
+                            Your vote has been recorded. Thank you for your participation.
+                            </span>
+                          </c:otherwise>
+                        </c:choose>
+                      </pg:show>
+                  </div>
+                </div>
+            </td></tr></table>
         </div>
 
         <div id="infoObjectBox" class="infoObjectBox">
             <pg:include property="page" />
         </div>
         
+        <a id="firstCommentAnchor" name="firstCommentAnchor"></a>
         <div id="discussionBox" class="discussionBox"></div>
         
-        <a id="newCommentAnchor" name="newCommentAnchor"></a>
-        <div id="newComment" class="box8 padding5">
-          <h3 class="headerColor">Post a comment</h3>
-          <form>
-            <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
-            <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
-            <input type="button" onClick="infoObject.createComment();" value="Submit">
-            <input type="button" onClick="infoObject.cancelComment();" value="Cancel" />
-            <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
-          </form>
-        </div>
+        <pg:show condition="${!infoObject.closed}">
+          <a id="newCommentAnchor" name="newCommentAnchor"></a>
+          <div id="newComment" class="box8 padding5">
+            <h3 class="headerColor">Post a comment</h3>
+            <form>
+              <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
+              <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
+              <input type="button" onClick="infoObject.createComment();" value="Submit">
+              <input type="button" onClick="infoObject.cancelComment();" value="Cancel" />
+              <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
+            </form>
+          </div>
+        </pg:show>
         
         <div class="clearBoth"></div>
     

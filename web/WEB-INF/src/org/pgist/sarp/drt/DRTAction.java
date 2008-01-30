@@ -4,6 +4,8 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.system.SystemService;
+import org.pgist.system.YesNoVoting;
 
 
 /**
@@ -25,11 +27,18 @@ public class DRTAction extends Action {
     /**
      * Spring injected service
      */
-    private DRTService drtService;
+	private DRTService drtService;
+	
+    private SystemService systemService;
     
     
     public void setDrtService(DRTService drtService) {
 		this.drtService = drtService;
+	}
+
+
+	public void setSystemService(SystemService systemService) {
+		this.systemService = systemService;
 	}
 
 
@@ -66,15 +75,17 @@ public class DRTAction extends Action {
         /*
          * id of a InfoObject
          */
-        Long id = new Long((String) request.getParameter("oid"));
+        Long oid = new Long((String) request.getParameter("oid"));
         
         /*
          * Load the specified InfoObject object from database.
          */
-        InfoObject infoObject = drtService.getInfoObjectById(id);
+        InfoObject infoObject = drtService.getInfoObjectById(oid);
+        YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_INFOOBJ, oid);
         
         if (infoObject!=null) {
-            request.setAttribute("infoObject", infoObject);
+        	request.setAttribute("infoObject", infoObject);
+            request.setAttribute("voting", voting);
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("main");
         }

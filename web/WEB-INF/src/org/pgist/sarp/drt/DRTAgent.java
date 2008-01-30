@@ -173,7 +173,7 @@ public class DRTAgent {
         }
         
         try {
-        	PageSetting setting = new PageSetting(15);
+        	PageSetting setting = new PageSetting(10);
         	setting.setPage((String) params.get("page"));
         	
             Collection<Comment> comments = drtService.getComments(oid, setting);
@@ -253,6 +253,62 @@ public class DRTAgent {
         
         return map;
     }//createComment()
+    
+    
+    /**
+     * Set the voting choice on the given InfoObject object.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>oid - int, id of the InfoObject object. Required.</li>
+     *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>numAgree - int</li>
+     *     <li>numVote - int</li>
+     *   </ul>
+     */
+    public Map setVotingOnInfoObject(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long oid = null;
+        try {
+            oid = new Long((String) params.get("oid"));
+        } catch (Exception e) {
+            map.put("reason", "oid is required.");
+            return map;
+        }
+        
+        boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+        
+        try {
+        	InfoObject infoObject = null;
+        	
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_INFOOBJ, oid);
+            if (voting!=null) {
+            	infoObject = drtService.getInfoObjectById(oid);
+            } else {
+            	infoObject = drtService.setVotingOnInfoObject(oid, agree);
+            }
+            
+            map.put("numAgree", infoObject.getNumAgree());
+            map.put("numVote", infoObject.getNumVote());
+            map.put("voted", true);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVotingOnInfoObject()
     
     
 }//class DRTAgent

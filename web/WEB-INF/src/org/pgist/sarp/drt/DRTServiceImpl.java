@@ -3,6 +3,8 @@ package org.pgist.sarp.drt;
 import java.util.Collection;
 import java.util.Date;
 
+import org.pgist.system.SystemDAO;
+import org.pgist.system.YesNoVoting;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -17,12 +19,19 @@ public class DRTServiceImpl implements DRTService {
 	
 	private DRTDAO drtDAO;
 	
+    private SystemDAO systemDAO;
 	
+    
 	public void setDrtDAO(DRTDAO drtDAO) {
 		this.drtDAO = drtDAO;
 	}
 	
 	
+    public void setSystemDAO(SystemDAO systemDAO) {
+        this.systemDAO = systemDAO;
+    }
+    
+    
 	/*
 	 * -------------------------------------------------------------
 	 */
@@ -45,6 +54,8 @@ public class DRTServiceImpl implements DRTService {
 		InfoObject infoObject = drtDAO.getInfoObjectById(oid);
 		infoObject.setNumAgree(0);
 		infoObject.setNumVote(0);
+		
+		systemDAO.deleteVote(oid);
 		
 		drtDAO.save(infoObject);
 	}//clearVote()
@@ -86,6 +97,19 @@ public class DRTServiceImpl implements DRTService {
 		
 		return comment;
 	}//createComment()
+
+
+	@Override
+	public InfoObject setVotingOnInfoObject(Long oid, boolean agree) throws Exception {
+		InfoObject infoObject = drtDAO.getInfoObjectById(oid);
+		if (infoObject==null) throw new Exception("can't find the specified InfoObject with id "+oid);
+		
+        systemDAO.setVoting(YesNoVoting.TYPE_SART_DRT_INFOOBJ, oid, agree);
+        
+        drtDAO.increaseVoting(infoObject, agree);
+        
+        return infoObject;
+	}//setVotingOnInfoObject()
 	
 	
 }//class DRTServiceImpl
