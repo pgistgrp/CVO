@@ -76,7 +76,7 @@ var allNewConcernTags = new Array;
     //alert("filter" + filter + " page: " + page + " jump: " + jump + " showMyConcerns: " + showMyConcerns + " sorting: " + sorting)
     if(jump){
       location.href = bct.filterAnchor; //set anchor if need be
-    }    
+    }
     bct.showOnlyMyConcerns = showMyConcerns;
     type = (bct.showOnlyMyConcerns) ? "owner" : "all"; //determine type
     bct.currentPage = page; //set current page

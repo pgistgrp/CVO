@@ -367,7 +367,10 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
 
     private static final String sql_getContextConcerns_B_1 = "select count(distinct cid) from " + DBMetaData.VIEW_CONCERN_TAG_IN_BCT + " where bctid=? #type and lower(tname)=?";
     
-    private static final String sql_getContextConcerns_B_2 = "select c.id AS cid, c.views AS nview, c.replies AS nreply, c.replytime AS rtime, c.createtime AS ctime, c.numagree AS nagree, c.numvote AS nvote from pgist_cvo_concerns c where c.id IN (select distinct cid from " + DBMetaData.VIEW_CONCERN_TAG_IN_BCT + " where bctid=? #type and lower(tname)=?) order by #sorting OFFSET ? LIMIT ?";
+    private static final String sql_getContextConcerns_B_2 = "select c.id AS cid, c.views AS nview, c.replies AS nreply, "
+    	+ "c.replytime AS rtime, c.createtime AS ctime, c.numagree AS nagree, c.numvote AS nvote from sarp_concerns c "
+    	+ "where c.id IN (select distinct cid from " + DBMetaData.VIEW_CONCERN_TAG_IN_BCT
+    	+ " where bctid=? #type and lower(tname)=?) order by #sorting OFFSET ? LIMIT ?";
     
     
     public Collection getContextConcerns(BCT bct, PageSetting setting, String filter, String type, int sorting) throws Exception {

@@ -42,8 +42,6 @@
 	<p></p>
 </c:forEach>
 
-
-
 <logic:notEqual name="showTitle" value="true">
 		<logic:notEqual name="showIcon" value="true">
 			<p>

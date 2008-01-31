@@ -251,8 +251,7 @@ public class BCTAgent {
      *         </ul>
      * @throws Exception
      */
-    public Map getConcerns(HttpServletRequest request, Map params) throws
-            Exception {
+    public Map getConcerns(HttpServletRequest request, Map params) {
         Map map = new HashMap();
 
         Long bctId = new Long((String) params.get("bctId"));
@@ -263,54 +262,60 @@ public class BCTAgent {
             return map;
         }
 
-        int count = Integer.parseInt((String) params.get("count"));
-        if (!(count > 0)) count = 10;
-
-        BCT bct = bctService.getBCTById(bctId);
+        int count = 10;
+        
+        try {
+        	count = Integer.parseInt((String) params.get("count"));
+        	if (count<=0) count = -1;
+        } catch (Exception e) {
+        	//do nothing
+		}
 
         Collection concerns = null;
         Integer type = null;
         String url = "";
 
         try {
+            BCT bct = bctService.getBCTById(bctId);
+
             type = new Integer((String) params.get("type"));
             switch (type.intValue()) {
-            case 0:
-                concerns = bctService.getMyConcerns(bct);
-                map.put("total", "" + bctService.getConcernsTotal(bct, 1));
-
-                request.setAttribute("showIcon", new Boolean(true));
-
-                url = "/WEB-INF/jsp/sarp/bct/concerns.jsp";
-                break;
-            case 1:
-                concerns = bctService.getOthersConcerns(bct, count);
-                map.put("total", "" + bctService.getConcernsTotal(bct, 2));
-
-                request.setAttribute("showIcon", new Boolean(false));
-
-                url = "/WEB-INF/jsp/sarp/bct/concerns.jsp";
-                break;
-            case 2:
-                PageSetting setting = new PageSetting();
-                setting.setRowOfPage(count);
-                try {
-                    setting.setPage(Integer.parseInt((String) params.get("page")));
-                } catch (Exception e) {
-                    setting.setPage(1);
-                }
-                concerns = bctService.getRandomConcerns(bct, setting);
-                map.put("total", "" + setting.getRowSize());
-
-                request.setAttribute("setting", setting);
-                request.setAttribute("showIcon", new Boolean(false));
-
-                url = "/WEB-INF/jsp/sarp/bct/concerns.jsp";
-                break;
-            default:
-                map.put("successful", new Boolean(false));
-                map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
-                return map;
+	            case 0:
+	                concerns = bctService.getMyConcerns(bct);
+	                map.put("total", "" + bctService.getConcernsTotal(bct, 1));
+	
+	                request.setAttribute("showIcon", new Boolean(true));
+	
+	                url = "/WEB-INF/jsp/sarp/bct/concerns.jsp";
+	                break;
+	            case 1:
+	                concerns = bctService.getOthersConcerns(bct, count);
+	                map.put("total", "" + bctService.getConcernsTotal(bct, 2));
+	
+	                request.setAttribute("showIcon", new Boolean(false));
+	
+	                url = "/WEB-INF/jsp/sarp/bct/concerns.jsp";
+	                break;
+	            case 2:
+	                PageSetting setting = new PageSetting();
+	                setting.setRowOfPage(count);
+	                try {
+	                    setting.setPage(Integer.parseInt((String) params.get("page")));
+	                } catch (Exception e) {
+	                    setting.setPage(1);
+	                }
+	                concerns = bctService.getRandomConcerns(bct, setting);
+	                map.put("total", "" + setting.getRowSize());
+	
+	                request.setAttribute("setting", setting);
+	                request.setAttribute("showIcon", new Boolean(false));
+	
+	                url = "/WEB-INF/jsp/sarp/bct/concerns.jsp";
+	                break;
+	            default:
+	                map.put("successful", new Boolean(false));
+	                map.put("reason", "Not sure who's concern is wanted. Please set type to 0 (current user) or 1 (others').");
+	                return map;
             }
 
             request.setAttribute("showTitle", new Boolean(false));
@@ -982,6 +987,7 @@ public class BCTAgent {
      *     <li>count - number of records shown per page. Optional, default is -1, means all records.</li>
      *     <li>page - page number. Optional, default is 1.</li>
      *     <li>sorting - int, the sorting index, 1-7, referencing BCTDAOImpl.java for the meaning</li>
+     *     <li>contextAware - boolean, default false</li>
      *     <li>
      *       type - string, types of searching
      *       <ul>
@@ -1019,6 +1025,8 @@ public class BCTAgent {
     public Map getContextConcerns(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
+        
+        boolean contextAware = "true".equals(params.get("contextAware"));
         
         BCT bct = null;
         
@@ -1058,6 +1066,7 @@ public class BCTAgent {
             request.setAttribute("filter", filter);
             request.setAttribute("type", type);
             request.setAttribute("sorting", sorting);
+            request.setAttribute("contextAware", contextAware);
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/bct/contextConcerns.jsp"));
             

@@ -32,8 +32,6 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
 
-<pg:outputProperty property="javascript" />
-
 <script type="text/javascript">
     <pg:show condition="${!infoObject.closed}">
     tinyMCE.init({
@@ -50,27 +48,15 @@
     var infoObject = null;
     
     function InfoObject() {
+        this.oid = ${infoObject.id};
+        this.targetId = ${infoObject.target.id};
+        this.currentSort = 1;
+        this.currentFilter = '';
+        this.wfinfo = <pg:wfinfo/>;
         displayIndicator(true);
         this.oDivElement = 'infoObjectBox';
         this.discussionDivElement = 'discussionBox';
         this.page = 1;
-        this.getTargets = function(){
-            DRTAgent.getTargets({oid:${infoObject.id}}, <pg:wfinfo/>,{
-                callback:function(data){
-                    if (data.successful){
-                        displayIndicator(false);
-                        $(infoObject.oDivElement).innerHTML = data.source.html;
-                        eval(data.source.script);
-                    }else{
-                        displayIndicator(false);
-                        alert(data.reason);
-                    }
-                },
-                errorHandler:function(errorString, exception){ 
-                    alert("get targets error: " + errorString +" "+ exception);
-                }
-            });
-        };
         this.getComments = function(page){
             DRTAgent.getComments({oid:${infoObject.id}, page:page}, <pg:wfinfo/>,{
                 callback:function(data){
@@ -151,7 +137,11 @@
         
         };
     }
-    
+</script>
+
+<pg:outputProperty property="javascript" />
+
+<script type="text/javascript">
     function onPageLoaded() {
         infoObject = new InfoObject();
         window.setTimeout('tooltip.init()',1000);
@@ -161,6 +151,8 @@
         tinyMCE.idCounter=0;
         tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
         </pg:show>
+        
+        infoObject.loadTarget();
     }
 </script>
 

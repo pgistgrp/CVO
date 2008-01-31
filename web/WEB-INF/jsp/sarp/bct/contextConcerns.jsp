@@ -5,11 +5,10 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 	<c:choose>
 		<c:when test="${fn:length(concerns) == 0}">
 				<div class="discussion-left box8">
-					<p>No concerns with the current filters could be found.  Try removing a filter.</p>
+					<p>No concerns with the current filters could be found. Try removing a filter.</p>
 				</div>
 		</c:when>
 		<c:otherwise>
@@ -27,7 +26,6 @@
 								<div class="discussionRowHeader">
 									<div id="concernVote${concern.id}" class="discussionVoting">
 										Do you agree with this concern?  ${concern.numAgree} of ${concern.numVote} people agree so far.
-										
 									 	<c:choose>
 									 		<c:when test="${concern.object == null}">
 												<a href="javascript:setVote(${concern.id}, 'false');"><img src="images/btn_thumbsdown.png" alt="Disagree" /></a>&nbsp;
@@ -108,8 +106,4 @@
 		  </div>
 		</c:otherwise>
 	</c:choose>
-
-
-
-
 
