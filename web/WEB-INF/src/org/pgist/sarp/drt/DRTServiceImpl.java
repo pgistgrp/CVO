@@ -45,7 +45,7 @@ public class DRTServiceImpl implements DRTService {
 	
 	@Override
 	public Comment getCommentById(Long id) throws Exception {
-		return null;
+		return (Comment) drtDAO.load(Comment.class, id);
 	}//getCommentById()
 
 
@@ -89,12 +89,16 @@ public class DRTServiceImpl implements DRTService {
 		comment.setTitle(title);
 		comment.setContent(content);
 		comment.setCreateTime(new Date());
-		comment.setNumAgree(0);
-		comment.setNumVote(0);
+		comment.setNumAgree(1);
+		comment.setNumVote(1);
 		comment.setEmailNotify(emailNotify);
 		
 		drtDAO.save(comment);
 		
+        systemDAO.setVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, comment.getId(), true);
+        
+        drtDAO.increaseVoting(infoObject, true);
+        
 		return comment;
 	}//createComment()
 
@@ -110,6 +114,27 @@ public class DRTServiceImpl implements DRTService {
         
         return infoObject;
 	}//setVotingOnInfoObject()
+
+
+	@Override
+	public Comment setVotingOnComment(Long cid, boolean agree) throws Exception {
+		Comment comment = (Comment) drtDAO.load(Comment.class, cid);
+		if (comment==null) throw new Exception("can't find the specified Comment with id "+cid);
+		
+        systemDAO.setVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, cid, agree);
+        
+        drtDAO.increaseVoting(comment, agree);
+        
+        return comment;
+	}//setVotingOnComment()
 	
 	
+	@Override
+	public void deleteComment(Comment comment) throws Exception {
+		comment.setDeleted(true);
+		
+		drtDAO.save(comment);
+	}//deleteComment()
+
+
 }//class DRTServiceImpl

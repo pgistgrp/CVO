@@ -107,6 +107,7 @@ public class PageSetting {
         try {
             this.rowOfPage = Integer.parseInt(rowOfPage);
             if (this.rowOfPage<=0) this.rowOfPage = 20;
+            else if (this.rowOfPage>100) this.rowOfPage = 100;
         } catch(Exception e) {
             this.rowOfPage = 20;
         }

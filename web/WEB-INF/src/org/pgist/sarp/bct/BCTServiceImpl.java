@@ -502,4 +502,10 @@ public class BCTServiceImpl implements BCTService {
 	}//toggleBCT()
 
 
+	@Override
+	public Collection getConciseTags(BCT bct, PageSetting setting) throws Exception {
+		return bctDAO.getConciseTags(bct, setting);
+	}//getConciseTags()
+
+
 }//class BCTServiceImpl

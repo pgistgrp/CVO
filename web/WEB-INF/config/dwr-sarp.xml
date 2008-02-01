@@ -25,7 +25,7 @@
     </convert>
 
     <convert converter="bean" match="org.pgist.sarp.bct.TagReference">
-      <param name="include" value="id, tag, times, cctId"/>
+      <param name="include" value="id, tag, times, bctId"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.tagging.Category">
@@ -70,7 +70,8 @@
       <include method="createBCT"/>
       <include method="prepareConcern"/>
       <include method="saveConcern"/>
-      <include method="getConcerns"/>
+      <include method="getConciseConcerns"/>
+      <include method="getConciseTags"/>
       <include method="getConcernById"/>
       <include method="getConcernsByTag"/>
       <include method="getTagByTagRefId"/>
@@ -158,6 +159,7 @@
       <include method="deleteComment"/>
       <include method="getVotingOnInfoObject"/>
       <include method="setVotingOnInfoObject"/>
+      <include method="getVotingOnComment"/>
       <include method="setVotingOnComment"/>
       <include method="searchTags"/>
       <include method="getTagCloud"/>

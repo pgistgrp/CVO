@@ -6,12 +6,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.discussion.DiscussionReply;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 import org.pgist.wfengine.web.WorkflowUtils;
 
 
@@ -256,6 +261,89 @@ public class DRTAgent {
     
     
     /**
+     * Delete the given Comment object. Only used by moderator.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>cid - int, id of the Comment object</li>
+     *   </ul>
+     *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map deleteComment(Map params, Map wfinfo) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long cid = null;
+        Comment comment = null;
+        
+        try {
+        	cid = new Long((String) params.get("cid"));
+            if (cid==null) {
+                map.put("reason", "no such Comment object");
+                return map;
+            }
+            
+            comment = drtService.getCommentById(cid);
+            if (comment==null) {
+                map.put("reason", "no such Comment object");
+                return map;
+            }
+            
+            //check if it's moderator, TODO
+            if (comment.getAuthor().getId().equals(WebUtils.currentUserId())) {
+                drtService.deleteComment(comment);
+                
+                /*
+                 * delete from lucene
+                 */
+                IndexSearcher searcher = null;
+                IndexReader reader = null;
+                try {
+                    searcher = searchHelper.getIndexSearcher();
+                    
+                    Hits hits = searcher.search(searchHelper.getParser().parse(
+                        "workflowid:"+wfinfo.get("workflowId")
+                       +" AND type:infoobjcomment AND commentid:"+cid
+                    ));
+                    
+                    if (hits.length()>0) {
+                        reader = searchHelper.getIndexReader();
+                        reader.deleteDocument(hits.id(0));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (searcher!=null) searcher.close();
+                    if (reader!=null) reader.close();
+                }
+            } else {
+                map.put("reason", "You are not the owner of this comment");
+                return map;
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteComment()
+    
+    
+    /**
      * Set the voting choice on the given InfoObject object.
      * 
      * @param params A map contains:
@@ -309,6 +397,62 @@ public class DRTAgent {
         
         return map;
     }//setVotingOnInfoObject()
+    
+    
+    /**
+     * Set the voting choice on the given Comment object.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>cid - int, id of the Comment object. Required.</li>
+     *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>numAgree - int</li>
+     *     <li>numVote - int</li>
+     *   </ul>
+     */
+    public Map setVotingOnComment(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long cid = null;
+        try {
+            cid = new Long((String) params.get("cid"));
+        } catch (Exception e) {
+            map.put("reason", "cid is required.");
+            return map;
+        }
+        
+        boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+        
+        try {
+        	Comment comment = null;
+        	
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, cid);
+            if (voting!=null) {
+            	comment = drtService.getCommentById(cid);
+            } else {
+            	comment = drtService.setVotingOnComment(cid, agree);
+            }
+            
+            map.put("numAgree", comment.getNumAgree());
+            map.put("numVote", comment.getNumVote());
+            map.put("voted", true);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVotingOnComment()
     
     
 }//class DRTAgent

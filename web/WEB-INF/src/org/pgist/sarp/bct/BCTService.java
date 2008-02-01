@@ -237,6 +237,9 @@ public interface BCTService {
     
     
 	void toggleBCT(Long bctId, boolean equals) throws Exception;
+	
+	
+	Collection getConciseTags(BCT bct, PageSetting setting) throws Exception;
     
     
 }//interface BCTService

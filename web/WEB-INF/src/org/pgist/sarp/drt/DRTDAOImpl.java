@@ -22,8 +22,8 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
 	}//getInfoObjectById()
 	
 	
-	private static final String hql_getComments1 = "select count(id) from Comment c where c.target.id=?";
-	private static final String hql_getComments2 = "from Comment c where c.target.id=? order by c.id desc";
+	private static final String hql_getComments1 = "select count(id) from Comment c where c.deleted=false and c.target.id=?";
+	private static final String hql_getComments2 = "from Comment c where c.deleted=false and c.target.id=? order by c.id desc";
 	
 	
 	@Override
@@ -50,18 +50,32 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
 	}//getComments()
 
 
-    private static final String hql_increaseVoting_1 = "update InfoObject i set i.numVote=i.numVote+1 where i.id=?";
+    private static final String hql_increaseVoting_11 = "update InfoObject i set i.numVote=i.numVote+1 where i.id=?";
     
-    private static final String hql_increaseVoting_2 = "update InfoObject i set i.numAgree=i.numAgree+1 where i.id=?";
+    private static final String hql_increaseVoting_12 = "update InfoObject i set i.numAgree=i.numAgree+1 where i.id=?";
     
     
 	@Override
     public void increaseVoting(InfoObject object, boolean agree) throws Exception {
-        getSession().createQuery(hql_increaseVoting_1).setLong(0, object.getId()).executeUpdate();
+        getSession().createQuery(hql_increaseVoting_11).setLong(0, object.getId()).executeUpdate();
         if (agree) {
-            getSession().createQuery(hql_increaseVoting_2).setLong(0, object.getId()).executeUpdate();
+            getSession().createQuery(hql_increaseVoting_12).setLong(0, object.getId()).executeUpdate();
         }
     }//increaseVoting()
-	
-	
+
+
+    private static final String hql_increaseVoting_21 = "update Comment c set c.numVote=c.numVote+1 where c.id=?";
+    
+    private static final String hql_increaseVoting_22 = "update Comment c set c.numAgree=c.numAgree+1 where c.id=?";
+    
+    
+	@Override
+	public void increaseVoting(Comment comment, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_21).setLong(0, comment.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_22).setLong(0, comment.getId()).executeUpdate();
+        }
+	}//increaseVoting()
+
+
 }//class DRTDAOImpl

@@ -27,12 +27,12 @@
 						<div id="voting-comment${comment.id}" class="discussionVoting">
 							Do you agree with this comment? ${comment.numAgree} of ${comment.numVote} agree so far.
 							<c:choose>
-								<c:when test="${comment.target == null}">
-									<a href="javascript:infoObject.setVoteOnComment(${comment.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-									<a href="javascript:infoObject.setVoteOnComment(${comment.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+								<c:when test="${pg:voted(pageContext, comment)}">
+									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
 								</c:when>
 								<c:otherwise>
-									<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
+									<a href="javascript:infoObject.setVoteOnComment(${comment.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+									<a href="javascript:infoObject.setVoteOnComment(${comment.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -60,7 +60,7 @@
 						</div>
 						<pg:show roles="moderator">
 						<div class="smallText" style="text-align:right;">	
-							Moderator options: <input type="button" onClick="io.deleteComment(${comment.id});" value="Delete" />
+							Moderator options: <input type="button" onClick="infoObject.deleteComment(${comment.id});" value="Delete" />
 						</div>
 						</pg:show>
 					</div>
@@ -76,7 +76,7 @@
         <img src="images/btn_prev_fade.gif" alt="No Previous Pages" />
       </logic:equal>
       <logic:notEqual name="setting" property="page" value="1">	
-        <!--a href="javascript:io.switchPage(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
+        <!--a href="javascript:infoObject.switchPage(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
         <a href="javascript:infoObject.getComments(${setting.page - 1});"><img src="images/btn_prev_a.gif" alt="Prev" name="prev" class="button" id="prev" onMouseOver="MM_swapImage('prev','','images/btn_prev_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a>
       </logic:notEqual>
       
@@ -84,7 +84,7 @@
         <img src="images/btn_next_fade.gif" alt="No Additional Pages" />
       </logic:equal>
       <logic:notEqual name="setting" property="page" value="${setting.pageSize}">	
-        <!--a href="javascript:io.switchPage(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
+        <!--a href="javascript:infoObject.switchPage(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
         <a href="javascript:infoObject.getComments(${setting.page + 1});"><img src="images/btn_next_a.gif" alt="Next" name="next" class="button" id="next" onMouseOver="MM_swapImage('next','','images/btn_next_b.gif',1)" onMouseOut="MM_swapImgRestore()"></a-->
       </logic:notEqual>
     </div>

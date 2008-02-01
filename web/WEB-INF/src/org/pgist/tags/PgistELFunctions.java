@@ -3,6 +3,7 @@ package org.pgist.tags;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.pgist.criteria.Criteria;
@@ -19,6 +20,10 @@ import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
+import org.pgist.sarp.drt.Comment;
+import org.pgist.system.SystemService;
+import org.pgist.system.YesNoVoting;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * PGIST JSP Expression Language functions.<br>
@@ -151,4 +156,20 @@ public class PgistELFunctions extends SimpleTagSupport {
         }
 		return false;
 	}
+	
+	public static boolean voted(PageContext context, Comment comment) {
+        WebApplicationContext appContext = (WebApplicationContext) context.getServletContext()
+        	.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        SystemService systemService = (SystemService) appContext.getBean("systemService");
+        
+        try {
+        	YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, comment.getId());
+        	if (voting.isVoting()) return true;
+        } catch (Exception e) {
+		}
+        
+		return false;
+	}//voted()
+	
+	
 }// class PgistELFunctions

@@ -546,4 +546,32 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
     }//increaseViews()
 
 
+    private static final String hql_getConciseTags_1 = "select count(tr.id) from TagReference tr where tr.bctId=?";
+    
+    private static final String hql_getConciseTags_2 = "from TagReference tr where tr.bctId=? order by tr.tag.name";
+    
+    
+	@Override
+	public Collection getConciseTags(BCT bct, PageSetting setting) throws Exception {
+        //get count
+        Query query = getSession().createQuery(hql_getConciseTags_1);
+        query.setLong(0, bct.getId());
+        
+        int count = ((Number) query.uniqueResult()).intValue();
+        
+        if (setting.getRowOfPage()==-1) setting.setRowOfPage(count);
+        setting.setRowSize(count);
+        
+        if (count==0) return new ArrayList();
+        
+        //get records
+        query = getSession().createQuery(hql_getConciseTags_2);
+        query.setLong(0, bct.getId());
+        query.setFirstResult(setting.getFirstRow());
+        query.setMaxResults(setting.getRowOfPage());
+        
+        return query.list();
+	}//getConciseTags()
+
+
 }//class BCTDAOImpl

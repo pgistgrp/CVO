@@ -18,6 +18,8 @@ public interface DRTDAO extends BaseDAO {
 	Collection<Comment> getComments(Long oid, PageSetting setting) throws Exception;
 
 	void increaseVoting(InfoObject infoObject, boolean agree) throws Exception;
-	
+
+	void increaseVoting(Comment comment, boolean agree) throws Exception;
+
 	
 }//interface DRTDAO

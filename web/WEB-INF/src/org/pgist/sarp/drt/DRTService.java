@@ -27,6 +27,10 @@ public interface DRTService {
 	Comment createComment(Long oid, String title, String content, boolean emailNotify) throws Exception;
 
 	InfoObject setVotingOnInfoObject(Long oid, boolean agree) throws Exception;
+
+	void deleteComment(Comment comment) throws Exception;
+
+	Comment setVotingOnComment(Long cid, boolean agree) throws Exception;
 	
 	
 }//interface DRTService

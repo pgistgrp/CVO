@@ -50,8 +50,6 @@
     function InfoObject() {
         this.oid = ${infoObject.id};
         this.targetId = ${infoObject.target.id};
-        this.currentSort = 1;
-        this.currentFilter = '';
         this.wfinfo = <pg:wfinfo/>;
         displayIndicator(true);
         this.oDivElement = 'infoObjectBox';
@@ -79,6 +77,7 @@
             tinyMCE.setContent('');
         };
         this.createComment = function() {
+          displayIndicator(true);
           var title = $('txtNewCommentTitle').value;
           var content = tinyMCE.getContent();
           if (title.length<1) {
@@ -106,6 +105,23 @@
                 }
             });
         };
+        this.deleteComment = function(cid) {
+          if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
+          displayIndicator(true);
+          DRTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
+                callback:function(data){
+                    displayIndicator(false);
+                    if (data.successful){
+                      infoObject.getComments(infoObject.page);
+                    }else{
+                        alert(data.reason);
+                    }
+                },
+                errorHandler:function(errorString, exception){ 
+                    alert("get targets error: " + errorString +" "+ exception);
+                }
+            });
+        };
         this.setVoteOnInfoObject = function(agree){
             DRTAgent.setVotingOnInfoObject({oid: ${infoObject.id}, agree:agree}, {
             callback:function(data){
@@ -119,6 +135,34 @@
                           $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
                         }
                         new Effect.Appear(votingDiv);
+                    }
+                  });
+                }
+              }else{
+                if (data.voted) {
+                  $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
+                } else {
+                  alert(data.reason);
+                }
+              }
+            },
+            errorHandler:function(errorString, exception){ 
+                alert("setVote error:" + errorString + exception);
+            }
+            });
+        
+        };
+        this.setVoteOnComment = function(cid, agree){
+            DRTAgent.setVotingOnComment({cid: cid, agree:agree}, {
+            callback:function(data){
+              if (data.successful){
+                var votingDiv = 'voting-comment'+cid;
+                if($(votingDiv) != undefined){
+                  new Effect.Fade(votingDiv, {
+                    afterFinish:function(){
+                      $(votingDiv).innerHTML = "Do you agree with this comment? "+data.numAgree+" of "+data.numVote+" agree so far."
+                        + "<img src='images/btn_thumbsdown_off.png' alt='Disabled Button'/> <img src='images/btn_thumbsup_off.png' alt='Disabled Button'/>";
+                      new Effect.Appear(votingDiv);
                     }
                   });
                 }

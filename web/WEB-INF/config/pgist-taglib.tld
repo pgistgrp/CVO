@@ -64,6 +64,12 @@
       <function-signature>boolean containsInfoObject(org.pgist.criteria.Criteria, org.pgist.discussion.InfoObject)</function-signature>
   </function>
   
+  <function>
+      <name>voted</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>boolean voted(javax.servlet.jsp.PageContext, org.pgist.sarp.drt.Comment)</function-signature>
+  </function>
+  
   <tag>
     <name>show</name>
     <tag-class>org.pgist.tags.ShowTag</tag-class>
