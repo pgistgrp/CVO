@@ -329,7 +329,7 @@ public class GlossaryDAOImpl extends BaseDAOImpl implements GlossaryDAO {
 	@Override
 	public TermComment getCommentById(Long id) throws Exception {
 		return (TermComment) load(TermComment.class, id);
-	}//getCommentById(0
+	}//getCommentById()
 
 
 }//class GlossaryDAOImpl
