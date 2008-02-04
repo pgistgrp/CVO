@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:choose>
   <c:when test="${fn:length(tags) == 0}">
-      <div class="discussion-left box8">
+      <div class="width:135px;padding-left:5px;margin-bottom: 10px;border:1px solid #D6E5EE;background:#F4F9FB;">
         <p>No tags, yet.</p>
       </div>
   </c:when>
