@@ -548,11 +548,15 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
 
     private static final String hql_getConciseTags_1 = "select count(tr.id) from TagReference tr where tr.bctId=?";
     
-    private static final String hql_getConciseTags_2 = "from TagReference tr where tr.bctId=? order by tr.tag.name";
+    private static final String[] hql_getConciseTags_2 = {
+    	"from TagReference tr where tr.bctId=? order by tr.tag.name",
+    	"from TagReference tr where tr.bctId=? order by tr.tag.name desc",
+    	"from TagReference tr where tr.bctId=? order by tr.times desc, tr.tag.name",
+    };
     
     
 	@Override
-	public Collection getConciseTags(BCT bct, PageSetting setting) throws Exception {
+	public Collection getConciseTags(BCT bct, PageSetting setting, int sorting) throws Exception {
         //get count
         Query query = getSession().createQuery(hql_getConciseTags_1);
         query.setLong(0, bct.getId());
@@ -565,7 +569,7 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
         if (count==0) return new ArrayList();
         
         //get records
-        query = getSession().createQuery(hql_getConciseTags_2);
+        query = getSession().createQuery(hql_getConciseTags_2[sorting]);
         query.setLong(0, bct.getId());
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());

@@ -503,8 +503,8 @@ public class BCTServiceImpl implements BCTService {
 
 
 	@Override
-	public Collection getConciseTags(BCT bct, PageSetting setting) throws Exception {
-		return bctDAO.getConciseTags(bct, setting);
+	public Collection getConciseTags(BCT bct, PageSetting setting, int sorting) throws Exception {
+		return bctDAO.getConciseTags(bct, setting, sorting);
 	}//getConciseTags()
 
 

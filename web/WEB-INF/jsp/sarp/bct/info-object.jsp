@@ -17,7 +17,16 @@
       <div id="filterDiv" style="display:none; padding-left:40px; width:50px;">filtered by "<span id="filterSpan" style="font-weight:bold;"></span>"<a href="javascript: infoObject.getConcerns(1, '-1');"><img src="images/close.gif" style="vertical-align:middle;" alt="clear filter" /></a></div>
     </td>
     <td style="width:10px; border-right:thin dotted #B4D579;"></td>
-    <td><b>Tags</b></td>
+    <td>
+      <b>Tags</b>
+      <div style="display:inline;">
+        <select name="tagsort" id="tagsort" onChange="javascript:infoObject.getTags(1); ">
+          <option value="0">a-z</option>
+          <option value="1">z-a</option>
+          <option value="2">frequency</option>
+        </select>
+      </div>
+    </td>
   </tr>
   <tr>
     <td valign="top"><div id="concernsPanel" style="width:100%;"></div></td>

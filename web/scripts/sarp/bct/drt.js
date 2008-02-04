@@ -35,11 +35,12 @@ InfoObject.prototype.getConcerns = function(page, filter) {
 
 InfoObject.prototype.getTags = function(page) {
   displayIndicator(true);
-  BCTAgent.getConciseTags({bctId: this.targetId, page: page}, this.wfinfo,{
+  BCTAgent.getConciseTags({bctId:this.targetId, page:page, sorting:$('tagsort').value}, this.wfinfo,{
       callback:function(data){
           displayIndicator(false);
           if (data.successful){
               $('tagsPanel').innerHTML = data.html;
+              $('tagsort').value = data.sorting;
           }else{
               alert(data.reason);
           }

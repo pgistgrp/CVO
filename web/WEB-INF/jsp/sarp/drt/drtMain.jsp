@@ -256,12 +256,14 @@
         </div>
         
         <a id="firstCommentAnchor" name="firstCommentAnchor"></a>
+        <br>
+        <p><b>Discussion about moving forward:</b>
         <div id="discussionBox" class="discussionBox"></div>
         
         <pg:show condition="${!infoObject.closed}">
           <a id="newCommentAnchor" name="newCommentAnchor"></a>
           <div id="newComment" class="box8 padding5">
-            <h3 class="headerColor">Post a comment</h3>
+            <h3 class="headerColor">Post a comment about moving forward</h3>
             <form>
               <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
               <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>

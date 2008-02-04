@@ -179,7 +179,7 @@ public interface BCTDAO extends BaseDAO {
     void increaseViews(Long concernId) throws Exception;
 
 
-	Collection getConciseTags(BCT bct, PageSetting setting) throws Exception;
+	Collection getConciseTags(BCT bct, PageSetting setting, int sorting) throws Exception;
 
 
 }//interface BCTDAO
