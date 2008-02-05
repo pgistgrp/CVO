@@ -97,7 +97,7 @@ public class DRTServiceImpl implements DRTService {
 		
         systemDAO.setVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, comment.getId(), true);
         
-        drtDAO.increaseVoting(infoObject, true);
+        drtDAO.increaseVoting(comment, true);
         
 		return comment;
 	}//createComment()
