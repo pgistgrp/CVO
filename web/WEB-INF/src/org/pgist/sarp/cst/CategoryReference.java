@@ -20,7 +20,9 @@ import org.pgist.tagging.Category;
 public class CategoryReference implements Node, Serializable {
     
     
-    protected Long id;
+	protected Long id;
+	
+    protected Long cstId;
     
     protected Set parents = new HashSet();
     
@@ -32,8 +34,10 @@ public class CategoryReference implements Node, Serializable {
     
     protected SortedSet tags = new TreeSet(new TagReferenceComparator());
     
+    
     /**
      * @return
+     * 
      * @hibernate.id generator-class="native"
      */
     public Long getId() {
@@ -49,7 +53,22 @@ public class CategoryReference implements Node, Serializable {
     /**
      * @return
      * 
-     * @hibernate.set inverse="true" lazy="true" table="sarp_bct_catref_catref_link" order-by="child_id"
+     * @hibernate.property column="cst_id" not-null="true"
+     */
+    public Long getCstId() {
+		return cstId;
+	}
+
+
+	public void setCstId(Long cstId) {
+		this.cstId = cstId;
+	}
+
+
+	/**
+     * @return
+     * 
+     * @hibernate.set inverse="true" lazy="true" table="sarp_cst_catref_catref_link" order-by="child_id"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-many-to-many column="child_id" class="org.pgist.sarp.cst.CategoryReference"
      */
@@ -66,7 +85,7 @@ public class CategoryReference implements Node, Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="sarp_bct_catref_catref_link" order-by="parent_id"
+     * @hibernate.set lazy="true" table="sarp_cst_catref_catref_link" order-by="parent_id"
      * @hibernate.collection-key column="child_id"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.sarp.cst.CategoryReference"
      */

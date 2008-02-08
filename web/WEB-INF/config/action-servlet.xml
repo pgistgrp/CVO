@@ -143,12 +143,13 @@
     
     
     <bean name="/cstview" class="org.pgist.sarp.cst.CSTViewAction">
-        <property name="bctService" ref="bctService"/>
+        <property name="cstService" ref="cstService"/>
     </bean>
     
     
     <bean name="/catsTree" class="org.pgist.sarp.cst.CatsTreeAction">
-        <property name="bctService" ref="bctService"/>
+        <property name="cstService" ref="cstService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     

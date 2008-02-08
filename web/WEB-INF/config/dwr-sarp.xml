@@ -108,7 +108,7 @@
       <include method="getOrphanTags"/>
       <include method="relateTag"/>
       <include method="getThemes"/>
-      <include method="getThemeByCatRef"/>
+      <include method="getSummary"/>
       <include method="saveSummary"/>
     </create>
 

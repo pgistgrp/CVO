@@ -70,8 +70,8 @@ public class FeedbackTag extends SimpleTagSupport {
 
         writer.write("<p>Got a question? Having trouble using this website? <a href=\"#feedbackForm\" onclick=\"javascript:Effect.toggle('feedbackForm','blind'); setTimeout('location.hash=\\\'#feedbackDiv\\\';',900);\">Send us feedback.</a></p>"); 
         
-        writer.write("<script src=\"http://www.google-analytics.com/urchin.js\" type=\"text/javascript\"></script>");
-        writer.write("<script type=\"text/javascript\">_uacct = \"UA-797433-1\";urchinTracker();</script>");
+        //writer.write("<script src=\"http://www.google-analytics.com/urchin.js\" type=\"text/javascript\"></script>");
+        //writer.write("<script type=\"text/javascript\">_uacct = \"UA-797433-1\";urchinTracker();</script>");
     }//doTag()
     
     

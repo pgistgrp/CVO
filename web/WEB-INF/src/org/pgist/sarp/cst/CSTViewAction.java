@@ -16,15 +16,15 @@ import org.pgist.sarp.bct.BCTService;
 public class CSTViewAction extends Action {
 
     
-    private BCTService bctService;
+    private CSTService cstService;
     
     
     public CSTViewAction() {
     }
     
     
-    public void setBctService(BCTService bctService) {
-        this.bctService = bctService;
+    public void setCstService(CSTService cstService) {
+        this.cstService = cstService;
     }
 
 
@@ -39,9 +39,10 @@ public class CSTViewAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        BCT bct = bctService.getBCTById(new Long(request.getParameter("bctId")));
+        CST cst = cstService.getCSTById(new Long(request.getParameter("cstId")));
         
-        request.setAttribute("bct", bct);
+        request.setAttribute("bct", cst.getBct());
+        request.setAttribute("cst", cst);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

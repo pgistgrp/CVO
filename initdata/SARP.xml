@@ -117,6 +117,9 @@
             </description>
             <taskName>task-sarp.create.cst</taskName>
             <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                </ins>
                 <outs>
                     <var name="cst_id"/>
                 </outs>
@@ -135,7 +138,7 @@
             <actionName>action-sarp.cst</actionName>
             <declaration>
                 <ins>
-                    <var name="bctId"/>
+                    <var name="cstId"/>
                 </ins>
             </declaration>
         </pgame>
@@ -322,6 +325,9 @@
             <sequence>
                 <pgame name="pgame-sarp.create.cst">
                     <declaration>
+                        <ins>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                        </ins>
                         <outs>
                             <var name="cst_id" ref="pmethod.cst_id"/>
                         </outs>
@@ -342,7 +348,6 @@
                         <pgame name="pgame-sarp.cst">
                             <declaration>
                                 <ins>
-                                    <var name="bctId" ref="pmethod.bct_id"/>
                                     <var name="cstId" ref="pmethod.cst_id"/>
                                 </ins>
                             </declaration>
@@ -467,10 +472,10 @@
             <sequence>
                 <meeting name="meeting-sarp.bct">
                     <declaration>
-                        <ins>
+                        <outs>
                             <var name="meeting.bct_id" ref="situation.bct_id"/>
                             <var name="meeting.bct_oid" ref="situation.bct_oid"/>
-                        </ins>
+                        </outs>
                     </declaration>
                 </meeting>
                 <meeting name="meeting-sarp.cst">

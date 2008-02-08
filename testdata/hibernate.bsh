@@ -3,96 +3,37 @@
  * Testing script for hibernate execution.
  */
 
-import org.pgist.funding.UserFundingSourceToll;
-
-getFundingSource(name) {
-    query = session.createQuery("from FundingSource where name=?");
-    query.setString(0, name);
-    fs = query.uniqueResult();
-    if (fs==null) throw new RuntimeException(name + " is not found");
-    return fs;
+query = session.createQuery("select cr, tr.id from CategoryReference cr inner join cr.tags as tr where cr.id=?");
+query.setLong(0, 1575);
+list = query.list();
+for (one : list) {
+    print(one[0].category+"  "+one[1]);
 }
 
-shouldDoIt(user, toll) {
-    if (user==null) throw new RuntimeException("user is null");
-    if (user.userCommute==null) return false;
-    
-    for (one : user.userCommute.tolls) {
-        if (one.fundingSource.name==toll.name) return false;
-    }
-    
-    return true;
-}
-
-doIt(user, fs) {
-    toll = new UserFundingSourceToll();
-    toll.setName(fs.name);
-    toll.setOffPeakTrips(0);
-    toll.setPeakTrips(0);
-    toll.setUsed(false);
-    toll.setFundingSource(fs);
-    user.userCommute.tolls.add(toll);
-}
-
-i5n = getFundingSource("Toll on I-5, north of I-90");
-i5s = getFundingSource("Toll on I-5, south of I-90");
-
-print("Toll on I-5, north of I-90: "+i5n.id);
-print("Toll on I-5, south of I-90: "+i5s.id);
-
-hql = "from User";
+hql = "select distinct tr, tr.tag.name as name from CategoryReference cr inner join cr.tags as tr where cr.id in (1519,1536,1542,1558,1575,1583,1603,1806) and cr.cstId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id in (1519,1536,1542,1558,1575,1583,1603,1806)) order by name";
 query = session.createQuery(hql);
-for (user : query.list()) {
-    print(user.loginname);
-    if (shouldDoIt(user, i5n)) doIt(user, i5n);
-    if (shouldDoIt(user, i5s)) doIt(user, i5s);
+query.setLong(0, 1515);
+//query.setLong(0, 1575);
+list = query.list();
+for (one : list) {
+    print(one[1]);
 }
-
 
 return;
 
-userPackageSuiteId = 10223;
-projectSuiteId = 10217;
-fundingSuiteId = 10218;
+cats = "";
+queue = new LinkedList();
 
-hql = "from UserPackage where suite.id=?";
-query = session.createQuery(hql);
-query.setLong(0, userPackageSuiteId);
-upkgs = query.list();
-
-hql = "from ProjectSuite where id=?";
-query = session.createQuery(hql);
-query.setLong(0, projectSuiteId);
-projects = query.uniqueResult().references;
-
-hql = "from FundingSourceSuite where id=?";
-query = session.createQuery(hql);
-query.setLong(0, fundingSuiteId);
-fundings = query.uniqueResult().references;
-
-print("user-project matrix in user package: ");
-
-for (upkg: upkgs) {
-  for (project: projects) {
-    for (projectAltRef: project.altRefs) {
-      if (upkg.projAltRefs.contains(projectAltRef)) System.out.print("1 ");
-      else System.out.print("0 ");
+query = session.createQuery("from CategoryReference cr where cr.id=?");
+query.setLong(0, 1519);
+queue.add(query.uniqueResult());
+while (queue.size()>0) {
+    one = queue.remove(0);
+    cats += one.id + ",";
+    if (one.children.size()>0) {
+        queue.addAll(one.children);
     }
-  }
-  System.out.println();
 }
-
-System.out.println();
-
-print("user-funding matrix in user package: ");
-
-for (upkg: upkgs) {
-  for (funding: fundings) {
-    for (fundingAltRef: funding.altRefs) {
-      if (upkg.fundAltRefs.contains(fundingAltRef)) System.out.print("1 ");
-      else System.out.print("0 ");
-    }
-  }
-  System.out.println();
-}
+print(cats);
+return;
 

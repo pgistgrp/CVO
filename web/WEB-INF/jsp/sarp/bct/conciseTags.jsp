@@ -15,7 +15,7 @@
     <div style="width:135px; height:530px; padding:3px; overflow:auto; background-color:#FFFAF0;">
       <table style="width:130px;">
         <c:forEach var="tag" items="${tags}" varStatus="loop">
-          <tr><td><div style="border:1px solid #D6E5EE;background:#F4F9FB;padding:1px;width:125px;"><a href="javascript:infoObject.getConcerns(1, ${tag.id});">${tag.tag.name}</a></div></td></tr>
+          <tr><td><div style="border:1px solid #D6E5EE;background:#F4F9FB;padding:1px;width:125px;"><a href="javascript:infoObject.getConcerns(1, ${tag.id});">${tag.tag.name} (${tag.times})</a></div></td></tr>
         </c:forEach>
       </table>
     </div>

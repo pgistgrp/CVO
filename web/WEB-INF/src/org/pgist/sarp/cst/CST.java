@@ -3,7 +3,7 @@ package org.pgist.sarp.cst;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pgist.users.User;
+import org.pgist.sarp.bct.BCT;
 
 
 /**
@@ -22,9 +22,11 @@ public class CST {
     
     private String instruction = "";
     
-    private Map<User, CategoryReference> categories = new HashMap<User, CategoryReference>();
+    private Map<Long, CategoryReference> categories = new HashMap<Long, CategoryReference>();
     
-    private Map<User, CategoryReference> favorites = new HashMap<User, CategoryReference>();
+    private Map<Long, CategoryReference> favorites = new HashMap<Long, CategoryReference>();
+    
+    private BCT bct;
     
     private boolean closed;
     
@@ -94,15 +96,15 @@ public class CST {
      * 
      * @hibernate.map table="sarp_cst_user_category_map"
      * @hibernate.collection-key column="cst_id"
-     * @hibernate.index-many-to-many column="user_id" class="org.pgist.users.User"
+     * @hibernate.collection-index column="user_id" type="long"
      * @hibernate.collection-many-to-many column="root_catref_id" class="org.pgist.sarp.cst.CategoryReference"
      */
-	public Map<User, CategoryReference> getCategories() {
+	public Map<Long, CategoryReference> getCategories() {
 		return categories;
 	}
 
 
-	public void setCategories(Map<User, CategoryReference> categories) {
+	public void setCategories(Map<Long, CategoryReference> categories) {
 		this.categories = categories;
 	}
 
@@ -112,20 +114,35 @@ public class CST {
      * 
      * @hibernate.map table="sarp_cst_user_favorite_map"
      * @hibernate.collection-key column="cst_id"
-     * @hibernate.index-many-to-many column="user_id" class="org.pgist.users.User"
+     * @hibernate.collection-index column="user_id" type="long"
      * @hibernate.collection-many-to-many column="favorite_catref_id" class="org.pgist.sarp.cst.CategoryReference"
      */
-	public Map<User, CategoryReference> getFavorites() {
+	public Map<Long, CategoryReference> getFavorites() {
 		return favorites;
 	}
 
 
-	public void setFavorites(Map<User, CategoryReference> favorites) {
+	public void setFavorites(Map<Long, CategoryReference> favorites) {
 		this.favorites = favorites;
 	}
 
 
     /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="bct_id" lazy="true" class="org.pgist.sarp.bct.BCT"
+     */
+    public BCT getBct() {
+		return bct;
+	}
+
+
+	public void setBct(BCT bct) {
+		this.bct = bct;
+	}
+
+
+	/**
      * @return
      * 
      * @hibernate.property not-null="true"

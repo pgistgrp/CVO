@@ -11,7 +11,9 @@ import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.drt.InfoObject;
 import org.pgist.tagging.Category;
 import org.pgist.tagging.TagDAO;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -69,37 +71,51 @@ public class CSTServiceImpl implements CSTService {
     }//getCategoryByName()
     
     
-    public CategoryReference addCategoryReference(Long bctId, Long parentId, String name) throws Exception {
-        BCT bct = bctDAO.getBCTById(bctId);
-        if (bct==null) throw new Exception("no such bct.");
+    public CategoryReference addCategoryReference(Long cstId, Long parentId, String name) throws Exception {
+        CST cst = cstDAO.getCSTById(cstId);
+        if (cst==null) throw new Exception("no such cst.");
         
         CategoryReference parent = null;
         if (parentId==null || parentId<1) {
             /*
              * Use root category as the parent category
              */
-            //parent = bct.getRootCategory();
+            parent = cst.getCategories().get(WebUtils.currentUserId());
         } else {
             /*
              * Get the parent category
              */
-            //parent = cstDAO.getCategoryReferenceById(parentId);
+            parent = cstDAO.getCategoryReferenceById(parentId);
             
             /*
              * If parent category not exists, still use the root category
              */
-            //if (parent==null) parent = bct.getRootCategory();
+            if (parent==null) parent = cst.getCategories().get(WebUtils.currentUserId());
         }
         
         /*
          * check if the parent category is in the specified bct
          */
-        //if (!parent.getBct().getId().equals(bct.getId())) throw new Exception("no such category reference in this bct.");
+        if (!parent.getCstId().equals(cst.getId())) throw new Exception("no such category reference in this cst.");
         
         /*
          * get the child category reference
          */
-        CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(bctId, name);
+        CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(cstId, name);
+        CategoryReference root = categoryReference;
+        while (root!=null) {
+            if (root.getParents().size()>0) {
+                root = (CategoryReference) root.getParents().iterator().next();
+            } else {
+                break;
+            }
+        }
+        
+        if (root!=null) {
+            if (!(root.getId().equals(cst.getCategories().get(WebUtils.currentUserId()).getId()))) {
+                categoryReference = null;
+            }
+        }
         
         if (categoryReference==null) {
             /*
@@ -124,6 +140,7 @@ public class CSTServiceImpl implements CSTService {
              */
             categoryReference = new CategoryReference();
             categoryReference.setCategory(category);
+            categoryReference.setCstId(cstId);
             
             cstDAO.save(categoryReference);
         }
@@ -266,9 +283,9 @@ public class CSTServiceImpl implements CSTService {
     }//duplicateCategoryReference()
     
     
-    public void moveCategoryReference(Long bctId, Long parent0Id, Long parent1Id, Long categoryId) throws Exception {
-        BCT bct = bctDAO.getBCTById(bctId);
-        if (bct==null) throw new Exception("no such bct.");
+    public void moveCategoryReference(Long cstId, Long parent0Id, Long parent1Id, Long categoryId) throws Exception {
+        CST cst = cstDAO.getCSTById(cstId);
+        if (cst==null) throw new Exception("no such cst.");
         
         CategoryReference parent0 = null;
         
@@ -276,17 +293,17 @@ public class CSTServiceImpl implements CSTService {
             /*
              * Use root category as the parent category
              */
-            //parent0 = bct.getRootCategory();
+            parent0 = cst.getCategories().get(WebUtils.currentUserId());
         } else {
             /*
              * Get the parent category
              */
-            //parent0 = cstDAO.getCategoryReferenceById(parent0Id);
+            parent0 = cstDAO.getCategoryReferenceById(parent0Id);
             
             /*
              * If parent category not exists, still use the root category
              */
-            //if (parent0==null) throw new Exception("parent0 is not found");
+            if (parent0==null) throw new Exception("parent0 is not found");
         }
         
         CategoryReference parent1 = null;
@@ -295,12 +312,12 @@ public class CSTServiceImpl implements CSTService {
             /*
              * Use root category as the parent category
              */
-            //parent1 = bct.getRootCategory();
+            parent1 = cst.getCategories().get(WebUtils.currentUserId());
         } else {
             /*
              * Get the parent category
              */
-            //parent1 = cstDAO.getCategoryReferenceById(parent1Id);
+            parent1 = cstDAO.getCategoryReferenceById(parent1Id);
             
             /*
              * If parent category not exists, still use the root category
@@ -309,10 +326,10 @@ public class CSTServiceImpl implements CSTService {
         }
         
         /*
-         * check if the parent category is in the specified bct
+         * check if the parent category is in the specified cst
          */
-        //if (!parent0.getBct().getId().equals(bct.getId())) throw new Exception("no such category reference in this bct.");
-        //if (!parent1.getBct().getId().equals(bct.getId())) throw new Exception("no such category reference in this bct.");
+        if (!(parent0.getCstId().equals(cstId))) throw new Exception("no such category reference in this cst.");
+        if (!(parent1.getCstId().equals(cstId))) throw new Exception("no such category reference in this cst.");
         if (parent0==parent1) throw new Exception("no need to move");
         
         /*
@@ -321,7 +338,7 @@ public class CSTServiceImpl implements CSTService {
         CategoryReference categoryReference = cstDAO.getCategoryReferenceById(categoryId);
         
         if (categoryReference==null) throw new Exception("no such category reference");
-        //if (categoryReference.getBct().getId()!=bctId) throw new Exception("no such category reference in this bct.");
+        if (!(categoryReference.getCstId().equals(cstId))) throw new Exception("no such category reference in this cst.");
         
         /*
          * check if parent1 can be the parent of this category
@@ -346,23 +363,22 @@ public class CSTServiceImpl implements CSTService {
         parent1.getChildren().add(categoryReference);
         
         cstDAO.save(categoryReference);
-        cstDAO.save(bct);
     }//moveCategoryReference()
     
     
-    public void editCategoryReference(Long bctId, Long catRefId, String name) throws Exception {
-        BCT bct = bctDAO.getBCTById(bctId);
-        if (bct==null) throw new Exception("no such bct.");
+    public void editCategoryReference(Long cstId, Long catRefId, String name) throws Exception {
+        CST cst = cstDAO.getCSTById(cstId);
+        if (cst==null) throw new Exception("no such cst.");
         
         CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
         if (catRef==null) throw new Exception("no such category reference.");
         
-        //if (catRef.getBct().getId().longValue()!=bct.getId().longValue()) throw new Exception("no such category reference in this bct.");
+        if (catRef.getCstId().longValue()!=cstId.longValue()) throw new Exception("no such category reference in this cst.");
         
         /*
          * check if category reference with the same name exists.
          */
-        CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(bctId, name);
+        CategoryReference categoryReference = cstDAO.getCategoryReferenceByName(cstId, name);
         if (categoryReference!=null) throw new Exception("category with the same name already exists.");
         
         Category category = cstDAO.getCategoryByName(name);
@@ -489,36 +505,25 @@ public class CSTServiceImpl implements CSTService {
     }//getConcernsByTags()
 
 
-    public Collection getRealtedTags(Long bctId, Long categoryId, PageSetting setting) throws Exception {
-        return cstDAO.getRealtedTags(bctId, categoryId, setting);
+    public Collection getRealtedTags(Long cstId, Long categoryId, PageSetting setting) throws Exception {
+        return cstDAO.getRealtedTags(cstId, categoryId, setting);
     }//getRealtedTags()
 
 
-    public Collection getUnrelatedTags(Long bctId, Long categoryId, PageSetting setting) throws Exception {
-        return cstDAO.getUnrelatedTags(bctId, categoryId, setting);
+    public Collection getUnrelatedTags(Long cstId, Long categoryId, PageSetting setting) throws Exception {
+        return cstDAO.getUnrelatedTags(cstId, categoryId, setting);
     }//getUnrelatedTags()
 
 
-    public Collection getOrphanTags(Long bctId, PageSetting setting) throws Exception {
-        return cstDAO.getOrphanTags(bctId, setting);
+    public Collection getOrphanTags(Long cstId, PageSetting setting) throws Exception {
+        return cstDAO.getOrphanTags(cstId, setting);
     }//getOrphanTags()
 
 
-    public void saveSummary(Long bctId, Long themeId, String description, String summary, String tags) throws Exception {
-        if (summary==null || "".equals(summary.trim())) throw new Exception("summary can't be empty.");
-        
-        BCT bct = bctDAO.getBCTById(bctId);
-        if (bct==null) throw new Exception("no such bct.");
-        
-        /*
-         * clear votings if it has
-         */
-        Long oid = cstDAO.getInfoObjectIdByThemeId(themeId);
-        if (oid!=null) {
-            //discussionDAO.deleteVotings(oid);
-        }
-        
-        //cstDAO.save(theme);
+    public void saveSummary(Long catRefId, String summary) throws Exception {
+        CategoryReference catReference = cstDAO.getCategoryReferenceById(catRefId);
+        catReference.setTheme(summary.trim());
+        cstDAO.save(catReference);
     }//saveSummary()
     
     
@@ -556,9 +561,12 @@ public class CSTServiceImpl implements CSTService {
 
 
 	@Override
-	public CST createCST(Long workflowId, String name, String purpose, String instruction) throws Exception {
-		CST cst = new CST();
+	public CST createCST(Long workflowId, Long bctId, String name, String purpose, String instruction) throws Exception {
+		BCT bct = bctDAO.getBCTById(bctId);
+		if (bct==null) throw new Exception("can not find the specified object");
 		
+		CST cst = new CST();
+		cst.setBct(bct);
 		cst.setClosed(false);
 		cst.setName(name);
 		cst.setInstruction(instruction);
@@ -575,7 +583,27 @@ public class CSTServiceImpl implements CSTService {
 		CST cst = cstDAO.getCSTById(cstId);
 		cst.setClosed(closed);
 		cstDAO.save(cst);
-	}//toggleCST(0
+	}//toggleCST()
+
+
+	@Override
+	public CST getCSTById(Long cstId) throws Exception {
+		return (CST) cstDAO.load(CST.class, cstId);
+	}//getCSTById()
+
+
+    @Override
+    public CategoryReference setRootCategoryReference(CST cst, User user) throws Exception {
+        CategoryReference catref = new CategoryReference();
+        
+        catref.setCstId(cst.getId());
+        cstDAO.save(catref);
+        
+        cst.getCategories().put(user.getId(), catref);
+        
+        
+        return catref;
+    }//setRootCategoryReference()
 
 
 }//class CSTServiceImpl
