@@ -144,6 +144,7 @@
     
     <bean name="/cstview" class="org.pgist.sarp.cst.CSTViewAction">
         <property name="cstService" ref="cstService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
     
     

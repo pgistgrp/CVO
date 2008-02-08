@@ -81,8 +81,8 @@
 
 
     <bean id="cstAgent" class="org.pgist.sarp.cst.CSTAgent">
-        <property name="bctService" ref="bctService"/>
         <property name="cstService" ref="cstService"/>
+        <property name="systemService" ref="systemService"/>
     </bean>
 
     <!-- CHT : Concern Hierarchy Tool -->

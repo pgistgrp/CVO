@@ -131,7 +131,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.cst" title="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-sarp.cst" title="Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
             <description>
               <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
             </description>

@@ -397,24 +397,24 @@ public class CSTServiceImpl implements CSTService {
     }//editCategoryReference()
 
 
-    public void deleteCategoryReference(Long bctId, Long parentId, Long catRefId) throws Exception {
-        BCT bct = bctDAO.getBCTById(bctId);
-        if (bct==null) throw new Exception("no such bct.");
+    public void deleteCategoryReference(Long cstId, Long parentId, Long catRefId) throws Exception {
+        CST cst = cstDAO.getCSTById(cstId);
+        if (cst==null) throw new Exception("no such cst.");
         
         CategoryReference parent = null;
         if (parentId==null) {
-            //parent = bct.getRootCategory();
+            parent = cst.getCategories().get(WebUtils.currentUserId());
         } else {
             parent = cstDAO.getCategoryReferenceById(parentId);
-            //if (parent==null) parent = bct.getRootCategory();
+            if (parent==null) parent = cst.getCategories().get(WebUtils.currentUserId());
         }
         
-        //if (parent.getBct().getId().longValue()!=bct.getId().longValue()) throw new Exception("no such category reference in this bct.");
+        if (parent.getCstId().longValue()!=cstId.longValue()) throw new Exception("no such category reference in this cst.");
         
         CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
         if (catRef==null) throw new Exception("no such category reference.");
         
-        //if (catRef.getBct().getId().longValue()!=bct.getId().longValue()) throw new Exception("no such category reference in this bct.");
+        if (catRef.getCstId().longValue()!=cstId.longValue()) throw new Exception("no such category reference in this cst.");
         
         parent.getChildren().remove(catRef);
         

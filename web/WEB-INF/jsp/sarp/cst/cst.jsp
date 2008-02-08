@@ -47,20 +47,22 @@
     var tree1 = null;
     var currentCategory = null;
     var previousCategory = null;
+    var currentUserId = ${user.id};
     
     function doOnLoad(){
       tabberAutomatic();
       resetCols();
       tree1=new dhtmlXTreeObject("cats","100%","100%",0);
       tree1.setImagePath("/images/dhtmlXTree/");
+      <pg:show condition="${user.id==baseuser.id}">
       tree1.setDragHandler(moveNodeHandler);
+      tree1.enableDragAndDrop(true);
+      tree1.setDragCopyHandler(copyNodeHandler);
+      </pg:show>
       tree1.enableCheckBoxes(false);
       tree1.enableThreeStateCheckboxes(true);
-      tree1.enableDragAndDrop(true);
       tree1.loadXML("/catsTree.do?cstId=${cst.id}");
       tree1.cstId = cstId;
-      tree1.setDragCopyHandler(copyNodeHandler);
-      //tree1.setDragDuplicateHandler(duplicateNodeHandler);
       tree1.setOnClickHandler(treeClickHandler);
       getOrphanTags();
     }
@@ -82,7 +84,7 @@
     var relatedTagsArr = [];
     function getTags(categoryId, page, type, orphanpage){
       Util.loading(true,"Working")
-      CSTAgent.getTags({cstId:${cst.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
+      CSTAgent.getTags({userId: ${user.id}, cstId:${cst.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
       callback:function(data){
         if (data.successful){
           if (type == 0){      
@@ -115,6 +117,7 @@
       });
     }
 
+    <pg:show condition="${user.id==baseuser.id}">
     function relateTag(tagId){
       if(currentCategory == null)return;
       Util.loading(true,"Working");
@@ -135,7 +138,7 @@
           //showTheError();
       }
       });
-    }  
+    }
     
     function derelateTag(categoryId, tagId){
 
@@ -157,8 +160,170 @@
             alert("derelateTag: "+errorString+" "+exception);
         }
         });
-    }    
+    }
+    
+    function addcategory(){
+      if(document.getElementById("newcatetext").value != ""){
+        var catname = document.getElementById("newcatetext").value;
+        var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
+        Util.loading(true,"Working9");
+        CSTAgent.addCategory({cstId:${cst.id}, parentId:parentId, name:catname},{
+          callback:function(data){
+            if (data.successful){
+              tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value, data.newId);
+              document.getElementById("newcatetext").value = "";
+              top.location.reload();
+            } else {
+              alert(data.reason);
+            }
+            Util.loading(false);
+          },
+          errorHandler:function(errorString, exception){alert("addcategory: "+errorString+" "+exception);}
+        });      
+      }else{
+      alert("Category can't be blank.");
+      }
+    }
+    
+    function checkaddcategory(e){
+      if(e.keyCode == 13)addcategory();
+    }
+    
+    function globalKeyHandler(e){
+      if(e.keyCode==46)
+        deleteSelectedCategory();
+    }
       
+    function deleteSelectedCategory(){
+      if(tree1.lastSelected!=null){
+        if(confirm("Are you sure you want to delete category \"" + tree1.lastSelected.parentObject.label + "\"")){
+          if(tree1.lastSelected.parentObject.parentObject.id == 0)
+            var params = {cstId: ${cst.id}, categoryId: tree1.lastSelected.parentObject.dataId};
+          else
+            var params = {cstId: ${cst.id}, categoryId: tree1.lastSelected.parentObject.dataId,parentId: tree1.lastSelected.parentObject.parentObject.dataId}
+            
+          CSTAgent.deleteCategory(params, {
+                callback:function(data){
+                  if (data.successful){
+                    tree1.deleteSelectedItem();
+                    new Effect.SlideUp('col-crud-options',{duration: .5});
+                  }
+                },
+                errorHandler:function(errorString, exception){
+                alert("deleteSelectedCategory: "+errorString+" "+exception);
+                }
+          });
+        }
+      }
+    }
+  
+    function modifySelectedCategory(){
+      var newtext = document.getElementById("selcatetext").value;
+      if(tree1.lastSelected!=null && newtext!=""){
+        var params = {bctId: bctId, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
+        CSTAgent.editCategory(params, {
+              callback:function(data){
+                if (data.successful){
+                  tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
+                  new Effect.Fade('col-option'); 
+                }else{
+                  alert("modifySelectedCategory failure reason: "+data.reason);
+                }
+              },
+              errorHandler:function(errorString, exception){
+                alert("modifySelectedCategory: "+errorString+" "+exception);
+                }
+        });
+      }else{
+        alert("Category can't be blank.");  
+      }
+    }
+    
+    function saveTheme() {
+      CSTAgent.saveSummary(
+        {catRefId:currentCategory.dataId, summary:$('theme').value}, {
+          callback:function(data){
+            if (data.successful){
+              alert('Your description is saved.');
+            }else{
+              alert("getTheme failure reason: "+data.reason);
+            }
+          },
+          errorHandler:function(errorString, exception){
+            alert("getTheme: "+errorString+" "+exception);
+          }
+        });
+    }
+    
+    function moveNodeHandler(sourceO, targetO){
+      params = {cstId: cstId, categoryId: sourceO.dataId};
+      if(sourceO.parentObject.id != 0)
+        params.parent0Id = sourceO.parentObject.dataId;      
+      if(targetO.id != 0)
+        params.parent1Id = targetO.dataId;
+        
+      CSTAgent.moveCategory(params,{
+        callback:function(data){
+          if (data.successful){
+            var newID=tree1._moveNode(sourceO,targetO);
+            tree1.selectItem(newID);
+            return true;
+          }
+          else{ 
+            alert(data.reason);
+            return false;
+          }
+        },
+        errorHandler:function(errorString, exception){
+                alert("moveNodeHandler: "+errorString+" "+exception);
+        }
+      });
+    }
+    
+    function copyNodeHandler(sourceO, targetO){
+      CSTAgent.copyCategory({bctId: bctId, categoryId: sourceO.dataId, parentId: targetO.dataId},{
+        callback:function(data){
+          if (data.successful){
+            var newID=tree1._copyNodeTo(sourceO,targetO);
+            tree1.selectItem(newID);
+            return true;
+          }
+          else return false;
+        },
+        errorHandler:function(errorString, exception){
+                alert("copyNodeHandler: "+errorString+" "+exception);
+        }
+      });
+    }
+    
+    function duplicateSelectedCategory(){
+      if(tree1.lastSelected!=null){
+        var obj1 = tree1.lastSelected.parentObject;
+        var params = {bctId:bctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
+        if(obj1.parentObject.Id!=0)
+          params.parentId = obj1.parentObject.dataId;
+        CSTAgent.duplicateCategory(params, 
+        {callback:function(data){
+          if(data.successful){
+            var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
+            if ($('col-crud-options').style.display == 'none'){
+              new Effect.SlideDown('col-crud-options',{duration: .5}); 
+            }else{
+              new Effect.Highlight('col-crud-options');
+            }
+            new Effect.Fade('col-option');
+            location.href="#colsTop";
+          }else
+            alert(data.reason);
+        },
+        errorHandler:function(errorString, exception){
+                alert(errorString+" "+exception);
+        }
+      });
+      }
+    }
+    </pg:show>
+    
     function getConcernsByTags(visibility){
       //eventually make  paginated
         Util.loading(true,"Working");
@@ -202,130 +367,16 @@
         });
     }
     
-        function getConcerns(tagId, page){
-        Util.loading(true,"Working");
-        CSTAgent.getConcerns({bctId:bctId, tagId: tagId, page: page}, {
-        callback:function(data){
-            if (data.successful){
-              $('myTab').tabber.tabShow(1);
-              $('sidebar_concerns').innerHTML = data.html;
-            }
-            if (data.successful != true){
-              alert(data.reason);
-            }
-          Util.loading(false);
-          },
-        errorHandler:function(errorString, exception){ 
-            alert("getConcerns: "+errorString+" "+exception);
-        }
-        });
-    }
-    
-  //--------------------------------------
-  
-  function checkaddcategory(e){
-    if(e.keyCode == 13)addcategory();
-  }
-  
-  function addcategory(){
-    
-    if(document.getElementById("newcatetext").value != ""){
-      var catname = document.getElementById("newcatetext").value;
-      var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
-      Util.loading(true,"Working9");
-      CSTAgent.addCategory({cstId:${cst.id}, parentId:parentId, name:catname},{
-        callback:function(data){
-          if (data.successful){
-            tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value, data.newId);
-            document.getElementById("newcatetext").value = "";
-            top.location.reload();
-          } else {
-            alert(data.reason);
-          }
-          Util.loading(false);
-        },
-        errorHandler:function(errorString, exception){alert("addcategory: "+errorString+" "+exception);}
-      });      
-    }else{
-    alert("Category can't be blank.");
-    }
-  }
-
-  function globalKeyHandler(e){
-    if(e.keyCode==46)
-      deleteSelectedCategory();
-  }
-    
-  function deleteSelectedCategory(){
-    if(tree1.lastSelected!=null){
-      if(confirm("Are you sure you want to delete category \"" + tree1.lastSelected.parentObject.label + "\"")){
-        if(tree1.lastSelected.parentObject.parentObject.id == 0)
-          var params = {bctId: bctId, categoryId: tree1.lastSelected.parentObject.dataId};
-        else
-          var params = {bctId: bctId, categoryId: tree1.lastSelected.parentObject.dataId,parentId: tree1.lastSelected.parentObject.parentObject.dataId}
-          
-        CSTAgent.deleteCategory(params, {
-              callback:function(data){
-                if (data.successful){
-                  tree1.deleteSelectedItem();
-                  new Effect.SlideUp('col-crud-options',{duration: .5});
-                }
-              },
-              errorHandler:function(errorString, exception){
-              alert("deleteSelectedCategory: "+errorString+" "+exception);
-              }
-        });
-      }
-    }
-  }
-
-  function modifySelectedCategory(){
-    
-    var newtext = document.getElementById("selcatetext").value;
-    if(tree1.lastSelected!=null && newtext!=""){
-      var params = {bctId: bctId, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
-      CSTAgent.editCategory(params, {
-            callback:function(data){
-              if (data.successful){
-                tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
-                new Effect.Fade('col-option'); 
-              }else{
-                alert("modifySelectedCategory failure reason: "+data.reason);
-              }
-            },
-            errorHandler:function(errorString, exception){
-              alert("modifySelectedCategory: "+errorString+" "+exception);
-              }
-      });
-    }else{
-      alert("Category can't be blank.");  
-    }
-  }
-  
   function getTheme(clickid) {
     CSTAgent.getSummary(
       {catRefId:clickid}, {
         callback:function(data){
           if (data.successful){
             $('theme').value = data.summary;
+            <pg:show condition="${user.id==baseuser.id}">
             $('theme').disabled = false;
             $('themeDiv').style.display = 'block';
-          }else{
-            alert("getTheme failure reason: "+data.reason);
-          }
-        },
-        errorHandler:function(errorString, exception){
-          alert("getTheme: "+errorString+" "+exception);
-        }
-      });
-  }
-  
-  function saveTheme() {
-    CSTAgent.saveSummary(
-      {catRefId:currentCategory.dataId, summary:$('theme').value}, {
-        callback:function(data){
-          if (data.successful){
-            alert('Your description is saved.');
+            </pg:show>
           }else{
             alert("getTheme failure reason: "+data.reason);
           }
@@ -337,7 +388,9 @@
   }
   
   function treeClickHandler(clickid, lastid, labeltext) {
+    <pg:show condition="${user.id==baseuser.id}">
     document.getElementById("selcatetext").value = labeltext;
+    </pg:show>
     currentCategory = tree1.lastSelected.parentObject;
     tempcate = tree1.getTopLevelNode(currentCategory);
     
@@ -345,98 +398,33 @@
     getTags(clickid, 0, 0, 1);
     getTags(clickid, 0, 1, 1);
     
+    <pg:show condition="${user.id==baseuser.id}">
     if ($('col-crud-options').style.display == 'none'){
       new Effect.SlideDown('col-crud-options',{duration: .5}); 
     }else{
       new Effect.Highlight('col-crud-options');
     }
-    
     new Effect.Fade('col-option');
+    </pg:show>
   }
   
   function unselectall(mode){
     if(mode){
       tree1.unSelectAll();
+      <pg:show condition="${user.id==baseuser.id}">
       $('selcatetext').value = '';
-      
       $('theme').value = '';
       $('themeDiv').style.display = 'none';
-
+      </pg:show>
       currentCategory=null;
       resetCols();
       getOrphanTags();
+      <pg:show condition="${user.id==baseuser.id}">
       $('col-crud-options').style.display = "none"; 
-      $('col-option').style.display = "none";;
+      $('col-option').style.display = "none";
+      </pg:show>
     }
     tree1.clickedOn = false;
-  }
-  
-  function moveNodeHandler(sourceO, targetO){
-    params = {cstId: cstId, categoryId: sourceO.dataId};
-    if(sourceO.parentObject.id != 0)
-      params.parent0Id = sourceO.parentObject.dataId;      
-    if(targetO.id != 0)
-      params.parent1Id = targetO.dataId;
-      
-    CSTAgent.moveCategory(params,{
-      callback:function(data){
-        if (data.successful){
-          var newID=tree1._moveNode(sourceO,targetO);
-          tree1.selectItem(newID);
-          return true;
-        }
-        else{ 
-          alert(data.reason);
-          return false;
-        }
-      },
-      errorHandler:function(errorString, exception){
-              alert("moveNodeHandler: "+errorString+" "+exception);
-      }
-    });
-  }
-  
-  function copyNodeHandler(sourceO, targetO){
-    CSTAgent.copyCategory({bctId: bctId, categoryId: sourceO.dataId, parentId: targetO.dataId},{
-      callback:function(data){
-        if (data.successful){
-          var newID=tree1._copyNodeTo(sourceO,targetO);
-          tree1.selectItem(newID);
-          return true;
-        }
-        else return false;
-      },
-      errorHandler:function(errorString, exception){
-              alert("copyNodeHandler: "+errorString+" "+exception);
-      }
-    });
-  }
-  
-  function duplicateSelectedCategory(){
-    if(tree1.lastSelected!=null){
-      var obj1 = tree1.lastSelected.parentObject;
-      var params = {bctId:bctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
-      if(obj1.parentObject.Id!=0)
-        params.parentId = obj1.parentObject.dataId;
-      CSTAgent.duplicateCategory(params, 
-      {callback:function(data){
-        if(data.successful){
-          var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
-          if ($('col-crud-options').style.display == 'none'){
-            new Effect.SlideDown('col-crud-options',{duration: .5}); 
-          }else{
-            new Effect.Highlight('col-crud-options');
-          }
-          new Effect.Fade('col-option');
-          location.href="#colsTop";
-        }else
-          alert(data.reason);
-      },
-      errorHandler:function(errorString, exception){
-              alert(errorString+" "+exception);
-      }
-    });
-    }
   }
   
   function resetCols(){
@@ -511,13 +499,16 @@
 <event:pageunload />
 </head>
 
+<pg:show condition="${user.id==baseuser.id}">
 <body onkeydown="globalKeyHandler(event);" onLoad="doOnLoad();">
+</pg:show>
+<pg:hide condition="${user.id==baseuser.id}">
+<body onLoad="doOnLoad();">
+</pg:hide>
   <div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
 <div id="header">
-  <!-- Start Global Headers  -->
   <wf:nav />
   <wf:subNav />
-  <!-- End Global Headers -->
 </div>
 <!-- End header -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
@@ -529,11 +520,20 @@
     <a name="colsTop"></a>
     <div id="topMenu2">
       <input type="button" value="Unselect All" onclick="unselectall(true);">
+      <span style="padding-left:10em;">View other participants' categories</span>
+      <select id="otherCategory">
+      
+      </select>
     </div>
     <div id="col-left">
       <div id="topMenu" style="clear:both;">
+        <pg:show condition="${user.id==baseuser.id}">
         <input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
         <input type="button" id="addCat" value="Add Category" onclick="addcategory();">
+        </pg:show>
+        <pg:hide condition="${user.id==baseuser.id}">
+        ${user.loginname}'s categories
+        </pg:hide>
       </div>
       <div id="cats" style="height:300px;overflow:auto;" onclick="unselectall(!tree1.clickedOn);"></div>
       <div style="width:100%;">
@@ -571,22 +571,24 @@
         </div>
         <!--END Tabs -->
     </div>
-  
+    
     <div style="clear:both"></div>
-      <div id="col-crud-options" style="display:none;margin-top:50px">
-          <span class="closeBox">
-            <a href="javascript: new Effect.SlideUp('col-crud-options',{duration: .5}); void(0);">
-              <img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()">
-              </a>
-          </span>
-        <strong>Editing Options: </strong>
-          <input type="button" onclick="deleteSelectedCategory();" value="Delete" />
-          <input type="button" onclick="Element.toggle('col-option')" value="Rename"/>
-      </div>
-      <div id="col-option" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
-        <h4>Editing Options</h4>
-        Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
-      </div>
+    <pg:show condition="${user.id==baseuser.id}">
+    <div id="col-crud-options" style="display:none;margin-top:50px">
+        <span class="closeBox">
+          <a href="javascript: new Effect.SlideUp('col-crud-options',{duration: .5}); void(0);">
+            <img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()">
+            </a>
+        </span>
+      <strong>Editing Options: </strong>
+        <input type="button" onclick="deleteSelectedCategory();" value="Delete" />
+        <input type="button" onclick="Element.toggle('col-option')" value="Rename"/>
+    </div>
+    <div id="col-option" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
+      <h4>Editing Options</h4>
+      Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
+    </div>
+    </pg:show>
     <div id="spacer">
     </div>
 </div>
@@ -601,15 +603,11 @@
 
 <!--end feedback form-->
 
-  <!-- Start Global Headers  -->
   <wf:subNav />
-  <!-- End Global Headers -->
 
-<!-- Start Footer -->
   <div id="footer">
     <jsp:include page="/footer.jsp" />
   </div>
-<!-- End Footer -->
 <!--script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script-->
 <!--script type="text/javascript">
