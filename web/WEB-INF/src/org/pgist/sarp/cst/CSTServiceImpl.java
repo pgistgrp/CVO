@@ -606,4 +606,10 @@ public class CSTServiceImpl implements CSTService {
     }//setRootCategoryReference()
 
 
+    @Override
+    public List<User> getOtherUsers(CST cst) throws Exception {
+        return cstDAO.getOtherUsers(cst);
+    }//getOtherUsers()
+
+
 }//class CSTServiceImpl

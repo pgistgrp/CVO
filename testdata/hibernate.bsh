@@ -3,37 +3,11 @@
  * Testing script for hibernate execution.
  */
 
-query = session.createQuery("select cr, tr.id from CategoryReference cr inner join cr.tags as tr where cr.id=?");
-query.setLong(0, 1575);
-list = query.list();
-for (one : list) {
-    print(one[0].category+"  "+one[1]);
-}
-
-hql = "select distinct tr, tr.tag.name as name from CategoryReference cr inner join cr.tags as tr where cr.id in (1519,1536,1542,1558,1575,1583,1603,1806) and cr.cstId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id in (1519,1536,1542,1558,1575,1583,1603,1806)) order by name";
-query = session.createQuery(hql);
+query = session.createQuery("from User u where u.id in (select indices(cst.categories) from CST cst where cst.id=?) and u.id<>? order by u.loginname");
 query.setLong(0, 1515);
-//query.setLong(0, 1575);
+query.setLong(1, 5);
 list = query.list();
-for (one : list) {
-    print(one[1]);
+for (Object one : list) {
+    print(one.id);
 }
-
-return;
-
-cats = "";
-queue = new LinkedList();
-
-query = session.createQuery("from CategoryReference cr where cr.id=?");
-query.setLong(0, 1519);
-queue.add(query.uniqueResult());
-while (queue.size()>0) {
-    one = queue.remove(0);
-    cats += one.id + ",";
-    if (one.children.size()>0) {
-        queue.addAll(one.children);
-    }
-}
-print(cats);
-return;
 

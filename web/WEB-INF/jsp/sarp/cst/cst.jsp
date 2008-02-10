@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -61,7 +62,7 @@
       </pg:show>
       tree1.enableCheckBoxes(false);
       tree1.enableThreeStateCheckboxes(true);
-      tree1.loadXML("/catsTree.do?cstId=${cst.id}");
+      tree1.loadXML("/catsTree.do?cstId=${cst.id}&userId=${user.id}");
       tree1.cstId = cstId;
       tree1.setOnClickHandler(treeClickHandler);
       getOrphanTags();
@@ -432,6 +433,10 @@
     $('sidebar_tags').innerHTML = '<h4>Orphan Tags</h4>';
   }
   //------------------------------------
+  
+  function onSelectChanged() {
+    location.href = '/workflow.do?workflowId='+${requestScope['org.pgist.wfengine.WORKFLOW_ID']}+'&contextId='+${requestScope['org.pgist.wfengine.CONTEXT_ID']}+'&activityId='+${requestScope['org.pgist.wfengine.ACTIVITY_ID']}+'&userId='+$('otherCategory').value;
+  }
   </script>
   
 <style type="text/css"> 
@@ -516,14 +521,21 @@
   <div id="cont-resize">
     <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
       Back to Moderator Control Panel</a></p>
-    <h2 class="headerColor">Concerns Synthesis Tool</h2>
+    <h2 class="headerColor">Concerns Synthesis Tool for participant
+    <select id="otherCategory" onChange="onSelectChanged();">
+        <option value="${baseuser.id}">My Categories</option>
+        <logic:iterate id="other" name="others">
+          <logic:equal name="other" property="id" value="${user.id}">
+          <option value="${other.id}" SELECTED>${other.loginname}</option>
+          </logic:equal>
+          <logic:notEqual name="other" property="id" value="${user.id}">
+          <option value="${other.id}">${other.loginname}</option>
+          </logic:notEqual>
+        </logic:iterate>
+      </select></h2>
     <a name="colsTop"></a>
     <div id="topMenu2">
       <input type="button" value="Unselect All" onclick="unselectall(true);">
-      <span style="padding-left:10em;">View other participants' categories</span>
-      <select id="otherCategory">
-      
-      </select>
     </div>
     <div id="col-left">
       <div id="topMenu" style="clear:both;">

@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.pgist.sarp.bct.TagReference;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Category;
+import org.pgist.users.User;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -298,6 +299,18 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
 	public CST getCSTById(Long cstId) throws Exception {
 		return (CST) load(CST.class, cstId);
 	}//getCSTById()
+
+
+    private static final String hql_getOtherUsers = "from User u where u.id in (select indices(cst.categories) from CST cst where cst.id=?) and u.id<>? order by u.loginname";
+    
+    
+    @Override
+    public List<User> getOtherUsers(CST cst) throws Exception {
+        return getHibernateTemplate().find(hql_getOtherUsers, new Object[] {
+                cst.getId(),
+                WebUtils.currentUserId(),
+        });
+    }//getOtherUsers()
 
 
 }//class CSTDAOImpl

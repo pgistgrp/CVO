@@ -63,6 +63,8 @@ public interface CSTService {
 	CST getCSTById(Long cstId) throws Exception;
 
     CategoryReference setRootCategoryReference(CST cst, User user) throws Exception;
+
+    List<User> getOtherUsers(CST cst) throws Exception;
     
     
 }//interface CSTService

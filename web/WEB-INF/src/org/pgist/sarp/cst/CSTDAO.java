@@ -1,10 +1,12 @@
 package org.pgist.sarp.cst;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.pgist.sarp.bct.TagReference;
 import org.pgist.system.BaseDAO;
 import org.pgist.tagging.Category;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -39,6 +41,8 @@ public interface CSTDAO extends BaseDAO {
     Long getInfoObjectIdByThemeId(Long themeId) throws Exception;
 
 	CST getCSTById(Long cstId) throws Exception;
+
+    List<User> getOtherUsers(CST cst) throws Exception;
 
 
 }//interface CSTDAO

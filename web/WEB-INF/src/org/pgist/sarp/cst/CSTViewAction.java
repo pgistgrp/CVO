@@ -1,5 +1,7 @@
 package org.pgist.sarp.cst;
 
+import java.util.List;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -61,9 +63,12 @@ public class CSTViewAction extends Action {
             user = systemService.getCurrentUser();
         }
         
+        List<User> list = cstService.getOtherUsers(cst);
+        
         request.setAttribute("user", user);
         request.setAttribute("bct", cst.getBct());
         request.setAttribute("cst", cst);
+        request.setAttribute("others", list);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
