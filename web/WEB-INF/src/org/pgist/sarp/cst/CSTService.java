@@ -65,6 +65,16 @@ public interface CSTService {
     CategoryReference setRootCategoryReference(CST cst, User user) throws Exception;
 
     List<User> getOtherUsers(CST cst) throws Exception;
+
+    Collection<CSTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
+
+    CSTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception;
+
+    CSTComment getCommentById(Long cid) throws Exception;
+
+    CSTComment setVotingOnComment(Long cid, boolean agree) throws Exception;
+
+    void deleteComment(CSTComment comment) throws Exception;
     
     
 }//interface CSTService

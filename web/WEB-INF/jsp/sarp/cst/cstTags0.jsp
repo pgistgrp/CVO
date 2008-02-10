@@ -5,10 +5,10 @@
 
 <ul>
 <logic:iterate id="tag" name="tags">
-  <pg:show condition="${user.id==baseuser.id}">
+  <pg:show condition="${user.id==baseuser.id && !cst.closed}">
 	<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a>&nbsp;[<a href="javascript:derelateTag(${catRef.id}, ${tag.id});">&rarr;</a>]</li>
   </pg:show>
-  <pg:hide condition="${user.id==baseuser.id}">
+  <pg:hide condition="${user.id==baseuser.id && !cst.closed}">
 	<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
   </pg:hide>
 </logic:iterate>

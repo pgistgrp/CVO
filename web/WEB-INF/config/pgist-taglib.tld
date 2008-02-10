@@ -67,7 +67,7 @@
   <function>
       <name>voted</name>
       <function-class>org.pgist.tags.PgistELFunctions</function-class>
-      <function-signature>boolean voted(javax.servlet.jsp.PageContext, org.pgist.sarp.drt.Comment)</function-signature>
+      <function-signature>boolean voted(javax.servlet.jsp.PageContext, java.lang.Object)</function-signature>
   </function>
   
   <tag>

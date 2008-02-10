@@ -20,6 +20,7 @@ import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
+import org.pgist.sarp.cst.CSTComment;
 import org.pgist.sarp.drt.Comment;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
@@ -157,14 +158,26 @@ public class PgistELFunctions extends SimpleTagSupport {
 		return false;
 	}
 	
-	public static boolean voted(PageContext context, Comment comment) {
+	public static boolean voted(PageContext context, Object object) {
         WebApplicationContext appContext = (WebApplicationContext) context.getServletContext()
         	.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         SystemService systemService = (SystemService) appContext.getBean("systemService");
         
         try {
-        	YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, comment.getId());
-        	if (voting.isVoting()) return true;
+            YesNoVoting voting = null;
+            if (object!=null) {
+                if (object instanceof Comment) {
+                    Comment comment = (Comment) object;
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, comment.getId());
+                } else if (object instanceof CSTComment) {
+                    CSTComment comment = (CSTComment) object;
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SART_CST_COMMENT, comment.getId());
+                } else {
+                    //unsopported type
+                }
+            }
+            
+        	if (voting!=null) return true;
         } catch (Exception e) {
 		}
         

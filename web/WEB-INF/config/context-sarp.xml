@@ -75,6 +75,7 @@
                 <property name="bctDAO" ref="bctDAO"/>
                 <property name="cstDAO" ref="cstDAO"/>
                 <property name="tagDAO" ref="tagDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
             </bean>
         </property>
     </bean>
@@ -83,6 +84,7 @@
     <bean id="cstAgent" class="org.pgist.sarp.cst.CSTAgent">
         <property name="cstService" ref="cstService"/>
         <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
     </bean>
 
     <!-- CHT : Concern Hierarchy Tool -->

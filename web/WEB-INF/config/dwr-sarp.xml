@@ -110,6 +110,11 @@
       <include method="getThemes"/>
       <include method="getSummary"/>
       <include method="saveSummary"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="deleteComment"/>
+      <include method="getVotingOnComment"/>
+      <include method="setVotingOnComment"/>
     </create>
 
 

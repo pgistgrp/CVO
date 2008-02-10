@@ -17,6 +17,9 @@
   <style type="text/css" media="screen">@import "/styles/tabs.css";</style>
   <style type="text/css" media="screen">@import "/styles/lit.css";</style>
 
+  <pg:show condition="${!cst.closed}">
+  <script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  </pg:show>
   <script src="/scripts/prototype.js" type="text/javascript"></script>
   <script src="/scripts/rico_simple.js" type="text/javascript"></script>
   <script src="/scripts/tabcookies.js" type="text/javascript"></script>
@@ -49,13 +52,32 @@
     var currentCategory = null;
     var previousCategory = null;
     var currentUserId = ${user.id};
+    var page = 1;
+    
+    <pg:show condition="${!cst.closed}">
+    tinyMCE.init({
+        mode : "exact",
+        theme : "advanced",
+        theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
+        theme_advanced_buttons2 : "",
+        theme_advanced_buttons3 : "",
+        content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css",
+        extended_valid_elements : "blockquote[style='']"
+    });
+    </pg:show>
     
     function doOnLoad(){
       tabberAutomatic();
       resetCols();
+      getComments(1);
+      <pg:show condition="${!cst.closed}">
+      tinyMCE.idCounter=0;
+      tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
+      </pg:show>
+      getOrphanTags();
       tree1=new dhtmlXTreeObject("cats","100%","100%",0);
       tree1.setImagePath("/images/dhtmlXTree/");
-      <pg:show condition="${user.id==baseuser.id}">
+      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
       tree1.setDragHandler(moveNodeHandler);
       tree1.enableDragAndDrop(true);
       tree1.setDragCopyHandler(copyNodeHandler);
@@ -65,7 +87,6 @@
       tree1.loadXML("/catsTree.do?cstId=${cst.id}&userId=${user.id}");
       tree1.cstId = cstId;
       tree1.setOnClickHandler(treeClickHandler);
-      getOrphanTags();
     }
     
     function keepBreaks(string){
@@ -118,7 +139,7 @@
       });
     }
 
-    <pg:show condition="${user.id==baseuser.id}">
+    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
     function relateTag(tagId){
       if(currentCategory == null)return;
       Util.loading(true,"Working");
@@ -374,7 +395,7 @@
         callback:function(data){
           if (data.successful){
             $('theme').value = data.summary;
-            <pg:show condition="${user.id==baseuser.id}">
+            <pg:show condition="${user.id==baseuser.id && !cst.closed}">
             $('theme').disabled = false;
             $('themeDiv').style.display = 'block';
             </pg:show>
@@ -389,7 +410,7 @@
   }
   
   function treeClickHandler(clickid, lastid, labeltext) {
-    <pg:show condition="${user.id==baseuser.id}">
+    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
     document.getElementById("selcatetext").value = labeltext;
     </pg:show>
     currentCategory = tree1.lastSelected.parentObject;
@@ -399,7 +420,7 @@
     getTags(clickid, 0, 0, 1);
     getTags(clickid, 0, 1, 1);
     
-    <pg:show condition="${user.id==baseuser.id}">
+    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
     if ($('col-crud-options').style.display == 'none'){
       new Effect.SlideDown('col-crud-options',{duration: .5}); 
     }else{
@@ -412,7 +433,7 @@
   function unselectall(mode){
     if(mode){
       tree1.unSelectAll();
-      <pg:show condition="${user.id==baseuser.id}">
+      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
       $('selcatetext').value = '';
       $('theme').value = '';
       $('themeDiv').style.display = 'none';
@@ -420,7 +441,7 @@
       currentCategory=null;
       resetCols();
       getOrphanTags();
-      <pg:show condition="${user.id==baseuser.id}">
+      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
       $('col-crud-options').style.display = "none"; 
       $('col-option').style.display = "none";
       </pg:show>
@@ -432,11 +453,110 @@
     $('col').innerHTML = '<h4>Select a category in the left to see tags assciated with it.</h4>';
     $('sidebar_tags').innerHTML = '<h4>Orphan Tags</h4>';
   }
-  //------------------------------------
   
   function onSelectChanged() {
     location.href = '/workflow.do?workflowId='+${requestScope['org.pgist.wfengine.WORKFLOW_ID']}+'&contextId='+${requestScope['org.pgist.wfengine.CONTEXT_ID']}+'&activityId='+${requestScope['org.pgist.wfengine.ACTIVITY_ID']}+'&userId='+$('otherCategory').value;
   }
+  
+  function getComments(page) {
+      CSTAgent.getComments({catRefId:${root.id}, page:page}, <pg:wfinfo/>,{
+          callback:function(data){
+              if (data.successful){
+                  displayIndicator(false);
+                  $("discussionBox").innerHTML = data.html;
+                  page = data.page;
+              }else{
+                  displayIndicator(false);
+                  alert(data.reason);
+              }
+          },
+          errorHandler:function(errorString, exception){ 
+              alert("get comments error: " + errorString +" "+ exception);
+          }
+      });
+  }
+  
+  function cancelCSTComment() {
+    $('txtNewCommentTitle').value = '';
+    tinyMCE.setContent('');
+  }
+  
+  function createCSTComment() {
+    displayIndicator(true);
+    var title = $('txtNewCommentTitle').value;
+    var content = tinyMCE.getContent();
+    if (title.length<1) {
+        alert('please input title');
+        return;
+    }
+    if (content.length<1) {
+        alert('please input content');
+        return;
+    }
+    CSTAgent.createComment({catRefId:${root.id}, title:title, content:content}, <pg:wfinfo/>,{
+          callback:function(data){
+              if (data.successful){
+                  displayIndicator(false);
+                  $('txtNewCommentTitle').value = '';
+                  tinyMCE.setContent('');
+                  getComments(1);
+              }else{
+                  displayIndicator(false);
+                  alert(data.reason);
+              }
+          },
+          errorHandler:function(errorString, exception){ 
+              alert("get targets error: " + errorString +" "+ exception);
+          }
+      });
+  }
+  
+  function deleteCSTComment(cid) {
+    if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
+    displayIndicator(true);
+    CSTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
+          callback:function(data){
+              displayIndicator(false);
+              if (data.successful){
+                getComments(page);
+              }else{
+                  alert(data.reason);
+              }
+          },
+          errorHandler:function(errorString, exception){ 
+              alert("get targets error: " + errorString +" "+ exception);
+          }
+      });
+  }
+  
+  function setVoteOnComment(cid, agree){
+      CSTAgent.setVotingOnComment({cid: cid, agree:agree}, {
+      callback:function(data){
+        if (data.successful){
+          var votingDiv = 'voting-comment'+cid;
+          if($(votingDiv) != undefined){
+            new Effect.Fade(votingDiv, {
+              afterFinish:function(){
+                $(votingDiv).innerHTML = "Do you agree with this comment? "+data.numAgree+" of "+data.numVote+" agree so far."
+                  + "<img src='images/btn_thumbsdown_off.png' alt='Disabled Button'/> <img src='images/btn_thumbsup_off.png' alt='Disabled Button'/>";
+                new Effect.Appear(votingDiv);
+              }
+            });
+          }
+        }else{
+          if (data.voted) {
+            $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
+          } else {
+            alert(data.reason);
+          }
+        }
+      },
+      errorHandler:function(errorString, exception){ 
+          alert("setVote error:" + errorString + exception);
+      }
+      });
+  
+  };
   </script>
   
 <style type="text/css"> 
@@ -504,10 +624,10 @@
 <event:pageunload />
 </head>
 
-<pg:show condition="${user.id==baseuser.id}">
+<pg:show condition="${user.id==baseuser.id && !cst.closed}">
 <body onkeydown="globalKeyHandler(event);" onLoad="doOnLoad();">
 </pg:show>
-<pg:hide condition="${user.id==baseuser.id}">
+<pg:hide condition="${user.id==baseuser.id && !cst.closed}">
 <body onLoad="doOnLoad();">
 </pg:hide>
   <div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
@@ -516,6 +636,7 @@
   <wf:subNav />
 </div>
 <!-- End header -->
+<div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
@@ -539,11 +660,11 @@
     </div>
     <div id="col-left">
       <div id="topMenu" style="clear:both;">
-        <pg:show condition="${user.id==baseuser.id}">
+        <pg:show condition="${user.id==baseuser.id && !cst.closed}">
         <input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
         <input type="button" id="addCat" value="Add Category" onclick="addcategory();">
         </pg:show>
-        <pg:hide condition="${user.id==baseuser.id}">
+        <pg:hide condition="${user.id==baseuser.id && !cst.closed}">
         ${user.loginname}'s categories
         </pg:hide>
       </div>
@@ -585,7 +706,7 @@
     </div>
     
     <div style="clear:both"></div>
-    <pg:show condition="${user.id==baseuser.id}">
+    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
     <div id="col-crud-options" style="display:none;margin-top:50px">
         <span class="closeBox">
           <a href="javascript: new Effect.SlideUp('col-crud-options',{duration: .5}); void(0);">
@@ -603,6 +724,28 @@
     </pg:show>
     <div id="spacer">
     </div>
+    
+    <br>
+    
+    <p><b>Discussion about the categories:</b>
+    <div id="discussionBox" class="discussionBox"></div>
+    
+    <pg:show condition="${!cst.closed}">
+      <a id="newCommentAnchor" name="newCommentAnchor"></a>
+      <div id="newComment" class="box8 padding5">
+        <h3 class="headerColor">Post a comment</h3>
+        <form>
+          <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
+          <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
+          <input type="button" onClick="createCSTComment();" value="Submit">
+          <input type="button" onClick="cancelCSTComment();" value="Cancel" />
+          <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
+        </form>
+      </div>
+    </pg:show>
+    
+    <div class="clearBoth"></div>
+
 </div>
 </div>
 

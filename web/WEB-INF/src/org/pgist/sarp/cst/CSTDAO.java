@@ -44,5 +44,9 @@ public interface CSTDAO extends BaseDAO {
 
     List<User> getOtherUsers(CST cst) throws Exception;
 
+    Collection<CSTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
+
+    void increaseVoting(CSTComment comment, boolean agree) throws Exception;
+
 
 }//interface CSTDAO

@@ -30,6 +30,8 @@ public class YesNoVoting implements Serializable {
 
 	public static final int TYPE_SART_DRT_INFOOBJ = 7;
     
+    public static final int TYPE_SART_CST_COMMENT = 8;
+    
     
     private Long id;
     

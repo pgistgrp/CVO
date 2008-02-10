@@ -2,6 +2,7 @@ package org.pgist.sarp.cst;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import org.pgist.sarp.bct.BCT;
 import org.pgist.sarp.bct.BCTDAO;
 import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.drt.InfoObject;
+import org.pgist.system.SystemDAO;
+import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Category;
 import org.pgist.tagging.TagDAO;
 import org.pgist.users.User;
@@ -29,6 +32,8 @@ public class CSTServiceImpl implements CSTService {
     private CSTDAO cstDAO = null;
     
     private TagDAO tagDAO = null;
+    
+    private SystemDAO systemDAO = null;
 
     
     public void setCstDAO(CSTDAO cstDAO) {
@@ -46,6 +51,11 @@ public class CSTServiceImpl implements CSTService {
     }
 
 
+    public void setSystemDAO(SystemDAO systemDAO) {
+        this.systemDAO = systemDAO;
+    }
+    
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -610,6 +620,62 @@ public class CSTServiceImpl implements CSTService {
     public List<User> getOtherUsers(CST cst) throws Exception {
         return cstDAO.getOtherUsers(cst);
     }//getOtherUsers()
+
+
+    @Override
+    public Collection<CSTComment> getComments(Long catRefId, PageSetting setting) throws Exception {
+        return cstDAO.getComments(catRefId, setting);
+    }//getComments()
+
+
+    @Override
+    public CSTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception {
+        CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
+        
+        if (catRef==null) throw new Exception("can't find the specified CategoryReference with id "+catRefId);
+        
+        CSTComment comment = new CSTComment();
+        comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
+        comment.setCatRef(catRef);
+        comment.setTitle(title);
+        comment.setContent(content);
+        comment.setCreateTime(new Date());
+        comment.setNumAgree(1);
+        comment.setNumVote(1);
+        comment.setEmailNotify(emailNotify);
+        
+        cstDAO.save(comment);
+        
+        systemDAO.setVoting(YesNoVoting.TYPE_SART_CST_COMMENT, comment.getId(), true);
+        
+        return comment;
+    }//createComment()
+
+
+    @Override
+    public CSTComment getCommentById(Long cid) throws Exception {
+        return (CSTComment) cstDAO.load(CSTComment.class, cid);
+    }//getCommentById()
+
+
+    @Override
+    public CSTComment setVotingOnComment(Long cid, boolean agree) throws Exception {
+        CSTComment comment = (CSTComment) cstDAO.load(CSTComment.class, cid);
+        if (comment==null) throw new Exception("can't find the specified Comment with id "+cid);
+        
+        systemDAO.setVoting(YesNoVoting.TYPE_SART_CST_COMMENT, cid, agree);
+        
+        cstDAO.increaseVoting(comment, agree);
+        
+        return comment;
+    }//setVotingOnComment()
+
+
+    @Override
+    public void deleteComment(CSTComment comment) throws Exception {
+        comment.setDeleted(true);
+        cstDAO.save(comment);
+    }//deleteComment()
 
 
 }//class CSTServiceImpl

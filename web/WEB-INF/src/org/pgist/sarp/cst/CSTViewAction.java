@@ -48,19 +48,30 @@ public class CSTViewAction extends Action {
             ActionForm form,
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
-    ) throws java.lang.Exception {
+    ) throws Exception {
         CST cst = cstService.getCSTById(new Long(request.getParameter("cstId")));
         
         Long userId = null;
         try {
-            userId = new Long(request.getParameter("userId"));
+            String str = request.getParameter("userId");
+            if (str==null || str.trim().length()==0) {
+                userId = WebUtils.currentUserId();
+            } else {
+                userId = new Long(str);
+            }
         } catch (Exception e) {
-            userId = WebUtils.currentUserId();
+            throw new Exception("can not find the given user");
         }
         
         User user = systemService.getUserById(userId);
         if (user==null) {
-            user = systemService.getCurrentUser();
+            throw new Exception("can not find the given user");
+        } else {
+            CategoryReference catref = cst.getCategories().get(userId);
+            if (catref==null && WebUtils.currentUserId().equals(userId)) {
+                catref = cstService.setRootCategoryReference(cst, user);
+            }
+            request.setAttribute("root", catref);
         }
         
         List<User> list = cstService.getOtherUsers(cst);
