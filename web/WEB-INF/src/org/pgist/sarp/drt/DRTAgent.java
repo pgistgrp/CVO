@@ -16,6 +16,9 @@ import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+import org.pgist.wfengine.EnvironmentHandler;
+import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.WorkflowEngine;
 import org.pgist.wfengine.web.WorkflowUtils;
 
 
@@ -39,6 +42,8 @@ public class DRTAgent {
     private SearchHelper searchHelper;
     
     private WorkflowUtils workflowUtils;
+    
+    private WorkflowEngine engine;
     
     
     public void setDrtService(DRTService drtService) {
@@ -66,6 +71,11 @@ public class DRTAgent {
     }
 
 
+    public void setEngine(WorkflowEngine engine) {
+        this.engine = engine;
+    }
+    
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -452,6 +462,56 @@ public class DRTAgent {
         
         return map;
     }//setVotingOnComment()
+    
+    
+    /**
+     * Set the exit condition for repeat/until loop.
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>workflowId - int, id of the Workflow object</li>
+     *     <li>contextId - int, id of the WorkflowContext object</li>
+     *     <li>activityId - int, id of the Activity object</li>
+     *     <li>exitCondition - string, "true" | "false"</li>
+     *   </ul>
+     *   
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setExitCondition(final Map params) {
+        Map results = new HashMap();
+        results.put("successful", false);
+        
+        try {
+            Long workflowId = new Long((String) params.get("workflowId"));
+            Long contextId = new Long((String) params.get("contextId"));
+            Long activityId = new Long((String) params.get("activityId"));
+            
+            engine.setEnvVars(
+                workflowId, contextId, activityId,
+                new EnvironmentHandler() {
+                    public void handleEnvVars(EnvironmentInOuts inouts) throws Exception {
+                        try {
+                            String exitCondition = (String) params.get("exitCondition");
+                            inouts.setStrValue("exitCondition", exitCondition);
+                        } catch(Exception e) {
+                            throw new Exception("exitCondition must be 'true' or 'false'!");
+                        }
+                    }//handleEnvVars()
+                }
+            );
+            
+            results.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            results.put("reason", e.getMessage());
+        }
+        
+        return results;
+    }//setExitCondition()
     
     
 }//class DRTAgent

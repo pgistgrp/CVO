@@ -34,6 +34,8 @@ public class CategoryReference implements Node, Serializable {
     
     protected SortedSet tags = new TreeSet(new TagReferenceComparator());
     
+    protected int indent = 0;
+    
     
     /**
      * @return
@@ -101,6 +103,7 @@ public class CategoryReference implements Node, Serializable {
 
     /**
      * @return
+     * 
      * @hibernate.many-to-one column="category_id" lazy="true"
      */
     public Category getCategory() {
@@ -144,6 +147,21 @@ public class CategoryReference implements Node, Serializable {
     }
     
     
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */
+    public int getIndent() {
+        return indent;
+    }
+
+
+    public void setIndent(int indent) {
+        this.indent = indent;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */

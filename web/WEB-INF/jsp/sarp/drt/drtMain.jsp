@@ -183,7 +183,7 @@
     }
 </script>
 
-<pg:outputProperty property="javascript" />
+<pg:property name="javascript" />
 
 <script type="text/javascript">
     function onPageLoaded() {
@@ -230,21 +230,32 @@
                   <div id="votingMenuTally" class="box1">
                     <span id="structure_question_status"><h2>${infoObject.numAgree} of ${infoObject.numVote}</h2> agree to move forward</span>
                   </div>
-                  <div id="structure_question">
+                  
+                  <pg:property var="showLoopChoice" name="showLoopChoice" />
+                  
+                  <div id="structure_question" style="text-align:left;">
                       <pg:show condition="${!infoObject.closed}">
-                        <c:choose>
-                          <c:when test="${voting == null}">
-                            <p>Do you think we can move forward?</p>
-                            <span>
-                            <a href="javascript:infoObject.setVoteOnInfoObject('true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:infoObject.setVoteOnInfoObject('false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style="margin-left:5px;"></a></span>
-                            </span>
-                          </c:when>
-                          <c:otherwise>
-                            <span>
-                            Your vote has been recorded. Thank you for your participation.
-                            </span>
-                          </c:otherwise>
-                        </c:choose>
+                        <pg:show roles="moderator">
+                          <c:if test="${showLoopChoice=='true'}">
+                            <label><input type="radio" name="exitCondition" value="true">Move Forward</label>
+                            <label><input type="radio" name="exitCondition" value="false">Go Back</label>
+                          </c:if>
+                        </pg:show>
+                        <pg:hide roles="moderator">
+                          <c:choose>
+                            <c:when test="${voting == null}">
+                              <p>Do you think we can move forward?</p>
+                              <span>
+                              <a href="javascript:infoObject.setVoteOnInfoObject('true');"><img src="images/btn_thumbsup_large.png" alt="YES" class="floatRight" style="margin-right:5px;"><a href="javascript:infoObject.setVoteOnInfoObject('false');"><img src="images/btn_thumbsdown_large.png" alt="NO" class="floatLeft" style="margin-left:5px;"></a></span>
+                              </span>
+                            </c:when>
+                            <c:otherwise>
+                              <span>
+                              Your vote has been recorded. Thank you for your participation.
+                              </span>
+                            </c:otherwise>
+                          </c:choose>
+                        </pg:hide>
                       </pg:show>
                   </div>
                 </div>

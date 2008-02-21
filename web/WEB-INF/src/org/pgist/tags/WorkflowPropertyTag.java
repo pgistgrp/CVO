@@ -16,19 +16,26 @@ import org.pgist.wfengine.EnvironmentInOuts;
  * @author kenny
  *
  */
-public class WorkflowOutputPropertyTag extends SimpleTagSupport {
+public class WorkflowPropertyTag extends SimpleTagSupport {
     
     
     private static final long serialVersionUID = 1L;
     
-    private String property;
+    private String var;
+    
+    private String name;
     
     
-    public void setProperty(String property) {
-		this.property = property;
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+
+    public void setName(String name) {
+		this.name = name;
 	}
-
-
+    
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -41,13 +48,18 @@ public class WorkflowOutputPropertyTag extends SimpleTagSupport {
         
         EnvironmentInOuts inouts = (EnvironmentInOuts) request.getAttribute("org.pgist.wfengine.INOUTS");
         
+        String property = null;
+        
         if (inouts!=null) {
-        	String value = inouts.getProperty(property);
-        	if (value!=null) {
-    	        writer.write(value);
-        	}
+        	property = inouts.getProperty(name);
+        }
+        
+        if (var!=null) {
+            request.setAttribute(var, property);
+        } else {
+            writer.write(property);
         }
     }//doTag()
     
     
-}//class WorkflowOutputPropertyTag
+}//class WorkflowPropertyTag

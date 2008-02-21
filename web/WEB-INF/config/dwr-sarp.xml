@@ -171,6 +171,7 @@
       <include method="getTagById"/>
       <include method="setupEmailNotify"/>
       <include method="search"/>
+      <include method="setExitCondition"/>
     </create>
 
 

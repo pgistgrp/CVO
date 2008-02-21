@@ -589,12 +589,17 @@
   
 
   <tag>
-    <name>outputProperty</name>
-    <tag-class>org.pgist.tags.WorkflowOutputPropertyTag</tag-class>
+    <name>property</name>
+    <tag-class>org.pgist.tags.WorkflowPropertyTag</tag-class>
     <body-content>empty</body-content>
     <description>Tag which output a property declared in workflow property</description>
     <attribute>
-      <name>property</name>
+      <name>var</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

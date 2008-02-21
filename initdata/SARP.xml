@@ -179,6 +179,7 @@
                         ]]>
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/cst/info-object.jsp" />
+                    <property name="showLoopChoice" value="true" />
                 </props>
             </declaration>
         </pgame>
@@ -212,6 +213,7 @@
                         ]]>
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/cht/info-object.jsp" />
+                    <property name="showLoopChoice" value="true" />
                 </props>
             </declaration>
         </pgame>
@@ -233,6 +235,7 @@
                         ]]>
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-object.jsp" />
+                    <property name="showLoopChoice" value="true" />
                 </props>
             </declaration>
         </pgame>
@@ -320,6 +323,7 @@
                 <outs>
                     <var name="pmethod.cst_id"/>
                     <var name="pmethod.cst_oid"/>
+                    <var name="pmethod.exitCondition"/>
                 </outs>
             </declaration>
             <sequence>
@@ -333,7 +337,7 @@
                         </outs>
                     </declaration>
                 </pgame>
-                <repeat>
+                <repeat exitCondition="pmethod.exitCondition">
                     <sequence>
                         <pgame name="pgame-sarp.toggle.cst">
                             <declaration>
@@ -395,6 +399,9 @@
                                 <ins>
                                     <var name="oid" ref="pmethod.cst_oid"/>
                                 </ins>
+                                <outs>
+                                    <var name="exitCondition" ref="pmethod.exitCondition" />
+                                </outs>
                             </declaration>
                         </pgame>
                         <pgame name="pgame-sarp.toggle.drt">
@@ -423,6 +430,7 @@
                 <outs>
                     <var name="meeting.bct_id"/>
                     <var name="meeting.bct_oid"/>
+                    <var name="meeting.exitCondition"/>
                 </outs>
             </declaration>
             <sequence>
@@ -456,6 +464,7 @@
                         <outs>
                             <var name="pmethod.cst_id" ref="meeting.cst_id"/>
                             <var name="pmethod.cst_oid" ref="meeting.cst_oid"/>
+                            <var name="pmethod.exitCondition" ref="meeting.exitCondition"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -485,6 +494,7 @@
                         </ins>
                         <outs>
                             <var name="meeting.cst_oid" ref="situation.cst_oid"/>
+                            <var name="meeting.exitCondition" ref="situation.cst_exitCondition"/>
                         </outs>
                     </declaration>
                 </meeting>

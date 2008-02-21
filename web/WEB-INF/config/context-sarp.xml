@@ -27,6 +27,7 @@
         <property name="drtService" ref="drtService"/>
         <property name="systemService" ref="systemService"/>
         <property name="searchHelper" ref="searchHelper"/>
+        <property name="engine" ref="engine"/>
     </bean>
 
 
