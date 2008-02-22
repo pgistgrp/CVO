@@ -215,10 +215,10 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     }//getUnrelatedTags()
 
 
-    private static final String hql_getOrphanTags1 = "select count(tr.id) from TagReference tr where tr.bctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id in (##))";
+    private static final String hql_getOrphanTags1 = "select count(tr.id) from TagReference tr where tr.times>0 and tr.bctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id in (##))";
     
     
-    private static final String hql_getOrphanTags2 = "select distinct tr, tr.tag.name as name from TagReference tr where tr.bctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id in (##)) order by name";
+    private static final String hql_getOrphanTags2 = "select distinct tr, tr.tag.name as name from TagReference tr where tr.times>0 and  tr.bctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id in (##)) order by name";
     
     
     public Collection getOrphanTags(Long cstId, PageSetting setting) throws Exception {

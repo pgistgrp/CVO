@@ -546,12 +546,12 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
     }//increaseViews()
 
 
-    private static final String hql_getConciseTags_1 = "select count(tr.id) from TagReference tr where tr.bctId=?";
+    private static final String hql_getConciseTags_1 = "select count(tr.id) from TagReference tr where tr.bctId=? and tr.times>0";
     
     private static final String[] hql_getConciseTags_2 = {
-    	"from TagReference tr where tr.bctId=? order by tr.tag.name",
-    	"from TagReference tr where tr.bctId=? order by tr.tag.name desc",
-    	"from TagReference tr where tr.bctId=? order by tr.times desc, tr.tag.name",
+    	"from TagReference tr where tr.bctId=? and tr.times>0 order by tr.tag.name",
+    	"from TagReference tr where tr.bctId=? and tr.times>0 order by tr.tag.name desc",
+    	"from TagReference tr where tr.bctId=? and tr.times>0 order by tr.times desc, tr.tag.name",
     };
     
     
