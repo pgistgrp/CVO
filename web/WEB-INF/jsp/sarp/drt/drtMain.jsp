@@ -180,6 +180,21 @@
             });
         
         };
+        this.setExitCondition = function(exitNow){
+            DRTAgent.setExitCondition({exitCondition: exitNow}, <pg:wfinfo/>, {
+            callback:function(data){
+              if (data.successful){
+                alert('Your decision has been saved.');
+              }else{
+                alert('Error, reason: '+data.reason);
+              }
+            },
+            errorHandler:function(errorString, exception){ 
+                alert("setExitCondition error:" + errorString + exception);
+            }
+            });
+        
+        };
     }
 </script>
 
@@ -237,8 +252,21 @@
                       <pg:show condition="${!infoObject.closed}">
                         <pg:show roles="moderator">
                           <c:if test="${showLoopChoice=='true'}">
-                            <label><input type="radio" name="exitCondition" value="true">Move Forward</label>
-                            <label><input type="radio" name="exitCondition" value="false">Go Back</label>
+                            <pg:envVar var="exitCondition" name="exitCondition" />
+                            <c:choose>
+                              <c:when test="${exitCondition == null}">
+                                <label><input type="radio" name="exitCondition" value="true" onclick="infoObject.setExitCondition(true);">Move Forward</label>
+                                <label><input type="radio" name="exitCondition" value="false" onclick="infoObject.setExitCondition(false);">Go Back</label>
+                              </c:when>
+                              <c:when test="${exitCondition == 'true'}">
+                                <label><input type="radio" name="exitCondition" value="true" checked onclick="infoObject.setExitCondition(true);">Move Forward</label>
+                                <label><input type="radio" name="exitCondition" value="false" onclick="infoObject.setExitCondition(false);">Go Back</label>
+                              </c:when>
+                              <c:otherwise>
+                                <label><input type="radio" name="exitCondition" value="true" onclick="infoObject.setExitCondition(true);">Move Forward</label>
+                                <label><input type="radio" name="exitCondition" value="false" checked onclick="infoObject.setExitCondition(false);">Go Back</label>
+                              </c:otherwise>
+                            </c:choose>
                           </c:if>
                         </pg:show>
                         <pg:hide roles="moderator">

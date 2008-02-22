@@ -398,6 +398,7 @@
                             <declaration>
                                 <ins>
                                     <var name="oid" ref="pmethod.cst_oid"/>
+                                    <var name="exitCondition" ref="pmethod.exitCondition"/>
                                 </ins>
                                 <outs>
                                     <var name="exitCondition" ref="pmethod.exitCondition" />

@@ -475,20 +475,27 @@ public class DRTAgent {
      *     <li>exitCondition - string, "true" | "false"</li>
      *   </ul>
      *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
      * @return a Map contains:
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map setExitCondition(final Map params) {
+    public Map setExitCondition(final Map params, final Map wfinfo) {
         Map results = new HashMap();
         results.put("successful", false);
         
         try {
-            Long workflowId = new Long((String) params.get("workflowId"));
-            Long contextId = new Long((String) params.get("contextId"));
-            Long activityId = new Long((String) params.get("activityId"));
+            Long workflowId = new Long((String) wfinfo.get("workflowId"));
+            Long contextId = new Long((String) wfinfo.get("contextId"));
+            Long activityId = new Long((String) wfinfo.get("activityId"));
             
             engine.setEnvVars(
                 workflowId, contextId, activityId,
@@ -496,6 +503,11 @@ public class DRTAgent {
                     public void handleEnvVars(EnvironmentInOuts inouts) throws Exception {
                         try {
                             String exitCondition = (String) params.get("exitCondition");
+                            if ("true".equalsIgnoreCase(exitCondition)) {
+                                exitCondition = "true";
+                            } else {
+                                exitCondition = "false";
+                            }
                             inouts.setStrValue("exitCondition", exitCondition);
                         } catch(Exception e) {
                             throw new Exception("exitCondition must be 'true' or 'false'!");

@@ -120,8 +120,8 @@
 			</tr>
 			<c:forEach var="workflow" items="${finishedWorkflows}">
 					<tr style="color:#999;">
-						<td>${workflow.situation.name}</td>
-						<td>${workflow.situation.description}</td>
+						<td>${workflow.name}</td>
+						<td>${workflow.description}</td>
 						<td>${workflow.beginTime}</td>
 						<td>${workflow.endTime}</td>
 						<td><input type="button" value="Review" onclick="javascript:location.href='userhome.do?workflowId=${workflow.id}'"></td>

@@ -594,6 +594,67 @@
     <body-content>empty</body-content>
     <description>Tag which output a property declared in workflow property</description>
     <attribute>
+      <name>activity</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>envVar</name>
+    <tag-class>org.pgist.tags.WorkflowEnvVarTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which output a Environment Variable</description>
+    <attribute>
+      <name>context</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>activity</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>declared</name>
+    <tag-class>org.pgist.tags.WorkflowDeclaredTag</tag-class>
+    <body-content>empty</body-content>
+    <description>If declared workflow environment</description>
+    <attribute>
+      <name>context</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>activity</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>var</name>
       <required>false</required>
       <rtexprvalue>false</rtexprvalue>

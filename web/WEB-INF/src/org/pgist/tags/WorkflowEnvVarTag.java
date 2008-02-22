@@ -18,10 +18,12 @@ import org.pgist.wfengine.activity.PGameActivity;
  * @author kenny
  *
  */
-public class WorkflowPropertyTag extends SimpleTagSupport {
+public class WorkflowEnvVarTag extends SimpleTagSupport {
     
     
     private static final long serialVersionUID = 1L;
+    
+    private RunningContext context;
     
     private PGameActivity activity;
     
@@ -45,32 +47,41 @@ public class WorkflowPropertyTag extends SimpleTagSupport {
 	}
     
     
+    public void setContext(RunningContext context) {
+        this.context = context;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
     
     
 	public void doTag() throws JspException, IOException {
-        PageContext context = (PageContext) getJspContext();
-        HttpServletRequest request = (HttpServletRequest) context.getRequest();
+        PageContext pageContext = (PageContext) getJspContext();
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         JspWriter writer = getJspContext().getOut();
         
         EnvironmentInOuts inouts = null;
         
+        if (context==null) {
+            context = (RunningContext) request.getAttribute("org.pgist.wfengine.CONTEXT");
+        }
+        
         if (activity!=null) {
+            if (context==null) throw new JspException("can't find running context");
             inouts = new EnvironmentInOuts(
-                (RunningContext) request.getAttribute("org.pgist.wfengine.CONTEXT"),
+                context,
                 activity.getDeclaration()
             );
         } else {
             inouts = (EnvironmentInOuts) request.getAttribute("org.pgist.wfengine.INOUTS");
+            if (inouts==null) throw new JspException("can't find environment inouts");
         }
         
         String property = null;
         
-        if (inouts!=null) {
-        	property = inouts.getProperty(name);
-        }
+        property = inouts.getStrValue(name);
         
         if (var!=null) {
             request.setAttribute(var, property);
@@ -80,4 +91,4 @@ public class WorkflowPropertyTag extends SimpleTagSupport {
     }//doTag()
     
     
-}//class WorkflowPropertyTag
+}//class WorkflowEnvVarTag
