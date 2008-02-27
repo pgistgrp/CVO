@@ -27,6 +27,18 @@
         <property name="cstService" ref="cstService"/>
     </bean>
     
+    <bean id="task-sarp.create.cht" class="org.pgist.sarp.cht.CreateCHTTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.publish.cht" class="org.pgist.sarp.cht.PublishCHTTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.cht" class="org.pgist.sarp.cht.ToggleCHTTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
     <bean id="task-sarp.drt.clear.vote" class="org.pgist.sarp.drt.ClearVoteTask">
         <property name="drtService" ref="drtService"/>
     </bean>
@@ -45,6 +57,9 @@
               <entry><key><value>task-sarp.create.cst</value></key><ref bean="task-sarp.create.cst" /></entry>
               <entry><key><value>task-sarp.publish.cst</value></key><ref bean="task-sarp.publish.cst" /></entry>
               <entry><key><value>task-sarp.toggle.cst</value></key><ref bean="task-sarp.toggle.cst" /></entry>
+              <entry><key><value>task-sarp.create.cht</value></key><ref bean="task-sarp.create.cht" /></entry>
+              <entry><key><value>task-sarp.publish.cht</value></key><ref bean="task-sarp.publish.cht" /></entry>
+              <entry><key><value>task-sarp.toggle.cht</value></key><ref bean="task-sarp.toggle.cht" /></entry>
               <entry><key><value>task-sarp.drt.clear.vote</value></key><ref bean="task-sarp.drt.clear.vote" /></entry>
               <entry><key><value>task-sarp.toggle.drt</value></key><ref bean="task-sarp.toggle.drt" /></entry>
             </map>
@@ -53,6 +68,7 @@
             <map>
               <entry><key><value>action-sarp.bct</value></key><value>/bctview.do</value></entry>
               <entry><key><value>action-sarp.cst</value></key><value>/cstview.do</value></entry>
+              <entry><key><value>action-sarp.cht</value></key><value>/chtview.do</value></entry>
               <entry><key><value>action-sarp.drt</value></key><value>/drt.do</value></entry>
             </map>
         </property>

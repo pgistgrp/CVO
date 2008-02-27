@@ -131,7 +131,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.cst" title="Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-sarp.cst" title="Concerns synthesis tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
             </description>
@@ -145,7 +145,7 @@
         
         <pgame name="pgame-sarp.publish.cst" title="Publish CST." auto="true">
             <description>
-              <![CDATA[Publish themes.]]>
+              <![CDATA[Publish cst.]]>
             </description>
             <taskName>task-sarp.publish.cst</taskName>
             <declaration>
@@ -196,6 +196,57 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.create.cht" title="Create CHT." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of CHT</small>]]>
+            </description>
+            <taskName>task-sarp.create.cht</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+                <outs>
+                    <var name="cht_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="CHT" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cht" title="Category Hierarchy tool" auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
+            </description>
+            <actionName>action-sarp.cht</actionName>
+            <declaration>
+                <ins>
+                    <var name="chtId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.publish.cht" title="Publish CHT." auto="true">
+            <description>
+              <![CDATA[Publish cht.]]>
+            </description>
+            <taskName>task-sarp.publish.cht</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                    <var name="oid"/>
+                </ins>
+                <outs>
+                    <var name="oid"/>
+                </outs>
+                <props>
+                    <property name="title" value="Discuss and Review for CHT" />
+                </props>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.drt.cht" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
@@ -218,6 +269,18 @@
             </declaration>
         </pgame>
     
+        <pgame name="pgame-sarp.toggle.cht" title="Toggle CHT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a CHT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.cht</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.drt.vtt" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
@@ -420,6 +483,111 @@
             </sequence>
         </pmethod>
         
+        <pmethod name="pmethod-sarp.cht" description="Step 2: Category Hierarchy Tool">
+            <declaration>
+                <ins>
+                    <var name="pmethod.cst_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.cht_id"/>
+                    <var name="pmethod.cht_oid"/>
+                    <var name="pmethod.exitCondition"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                        <outs>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <repeat exitCondition="pmethod.exitCondition">
+                    <sequence>
+                        <pgame name="pgame-sarp.toggle.cht">
+                            <declaration>
+                                <ins>
+                                    <var name="cht_id" ref="pmethod.cht_id"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.cht">
+                            <declaration>
+                                <ins>
+                                    <var name="chtId" ref="pmethod.cht_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.cht">
+                            <declaration>
+                                <ins>
+                                    <var name="cht_id" ref="pmethod.cht_id"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.publish.cht">
+                            <declaration>
+                                <ins>
+                                    <var name="cht_id" ref="pmethod.cht_id"/>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                                <outs>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.clear.vote">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.cht">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                    <var name="exitCondition" ref="pmethod.exitCondition"/>
+                                </ins>
+                                <outs>
+                                    <var name="exitCondition" ref="pmethod.exitCondition" />
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </repeat>
+            </sequence>
+        </pmethod>
+        
     </pmethods>
     
     <!-- PMeetings -->
@@ -465,7 +633,31 @@
                         <outs>
                             <var name="pmethod.cst_id" ref="meeting.cst_id"/>
                             <var name="pmethod.cst_oid" ref="meeting.cst_oid"/>
-                            <var name="pmethod.exitCondition" ref="meeting.exitCondition"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-sarp.cht" description="Step 3: Category Hierachy Tool">
+            <declaration>
+                <ins>
+                    <var name="meeting.cst_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.cht_id"/>
+                    <var name="meeting.cht_oid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.cht">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cst_id" ref="meeting.cst_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.cht_id" ref="meeting.cht_id"/>
+                            <var name="pmethod.cht_oid" ref="meeting.cht_oid"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -494,7 +686,20 @@
                             <var name="meeting.bct_id" ref="situation.bct_id"/>
                         </ins>
                         <outs>
+                            <var name="meeting.cst_id" ref="situation.cst_id"/>
                             <var name="meeting.cst_oid" ref="situation.cst_oid"/>
+                            <var name="meeting.exitCondition" ref="situation.cst_exitCondition"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.cht">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cst_id" ref="situation.cst_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.cht_id" ref="situation.cht_id"/>
+                            <var name="meeting.cht_oid" ref="situation.cht_oid"/>
                             <var name="meeting.exitCondition" ref="situation.cst_exitCondition"/>
                         </outs>
                     </declaration>

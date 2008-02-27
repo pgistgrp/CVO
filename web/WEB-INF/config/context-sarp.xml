@@ -90,6 +90,31 @@
 
     <!-- CHT : Concern Hierarchy Tool -->
     
+        <bean id="chtDAO" class="org.pgist.sarp.cht.CHTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="chtService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.cht.CHTServiceImpl">
+                <property name="cstDAO" ref="cstDAO"/>
+                <property name="chtDAO" ref="chtDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="chtAgent" class="org.pgist.sarp.cht.CHTAgent">
+        <property name="chtService" ref="chtService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+    </bean>
+    
     <!-- VTT : Value Tree Tool -->
     
 

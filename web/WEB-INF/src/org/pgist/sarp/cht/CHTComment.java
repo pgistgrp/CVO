@@ -1,21 +1,22 @@
-package org.pgist.sarp.cst;
+package org.pgist.sarp.cht;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.users.User;
 
 
 /**
- * CST Comment.
+ * CHT Comment.
  * 
  * @author kenny
  *
- * @hibernate.class table="sarp_cst_comment" lazy="true"
+ * @hibernate.class table="sarp_cht_comment" lazy="true"
  */
-public class CSTComment implements Serializable {
+public class CHTComment implements Serializable {
     
     
 	private static final long serialVersionUID = -2561599748380339322L;
@@ -41,7 +42,7 @@ public class CSTComment implements Serializable {
     
     private boolean deleted;
     
-    private CSTComment parent;
+    private CHTComment parent;
     
     private boolean emailNotify = false;
     
@@ -134,7 +135,7 @@ public class CSTComment implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="sarp_cst_comment_tag_link" cascade="all"
+     * @hibernate.set lazy="true" table="sarp_cht_comment_tag_link" cascade="all"
      * @hibernate.collection-key column="comment_id"
      * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.tagging.Tag"
      */
@@ -209,14 +210,14 @@ public class CSTComment implements Serializable {
      * 
      * @hibernate.many-to-one column="parent_id" lazy="true"
      */
-    public CSTComment getParent() {
+    public CHTComment getParent() {
 		return parent;
 	}
 
 
-	public void setParent(CSTComment parent) {
+	public void setParent(CHTComment parent) {
 		this.parent = parent;
 	}
 
 
-}//class CSTComment
+}//class CHTComment

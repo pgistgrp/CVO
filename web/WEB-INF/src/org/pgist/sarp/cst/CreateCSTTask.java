@@ -6,7 +6,7 @@ import org.pgist.wfengine.WorkflowTask;
 
 
 /**
- * Automatic workflow task for creating BCT instance.
+ * Automatic workflow task for creating CST instance.
  * 
  * @author kenny
  */
