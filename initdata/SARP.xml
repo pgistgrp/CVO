@@ -502,7 +502,7 @@
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-sarp.cht" description="Step 2: Category Hierarchy Tool">
+        <pmethod name="pmethod-sarp.cht" description="Step 3: Category Hierarchy Tool">
             <declaration>
                 <ins>
                     <var name="pmethod.cst_id"/>

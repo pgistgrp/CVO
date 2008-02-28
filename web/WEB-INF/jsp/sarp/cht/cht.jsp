@@ -229,76 +229,25 @@
   
 <style type="text/css"> 
 
-   .accordionTabTitleBar { 
-      font-size: 12px; 
-      padding : 2px 6px 2px 6px;
-      border-style : solid none solid none;
-      border-top-color: #DDDDDD; 
-      border-bottom-color : #DDDDDD;
-      border-width: 1px 0px 1px 0px; 
-      text-transform: capitalize;
-      cursor:pointer;
-   }
-   
-   .accordionTabContentBox { 
-      font-size : 11px;
-      border : 1px solid #1f669b; 
-      border-top-width : 0px;
-      padding : 0px 8px 0px 8px;
-   }
-   
    .inplaceeditor-form textarea { 
        width: 95%;
        height: 100px;
    }
-
-    #topMenu {
-    padding:5px;
-    background:#E1F1C5;
-    border-bottom:1px solid #C6D78C;
-    margin-bottom:5px;
-    margin-left:-3px;
-    }
-    
-    #topMenu input[type="text"]{width:110px;}
-    
-    #topMenu2 {
-    padding:5px;
-    padding-left:0px;
-    width:97.75%;
-    }
-    
-    #col-crud-options{
-    background:#EEF7DD;
-    padding:5px;
-    margin-top:10px;
-    border:1px solid #B4D579;
-    }
-    
-    #col-left, #col {border:1px solid #B4D579;}
-    
-    .closeBox{float:right;}
-    
-    #summaryEditorTitle{display:block;margin-top:10px;}
-    
-    button#ss{font-size:12pt;padding:5px;}
-    
-    #sidebar_tags_header{border:1px solid #B4D579;}
-    #col-left{width:31%;height:450px;_height:409px;}
-    #col {width:29%;padding-left:10px;height:450px;}
-    #col-right{width:37%;height:418px;}
+   
+   #col-left, #col {border:1px solid #B4D579;}
+   
+   .closeBox{float:right;}
+   
+   button#ss{font-size:12pt;padding:5px;}
+   
+   #col-left{width:100%;height:450px;}
 
 </style>
 <event:pageunload />
 </head>
 
-<pg:show condition="${user.id==baseuser.id && !cst.closed}">
-<body onkeydown="globalKeyHandler(event);" onLoad="doOnLoad();">
-</pg:show>
-<pg:hide condition="${user.id==baseuser.id && !cst.closed}">
 <body onLoad="doOnLoad();">
-</pg:hide>
-  <div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
+<div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
 <div id="header">
   <wf:nav />
   <wf:subNav />
@@ -308,8 +257,6 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
-      Back to Moderator Control Panel</a></p>
     <h2 class="headerColor">Category Hierarchy Tool for participant
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
@@ -322,74 +269,10 @@
           </logic:notEqual>
         </logic:iterate>
       </select></h2>
-    <a name="colsTop"></a>
-    <div id="topMenu2">
-      <input type="button" value="Unselect All" onclick="unselectall(true);">
-    </div>
     <div id="col-left">
-      <div id="topMenu" style="clear:both;">
-        <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-        <input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
-        <input type="button" id="addCat" value="Add Category" onclick="addcategory();">
-        </pg:show>
-        <pg:hide condition="${user.id==baseuser.id && !cst.closed}">
-        ${user.loginname}'s categories
-        </pg:hide>
-      </div>
-      <div id="cats" style="height:300px;overflow:auto;" onclick="unselectall(!tree1.clickedOn);"></div>
-      <div style="width:100%;">
-        <textarea id="theme" disabled="true" style="border-top:1px solid black; border-left:thin dotted #800080; border-right:thin dotted #800080;  border-bottom:thin dotted #800080; width:98%; height:108px; background-color:#FFFAF0;"></textarea>
-      </div>
-      <div id="themeDiv" style="width:100%; display:none;">
-        <input type="button" value="save description" onclick="saveTheme();">
-      </div>
-    </div>
-    
-    <div id="col"></div>
-    
-    <div id="col-right">
-        <!--START Tabs -->
-        <div id="bar">
-          <a id="SideConcernsTop" name="SideConcernsTop"></a>
-            <div class="tabber" id="myTab">
-                <!-- AB 1 -->
-                <div id="sidebar_tags_header" class="tabbertab">
-                  <H2>Tags</H2>
-                  <div id="sidebar_tags">
-                    <!-- load tags into this div -->
-                  </div>
-                </div>
-                <!-- END TAB 1 -->
-                <!-- START TAB 2 -->
-                <div id="sidebar_concerns_header" class="tabbertab">
-                  <h2>Concerns</h2>
-                  <div id="sidebar_concerns"><h4>Concerns</h4>
-                    <!-- load concerns into this div -->
-                  </div>
-                </div>
-               <!-- END TAB 2 -->
-            </div>
-        </div>
-        <!--END Tabs -->
     </div>
     
     <div style="clear:both"></div>
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-    <div id="col-crud-options" style="display:none;margin-top:50px">
-        <span class="closeBox">
-          <a href="javascript: new Effect.SlideUp('col-crud-options',{duration: .5}); void(0);">
-            <img src="images/close.gif" border="0" alt="Hide" name="Hide" class="button" style="margin-bottom:3px;" id="hide" onMouseOver="MM_swapImage('hide','','images/close1.gif',1)" onMouseOut="MM_swapImgRestore()">
-            </a>
-        </span>
-      <strong>Editing Options: </strong>
-        <input type="button" onclick="deleteSelectedCategory();" value="Delete" />
-        <input type="button" onclick="Element.toggle('col-option')" value="Rename"/>
-    </div>
-    <div id="col-option" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
-      <h4>Editing Options</h4>
-      Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
-    </div>
-    </pg:show>
     <div id="spacer">
     <div>
       <c:if test="${!published}">
