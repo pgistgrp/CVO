@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.users.User;
 
 
 /**
@@ -23,11 +24,23 @@ public class CHT {
     
     private String instruction = "";
     
+    /*
+     * For published user hierarchy
+     */
     private Map<Long, CategoryReference> categories = new HashMap<Long, CategoryReference>();
+    
+    /*
+     * For unpublished user hierarchy
+     */
+    private Map<Long, CategoryReference> cats = new HashMap<Long, CategoryReference>();
     
     private Map<Long, CategoryReference> favorites = new HashMap<Long, CategoryReference>();
     
     private CST cst;
+    
+    private User winner;
+    
+    private CategoryReference winnerCategory;
     
     private boolean closed;
     
@@ -113,6 +126,24 @@ public class CHT {
     /**
      * @return
      * 
+     * @hibernate.map table="sarp_cht_user_cat_map"
+     * @hibernate.collection-key column="cht_id"
+     * @hibernate.collection-index column="user_id" type="long"
+     * @hibernate.collection-many-to-many column="root_catref_id" class="org.pgist.sarp.cst.CategoryReference"
+     */
+    public Map<Long, CategoryReference> getCats() {
+        return cats;
+    }
+
+
+    public void setCats(Map<Long, CategoryReference> cats) {
+        this.cats = cats;
+    }
+
+
+    /**
+     * @return
+     * 
      * @hibernate.map table="sarp_cht_user_favorite_map"
      * @hibernate.collection-key column="cht_id"
      * @hibernate.collection-index column="user_id" type="long"
@@ -141,6 +172,36 @@ public class CHT {
 	public void setCst(CST cst) {
 		this.cst = cst;
 	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="winner_id" lazy="true" class="org.pgist.users.User"
+     */
+    public User getWinner() {
+        return winner;
+    }
+
+
+    public void setWinner(User winner) {
+        this.winner = winner;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="winner_cat_id" lazy="true" class="org.pgist.sarp.cst.CategoryReference"
+     */
+    public CategoryReference getWinnerCategory() {
+        return winnerCategory;
+    }
+
+
+    public void setWinnerCategory(CategoryReference winnerCategory) {
+        this.winnerCategory = winnerCategory;
+    }
 
 
 	/**

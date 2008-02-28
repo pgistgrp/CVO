@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Concerns Synthesis Tool</title>
+<title>Category Hierarchy Tool</title>
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <!--CSS Libraries -->
@@ -17,27 +17,20 @@
   <style type="text/css" media="screen">@import "/styles/tabs.css";</style>
   <style type="text/css" media="screen">@import "/styles/lit.css";</style>
 
-  <pg:show condition="${!cst.closed}">
+  <pg:show condition="${!cht.closed}">
   <script language="javascript" type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
   </pg:show>
   <script src="/scripts/prototype.js" type="text/javascript"></script>
   <script src="/scripts/rico_simple.js" type="text/javascript"></script>
-  <script src="/scripts/tabcookies.js" type="text/javascript"></script>
-  <script src="/scripts/tabs.js" type="text/javascript"></script>
   <script src="/scripts/editor_simple.js" type="text/javascript"></script>
   <script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
-  <script src="/scripts/tags.js" type="text/javascript"></script>
   <script src="scripts/search.js" type="text/javascript"></script>
-  
-  <!--DHTML XTree Libraries -->
-  <script src="/scripts/dhtmlXTree/dhtmlXTree.js" type="text/javascript"></script>  
-  <script src="/scripts/dhtmlXTree/dhtmlXCommon.js" type="text/javascript"></script>  
   
   <!--DWR and Component Interfaces -->
   <script type='text/javascript' src='/dwr/engine.js'></script>
   <script type='text/javascript' src='/dwr/util.js'></script>
   <script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
-  <script type='text/javascript' src='/dwr/interface/CSTAgent.js'></script>
+  <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
   
   <!-- Template 5 Specific -->
   <style type="text/css" media="screen">@import "/styles/template5.css";</style>
@@ -46,15 +39,15 @@
   
 <script type="text/javascript">
     ///////////////////////////////////////////////////new change/////////////////////////
-    var bctId = ${bct.id};
     var cstId = ${cst.id};
+    var chtId = ${cht.id};
     var tree1 = null;
     var currentCategory = null;
     var previousCategory = null;
     var currentUserId = ${user.id};
     var page = 1;
     
-    <pg:show condition="${!cst.closed}">
+    <pg:show condition="${!cht.closed}">
     tinyMCE.init({
         mode : "exact",
         theme : "advanced",
@@ -67,46 +60,21 @@
     </pg:show>
     
     function doOnLoad(){
-      tabberAutomatic();
-      resetCols();
       getComments(1);
-      <pg:show condition="${!cst.closed}">
+      <pg:show condition="${!cht.closed}">
       tinyMCE.idCounter=0;
       tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
       </pg:show>
-      getOrphanTags();
-      tree1=new dhtmlXTreeObject("cats","100%","100%",0);
-      tree1.setImagePath("/images/dhtmlXTree/");
-      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-      tree1.setDragHandler(moveNodeHandler);
-      tree1.enableDragAndDrop(true);
-      tree1.setDragCopyHandler(copyNodeHandler);
-      </pg:show>
-      tree1.enableCheckBoxes(false);
-      tree1.enableThreeStateCheckboxes(true);
-      tree1.loadXML("/catsTree.do?cstId=${cst.id}&userId=${user.id}");
-      tree1.cstId = cstId;
-      tree1.setOnClickHandler(treeClickHandler);
     }
     
     function keepBreaks(string){
       return string.replace(/\n/g,"<br>");
     }
  
-    function getOrphanTags(){
-        CSTAgent.getOrphanTags({cstId:cstId, count: 1000000000}, {
-        callback:function(data){
-            if (data.successful){
-              $('sidebar_tags').innerHTML += data.html;
-            }
-          }
-        });
-    }
-
     var relatedTagsArr = [];
     function getTags(categoryId, page, type, orphanpage){
       Util.loading(true,"Working")
-      CSTAgent.getTags({userId: ${user.id}, cstId:${cst.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
+      CHTAgent.getTags({userId: ${user.id}, cstId:${cst.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
       callback:function(data){
         if (data.successful){
           if (type == 0){      
@@ -139,327 +107,12 @@
       });
     }
 
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-    function relateTag(tagId){
-      if(currentCategory == null)return;
-      Util.loading(true,"Working");
-      CSTAgent.relateTag({bctId:bctId, categoryId:currentCategory.dataId, tagId:tagId}, {
-      callback:function(data){
-          if (data.successful){
-            //new Effect.Fade('tag' + tagId, {duration: 0.5, afterFinish: function(){getTags(currentCategory.dataId, 0, 1, tagId);getTags(currentCategory.dataId, 0, 0, tagId);}});
-            getTags(currentCategory.dataId, 0, 1, tagId);
-            getTags(currentCategory.dataId, 0, 0, tagId);
-          }
-          if (data.successful != true){
-            alert(data.reason);
-          }
-        Util.loading(false);
-        },
-      errorHandler:function(errorString, exception){ 
-      alert("relateTag: "+errorString+ " "+exception);
-          //showTheError();
-      }
-      });
-    }
-    
-    function derelateTag(categoryId, tagId){
-
-        Util.loading(true,"Working");
-        CSTAgent.derelateTag({bctId:bctId, categoryId:categoryId, tagId:tagId}, {
-        callback:function(data){
-            if (data.successful){
-                  //new Effect.SwitchOff('tag' + tagId);
-                  //new Effect.Fade('tag'+tagId, {duration: 0.5, afterFinish: function(){getTags(categoryId, 0, 1, tagId);getTags(categoryId, 0, 0, tagId);}});
-                  getTags(categoryId, 0, 1, tagId);
-                  getTags(categoryId, 0, 0, tagId);
-            }
-            if (data.successful != true){
-              alert(data.reason);
-            }
-          Util.loading(false)
-          },
-        errorHandler:function(errorString, exception){ 
-            alert("derelateTag: "+errorString+" "+exception);
-        }
-        });
-    }
-    
-    function addcategory(){
-      if(document.getElementById("newcatetext").value != ""){
-        var catname = document.getElementById("newcatetext").value;
-        var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
-        Util.loading(true,"Working9");
-        CSTAgent.addCategory({cstId:${cst.id}, parentId:parentId, name:catname},{
-          callback:function(data){
-            if (data.successful){
-              tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value, data.newId);
-              document.getElementById("newcatetext").value = "";
-              top.location.reload();
-            } else {
-              alert(data.reason);
-            }
-            Util.loading(false);
-          },
-          errorHandler:function(errorString, exception){alert("addcategory: "+errorString+" "+exception);}
-        });      
-      }else{
-      alert("Category can't be blank.");
-      }
-    }
-    
-    function checkaddcategory(e){
-      if(e.keyCode == 13)addcategory();
-    }
-    
-    function globalKeyHandler(e){
-      if(e.keyCode==46)
-        deleteSelectedCategory();
-    }
-      
-    function deleteSelectedCategory(){
-      if(tree1.lastSelected!=null){
-        if(confirm("Are you sure you want to delete category \"" + tree1.lastSelected.parentObject.label + "\"")){
-          if(tree1.lastSelected.parentObject.parentObject.id == 0)
-            var params = {cstId: ${cst.id}, categoryId: tree1.lastSelected.parentObject.dataId};
-          else
-            var params = {cstId: ${cst.id}, categoryId: tree1.lastSelected.parentObject.dataId,parentId: tree1.lastSelected.parentObject.parentObject.dataId}
-            
-          CSTAgent.deleteCategory(params, {
-                callback:function(data){
-                  if (data.successful){
-                    tree1.deleteSelectedItem();
-                    new Effect.SlideUp('col-crud-options',{duration: .5});
-                  }
-                },
-                errorHandler:function(errorString, exception){
-                alert("deleteSelectedCategory: "+errorString+" "+exception);
-                }
-          });
-        }
-      }
-    }
-  
-    function modifySelectedCategory(){
-      var newtext = document.getElementById("selcatetext").value;
-      if(tree1.lastSelected!=null && newtext!=""){
-        var params = {bctId: bctId, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
-        CSTAgent.editCategory(params, {
-              callback:function(data){
-                if (data.successful){
-                  tree1.modifyItemName(tree1.lastSelected.parentObject.dataId, newtext);
-                  new Effect.Fade('col-option'); 
-                }else{
-                  alert("modifySelectedCategory failure reason: "+data.reason);
-                }
-              },
-              errorHandler:function(errorString, exception){
-                alert("modifySelectedCategory: "+errorString+" "+exception);
-                }
-        });
-      }else{
-        alert("Category can't be blank.");  
-      }
-    }
-    
-    function saveTheme() {
-      CSTAgent.saveSummary(
-        {catRefId:currentCategory.dataId, summary:$('theme').value}, {
-          callback:function(data){
-            if (data.successful){
-              alert('Your description is saved.');
-            }else{
-              alert("getTheme failure reason: "+data.reason);
-            }
-          },
-          errorHandler:function(errorString, exception){
-            alert("getTheme: "+errorString+" "+exception);
-          }
-        });
-    }
-    
-    function moveNodeHandler(sourceO, targetO){
-      params = {cstId: cstId, categoryId: sourceO.dataId};
-      if(sourceO.parentObject.id != 0)
-        params.parent0Id = sourceO.parentObject.dataId;      
-      if(targetO.id != 0)
-        params.parent1Id = targetO.dataId;
-        
-      CSTAgent.moveCategory(params,{
-        callback:function(data){
-          if (data.successful){
-            var newID=tree1._moveNode(sourceO,targetO);
-            tree1.selectItem(newID);
-            return true;
-          }
-          else{ 
-            alert(data.reason);
-            return false;
-          }
-        },
-        errorHandler:function(errorString, exception){
-                alert("moveNodeHandler: "+errorString+" "+exception);
-        }
-      });
-    }
-    
-    function copyNodeHandler(sourceO, targetO){
-      CSTAgent.copyCategory({bctId: bctId, categoryId: sourceO.dataId, parentId: targetO.dataId},{
-        callback:function(data){
-          if (data.successful){
-            var newID=tree1._copyNodeTo(sourceO,targetO);
-            tree1.selectItem(newID);
-            return true;
-          }
-          else return false;
-        },
-        errorHandler:function(errorString, exception){
-                alert("copyNodeHandler: "+errorString+" "+exception);
-        }
-      });
-    }
-    
-    function duplicateSelectedCategory(){
-      if(tree1.lastSelected!=null){
-        var obj1 = tree1.lastSelected.parentObject;
-        var params = {bctId:bctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
-        if(obj1.parentObject.Id!=0)
-          params.parentId = obj1.parentObject.dataId;
-        CSTAgent.duplicateCategory(params, 
-        {callback:function(data){
-          if(data.successful){
-            var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
-            if ($('col-crud-options').style.display == 'none'){
-              new Effect.SlideDown('col-crud-options',{duration: .5}); 
-            }else{
-              new Effect.Highlight('col-crud-options');
-            }
-            new Effect.Fade('col-option');
-            location.href="#colsTop";
-          }else
-            alert(data.reason);
-        },
-        errorHandler:function(errorString, exception){
-                alert(errorString+" "+exception);
-        }
-      });
-      }
-    }
-    </pg:show>
-    
-    function getConcernsByTags(visibility){
-      //eventually make  paginated
-        Util.loading(true,"Working");
-        CSTAgent.getConcernsByTags({bctId:bctId, page: 1, count: 100000000}, relatedTagsArr, {
-        callback:function(data){
-            if (data.successful){
-              if (visibility == 1){  
-                $('myTab').tabber.tabShow(1);
-              }else{
-                $('myTab').tabber.tabShow(0);
-              }
-              $('sidebar_concerns').innerHTML = data.html;
-            }
-            if (data.successful != true){
-              alert(data.reason);
-            }
-          Util.loading(false)
-          },
-        errorHandler:function(errorString, exception){ 
-            alert("getConcernsByTags: "+errorString+" "+exception);
-        }
-        });
-    }
-    
-    function getConcerns(tagId, page){
-        Util.loading(true,"Working");
-        CSTAgent.getConcerns({bctId:bctId, tagId: tagId, page: page}, {
-        callback:function(data){
-            if (data.successful){
-              $('myTab').tabber.tabShow(1);
-              $('sidebar_concerns').innerHTML = data.html;
-            }
-            if (data.successful != true){
-              alert(data.reason);
-            }
-          Util.loading(false);
-          },
-        errorHandler:function(errorString, exception){ 
-            alert("getConcerns: "+errorString+" "+exception);
-        }
-        });
-    }
-    
-  function getTheme(clickid) {
-    CSTAgent.getSummary(
-      {catRefId:clickid}, {
-        callback:function(data){
-          if (data.successful){
-            $('theme').value = data.summary;
-            <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-            $('theme').disabled = false;
-            $('themeDiv').style.display = 'block';
-            </pg:show>
-          }else{
-            alert("getTheme failure reason: "+data.reason);
-          }
-        },
-        errorHandler:function(errorString, exception){
-          alert("getTheme: "+errorString+" "+exception);
-        }
-      });
-  }
-  
-  function treeClickHandler(clickid, lastid, labeltext) {
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-    document.getElementById("selcatetext").value = labeltext;
-    </pg:show>
-    currentCategory = tree1.lastSelected.parentObject;
-    tempcate = tree1.getTopLevelNode(currentCategory);
-    
-    getTheme(clickid);
-    getTags(clickid, 0, 0, 1);
-    getTags(clickid, 0, 1, 1);
-    
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-    if ($('col-crud-options').style.display == 'none'){
-      new Effect.SlideDown('col-crud-options',{duration: .5}); 
-    }else{
-      new Effect.Highlight('col-crud-options');
-    }
-    new Effect.Fade('col-option');
-    </pg:show>
-  }
-  
-  function unselectall(mode){
-    if(mode){
-      tree1.unSelectAll();
-      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-      $('selcatetext').value = '';
-      $('theme').value = '';
-      $('themeDiv').style.display = 'none';
-      </pg:show>
-      currentCategory=null;
-      resetCols();
-      getOrphanTags();
-      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-      $('col-crud-options').style.display = "none"; 
-      $('col-option').style.display = "none";
-      </pg:show>
-    }
-    tree1.clickedOn = false;
-  }
-  
-  function resetCols(){
-    $('col').innerHTML = '<h4>Select a category in the left to see tags assciated with it.</h4>';
-    $('sidebar_tags').innerHTML = '<h4>Orphan Tags</h4>';
-  }
-  
   function onSelectChanged() {
     location.href = '/workflow.do?workflowId='+${requestScope['org.pgist.wfengine.WORKFLOW_ID']}+'&contextId='+${requestScope['org.pgist.wfengine.CONTEXT_ID']}+'&activityId='+${requestScope['org.pgist.wfengine.ACTIVITY_ID']}+'&userId='+$('otherCategory').value;
   }
   
   function getComments(page) {
-      CSTAgent.getComments({catRefId:${root.id}, page:page}, <pg:wfinfo/>,{
+      CHTAgent.getComments({catRefId:${root.id}, page:page}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -476,12 +129,12 @@
       });
   }
   
-  function cancelCSTComment() {
+  function cancelCHTComment() {
     $('txtNewCommentTitle').value = '';
     tinyMCE.setContent('');
   }
   
-  function createCSTComment() {
+  function createCHTComment() {
     displayIndicator(true);
     var title = $('txtNewCommentTitle').value;
     var content = tinyMCE.getContent();
@@ -493,7 +146,7 @@
         alert('please input content');
         return;
     }
-    CSTAgent.createComment({catRefId:${root.id}, title:title, content:content}, <pg:wfinfo/>,{
+    CHTAgent.createComment({catRefId:${root.id}, title:title, content:content}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -511,10 +164,10 @@
       });
   }
   
-  function deleteCSTComment(cid) {
+  function deleteCHTComment(cid) {
     if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
     displayIndicator(true);
-    CSTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
+    CHTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
               displayIndicator(false);
               if (data.successful){
@@ -530,7 +183,7 @@
   }
   
   function setVoteOnComment(cid, agree){
-      CSTAgent.setVotingOnComment({cid: cid, agree:agree}, {
+      CHTAgent.setVotingOnComment({cid: cid, agree:agree}, {
       callback:function(data){
         if (data.successful){
           var votingDiv = 'voting-comment'+cid;
@@ -555,7 +208,22 @@
           alert("setVote error:" + errorString + exception);
       }
       });
+  };
   
+  function publish(){
+      if (!confirm('Are you sure to publish your categories?')) return;
+      CHTAgent.publish({chtId:chtId}, {
+      callback:function(data){
+        if (data.successful){
+          $('publishBtn').disabled=true;
+        }else{
+          alert(data.reason);
+        }
+      },
+      errorHandler:function(errorString, exception){ 
+          alert("publish error:" + errorString + exception);
+      }
+      });
   };
   </script>
   
@@ -642,7 +310,7 @@
   <div id="cont-resize">
     <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
       Back to Moderator Control Panel</a></p>
-    <h2 class="headerColor">Concerns Synthesis Tool for participant
+    <h2 class="headerColor">Category Hierarchy Tool for participant
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
         <logic:iterate id="other" name="others">
@@ -723,6 +391,11 @@
     </div>
     </pg:show>
     <div id="spacer">
+    <div>
+      <c:if test="${!published}">
+        <input id="publishBtn" type="button" value="Publish" onclick="publish();">
+      </c:if>
+    </div>
     </div>
     
     <br>
@@ -730,15 +403,15 @@
     <p><b>Discussion about the categories:</b>
     <div id="discussionBox" class="discussionBox"></div>
     
-    <pg:show condition="${!cst.closed}">
+    <pg:show condition="${!cht.closed}">
       <a id="newCommentAnchor" name="newCommentAnchor"></a>
       <div id="newComment" class="box8 padding5">
         <h3 class="headerColor">Post a comment</h3>
         <form>
           <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
           <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
-          <input type="button" onClick="createCSTComment();" value="Submit">
-          <input type="button" onClick="cancelCSTComment();" value="Cancel" />
+          <input type="button" onClick="createCHTComment();" value="Submit">
+          <input type="button" onClick="cancelCHTComment();" value="Cancel" />
           <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
         </form>
       </div>

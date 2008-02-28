@@ -95,7 +95,7 @@ public class DRTServiceImpl implements DRTService {
 		
 		drtDAO.save(comment);
 		
-        systemDAO.setVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, comment.getId(), true);
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, comment.getId(), true);
         
 		return comment;
 	}//createComment()
@@ -106,7 +106,7 @@ public class DRTServiceImpl implements DRTService {
 		InfoObject infoObject = drtDAO.getInfoObjectById(oid);
 		if (infoObject==null) throw new Exception("can't find the specified InfoObject with id "+oid);
 		
-        systemDAO.setVoting(YesNoVoting.TYPE_SART_DRT_INFOOBJ, oid, agree);
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_DRT_INFOOBJ, oid, agree);
         
         drtDAO.increaseVoting(infoObject, agree);
         
@@ -119,7 +119,7 @@ public class DRTServiceImpl implements DRTService {
 		Comment comment = (Comment) drtDAO.load(Comment.class, cid);
 		if (comment==null) throw new Exception("can't find the specified Comment with id "+cid);
 		
-        systemDAO.setVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, cid, agree);
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, cid, agree);
         
         drtDAO.increaseVoting(comment, agree);
         

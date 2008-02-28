@@ -75,6 +75,8 @@ public interface CSTService {
     CSTComment setVotingOnComment(Long cid, boolean agree) throws Exception;
 
     void deleteComment(CSTComment comment) throws Exception;
-    
+
+    void setClearCSTWinner(Long cstId) throws Exception;
+
     
 }//interface CSTService

@@ -1,6 +1,6 @@
-InfoObject.prototype.currentFilter = '';
+infoObject.currentFilter = '';
 
-InfoObject.prototype.getConcerns = function(page, filter) {
+infoObject.getConcerns = function(page, filter) {
   if (filter) {
     if (filter>0) {
       this.currentFilter = filter;
@@ -33,7 +33,7 @@ InfoObject.prototype.getConcerns = function(page, filter) {
   });
 };
 
-InfoObject.prototype.getTags = function(page) {
+infoObject.getTags = function(page) {
   displayIndicator(true);
   BCTAgent.getConciseTags({bctId:this.targetId, page:page, sorting:$('tagsort').value}, this.wfinfo,{
       callback:function(data){
@@ -51,7 +51,7 @@ InfoObject.prototype.getTags = function(page) {
   });
 };
 
-InfoObject.prototype.loadTarget = function() {
+infoObject.loadTarget = function() {
   this.getConcerns(1);
   this.getTags(1);
 };

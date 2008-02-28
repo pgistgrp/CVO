@@ -34,8 +34,6 @@ public interface CHTService {
 
 	CHT getCHTById(Long chtId) throws Exception;
 
-    CategoryReference setRootCategoryReference(CHT cht, User user) throws Exception;
-
     List<User> getOtherUsers(CHT cht) throws Exception;
 
     Collection<CHTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
@@ -47,6 +45,10 @@ public interface CHTService {
     CHTComment setVotingOnComment(Long cid, boolean agree) throws Exception;
 
     void deleteComment(CHTComment comment) throws Exception;
+
+    CategoryReference setRootCatReference(CHT cht, User user) throws Exception;
+
+    void publish(Long chtId) throws Exception;
     
     
 }//interface CHTService

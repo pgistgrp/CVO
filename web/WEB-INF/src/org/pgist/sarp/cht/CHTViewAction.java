@@ -70,7 +70,13 @@ public class CHTViewAction extends Action {
         } else {
             CategoryReference catref = cht.getCategories().get(userId);
             if (catref==null && WebUtils.currentUserId().equals(userId)) {
-                catref = chtService.setRootCategoryReference(cht, user);
+                request.setAttribute("published", false);
+                catref = cht.getCats().get(userId);
+                if (catref==null) {
+                    catref = chtService.setRootCatReference(cht, user);
+                }
+            } else {
+                request.setAttribute("published", true);
             }
             request.setAttribute("root", catref);
         }

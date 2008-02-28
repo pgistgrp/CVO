@@ -1,7 +1,9 @@
 package org.pgist.sarp.cst;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -17,16 +19,16 @@ import org.pgist.tagging.Category;
  *
  * @hibernate.class table="sarp_cst_category_refs" lazy="true"
  */
-public class CategoryReference implements Node, Serializable {
+public class CategoryReference implements Serializable, Node {
     
     
 	protected Long id;
 	
     protected Long cstId;
     
-    protected Set parents = new HashSet();
+    protected Set<CategoryReference> parents = new HashSet<CategoryReference>();
     
-    protected Set children = new HashSet();
+    protected List<CategoryReference> children = new ArrayList<CategoryReference>();
     
     protected Category category;
     
@@ -37,6 +39,20 @@ public class CategoryReference implements Node, Serializable {
     protected int indent = 0;
     
     
+    public CategoryReference() {
+    }
+
+
+    public CategoryReference(CategoryReference sample) {
+        //shallow copy
+        setCstId(sample.getCstId());
+        setCategory(sample.getCategory());
+        setTheme(sample.getTheme());
+        setIndent(sample.getIndent());
+        getTags().addAll(sample.getTags());
+    }
+
+
     /**
      * @return
      * 
@@ -70,16 +86,16 @@ public class CategoryReference implements Node, Serializable {
 	/**
      * @return
      * 
-     * @hibernate.set inverse="true" lazy="true" table="sarp_cst_catref_catref_link" order-by="child_id"
+     * @hibernate.set inverse="true" lazy="true" table="sarp_cst_catref_catref_link"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-many-to-many column="child_id" class="org.pgist.sarp.cst.CategoryReference"
      */
-    public Set getParents() {
+    public Set<CategoryReference> getParents() {
         return parents;
     }
     
     
-    public void setParents(Set parents) {
+    public void setParents(Set<CategoryReference> parents) {
         this.parents = parents;
     }
 
@@ -87,16 +103,17 @@ public class CategoryReference implements Node, Serializable {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="sarp_cst_catref_catref_link" order-by="parent_id"
+     * @hibernate.list lazy="true" table="sarp_cst_catref_catref_link"
      * @hibernate.collection-key column="child_id"
+     * @hibernate.collection-index column="child_order" default="0"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.sarp.cst.CategoryReference"
      */
-    public Set getChildren() {
+    public List<CategoryReference> getChildren() {
         return children;
     }
 
 
-    public void setChildren(Set children) {
+    public void setChildren(List<CategoryReference> children) {
         this.children = children;
     }
 

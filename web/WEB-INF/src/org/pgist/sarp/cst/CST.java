@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.pgist.sarp.bct.BCT;
+import org.pgist.users.User;
 
 
 /**
@@ -27,6 +28,10 @@ public class CST {
     private Map<Long, CategoryReference> favorites = new HashMap<Long, CategoryReference>();
     
     private BCT bct;
+    
+    private User winner;
+    
+    private CategoryReference winnerCategory;
     
     private boolean closed;
     
@@ -142,7 +147,37 @@ public class CST {
 	}
 
 
-	/**
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="winner_id" lazy="true" class="org.pgist.users.User"
+     */
+	public User getWinner() {
+        return winner;
+    }
+
+
+    public void setWinner(User winner) {
+        this.winner = winner;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="winner_cat_id" lazy="true" class="org.pgist.sarp.cst.CategoryReference"
+     */
+    public CategoryReference getWinnerCategory() {
+        return winnerCategory;
+    }
+
+
+    public void setWinnerCategory(CategoryReference winnerCategory) {
+        this.winnerCategory = winnerCategory;
+    }
+
+
+    /**
      * @return
      * 
      * @hibernate.property not-null="true"

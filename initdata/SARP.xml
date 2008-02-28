@@ -196,6 +196,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.cst.clear.winner" title="Clear CST Winner." auto="true">
+            <description>
+              <![CDATA[<small>Clear CST Winner.</small>]]>
+            </description>
+            <taskName>task-sarp.cst.clear.winner</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.create.cht" title="Create CHT." auto="true">
             <description>
               <![CDATA[<small>Start a new instance of CHT</small>]]>
@@ -448,6 +460,13 @@
                                 <props>
                                     <property name="action" value="open" />
                                 </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.cst.clear.winner">
+                            <declaration>
+                                <ins>
+                                    <var name="cst_id" ref="pmethod.cst_id"/>
+                                </ins>
                             </declaration>
                         </pgame>
                         <pgame name="pgame-sarp.drt.clear.vote">

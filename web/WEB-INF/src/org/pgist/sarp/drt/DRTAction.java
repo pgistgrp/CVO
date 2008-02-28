@@ -81,7 +81,7 @@ public class DRTAction extends Action {
          * Load the specified InfoObject object from database.
          */
         InfoObject infoObject = drtService.getInfoObjectById(oid);
-        YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_INFOOBJ, oid);
+        YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_INFOOBJ, oid);
         
         if (infoObject!=null) {
         	request.setAttribute("infoObject", infoObject);

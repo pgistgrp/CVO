@@ -76,6 +76,7 @@
                <value>org/pgist/sarp/cst/CategoryReference.hbm.xml</value>
                <value>org/pgist/sarp/cst/CSTComment.hbm.xml</value>
                <value>org/pgist/sarp/cht/CHT.hbm.xml</value>
+               <value>org/pgist/sarp/cht/CHTComment.hbm.xml</value>
                <!-- Other schema information -->
                <value>org/pgist/PgistOtherSchema.hbm.xml</value>
            </list>

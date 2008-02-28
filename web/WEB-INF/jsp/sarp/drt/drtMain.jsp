@@ -45,17 +45,14 @@
     });
     </pg:show>
     
-    var infoObject = null;
-    
-    function InfoObject() {
-        this.oid = ${infoObject.id};
-        this.targetId = ${infoObject.target.id};
-        this.wfinfo = <pg:wfinfo/>;
-        displayIndicator(true);
-        this.oDivElement = 'infoObjectBox';
-        this.discussionDivElement = 'discussionBox';
-        this.page = 1;
-        this.getComments = function(page){
+    var infoObject = {
+        oid : ${infoObject.id},
+        targetId : ${infoObject.target.id},
+        wfinfo : <pg:wfinfo/>,
+        oDivElement : 'infoObjectBox',
+        discussionDivElement : 'discussionBox',
+        page : 1,
+        getComments : function(page){
             DRTAgent.getComments({oid:${infoObject.id}, page:page}, <pg:wfinfo/>,{
                 callback:function(data){
                     if (data.successful){
@@ -71,12 +68,12 @@
                     alert("get targets error: " + errorString +" "+ exception);
                 }
             });
-        };
-        this.cancelComment = function() {
+        },
+        cancelComment : function() {
             $('txtNewCommentTitle').value = '';
             tinyMCE.setContent('');
-        };
-        this.createComment = function() {
+        },
+        createComment : function() {
           displayIndicator(true);
           var title = $('txtNewCommentTitle').value;
           var content = tinyMCE.getContent();
@@ -104,8 +101,8 @@
                     alert("get targets error: " + errorString +" "+ exception);
                 }
             });
-        };
-        this.deleteComment = function(cid) {
+        },
+        deleteComment : function(cid) {
           if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
           displayIndicator(true);
           DRTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
@@ -121,8 +118,8 @@
                     alert("get targets error: " + errorString +" "+ exception);
                 }
             });
-        };
-        this.setVoteOnInfoObject = function(agree){
+        },
+        setVoteOnInfoObject : function(agree){
             DRTAgent.setVotingOnInfoObject({oid: ${infoObject.id}, agree:agree}, {
             callback:function(data){
               if (data.successful){
@@ -150,9 +147,8 @@
                 alert("setVote error:" + errorString + exception);
             }
             });
-        
-        };
-        this.setVoteOnComment = function(cid, agree){
+        },
+        setVoteOnComment : function(cid, agree){
             DRTAgent.setVotingOnComment({cid: cid, agree:agree}, {
             callback:function(data){
               if (data.successful){
@@ -178,12 +174,18 @@
                 alert("setVote error:" + errorString + exception);
             }
             });
-        
-        };
-        this.setExitCondition = function(exitNow){
+        },
+        setExitCondition : function(element, exitNow){
             DRTAgent.setExitCondition({exitCondition: exitNow}, <pg:wfinfo/>, {
             callback:function(data){
               if (data.successful){
+                var list = ['exitConditionClear', 'exitConditionForward', 'exitConditionBack'];
+                for (var i=0; i<list.length; i++) {
+                  $(list[i]).style.color='';
+                  $(list[i]).style.fontWeight='';
+                }
+                element.style.color='red';
+                element.style.fontWeight='bold';
                 alert('Your decision has been saved.');
               }else{
                 alert('Error, reason: '+data.reason);
@@ -193,8 +195,7 @@
                 alert("setExitCondition error:" + errorString + exception);
             }
             });
-        
-        };
+        },
     }
 </script>
 
@@ -202,7 +203,6 @@
 
 <script type="text/javascript">
     function onPageLoaded() {
-        infoObject = new InfoObject();
         window.setTimeout('tooltip.init()',1000);
 	
         infoObject.getComments(1);
@@ -248,23 +248,27 @@
                   
                   <pg:property var="showLoopChoice" name="showLoopChoice" />
                   
-                  <div id="structure_question" style="text-align:left;">
+                  <div id="structure_question" style="text-align:left; vertical-align:middle;">
                       <pg:show condition="${!infoObject.closed}">
                         <pg:show roles="moderator">
                           <c:if test="${showLoopChoice=='true'}">
                             <pg:envVar var="exitCondition" name="exitCondition" />
+                            <p>
                             <c:choose>
-                              <c:when test="${exitCondition == null}">
-                                <label><input type="radio" name="exitCondition" value="true" onclick="infoObject.setExitCondition(true);">Move Forward</label>
-                                <label><input type="radio" name="exitCondition" value="false" onclick="infoObject.setExitCondition(false);">Go Back</label>
+                              <c:when test="${exitCondition == 'false'}">
+                                <span id="exitConditionClear" style="padding-left:20px; cursor:pointer;" onclick="infoObject.setExitCondition(this, '');">Not Decided</span><br>
+                                <span id="exitConditionForward" style="padding-left:20px; cursor:pointer;" onclick="infoObject.setExitCondition(this, 'true');">Move Forward</span><br>
+                                <span id="exitConditionBack" style="padding-left:20px; cursor:pointer; color:red; font-weight:bold;" onclick="infoObject.setExitCondition(this, 'false');">Go Back</span>
                               </c:when>
                               <c:when test="${exitCondition == 'true'}">
-                                <label><input type="radio" name="exitCondition" value="true" checked onclick="infoObject.setExitCondition(true);">Move Forward</label>
-                                <label><input type="radio" name="exitCondition" value="false" onclick="infoObject.setExitCondition(false);">Go Back</label>
+                                <span id="exitConditionClear" style="padding-left:20px; cursor:pointer;" onclick="infoObject.setExitCondition(this, '');">Not Decided</span><br>
+                                <span id="exitConditionForward" style="padding-left:20px; cursor:pointer; color:red; font-weight:bold;" onclick="infoObject.setExitCondition(this, 'true');">Move Forward</span><br>
+                                <span id="exitConditionBack" style="padding-left:20px; cursor:pointer;" onclick="infoObject.setExitCondition(this, 'false');">Go Back</span>
                               </c:when>
                               <c:otherwise>
-                                <label><input type="radio" name="exitCondition" value="true" onclick="infoObject.setExitCondition(true);">Move Forward</label>
-                                <label><input type="radio" name="exitCondition" value="false" checked onclick="infoObject.setExitCondition(false);">Go Back</label>
+                                <span id="exitConditionClear" style="padding-left:20px; cursor:pointer; color:red; font-weight:bold;" onclick="infoObject.setExitCondition(this, '');">Not Decided</span><br>
+                                <span id="exitConditionForward" style="padding-left:20px; cursor:pointer;" onclick="infoObject.setExitCondition(this, 'true');">Move Forward</span><br>
+                                <span id="exitConditionBack" style="padding-left:20px; cursor:pointer;" onclick="infoObject.setExitCondition(this, 'false');">Go Back</span>
                               </c:otherwise>
                             </c:choose>
                           </c:if>

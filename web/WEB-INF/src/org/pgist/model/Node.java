@@ -1,6 +1,6 @@
 package org.pgist.model;
 
-import java.util.Set;
+import java.util.Collection;
 
 
 /**
@@ -13,7 +13,7 @@ public interface Node {
     
     Long getId();
     
-    Set getChildren();
+    Collection getChildren();
     
     String getCaption();
     

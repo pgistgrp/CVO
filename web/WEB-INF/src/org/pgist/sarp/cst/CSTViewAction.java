@@ -70,6 +70,9 @@ public class CSTViewAction extends Action {
             CategoryReference catref = cst.getCategories().get(userId);
             if (catref==null && WebUtils.currentUserId().equals(userId)) {
                 catref = cstService.setRootCategoryReference(cst, user);
+                request.setAttribute("published", false);
+            } else {
+                request.setAttribute("published", true);
             }
             request.setAttribute("root", catref);
         }
@@ -85,6 +88,6 @@ public class CSTViewAction extends Action {
         
         return mapping.findForward("view");
     }//execute()
-
-
+    
+    
 }//class CSTViewAction

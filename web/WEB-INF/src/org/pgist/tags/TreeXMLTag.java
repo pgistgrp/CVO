@@ -1,7 +1,7 @@
 package org.pgist.tags;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -46,7 +46,7 @@ public class TreeXMLTag extends TagSupport {
         try {
             writer.println("<tree id=\"0\">");
             
-            for (Node node : (Set<Node>) root.getChildren()) {
+            for (Node node : (Collection<Node>) root.getChildren()) {
                 processNode(writer, node);
             }//for
             
@@ -62,7 +62,7 @@ public class TreeXMLTag extends TagSupport {
     private void processNode(JspWriter writer, Node node) throws IOException {
         writer.println("<item text=\""+node.getCaption()+"\" id=\""+node.getId()+"\" open=\"1\">");
         
-        for (Node node1 : (Set<Node>) node.getChildren()) {
+        for (Node node1 : (Collection<Node>) node.getChildren()) {
             processNode(writer, node1);
         }//for node1
         

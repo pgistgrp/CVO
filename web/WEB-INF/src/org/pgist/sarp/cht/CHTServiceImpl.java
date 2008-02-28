@@ -2,7 +2,9 @@ package org.pgist.sarp.cht;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import org.pgist.sarp.bct.BCTDAO;
 import org.pgist.sarp.cst.CST;
@@ -144,17 +146,45 @@ public class CHTServiceImpl implements CHTService {
 
 
     @Override
-    public CategoryReference setRootCategoryReference(CHT cht, User user) throws Exception {
-        CategoryReference catref = new CategoryReference();
+    public CategoryReference setRootCatReference(CHT cht, User user) throws Exception {
+        CategoryReference root2 = cht.getCategories().get(user.getId());
+        if (root2!=null) return root2;
         
-        catref.setCstId(cht.getId());
-        cstDAO.save(catref);
+        root2 = cht.getCats().get(user.getId());
+        if (root2!=null) return root2;
         
-        cht.getCategories().put(user.getId(), catref);
+        //copy winner
+        CategoryReference root1 = cht.getCst().getWinnerCategory();
         
+        Queue<CategoryReference> queue1 = new LinkedList<CategoryReference>();
+        queue1.offer(root1);
         
-        return catref;
-    }//setRootCategoryReference()
+        Queue<CategoryReference> queue2 = new LinkedList<CategoryReference>();
+        root2 = new CategoryReference(root1);
+        queue2.offer(root2);
+        
+        while (!queue1.isEmpty()) {
+            CategoryReference parent1 = queue1.poll();
+            CategoryReference parent2 = queue2.poll();
+            
+            for (CategoryReference one : parent1.getChildren()) {
+                CategoryReference two = new CategoryReference(one);
+                two.getParents().add(parent2);
+                parent2.getChildren().add(two);
+                chtDAO.save(two);
+                queue1.offer(one);
+                queue2.offer(two);
+            }
+        }
+        
+        chtDAO.save(root2);
+        
+        cht.getCats().put(user.getId(), root2);
+        
+        chtDAO.save(cht);
+        
+        return root2;
+    }//setRootCatReference()
 
 
     @Override
@@ -187,7 +217,7 @@ public class CHTServiceImpl implements CHTService {
         
         cstDAO.save(comment);
         
-        systemDAO.setVoting(YesNoVoting.TYPE_SART_CHT_COMMENT, comment.getId(), true);
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_CHT_COMMENT, comment.getId(), true);
         
         return comment;
     }//createComment()
@@ -204,7 +234,7 @@ public class CHTServiceImpl implements CHTService {
         CHTComment comment = (CHTComment) cstDAO.load(CHTComment.class, cid);
         if (comment==null) throw new Exception("can't find the specified Comment with id "+cid);
         
-        systemDAO.setVoting(YesNoVoting.TYPE_SART_CHT_COMMENT, cid, agree);
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_CHT_COMMENT, cid, agree);
         
         chtDAO.increaseVoting(comment, agree);
         
@@ -217,6 +247,16 @@ public class CHTServiceImpl implements CHTService {
         comment.setDeleted(true);
         cstDAO.save(comment);
     }//deleteComment()
+
+
+    @Override
+    public void publish(Long chtId) throws Exception {
+        CHT cht = chtDAO.getCHTById(chtId);
+        CategoryReference root = cht.getCats().get(WebUtils.currentUserId());
+        cht.getCats().put(WebUtils.currentUserId(), null);
+        cht.getCategories().put(WebUtils.currentUserId(), root);
+        chtDAO.save(cht);
+    }//publish()
 
 
 }//class CHTServiceImpl

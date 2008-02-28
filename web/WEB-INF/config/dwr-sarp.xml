@@ -115,6 +115,19 @@
       <include method="deleteComment"/>
       <include method="getVotingOnComment"/>
       <include method="setVotingOnComment"/>
+      <include method="getWinner"/>
+    </create>
+
+
+    <create creator="spring" javascript="CHTAgent">
+      <param name="beanName" value="chtAgent"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="deleteComment"/>
+      <include method="getVotingOnComment"/>
+      <include method="setVotingOnComment"/>
+      <include method="getWinner"/>
+      <include method="publish"/>
     </create>
 
 

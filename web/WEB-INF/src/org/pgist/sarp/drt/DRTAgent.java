@@ -123,7 +123,7 @@ public class DRTAgent {
             
             map.put("comment", comment);
             
-            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, id);
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, id);
             if (voting!=null) {
                 map.put("voting", voting);
             }
@@ -386,7 +386,7 @@ public class DRTAgent {
         try {
         	InfoObject infoObject = null;
         	
-            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_INFOOBJ, oid);
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_INFOOBJ, oid);
             if (voting!=null) {
             	infoObject = drtService.getInfoObjectById(oid);
             } else {
@@ -442,7 +442,7 @@ public class DRTAgent {
         try {
         	Comment comment = null;
         	
-            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, cid);
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, cid);
             if (voting!=null) {
             	comment = drtService.getCommentById(cid);
             } else {
@@ -472,7 +472,7 @@ public class DRTAgent {
      *     <li>workflowId - int, id of the Workflow object</li>
      *     <li>contextId - int, id of the WorkflowContext object</li>
      *     <li>activityId - int, id of the Activity object</li>
-     *     <li>exitCondition - string, "true" | "false"</li>
+     *     <li>exitCondition - string, "true" | "false" | ""</li>
      *   </ul>
      *   
      * @param wfinfo A map contains:
@@ -501,17 +501,16 @@ public class DRTAgent {
                 workflowId, contextId, activityId,
                 new EnvironmentHandler() {
                     public void handleEnvVars(EnvironmentInOuts inouts) throws Exception {
-                        try {
-                            String exitCondition = (String) params.get("exitCondition");
-                            if ("true".equalsIgnoreCase(exitCondition)) {
-                                exitCondition = "true";
-                            } else {
-                                exitCondition = "false";
-                            }
-                            inouts.setStrValue("exitCondition", exitCondition);
-                        } catch(Exception e) {
-                            throw new Exception("exitCondition must be 'true' or 'false'!");
+                        String exitCondition = (String) params.get("exitCondition");
+                        if ("true".equalsIgnoreCase(exitCondition)) {
+                            exitCondition = "true";
+                        } else if ("false".equalsIgnoreCase(exitCondition)) {
+                            exitCondition = "false";
+                        } else {
+                            //clear
+                            exitCondition = null;
                         }
+                        inouts.setStrValue("exitCondition", exitCondition);
                     }//handleEnvVars()
                 }
             );

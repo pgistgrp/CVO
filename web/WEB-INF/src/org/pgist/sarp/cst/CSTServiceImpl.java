@@ -646,7 +646,7 @@ public class CSTServiceImpl implements CSTService {
         
         cstDAO.save(comment);
         
-        systemDAO.setVoting(YesNoVoting.TYPE_SART_CST_COMMENT, comment.getId(), true);
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_CST_COMMENT, comment.getId(), true);
         
         return comment;
     }//createComment()
@@ -663,7 +663,7 @@ public class CSTServiceImpl implements CSTService {
         CSTComment comment = (CSTComment) cstDAO.load(CSTComment.class, cid);
         if (comment==null) throw new Exception("can't find the specified Comment with id "+cid);
         
-        systemDAO.setVoting(YesNoVoting.TYPE_SART_CST_COMMENT, cid, agree);
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_CST_COMMENT, cid, agree);
         
         cstDAO.increaseVoting(comment, agree);
         
@@ -676,6 +676,15 @@ public class CSTServiceImpl implements CSTService {
         comment.setDeleted(true);
         cstDAO.save(comment);
     }//deleteComment()
+
+
+    @Override
+    public void setClearCSTWinner(Long cstId) throws Exception {
+        CST cst = cstDAO.getCSTById(cstId);
+        cst.setWinner(null);
+        cst.setWinnerCategory(null);
+        cstDAO.save(cst);
+    }//setClearCSTWinner()
 
 
 }//class CSTServiceImpl

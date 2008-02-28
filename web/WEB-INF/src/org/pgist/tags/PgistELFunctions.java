@@ -20,6 +20,7 @@ import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
+import org.pgist.sarp.cht.CHTComment;
 import org.pgist.sarp.cst.CSTComment;
 import org.pgist.sarp.drt.Comment;
 import org.pgist.system.SystemService;
@@ -168,10 +169,13 @@ public class PgistELFunctions extends SimpleTagSupport {
             if (object!=null) {
                 if (object instanceof Comment) {
                     Comment comment = (Comment) object;
-                    voting = systemService.getVoting(YesNoVoting.TYPE_SART_DRT_COMMENT, comment.getId());
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, comment.getId());
                 } else if (object instanceof CSTComment) {
                     CSTComment comment = (CSTComment) object;
-                    voting = systemService.getVoting(YesNoVoting.TYPE_SART_CST_COMMENT, comment.getId());
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CST_COMMENT, comment.getId());
+                } else if (object instanceof CHTComment) {
+                    CHTComment comment = (CHTComment) object;
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CHT_COMMENT, comment.getId());
                 } else {
                     //unsopported type
                 }

@@ -1122,7 +1122,7 @@ public class CSTAgent {
         try {
             CSTComment comment = null;
             
-            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SART_CST_COMMENT, cid);
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CST_COMMENT, cid);
             if (voting!=null) {
                 comment = cstService.getCommentById(cid);
             } else {
@@ -1142,6 +1142,43 @@ public class CSTAgent {
         
         return map;
     }//setVotingOnComment()
+    
+    
+    /**
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>cstId - int, a CST instance id</li>
+     *         </ul>
+     *         
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>winnerUser - the User object</li>
+     *           <li>winnerCategory - the CategoryReference</li>
+     *         </ul>
+     */
+    public Map getWinner(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long cstId = new Long( (String) params.get("cstId") );
+            
+            CST cst = cstService.getCSTById(cstId);
+            
+            map.put("winnerUser", cst.getWinner());
+            map.put("winnerCategory", cst.getWinnerCategory());
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getWinner()
     
     
 }//class CSTAgent
