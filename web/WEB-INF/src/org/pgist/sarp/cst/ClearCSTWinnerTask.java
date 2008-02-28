@@ -6,7 +6,7 @@ import org.pgist.wfengine.WorkflowTask;
 
 
 /**
- * Automatic workflow task for toggling CST instance.
+ * Automatic workflow task for clearing CST winner.
  * 
  * @author kenny
  */
@@ -38,4 +38,4 @@ public class ClearCSTWinnerTask implements WorkflowTask {
     }//execute()
     
     
-}//class ToggleCSTTask
+}//class ClearCSTWinnerTask

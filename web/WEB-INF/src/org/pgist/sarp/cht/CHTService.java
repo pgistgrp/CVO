@@ -49,6 +49,8 @@ public interface CHTService {
     CategoryReference setRootCatReference(CHT cht, User user) throws Exception;
 
     void publish(Long chtId) throws Exception;
+
+    void setClearCHTWinner(Long chtId) throws Exception;
     
     
 }//interface CHTService

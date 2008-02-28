@@ -43,6 +43,10 @@
         <property name="chtService" ref="chtService"/>
     </bean>
     
+    <bean id="task-sarp.cht.clear.winner" class="org.pgist.sarp.cht.ClearCHTWinnerTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
     <bean id="task-sarp.drt.clear.vote" class="org.pgist.sarp.drt.ClearVoteTask">
         <property name="drtService" ref="drtService"/>
     </bean>
@@ -65,6 +69,7 @@
               <entry><key><value>task-sarp.create.cht</value></key><ref bean="task-sarp.create.cht" /></entry>
               <entry><key><value>task-sarp.publish.cht</value></key><ref bean="task-sarp.publish.cht" /></entry>
               <entry><key><value>task-sarp.toggle.cht</value></key><ref bean="task-sarp.toggle.cht" /></entry>
+              <entry><key><value>task-sarp.cht.clear.winner</value></key><ref bean="task-sarp.cht.clear.winner" /></entry>
               <entry><key><value>task-sarp.drt.clear.vote</value></key><ref bean="task-sarp.drt.clear.vote" /></entry>
               <entry><key><value>task-sarp.toggle.drt</value></key><ref bean="task-sarp.toggle.drt" /></entry>
             </map>

@@ -259,4 +259,13 @@ public class CHTServiceImpl implements CHTService {
     }//publish()
 
 
+    @Override
+    public void setClearCHTWinner(Long chtId) throws Exception {
+        CHT cht = chtDAO.getCHTById(chtId);
+        cht.setWinner(null);
+        cht.setWinnerCategory(null);
+        chtDAO.save(cht);
+    }//setClearCHTWinner()
+
+
 }//class CHTServiceImpl

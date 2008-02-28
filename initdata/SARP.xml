@@ -293,6 +293,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.cht.clear.winner" title="Clear CHT Winner." auto="true">
+            <description>
+              <![CDATA[<small>Clear CHT Winner.</small>]]>
+            </description>
+            <taskName>task-sarp.cht.clear.winner</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.drt.vtt" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
@@ -398,7 +410,7 @@
                 <outs>
                     <var name="pmethod.cst_id"/>
                     <var name="pmethod.cst_oid"/>
-                    <var name="pmethod.exitCondition"/>
+                    <var name="pmethod.cstExitCondition"/>
                 </outs>
             </declaration>
             <sequence>
@@ -412,7 +424,7 @@
                         </outs>
                     </declaration>
                 </pgame>
-                <repeat exitCondition="pmethod.exitCondition">
+                <repeat exitCondition="pmethod.cstExitCondition">
                     <sequence>
                         <pgame name="pgame-sarp.toggle.cst">
                             <declaration>
@@ -480,10 +492,10 @@
                             <declaration>
                                 <ins>
                                     <var name="oid" ref="pmethod.cst_oid"/>
-                                    <var name="exitCondition" ref="pmethod.exitCondition"/>
+                                    <var name="exitCondition" ref="pmethod.cstExitCondition"/>
                                 </ins>
                                 <outs>
-                                    <var name="exitCondition" ref="pmethod.exitCondition" />
+                                    <var name="exitCondition" ref="pmethod.cstExitCondition" />
                                 </outs>
                             </declaration>
                         </pgame>
@@ -510,7 +522,7 @@
                 <outs>
                     <var name="pmethod.cht_id"/>
                     <var name="pmethod.cht_oid"/>
-                    <var name="pmethod.exitCondition"/>
+                    <var name="pmethod.chtExitCondition"/>
                 </outs>
             </declaration>
             <sequence>
@@ -524,7 +536,7 @@
                         </outs>
                     </declaration>
                 </pgame>
-                <repeat exitCondition="pmethod.exitCondition">
+                <repeat exitCondition="pmethod.chtExitCondition">
                     <sequence>
                         <pgame name="pgame-sarp.toggle.cht">
                             <declaration>
@@ -574,6 +586,13 @@
                                 </props>
                             </declaration>
                         </pgame>
+                        <pgame name="pgame-sarp.cht.clear.winner">
+                            <declaration>
+                                <ins>
+                                    <var name="cht_id" ref="pmethod.cht_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-sarp.drt.clear.vote">
                             <declaration>
                                 <ins>
@@ -585,10 +604,10 @@
                             <declaration>
                                 <ins>
                                     <var name="oid" ref="pmethod.cht_oid"/>
-                                    <var name="exitCondition" ref="pmethod.exitCondition"/>
+                                    <var name="exitCondition" ref="pmethod.chtExitCondition"/>
                                 </ins>
                                 <outs>
-                                    <var name="exitCondition" ref="pmethod.exitCondition" />
+                                    <var name="exitCondition" ref="pmethod.chtExitCondition" />
                                 </outs>
                             </declaration>
                         </pgame>
@@ -618,7 +637,6 @@
                 <outs>
                     <var name="meeting.bct_id"/>
                     <var name="meeting.bct_oid"/>
-                    <var name="meeting.exitCondition"/>
                 </outs>
             </declaration>
             <sequence>
@@ -707,7 +725,6 @@
                         <outs>
                             <var name="meeting.cst_id" ref="situation.cst_id"/>
                             <var name="meeting.cst_oid" ref="situation.cst_oid"/>
-                            <var name="meeting.exitCondition" ref="situation.cst_exitCondition"/>
                         </outs>
                     </declaration>
                 </meeting>
@@ -719,7 +736,6 @@
                         <outs>
                             <var name="meeting.cht_id" ref="situation.cht_id"/>
                             <var name="meeting.cht_oid" ref="situation.cht_oid"/>
-                            <var name="meeting.exitCondition" ref="situation.cst_exitCondition"/>
                         </outs>
                     </declaration>
                 </meeting>

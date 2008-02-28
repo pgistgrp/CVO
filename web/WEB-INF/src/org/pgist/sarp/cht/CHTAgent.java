@@ -10,6 +10,7 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.search.SearchHelper;
@@ -489,6 +490,43 @@ public class CHTAgent {
         
         return map;
     }//publish()
+    
+    
+    /**
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>chtId - int, a CHT instance id</li>
+     *         </ul>
+     *         
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>winnerUser - the User object</li>
+     *           <li>winnerCategory - the CategoryReference</li>
+     *         </ul>
+     */
+    public Map getWinner(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long chtId = new Long( (String) params.get("chtId") );
+            
+            CHT cht = chtService.getCHTById(chtId);
+            
+            map.put("winnerUser", cht.getWinner());
+            map.put("winnerCategory", cht.getWinnerCategory());
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getWinner()
     
     
 }//class CHTAgent
