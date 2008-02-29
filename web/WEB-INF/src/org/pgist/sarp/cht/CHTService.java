@@ -51,6 +51,8 @@ public interface CHTService {
     void publish(Long chtId) throws Exception;
 
     void setClearCHTWinner(Long chtId) throws Exception;
+
+    void moveCategoryReference(Long catRefId, int direction) throws Exception;
     
     
 }//interface CHTService

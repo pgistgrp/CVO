@@ -1145,6 +1145,47 @@ public class CSTAgent {
     
     
     /**
+     * Publish my CST category.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>cstId - int, id of the CST object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>numAgree - int</li>
+     *     <li>numVote - int</li>
+     *   </ul>
+     */
+    public Map publish(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long cstId = null;
+        try {
+            cstId = new Long((String) params.get("cstId"));
+        } catch (Exception e) {
+            map.put("reason", "cstId is required.");
+            return map;
+        }
+        
+        try {
+            cstService.publish(cstId);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//publish()
+    
+    
+    /**
      * 
      * @param params A map contains:<br>
      *         <ul>

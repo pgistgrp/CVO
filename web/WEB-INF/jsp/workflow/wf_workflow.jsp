@@ -126,8 +126,6 @@
                     <pg:show roles="moderator">
                       <pg:declared var="declaredExitCondition" context="${mActive.context}" activity="${gActive}" name="exitCondition" />
                       <pg:envVar var="exitCondition" context="${mActive.context}" activity="${gActive}" name="exitCondition" />
-                      ------- ${declaredExitCondition}
-                      ------- ${exitCondition}
                       <c:choose>
                         <c:when test="${declaredExitCondition && exitCondition == null}">
                           <input type="button" name="completedButton" disabled="true" value="Completed"/>
@@ -152,8 +150,6 @@
                     <pg:show roles="moderator">
                       <pg:declared var="declaredExitCondition" context="${mActive.context}" activity="${gActive}" name="exitCondition" />
                       <pg:envVar var="exitCondition" context="${mActive.context}" activity="${gActive}" name="exitCondition" />
-                      ------- ${declaredExitCondition}
-                      ------- ${exitCondition}
                       <c:choose>
                         <c:when test="${declaredExitCondition && exitCondition == null}">
                           <input type="button" name="completedButton" disabled="true" value="Completed"/>

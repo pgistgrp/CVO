@@ -10,7 +10,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
-import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.search.SearchHelper;
@@ -449,8 +448,6 @@ public class CHTAgent {
     }//setVotingOnComment()
     
     
-    
-    
     /**
      * Publish my CHT category.
      * 
@@ -527,6 +524,123 @@ public class CHTAgent {
         
         return map;
     }//getWinner()
+    
+    
+    /**
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>catRefId - int, a CategoryReference instance id</li>
+     *         </ul>
+     *         
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>navigation - int[4] of 0 or 1</li>
+     *         </ul>
+     */
+    public Map getNavigation(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            int[] navigation = new int[] { 0, 0, 0, 0 };
+            map.put("navigation", navigation);
+            
+            Long catRefId = null;
+            
+            try {
+                catRefId = new Long( (String) params.get("catRefId") );
+            } catch (Exception e) {
+                map.put("successful", true);
+                return map;
+            }
+            
+            CategoryReference catRef = chtService.getCategoryReferenceById(catRefId);
+            
+            if (catRef!=null) {
+                CategoryReference parent = catRef.getParents().iterator().next();
+                CategoryReference grandpa = null;
+                if (parent.getParents().size()>0) {
+                    grandpa = parent.getParents().iterator().next();
+                }
+                
+                int index = parent.getChildren().indexOf(catRef);
+                if (index>0) {
+                    //can move up
+                    navigation[0] = 1;
+                    //can move right
+                    navigation[3] = 1;
+                }
+                //can move down
+                if (index<parent.getChildren().size()-1) navigation[1] = 1;
+                //can move left
+                if (grandpa!=null) navigation[2] = 1;
+            }
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getNavigation()
+    
+    
+    /**
+     * 
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>catRefId - int, a CategoryReference instance id</li>
+     *           <li>direction - int, 0 : up, 1 : down, 2 : left, 3 : right</li>
+     *         </ul>
+     *         
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map moveCategoryReference(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long catRefId = null;
+            
+            try {
+                catRefId = new Long( (String) params.get("catRefId") );
+            } catch (Exception e) {
+                e.printStackTrace();
+                map.put("reason", "can't find the specified category");
+                return map;
+            }
+            
+            CategoryReference catRef = chtService.getCategoryReferenceById(catRefId);
+            
+            if (catRef==null) {
+                map.put("reason", "can't find the specified category");
+                return map;
+            }
+            
+            int direction = Integer.parseInt((String) params.get("direction"));
+            if (direction<0 || direction>3) {
+                map.put("reason", "unknown direction");
+                return map;
+            }
+            
+            chtService.moveCategoryReference(catRefId, direction);
+            
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//moveCategoryReference()
     
     
 }//class CHTAgent

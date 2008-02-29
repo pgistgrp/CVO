@@ -26,6 +26,10 @@
   <script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
   <script src="scripts/search.js" type="text/javascript"></script>
   
+  <!--DHTML XTree Libraries -->
+  <script src="/scripts/dhtmlXTree/dhtmlXTree.js" type="text/javascript"></script>  
+  <script src="/scripts/dhtmlXTree/dhtmlXCommon.js" type="text/javascript"></script>  
+  
   <!--DWR and Component Interfaces -->
   <script type='text/javascript' src='/dwr/engine.js'></script>
   <script type='text/javascript' src='/dwr/util.js'></script>
@@ -46,6 +50,7 @@
     var previousCategory = null;
     var currentUserId = ${user.id};
     var page = 1;
+    var navigation = [0, 0, 0, 0];
     
     <pg:show condition="${!cht.closed}">
     tinyMCE.init({
@@ -65,20 +70,72 @@
       tinyMCE.idCounter=0;
       tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
       </pg:show>
+      tree1=new dhtmlXTreeObject("cats","100%","100%",0);
+      tree1.setImagePath("/images/dhtmlXTree/");
+      tree1.loadXML("/chtTree.do?chtId=${cht.id}&userId=${user.id}");
+      tree1.chtId = chtId;
+      tree1.setOnClickHandler(treeClickHandler);
+    }
+    
+    function treeClickHandler(clickid, lastid, labeltext) {
+      currentCategory = tree1.lastSelected.parentObject;
+      tempcate = tree1.getTopLevelNode(currentCategory);
+      getTags(clickid, 0, 0, 1);
+      getNavigation(clickid);
     }
     
     function keepBreaks(string){
       return string.replace(/\n/g,"<br>");
     }
  
+    function getNavigation(clickid) {
+      CHTAgent.getNavigation({catRefId:clickid},{
+        callback:function(data){
+          if (data.successful){
+            navigation = data.navigation;
+            for (var i=0; i<4; i++) {
+              var element = $('navigator-'+i);
+              if (navigation[i]==0) {
+                element.src = '/images/gray-go-'+i+'.png';
+              } else {
+                element.src = '/images/go-'+i+'.png';
+              }
+            }
+          } else { 
+            alert(data.reason);
+          }
+        },
+        errorHandler:function(errorString, exception){
+                alert("getNavigation: "+errorString+" "+exception);
+        }
+      });
+    }
+    
+    function navigate(n) {
+      if (navigation[n]==0) return;
+      var nodeid = tree1.lastSelected.parentObject.dataId;
+      CHTAgent.moveCategoryReference({catRefId:nodeid, direction:n},{
+        callback:function(data){
+          if (data.successful){
+            //TODO: how to move nodes directly?
+            tree1.loadXML("/chtTree.do?chtId=${cht.id}&userId=${user.id}");
+          } else { 
+            alert(data.reason);
+          }
+        },
+        errorHandler:function(errorString, exception){
+                alert("getNavigation: "+errorString+" "+exception);
+        }
+      });
+    }
+    
     var relatedTagsArr = [];
     function getTags(categoryId, page, type, orphanpage){
       Util.loading(true,"Working")
-      CHTAgent.getTags({userId: ${user.id}, cstId:${cst.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
+      CHTAgent.getTags({userId: ${user.id}, chtId:${cht.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
       callback:function(data){
         if (data.successful){
           if (type == 0){      
-            
             relatedTagsArr = [];
             for(i=0; i<data.tags.length; i++){
               relatedTagsArr.push(data.tags[i].id);
@@ -86,15 +143,6 @@
             
             document.getElementById('col').innerHTML = '<h4>Tags within "' + currentCategory.label + '"</h4>';
             document.getElementById('col').innerHTML += data.html;
-            
-            if (data.tags.length > 0){
-              getConcernsByTags(0);
-              $('col').innerHTML += '<a href="javascript:getConcernsByTags(1); new Effect.Highlight(\'sidebar_concerns\'); void(0);">Show concerns with the above tags</a>';
-            }
-            
-          }
-          if (type == 1){
-            $('sidebar_tags').innerHTML = '<h4>Tags not in "' + currentCategory.label + '"</h4>' + data.html;
           }
         }else{
           alert("Getting tags not successful: " + data.reason);
@@ -210,6 +258,30 @@
       });
   };
   
+  function unselectall(mode){
+    navigation = [0, 0, 0, 0];
+    for (var i=0; i<4; i++) {
+      $('navigator-'+i).src = '/images/gray-go-'+i+'.png';
+    }
+    
+    if(mode){
+      tree1.unSelectAll();
+      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+      $('selcatetext').value = '';
+      $('theme').value = '';
+      $('themeDiv').style.display = 'none';
+      </pg:show>
+      currentCategory=null;
+      resetCols();
+      getOrphanTags();
+      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+      $('col-crud-options').style.display = "none"; 
+      $('col-option').style.display = "none";
+      </pg:show>
+    }
+    tree1.clickedOn = false;
+  }
+  
   function publish(){
       if (!confirm('Are you sure to publish your categories?')) return;
       CHTAgent.publish({chtId:chtId}, {
@@ -228,7 +300,6 @@
   </script>
   
 <style type="text/css"> 
-
    .inplaceeditor-form textarea { 
        width: 95%;
        height: 100px;
@@ -240,8 +311,16 @@
    
    button#ss{font-size:12pt;padding:5px;}
    
-   #col-left{width:100%;height:450px;}
+   #col-left{width:60%;height:450px;}
+   #col{width:38%;height:450px;}
 
+    #topMenu {
+    padding:5px;
+    background:#E1F1C5;
+    border-bottom:1px solid #C6D78C;
+    margin-bottom:5px;
+    margin-left:-3px;
+    }
 </style>
 <event:pageunload />
 </head>
@@ -270,15 +349,29 @@
         </logic:iterate>
       </select></h2>
     <div id="col-left">
+      <div id="topMenu" style="clear:both;">
+        <pg:show condition="${user.id==baseuser.id && !cht.closed}">
+        <img id="navigator-0" src="/images/gray-go-0.png" style="cursor:pointer;" onclick="navigate(0);">
+        <img id="navigator-1" src="/images/gray-go-1.png" style="cursor:pointer;" onclick="navigate(1);">
+        <img id="navigator-2" src="/images/gray-go-2.png" style="cursor:pointer;" onclick="navigate(2);">
+        <img id="navigator-3" src="/images/gray-go-3.png" style="cursor:pointer;" onclick="navigate(3);">
+        </pg:show>
+        <pg:hide condition="${user.id==baseuser.id && !cht.closed}">
+        ${user.loginname}'s categories
+        </pg:hide>
+      </div>
+      <div id="cats" style="height:300px;overflow:auto;" onclick="unselectall(!tree1.clickedOn);"></div>
     </div>
+    
+    <div id="col"></div>
     
     <div style="clear:both"></div>
     <div id="spacer">
+    </div>
     <div>
       <c:if test="${!published}">
         <input id="publishBtn" type="button" value="Publish" onclick="publish();">
       </c:if>
-    </div>
     </div>
     
     <br>

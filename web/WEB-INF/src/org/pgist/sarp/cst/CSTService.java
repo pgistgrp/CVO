@@ -62,7 +62,7 @@ public interface CSTService {
 
 	CST getCSTById(Long cstId) throws Exception;
 
-    CategoryReference setRootCategoryReference(CST cst, User user) throws Exception;
+    CategoryReference setRootCatReference(CST cst, User user) throws Exception;
 
     List<User> getOtherUsers(CST cst) throws Exception;
 
@@ -77,6 +77,8 @@ public interface CSTService {
     void deleteComment(CSTComment comment) throws Exception;
 
     void setClearCSTWinner(Long cstId) throws Exception;
+
+    void publish(Long cstId) throws Exception;
 
     
 }//interface CSTService

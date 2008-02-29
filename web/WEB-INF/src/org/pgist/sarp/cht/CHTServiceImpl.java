@@ -161,6 +161,7 @@ public class CHTServiceImpl implements CHTService {
         
         Queue<CategoryReference> queue2 = new LinkedList<CategoryReference>();
         root2 = new CategoryReference(root1);
+        root2.setCstId(cht.getId());
         queue2.offer(root2);
         
         while (!queue1.isEmpty()) {
@@ -169,6 +170,7 @@ public class CHTServiceImpl implements CHTService {
             
             for (CategoryReference one : parent1.getChildren()) {
                 CategoryReference two = new CategoryReference(one);
+                two.setCstId(cht.getId());
                 two.getParents().add(parent2);
                 parent2.getChildren().add(two);
                 chtDAO.save(two);
@@ -266,6 +268,46 @@ public class CHTServiceImpl implements CHTService {
         cht.setWinnerCategory(null);
         chtDAO.save(cht);
     }//setClearCHTWinner()
+
+
+    @Override
+    public void moveCategoryReference(Long catRefId, int direction) throws Exception {
+        CategoryReference catRef = chtDAO.getCategoryReferenceById(catRefId);
+        CategoryReference parent = catRef.getParents().iterator().next();
+        CategoryReference grandpa = null;
+        
+        if (parent.getParents().size()>0) {
+            grandpa = parent.getParents().iterator().next();
+        }
+        
+        int index = parent.getChildren().indexOf(catRef);
+        
+        switch (direction) {
+            case 0:
+                if (index==0) throw new Exception("can't move up");
+                parent.getChildren().add(index-1, parent.getChildren().remove(index));
+                break;
+            case 1:
+                if (index>=parent.getChildren().size()-1) throw new Exception("can't move down");
+                parent.getChildren().add(index+1, parent.getChildren().remove(index));
+                break;
+            case 2:
+                if (grandpa==null) throw new Exception("can't move left");
+                int n = grandpa.getChildren().indexOf(parent);
+                grandpa.getChildren().add(n+1, parent.getChildren().remove(index));
+                break;
+            case 3:
+                if (index==0) throw new Exception("can't move right");
+                parent.getChildren().get(index-1).getChildren().add(parent.getChildren().remove(index));
+                break;
+        }
+        
+        chtDAO.save(parent);
+        
+        if (grandpa!=null) {
+            chtDAO.save(grandpa);
+        }
+    }//moveCategoryReference()
 
 
 }//class CHTServiceImpl

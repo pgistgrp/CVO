@@ -555,7 +555,22 @@
           alert("setVote error:" + errorString + exception);
       }
       });
+  };
   
+  function publish(){
+      if (!confirm('Are you sure to publish your categories?')) return;
+      CSTAgent.publish({cstId:cstId}, {
+      callback:function(data){
+        if (data.successful){
+          $('publishBtn').disabled=true;
+        }else{
+          alert(data.reason);
+        }
+      },
+      errorHandler:function(errorString, exception){ 
+          alert("publish error:" + errorString + exception);
+      }
+      });
   };
   </script>
   
@@ -616,7 +631,7 @@
     button#ss{font-size:12pt;padding:5px;}
     
     #sidebar_tags_header{border:1px solid #B4D579;}
-    #col-left{width:31%;height:450px;_height:409px;}
+    #col-left{width:31%;height:450px;}
     #col {width:29%;padding-left:10px;height:450px;}
     #col-right{width:37%;height:418px;}
 
@@ -723,6 +738,11 @@
     </div>
     </pg:show>
     <div id="spacer">
+    </div>
+    <div>
+      <c:if test="${!published}">
+        <input id="publishBtn" type="button" value="Publish" onclick="publish();">
+      </c:if>
     </div>
     
     <br>

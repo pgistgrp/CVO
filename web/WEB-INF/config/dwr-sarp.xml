@@ -116,6 +116,7 @@
       <include method="getVotingOnComment"/>
       <include method="setVotingOnComment"/>
       <include method="getWinner"/>
+      <include method="publish"/>
     </create>
 
 
@@ -128,6 +129,9 @@
       <include method="setVotingOnComment"/>
       <include method="getWinner"/>
       <include method="publish"/>
+      <include method="getTags"/>
+      <include method="getNavigation"/>
+      <include method="moveCategoryReference"/>
     </create>
 
 

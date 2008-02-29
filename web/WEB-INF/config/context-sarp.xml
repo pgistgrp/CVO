@@ -110,6 +110,7 @@
 
 
     <bean id="chtAgent" class="org.pgist.sarp.cht.CHTAgent">
+        <property name="cstService" ref="cstService"/>
         <property name="chtService" ref="chtService"/>
         <property name="systemService" ref="systemService"/>
         <property name="searchHelper" ref="searchHelper"/>

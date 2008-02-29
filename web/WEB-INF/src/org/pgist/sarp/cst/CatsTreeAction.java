@@ -68,8 +68,14 @@ public class CatsTreeAction extends Action {
         
         if (user!=null) {
             CategoryReference catref = cst.getCategories().get(userId);
-            if (catref==null) {
-                catref = cstService.setRootCategoryReference(cst, user);
+            if (catref==null && WebUtils.currentUserId().equals(userId)) {
+                request.setAttribute("published", false);
+                catref = cst.getCats().get(userId);
+                if (catref==null) {
+                    catref = cstService.setRootCatReference(cst, user);
+                }
+            } else {
+                request.setAttribute("published", true);
             }
             request.setAttribute("root", catref);
         }

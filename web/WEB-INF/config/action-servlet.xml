@@ -160,6 +160,12 @@
     </bean>
     
     
+    <bean name="/chtTree" class="org.pgist.sarp.cht.CHTTreeAction">
+        <property name="chtService" ref="chtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
     <bean name="/drt" class="org.pgist.sarp.drt.DRTAction">
         <property name="drtService" ref="drtService"/>
         <property name="systemService" ref="systemService"/>

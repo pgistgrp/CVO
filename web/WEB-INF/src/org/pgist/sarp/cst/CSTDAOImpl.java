@@ -180,6 +180,10 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         CST cst = (CST) load(CST.class, cstId);
         
         CategoryReference root = cst.getCategories().get(WebUtils.currentUserId());
+        if (root==null) {
+            root = cst.getCats().get(WebUtils.currentUserId());
+        }
+        
         StringBuilder sb = new StringBuilder();
         Queue<CategoryReference> queue = new LinkedList<CategoryReference>();
         queue.add(root);
@@ -226,7 +230,14 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     	Long bctId = cst.getBct().getId();
     	
     	//get IN string
+    	boolean published = false;
         CategoryReference root = cst.getCategories().get(WebUtils.currentUserId());
+        if (root!=null) {
+            published = true;
+        } else {
+            root = cst.getCats().get(WebUtils.currentUserId());
+        }
+        
         StringBuilder sb = new StringBuilder();
         Queue<CategoryReference> queue = new LinkedList<CategoryReference>();
         queue.add(root);

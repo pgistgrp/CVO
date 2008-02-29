@@ -23,7 +23,15 @@ public class CST {
     
     private String instruction = "";
     
+    /*
+     * For published user hierarchy
+     */
     private Map<Long, CategoryReference> categories = new HashMap<Long, CategoryReference>();
+    
+    /*
+     * For unpublished user hierarchy
+     */
+    private Map<Long, CategoryReference> cats = new HashMap<Long, CategoryReference>();
     
     private Map<Long, CategoryReference> favorites = new HashMap<Long, CategoryReference>();
     
@@ -130,6 +138,24 @@ public class CST {
 	public void setFavorites(Map<Long, CategoryReference> favorites) {
 		this.favorites = favorites;
 	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="sarp_cst_user_cat_map"
+     * @hibernate.collection-key column="cst_id"
+     * @hibernate.collection-index column="user_id" type="long"
+     * @hibernate.collection-many-to-many column="root_catref_id" class="org.pgist.sarp.cst.CategoryReference"
+     */
+    public Map<Long, CategoryReference> getCats() {
+        return cats;
+    }
+
+
+    public void setCats(Map<Long, CategoryReference> cats) {
+        this.cats = cats;
+    }
 
 
     /**

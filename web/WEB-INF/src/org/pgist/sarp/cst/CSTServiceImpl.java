@@ -85,12 +85,19 @@ public class CSTServiceImpl implements CSTService {
         CST cst = cstDAO.getCSTById(cstId);
         if (cst==null) throw new Exception("no such cst.");
         
+        boolean published = false;
+        
         CategoryReference parent = null;
         if (parentId==null || parentId<1) {
             /*
              * Use root category as the parent category
              */
             parent = cst.getCategories().get(WebUtils.currentUserId());
+            if (parent!=null) {
+                published = true;
+            } else {
+                parent = cst.getCats().get(WebUtils.currentUserId());
+            }
         } else {
             /*
              * Get the parent category
@@ -101,6 +108,11 @@ public class CSTServiceImpl implements CSTService {
              * If parent category not exists, still use the root category
              */
             if (parent==null) parent = cst.getCategories().get(WebUtils.currentUserId());
+            if (parent!=null) {
+                published = true;
+            } else { 
+                parent = cst.getCats().get(WebUtils.currentUserId());
+            }
         }
         
         /*
@@ -122,7 +134,11 @@ public class CSTServiceImpl implements CSTService {
         }
         
         if (root!=null) {
-            if (!(root.getId().equals(cst.getCategories().get(WebUtils.currentUserId()).getId()))) {
+            CategoryReference catRef = cst.getCategories().get(WebUtils.currentUserId());
+            if (catRef==null) {
+                catRef = cst.getCats().get(WebUtils.currentUserId());
+            }
+            if (!(root.getId().equals(catRef.getId()))) {
                 categoryReference = null;
             }
         }
@@ -304,6 +320,9 @@ public class CSTServiceImpl implements CSTService {
              * Use root category as the parent category
              */
             parent0 = cst.getCategories().get(WebUtils.currentUserId());
+            if (parent0==null) {
+                parent0 = cst.getCats().get(WebUtils.currentUserId());
+            }
         } else {
             /*
              * Get the parent category
@@ -323,6 +342,9 @@ public class CSTServiceImpl implements CSTService {
              * Use root category as the parent category
              */
             parent1 = cst.getCategories().get(WebUtils.currentUserId());
+            if (parent1==null) {
+                parent1 = cst.getCats().get(WebUtils.currentUserId());
+            }
         } else {
             /*
              * Get the parent category
@@ -603,17 +625,16 @@ public class CSTServiceImpl implements CSTService {
 
 
     @Override
-    public CategoryReference setRootCategoryReference(CST cst, User user) throws Exception {
+    public CategoryReference setRootCatReference(CST cst, User user) throws Exception {
         CategoryReference catref = new CategoryReference();
         
         catref.setCstId(cst.getId());
         cstDAO.save(catref);
         
-        cst.getCategories().put(user.getId(), catref);
-        
+        cst.getCats().put(user.getId(), catref);
         
         return catref;
-    }//setRootCategoryReference()
+    }//setRootCatReference()
 
 
     @Override
@@ -685,6 +706,16 @@ public class CSTServiceImpl implements CSTService {
         cst.setWinnerCategory(null);
         cstDAO.save(cst);
     }//setClearCSTWinner()
+
+
+    @Override
+    public void publish(Long cstId) throws Exception {
+        CST cst = cstDAO.getCSTById(cstId);
+        CategoryReference root = cst.getCats().get(WebUtils.currentUserId());
+        cst.getCats().put(WebUtils.currentUserId(), null);
+        cst.getCategories().put(WebUtils.currentUserId(), root);
+        cstDAO.save(cst);
+    }//publish()
 
 
 }//class CSTServiceImpl

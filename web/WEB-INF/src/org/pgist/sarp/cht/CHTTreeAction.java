@@ -1,11 +1,10 @@
-package org.pgist.sarp.cst;
-
-import java.util.List;
+package org.pgist.sarp.cht;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.system.SystemService;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
@@ -16,25 +15,25 @@ import org.pgist.util.WebUtils;
  * @author kenny
  *
  */
-public class CSTViewAction extends Action {
+public class CHTTreeAction extends Action {
 
     
-    private CSTService cstService;
+    private CHTService chtService;
     
     private SystemService systemService;
     
     
-    public CSTViewAction() {
+    public CHTTreeAction() {
     }
     
     
-    public void setCstService(CSTService cstService) {
-        this.cstService = cstService;
+    public void setChtService(CHTService chtService) {
+        this.chtService = chtService;
     }
 
 
-    public void setSystemService(SystemService systemService) {
-        this.systemService = systemService;
+    public SystemService getSystemService() {
+        return systemService;
     }
 
 
@@ -43,36 +42,38 @@ public class CSTViewAction extends Action {
      */
     
     
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
+    }
+
+
     public ActionForward execute(
             ActionMapping mapping,
             ActionForm form,
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
-    ) throws Exception {
-        CST cst = cstService.getCSTById(new Long(request.getParameter("cstId")));
+    ) throws java.lang.Exception {
+        CHT cht = chtService.getCHTById(new Long(request.getParameter("chtId")));
         
         Long userId = null;
         try {
-            String str = request.getParameter("userId");
-            if (str==null || str.trim().length()==0) {
-                userId = WebUtils.currentUserId();
-            } else {
-                userId = new Long(str);
-            }
+        	userId = new Long(request.getParameter("userId"));
         } catch (Exception e) {
-            throw new Exception("can not find the given user");
+		}
+        
+        if (userId==null) {
+            userId = WebUtils.currentUserId();
         }
         
         User user = systemService.getUserById(userId);
-        if (user==null) {
-            throw new Exception("can not find the given user");
-        } else {
-            CategoryReference catref = cst.getCategories().get(userId);
+        
+        if (user!=null) {
+            CategoryReference catref = cht.getCategories().get(userId);
             if (catref==null && WebUtils.currentUserId().equals(userId)) {
                 request.setAttribute("published", false);
-                catref = cst.getCats().get(userId);
+                catref = cht.getCats().get(userId);
                 if (catref==null) {
-                    catref = cstService.setRootCatReference(cst, user);
+                    catref = chtService.setRootCatReference(cht, user);
                 }
             } else {
                 request.setAttribute("published", true);
@@ -80,17 +81,10 @@ public class CSTViewAction extends Action {
             request.setAttribute("root", catref);
         }
         
-        List<User> list = cstService.getOtherUsers(cst);
-        
-        request.setAttribute("user", user);
-        request.setAttribute("bct", cst.getBct());
-        request.setAttribute("cst", cst);
-        request.setAttribute("others", list);
-        
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");
     }//execute()
-    
-    
-}//class CSTViewAction
+
+
+}//class CHTTreeAction
