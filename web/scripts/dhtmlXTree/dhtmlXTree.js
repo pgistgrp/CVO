@@ -330,6 +330,10 @@ dhtmlXTreeObject.prototype.insertNewItemUnderSelected=function(labeltext,dataId)
 	this._openItem(newitem);
 };
 
+dhtmlXTreeObject.prototype.insertNewItemAtBottom=function(labeltext,dataId){
+  var newitem = this.insertNewItem(0,dataId,labeltext);
+	this._openItem(newitem);
+};
 
 //recursively build the node (tree) into dhtmlObject
 dhtmlXTreeObject.prototype._parseXMLTree=function(dhtmlObject,node,parentId,level){

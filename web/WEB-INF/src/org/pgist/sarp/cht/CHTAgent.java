@@ -163,7 +163,7 @@ public class CHTAgent {
             request.setAttribute("tags", tags);
             request.setAttribute("setting", setting);
             
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cst/cstTags0.jsp"));
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cht/chtTags0.jsp"));
             map.put("catRef", ref);
             map.put("successful", true);
         } catch(Exception e) {
@@ -601,9 +601,10 @@ public class CHTAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>html - string</li>
      *         </ul>
      */
-    public Map moveCategoryReference(Map params) {
+    public Map moveCategoryReference(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -631,7 +632,8 @@ public class CHTAgent {
                 return map;
             }
             
-            chtService.moveCategoryReference(catRefId, direction);
+            request.setAttribute("root", chtService.moveCategoryReference(catRefId, direction));
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cht/chtCatsTable.jsp"));
             
             map.put("successful", true);
         } catch(Exception e) {

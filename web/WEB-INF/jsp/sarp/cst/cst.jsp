@@ -77,11 +77,6 @@
       getOrphanTags();
       tree1=new dhtmlXTreeObject("cats","100%","100%",0);
       tree1.setImagePath("/images/dhtmlXTree/");
-      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-      tree1.setDragHandler(moveNodeHandler);
-      tree1.enableDragAndDrop(true);
-      tree1.setDragCopyHandler(copyNodeHandler);
-      </pg:show>
       tree1.enableCheckBoxes(false);
       tree1.enableThreeStateCheckboxes(true);
       tree1.loadXML("/catsTree.do?cstId=${cst.id}&userId=${user.id}");
@@ -187,14 +182,14 @@
     function addcategory(){
       if(document.getElementById("newcatetext").value != ""){
         var catname = document.getElementById("newcatetext").value;
-        var parentId = (tree1.lastSelected) ? tree1.lastSelected.parentObject.dataId : 0;
+        var parentId = 0;
         Util.loading(true,"Working9");
         CSTAgent.addCategory({cstId:${cst.id}, parentId:parentId, name:catname},{
           callback:function(data){
             if (data.successful){
-              tree1.insertNewItemUnderSelected(document.getElementById("newcatetext").value, data.newId);
+              tree1.insertNewItemAtBottom(document.getElementById("newcatetext").value, data.newId);
               document.getElementById("newcatetext").value = "";
-              top.location.reload();
+              //top.location.reload();
             } else {
               alert(data.reason);
             }
@@ -275,74 +270,6 @@
             alert("getTheme: "+errorString+" "+exception);
           }
         });
-    }
-    
-    function moveNodeHandler(sourceO, targetO){
-      params = {cstId: cstId, categoryId: sourceO.dataId};
-      if(sourceO.parentObject.id != 0)
-        params.parent0Id = sourceO.parentObject.dataId;      
-      if(targetO.id != 0)
-        params.parent1Id = targetO.dataId;
-        
-      CSTAgent.moveCategory(params,{
-        callback:function(data){
-          if (data.successful){
-            var newID=tree1._moveNode(sourceO,targetO);
-            tree1.selectItem(newID);
-            return true;
-          }
-          else{ 
-            alert(data.reason);
-            return false;
-          }
-        },
-        errorHandler:function(errorString, exception){
-                alert("moveNodeHandler: "+errorString+" "+exception);
-        }
-      });
-    }
-    
-    function copyNodeHandler(sourceO, targetO){
-      CSTAgent.copyCategory({bctId: bctId, categoryId: sourceO.dataId, parentId: targetO.dataId},{
-        callback:function(data){
-          if (data.successful){
-            var newID=tree1._copyNodeTo(sourceO,targetO);
-            tree1.selectItem(newID);
-            return true;
-          }
-          else return false;
-        },
-        errorHandler:function(errorString, exception){
-                alert("copyNodeHandler: "+errorString+" "+exception);
-        }
-      });
-    }
-    
-    function duplicateSelectedCategory(){
-      if(tree1.lastSelected!=null){
-        var obj1 = tree1.lastSelected.parentObject;
-        var params = {bctId:bctId,categoryId:obj1.dataId, name:"Similar to "+ obj1.label};
-        if(obj1.parentObject.Id!=0)
-          params.parentId = obj1.parentObject.dataId;
-        CSTAgent.duplicateCategory(params, 
-        {callback:function(data){
-          if(data.successful){
-            var newitem = tree1.insertNewItem(obj1.parentObject.id,data.newId,"Similar to "+ obj1.label);
-            if ($('col-crud-options').style.display == 'none'){
-              new Effect.SlideDown('col-crud-options',{duration: .5}); 
-            }else{
-              new Effect.Highlight('col-crud-options');
-            }
-            new Effect.Fade('col-option');
-            location.href="#colsTop";
-          }else
-            alert(data.reason);
-        },
-        errorHandler:function(errorString, exception){
-                alert(errorString+" "+exception);
-        }
-      });
-      }
     }
     </pg:show>
     

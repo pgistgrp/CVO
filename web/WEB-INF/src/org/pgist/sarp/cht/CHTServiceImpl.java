@@ -2,6 +2,7 @@ package org.pgist.sarp.cht;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -271,7 +272,7 @@ public class CHTServiceImpl implements CHTService {
 
 
     @Override
-    public void moveCategoryReference(Long catRefId, int direction) throws Exception {
+    public CategoryReference moveCategoryReference(Long catRefId, int direction) throws Exception {
         CategoryReference catRef = chtDAO.getCategoryReferenceById(catRefId);
         CategoryReference parent = catRef.getParents().iterator().next();
         CategoryReference grandpa = null;
@@ -304,9 +305,16 @@ public class CHTServiceImpl implements CHTService {
         
         chtDAO.save(parent);
         
-        if (grandpa!=null) {
-            chtDAO.save(grandpa);
+        while (catRef.getParents().size()>0) {
+            Iterator<CategoryReference> iter = catRef.getParents().iterator();
+            if (iter.hasNext()) {
+                catRef = catRef.getParents().iterator().next();
+            } else {
+                break;
+            }
         }
+        
+        return catRef;
     }//moveCategoryReference()
 
 

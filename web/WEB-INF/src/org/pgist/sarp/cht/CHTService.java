@@ -52,7 +52,7 @@ public interface CHTService {
 
     void setClearCHTWinner(Long chtId) throws Exception;
 
-    void moveCategoryReference(Long catRefId, int direction) throws Exception;
+    CategoryReference moveCategoryReference(Long catRefId, int direction) throws Exception;
     
     
 }//interface CHTService

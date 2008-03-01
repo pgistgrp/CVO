@@ -116,6 +116,15 @@ public class CSTServiceImpl implements CSTService {
         }
         
         /*
+         * check duplication
+         */
+        for (CategoryReference catRef : parent.getChildren()) {
+            if (name.equals(catRef.getCategory().getName())) {
+                throw new Exception("category "+name+" exists.");
+            }
+        }
+        
+        /*
          * check if the parent category is in the specified bct
          */
         if (!parent.getCstId().equals(cst.getId())) throw new Exception("no such category reference in this cst.");

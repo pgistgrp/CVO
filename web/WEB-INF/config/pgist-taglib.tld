@@ -667,5 +667,28 @@
   </tag>
   
 
+  <tag>
+    <name>dfIterator</name>
+    <tag-class>org.pgist.tags.DFIteratorTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Depth first iterator</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>level</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>root</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 
