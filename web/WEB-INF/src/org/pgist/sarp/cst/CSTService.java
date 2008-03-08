@@ -80,5 +80,7 @@ public interface CSTService {
 
     void publish(Long cstId) throws Exception;
 
+    void setClusteredCategory(Long cstId) throws Exception;
+
     
 }//interface CSTService

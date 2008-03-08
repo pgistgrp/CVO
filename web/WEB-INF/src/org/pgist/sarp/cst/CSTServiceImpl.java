@@ -3,8 +3,12 @@ package org.pgist.sarp.cst;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.pgist.sarp.bct.BCT;
 import org.pgist.sarp.bct.BCTDAO;
@@ -636,7 +640,6 @@ public class CSTServiceImpl implements CSTService {
     @Override
     public CategoryReference setRootCatReference(CST cst, User user) throws Exception {
         CategoryReference catref = new CategoryReference();
-        
         catref.setCstId(cst.getId());
         cstDAO.save(catref);
         
@@ -727,4 +730,82 @@ public class CSTServiceImpl implements CSTService {
     }//publish()
 
 
-}//class CSTServiceImpl
+    @Override
+    public void setClusteredCategory(Long cstId) throws Exception {
+        CST cst = cstDAO.getCSTById(cstId);
+        
+        Map<String, CategoryReference> catsMap = new HashMap<String, CategoryReference>();
+        for (Map.Entry<Long, CategoryReference> entry : cst.getCategories().entrySet()) {
+            Long userId = entry.getKey();
+            User user = systemDAO.getUserById(userId);
+            CategoryReference one = entry.getValue();
+            
+            for (CategoryReference two : one.getChildren()) {
+                CategoryReference three = new CategoryReference(two);
+                three.setUser(user);
+                
+                CategoryReference catRef = catsMap.get(two.getCategory().getName());
+                if (catRef==null) {
+                    catsMap.put(three.getCategory().getName(), three);
+                } else {
+                    if (catRef.getChildren().size()>0) {
+                        catRef.getChildren().add(three);
+                    } else {
+                        CategoryReference root = new CategoryReference(catRef);
+                        
+                        root.getChildren().add(catRef);
+                        root.getChildren().add(three);
+                        catsMap.remove(three.getCategory().getName());
+                        catsMap.put(root.getCategory().getName(), root);
+                    }
+                }
+            } //for two
+        } //for entry
+        
+        User moderator = systemDAO.getAdmin();
+        
+        //set frequency
+        for (CategoryReference root: catsMap.values()) {
+            if (root.getChildren().size()>0) {
+                CategoryReference moderatored = new CategoryReference(root);
+                moderatored.setUser(moderator);
+                
+                //merge all tags
+                Set<TagReference> set = moderatored.getTags();
+                for (CategoryReference one : root.getChildren()) {
+                    set.addAll(one.getTags());
+                } //for one
+                
+                root.getChildren().add(moderatored);
+                root.setFrequency(root.getChildren().size());
+            } else {
+                root.setFrequency(1);
+            }
+        } //for entry
+        
+        CategoryReference winner = new CategoryReference();
+        winner.setCstId(cstId);
+        List<CategoryReference> children = winner.getChildren();
+        
+        //persist
+        for (CategoryReference one : catsMap.values()) {
+            if (one.getChildren().size()>0) {
+                for (CategoryReference two : one.getChildren()) {
+                    cstDAO.save(two);
+                } //for two
+            }
+            
+            cstDAO.save(one);
+            
+            children.add(one);
+        } //for one
+        
+        cst.setWinner(moderator);
+        cst.setWinnerCategory(winner);
+        
+        cstDAO.save(winner);
+        cstDAO.update(cst);
+    } //setClusteredCategory()
+
+
+} //class CSTServiceImpl

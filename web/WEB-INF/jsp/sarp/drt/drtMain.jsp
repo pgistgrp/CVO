@@ -195,7 +195,7 @@
                 alert("setExitCondition error:" + errorString + exception);
             }
             });
-        },
+        }
     }
 </script>
 

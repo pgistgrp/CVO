@@ -342,6 +342,12 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
 		query.setLong(0, oid);
 		query.executeUpdate();
 	}//deleteVote()
+
+
+    @Override
+    public User getAdmin() throws Exception {
+        return (User) getHibernateTemplate().find("from User where loginname='admin'").get(0);
+    }//getAdmin()
     
     
 }//class SystemDAOImpl

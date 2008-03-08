@@ -15,7 +15,11 @@ public interface BaseDAO {
     
     void save(Object object) throws Exception;
     
+    void update(Object object) throws Exception;
+    
     User getUserById(Long id) throws Exception;
     
+    void flush() throws Exception;
+
     
 }//interface BaseDAO

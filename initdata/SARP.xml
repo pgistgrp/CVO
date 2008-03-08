@@ -162,6 +162,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.cluster.categories" title="Cluster categories" auto="true">
+            <description>
+              <![CDATA[Cluster categories]]>
+            </description>
+            <taskName>task-sarp.cluster.categories</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.drt.cst" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
@@ -426,6 +438,13 @@
                 </pgame>
                 <repeat exitCondition="pmethod.cstExitCondition">
                     <sequence>
+                        <pgame name="pgame-sarp.cst.clear.winner">
+                            <declaration>
+                                <ins>
+                                    <var name="cst_id" ref="pmethod.cst_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-sarp.toggle.cst">
                             <declaration>
                                 <ins>
@@ -464,6 +483,13 @@
                                 </outs>
                             </declaration>
                         </pgame>
+                        <pgame name="pgame-sarp.cluster.categories">
+                            <declaration>
+                                <ins>
+                                    <var name="cst_id" ref="pmethod.cst_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
@@ -472,13 +498,6 @@
                                 <props>
                                     <property name="action" value="open" />
                                 </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.cst.clear.winner">
-                            <declaration>
-                                <ins>
-                                    <var name="cst_id" ref="pmethod.cst_id"/>
-                                </ins>
                             </declaration>
                         </pgame>
                         <pgame name="pgame-sarp.drt.clear.vote">

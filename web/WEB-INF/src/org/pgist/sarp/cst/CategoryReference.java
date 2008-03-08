@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import org.pgist.model.Node;
 import org.pgist.sarp.bct.TagReferenceComparator;
 import org.pgist.tagging.Category;
+import org.pgist.users.User;
 
 
 /**
@@ -36,7 +37,9 @@ public class CategoryReference implements Serializable, Node {
     
     protected SortedSet tags = new TreeSet(new TagReferenceComparator());
     
-    protected int indent = 0;
+    protected User user;
+    
+    protected int frequency;
     
     
     public CategoryReference() {
@@ -48,7 +51,6 @@ public class CategoryReference implements Serializable, Node {
         setCstId(sample.getCstId());
         setCategory(sample.getCategory());
         setTheme(sample.getTheme());
-        setIndent(sample.getIndent());
         getTags().addAll(sample.getTags());
     }
 
@@ -167,18 +169,32 @@ public class CategoryReference implements Serializable, Node {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.many-to-one column="user_id" lazy="true"
      */
-    public int getIndent() {
-        return indent;
+    public User getUser() {
+        return user;
     }
 
 
-    public void setIndent(int indent) {
-        this.indent = indent;
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public int getFrequency() {
+        return frequency;
     }
 
 
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+    
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -196,6 +212,10 @@ public class CategoryReference implements Serializable, Node {
         if (one!=null) return one.toString();
         else return null;
     }
+
+
+
+
     
     
 }//class CategoryReference

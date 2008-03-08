@@ -97,6 +97,9 @@ public interface SystemDAO extends BaseDAO {
 
 
 	void deleteVote(Long oid) throws Exception;
+
+
+    User getAdmin() throws Exception;
     
     
 }//interface SystemDAO

@@ -8,6 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.taglibs.standard.tag.common.core.Util;
 import org.pgist.model.Node;
 
 
@@ -60,7 +61,7 @@ public class TreeXMLTag extends TagSupport {
 
 
     private void processNode(JspWriter writer, Node node) throws IOException {
-        writer.println("<item text=\""+node.getCaption()+"\" id=\""+node.getId()+"\" open=\"1\">");
+        writer.println("<item text=\""+Util.escapeXml(node.getCaption())+"\" id=\""+Util.escapeXml(""+node.getId())+"\" open=\"1\">");
         
         for (Node node1 : (Collection<Node>) node.getChildren()) {
             processNode(writer, node1);

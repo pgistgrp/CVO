@@ -53,6 +53,7 @@
         }
         this.selectedId = id;
         this.currentCategory = $('col-'+this.selectedId).innerHTML;
+        <pg:show condition="${user.id==baseuser.id && !cht.closed}">
         var catRefId = this.selectedId;
         getTags(catRefId, 0, 0, 1);
         CHTAgent.getNavigation({catRefId:catRefId},{
@@ -76,7 +77,12 @@
             alert("getNavigation: "+errorString+" "+exception);
           }
         });
+        </pg:show>
+        <pg:hide condition="${user.id==baseuser.id && !cht.closed}">
+        $('row-'+this.selectedId).className = "catSelected";
+        </pg:hide>
       },
+      <pg:show condition="${user.id==baseuser.id && !cht.closed}">
       navigate : function(n) {
         if (navigation[n]==0) return;
         if (this.selectedId==null) return;
@@ -95,6 +101,7 @@
           }
         });
       }
+      </pg:show>
     };
     
     <pg:show condition="${!cht.closed}">
