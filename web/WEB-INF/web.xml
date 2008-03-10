@@ -362,47 +362,47 @@
         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
         <init-param>
             <param-name>config</param-name>
-            <param-value>WEB-INF/config/dwr.xml</param-value>
+            <param-value>/WEB-INF/config/dwr.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-webservice</param-name>
-            <param-value>WEB-INF/config/dwr-webservice.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-webservice.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-cvo</param-name>
-            <param-value>WEB-INF/config/dwr-cvo.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-cvo.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-criteria</param-name>
-            <param-value>WEB-INF/config/dwr-criteria.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-criteria.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-report</param-name>
-        <param-value>WEB-INF/config/dwr-report.xml</param-value>
+        <param-value>/WEB-INF/config/dwr-report.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-package</param-name>
-            <param-value>WEB-INF/config/dwr-package.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-package.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-funding</param-name>
-            <param-value>WEB-INF/config/dwr-funding.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-funding.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-projects</param-name>
-            <param-value>WEB-INF/config/dwr-projects.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-projects.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-lm</param-name>
-            <param-value>WEB-INF/config/dwr-lm.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-lm.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-workflow</param-name>
-            <param-value>WEB-INF/config/dwr-workflow.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-workflow.xml</param-value>
         </init-param>
         <init-param>
         <param-name>config-other</param-name>
-            <param-value>WEB-INF/config/dwr-other.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-other.xml</param-value>
         </init-param>
         <init-param>
             <param-name>debug</param-name>
