@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
 import org.pgist.search.SearchHelper;
 import org.pgist.tagging.TagAnalyzer;
+import org.pgist.util.JythonAPI;
 import org.pgist.util.WebUtils;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
@@ -85,6 +86,17 @@ public class PgistListener implements ServletContextListener {
             try {
                 TermAnalyzer termAnalyzer = (TermAnalyzer) context.getBean("termAnalyzer");
                 termAnalyzer.reload();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            
+            /*
+             * Config Jython API
+             */
+            
+            try {
+                JythonAPI jythonAPI = (JythonAPI) context.getBean("jythonAPI");
+                jythonAPI.setContextPath(contextPath);
             } catch(Exception e) {
                 e.printStackTrace();
             }

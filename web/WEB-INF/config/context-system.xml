@@ -138,5 +138,8 @@
     </bean>
     
     
+    <bean id="jythonAPI" class="org.pgist.util.JythonAPI" />
+    
+    
 </beans>
 

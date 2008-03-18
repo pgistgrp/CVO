@@ -34,6 +34,15 @@ public class Tag implements Serializable {
     private int count = 0;
     
     
+    public Tag() {
+    }
+    
+    
+    public Tag(String name) {
+        this.name = name;
+    }
+    
+    
     /**
      * @return
      * @hibernate.id generator-class="native"

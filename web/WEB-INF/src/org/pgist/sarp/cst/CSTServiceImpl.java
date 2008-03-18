@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +16,14 @@ import org.pgist.sarp.drt.InfoObject;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagDAO;
 import org.pgist.users.User;
+import org.pgist.util.JythonAPI;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
 
 
 /**
@@ -38,6 +41,8 @@ public class CSTServiceImpl implements CSTService {
     private TagDAO tagDAO = null;
     
     private SystemDAO systemDAO = null;
+    
+    private JythonAPI jythonAPI = null;
 
     
     public void setCstDAO(CSTDAO cstDAO) {
@@ -60,6 +65,11 @@ public class CSTServiceImpl implements CSTService {
     }
     
     
+    public void setJythonAPI(JythonAPI jythonAPI) {
+        this.jythonAPI = jythonAPI;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -177,7 +187,7 @@ public class CSTServiceImpl implements CSTService {
             /*
              * create the new category reference
              */
-            categoryReference = new CategoryReference();
+            categoryReference = new CategoryReference("root");
             categoryReference.setCategory(category);
             categoryReference.setCstId(cstId);
             
@@ -305,7 +315,7 @@ public class CSTServiceImpl implements CSTService {
         }
         
         if (newCat==null) {
-            newCat = new CategoryReference();
+            newCat = new CategoryReference("root");
             newCat.setCategory(category);
             newCat.getTags().addAll(categoryReference.getTags());
             cstDAO.save(newCat);
@@ -639,7 +649,7 @@ public class CSTServiceImpl implements CSTService {
 
     @Override
     public CategoryReference setRootCatReference(CST cst, User user) throws Exception {
-        CategoryReference catref = new CategoryReference();
+        CategoryReference catref = new CategoryReference("root");
         catref.setCstId(cst.getId());
         cstDAO.save(catref);
         
@@ -731,80 +741,61 @@ public class CSTServiceImpl implements CSTService {
 
 
     @Override
-    public void setClusteredCategory(Long cstId) throws Exception {
-        CST cst = cstDAO.getCSTById(cstId);
+    public void setClusteredCategory(final Long cstId) throws Exception {
+        final CST cst = cstDAO.getCSTById(cstId);
         
-        Map<String, CategoryReference> catsMap = new HashMap<String, CategoryReference>();
+        class CategoryFactory {
+            private CategoryReference root;
+            public CategoryReference createCategoryReference(String name) {
+                CategoryReference catRef = new CategoryReference(name);
+                catRef.setCstId(cstId);
+                return catRef;
+            }
+            public TagReference createTagReference(String name) {
+                TagReference tagRef = new TagReference(name);
+                tagRef.setBctId(cst.getBct().getId());
+                return tagRef;
+            }
+            public void setResult(CategoryReference root) {
+                this.root = root;
+            }
+            public CategoryReference getRoot() {
+                return root;
+            }
+        };
+        
+        CategoryFactory factory = new CategoryFactory();
+        
+        List<Long> userIdList = new ArrayList<Long>();
+        List<CategoryReference> catList = new ArrayList<CategoryReference>();
         for (Map.Entry<Long, CategoryReference> entry : cst.getCategories().entrySet()) {
-            Long userId = entry.getKey();
-            User user = systemDAO.getUserById(userId);
-            CategoryReference one = entry.getValue();
-            
-            for (CategoryReference two : one.getChildren()) {
-                CategoryReference three = new CategoryReference(two);
-                three.setUser(user);
-                
-                CategoryReference catRef = catsMap.get(two.getCategory().getName());
-                if (catRef==null) {
-                    catsMap.put(three.getCategory().getName(), three);
-                } else {
-                    if (catRef.getChildren().size()>0) {
-                        catRef.getChildren().add(three);
-                    } else {
-                        CategoryReference root = new CategoryReference(catRef);
-                        
-                        root.getChildren().add(catRef);
-                        root.getChildren().add(three);
-                        catsMap.remove(three.getCategory().getName());
-                        catsMap.put(root.getCategory().getName(), root);
-                    }
-                }
-            } //for two
-        } //for entry
+            userIdList.add(entry.getKey());
+            catList.add(entry.getValue());
+        }
+        
+        try {
+            PythonInterpreter interpreter = jythonAPI.getInterpreter();
+            interpreter.set("userIdList", userIdList);
+            interpreter.set("catList", catList);
+            interpreter.set("factory", factory);
+            jythonAPI.run(interpreter, "TCT_Cluster.py");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        
+        CategoryReference winner = factory.getRoot();
         
         User moderator = systemDAO.getAdmin();
-        
-        //set frequency
-        for (CategoryReference root: catsMap.values()) {
-            if (root.getChildren().size()>0) {
-                CategoryReference moderatored = new CategoryReference(root);
-                moderatored.setUser(moderator);
-                
-                //merge all tags
-                Set<TagReference> set = moderatored.getTags();
-                for (CategoryReference one : root.getChildren()) {
-                    set.addAll(one.getTags());
-                } //for one
-                
-                root.getChildren().add(moderatored);
-                root.setFrequency(root.getChildren().size());
-            } else {
-                root.setFrequency(1);
-            }
-        } //for entry
-        
-        CategoryReference winner = new CategoryReference();
         winner.setCstId(cstId);
         List<CategoryReference> children = winner.getChildren();
-        
-        //persist
-        for (CategoryReference one : catsMap.values()) {
-            if (one.getChildren().size()>0) {
-                for (CategoryReference two : one.getChildren()) {
-                    cstDAO.save(two);
-                } //for two
-            }
-            
-            cstDAO.save(one);
-            
-            children.add(one);
-        } //for one
         
         cst.setWinner(moderator);
         cst.setWinnerCategory(winner);
         
+        //persist
         cstDAO.save(winner);
-        cstDAO.update(cst);
+        cstDAO.save(cst);
     } //setClusteredCategory()
 
 

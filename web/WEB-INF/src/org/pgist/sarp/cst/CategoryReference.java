@@ -46,6 +46,11 @@ public class CategoryReference implements Serializable, Node {
     }
 
 
+    public CategoryReference(String name) {
+        this.category = new Category(name);
+    }
+    
+    
     public CategoryReference(CategoryReference sample) {
         //shallow copy
         setCstId(sample.getCstId());
@@ -105,7 +110,7 @@ public class CategoryReference implements Serializable, Node {
     /**
      * @return
      * 
-     * @hibernate.list lazy="true" table="sarp_cst_catref_catref_link"
+     * @hibernate.list lazy="true" cascade="all" table="sarp_cst_catref_catref_link"
      * @hibernate.collection-key column="child_id"
      * @hibernate.collection-index column="child_order" default="0"
      * @hibernate.collection-many-to-many column="parent_id" class="org.pgist.sarp.cst.CategoryReference"
@@ -123,7 +128,7 @@ public class CategoryReference implements Serializable, Node {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="category_id" lazy="true"
+     * @hibernate.many-to-one cascade="all" column="category_id" lazy="true"
      */
     public Category getCategory() {
         return category;
@@ -152,7 +157,7 @@ public class CategoryReference implements Serializable, Node {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" table="pgist_cst_catref_tagref_link" order-by="tagref_id" sort="org.pgist.sarp.bct.TagReferenceComparator"
+     * @hibernate.set lazy="true" cascade="all" table="pgist_cst_catref_tagref_link" order-by="tagref_id" sort="org.pgist.sarp.bct.TagReferenceComparator"
      * @hibernate.collection-key column="catref_id"
      * @hibernate.collection-many-to-many column="tagref_id" class="org.pgist.sarp.bct.TagReference"
      */

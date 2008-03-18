@@ -2,6 +2,7 @@ package org.pgist.sarp.bct;
 
 import java.io.Serializable;
 
+import org.pgist.tagging.Category;
 import org.pgist.tagging.Tag;
 
 
@@ -21,6 +22,15 @@ public class TagReference implements Serializable {
     protected int times;
     
     protected Long bctId;
+    
+    
+    public TagReference() {
+    }
+    
+    
+    public TagReference(String name) {
+        this.tag = new Tag(name);
+    }
     
     
     /**
@@ -93,6 +103,13 @@ public class TagReference implements Serializable {
             //invalid state
             return 0;
         }
+    }
+
+
+    public String toString() {
+        Tag one = getTag();
+        if (one!=null) return one.toString();
+        else return null;
     }
 
 
