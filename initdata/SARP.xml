@@ -271,6 +271,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.cluster.cht.categories" title="Cluster CHT categories" auto="true">
+            <description>
+              <![CDATA[Cluster CHT categories]]>
+            </description>
+            <taskName>task-sarp.cluster.cht.categories</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.drt.cht" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
@@ -317,6 +329,69 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.create.vtt" title="Create VTT." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of VTT</small>]]>
+            </description>
+            <taskName>task-sarp.create.vtt</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+                <outs>
+                    <var name="vtt_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="VTT" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.vtt" title="Category Hierarchy tool" auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
+            </description>
+            <actionName>action-sarp.vtt</actionName>
+            <declaration>
+                <ins>
+                    <var name="vttId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.publish.vtt" title="Publish VTT." auto="true">
+            <description>
+              <![CDATA[Publish vtt.]]>
+            </description>
+            <taskName>task-sarp.publish.vtt</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                    <var name="oid"/>
+                </ins>
+                <outs>
+                    <var name="oid"/>
+                </outs>
+                <props>
+                    <property name="title" value="Discuss and Review for VTT" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cluster.vtt.categories" title="Cluster VTT categories" auto="true">
+            <description>
+              <![CDATA[Cluster VTT categories]]>
+            </description>
+            <taskName>task-sarp.cluster.vtt.categories</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.drt.vtt" title="Discuss and Review Tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Discuss and evaluate summaries of movements.</small>]]>
@@ -339,6 +414,30 @@
             </declaration>
         </pgame>
     
+        <pgame name="pgame-sarp.toggle.vtt" title="Toggle VTT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a VTT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.vtt</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.vtt.clear.winner" title="Clear VTT Winner." auto="true">
+            <description>
+              <![CDATA[<small>Clear VTT Winner.</small>]]>
+            </description>
+            <taskName>task-sarp.vtt.clear.winner</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
     </pgames>
     
     <!-- PMethods -->
@@ -595,6 +694,13 @@
                                 </outs>
                             </declaration>
                         </pgame>
+                        <pgame name="pgame-sarp.cluster.cht.categories">
+                            <declaration>
+                                <ins>
+                                    <var name="cht_id" ref="pmethod.cht_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
@@ -634,6 +740,125 @@
                             <declaration>
                                 <ins>
                                     <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </repeat>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.vtt" description="Step 4: Value Tree Tool">
+            <declaration>
+                <ins>
+                    <var name="pmethod.cht_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.vtt_id"/>
+                    <var name="pmethod.vtt_oid"/>
+                    <var name="pmethod.vttExitCondition"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                        <outs>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <repeat exitCondition="pmethod.vttExitCondition">
+                    <sequence>
+                        <pgame name="pgame-sarp.toggle.vtt">
+                            <declaration>
+                                <ins>
+                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.vtt">
+                            <declaration>
+                                <ins>
+                                    <var name="vttId" ref="pmethod.vtt_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.vtt">
+                            <declaration>
+                                <ins>
+                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.publish.vtt">
+                            <declaration>
+                                <ins>
+                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                </ins>
+                                <outs>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.cluster.vtt.categories">
+                            <declaration>
+                                <ins>
+                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.vtt.clear.winner">
+                            <declaration>
+                                <ins>
+                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.clear.vote">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.vtt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                    <var name="exitCondition" ref="pmethod.vttExitCondition"/>
+                                </ins>
+                                <outs>
+                                    <var name="exitCondition" ref="pmethod.vttExitCondition" />
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
                                 </ins>
                                 <props>
                                     <property name="action" value="close" />
@@ -720,6 +945,31 @@
             </sequence>
         </meeting>
         
+        <meeting name="meeting-sarp.vtt" description="Step 4: Value Tree Tool">
+            <declaration>
+                <ins>
+                    <var name="meeting.cht_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.vtt_id"/>
+                    <var name="meeting.vtt_oid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cht_id" ref="meeting.cht_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.vtt_id" ref="meeting.vtt_id"/>
+                            <var name="pmethod.vtt_oid" ref="meeting.vtt_oid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
     </meetings>
     
     <!-- Situations -->
@@ -755,6 +1005,17 @@
                         <outs>
                             <var name="meeting.cht_id" ref="situation.cht_id"/>
                             <var name="meeting.cht_oid" ref="situation.cht_oid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cht_id" ref="situation.cht_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.vtt_id" ref="situation.vtt_id"/>
+                            <var name="meeting.vtt_oid" ref="situation.vtt_oid"/>
                         </outs>
                     </declaration>
                 </meeting>

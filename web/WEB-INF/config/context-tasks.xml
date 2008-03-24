@@ -47,8 +47,32 @@
         <property name="chtService" ref="chtService"/>
     </bean>
     
+    <bean id="task-sarp.cluster.cht.categories" class="org.pgist.sarp.cht.CHTCateogryClusterTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
     <bean id="task-sarp.cht.clear.winner" class="org.pgist.sarp.cht.ClearCHTWinnerTask">
         <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.create.vtt" class="org.pgist.sarp.vtt.CreateVTTTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.publish.vtt" class="org.pgist.sarp.vtt.PublishVTTTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.vtt" class="org.pgist.sarp.vtt.ToggleVTTTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.cluster.vtt.categories" class="org.pgist.sarp.vtt.VTTCateogryClusterTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.vtt.clear.winner" class="org.pgist.sarp.vtt.ClearVTTWinnerTask">
+        <property name="vttService" ref="vttService"/>
     </bean>
     
     <bean id="task-sarp.drt.clear.vote" class="org.pgist.sarp.drt.ClearVoteTask">
@@ -74,7 +98,13 @@
               <entry><key><value>task-sarp.create.cht</value></key><ref bean="task-sarp.create.cht" /></entry>
               <entry><key><value>task-sarp.publish.cht</value></key><ref bean="task-sarp.publish.cht" /></entry>
               <entry><key><value>task-sarp.toggle.cht</value></key><ref bean="task-sarp.toggle.cht" /></entry>
+              <entry><key><value>task-sarp.cluster.cht.categories</value></key><ref bean="task-sarp.cluster.cht.categories" /></entry>
               <entry><key><value>task-sarp.cht.clear.winner</value></key><ref bean="task-sarp.cht.clear.winner" /></entry>
+              <entry><key><value>task-sarp.create.vtt</value></key><ref bean="task-sarp.create.vtt" /></entry>
+              <entry><key><value>task-sarp.publish.vtt</value></key><ref bean="task-sarp.publish.vtt" /></entry>
+              <entry><key><value>task-sarp.toggle.vtt</value></key><ref bean="task-sarp.toggle.vtt" /></entry>
+              <entry><key><value>task-sarp.cluster.vtt.categories</value></key><ref bean="task-sarp.cluster.vtt.categories" /></entry>
+              <entry><key><value>task-sarp.vtt.clear.winner</value></key><ref bean="task-sarp.vtt.clear.winner" /></entry>
               <entry><key><value>task-sarp.drt.clear.vote</value></key><ref bean="task-sarp.drt.clear.vote" /></entry>
               <entry><key><value>task-sarp.toggle.drt</value></key><ref bean="task-sarp.toggle.drt" /></entry>
             </map>
@@ -84,6 +114,7 @@
               <entry><key><value>action-sarp.bct</value></key><value>/bctview.do</value></entry>
               <entry><key><value>action-sarp.cst</value></key><value>/cstview.do</value></entry>
               <entry><key><value>action-sarp.cht</value></key><value>/chtview.do</value></entry>
+              <entry><key><value>action-sarp.vtt</value></key><value>/vttview.do</value></entry>
               <entry><key><value>action-sarp.drt</value></key><value>/drt.do</value></entry>
             </map>
         </property>

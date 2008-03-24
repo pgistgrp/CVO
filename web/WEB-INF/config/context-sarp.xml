@@ -91,7 +91,7 @@
 
     <!-- CHT : Concern Hierarchy Tool -->
     
-        <bean id="chtDAO" class="org.pgist.sarp.cht.CHTDAOImpl">
+    <bean id="chtDAO" class="org.pgist.sarp.cht.CHTDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
@@ -118,6 +118,32 @@
     </bean>
     
     <!-- VTT : Value Tree Tool -->
+    
+    <bean id="vttDAO" class="org.pgist.sarp.vtt.VTTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="vttService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.vtt.VTTServiceImpl">
+                <property name="chtDAO" ref="chtDAO"/>
+                <property name="vttDAO" ref="vttDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="vttAgent" class="org.pgist.sarp.vtt.VTTAgent">
+        <property name="chtService" ref="chtService"/>
+        <property name="vttService" ref="vttService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+    </bean>
     
 
 </beans>

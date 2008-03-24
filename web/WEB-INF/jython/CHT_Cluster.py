@@ -1,4 +1,4 @@
-# Program to cluster TCT user categories.
+# Program to cluster CHT user categories.
 # Objects:
 #     CategoryReference
 #         .category

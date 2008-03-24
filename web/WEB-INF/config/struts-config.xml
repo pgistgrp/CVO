@@ -145,6 +145,10 @@
             <forward name="view" path="/WEB-INF/jsp/sarp/cht/cht.jsp" />
         </action>
 
+        <action path="/vttview" scope="request" type="org.pgist.sarp.vtt.VTTViewAction">
+            <forward name="view" path="/WEB-INF/jsp/sarp/vtt/vtt.jsp" />
+        </action>
+
         <action path="/drt" scope="request" type="org.pgist.sarp.drt.DRTAction">
             <forward name="main" path="/WEB-INF/jsp/sarp/drt/drtMain.jsp"/>
         </action>
