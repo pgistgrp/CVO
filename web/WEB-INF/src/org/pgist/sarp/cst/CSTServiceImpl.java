@@ -3,11 +3,9 @@ package org.pgist.sarp.cst;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.pgist.sarp.bct.BCT;
 import org.pgist.sarp.bct.BCTDAO;
@@ -16,13 +14,11 @@ import org.pgist.sarp.drt.InfoObject;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Category;
-import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagDAO;
 import org.pgist.users.User;
 import org.pgist.util.JythonAPI;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
 
 
@@ -788,7 +784,6 @@ public class CSTServiceImpl implements CSTService {
         
         User moderator = systemDAO.getAdmin();
         winner.setCstId(cstId);
-        List<CategoryReference> children = winner.getChildren();
         
         cst.setWinner(moderator);
         cst.setWinnerCategory(winner);

@@ -135,6 +135,19 @@
     </create>
 
 
+    <create creator="spring" javascript="VTTAgent">
+      <param name="beanName" value="vttAgent"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="deleteComment"/>
+      <include method="getVotingOnComment"/>
+      <include method="setVotingOnComment"/>
+      <include method="getWinner"/>
+      <include method="publish"/>
+      <include method="getTags"/>
+    </create>
+
+
     <create creator="spring" javascript="TaggingAgent">
       <param name="beanName" value="taggingAgent"/>
       <include method="getStopWords"/>

@@ -18,7 +18,7 @@ public class BaseDAOImpl extends HibernateDaoSupport implements BaseDAO {
     
     
     public void save(Object object) throws Exception {
-        getHibernateTemplate().save(object);
+        getHibernateTemplate().saveOrUpdate(object);
     }//save()
 
     

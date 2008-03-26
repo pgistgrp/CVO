@@ -1,13 +1,16 @@
 package org.pgist.sarp.cht;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import org.pgist.sarp.bct.BCTDAO;
+import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CSTDAO;
 import org.pgist.sarp.cst.CategoryReference;
@@ -17,8 +20,10 @@ import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Category;
 import org.pgist.tagging.TagDAO;
 import org.pgist.users.User;
+import org.pgist.util.JythonAPI;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
+import org.python.util.PythonInterpreter;
 
 
 /**
@@ -39,6 +44,8 @@ public class CHTServiceImpl implements CHTService {
     
     private SystemDAO systemDAO = null;
 
+    private JythonAPI jythonAPI = null;
+    
     
     public void setCstDAO(CSTDAO cstDAO) {
         this.cstDAO = cstDAO;
@@ -65,6 +72,11 @@ public class CHTServiceImpl implements CHTService {
     }
     
     
+    public void setJythonAPI(JythonAPI jythonAPI) {
+        this.jythonAPI = jythonAPI;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -228,7 +240,7 @@ public class CHTServiceImpl implements CHTService {
 
     @Override
     public CHTComment getCommentById(Long cid) throws Exception {
-        return (CHTComment) cstDAO.load(CHTComment.class, cid);
+        return (CHTComment) chtDAO.load(CHTComment.class, cid);
     }//getCommentById()
 
 
@@ -259,7 +271,7 @@ public class CHTServiceImpl implements CHTService {
         cht.getCats().put(WebUtils.currentUserId(), null);
         cht.getCategories().put(WebUtils.currentUserId(), root);
         chtDAO.save(cht);
-    }//publish()
+    } //publish()
 
 
     @Override
@@ -268,7 +280,7 @@ public class CHTServiceImpl implements CHTService {
         cht.setWinner(null);
         cht.setWinnerCategory(null);
         chtDAO.save(cht);
-    }//setClearCHTWinner()
+    } //setClearCHTWinner()
 
 
     @Override
@@ -315,7 +327,65 @@ public class CHTServiceImpl implements CHTService {
         }
         
         return catRef;
-    }//moveCategoryReference()
+    } //moveCategoryReference()
+
+
+    @Override
+    public void setClusteredCategory(final Long chtId) throws Exception {
+        final CHT cht = chtDAO.getCHTById(chtId);
+        
+        class CategoryFactory {
+            private CategoryReference root;
+            public CategoryReference createCategoryReference(String name) {
+                CategoryReference catRef = new CategoryReference(name);
+                catRef.setCstId(chtId);
+                return catRef;
+            }
+            public TagReference createTagReference(String name) {
+                TagReference tagRef = new TagReference(name);
+                tagRef.setBctId(cht.getCst().getId());
+                return tagRef;
+            }
+            public void setResult(CategoryReference root) {
+                this.root = root;
+            }
+            public CategoryReference getRoot() {
+                return root;
+            }
+        };
+        
+        CategoryFactory factory = new CategoryFactory();
+        
+        List<Long> userIdList = new ArrayList<Long>();
+        List<CategoryReference> catList = new ArrayList<CategoryReference>();
+        for (Map.Entry<Long, CategoryReference> entry : cht.getCategories().entrySet()) {
+            userIdList.add(entry.getKey());
+            catList.add(entry.getValue());
+        }
+        
+        try {
+            PythonInterpreter interpreter = jythonAPI.getInterpreter();
+            interpreter.set("userIdList", userIdList);
+            interpreter.set("catList", catList);
+            interpreter.set("factory", factory);
+            jythonAPI.run(interpreter, "CHT_Cluster.py");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        
+        CategoryReference winner = factory.getRoot();
+        
+        User moderator = systemDAO.getAdmin();
+        winner.setCstId(chtId);
+        
+        cht.setWinner(moderator);
+        cht.setWinnerCategory(winner);
+        
+        //persist
+        chtDAO.save(winner);
+        chtDAO.save(cht);
+    } //setClusteredCategory()
 
 
 }//class CHTServiceImpl

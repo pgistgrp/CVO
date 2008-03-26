@@ -390,7 +390,7 @@
 <!--feedback form-->
 
 <div style="margin-top:130px;margin-left: 10px;">
-<pg:feedback id="feedbackDiv" action="cstview.do" />
+<pg:feedback id="feedbackDiv" action="chtview.do" />
 </div>
 
 <!--end feedback form-->

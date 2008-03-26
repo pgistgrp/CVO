@@ -105,6 +105,7 @@
                 <property name="chtDAO" ref="chtDAO"/>
                 <property name="tagDAO" ref="tagDAO"/>
                 <property name="systemDAO" ref="systemDAO"/>
+                <property name="jythonAPI" ref="jythonAPI"/>
             </bean>
         </property>
     </bean>

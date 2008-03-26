@@ -656,6 +656,13 @@
                 </pgame>
                 <repeat exitCondition="pmethod.chtExitCondition">
                     <sequence>
+                        <pgame name="pgame-sarp.cht.clear.winner">
+                            <declaration>
+                                <ins>
+                                    <var name="cht_id" ref="pmethod.cht_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-sarp.toggle.cht">
                             <declaration>
                                 <ins>
@@ -709,13 +716,6 @@
                                 <props>
                                     <property name="action" value="open" />
                                 </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.cht.clear.winner">
-                            <declaration>
-                                <ins>
-                                    <var name="cht_id" ref="pmethod.cht_id"/>
-                                </ins>
                             </declaration>
                         </pgame>
                         <pgame name="pgame-sarp.drt.clear.vote">
@@ -775,6 +775,13 @@
                 </pgame>
                 <repeat exitCondition="pmethod.vttExitCondition">
                     <sequence>
+                        <pgame name="pgame-sarp.vtt.clear.winner">
+                            <declaration>
+                                <ins>
+                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
                         <pgame name="pgame-sarp.toggle.vtt">
                             <declaration>
                                 <ins>
@@ -828,13 +835,6 @@
                                 <props>
                                     <property name="action" value="open" />
                                 </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.vtt.clear.winner">
-                            <declaration>
-                                <ins>
-                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
-                                </ins>
                             </declaration>
                         </pgame>
                         <pgame name="pgame-sarp.drt.clear.vote">

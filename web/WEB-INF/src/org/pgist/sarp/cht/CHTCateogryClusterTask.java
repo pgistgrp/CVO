@@ -34,7 +34,7 @@ public class CHTCateogryClusterTask implements WorkflowTask {
         
         Long chtId = new Long(inouts.getIntValue(IN_CHT_ID));
         
-        //chtService.setClusteredCategory(chtId);
+        chtService.setClusteredCategory(chtId);
     } //execute()
     
     
