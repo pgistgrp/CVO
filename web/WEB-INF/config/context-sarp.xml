@@ -130,6 +130,7 @@
     <bean id="vttService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.sarp.vtt.VTTServiceImpl">
+                <property name="cstDAO" ref="cstDAO"/>
                 <property name="chtDAO" ref="chtDAO"/>
                 <property name="vttDAO" ref="vttDAO"/>
                 <property name="tagDAO" ref="tagDAO"/>
