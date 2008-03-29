@@ -142,8 +142,12 @@ public class VTTServiceImpl implements VTTService {
         
         Queue<CategoryReference> queue2 = new LinkedList<CategoryReference>();
         root2 = new CategoryReference(root1);
+        vttDAO.save(root2);
         root2.setCstId(vtt.getId());
         queue2.offer(root2);
+        
+        CategoryValue catValue = new CategoryValue(root2);
+        vttDAO.save(catValue);
         
         while (!queue1.isEmpty()) {
             CategoryReference parent1 = queue1.poll();
@@ -154,7 +158,11 @@ public class VTTServiceImpl implements VTTService {
                 two.setCstId(vtt.getId());
                 two.getParents().add(parent2);
                 parent2.getChildren().add(two);
-                chtDAO.save(two);
+                vttDAO.save(two);
+                
+                catValue = new CategoryValue(two);
+                vttDAO.save(catValue);
+                
                 queue1.offer(one);
                 queue2.offer(two);
             }

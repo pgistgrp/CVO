@@ -349,7 +349,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.vtt" title="Category Hierarchy tool" auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-sarp.vtt" title="Value Tree Tool" auto="false" access="moderator" revisitable="true">
             <description>
               <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
             </description>
