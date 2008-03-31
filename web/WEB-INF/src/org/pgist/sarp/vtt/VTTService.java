@@ -40,6 +40,8 @@ public interface VTTService {
     VTTComment getCommentById(Long cid) throws Exception;
 
     VTTComment setVotingOnComment(Long cid, boolean agree) throws Exception;
+
+    CategoryValue getCategoryValueById(Long id) throws Exception;
     
     
 }//interface VTTService

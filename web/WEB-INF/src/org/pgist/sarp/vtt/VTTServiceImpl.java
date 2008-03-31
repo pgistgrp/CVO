@@ -241,6 +241,12 @@ public class VTTServiceImpl implements VTTService {
         
         return comment;
     } //setVotingOnComment()
+
+
+    @Override
+    public CategoryValue getCategoryValueById(Long id) throws Exception {
+        return vttDAO.getCategoryValueById(id);
+    } //getCategoryValueById()
     
     
-}//class VTTServiceImpl
+} //class VTTServiceImpl

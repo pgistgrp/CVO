@@ -142,6 +142,7 @@
       <include method="deleteComment"/>
       <include method="getVotingOnComment"/>
       <include method="setVotingOnComment"/>
+      <include method="getCategoryValue"/>
       <include method="getWinner"/>
       <include method="publish"/>
       <include method="getTags"/>

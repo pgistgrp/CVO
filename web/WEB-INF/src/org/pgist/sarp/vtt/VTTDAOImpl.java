@@ -77,6 +77,12 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
                 WebUtils.currentUserId(),
         });
     } //getOtherUsers()
+
+
+    @Override
+    public CategoryValue getCategoryValueById(Long id) throws Exception {
+        return (CategoryValue) getHibernateTemplate().load(CategoryValue.class, id);
+    } //getCategoryValueById()
     
     
 } //class VTTDAOImpl

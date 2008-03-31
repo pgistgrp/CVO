@@ -27,7 +27,7 @@
   <!--DWR and Component Interfaces -->
   <script type='text/javascript' src='/dwr/engine.js'></script>
   <script type='text/javascript' src='/dwr/util.js'></script>
-  <script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
+  <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
   <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
   
 <script type="text/javascript">
@@ -43,60 +43,30 @@
     var tree1 = {
       selectedId : null,
       select : function(id) {
-        if (this.selectedId!=null) {
-          $('row-'+this.selectedId).className = "catUnSelected";
-        }
-        this.selectedId = id;
-        this.currentCategory = $('col-'+this.selectedId).innerHTML;
-        <pg:show condition="${user.id==baseuser.id && !vtt.closed}">
-        var catRefId = this.selectedId;
-        getTags(catRefId, 0, 0, 1);
-        VTTAgent.getNavigation({catRefId:catRefId},{
+        displayIndicator(true);
+        var current = this.selectedId;
+        VTTAgent.getCategoryValue({catRefId:id}, <pg:wfinfo/>,{
           callback:function(data){
-            if (data.successful){
-              navigation = data.navigation;
-              for (var i=0; i<4; i++) {
-                var element = $('navigator-'+i);
-                if (navigation[i]==0) {
-                  element.src = '/images/gray-go-'+i+'.png';
-                } else {
-                  element.src = '/images/go-'+i+'.png';
-                }
+              if (data.successful){
+                  displayIndicator(false);
+                  $("col").innerHTML = data.html;
+                  
+                  if (current!=null) {
+                    $('row-'+current).className = "catUnSelected";
+                  }
+                  tree1.selectedId = id;
+                  currentCategory = $('col-'+tree1.selectedId).innerHTML;
+                  $('row-'+tree1.selectedId).className = "catSelected";
+              }else{
+                  displayIndicator(false);
+                  alert(data.reason);
               }
-              $('row-'+catRefId).className = "catSelected";
-            } else {
-              alert(data.reason);
-            }
           },
-          errorHandler:function(errorString, exception){
-            alert("getNavigation: "+errorString+" "+exception);
-          }
-        });
-        </pg:show>
-        <pg:hide condition="${user.id==baseuser.id && !vtt.closed}">
-        $('row-'+this.selectedId).className = "catSelected";
-        </pg:hide>
-      },
-      <pg:show condition="${user.id==baseuser.id && !vtt.closed}">
-      navigate : function(n) {
-        if (navigation[n]==0) return;
-        if (this.selectedId==null) return;
-        var catRefId = this.selectedId;
-        VTTAgent.moveCategoryReference({catRefId:catRefId, direction:n},{
-          callback:function(data){
-            if (data.successful){
-              $('cats').innerHTML = data.html;
-              tree1.select(catRefId);
-            } else { 
-              alert(data.reason);
-            }
-          },
-          errorHandler:function(errorcatsTableString, exception){
-            alert("moveCategoryReference: "+errorcatsTableString+" "+exception);
+          errorHandler:function(errorString, exception){ 
+              alert("get comments error: " + errorString +" "+ exception);
           }
         });
       }
-      </pg:show>
     };
     
     <pg:show condition="${!vtt.closed}">
@@ -274,38 +244,39 @@
   <script src="/scripts/util.js" type="text/javascript"></script>
   <!-- End Template 5 Specific -->
 <style type="text/css"> 
-   .inplaceeditor-form textarea { 
-       width: 95%;
-       height: 100px;
-   }
-   
-   #col-left, #col {border:1px solid #B4D579;}
-   
-   .closeBox{float:right;}
-   
-   button#ss{font-size:12pt;padding:5px;}
-   
-   #col-left{width:60%;height:450px;}
-   #col{width:38%;height:450px;}
-
-    #topMenu {
+  .inplaceeditor-form textarea {
+    width: 95%;
+    height: 100px;
+  }
+  
+  #col-left, #col, #col-right {border:1px solid #B4D579;}
+  
+  .closeBox{float:right;}
+  
+  button#ss{font-size:12pt;padding:5px;}
+  
+  #col-left{width:28%;height:450px;}
+  #col{width:30%;height:450px;}
+  #col-right{width:38%;height:450px;}
+  
+  #topMenu {
     padding:5px;
     background:#E1F1C5;
     border-bottom:1px solid #C6D78C;
     margin-bottom:5px;
     margin-left:-3px;
-    }
-    
-    .catSelected {
-      background-color:#D6E7EF;
-      cursor:pointer;
-      font-weight:bold;
-    }
-    .catUnSelected {
-      background-color:white;
-      cursor:pointer;
-      font-weight:normal;
-    }
+  }
+  
+  .catSelected {
+    background-color:#D6E7EF;
+    cursor:pointer;
+    font-weight:bold;
+  }
+  .catUnSelected {
+    background-color:white;
+    cursor:pointer;
+    font-weight:normal;
+  }
 </style>
 <event:pageunload />
 </head>
@@ -321,7 +292,7 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <h2 class="headerColor">Category Hierarchy Tool for participant
+    <h2 class="headerColor">Value Tree Tool for participant
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
         <logic:iterate id="other" name="others">
@@ -333,18 +304,15 @@
           </logic:notEqual>
         </logic:iterate>
       </select></h2>
+    
     <div id="col-left">
-      <div id="topMenu" style="clear:both;">
-        <pg:hide condition="${user.id==baseuser.id && !vtt.closed}">
-        ${user.loginname}'s categories
-        </pg:hide>
-      </div>
       <div id="cats" style="height:410px;overflow:auto;">
         <jsp:include page="vttCatsTable.jsp"/>
       </div>
     </div>
     
     <div id="col"></div>
+    <div id="col-right"></div>
     
     <div style="clear:both"></div>
     <div id="spacer">

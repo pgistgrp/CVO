@@ -31,11 +31,20 @@ for i in range(len(userIdList)):
 
 result = factory.createCategoryReference('root'); #root
 
-category = factory.createCategoryReference('water');
-category.tags.add(factory.createTagReference('evaporation'));
-category.tags.add(factory.createTagReference('depth'));
-category.tags.add(factory.createTagReference('precipation'));
-result.children.add(category);
+category1 = factory.createCategoryReference('water');
+result.children.add(category1);
+
+category11 = factory.createCategoryReference('sea water');
+category11.tags.add(factory.createTagReference('evaporation'));
+category11.tags.add(factory.createTagReference('depth'));
+category11.tags.add(factory.createTagReference('precipation'));
+category1.children.add(category11);
+
+category12 = factory.createCategoryReference('fresh water');
+category12.tags.add(factory.createTagReference('evaporation'));
+category12.tags.add(factory.createTagReference('depth'));
+category12.tags.add(factory.createTagReference('precipation'));
+category1.children.add(category12);
 
 category = factory.createCategoryReference('pollution');
 category.tags.add(factory.createTagReference('noise'));
@@ -44,3 +53,4 @@ category.tags.add(factory.createTagReference('oil'));
 result.children.add(category);
 
 factory.setResult(result);
+

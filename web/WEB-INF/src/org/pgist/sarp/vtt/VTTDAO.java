@@ -22,5 +22,7 @@ public interface VTTDAO extends BaseDAO {
     void increaseVoting(VTTComment comment, boolean agree) throws Exception;
 
     List<User> getOtherUsers(VTT vtt) throws Exception;
+
+    CategoryValue getCategoryValueById (Long id) throws Exception;
     
 } //interface VTTDAO
