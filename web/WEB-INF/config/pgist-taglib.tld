@@ -690,5 +690,23 @@
   </tag>
   
 
+  <tag>
+    <name>categoryValue</name>
+    <tag-class>org.pgist.tags.CategoryValueTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab Category Value</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>category</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

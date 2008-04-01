@@ -174,6 +174,7 @@ public class CHTServiceImpl implements CHTService {
         
         Queue<CategoryReference> queue2 = new LinkedList<CategoryReference>();
         root2 = new CategoryReference(root1);
+        root2.setUser(user);
         root2.setCstId(cht.getId());
         queue2.offer(root2);
         
@@ -184,6 +185,7 @@ public class CHTServiceImpl implements CHTService {
             for (CategoryReference one : parent1.getChildren()) {
                 CategoryReference two = new CategoryReference(one);
                 two.setCstId(cht.getId());
+                two.setUser(user);
                 two.getParents().add(parent2);
                 parent2.getChildren().add(two);
                 chtDAO.save(two);

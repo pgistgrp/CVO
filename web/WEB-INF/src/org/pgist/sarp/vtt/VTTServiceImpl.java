@@ -142,6 +142,7 @@ public class VTTServiceImpl implements VTTService {
         
         Queue<CategoryReference> queue2 = new LinkedList<CategoryReference>();
         root2 = new CategoryReference(root1);
+        root2.setUser(user);
         vttDAO.save(root2);
         root2.setCstId(vtt.getId());
         queue2.offer(root2);
@@ -155,6 +156,7 @@ public class VTTServiceImpl implements VTTService {
             
             for (CategoryReference one : parent1.getChildren()) {
                 CategoryReference two = new CategoryReference(one);
+                two.setUser(user);
                 two.setCstId(vtt.getId());
                 two.getParents().add(parent2);
                 parent2.getChildren().add(two);
@@ -247,6 +249,31 @@ public class VTTServiceImpl implements VTTService {
     public CategoryValue getCategoryValueById(Long id) throws Exception {
         return vttDAO.getCategoryValueById(id);
     } //getCategoryValueById()
+
+
+    @Override
+    public void saveCategoryValue(Long catRefId, String name, String unit) throws Exception {
+        CategoryValue catValue = vttDAO.getCategoryValueById(catRefId);
+        catValue.setName(name);
+        catValue.setCriterion(unit);
+        if (name==null || name.trim().length()==0) {
+            catValue.setValue(false);
+        } else {
+            catValue.setValue(true);
+        }
+        
+        vttDAO.save(catValue);
+    } //saveCategoryValue()
+
+
+    @Override
+    public void publish(Long vttId) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        CategoryReference root = vtt.getCats().get(WebUtils.currentUserId());
+        vtt.getCats().put(WebUtils.currentUserId(), null);
+        vtt.getCategories().put(WebUtils.currentUserId(), root);
+        vttDAO.save(vtt);
+    } //publish()
     
     
 } //class VTTServiceImpl

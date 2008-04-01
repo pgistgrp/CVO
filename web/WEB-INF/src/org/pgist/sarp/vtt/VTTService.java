@@ -42,6 +42,10 @@ public interface VTTService {
     VTTComment setVotingOnComment(Long cid, boolean agree) throws Exception;
 
     CategoryValue getCategoryValueById(Long id) throws Exception;
+
+    void saveCategoryValue(Long catRefId, String name, String unit) throws Exception;
+    
+    void publish(Long vttId) throws Exception;
     
     
 }//interface VTTService

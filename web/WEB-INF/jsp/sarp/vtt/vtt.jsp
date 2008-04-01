@@ -89,6 +89,31 @@
       </pg:show>
     }
     
+    function saveValue(id, value, name, unit) {
+      displayIndicator(true);
+      VTTAgent.saveCategoryValue({catRefId:id, value:value, name:name, unit:unit}, <pg:wfinfo/>,{
+        callback:function(data){
+            if (data.successful){
+                displayIndicator(false);
+                $('btnAdd').value="Save";
+                $('col-right').innerHTML = data.html;
+                alert('saved');
+            }else{
+                displayIndicator(false);
+                alert(data.reason);
+            }
+        },
+        errorHandler:function(errorString, exception){ 
+            alert("save category value error: " + errorString +" "+ exception);
+        }
+      });
+    }
+    
+    function radioClicked(isvalue) {
+      $('valueName').disabled = !isvalue;
+      $('valueUnit').disabled = !isvalue;
+    }
+    
     function keepBreaks(string){
       return string.replace(/\n/g,"<br>");
     }
@@ -223,7 +248,7 @@
   }
   
   function publish(){
-      if (!confirm('Are you sure to publish your categories?')) return;
+      if (!confirm('Are you sure to publish your value tree?')) return;
       VTTAgent.publish({vttId:vttId}, {
       callback:function(data){
         if (data.successful){
@@ -312,7 +337,7 @@
     </div>
     
     <div id="col"></div>
-    <div id="col-right"></div>
+    <div id="col-right"><jsp:include page="vttValueTree.jsp"/></div>
     
     <div style="clear:both"></div>
     <div id="spacer">

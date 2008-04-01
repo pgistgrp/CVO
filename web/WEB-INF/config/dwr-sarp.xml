@@ -143,6 +143,7 @@
       <include method="getVotingOnComment"/>
       <include method="setVotingOnComment"/>
       <include method="getCategoryValue"/>
+      <include method="saveCategoryValue"/>
       <include method="getWinner"/>
       <include method="publish"/>
       <include method="getTags"/>

@@ -184,6 +184,8 @@ public class CSTServiceImpl implements CSTService {
              * create the new category reference
              */
             categoryReference = new CategoryReference("root");
+            User user = cstDAO.getUserById(WebUtils.currentUserId());
+            categoryReference.setUser(user);
             categoryReference.setCategory(category);
             categoryReference.setCstId(cstId);
             
