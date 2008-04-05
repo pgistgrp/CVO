@@ -90,9 +90,25 @@ public class VTTServiceImpl implements VTTService {
     
     
     @Override
-    public InfoObject publish(Long vttId, String property) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+    public InfoObject publish(Long vttId, String title) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        vtt.getId();
+        vtt.getCategories();
+        vtt.getFavorites();
+        vtt.getInstruction();
+        vtt.getName();
+        vtt.getPurpose();
+        vtt.getCats();
+        vtt.getWinner();
+        vtt.getWinnerCategory();
+        
+        InfoObject infoObject = new InfoObject();
+        infoObject.setTitle(title);
+        infoObject.setTarget(vtt);
+        
+        cstDAO.save(infoObject);
+        
+        return infoObject;
     } //publish()
     
     
@@ -274,6 +290,12 @@ public class VTTServiceImpl implements VTTService {
         vtt.getCategories().put(WebUtils.currentUserId(), root);
         vttDAO.save(vtt);
     } //publish()
+
+
+    @Override
+    public CategoryReference getCategoryReferenceById(Long id) throws Exception {
+        return chtDAO.getCategoryReferenceById(id);
+    } //getCategoryReferenceById()
     
     
 } //class VTTServiceImpl

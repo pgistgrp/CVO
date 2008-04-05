@@ -1,4 +1,5 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <p><b>Hierarchical Categories</b>
 <table id="catsTable" width="100%" cell-padding="1" cell-spacing="0">
   <pg:dfIterator var="catRef" root="${root}" level="level">

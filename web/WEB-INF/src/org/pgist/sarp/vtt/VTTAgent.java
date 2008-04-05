@@ -397,8 +397,10 @@ public class VTTAgent {
         
         try {
             CategoryValue value = vttService.getCategoryValueById(catRefId);
+            CategoryReference catRef = vttService.getCategoryReferenceById(catRefId);
             
             request.setAttribute("value", value);
+            request.setAttribute("parent", (catRef.getChildren().size()>0));
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttCategoryValue.jsp"));
             map.put("successful", true);

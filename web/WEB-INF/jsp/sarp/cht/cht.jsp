@@ -53,9 +53,9 @@
         }
         this.selectedId = id;
         this.currentCategory = $('col-'+this.selectedId).innerHTML;
-        <pg:show condition="${user.id==baseuser.id && !cht.closed}">
         var catRefId = this.selectedId;
         getTags(catRefId, 0, 0, 1);
+        <pg:show condition="${user.id==baseuser.id && !cht.closed}">
         CHTAgent.getNavigation({catRefId:catRefId},{
           callback:function(data){
             if (data.successful){
@@ -81,8 +81,9 @@
         <pg:hide condition="${user.id==baseuser.id && !cht.closed}">
         $('row-'+this.selectedId).className = "catSelected";
         </pg:hide>
-      },
+      }
       <pg:show condition="${user.id==baseuser.id && !cht.closed}">
+      ,
       navigate : function(n) {
         if (navigation[n]==0) return;
         if (this.selectedId==null) return;
@@ -140,8 +141,8 @@
               relatedTagsArr.push(data.tags[i].id);
             }
             
-            document.getElementById('col').innerHTML = '<h4>Tags within "' + tree1.currentCategory + '"</h4>';
-            document.getElementById('col').innerHTML += data.html;
+            document.getElementById('tags').innerHTML = '<h4>Tags within "' + tree1.currentCategory + '"</h4>';
+            document.getElementById('tags').innerHTML += data.html;
           }
         }else{
           alert("Getting tags not successful: " + data.reason);
@@ -289,24 +290,25 @@
    #col-left{width:60%;height:450px;}
    #col{width:38%;height:450px;}
 
-    #topMenu {
-    padding:5px;
-    background:#E1F1C5;
-    border-bottom:1px solid #C6D78C;
-    margin-bottom:5px;
-    margin-left:-3px;
-    }
-    
-    .catSelected {
-      background-color:#D6E7EF;
-      cursor:pointer;
-      font-weight:bold;
-    }
-    .catUnSelected {
-      background-color:white;
-      cursor:pointer;
-      font-weight:normal;
-    }
+   .topMenu {
+     padding:5px;
+     background:#E1F1C5;
+     border-bottom:1px solid #C6D78C;
+     margin-bottom:5px;
+     margin-left:-3px;
+     height:20px;
+   }
+   
+   .catSelected {
+     background-color:#D6E7EF;
+     cursor:pointer;
+     font-weight:bold;
+   }
+   .catUnSelected {
+     background-color:white;
+     cursor:pointer;
+     font-weight:normal;
+   }
 </style>
 <event:pageunload />
 </head>
@@ -335,7 +337,7 @@
         </logic:iterate>
       </select></h2>
     <div id="col-left">
-      <div id="topMenu" style="clear:both;">
+      <div class="topMenu" style="clear:both;">
         <pg:show condition="${user.id==baseuser.id && !cht.closed}">
         <img id="navigator-0" src="/images/gray-go-0.png" style="cursor:pointer;" onclick="tree1.navigate(0);">
         <img id="navigator-1" src="/images/gray-go-1.png" style="cursor:pointer;" onclick="tree1.navigate(1);">
@@ -351,7 +353,10 @@
       </div>
     </div>
     
-    <div id="col"></div>
+    <div id="col">
+      <div class="topMenu" style="clear:both;">Related Tags</div>
+      <div id="tags"></div>
+    </div>
     
     <div style="clear:both"></div>
     <div id="spacer">

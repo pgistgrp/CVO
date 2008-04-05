@@ -53,10 +53,12 @@
                   
                   if (current!=null) {
                     $('row-'+current).className = "catUnSelected";
+                    $('vtrow-'+current).className = "catUnSelected";
                   }
                   tree1.selectedId = id;
                   currentCategory = $('col-'+tree1.selectedId).innerHTML;
                   $('row-'+tree1.selectedId).className = "catSelected";
+                  $('vtrow-'+tree1.selectedId).className = "catSelected";
               }else{
                   displayIndicator(false);
                   alert(data.reason);
@@ -97,6 +99,7 @@
                 displayIndicator(false);
                 $('btnAdd').value="Save";
                 $('col-right').innerHTML = data.html;
+                $('vtrow-'+tree1.selectedId).className = "catSelected";
                 alert('saved');
             }else{
                 displayIndicator(false);

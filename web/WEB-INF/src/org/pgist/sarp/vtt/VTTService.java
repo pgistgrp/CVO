@@ -19,7 +19,7 @@ public interface VTTService {
     
     void toggleVTT(Long vttId, boolean closed) throws Exception;
 
-    InfoObject publish(Long vttId, String property) throws Exception;
+    InfoObject publish(Long vttId, String title) throws Exception;
 
     VTT getVTTById(Long vttId) throws Exception;
 
@@ -41,6 +41,8 @@ public interface VTTService {
 
     VTTComment setVotingOnComment(Long cid, boolean agree) throws Exception;
 
+    CategoryReference getCategoryReferenceById(Long id) throws Exception;
+    
     CategoryValue getCategoryValueById(Long id) throws Exception;
 
     void saveCategoryValue(Long catRefId, String name, String unit) throws Exception;

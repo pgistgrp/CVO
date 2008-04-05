@@ -1,23 +1,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
-<div>Category "<b>${value.catRef.category.name}</b>"</div>
+<p>Category "<b>${value.catRef.category.name}</b>"</p>
 <p>Is this (${value.catRef.category.name}) a value?<br>
-${value.value}
-<c:if test="${value.value}">
-  <label><input type="radio" id="isValue" name="catValue" checked value="true" onclick="radioClicked(true);">Yes</label>
-  <label><input type="radio" id="isNotValue" name="catValue" value="false" onclick="radioClicked(false);">No</label>
-  <p>Insert appropriate measurement for category "${value.catRef.category.name}":<br>
-  <input type="text" id="valueName" value="${value.name}">
-  <p>Insert an unit for this measurement:<br>
-  <input type="text" id="valueUnit" value="${value.criterion}">
-</c:if>
-<c:if test="${!value.value}">
-<label><input type="radio" id="isValue" name="catValue" value="true" onclick="radioClicked(true);">Yes</label>
-<label><input type="radio" id="isNotValue" name="catValue" checked value="false" onclick="radioClicked(false);">No</label>
+
+<c:if test="${parent==true}">
+  <label><input type="radio" id="isValue" name="catValue" value="true" disabled="true">Yes</label>
+  <label><input type="radio" id="isNotValue" name="catValue" checked value="false" disabled="true">No</label>
   <p>Insert appropriate measurement for category "${value.catRef.category.name}":<br>
   <input type="text" id="valueName" value="" disabled="true">
   <p>Insert an unit for this measurement:<br>
   <input type="text" id="valueUnit" value="" disabled="true">
+</c:if>
+<c:if test="${parent!=true}">
+  <c:if test="${value.value}">
+    <label><input type="radio" id="isValue" name="catValue" checked value="true" onclick="radioClicked(true);">Yes</label>
+    <label><input type="radio" id="isNotValue" name="catValue" value="false" onclick="radioClicked(false);">No</label>
+    <p>Insert appropriate measurement for category "${value.catRef.category.name}":<br>
+    <input type="text" id="valueName" value="${value.name}">
+    <p>Insert an unit for this measurement:<br>
+    <input type="text" id="valueUnit" value="${value.criterion}">
+  </c:if>
+  <c:if test="${!value.value}">
+    <label><input type="radio" id="isValue" name="catValue" value="true" onclick="radioClicked(true);">Yes</label>
+    <label><input type="radio" id="isNotValue" name="catValue" checked value="false" onclick="radioClicked(false);">No</label>
+    <p>Insert appropriate measurement for category "${value.catRef.category.name}":<br>
+    <input type="text" id="valueName" value="" disabled="true">
+    <p>Insert an unit for this measurement:<br>
+    <input type="text" id="valueUnit" value="" disabled="true">
+  </c:if>
 </c:if>
 
 <c:if test="${value.name==null}">

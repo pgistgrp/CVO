@@ -602,6 +602,9 @@ public class CSTServiceImpl implements CSTService {
         cst.getInstruction();
         cst.getName();
         cst.getPurpose();
+        cst.getCats();
+        cst.getWinner();
+        cst.getWinnerCategory();
         
         InfoObject infoObject = new InfoObject();
         infoObject.setTitle(title);

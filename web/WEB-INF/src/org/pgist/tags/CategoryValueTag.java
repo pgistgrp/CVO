@@ -26,11 +26,18 @@ public class CategoryValueTag extends SimpleTagSupport {
     
     private String var;
     
+    private String isLeaf;
+    
     private CategoryReference category;
     
     
     public void setVar(String var) {
         this.var = var;
+    }
+
+
+    public void setIsLeaf(String isLeaf) {
+        this.isLeaf = isLeaf;
     }
 
 
@@ -58,6 +65,7 @@ public class CategoryValueTag extends SimpleTagSupport {
         
         try {
             Object object = Utils.narrow(vttService.getCategoryValueById(category.getId()));
+            context.setAttribute(isLeaf, category.getChildren().size()==0);
             context.setAttribute(var, object);
         } catch (Exception e) {
             throw new JspException(e);
