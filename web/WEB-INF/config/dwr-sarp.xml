@@ -105,6 +105,7 @@
       <include method="getConcerns"/>
       <include method="getConcernsByTags"/>
       <include method="getTags"/>
+      <include method="getRTags"/>
       <include method="getOrphanTags"/>
       <include method="relateTag"/>
       <include method="getThemes"/>
