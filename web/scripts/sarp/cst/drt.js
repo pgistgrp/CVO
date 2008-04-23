@@ -32,25 +32,45 @@ infoObject.loadTarget = function() {
 var catTree = {
   selectedId0 : null,
   selectedId1 : null,
-  category0Clicked : function (catId) {
-    if (catId==this.selectedId1) return;
-    if (this.selectedId0!=null) {
-      $('cat-'+this.selectedId0).style.backgroundColor='';
+  showCompare : function(selectedId) {
+    var table = $('catTable');
+    for (var i=0; i<table.rows.length; i++) {
+      var row = table.rows[i];
+      if (row.id=='catRow-'+selectedId) {
+        $('catcmp-'+selectedId).style.display = 'none';
+      } else {
+        $('catcmp-'+row.id.substr(7)).style.display = 'inline';
+      }
     }
-    $('cat-'+catId).style.backgroundColor='#D6E7EF';
-    this.selectedId0 = catId;
+  },
+  category0Clicked : function (catId) {
+    //if (catId==this.selectedId1) return;
+    if (catId==this.selectedId1) {
+      this.selectedId1 = null;
+      $('catBottom').innerHTML = '';
+      $('tagsBottom').innerHTML = '';
+    }
+    var selectedId0 = this.selectedId0;
     //load tags
     CSTAgent.getRTags(
       {cstId:infoObject.targetId, categoryId:catId},
       {
         callback:function(data){
             if (data.successful){
-              var s = '';
+              $('catTop').innerHTML = data.catRef.category.name;
+              var s = '<table>';
               for (var i=0; i<data.tags.length; i++) {
-                if (s!='') s += ', ';
+                if (s!='') s += '<tr><td>';
                 s += data.tags[i].tag.name;
+                s += '</td></tr>';
               }
               $('tagsTop').innerHTML = s;
+              if (selectedId0!=null) {
+                $('catRow-'+selectedId0).style.backgroundColor='';
+              }
+              $('catRow-'+catId).style.backgroundColor='#D6E7EF';
+              catTree.selectedId0 = catId;
+              catTree.showCompare(catId);
             }else{
               alert(data.reason);
             }
@@ -63,23 +83,26 @@ var catTree = {
   },
   category1Clicked : function (catId) {
     if (catId==this.selectedId0) return;
-    if (this.selectedId1!=null) {
-      $('cat-'+this.selectedId1).style.backgroundColor='';
-    }
-    $('cat-'+catId).style.backgroundColor='#FFF1DC';
-    this.selectedId1 = catId;
+    var selectedId1 = this.selectedId1;
     //load tags
     CSTAgent.getRTags(
       {cstId:infoObject.targetId, categoryId:catId},
       {
         callback:function(data){
             if (data.successful){
-              var s = '';
+              $('catBottom').innerHTML = data.catRef.category.name;
+              var s = '<table>';
               for (var i=0; i<data.tags.length; i++) {
-                if (s!='') s += ', ';
+                if (s!='') s += '<tr><td>';
                 s += data.tags[i].tag.name;
+                s += '</td></tr>';
               }
               $('tagsBottom').innerHTML = s;
+              if (selectedId1!=null) {
+                $('catRow-'+selectedId1).style.backgroundColor='';
+              }
+              $('catRow-'+catId).style.backgroundColor='#FFF1DC';
+              catTree.selectedId1 = catId;
             }else{
               alert(data.reason);
             }

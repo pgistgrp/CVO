@@ -236,6 +236,7 @@ public class CSTAgent {
                 return map;
             }
             
+            map.put("catRef", ref);
             map.put("tags", ref.getTags());
             map.put("successful", true);
         } catch(Exception e) {

@@ -36,6 +36,10 @@
       <param name="include" value="id, category, theme"/>
     </convert>
 
+    <convert converter="bean" match="org.pgist.sarp.cst.CategoryReference">
+      <param name="include" value="id, category, theme"/>
+    </convert>
+
     <convert converter="bean" match="org.pgist.sarp.bct.Theme"/>
 
     <convert converter="bean" match="org.pgist.glossary.Term">
