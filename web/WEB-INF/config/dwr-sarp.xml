@@ -135,6 +135,7 @@
       <include method="getWinner"/>
       <include method="publish"/>
       <include method="getTags"/>
+      <include method="getRTags"/>
       <include method="getNavigation"/>
       <include method="moveCategoryReference"/>
     </create>

@@ -10,6 +10,7 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.search.SearchHelper;
@@ -173,6 +174,54 @@ public class CHTAgent {
         
         return map;
     }//getTags()
+    
+    
+    /**
+     * Get tags related with a given category.
+     *
+     * @param params A map contains:<br>
+     *         <ul>
+     *           <li>chtId - int, the current CHT instance id</li>
+     *           <li>categoryId - int, the id of a CategoryReference object</li>
+     *         </ul>
+     *         
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *           <li>tags - A list of related TagReference objects</li>
+     *         </ul>
+     */
+    public Map getRTags(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long chtId = new Long((String) params.get("chtId"));
+        try {
+            CHT cht = chtService.getCHTById(chtId);
+            if (cht==null) {
+                map.put("reason", "no such cht!");
+                return map;
+            }
+            
+            Long categoryId = new Long( (String) params.get("categoryId") );
+            
+            CategoryReference ref = cstService.getCategoryReferenceById(categoryId);
+            if (ref==null) {
+                map.put("reason", "CategoryReference doesn't exist.");
+                return map;
+            }
+            
+            map.put("catRef", ref);
+            map.put("tags", ref.getTags());
+            map.put("successful", true);
+        } catch(Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//getRTags()
     
     
     /**
