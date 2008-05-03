@@ -178,6 +178,18 @@
     </bean>
     
     
+    <bean name="/drtmod" class="org.pgist.sarp.drt.DRTModAction">
+        <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/drtwait" class="org.pgist.sarp.drt.DRTWaitScreenAction">
+        <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
     <bean name="/glossaryManage" class="org.pgist.glossary.GlossaryManageAction">
         <property name="glossaryService" ref="glossaryService"/>
     </bean>

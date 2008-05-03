@@ -66,7 +66,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.bct" title="Brainstorm concerns" auto="false" access="all">
+        <pgame name="pgame-sarp.bct" title="Brainstorm concerns" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Brainstorm transportation concerns with other participants.</small>]]>
             </description>
@@ -196,6 +196,41 @@
             </declaration>
         </pgame>
     
+        <pgame name="pgame-sarp.drt.cstmod" title="CST Mod Tool" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>CST Mod Tool</small>]]>
+            </description>
+            <actionName>action-sarp.drtmod</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CSTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/cst/cstMod.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.wait.cst" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Wait Screen</small>]]>
+            </description>
+            <actionName>action-sarp.drtwait</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="announcement" value="Moderator is modifying TCT, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+    
         <pgame name="pgame-sarp.toggle.cst" title="Toggle CST." auto="true">
             <description>
               <![CDATA[<small>Toggle a CST.</small>]]>
@@ -305,6 +340,46 @@
             </declaration>
         </pgame>
     
+        <pgame name="pgame-sarp.drt.chtmod" title="CHT Mod Tool" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>CHT Mod Tool</small>]]>
+            </description>
+            <actionName>action-sarp.drtmod</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/cht/chtMod.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.wait.cht" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Wait Screen</small>]]>
+            </description>
+            <actionName>action-sarp.drtwait</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="announcement" value="Moderator is modifying CHT, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+    
         <pgame name="pgame-sarp.toggle.cht" title="Toggle CHT." auto="true">
             <description>
               <![CDATA[<small>Toggle a CHT.</small>]]>
@@ -410,6 +485,46 @@
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-object.jsp" />
                     <property name="showLoopChoice" value="true" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.vttmod" title="VTT Mod Tool" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>VTT Mod Tool</small>]]>
+            </description>
+            <actionName>action-sarp.drtmod</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/vtt/vttMod.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.wait.vtt" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Wait Screen</small>]]>
+            </description>
+            <actionName>action-sarp.drtwait</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="announcement" value="Moderator is modifying ICT, please wait." />
                 </props>
             </declaration>
         </pgame>
@@ -628,6 +743,28 @@
                             </declaration>
                         </pgame>
                     </sequence>
+                    <flowback>
+                        <branch>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.wait.cst">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.cst_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.cstmod">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.cst_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                        </branch>
+                    </flowback>
                 </repeat>
             </sequence>
         </pmethod>
@@ -747,6 +884,28 @@
                             </declaration>
                         </pgame>
                     </sequence>
+                    <flowback>
+                        <branch>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.wait.cht">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.cht_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.chtmod">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.cht_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                        </branch>
+                    </flowback>
                 </repeat>
             </sequence>
         </pmethod>
@@ -866,6 +1025,28 @@
                             </declaration>
                         </pgame>
                     </sequence>
+                    <flowback>
+                        <branch>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.wait.vtt">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.vtt_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.vttmod">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.vtt_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                        </branch>
+                    </flowback>
                 </repeat>
             </sequence>
         </pmethod>

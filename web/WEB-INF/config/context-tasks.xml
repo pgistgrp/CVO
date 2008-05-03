@@ -116,6 +116,8 @@
               <entry><key><value>action-sarp.cht</value></key><value>/chtview.do</value></entry>
               <entry><key><value>action-sarp.vtt</value></key><value>/vttview.do</value></entry>
               <entry><key><value>action-sarp.drt</value></key><value>/drt.do</value></entry>
+              <entry><key><value>action-sarp.drtmod</value></key><value>/drtmod.do</value></entry>
+              <entry><key><value>action-sarp.drtwait</value></key><value>/drtwait.do</value></entry>
             </map>
         </property>
     </bean>

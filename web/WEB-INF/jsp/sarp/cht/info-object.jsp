@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
-<div id="col-left" style="float:left;width:50%;overflow:auto;height:100%;border-right:1px solid #B4D579;">
+<div id="col-left" style="float:left;width:50%;overflow:auto;height:50%;border-right:1px solid #B4D579;">
   <b>Categories:</b>
   <table id="catTable" width="100%" cellpadding="2" cellspacing="0">
   <c:forEach var="category" items="${infoObject.target.winnerCategory.children}" varStatus="loop">
@@ -24,8 +24,13 @@
   </table>
 </div>
 
-<div id="col-right" style="overflow:auto;height:100%;border-bottom:1px solid #B4D579;">
+<div id="col-right" style="overflow:auto;height:50%;">
   <b>Tag cluster for category "<span id="catName"></span>":</b>
+  <div id="tags"></div>
+</div>
+
+<div id="col-bottom" style="overflow:auto;clear:both;height:50%;border-top:1px solid #B4D579;">
+  <b>Moderator Announcement:</b>
   <div id="tags"></div>
 </div>
 

@@ -153,6 +153,14 @@
             <forward name="main" path="/WEB-INF/jsp/sarp/drt/drtMain.jsp"/>
         </action>
 
+        <action path="/drtmod" scope="request" type="org.pgist.sarp.drt.DRTModAction">
+            <forward name="main" path="/WEB-INF/jsp/sarp/drt/drtModMain.jsp"/>
+        </action>
+
+        <action path="/drtwait" scope="request" type="org.pgist.sarp.drt.DRTWaitScreenAction">
+            <forward name="main" path="/WEB-INF/jsp/sarp/drt/drtWaitMain.jsp"/>
+        </action>
+
         <action name="cctForm" path="/glossaryManage" scope="request" type="org.pgist.glossary.GlossaryManageAction">
             <forward name="list" path="/WEB-INF/jsp/glossary/gmMain.jsp" />
         </action>
