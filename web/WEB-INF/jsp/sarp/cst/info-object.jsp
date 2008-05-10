@@ -35,7 +35,26 @@
   </div>
 </div>
 
-<div id="col-right2" style="overflow:auto;height:50%;border-top:1px solid #B4D579;">
-  <b>Moderator Announcement:</b>
-  <div id="tags"></div>
+<div id="col-right2" style="overflow:hidden;clear:both;height:20px;border-top:1px solid #B4D579;">
+  <div style="float:left;overflow:hidden;">Moderator Announcements:</div>
+	<pg:show roles="moderator">
+    <div style="float:right;clear:right;">
+      <span style="cursor:pointer;color:blue;text-decoration:underline;" onclick="$('announceEditor').style.display = 'block';">Create Announcements</span>
+    </div>
+	</pg:show>
+</div>
+<div id="col-right3" style="overflow:auto;clear:both;height:270px;border-top:1px solid #B4D579;">
+	<pg:show roles="moderator">
+    <div id="announceEditor" style="display:none;position:relative;clear:both;width:98%;height:80%;">
+    Title: <br><input id="announceEditor_title" type="text" size="32"><br>
+    Description: <br><textarea id="announceEditor_description" rows="5" style="width:600px;"></textarea><br>
+    <input type="button" value="Submit" onclick="infoObject.createAnnouncement();">
+    <input type="button" value="Cancel" onclick="$('announceEditor').style.display = 'none';">
+    </div>
+	</pg:show>
+  <center>
+    <div id="announcements" style="clear:both;padding:2px;overflow:auto;width:98%;height:80%;">
+      <jsp:include page="../drt/drtAnnouncements.jsp" />
+    </div>
+  </center>
 </div>

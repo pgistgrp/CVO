@@ -68,6 +68,7 @@
                <value>org/pgist/wfengine/Workflow.hbm.xml</value>
                <value>org/pgist/sarp/drt/Comment.hbm.xml</value>
                <value>org/pgist/sarp/drt/InfoObject.hbm.xml</value>
+               <value>org/pgist/sarp/drt/DRTAnnouncement.hbm.xml</value>
                <value>org/pgist/sarp/bct/BCT.hbm.xml</value>
                <value>org/pgist/sarp/bct/Concern.hbm.xml</value>
                <value>org/pgist/sarp/bct/ConcernComment.hbm.xml</value>

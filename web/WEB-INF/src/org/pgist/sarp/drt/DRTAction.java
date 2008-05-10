@@ -84,7 +84,8 @@ public class DRTAction extends Action {
         YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_INFOOBJ, oid);
         
         if (infoObject!=null) {
-        	request.setAttribute("infoObject", infoObject);
+            request.setAttribute("infoObject", infoObject);
+        	request.setAttribute("announcements", infoObject.getAnnoucements());
             request.setAttribute("voting", voting);
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("main");

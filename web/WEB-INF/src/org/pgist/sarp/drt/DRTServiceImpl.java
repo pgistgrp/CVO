@@ -135,4 +135,32 @@ public class DRTServiceImpl implements DRTService {
 	}//deleteComment()
 
 
+    @Override
+    public Collection<DRTAnnouncement> getAnnouncements(Long oid) throws Exception {
+        InfoObject infoObject = drtDAO.getInfoObjectById(oid);
+        if (infoObject==null) throw new Exception("can't find the specified InfoObject with id "+oid);
+        
+        return infoObject.getAnnoucements();
+    } //getAnnouncements()
+
+
+    @Override
+    public Comment createAnnouncement(Long oid, String title, String description) throws Exception {
+        InfoObject infoObject = drtDAO.getInfoObjectById(oid);
+        if (infoObject==null) throw new Exception("can't find the specified InfoObject with id "+oid);
+        
+        DRTAnnouncement announcement = new DRTAnnouncement();
+        announcement.setTitle(title);
+        announcement.setDescription(description);
+        
+        drtDAO.save(announcement);
+        
+        infoObject.getAnnoucements().add(announcement);
+        
+        drtDAO.save(infoObject);
+        
+        return null;
+    } //createAnnouncement()
+
+
 }//class DRTServiceImpl

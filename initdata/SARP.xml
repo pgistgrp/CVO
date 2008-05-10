@@ -650,60 +650,60 @@
                         </outs>
                     </declaration>
                 </pgame>
+                <pgame name="pgame-sarp.cst.clear.winner">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="open" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cstId" ref="pmethod.cst_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="close" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                            <var name="oid" ref="pmethod.cst_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.cst_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cluster.categories">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
                 <repeat exitCondition="pmethod.cstExitCondition">
                     <sequence>
-                        <pgame name="pgame-sarp.cst.clear.winner">
-                            <declaration>
-                                <ins>
-                                    <var name="cst_id" ref="pmethod.cst_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.toggle.cst">
-                            <declaration>
-                                <ins>
-                                    <var name="cst_id" ref="pmethod.cst_id"/>
-                                </ins>
-                                <props>
-                                    <property name="action" value="open" />
-                                </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.cst">
-                            <declaration>
-                                <ins>
-                                    <var name="cstId" ref="pmethod.cst_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.toggle.cst">
-                            <declaration>
-                                <ins>
-                                    <var name="cst_id" ref="pmethod.cst_id"/>
-                                </ins>
-                                <props>
-                                    <property name="action" value="close" />
-                                </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.publish.cst">
-                            <declaration>
-                                <ins>
-                                    <var name="cst_id" ref="pmethod.cst_id"/>
-                                    <var name="oid" ref="pmethod.cst_oid"/>
-                                </ins>
-                                <outs>
-                                    <var name="oid" ref="pmethod.cst_oid"/>
-                                </outs>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.cluster.categories">
-                            <declaration>
-                                <ins>
-                                    <var name="cst_id" ref="pmethod.cst_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
                         <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
@@ -791,60 +791,60 @@
                         </outs>
                     </declaration>
                 </pgame>
+                <pgame name="pgame-sarp.cht.clear.winner">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="open" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cht">
+                    <declaration>
+                        <ins>
+                            <var name="chtId" ref="pmethod.cht_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="close" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                            <var name="oid" ref="pmethod.cht_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.cht_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cluster.cht.categories">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
                 <repeat exitCondition="pmethod.chtExitCondition">
                     <sequence>
-                        <pgame name="pgame-sarp.cht.clear.winner">
-                            <declaration>
-                                <ins>
-                                    <var name="cht_id" ref="pmethod.cht_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.toggle.cht">
-                            <declaration>
-                                <ins>
-                                    <var name="cht_id" ref="pmethod.cht_id"/>
-                                </ins>
-                                <props>
-                                    <property name="action" value="open" />
-                                </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.cht">
-                            <declaration>
-                                <ins>
-                                    <var name="chtId" ref="pmethod.cht_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.toggle.cht">
-                            <declaration>
-                                <ins>
-                                    <var name="cht_id" ref="pmethod.cht_id"/>
-                                </ins>
-                                <props>
-                                    <property name="action" value="close" />
-                                </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.publish.cht">
-                            <declaration>
-                                <ins>
-                                    <var name="cht_id" ref="pmethod.cht_id"/>
-                                    <var name="oid" ref="pmethod.cht_oid"/>
-                                </ins>
-                                <outs>
-                                    <var name="oid" ref="pmethod.cht_oid"/>
-                                </outs>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.cluster.cht.categories">
-                            <declaration>
-                                <ins>
-                                    <var name="cht_id" ref="pmethod.cht_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
                         <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
@@ -932,60 +932,60 @@
                         </outs>
                     </declaration>
                 </pgame>
+                <pgame name="pgame-sarp.vtt.clear.winner">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="open" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vttId" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="close" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                            <var name="oid" ref="pmethod.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.vtt_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cluster.vtt.categories">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
                 <repeat exitCondition="pmethod.vttExitCondition">
                     <sequence>
-                        <pgame name="pgame-sarp.vtt.clear.winner">
-                            <declaration>
-                                <ins>
-                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.toggle.vtt">
-                            <declaration>
-                                <ins>
-                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
-                                </ins>
-                                <props>
-                                    <property name="action" value="open" />
-                                </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.vtt">
-                            <declaration>
-                                <ins>
-                                    <var name="vttId" ref="pmethod.vtt_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.toggle.vtt">
-                            <declaration>
-                                <ins>
-                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
-                                </ins>
-                                <props>
-                                    <property name="action" value="close" />
-                                </props>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.publish.vtt">
-                            <declaration>
-                                <ins>
-                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
-                                    <var name="oid" ref="pmethod.vtt_oid"/>
-                                </ins>
-                                <outs>
-                                    <var name="oid" ref="pmethod.vtt_oid"/>
-                                </outs>
-                            </declaration>
-                        </pgame>
-                        <pgame name="pgame-sarp.cluster.vtt.categories">
-                            <declaration>
-                                <ins>
-                                    <var name="vtt_id" ref="pmethod.vtt_id"/>
-                                </ins>
-                            </declaration>
-                        </pgame>
                         <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>

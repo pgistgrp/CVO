@@ -27,6 +27,7 @@ if (infoObject) {
 }
 
 infoObject.loadTarget = function() {
+  
 };
 
 var catTree = {

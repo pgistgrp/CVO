@@ -175,6 +175,55 @@
             }
             });
         },
+        <pg:show roles="moderator">
+          createAnnouncement : function() {
+            displayIndicator(true);
+            var title = $('announceEditor_title').value;
+            var description = $('announceEditor_description').value;
+            if (title.length<1) {
+                alert('please input title');
+                return;
+            }
+            if (description.length<1) {
+                alert('please input description');
+                return;
+            }
+            DRTAgent.createAnnouncement({oid:${infoObject.id}, title:title, description:description}, <pg:wfinfo/>, {
+              callback:function(data){
+                if (data.successful){
+                    displayIndicator(false);
+                    $('announceEditor').style.display = 'none';
+                    $('announceEditor_title').value = '';
+                    $('announceEditor_description').value = '';
+                    infoObject.getAnnouncements();
+                }else{
+                    displayIndicator(false);
+                    alert(data.reason);
+                }
+              },
+              errorHandler:function(errorString, exception){ 
+                  alert("setExitCondition error:" + errorString + exception);
+              }
+            });
+          },
+        </pg:show>
+        getAnnouncements : function(){
+          displayIndicator(true);
+          DRTAgent.getAnnouncements({oid:${infoObject.id}}, <pg:wfinfo/>,{
+              callback:function(data){
+                  if (data.successful){
+                      displayIndicator(false);
+                      $('announcements').innerHTML = data.html;
+                  }else{
+                      displayIndicator(false);
+                      alert(data.reason);
+                  }
+              },
+              errorHandler:function(errorString, exception){ 
+                  alert("get targets error: " + errorString +" "+ exception);
+              }
+          });
+        },
         setExitCondition : function(element, exitNow){
             DRTAgent.setExitCondition({exitCondition: exitNow}, <pg:wfinfo/>, {
             callback:function(data){
@@ -196,7 +245,7 @@
             }
             });
         }
-    }
+    };
 </script>
 
 <pg:property name="javascript" />

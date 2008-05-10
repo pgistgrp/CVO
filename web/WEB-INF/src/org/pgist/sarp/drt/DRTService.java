@@ -31,6 +31,10 @@ public interface DRTService {
 	void deleteComment(Comment comment) throws Exception;
 
 	Comment setVotingOnComment(Long cid, boolean agree) throws Exception;
+
+    Collection<DRTAnnouncement> getAnnouncements(Long oid) throws Exception;
+
+    Comment createAnnouncement(Long oid, String title, String description) throws Exception;
 	
 	
 }//interface DRTService

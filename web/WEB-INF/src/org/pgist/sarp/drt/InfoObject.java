@@ -1,6 +1,8 @@
 package org.pgist.sarp.drt;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -13,9 +15,6 @@ import java.io.Serializable;
 public class InfoObject implements Serializable {
 	
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3722333525819303168L;
 
 
@@ -28,6 +27,8 @@ public class InfoObject implements Serializable {
     protected int numAgree = 0;
     
     protected int numVote = 0;
+    
+    protected List<DRTAnnouncement> annoucements = new ArrayList<DRTAnnouncement>();
     
     protected boolean closed;
     
@@ -104,9 +105,25 @@ public class InfoObject implements Serializable {
 		this.numVote = numVote;
 	}
 
+	
+	/**
+     * @return
+     * 
+     * @hibernate.list lazy="false" table="pgist_infoobj_announce_link" cascade="all"
+     * @hibernate.collection-key column="obj_id"
+     * @hibernate.collection-index column="index_order"
+     * @hibernate.collection-one-to-many column="objective_id" class="org.pgist.sarp.drt.DRTAnnouncement"
+	 */
+    public List<DRTAnnouncement> getAnnoucements() {
+        return annoucements;
+    }
 
-	
-	
+
+    public void setAnnoucements(List<DRTAnnouncement> annoucements) {
+        this.annoucements = annoucements;
+    }
+
+
     /**
      * @return
      * @hibernate.property
@@ -114,8 +131,6 @@ public class InfoObject implements Serializable {
 	public boolean isClosed() {
 		return closed;
 	}
-	
-	
 
 
 	public void setClosed(boolean closed) {

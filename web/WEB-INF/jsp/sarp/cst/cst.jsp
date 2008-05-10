@@ -484,7 +484,8 @@
       });
   };
   
-  function publish(){
+  <c:if test="${!published && !cst.closed}">
+    function publish(){
       if (!confirm('Are you sure to publish your categories?')) return;
       CSTAgent.publish({cstId:cstId}, {
       callback:function(data){
@@ -498,7 +499,8 @@
           alert("publish error:" + errorString + exception);
       }
       });
-  };
+    };
+  </c:if>
   </script>
   
 <style type="text/css"> 
@@ -667,7 +669,7 @@
     <div id="spacer">
     </div>
     <div>
-      <c:if test="${!published}">
+      <c:if test="${!published && !cst.closed}">
         <input id="publishBtn" type="button" value="Publish" onclick="publish();">
       </c:if>
     </div>
@@ -705,16 +707,11 @@
 
 <!--end feedback form-->
 
-  <wf:subNav />
+<wf:subNav />
 
-  <div id="footer">
-    <jsp:include page="/footer.jsp" />
-  </div>
-<!--script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script-->
-<!--script type="text/javascript">
-_uacct = "UA-797433-1";
-urchinTracker();
-</script-->
+<div id="footer">
+  <jsp:include page="/footer.jsp" />
+</div>
+
 </body>
 </html>
