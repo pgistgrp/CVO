@@ -648,4 +648,60 @@ public class DRTAgent {
     } //createAnnouncement()
     
     
+    /**
+     * Set the voting choice on the given DRTAnnouncement object.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>cid - int, id of the DRTAnnouncement object. Required.</li>
+     *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>numAgree - int</li>
+     *     <li>numVote - int</li>
+     *   </ul>
+     */
+    public Map setVotingOnAnnouncement(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long aid = null;
+        try {
+            aid = new Long((String) params.get("aid"));
+        } catch (Exception e) {
+            map.put("reason", "aid is required.");
+            return map;
+        }
+        
+        boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+        
+        try {
+            DRTAnnouncement announcement = null;
+            
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_ANNOUNCEMENT, aid);
+            if (voting!=null) {
+                announcement = drtService.getDRTAnnouncementById(aid);
+            } else {
+                announcement = drtService.setVotingOnAnnouncement(aid, agree);
+            }
+            
+            map.put("numAgree", announcement.getNumAgree());
+            map.put("numVote", announcement.getNumVote());
+            map.put("voted", true);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVotingOnAnnouncement()
+    
+    
 }//class DRTAgent

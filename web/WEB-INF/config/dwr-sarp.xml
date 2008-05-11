@@ -206,6 +206,7 @@
       <include method="setVotingOnComment"/>
       <include method="getAnnouncements"/>
       <include method="createAnnouncement"/>
+      <include method="setVotingOnAnnouncement"/>
       <include method="searchTags"/>
       <include method="getTagCloud"/>
       <include method="getTagById"/>

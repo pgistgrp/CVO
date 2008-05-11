@@ -9,7 +9,7 @@ package org.pgist.sarp.drt;
 public class DRTAnnouncement {
     
     
-    private int id;
+    private Long id;
     
     private String title;
     
@@ -24,12 +24,12 @@ public class DRTAnnouncement {
      * @return
      * @hibernate.id generator-class="native"
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
     
     
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

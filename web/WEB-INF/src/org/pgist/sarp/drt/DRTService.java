@@ -32,9 +32,13 @@ public interface DRTService {
 
 	Comment setVotingOnComment(Long cid, boolean agree) throws Exception;
 
-    Collection<DRTAnnouncement> getAnnouncements(Long oid) throws Exception;
+    DRTAnnouncement getDRTAnnouncementById(Long aid) throws Exception;
+    
+    Collection<DRTAnnouncement> getAnnouncements(Long aid) throws Exception;
 
     Comment createAnnouncement(Long oid, String title, String description) throws Exception;
-	
+    
+    DRTAnnouncement setVotingOnAnnouncement(Long aid, boolean agree) throws Exception;
+
 	
 }//interface DRTService

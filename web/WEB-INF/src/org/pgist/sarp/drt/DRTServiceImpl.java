@@ -152,6 +152,8 @@ public class DRTServiceImpl implements DRTService {
         DRTAnnouncement announcement = new DRTAnnouncement();
         announcement.setTitle(title);
         announcement.setDescription(description);
+        announcement.setNumAgree(1);
+        announcement.setNumVote(1);
         
         drtDAO.save(announcement);
         
@@ -159,8 +161,29 @@ public class DRTServiceImpl implements DRTService {
         
         drtDAO.save(infoObject);
         
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_DRT_ANNOUNCEMENT, announcement.getId(), true);
+        
         return null;
     } //createAnnouncement()
 
 
+    @Override
+    public DRTAnnouncement setVotingOnAnnouncement(Long aid, boolean agree) throws Exception {
+        DRTAnnouncement announcement = (DRTAnnouncement) drtDAO.load(DRTAnnouncement.class, aid);
+        if (announcement==null) throw new Exception("can't find the specified announcement with id "+aid);
+        
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_DRT_ANNOUNCEMENT, aid, agree);
+        
+        drtDAO.increaseVoting(announcement, agree);
+        
+        return announcement;
+    } //setVotingOnAnnouncement()
+
+
+    @Override
+    public DRTAnnouncement getDRTAnnouncementById(Long aid) throws Exception {
+        return (DRTAnnouncement) drtDAO.load(DRTAnnouncement.class, aid);
+    } //getDRTAnnouncementById()
+    
+    
 }//class DRTServiceImpl

@@ -224,6 +224,33 @@
               }
           });
         },
+        setVoteOnAnnouncement : function(aid, agree){
+            DRTAgent.setVotingOnAnnouncement({aid: aid, agree:agree}, {
+            callback:function(data){
+              if (data.successful){
+                var votingDiv = 'voting-announcement'+aid;
+                if($(votingDiv) != undefined){
+                  new Effect.Fade(votingDiv, {
+                    afterFinish:function(){
+                      $(votingDiv).innerHTML = "<img src='images/btn_thumbsdown_off.png' alt='Disabled Button'/> <img src='images/btn_thumbsup_off.png' alt='Disabled Button'/> "
+                        +data.numAgree+"/"+data.numVote+" agree.";
+                      new Effect.Appear(votingDiv);
+                    }
+                  });
+                }
+              }else{
+                if (data.voted) {
+                  $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
+                } else {
+                  alert(data.reason);
+                }
+              }
+            },
+            errorHandler:function(errorString, exception){ 
+                alert("setVote error:" + errorString + exception);
+            }
+            });
+        },
         setExitCondition : function(element, exitNow){
             DRTAgent.setExitCondition({exitCondition: exitNow}, <pg:wfinfo/>, {
             callback:function(data){

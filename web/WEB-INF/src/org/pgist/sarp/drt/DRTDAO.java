@@ -21,5 +21,7 @@ public interface DRTDAO extends BaseDAO {
 
 	void increaseVoting(Comment comment, boolean agree) throws Exception;
 
+    void increaseVoting(DRTAnnouncement announcement, boolean agree) throws Exception;
+
 	
 }//interface DRTDAO

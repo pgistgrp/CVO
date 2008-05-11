@@ -1,7 +1,9 @@
 package org.pgist.tags;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -23,6 +25,7 @@ import org.pgist.projects.ProjectSuite;
 import org.pgist.sarp.cht.CHTComment;
 import org.pgist.sarp.cst.CSTComment;
 import org.pgist.sarp.drt.Comment;
+import org.pgist.sarp.drt.DRTAnnouncement;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.springframework.web.context.WebApplicationContext;
@@ -170,6 +173,9 @@ public class PgistELFunctions extends SimpleTagSupport {
                 if (object instanceof Comment) {
                     Comment comment = (Comment) object;
                     voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, comment.getId());
+                } else if (object instanceof DRTAnnouncement) {
+                    DRTAnnouncement announcement = (DRTAnnouncement) object;
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_ANNOUNCEMENT, announcement.getId());
                 } else if (object instanceof CSTComment) {
                     CSTComment comment = (CSTComment) object;
                     voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CST_COMMENT, comment.getId());
@@ -188,5 +194,14 @@ public class PgistELFunctions extends SimpleTagSupport {
 		return false;
 	}//voted()
 	
+	public static List<Object> reverse(List<Object> list) {
+	    List<Object> newList = new ArrayList<Object>(list.size());
+	    
+	    for (int i=list.size()-1; i>=0; i--) {
+	        newList.add(list.get(i));
+	    }
+	    
+	    return newList;
+	}
 	
 }// class PgistELFunctions

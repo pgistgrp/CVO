@@ -36,7 +36,10 @@
 </div>
 
 <div id="col-right2" style="overflow:hidden;clear:both;height:20px;border-top:1px solid #B4D579;">
-  <div style="float:left;overflow:hidden;">Moderator Announcements:</div>
+  <div style="float:left;overflow:hidden;">
+    Moderator Announcements: &nbsp;&nbsp;&nbsp;&nbsp;
+    <span style="cursor:pointer;color:blue;text-decoration:underline;" onclick="infoObject.getAnnouncements();">Refresh</span>
+  </div>
 	<pg:show roles="moderator">
     <div style="float:right;clear:right;">
       <span style="cursor:pointer;color:blue;text-decoration:underline;" onclick="$('announceEditor').style.display = 'block';">Create Announcements</span>
