@@ -190,6 +190,16 @@
     </bean>
     
     
+    <bean name="/vttwait" class="org.pgist.sarp.vtt.VTTWaitScreenAction">
+    </bean>
+    
+    
+    <bean name="/expertTool" class="org.pgist.sarp.vtt.VTTExpertToolAction">
+        <property name="vttService" ref="vttService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
     <bean name="/glossaryManage" class="org.pgist.glossary.GlossaryManageAction">
         <property name="glossaryService" ref="glossaryService"/>
     </bean>

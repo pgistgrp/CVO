@@ -39,7 +39,7 @@
     <br>
     <wf:subNav />
     
-    <pg:feedback id="feedbackDiv" action="drtwait.do" />
+    <pg:feedback id="feedbackDiv" action="vttwait.do" />
 
     <div id="footer">
         <jsp:include page="/footer.jsp" />

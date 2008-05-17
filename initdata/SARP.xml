@@ -529,6 +529,35 @@
             </declaration>
         </pgame>
     
+        <pgame name="pgame-sarp.vtt.wait" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Wait Screen</small>]]>
+            </description>
+            <actionName>action-sarp.vttwait</actionName>
+            <declaration>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="announcement" value="Experts are preparing for ICT, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.vtt.experttool" title="VTT Expert Users Screen" auto="false" access="expert" revisitable="false">
+            <description>
+              <![CDATA[<small>VTT Expert Users Screen</small>]]>
+            </description>
+            <actionName>action-sarp.vtt.experttool</actionName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+    
         <pgame name="pgame-sarp.toggle.vtt" title="Toggle VTT." auto="true">
             <description>
               <![CDATA[<small>Toggle a VTT.</small>]]>
@@ -984,6 +1013,20 @@
                         </ins>
                     </declaration>
                 </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sarp.vtt.experttool">
+                            <declaration>
+                                <ins>
+                                    <var name="vttId" ref="pmethod.vtt_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sarp.vtt.wait" />
+                    </sequence>
+                </branch>
                 <repeat exitCondition="pmethod.vttExitCondition">
                     <sequence>
                         <pgame name="pgame-sarp.toggle.drt">

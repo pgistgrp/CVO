@@ -161,6 +161,14 @@
             <forward name="main" path="/WEB-INF/jsp/sarp/drt/drtWaitMain.jsp"/>
         </action>
 
+        <action path="/vttwait" scope="request" type="org.pgist.sarp.vtt.VTTWaitScreenAction">
+            <forward name="main" path="/WEB-INF/jsp/sarp/vtt/vttWaitMain.jsp"/>
+        </action>
+
+        <action path="/expertTool" scope="request" type="org.pgist.sarp.vtt.VTTExpertToolAction">
+            <forward name="main" path="/WEB-INF/jsp/sarp/vtt/vttExpertMain.jsp"/>
+        </action>
+
         <action name="cctForm" path="/glossaryManage" scope="request" type="org.pgist.glossary.GlossaryManageAction">
             <forward name="list" path="/WEB-INF/jsp/glossary/gmMain.jsp" />
         </action>

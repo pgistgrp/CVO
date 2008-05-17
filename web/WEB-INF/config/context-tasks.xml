@@ -118,6 +118,8 @@
               <entry><key><value>action-sarp.drt</value></key><value>/drt.do</value></entry>
               <entry><key><value>action-sarp.drtmod</value></key><value>/drtmod.do</value></entry>
               <entry><key><value>action-sarp.drtwait</value></key><value>/drtwait.do</value></entry>
+              <entry><key><value>action-sarp.vtt.experttool</value></key><value>/expertTool.do</value></entry>
+              <entry><key><value>action-sarp.vttwait</value></key><value>/vttwait.do</value></entry>
             </map>
         </property>
     </bean>

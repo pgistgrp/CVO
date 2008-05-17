@@ -12,6 +12,7 @@
         <roles>
             <role>admin</role>
             <role>moderator</role>
+            <role>expert</role>
             <role>participant</role>
         </roles>
     </user>
@@ -32,28 +33,13 @@
     
     
     <user>
-        <loginname>Moderator_Kevin</loginname>
-        <lastname>moderator</lastname>
-        <firstname>Kevin</firstname>
-        <password encrypted="false">Moderator_Kevin</password>
-        <email>Moderator_Kevin@pgist.org</email>
+        <loginname>robert</loginname>
+        <lastname>Robert</lastname>
+        <firstname>Robert</firstname>
+        <password encrypted="false">robert</password>
+        <email>robert@pgist.org</email>
         <gender>Male</gender>
         <roles>
-            <role>moderator</role>
-            <role>participant</role>
-        </roles>
-    </user>
-    
-    
-    <user>
-        <loginname>Moderator_Matt</loginname>
-        <lastname>moderator</lastname>
-        <firstname>Matt</firstname>
-        <password encrypted="false">Moderator_Matt</password>
-        <email>Moderator_Matt@pgist.org</email>
-        <gender>Male</gender>
-        <roles>
-            <role>moderator</role>
             <role>participant</role>
         </roles>
     </user>
