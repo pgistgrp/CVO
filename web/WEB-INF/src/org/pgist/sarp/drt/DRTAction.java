@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -76,6 +77,10 @@ public class DRTAction extends Action {
          * id of a InfoObject
          */
         Long oid = new Long((String) request.getParameter("oid"));
+        
+        if (!WebUtils.checkRole("moderator")) {
+            return mapping.findForward("error");
+        }
         
         /*
          * Load the specified InfoObject object from database.

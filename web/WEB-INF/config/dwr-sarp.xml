@@ -213,6 +213,7 @@
       <include method="setupEmailNotify"/>
       <include method="search"/>
       <include method="setExitCondition"/>
+      <include method="getCategoryTags"/>
     </create>
 
 

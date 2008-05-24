@@ -67,7 +67,7 @@
     </pg:show>
     
     function doOnLoad(){
-      tabberAutomatic();
+      if (typeof(tabberAutomatic)=='function') tabberAutomatic();
       resetCols();
       getComments(1);
       <pg:show condition="${!cst.closed}">

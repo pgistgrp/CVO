@@ -137,6 +137,10 @@
             <forward name="view" path="/WEB-INF/jsp/sarp/cst/cstCategories.jsp" />
         </action>
 
+        <action path="/tctTree" scope="request" type="org.pgist.sarp.drt.TctTreeAction">
+            <forward name="view" path="/WEB-INF/jsp/sarp/drt/tctCategories.jsp" />
+        </action>
+
         <action path="/chtTree" scope="request" type="org.pgist.sarp.cht.CHTTreeAction">
             <forward name="view" path="/WEB-INF/jsp/sarp/cht/chtCategories.jsp" />
         </action>
