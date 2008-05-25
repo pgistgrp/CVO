@@ -140,7 +140,7 @@ public class DRTServiceImpl implements DRTService {
         InfoObject infoObject = drtDAO.getInfoObjectById(oid);
         if (infoObject==null) throw new Exception("can't find the specified InfoObject with id "+oid);
         
-        return infoObject.getAnnoucements();
+        return infoObject.getAnnouncements();
     } //getAnnouncements()
 
 
@@ -157,7 +157,7 @@ public class DRTServiceImpl implements DRTService {
         
         drtDAO.save(announcement);
         
-        infoObject.getAnnoucements().add(announcement);
+        infoObject.getAnnouncements().add(announcement);
         
         drtDAO.save(infoObject);
         

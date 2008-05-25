@@ -196,99 +196,22 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.cstmod" title="CST Mod Tool" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.cstmod" title="CST Mod Tool" auto="false" access="moderator" revisitable="false">
             <description>
               <![CDATA[<small>CST Mod Tool</small>]]>
             </description>
-            <actionName>action-sarp.drtmod</actionName>
+            <actionName>action-sarp.cst</actionName>
             <declaration>
                 <ins>
+                    <var name="cstId"/>
                     <var name="oid"/>
                 </ins>
                 <props>
-                    <property name="style">
-                        <![CDATA[
-                        <style type="text/css" media="screen">@import "/styles/dhtmlXTree/dhtmlXTree.css";</style>
-                        <style type="text/css" media="screen">@import "/styles/tabs.css";</style>
-                        <style type="text/css" media="screen">@import "/styles/lit.css";</style>
-                        <style type="text/css" media="screen">@import "/styles/template5.css";</style>
-                        <style type="text/css"> 
-                           .accordionTabTitleBar { 
-                              font-size: 12px; 
-                              padding : 2px 6px 2px 6px;
-                              border-style : solid none solid none;
-                              border-top-color: #DDDDDD; 
-                              border-bottom-color : #DDDDDD;
-                              border-width: 1px 0px 1px 0px; 
-                              text-transform: capitalize;
-                              cursor:pointer;
-                           }
-                           
-                           .accordionTabContentBox { 
-                              font-size : 11px;
-                              border : 1px solid #1f669b; 
-                              border-top-width : 0px;
-                              padding : 0px 8px 0px 8px;
-                           }
-                           
-                           .inplaceeditor-form textarea { 
-                               width: 95%;
-                               height: 100px;
-                           }
-                        
-                            #topMenu {
-                            padding:5px;
-                            background:#E1F1C5;
-                            border-bottom:1px solid #C6D78C;
-                            margin-bottom:5px;
-                            margin-left:-3px;
-                            }
-                            
-                            #topMenu input[type="text"]{width:110px;}
-                            
-                            #topMenu2 {
-                            padding:5px;
-                            padding-left:0px;
-                            width:97.75%;
-                            }
-                            
-                            #col-crud-options{
-                            background:#EEF7DD;
-                            padding:5px;
-                            margin-top:10px;
-                            border:1px solid #B4D579;
-                            }
-                            
-                            #col-left, #col {border:1px solid #B4D579;}
-                            
-                            .closeBox{float:right;}
-                            
-                            #summaryEditorTitle{display:block;margin-top:10px;}
-                            
-                            button#ss{font-size:12pt;padding:5px;}
-                            
-                            #sidebar_tags_header{border:1px solid #B4D579;}
-                            #col-left{width:48%;height:450px;}
-                            #col {width:48%;padding-left:10px;height:450px;}
-                        </style>
-                        ]]>
-                    </property>
                     <property name="javascript">
                         <![CDATA[
-                        <script src="/scripts/dhtmlXTree/dhtmlXTree.js" type="text/javascript"></script>  
-                        <script src="/scripts/dhtmlXTree/dhtmlXCommon.js" type="text/javascript"></script>  
-                        <script src="/scripts/tabcookies.js" type="text/javascript"></script>
-                        <script src="/scripts/tabs.js" type="text/javascript"></script>
-                        <script src="/scripts/tags.js" type="text/javascript"></script>
-                        <script src="scripts/search.js" type="text/javascript"></script>
-                        <script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
-                        <script type='text/javascript' src='/dwr/interface/CSTAgent.js'></script>
-                        <script src="/scripts/util.js" type="text/javascript"></script>
-                        <script type='text/javascript' src='/scripts/sarp/cst/drtMod.js'></script>
+                        <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="page" value="/WEB-INF/jsp/sarp/cst/cstMod.jsp" />
-                    <property name="title" value="Moderator Tool for TCT" />
                 </props>
             </declaration>
         </pgame>
@@ -864,6 +787,7 @@
                                 <pgame name="pgame-sarp.drt.cstmod">
                                     <declaration>
                                         <ins>
+                                            <var name="cstId" ref="pmethod.cst_id"/>
                                             <var name="oid" ref="pmethod.cst_oid"/>
                                         </ins>
                                     </declaration>

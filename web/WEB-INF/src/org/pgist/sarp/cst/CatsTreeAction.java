@@ -54,6 +54,30 @@ public class CatsTreeAction extends Action {
     ) throws java.lang.Exception {
         CST cst = cstService.getCSTById(new Long(request.getParameter("cstId")));
         
+        Long oid = null;
+        if (cst.isClosed()) {
+            // check oid
+            try {
+                oid = new Long(request.getParameter("oid"));
+            } catch (Exception e) {
+            }
+        }
+        
+        if (oid!=null) {
+            
+            // only moderator can access
+            if (!WebUtils.checkRole("moderator")) {
+                return mapping.findForward("error");
+            }
+            
+            request.setAttribute("published", true);
+            request.setAttribute("root", cst.getWinnerCategory());
+            
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
+            return mapping.findForward("view");
+        }
+        
         Long userId = null;
         try {
         	userId = new Long(request.getParameter("userId"));

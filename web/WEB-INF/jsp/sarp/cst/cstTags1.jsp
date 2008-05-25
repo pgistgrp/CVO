@@ -6,10 +6,10 @@
 <h4>Unrelated Tags</h4>
 <ul>
 	<logic:iterate id="tag" name="tags">
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
 		<li id="tag${tag.id}" style="list-style: none;">[<a href="javascript:relateTag(${tag.id});"><strong>&larr;</strong></a>]&nbsp;<a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
     </pg:show>
-    <pg:hide condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:hide condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
 		<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
     </pg:hide>
 	</logic:iterate>
@@ -17,10 +17,10 @@
 <h4>Orphan Tags</h4>
 <ul>
 	<logic:iterate id="tag" name="orphanTags">
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
 		<li id="tag${tag.id}" style="list-style: none;">[<a href="javascript:relateTag(${tag.id});"><strong>&larr;</strong></a>]&nbsp;[ ? ]&nbsp;<a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
     </pg:show>
-    <pg:hide condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:hide condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
 		<li id="tag${tag.id}" style="list-style: none;">[ ? ]&nbsp;<a href="javascript:getConcerns(${tag.id});">${tag.tag.name}</a></li>
     </pg:hide>
 	</logic:iterate>

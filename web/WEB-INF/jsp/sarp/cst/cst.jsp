@@ -69,7 +69,9 @@
     function doOnLoad(){
       if (typeof(tabberAutomatic)=='function') tabberAutomatic();
       resetCols();
+      <pg:show condition="${!modtool}">
       getComments(1);
+      </pg:show>
       <pg:show condition="${!cst.closed}">
       tinyMCE.idCounter=0;
       tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
@@ -79,7 +81,7 @@
       tree1.setImagePath("/images/dhtmlXTree/");
       tree1.enableCheckBoxes(false);
       tree1.enableThreeStateCheckboxes(true);
-      tree1.loadXML("/catsTree.do?cstId=${cst.id}&userId=${user.id}");
+      tree1.loadXML("/catsTree.do?oid=${infoObject.id}&cstId=${cst.id}&userId=${user.id}");
       tree1.cstId = cstId;
       tree1.setOnClickHandler(treeClickHandler);
     }
@@ -101,7 +103,7 @@
     var relatedTagsArr = [];
     function getTags(categoryId, page, type, orphanpage){
       Util.loading(true,"Working")
-      CSTAgent.getTags({userId: ${user.id}, cstId:${cst.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
+      CSTAgent.getTags({<pg:show condition="${modtool}">modtool:true,</pg:show>userId: ${user.id}, cstId:${cst.id}, categoryId:categoryId, page:page, count: 1000000000, orphanCount: 1000000000, type: type, orphanPage:orphanpage}, {
       callback:function(data){
         if (data.successful){
           if (type == 0){      
@@ -134,7 +136,7 @@
       });
     }
 
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
     function relateTag(tagId){
       if(currentCategory == null)return;
       Util.loading(true,"Working");
@@ -337,7 +339,7 @@
   }
   
   function treeClickHandler(clickid, lastid, labeltext) {
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
     document.getElementById("selcatetext").value = labeltext;
     </pg:show>
     currentCategory = tree1.lastSelected.parentObject;
@@ -347,7 +349,7 @@
     getTags(clickid, 0, 0, 1);
     getTags(clickid, 0, 1, 1);
     
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
     if ($('col-crud-options').style.display == 'none'){
       new Effect.SlideDown('col-crud-options',{duration: .5}); 
     }else{
@@ -360,7 +362,7 @@
   function unselectall(mode){
     if(mode){
       tree1.unSelectAll();
-      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+      <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
       $('selcatetext').value = '';
       $('theme').value = '';
       $('themeDiv').style.display = 'none';
@@ -368,7 +370,7 @@
       currentCategory=null;
       resetCols();
       getOrphanTags();
-      <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+      <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
       $('col-crud-options').style.display = "none"; 
       $('col-option').style.display = "none";
       </pg:show>
@@ -385,6 +387,7 @@
     location.href = '/workflow.do?workflowId='+${requestScope['org.pgist.wfengine.WORKFLOW_ID']}+'&contextId='+${requestScope['org.pgist.wfengine.CONTEXT_ID']}+'&activityId='+${requestScope['org.pgist.wfengine.ACTIVITY_ID']}+'&userId='+$('otherCategory').value;
   }
   
+  <pg:show condition="${!modtool}">
   function getComments(page) {
       CSTAgent.getComments({catRefId:${root.id}, page:page}, <pg:wfinfo/>,{
           callback:function(data){
@@ -501,6 +504,7 @@
       });
     };
   </c:if>
+  </pg:show>
   </script>
   
 <style type="text/css"> 
@@ -568,10 +572,10 @@
 <event:pageunload />
 </head>
 
-<pg:show condition="${user.id==baseuser.id && !cst.closed}">
+<pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
 <body onkeydown="globalKeyHandler(event);" onLoad="doOnLoad();">
 </pg:show>
-<pg:hide condition="${user.id==baseuser.id && !cst.closed}">
+<pg:hide condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
 <body onLoad="doOnLoad();">
 </pg:hide>
   <div id="savingIndicator" style="display: none; background-color:#FF0000;position:fixed;">&nbsp;Saving...<img src="/images/indicator.gif">&nbsp;</div>
@@ -586,6 +590,7 @@
   <div id="cont-resize">
     <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
       Back to Moderator Control Panel</a></p>
+    <pg:show condition="${!modtool}">
     <h2 class="headerColor">Concerns Synthesis Tool for participant
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
@@ -598,19 +603,43 @@
           </logic:notEqual>
         </logic:iterate>
       </select></h2>
-    <a name="colsTop"></a>
-    <div id="topMenu2">
-      <input type="button" value="Unselect All" onclick="unselectall(true);">
+    </pg:show>
+    <pg:show condition="${modtool}">
+      <h2 class="headerColor">Moderator Tool for TCT</h2>
+    </pg:show>
+    
+    <pg:show condition="${modtool}">
+    <div id="overview" class="box2">
+      <div id="col-right2" style="overflow:hidden;clear:both;height:20px;">
+        <div style="float:left;overflow:hidden;">
+          Moderator Announcements:
+        </div>
+      </div>
+      <div id="col-right3" style="overflow:auto;clear:both;height:250px;">
+        <center>
+          <div id="announcements" style="clear:both;padding:2px;overflow:auto;width:90%;height:80%;">
+            <jsp:include page="../drt/drtAnnouncements.jsp" />
+          </div>
+        </center>
+      </div>
     </div>
+    </pg:show>
+
     <div id="col-left">
       <div id="topMenu" style="clear:both;">
-        <pg:show condition="${user.id==baseuser.id && !cst.closed}">
-        <input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
-        <input type="button" id="addCat" value="Add Category" onclick="addcategory();">
+        <pg:show condition="${!modtool}">
+          <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+          <input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+          <input type="button" id="addCat" value="Add Category" onclick="addcategory();">
+          </pg:show>
+          <pg:hide condition="${user.id==baseuser.id && !cst.closed}">
+          ${user.loginname}'s categories
+          </pg:hide>
         </pg:show>
-        <pg:hide condition="${user.id==baseuser.id && !cst.closed}">
-        ${user.loginname}'s categories
-        </pg:hide>
+        <pg:show condition="${modtool}">
+          <input type="text" id="newcatetext" onkeydown="checkaddcategory(event)">
+          <input type="button" id="addCat" value="Add Category" onclick="addcategory();">
+        </pg:show>        
       </div>
       <div id="cats" style="height:300px;overflow:auto;" onclick="unselectall(!tree1.clickedOn);"></div>
       <div style="width:100%;">
@@ -650,7 +679,7 @@
     </div>
     
     <div style="clear:both"></div>
-    <pg:show condition="${user.id==baseuser.id && !cst.closed}">
+    <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
     <div id="col-crud-options" style="display:none;margin-top:50px">
         <span class="closeBox">
           <a href="javascript: new Effect.SlideUp('col-crud-options',{duration: .5}); void(0);">
@@ -676,21 +705,23 @@
     
     <br>
     
-    <p><b>Discussion about the categories:</b>
-    <div id="discussionBox" class="discussionBox"></div>
-    
-    <pg:show condition="${!cst.closed}">
-      <a id="newCommentAnchor" name="newCommentAnchor"></a>
-      <div id="newComment" class="box8 padding5">
-        <h3 class="headerColor">Post a comment</h3>
-        <form>
-          <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
-          <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
-          <input type="button" onClick="createCSTComment();" value="Submit">
-          <input type="button" onClick="cancelCSTComment();" value="Cancel" />
-          <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
-        </form>
-      </div>
+    <pg:show condition="${!modtool}">
+      <p><b>Discussion about the categories:</b>
+      <div id="discussionBox" class="discussionBox"></div>
+      
+      <pg:show condition="${!cst.closed}">
+        <a id="newCommentAnchor" name="newCommentAnchor"></a>
+        <div id="newComment" class="box8 padding5">
+          <h3 class="headerColor">Post a comment</h3>
+          <form>
+            <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
+            <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
+            <input type="button" onClick="createCSTComment();" value="Submit">
+            <input type="button" onClick="cancelCSTComment();" value="Cancel" />
+            <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
+          </form>
+        </div>
+      </pg:show>
     </pg:show>
     
     <div class="clearBoth"></div>

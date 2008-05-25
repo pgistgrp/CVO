@@ -90,7 +90,7 @@ public class DRTAction extends Action {
         
         if (infoObject!=null) {
             request.setAttribute("infoObject", infoObject);
-        	request.setAttribute("announcements", infoObject.getAnnoucements());
+        	request.setAttribute("announcements", infoObject.getAnnouncements());
             request.setAttribute("voting", voting);
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("main");

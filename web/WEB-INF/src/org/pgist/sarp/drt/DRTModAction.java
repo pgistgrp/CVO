@@ -56,7 +56,7 @@ public class DRTModAction extends Action {
         
         if (infoObject!=null) {
         	request.setAttribute("infoObject", infoObject);
-            request.setAttribute("announcements", infoObject.getAnnoucements());
+            request.setAttribute("announcements", infoObject.getAnnouncements());
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("main");
         }

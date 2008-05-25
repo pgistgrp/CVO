@@ -28,7 +28,7 @@ public class InfoObject implements Serializable {
     
     protected int numVote = 0;
     
-    protected List<DRTAnnouncement> annoucements = new ArrayList<DRTAnnouncement>();
+    protected List<DRTAnnouncement> announcements = new ArrayList<DRTAnnouncement>();
     
     protected boolean closed;
     
@@ -114,13 +114,13 @@ public class InfoObject implements Serializable {
      * @hibernate.collection-index column="index_order"
      * @hibernate.collection-one-to-many column="objective_id" class="org.pgist.sarp.drt.DRTAnnouncement"
 	 */
-    public List<DRTAnnouncement> getAnnoucements() {
-        return annoucements;
+    public List<DRTAnnouncement> getAnnouncements() {
+        return announcements;
     }
 
 
-    public void setAnnoucements(List<DRTAnnouncement> annoucements) {
-        this.annoucements = annoucements;
+    public void setAnnouncements(List<DRTAnnouncement> announcements) {
+        this.announcements = announcements;
     }
 
 
