@@ -184,6 +184,19 @@ public class DRTServiceImpl implements DRTService {
     public DRTAnnouncement getDRTAnnouncementById(Long aid) throws Exception {
         return (DRTAnnouncement) drtDAO.load(DRTAnnouncement.class, aid);
     } //getDRTAnnouncementById()
+
+
+    @Override
+    public void deleteVote(DRTAnnouncement announcement, YesNoVoting voting) throws Exception {
+        drtDAO.deleteVote(announcement, voting);
+    } //deleteVote()
+
+
+    @Override
+    public void setAnnouncementDone(Long aid) throws Exception {
+        DRTAnnouncement announcement = (DRTAnnouncement) drtDAO.load(DRTAnnouncement.class, aid);
+        announcement.setDone(true);
+    } //setAnnouncementDone()
     
     
 }//class DRTServiceImpl

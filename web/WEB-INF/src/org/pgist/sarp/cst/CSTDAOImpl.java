@@ -179,9 +179,19 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     public Collection getUnrelatedTags(Long cstId, Long categoryId, PageSetting setting) throws Exception {
         CST cst = (CST) load(CST.class, cstId);
         
-        CategoryReference root = cst.getCategories().get(WebUtils.currentUserId());
-        if (root==null) {
-            root = cst.getCats().get(WebUtils.currentUserId());
+        CategoryReference focus = getCategoryReferenceById(categoryId);
+        CategoryReference focusRoot = focus;
+        while (focusRoot.getParents().size()>0) focusRoot = focusRoot.getParents().iterator().next();
+        
+        CategoryReference root = null;
+        
+        if (focusRoot==cst.getWinnerCategory()) {
+            root = focusRoot;
+        } else {
+            root = cst.getCategories().get(WebUtils.currentUserId());
+            if (root==null) {
+                root = cst.getCats().get(WebUtils.currentUserId());
+            }
         }
         
         StringBuilder sb = new StringBuilder();
@@ -225,17 +235,39 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     private static final String hql_getOrphanTags2 = "select distinct tr, tr.tag.name as name from TagReference tr where tr.times>0 and  tr.bctId=? and tr.id not in (select tr.id from CategoryReference cr inner join cr.tags as tr where cr.id in (##)) order by name";
     
     
-    public Collection getOrphanTags(Long cstId, PageSetting setting) throws Exception {
+    public Collection getOrphanTags(Long cstId, PageSetting setting, boolean modtool) throws Exception {
+        CST cst = (CST) load(CST.class, cstId);
+        
+        if (modtool) {
+            return getOrphanTags(cstId, cst.getWinnerCategory().getId(), setting);
+        } else {
+            CategoryReference root = cst.getCategories().get(WebUtils.currentUserId());
+            if (root==null) {
+                root = cst.getCats().get(WebUtils.currentUserId());
+            }
+            return getOrphanTags(cstId, root.getId(), setting);
+        }
+    }
+    
+    
+    public Collection getOrphanTags(Long cstId, Long categoryId, PageSetting setting) throws Exception {
     	CST cst = (CST) load(CST.class, cstId);
     	Long bctId = cst.getBct().getId();
     	
     	//get IN string
-    	boolean published = false;
-        CategoryReference root = cst.getCategories().get(WebUtils.currentUserId());
-        if (root!=null) {
-            published = true;
+        CategoryReference focus = getCategoryReferenceById(categoryId);
+        CategoryReference focusRoot = focus;
+        while (focusRoot.getParents().size()>0) focusRoot = focusRoot.getParents().iterator().next();
+        
+        CategoryReference root = null;
+        
+        if (focusRoot==cst.getWinnerCategory()) {
+            root = focusRoot;
         } else {
-            root = cst.getCats().get(WebUtils.currentUserId());
+            root = cst.getCategories().get(WebUtils.currentUserId());
+            if (root==null) {
+                root = cst.getCats().get(WebUtils.currentUserId());
+            }
         }
         
         StringBuilder sb = new StringBuilder();

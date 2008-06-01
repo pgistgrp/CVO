@@ -214,6 +214,7 @@
       <include method="search"/>
       <include method="setExitCondition"/>
       <include method="getCategoryTags"/>
+      <include method="setAnnouncementDone"/>
     </create>
 
 

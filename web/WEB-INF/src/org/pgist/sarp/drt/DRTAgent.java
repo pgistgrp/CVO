@@ -540,6 +540,7 @@ public class DRTAgent {
      * @param params A map contains:
      *   <ul>
      *     <li>oid - int, id of a InfoObject object</li>
+     *     <li>modtool - string, "true", "false"</li>
      *   </ul>
      * 
      * @param wfinfo A map contains:
@@ -568,6 +569,10 @@ public class DRTAgent {
         Long oid = null;
         try {
             request.setAttribute("wfinfo", wfinfo);
+            
+            if ("true".equalsIgnoreCase((String) params.get("modtool"))) {
+                request.setAttribute("modtool", true);
+            }
             
             oid = new Long((String) params.get("oid"));
             if (oid==null) {
@@ -663,7 +668,7 @@ public class DRTAgent {
      * @param params A map contains:
      *   <ul>
      *     <li>cid - int, id of the DRTAnnouncement object. Required.</li>
-     *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
+     *     <li>agree - string, "remove", "true" or "false".</li>
      *   </ul>
      *   
      * @return A map contains:<br>
@@ -692,15 +697,22 @@ public class DRTAgent {
             DRTAnnouncement announcement = null;
             
             YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_ANNOUNCEMENT, aid);
-            if (voting!=null) {
+            
+            if ("remove".equalsIgnoreCase((String) params.get("agree"))) {
                 announcement = drtService.getDRTAnnouncementById(aid);
+                if (voting.getOwner().getId().equals(WebUtils.currentUserId())) {
+                    drtService.deleteVote(announcement, voting);
+                }
             } else {
-                announcement = drtService.setVotingOnAnnouncement(aid, agree);
+                if (voting!=null) {
+                    announcement = drtService.getDRTAnnouncementById(aid);
+                } else {
+                    announcement = drtService.setVotingOnAnnouncement(aid, agree);
+                }
             }
             
             map.put("numAgree", announcement.getNumAgree());
             map.put("numVote", announcement.getNumVote());
-            map.put("voted", true);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -711,6 +723,36 @@ public class DRTAgent {
         
         return map;
     }//setVotingOnAnnouncement()
+    
+    
+    public Map setAnnouncementDone(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        if (!WebUtils.checkRole("moderator")) {
+            map.put("reason", "access denied.");
+            return map;
+        }
+        
+        Long aid = null;
+        try {
+            aid = new Long((String) params.get("aid"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", "aid is required.");
+            return map;
+        }
+        
+        try {
+            drtService.setAnnouncementDone(aid);
+            map.put("successful", true);
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+    } //setAnnouncementDone()
     
     
     /**

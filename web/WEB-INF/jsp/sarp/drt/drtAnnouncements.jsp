@@ -8,15 +8,39 @@
     <td width="18%">
       <div id="voting-announcement${announcement.id}">
         <c:choose>
-          <c:when test="${pg:voted(pageContext, announcement)}">
-            <img src="/images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="/images/btn_thumbsup_off.png" alt="Disabled Button"/>
+          <c:when test="${modtool}">
+            <c:choose>
+              <c:when test="${announcement.done}">
+                <span style="color:grey;">Done!</span>
+              </c:when>
+              <c:otherwise>
+                <a href="javascript:setAnnouncementDone(${announcement.id});">Close</a>
+              </c:otherwise>
+            </c:choose>
+            &nbsp;&nbsp;&nbsp;${announcement.numAgree}/${announcement.numVote} agree.
           </c:when>
           <c:otherwise>
-            <a href="javascript:infoObject.setVoteOnAnnouncement(${announcement.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
-            <a href="javascript:infoObject.setVoteOnAnnouncement(${announcement.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+            <c:choose>
+              <c:when test="${announcement.done}">
+                <img src="/images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="/images/btn_thumbsup_off.png" alt="Disabled Button"/>
+                <span style="color:grey;">Done.</span>
+              </c:when>
+              <c:otherwise>
+                <c:choose>
+                  <c:when test="${pg:voted(pageContext, announcement)}">
+                    <img src="/images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="/images/btn_thumbsup_off.png" alt="Disabled Button"/>
+                    <a href="javascript:infoObject.setVoteOnAnnouncement(${announcement.id}, 'remove');">reset</a>
+                  </c:when>
+                  <c:otherwise>
+                    <a href="javascript:infoObject.setVoteOnAnnouncement(${announcement.id}, 'false');"><img src="/images/btn_thumbsdown.png" alt="I disagree!" border="0"/></a> 
+                    <a href="javascript:infoObject.setVoteOnAnnouncement(${announcement.id}, 'true');"><img src="/images/btn_thumbsup.png" alt="I agree!" border="0"/></a>
+                  </c:otherwise>
+                </c:choose>
+                &nbsp;&nbsp;&nbsp;${announcement.numAgree}/${announcement.numVote} agree.
+              </c:otherwise>
+            </c:choose>
           </c:otherwise>
         </c:choose>
-      ${announcement.numAgree}/${announcement.numVote} agree.
       </div>
     </td>
   </tr>

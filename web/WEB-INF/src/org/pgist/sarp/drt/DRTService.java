@@ -2,6 +2,7 @@ package org.pgist.sarp.drt;
 
 import java.util.Collection;
 
+import org.pgist.system.YesNoVoting;
 import org.pgist.util.PageSetting;
 
 
@@ -39,6 +40,10 @@ public interface DRTService {
     Comment createAnnouncement(Long oid, String title, String description) throws Exception;
     
     DRTAnnouncement setVotingOnAnnouncement(Long aid, boolean agree) throws Exception;
+
+    void deleteVote(DRTAnnouncement announcement, YesNoVoting voting) throws Exception;
+
+    void setAnnouncementDone(Long aid) throws Exception;
 
 	
 }//interface DRTService

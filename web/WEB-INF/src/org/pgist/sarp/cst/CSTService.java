@@ -48,7 +48,9 @@ public interface CSTService {
 
     Collection getUnrelatedTags(Long cstId, Long categoryId, PageSetting setting) throws Exception;
 
-    Collection getOrphanTags(Long cstId, PageSetting setting) throws Exception;
+    Collection getOrphanTags(Long cstId, PageSetting setting, boolean modtool) throws Exception;
+    
+    Collection getOrphanTags(Long cstId, Long categoryId, PageSetting setting) throws Exception;
 
     void saveSummary(Long catRefId, String summary) throws Exception;
 

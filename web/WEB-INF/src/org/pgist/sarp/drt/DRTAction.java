@@ -78,10 +78,6 @@ public class DRTAction extends Action {
          */
         Long oid = new Long((String) request.getParameter("oid"));
         
-        if (!WebUtils.checkRole("moderator")) {
-            return mapping.findForward("error");
-        }
-        
         /*
          * Load the specified InfoObject object from database.
          */

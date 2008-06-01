@@ -225,6 +225,7 @@
           });
         },
         setVoteOnAnnouncement : function(aid, agree){
+            var infoObject = this;
             DRTAgent.setVotingOnAnnouncement({aid: aid, agree:agree}, {
             callback:function(data){
               if (data.successful){
@@ -232,9 +233,7 @@
                 if($(votingDiv) != undefined){
                   new Effect.Fade(votingDiv, {
                     afterFinish:function(){
-                      $(votingDiv).innerHTML = "<img src='images/btn_thumbsdown_off.png' alt='Disabled Button'/> <img src='images/btn_thumbsup_off.png' alt='Disabled Button'/> "
-                        +data.numAgree+"/"+data.numVote+" agree.";
-                      new Effect.Appear(votingDiv);
+                      infoObject.getAnnouncements();
                     }
                   });
                 }

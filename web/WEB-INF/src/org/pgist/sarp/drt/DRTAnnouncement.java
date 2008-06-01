@@ -19,6 +19,8 @@ public class DRTAnnouncement {
     
     private int numVote;
     
+    private boolean done;
+    
     
     /**
      * @return
@@ -87,6 +89,24 @@ public class DRTAnnouncement {
 
     public void setNumVote(int numVote) {
         this.numVote = numVote;
+    }
+    
+    
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isDone() {
+        return done;
+    }
+    
+    
+
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
     
     

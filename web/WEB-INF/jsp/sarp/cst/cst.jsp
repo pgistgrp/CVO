@@ -38,6 +38,7 @@
   <script type='text/javascript' src='/dwr/util.js'></script>
   <script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
   <script type='text/javascript' src='/dwr/interface/CSTAgent.js'></script>
+  <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
   
   <!-- Template 5 Specific -->
   <style type="text/css" media="screen">@import "/styles/template5.css";</style>
@@ -91,7 +92,12 @@
     }
  
     function getOrphanTags(){
+      <pg:show condition="${modtool}">
+        CSTAgent.getOrphanTags({cstId:cstId, count: 1000000000, modtool:"true"}, {
+      </pg:show>
+      <pg:hide condition="${modtool}">
         CSTAgent.getOrphanTags({cstId:cstId, count: 1000000000}, {
+      </pg:hide>
         callback:function(data){
             if (data.successful){
               $('sidebar_tags').innerHTML += data.html;
@@ -345,7 +351,9 @@
     currentCategory = tree1.lastSelected.parentObject;
     tempcate = tree1.getTopLevelNode(currentCategory);
     
+    <pg:hide condition="${modtool}">
     getTheme(clickid);
+    </pg:hide>
     getTags(clickid, 0, 0, 1);
     getTags(clickid, 0, 1, 1);
     
@@ -362,7 +370,7 @@
   function unselectall(mode){
     if(mode){
       tree1.unSelectAll();
-      <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
+      <pg:show condition="${(user.id==baseuser.id && !cst.closed) || !modtool}">
       $('selcatetext').value = '';
       $('theme').value = '';
       $('themeDiv').style.display = 'none';
@@ -505,6 +513,43 @@
     };
   </c:if>
   </pg:show>
+  <pg:show condition="${modtool}">
+    function getAnnouncements(){
+      displayIndicator(true);
+      DRTAgent.getAnnouncements({oid:${infoObject.id}, modtool:'true'}, <pg:wfinfo/>,{
+          callback:function(data){
+              if (data.successful){
+                  displayIndicator(false);
+                  $('announcements').innerHTML = data.html;
+              }else{
+                  displayIndicator(false);
+                  alert(data.reason);
+              }
+          },
+          errorHandler:function(errorString, exception){ 
+              alert("get targets error: " + errorString +" "+ exception);
+          }
+      });
+    }
+    
+    function setAnnouncementDone(aid) {
+      displayIndicator(true);
+      DRTAgent.setAnnouncementDone({aid:aid},{
+        callback:function(data){
+          if (data.successful){
+              displayIndicator(false);
+              getAnnouncements();
+          }else{
+              displayIndicator(false);
+              alert(data.reason);
+          }
+        },
+        errorHandler:function(errorString, exception){ 
+            alert("error:" + errorString + exception);
+        }
+      });
+    }
+  </pg:show>
   </script>
   
 <style type="text/css"> 
@@ -642,12 +687,14 @@
         </pg:show>        
       </div>
       <div id="cats" style="height:300px;overflow:auto;" onclick="unselectall(!tree1.clickedOn);"></div>
+      <pg:hide condition="${modtool}">
       <div style="width:100%;">
         <textarea id="theme" disabled="true" style="border-top:1px solid black; border-left:thin dotted #800080; border-right:thin dotted #800080;  border-bottom:thin dotted #800080; width:98%; height:108px; background-color:#FFFAF0;"></textarea>
       </div>
       <div id="themeDiv" style="width:100%; display:none;">
         <input type="button" value="save description" onclick="saveTheme();">
       </div>
+      </pg:hide>
     </div>
     
     <div id="col"></div>

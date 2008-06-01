@@ -568,8 +568,13 @@ public class CSTServiceImpl implements CSTService {
     }//getUnrelatedTags()
 
 
-    public Collection getOrphanTags(Long cstId, PageSetting setting) throws Exception {
-        return cstDAO.getOrphanTags(cstId, setting);
+    public Collection getOrphanTags(Long cstId, PageSetting setting, boolean modtool) throws Exception {
+        return cstDAO.getOrphanTags(cstId, setting, modtool);
+    }//getOrphanTags()
+
+
+    public Collection getOrphanTags(Long cstId, Long categoryId, PageSetting setting) throws Exception {
+        return cstDAO.getOrphanTags(cstId, categoryId, setting);
     }//getOrphanTags()
 
 

@@ -34,7 +34,9 @@ public interface CSTDAO extends BaseDAO {
 
     Collection getUnrelatedTags(Long cstId, Long categoryId, PageSetting setting) throws Exception;
 
-    Collection getOrphanTags(Long cstId, PageSetting setting) throws Exception;
+    Collection getOrphanTags(Long cstId, PageSetting setting, boolean modtool) throws Exception;
+
+    Collection getOrphanTags(Long cstId, Long categoryId, PageSetting setting) throws Exception;
 
     void delete(CategoryReference ref) throws Exception;
 

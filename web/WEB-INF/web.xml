@@ -179,18 +179,6 @@
         <!-- Situation Templates -->
         <url-pattern>/templateSelect.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/OtherAgent.setSituationTemplate.dwr</url-pattern>
-        <!-- BCT/CST -->
-        <url-pattern>/catsTree.do</url-pattern>
-        <url-pattern>/cstview.do</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.addCategory.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.copyCategory.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.deleteCategory.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.derelateTag.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.duplicateCategory.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.editCategory.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.moveCategory.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.relateTag.dwr</url-pattern>
-        <url-pattern>/dwr/call/plaincall/CSTAgent.saveSummary.dwr</url-pattern>
         <!-- Tag Management -->
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.createStopWord.dwr</url-pattern>

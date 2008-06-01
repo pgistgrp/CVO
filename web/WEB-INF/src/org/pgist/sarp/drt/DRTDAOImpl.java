@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.system.YesNoVoting;
 import org.pgist.util.PageSetting;
 
 
@@ -90,6 +91,27 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
             getSession().createQuery(hql_increaseVoting_32).setLong(0, announcement.getId()).executeUpdate();
         }
     }//increaseVoting()
+
+
+    private static final String hql_decreaseVoting_31 = "update DRTAnnouncement a set a.numVote=a.numVote-1 where a.id=?";
+    
+    private static final String hql_decreaseVoting_32 = "update DRTAnnouncement a set a.numAgree=a.numAgree-1 where a.id=?";
+    
+    
+    @Override
+    public void decreaseVoting(DRTAnnouncement announcement, boolean agree) throws Exception {
+        getSession().createQuery(hql_decreaseVoting_31).setLong(0, announcement.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_decreaseVoting_32).setLong(0, announcement.getId()).executeUpdate();
+        }
+    }//decreaseVoting()
+
+
+    @Override
+    public void deleteVote(DRTAnnouncement announcement, YesNoVoting voting) throws Exception {
+        decreaseVoting(announcement, voting.isVoting());
+        getSession().delete(voting);
+    } //deleteVote()
 
 
 }//class DRTDAOImpl

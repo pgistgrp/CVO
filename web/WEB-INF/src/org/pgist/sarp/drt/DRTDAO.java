@@ -3,6 +3,7 @@ package org.pgist.sarp.drt;
 import java.util.Collection;
 
 import org.pgist.system.BaseDAO;
+import org.pgist.system.YesNoVoting;
 import org.pgist.util.PageSetting;
 
 
@@ -22,6 +23,10 @@ public interface DRTDAO extends BaseDAO {
 	void increaseVoting(Comment comment, boolean agree) throws Exception;
 
     void increaseVoting(DRTAnnouncement announcement, boolean agree) throws Exception;
+
+    void deleteVote(DRTAnnouncement announcement, YesNoVoting voting) throws Exception;
+
+    void decreaseVoting(DRTAnnouncement announcement, boolean agree) throws Exception;
 
 	
 }//interface DRTDAO

@@ -182,7 +182,7 @@ public class CSTAgent {
                     orphanSetting.setRowOfPage(-1);
                 }
                 
-                Collection orphanTags = cstService.getOrphanTags(cstId, orphanSetting);
+                Collection orphanTags = cstService.getOrphanTags(cstId, categoryId, orphanSetting);
                 
                 request.setAttribute("orphanTags", orphanTags);
             } else {
@@ -267,6 +267,7 @@ public class CSTAgent {
      * @param params A map contains:<br>
      *         <ul>
      *           <li>cstId - int, the current CST instance id</li>
+     *           <li>modtool - string, "true" or "false"</li>
      *           <li>page - int, the page to be displayed of unrelated tags, optional, default is 1</li>
      *           <li>count - int, the rows number per page, optional, default is -1, which means to get all tags</li>
      *         </ul>
@@ -323,7 +324,7 @@ public class CSTAgent {
             }
             
             
-            Collection tags = cstService.getOrphanTags(cstId, setting);
+            Collection tags = cstService.getOrphanTags(cstId, setting, "true".equalsIgnoreCase((String) params.get("modtool")));
             
             request.setAttribute("cst", cst);
             request.setAttribute("tags", tags);
