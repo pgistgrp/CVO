@@ -3,6 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -119,7 +120,7 @@
               relatedTagsArr.push(data.tags[i].id);
             }
             
-            document.getElementById('col').innerHTML = '<h4>Tags within "' + currentCategory.label + '"</h4>';
+            document.getElementById('col').innerHTML = '<h4>Tags within "' + currentCategory.label.escapeHTML() + '"</h4>';
             document.getElementById('col').innerHTML += data.html;
             
             if (data.tags.length > 0){
@@ -129,7 +130,7 @@
             
           }
           if (type == 1){
-            $('sidebar_tags').innerHTML = '<h4>Tags not in "' + currentCategory.label + '"</h4>' + data.html;
+            $('sidebar_tags').innerHTML = '<h4>Tags not in "' + currentCategory.label.escapeHTML() + '"</h4>' + data.html;
           }
         }else{
           alert("Getting tags not successful: " + data.reason);
@@ -245,7 +246,7 @@
     function modifySelectedCategory(){
       var newtext = document.getElementById("selcatetext").value;
       if(tree1.lastSelected!=null && newtext!=""){
-        var params = {bctId: bctId, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
+        var params = {cstId: ${cst.id}, categoryId: tree1.lastSelected.parentObject.dataId, name:newtext};
         CSTAgent.editCategory(params, {
               callback:function(data){
                 if (data.successful){

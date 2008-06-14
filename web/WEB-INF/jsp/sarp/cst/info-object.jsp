@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div id="col-left" style="float:left;width:30%;overflow:auto;height:50%;border-right:1px solid #B4D579;">
   <b>Categories:</b>
   <table id="catTable" width="100%" cellpadding="2" cellspacing="0">
@@ -9,14 +10,14 @@
       <tr id="catRow-${category.id}">
         <td style="width:4em;"><a id="catcmp-${category.id}" style="display:none;cursor:pointer;" href="javascript:catTree.category1Clicked(${category.id});">compare</a></td>
         <td style="width:3px;"></td>
-        <td id="catCol-${category.id}" align="left" style="font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${category}</td>
+        <td id="catCol-${category.id}" align="left" style="font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${fn:escapeXml(category)}</td>
       </tr>
       </c:when>
       <c:otherwise>
       <tr id="catRow-${category.id}">
         <td style="width:4em;border-top:1px dotted red;"><a id="catcmp-${category.id}" style="display:none;cursor:pointer;" href="javascript:catTree.category1Clicked(${category.id});">compare</a></td>
         <td style="width:3px;border-top:1px dotted red;"></td>
-        <td id="catCol-${category.id}" align="left" style="border-top:1px dotted red;font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${category}</td>
+        <td id="catCol-${category.id}" align="left" style="border-top:1px dotted red;font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${fn:escapeXml(category)}</td>
       </tr>
       </c:otherwise>
     </c:choose>
