@@ -109,7 +109,7 @@ public class InfoObject implements Serializable {
 	/**
      * @return
      * 
-     * @hibernate.list lazy="false" table="pgist_infoobj_announce_link" cascade="all"
+     * @hibernate.list lazy="false" table="sarp_infoobj_announce_link" cascade="all"
      * @hibernate.collection-key column="obj_id"
      * @hibernate.collection-index column="index_order"
      * @hibernate.collection-one-to-many column="objective_id" class="org.pgist.sarp.drt.DRTAnnouncement"

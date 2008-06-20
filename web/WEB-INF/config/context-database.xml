@@ -78,6 +78,7 @@
                <value>org/pgist/sarp/cst/CSTComment.hbm.xml</value>
                <value>org/pgist/sarp/cht/CHT.hbm.xml</value>
                <value>org/pgist/sarp/cht/CHTComment.hbm.xml</value>
+               <value>org/pgist/sarp/cht/CategoryPath.hbm.xml</value>
                <value>org/pgist/sarp/vtt/VTT.hbm.xml</value>
                <value>org/pgist/sarp/vtt/CategoryValue.hbm.xml</value>
                <value>org/pgist/sarp/vtt/VTTComment.hbm.xml</value>

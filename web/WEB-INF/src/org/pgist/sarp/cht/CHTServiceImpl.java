@@ -337,22 +337,41 @@ public class CHTServiceImpl implements CHTService {
         final CHT cht = chtDAO.getCHTById(chtId);
         
         class CategoryFactory {
-            private CategoryReference root;
+            private CategoryReference root = new CategoryReference("root");
+            private List<CategoryPath> paths = new ArrayList<CategoryPath>();
+            
             public CategoryReference createCategoryReference(String name) {
                 CategoryReference catRef = new CategoryReference(name);
                 catRef.setCstId(chtId);
                 return catRef;
             }
+            
             public TagReference createTagReference(String name) {
                 TagReference tagRef = new TagReference(name);
                 tagRef.setBctId(cht.getCst().getId());
                 return tagRef;
             }
-            public void setResult(CategoryReference root) {
-                this.root = root;
+            
+            public CategoryPath createCategoryPath() {
+                CategoryPath path = new CategoryPath();
+                path.setCht(cht);
+                return path;
             }
+            
+            public void addCategory(CategoryReference catRef) {
+                root.getChildren().add(catRef);
+            }
+            
             public CategoryReference getRoot() {
                 return root;
+            }
+            
+            public void addPath(CategoryPath path) throws Exception {
+                paths.add(path);
+            }
+            
+            public List<CategoryPath> getPaths() {
+                return paths;
             }
         };
         
@@ -376,7 +395,13 @@ public class CHTServiceImpl implements CHTService {
             throw e;
         }
         
+        for (CategoryPath path : factory.getPaths()) {
+            chtDAO.save(path);
+        }
+        
         CategoryReference winner = factory.getRoot();
+        winner.setCstId(chtId);
+        chtDAO.save(winner);
         
         User moderator = systemDAO.getAdmin();
         winner.setCstId(chtId);
