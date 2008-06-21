@@ -395,7 +395,14 @@ public class CHTServiceImpl implements CHTService {
             throw e;
         }
         
+        StringBuilder sb = new StringBuilder();
         for (CategoryPath path : factory.getPaths()) {
+            sb.delete(0, sb.length());
+            for (CategoryReference catRef : path.getCategories()) {
+                if (sb.length()>0) sb.append(".");
+                sb.append(catRef.getCaption());
+            }
+            path.setTitle(sb.toString());
             chtDAO.save(path);
         }
         

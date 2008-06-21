@@ -21,8 +21,6 @@
 #         createCategoryPath()
 #         addCategory(CategoryReference)
 #         addPath(CategoryPath)
-# Output:
-#     root : a root category reference
 
 for i in range(len(userIdList)):
     print userIdList[i], ' : ', catList[i];
@@ -50,7 +48,6 @@ pathA_B = factory.createCategoryPath();
 pathA_B.getCategories().add(categoryA);
 pathA_B.getCategories().add(categoryB);
 pathA_B.setFrequency(15);
-pathA_B.setTitle('A.B');
 
 # A.C
 categoryC = factory.createCategoryReference('C');
@@ -64,7 +61,6 @@ pathA_C = factory.createCategoryPath();
 pathA_C.getCategories().add(categoryA);
 pathA_C.getCategories().add(categoryC);
 pathA_C.setFrequency(13);
-pathA_C.setTitle('A.C');
 
 # D.A
 categoryD = factory.createCategoryReference('D');
@@ -76,7 +72,6 @@ pathD_A = factory.createCategoryPath();
 pathD_A.getCategories().add(categoryD);
 pathD_A.getCategories().add(categoryA);
 pathD_A.setFrequency(10);
-pathD_A.setTitle('D.A');
 
 # C.E.A
 categoryE = factory.createCategoryReference('E');
@@ -89,7 +84,6 @@ pathC_E_A.getCategories().add(categoryC);
 pathC_E_A.getCategories().add(categoryE);
 pathC_E_A.getCategories().add(categoryA);
 pathC_E_A.setFrequency(5);
-pathC_E_A.setTitle('C.E.A');
 
 # C.D.F
 categoryF = factory.createCategoryReference('F');
@@ -103,7 +97,6 @@ pathC_D_F.getCategories().add(categoryC);
 pathC_D_F.getCategories().add(categoryD);
 pathC_D_F.getCategories().add(categoryF);
 pathC_D_F.setFrequency(2);
-pathC_D_F.setTitle('C.D.F');
 
 # F.G
 categoryG = factory.createCategoryReference('G');
@@ -115,7 +108,6 @@ pathF_G = factory.createCategoryPath();
 pathF_G.getCategories().add(categoryF);
 pathF_G.getCategories().add(categoryG);
 pathF_G.setFrequency(1);
-pathF_G.setTitle('F.G');
 
 # A.H
 categoryH = factory.createCategoryReference('H');
@@ -129,7 +121,6 @@ pathA_H = factory.createCategoryPath();
 pathA_H.getCategories().add(categoryA);
 pathA_H.getCategories().add(categoryH);
 pathA_H.setFrequency(1);
-pathA_H.setTitle('A.H');
 
 # G.I
 categoryI = factory.createCategoryReference('I');
@@ -141,7 +132,6 @@ pathG_I = factory.createCategoryPath();
 pathG_I.getCategories().add(categoryG);
 pathG_I.getCategories().add(categoryI);
 pathG_I.setFrequency(1);
-pathG_I.setTitle('G.I');
 
 # G.J
 categoryJ = factory.createCategoryReference('J');
@@ -154,7 +144,6 @@ pathG_J = factory.createCategoryPath();
 pathG_J.getCategories().add(categoryG);
 pathG_J.getCategories().add(categoryJ);
 pathG_J.setFrequency(1);
-pathG_J.setTitle('G.J');
 
 factory.addPath(pathA_B);
 factory.addPath(pathA_C);
