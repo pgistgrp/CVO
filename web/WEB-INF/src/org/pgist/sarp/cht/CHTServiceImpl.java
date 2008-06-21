@@ -415,4 +415,10 @@ public class CHTServiceImpl implements CHTService {
     } //setClusteredCategory()
 
 
+    @Override
+    public List<CategoryPath> getPathsByChtId(Long chtId, String orderby) {
+        return chtDAO.getPathsByChtId(chtId, orderby);
+    } //getPathsByChtId()
+
+
 }//class CHTServiceImpl

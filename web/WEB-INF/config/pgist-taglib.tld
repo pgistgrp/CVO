@@ -719,5 +719,28 @@
   </tag>
   
 
+  <tag>
+    <name>chtGetPaths</name>
+    <tag-class>org.pgist.tags.CHTGetPathsTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which get CHT paths</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>chtId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>orderby</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

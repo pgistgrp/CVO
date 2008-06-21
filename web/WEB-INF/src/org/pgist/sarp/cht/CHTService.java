@@ -55,6 +55,8 @@ public interface CHTService {
     CategoryReference moveCategoryReference(Long catRefId, int direction) throws Exception;
 
     void setClusteredCategory(Long chtId) throws Exception;
+
+    List<CategoryPath> getPathsByChtId(Long chtId, String orderby);
     
     
 }//interface CHTService

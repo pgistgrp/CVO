@@ -55,6 +55,7 @@
         getComments : function(page){
             DRTAgent.getComments({oid:${infoObject.id}, page:page}, <pg:wfinfo/>,{
                 callback:function(data){
+            alert(1);
                     if (data.successful){
                         displayIndicator(false);
                         $(infoObject.discussionDivElement).innerHTML = data.html;
@@ -65,7 +66,7 @@
                     }
                 },
                 errorHandler:function(errorString, exception){ 
-                    alert("get targets error: " + errorString +" "+ exception);
+                    alert("get comments error: " + errorString +" "+ exception);
                 }
             });
         },
@@ -98,7 +99,7 @@
                     }
                 },
                 errorHandler:function(errorString, exception){ 
-                    alert("get targets error: " + errorString +" "+ exception);
+                    alert("create comment error: " + errorString +" "+ exception);
                 }
             });
         },
@@ -115,7 +116,7 @@
                     }
                 },
                 errorHandler:function(errorString, exception){ 
-                    alert("get targets error: " + errorString +" "+ exception);
+                    alert("delete comment error: " + errorString +" "+ exception);
                 }
             });
         },
@@ -202,7 +203,7 @@
                 }
               },
               errorHandler:function(errorString, exception){ 
-                  alert("setExitCondition error:" + errorString + exception);
+                  alert("createAnnouncement error:" + errorString + exception);
               }
             });
           },
@@ -220,7 +221,7 @@
                   }
               },
               errorHandler:function(errorString, exception){ 
-                  alert("get targets error: " + errorString +" "+ exception);
+                  alert("get announcements error: " + errorString +" "+ exception);
               }
           });
         },
@@ -280,7 +281,7 @@
     function onPageLoaded() {
         window.setTimeout('tooltip.init()',1000);
 	
-        infoObject.getComments(1);
+        //infoObject.getComments(1);
         <pg:show condition="${!infoObject.closed}">
         tinyMCE.idCounter=0;
         tinyMCE.execCommand('mceAddControl',false,'txtNewComment');

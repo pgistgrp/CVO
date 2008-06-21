@@ -207,7 +207,7 @@
               }
           },
           errorHandler:function(errorString, exception){ 
-              alert("get targets error: " + errorString +" "+ exception);
+              alert("create comment error: " + errorString +" "+ exception);
           }
       });
   }
@@ -225,7 +225,7 @@
               }
           },
           errorHandler:function(errorString, exception){ 
-              alert("get targets error: " + errorString +" "+ exception);
+              alert("delete comment error: " + errorString +" "+ exception);
           }
       });
   }
