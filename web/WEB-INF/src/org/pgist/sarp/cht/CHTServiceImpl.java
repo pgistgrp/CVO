@@ -428,4 +428,23 @@ public class CHTServiceImpl implements CHTService {
     } //getPathsByChtId()
 
 
+    @Override
+    public CategoryPath getPathById(Long pathId) throws Exception {
+        return (CategoryPath) chtDAO.load(CategoryPath.class, pathId);
+    } //getPathById()
+
+
+    @Override
+    public CategoryPath setVotingOnPath(Long pathId, boolean agree) throws Exception {
+        CategoryPath path = (CategoryPath) chtDAO.load(CategoryPath.class, pathId);
+        if (path==null) throw new Exception("can't find the specified CategoryPath with id "+pathId);
+        
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_CHT_PATH, pathId, agree);
+        
+        chtDAO.increaseVoting(path, agree);
+        
+        return path;
+    } //setVotingOnPath()
+
+
 }//class CHTServiceImpl

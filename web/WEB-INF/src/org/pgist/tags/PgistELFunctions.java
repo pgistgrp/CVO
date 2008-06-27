@@ -23,6 +23,7 @@ import org.pgist.projects.ProjectAlternative;
 import org.pgist.projects.ProjectRef;
 import org.pgist.projects.ProjectSuite;
 import org.pgist.sarp.cht.CHTComment;
+import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CSTComment;
 import org.pgist.sarp.drt.Comment;
 import org.pgist.sarp.drt.DRTAnnouncement;
@@ -182,6 +183,9 @@ public class PgistELFunctions extends SimpleTagSupport {
                 } else if (object instanceof CHTComment) {
                     CHTComment comment = (CHTComment) object;
                     voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CHT_COMMENT, comment.getId());
+                } else if (object instanceof CategoryPath) {
+                    CategoryPath path = (CategoryPath) object;
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CHT_PATH, path.getId());
                 } else {
                     //unsopported type
                 }

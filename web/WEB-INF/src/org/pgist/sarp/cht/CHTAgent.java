@@ -692,4 +692,64 @@ public class CHTAgent {
     }//moveCategoryReference()
     
     
+    /**
+     * Set the voting choice on the given CategoryPath.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>pathId - int, id of the CategoryPath object. Required.</li>
+     *     <li>agree - string, "true" or "false". Whether or not the current user agree with the current object.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>numAgree - int</li>
+     *     <li>numVote - int</li>
+     *     <li>pathLine - an HTML tr line.</li>
+     *   </ul>
+     */
+    public Map setVotingOnPath(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long pathId = null;
+        try {
+            pathId = new Long((String) params.get("pathId"));
+        } catch (Exception e) {
+            map.put("reason", "pathId is required.");
+            return map;
+        }
+        
+        boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+        
+        try {
+            CategoryPath path = null;
+            
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CHT_PATH, pathId);
+            if (voting!=null) {
+                path = chtService.getPathById(pathId);
+            } else {
+                path = chtService.setVotingOnPath(pathId, agree);
+            }
+            
+            map.put("numAgree", path.getNumAgree());
+            map.put("numVote", path.getNumVote());
+            map.put("voted", true);
+            
+            request.setAttribute("path", path);
+            map.put("pathLine", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cht/chtPathLine.jsp"));
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVotingOnPath()
+    
+    
 }//class CHTAgent

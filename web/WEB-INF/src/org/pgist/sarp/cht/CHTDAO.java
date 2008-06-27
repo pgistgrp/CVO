@@ -34,5 +34,7 @@ public interface CHTDAO extends BaseDAO {
 
     List<CategoryPath> getPathsByChtId(Long chtId, String orderby);
 
+    void increaseVoting(CategoryPath path, boolean agree) throws Exception;
+
 
 }//interface CHTDAO

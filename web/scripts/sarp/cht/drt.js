@@ -29,3 +29,18 @@ if (infoObject) {
 infoObject.loadTarget = function() {
 };
 
+infoObject.setVotingOnPath = function(pathId, agree) {
+  CHTAgent.setVotingOnPath({pathId:pathId, agree:agree}, {
+      callback:function(data){
+          if (data.successful){
+            $('catRow-'+pathId).innerHTML = data.pathLine;
+          }else{
+            alert(data.reason);
+          }
+      },
+      errorHandler:function(errorString, exception){ 
+          alert("get winner error: " + errorString +" "+ exception);
+      }
+  });
+};
+

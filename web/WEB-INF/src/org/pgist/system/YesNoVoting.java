@@ -37,6 +37,8 @@ public class YesNoVoting implements Serializable {
     public static final int TYPE_SARP_VTT_COMMENT = 10;
 
     public static final int TYPE_SARP_DRT_ANNOUNCEMENT = 11;
+
+    public static final int TYPE_SARP_CHT_PATH = 12;
     
     
     private Long id;

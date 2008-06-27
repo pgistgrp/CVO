@@ -55,7 +55,6 @@
         getComments : function(page){
             DRTAgent.getComments({oid:${infoObject.id}, page:page}, <pg:wfinfo/>,{
                 callback:function(data){
-            alert(1);
                     if (data.successful){
                         displayIndicator(false);
                         $(infoObject.discussionDivElement).innerHTML = data.html;
@@ -281,7 +280,7 @@
     function onPageLoaded() {
         window.setTimeout('tooltip.init()',1000);
 	
-        //infoObject.getComments(1);
+        infoObject.getComments(1);
         <pg:show condition="${!infoObject.closed}">
         tinyMCE.idCounter=0;
         tinyMCE.execCommand('mceAddControl',false,'txtNewComment');

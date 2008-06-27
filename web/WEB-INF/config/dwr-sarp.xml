@@ -130,8 +130,8 @@
       <include method="getComments"/>
       <include method="createComment"/>
       <include method="deleteComment"/>
-      <include method="getVotingOnComment"/>
       <include method="setVotingOnComment"/>
+      <include method="setVotingOnPath"/>
       <include method="getWinner"/>
       <include method="publish"/>
       <include method="getTags"/>

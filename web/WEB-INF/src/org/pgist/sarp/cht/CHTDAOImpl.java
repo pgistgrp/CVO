@@ -126,4 +126,17 @@ public class CHTDAOImpl extends BaseDAOImpl implements CHTDAO {
     }
 
 
+    private static final String hql_increaseVoting_31 = "update CategoryPath cp set cp.numVote=cp.numVote+1 where cp.id=?";
+    
+    private static final String hql_increaseVoting_32 = "update CategoryPath cp set cp.numAgree=cp.numAgree+1 where cp.id=?";
+    
+    @Override
+    public void increaseVoting(CategoryPath path, boolean agree) throws Exception {
+        getSession().createQuery(hql_increaseVoting_31).setLong(0, path.getId()).executeUpdate();
+        if (agree) {
+            getSession().createQuery(hql_increaseVoting_32).setLong(0, path.getId()).executeUpdate();
+        }
+    } //increaseVoting()
+
+
 }//class CHTDAOImpl

@@ -57,6 +57,10 @@ public interface CHTService {
     void setClusteredCategory(Long chtId) throws Exception;
 
     List<CategoryPath> getPathsByChtId(Long chtId, String orderby);
+
+    CategoryPath getPathById(Long pathId) throws Exception;
+
+    CategoryPath setVotingOnPath(Long pathId, boolean agree) throws Exception;
     
     
 }//interface CHTService
