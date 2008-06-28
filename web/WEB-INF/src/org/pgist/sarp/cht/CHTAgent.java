@@ -707,10 +707,9 @@ public class CHTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *     <li>numAgree - int</li>
      *     <li>numVote - int</li>
-     *     <li>pathLine - an HTML tr line.</li>
      *   </ul>
      */
-    public Map setVotingOnPath(HttpServletRequest request, Map params) {
+    public Map setVotingOnPath(Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -738,9 +737,6 @@ public class CHTAgent {
             map.put("numVote", path.getNumVote());
             map.put("voted", true);
             
-            request.setAttribute("path", path);
-            map.put("pathLine", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cht/chtPathLine.jsp"));
-            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -750,6 +746,78 @@ public class CHTAgent {
         
         return map;
     }//setVotingOnPath()
+    
+    
+    /**
+     * Add a new CategoryPath.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>chtId - int, id of the CHT object. Required.</li>
+     *     <li>pathId - int, id of the CategoryPath object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map addPath(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String pathIds = (String) params.get("ids");        
+        Long chtId = new Long((String) params.get("chtId"));
+        
+        try {
+            CategoryPath path = chtService.createPath(chtId, pathIds);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //addPath()
+    
+    
+    /**
+     * Add all CategoryPath paths.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>chtId - int, id of the CHT object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getPaths(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long chtId = new Long((String) params.get("chtId"));
+        
+        try {
+            CHT cht = chtService.getCHTById(chtId);
+            
+            request.setAttribute("cht", cht);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cht/chtPaths.jsp"));
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //getPaths()
     
     
 }//class CHTAgent

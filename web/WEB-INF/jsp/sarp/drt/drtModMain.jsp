@@ -30,6 +30,9 @@
 <pg:property name="style" />
 
 <script type="text/javascript">
+  if (typeof(infoObject)=='undefined') {
+    infoObject = {};
+  }
   infoObject.oid = ${infoObject.id};
   infoObject.targetId = ${infoObject.target.id};
   infoObject.wfinfo = <pg:wfinfo/>;

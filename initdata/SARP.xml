@@ -353,6 +353,7 @@
                     <property name="javascript">
                         <![CDATA[
                         <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/cht/chtMod.js'></script>
                         ]]>
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/cht/chtMod.jsp" />

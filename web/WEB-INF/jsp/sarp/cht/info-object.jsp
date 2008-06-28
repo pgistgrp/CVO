@@ -21,8 +21,8 @@
     </c:choose>
         <td>${path.title}</td>
         <td>${path.frequency}</td>
-        <td>${path.numAgree}/${path.numVote}</td>
-        <td>
+        <td id="pathnum-${path.id}">${path.numAgree}/${path.numVote}</td>
+        <td id="pathvot-${path.id}">
           <c:choose>
             <c:when test="${pg:voted(pageContext, path)}">
               <img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>
@@ -39,12 +39,12 @@
 </div>
 
 <div id="col-right2" style="overflow:hidden;clear:both;height:20px;border-top:1px solid #B4D579;">
-  <div style="float:left;overflow:hidden;">
+  <div style="float:left;padding-left:5px;overflow:hidden;">
     Moderator Announcements: &nbsp;&nbsp;&nbsp;&nbsp;
     <span style="cursor:pointer;color:blue;text-decoration:underline;" onclick="infoObject.getAnnouncements();">Refresh</span>
   </div>
 	<pg:show roles="moderator">
-    <div style="float:right;clear:right;">
+    <div style="float:right;clear:right;padding-right:5px;">
       <span style="cursor:pointer;color:blue;text-decoration:underline;" onclick="$('announceEditor').style.display = 'block';">Create Announcements</span>
     </div>
 	</pg:show>

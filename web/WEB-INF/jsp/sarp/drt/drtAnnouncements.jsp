@@ -5,7 +5,7 @@
   <tr>
     <td width="20%">${announcement.title}</td>
     <td>${announcement.description}</td>
-    <td width="18%">
+    <td width="25%">
       <div id="voting-announcement${announcement.id}">
         <c:choose>
           <c:when test="${modtool}">

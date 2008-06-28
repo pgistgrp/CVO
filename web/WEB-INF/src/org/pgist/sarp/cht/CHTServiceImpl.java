@@ -395,14 +395,8 @@ public class CHTServiceImpl implements CHTService {
             throw e;
         }
         
-        StringBuilder sb = new StringBuilder();
         for (CategoryPath path : factory.getPaths()) {
-            sb.delete(0, sb.length());
-            for (CategoryReference catRef : path.getCategories()) {
-                if (sb.length()>0) sb.append(".");
-                sb.append(catRef.getCaption());
-            }
-            path.setTitle(sb.toString());
+            path.genTitle();
             chtDAO.save(path);
         }
         
@@ -445,6 +439,35 @@ public class CHTServiceImpl implements CHTService {
         
         return path;
     } //setVotingOnPath()
+
+
+    @Override
+    public CategoryPath createPath(Long chtId, String pathIds) throws Exception {
+        CHT cht = chtDAO.getCHTById(chtId);
+        CategoryPath path = new CategoryPath();
+        path.setCht(cht);
+        path.setFrequency(1);
+        path.setNumAgree(0);
+        path.setNumVote(0);
+        
+        String[] ids = pathIds.split(",");
+        
+        for (String id : ids) {
+            if (id==null || id.trim().length()==0) continue;
+            
+            CategoryReference catRef = chtDAO.getCategoryReferenceById(new Long(id));
+            path.getCategories().add(catRef);
+        }
+        path.genTitle();
+        
+        if (!chtDAO.checkPath(chtId, path.getTitle())) {
+            chtDAO.save(path);
+        } else {
+            throw new Exception("path already exists!");
+        }
+        
+        return path;
+    } //createPath()
 
 
 }//class CHTServiceImpl

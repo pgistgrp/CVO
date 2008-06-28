@@ -280,7 +280,7 @@ padding-left:0px;
 {
 height:50px;
 position:relative;
-width:950px;
+width:1000px;
 margin:0px auto 10px auto;
 text-align:center;
 font-size:12pt;
@@ -597,7 +597,6 @@ margin-bottom:5px;
 }
 
 .infoObjectBox {
-  height:600px;
   color:#3B4429;
   background: #EEF7DD;
   border: 1px solid #B4D579;
@@ -639,6 +638,7 @@ display:block;
 float:left;
 margin:2px;
 color:#394529;
+font-size: 0.8em;
 }
 
 /* Style used to highlight glossary terms */

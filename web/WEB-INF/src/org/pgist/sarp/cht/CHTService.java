@@ -61,6 +61,8 @@ public interface CHTService {
     CategoryPath getPathById(Long pathId) throws Exception;
 
     CategoryPath setVotingOnPath(Long pathId, boolean agree) throws Exception;
+
+    CategoryPath createPath(Long chtId, String pathIds) throws Exception;
     
     
 }//interface CHTService

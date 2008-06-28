@@ -33,7 +33,8 @@ infoObject.setVotingOnPath = function(pathId, agree) {
   CHTAgent.setVotingOnPath({pathId:pathId, agree:agree}, {
       callback:function(data){
           if (data.successful){
-            $('catRow-'+pathId).innerHTML = data.pathLine;
+            $("pathnum-"+pathId).innerHTML = data.numAgree+'/'+data.numVote;
+            $("pathvot-"+pathId).innerHTML = '<img src="images/btn_thumbsdown_off.png" alt="Disabled Button"/> <img src="images/btn_thumbsup_off.png" alt="Disabled Button"/>';
           }else{
             alert(data.reason);
           }

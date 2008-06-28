@@ -123,4 +123,19 @@ public class CategoryPath {
     }
     
     
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public void genTitle() {
+        StringBuilder sb = new StringBuilder();
+        for (CategoryReference catRef : getCategories()) {
+            if (sb.length()>0) sb.append(".");
+            sb.append(catRef.getCaption());
+        }
+        setTitle(sb.toString());
+    }
+    
+    
 } //class CategoryPath

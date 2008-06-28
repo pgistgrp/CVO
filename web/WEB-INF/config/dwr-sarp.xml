@@ -138,6 +138,8 @@
       <include method="getRTags"/>
       <include method="getNavigation"/>
       <include method="moveCategoryReference"/>
+      <include method="addPath"/>
+      <include method="getPaths"/>
     </create>
 
 

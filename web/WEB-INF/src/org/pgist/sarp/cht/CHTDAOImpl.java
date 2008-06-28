@@ -139,4 +139,18 @@ public class CHTDAOImpl extends BaseDAOImpl implements CHTDAO {
     } //increaseVoting()
 
 
+    private static final String hql_checkPath = "from CategoryPath cp where cp.cht.id=? and cp.title=?";
+    
+    @Override
+    public boolean checkPath(Long chtId, String title) throws Exception {
+        Query query = getSession().createQuery(hql_checkPath);
+        query.setLong(0, chtId);
+        query.setString(1, title);
+        
+        CategoryPath path = (CategoryPath) query.uniqueResult();
+        
+        return path!=null;
+    } //checkPath()
+
+
 }//class CHTDAOImpl

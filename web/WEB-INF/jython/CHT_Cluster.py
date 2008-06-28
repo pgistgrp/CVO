@@ -32,14 +32,14 @@ for i in range(len(userIdList)):
 # put your algorithm here
 # end of your algorithm
 
-categoryA = factory.createCategoryReference('A');
+categoryA = factory.createCategoryReference('Environment');
 categoryA.tags.add(factory.createTagReference('tag 1.1'));
 categoryA.tags.add(factory.createTagReference('tag 1.2'));
 categoryA.tags.add(factory.createTagReference('tag 1.3'));
 factory.addCategory(categoryA);
 
 # A.B
-categoryB = factory.createCategoryReference('B');
+categoryB = factory.createCategoryReference('Pollution');
 categoryB.tags.add(factory.createTagReference('tag 2.1'));
 categoryB.tags.add(factory.createTagReference('tag 2.2'));
 categoryB.tags.add(factory.createTagReference('tag 2.3'));
@@ -50,7 +50,7 @@ pathA_B.getCategories().add(categoryB);
 pathA_B.setFrequency(15);
 
 # A.C
-categoryC = factory.createCategoryReference('C');
+categoryC = factory.createCategoryReference('Erosion');
 categoryC.tags.add(factory.createTagReference('tag 2.1.1'));
 categoryC.tags.add(factory.createTagReference('tag 2.1.2'));
 categoryC.tags.add(factory.createTagReference('tag 2.1.3'));
@@ -63,7 +63,7 @@ pathA_C.getCategories().add(categoryC);
 pathA_C.setFrequency(13);
 
 # D.A
-categoryD = factory.createCategoryReference('D');
+categoryD = factory.createCategoryReference('Habitat');
 categoryD.tags.add(factory.createTagReference('tag 2.2.1'));
 categoryD.tags.add(factory.createTagReference('tag 2.2.2'));
 categoryD.tags.add(factory.createTagReference('tag 2.2.3'));
@@ -74,7 +74,7 @@ pathD_A.getCategories().add(categoryA);
 pathD_A.setFrequency(10);
 
 # C.E.A
-categoryE = factory.createCategoryReference('E');
+categoryE = factory.createCategoryReference('Penetration');
 categoryE.tags.add(factory.createTagReference('tag 3.1'));
 categoryE.tags.add(factory.createTagReference('tag 3.2'));
 categoryE.tags.add(factory.createTagReference('tag 3.3'));
@@ -86,7 +86,7 @@ pathC_E_A.getCategories().add(categoryA);
 pathC_E_A.setFrequency(5);
 
 # C.D.F
-categoryF = factory.createCategoryReference('F');
+categoryF = factory.createCategoryReference('Inundation');
 categoryF.tags.add(factory.createTagReference('tag 4.1'));
 categoryF.tags.add(factory.createTagReference('tag 4.2'));
 categoryF.tags.add(factory.createTagReference('tag 4.3'));
@@ -99,7 +99,7 @@ pathC_D_F.getCategories().add(categoryF);
 pathC_D_F.setFrequency(2);
 
 # F.G
-categoryG = factory.createCategoryReference('G');
+categoryG = factory.createCategoryReference('Tsunami');
 categoryG.tags.add(factory.createTagReference('tag 5.1'));
 categoryG.tags.add(factory.createTagReference('tag 5.2'));
 categoryG.tags.add(factory.createTagReference('tag 5.3'));
@@ -110,7 +110,7 @@ pathF_G.getCategories().add(categoryG);
 pathF_G.setFrequency(1);
 
 # A.H
-categoryH = factory.createCategoryReference('H');
+categoryH = factory.createCategoryReference('Econamy');
 categoryH.tags.add(factory.createTagReference('tag 5.1.1'));
 categoryH.tags.add(factory.createTagReference('tag 5.1.2'));
 categoryH.tags.add(factory.createTagReference('tag 5.1.3'));
@@ -123,7 +123,7 @@ pathA_H.getCategories().add(categoryH);
 pathA_H.setFrequency(1);
 
 # G.I
-categoryI = factory.createCategoryReference('I');
+categoryI = factory.createCategoryReference('Safety');
 categoryI.tags.add(factory.createTagReference('tag 5.2.1'));
 categoryI.tags.add(factory.createTagReference('tag 5.2.2'));
 categoryI.tags.add(factory.createTagReference('tag 5.2.3'));
@@ -134,7 +134,7 @@ pathG_I.getCategories().add(categoryI);
 pathG_I.setFrequency(1);
 
 # G.J
-categoryJ = factory.createCategoryReference('J');
+categoryJ = factory.createCategoryReference('Transportation');
 categoryJ.tags.add(factory.createTagReference('tag 5.3.1'));
 categoryJ.tags.add(factory.createTagReference('tag 5.3.2'));
 categoryJ.tags.add(factory.createTagReference('tag 5.3.3'));
