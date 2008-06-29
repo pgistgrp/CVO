@@ -43,7 +43,7 @@ category.tags.add(factory.createTagReference('tag 2.2'));
 category.tags.add(factory.createTagReference('tag 2.3'));
 result.children.add(category);
 
-category1 = factory.createCategoryReference('Category 2.1');
+category1 = factory.createCategoryReference('Category 2-1');
 category1.tags.add(factory.createTagReference('tag 2.1.1'));
 category1.tags.add(factory.createTagReference('tag 2.1.2'));
 category1.tags.add(factory.createTagReference('tag 2.1.3'));
@@ -51,7 +51,7 @@ category1.tags.add(factory.createTagReference('tag 2.1.4'));
 category1.tags.add(factory.createTagReference('tag 2.1.5'));
 category.children.add(category1);
 
-category2 = factory.createCategoryReference('Category 2.2');
+category2 = factory.createCategoryReference('Category 2-2');
 category2.tags.add(factory.createTagReference('tag 2.2.1'));
 category2.tags.add(factory.createTagReference('tag 2.2.2'));
 category2.tags.add(factory.createTagReference('tag 2.2.3'));
@@ -76,7 +76,7 @@ category.tags.add(factory.createTagReference('tag 5.2'));
 category.tags.add(factory.createTagReference('tag 5.3'));
 result.children.add(category);
 
-category1 = factory.createCategoryReference('Category 5.1');
+category1 = factory.createCategoryReference('Category 5-1');
 category1.tags.add(factory.createTagReference('tag 5.1.1'));
 category1.tags.add(factory.createTagReference('tag 5.1.2'));
 category1.tags.add(factory.createTagReference('tag 5.1.3'));
@@ -84,13 +84,13 @@ category1.tags.add(factory.createTagReference('tag 5.1.4'));
 category1.tags.add(factory.createTagReference('tag 5.1.5'));
 category.children.add(category1);
 
-category2 = factory.createCategoryReference('Category 5.2');
+category2 = factory.createCategoryReference('Category 5-2');
 category2.tags.add(factory.createTagReference('tag 5.2.1'));
 category2.tags.add(factory.createTagReference('tag 5.2.2'));
 category2.tags.add(factory.createTagReference('tag 5.2.3'));
 category.children.add(category2);
 
-category3 = factory.createCategoryReference('Category 5.3');
+category3 = factory.createCategoryReference('Category 5-3');
 category3.tags.add(factory.createTagReference('tag 5.3.1'));
 category3.tags.add(factory.createTagReference('tag 5.3.2'));
 category3.tags.add(factory.createTagReference('tag 5.3.3'));

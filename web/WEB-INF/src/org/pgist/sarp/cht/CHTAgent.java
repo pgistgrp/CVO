@@ -10,7 +10,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
-import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.search.SearchHelper;

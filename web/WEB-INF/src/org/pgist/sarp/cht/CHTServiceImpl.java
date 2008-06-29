@@ -446,7 +446,7 @@ public class CHTServiceImpl implements CHTService {
         CHT cht = chtDAO.getCHTById(chtId);
         CategoryPath path = new CategoryPath();
         path.setCht(cht);
-        path.setFrequency(1);
+        path.setFrequency(0);
         path.setNumAgree(0);
         path.setNumVote(0);
         

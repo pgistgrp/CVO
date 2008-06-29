@@ -129,6 +129,7 @@ public class CategoryPath {
     
     
     public void genTitle() {
+        System.out.println("!!!!!!!!! "+getCategories().size());
         StringBuilder sb = new StringBuilder();
         for (CategoryReference catRef : getCategories()) {
             if (sb.length()>0) sb.append(".");
