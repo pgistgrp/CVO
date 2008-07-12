@@ -177,5 +177,13 @@ public class RegisterServiceImpl implements RegisterService {
     	registerDAO.createCancel(id);
     	logout(request);
     }
+
+
+    @Override
+    public Long addSarpUser(String firstname, String lastname, String email1,
+            String age, String gender, String income, String education,
+            String zipcode, String username, String password1) throws Exception {
+        return registerDAO.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1); 
+    } //addSarpUser()
     
 }

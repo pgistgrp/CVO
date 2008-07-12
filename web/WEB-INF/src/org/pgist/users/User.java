@@ -182,6 +182,10 @@ public class User extends BaseUser {
      */
     protected RegisterObject primaryTransport;
     
+    protected int age;
+    
+    protected int education;
+    
     
     /**
      * @return
@@ -547,6 +551,34 @@ public class User extends BaseUser {
 	}
 
 	
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public int getAge() {
+        return age;
+    }
+
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public int getEducation() {
+        return education;
+    }
+
+
+    public void setEducation(int education) {
+        this.education = education;
+    }
+    
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -578,6 +610,8 @@ public class User extends BaseUser {
         
         return sb.toString();
     }//getRoleString()
+
+
 
 
 }//class User

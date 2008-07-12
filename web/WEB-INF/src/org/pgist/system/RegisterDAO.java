@@ -59,5 +59,9 @@ public interface RegisterDAO extends BaseDAO {
     Collection getTransTypes() throws Exception;
     
     void createCancel(Long id) throws Exception;
+
+    Long addSarpUser(String firstname, String lastname, String email1,
+            String age, String gender, String income, String education,
+            String zipcode, String username, String password1) throws Exception;
     
 }

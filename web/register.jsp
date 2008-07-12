@@ -7,7 +7,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation - Registration</title>
+	<title>ClimateConcerns - Registration</title>
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -56,13 +56,13 @@
  
 		var firstname = form.fname.value;	
 		var lastname = form.lname.value;
+		var age = $('age').value;
+		var gender = $('gender').value;
+		var income = $('income').value;
+		var education = $('education').value;
 		var email1 = form.email1.value;
 		var email2 = form.email2.value;
-		var address1 = form.address1.value;
-		var address2 = form.address2.value;
-		var city = form.city.value;
-		var state = form.state.value;
-		var zip = form.zip.value;
+    var zip = form.zip.value;
 		var username = form.username.value;
 		var password1 = form.password1.value;
 		var password2 = form.password2.value;
@@ -75,6 +75,22 @@
 			errormsg = errormsg + "Last name cannot be blank<br />";
 			highlightErrors('lname');
  		}
+		if($('age').value=='0') {
+			errormsg = errormsg + "Please select age range<br />";
+			highlightErrors('age');
+ 		}
+		if($('gender').value=='') {
+			errormsg = errormsg + "Please select gender<br />";
+			highlightErrors('gender');
+ 		}
+		if($('income').value=='0') {
+			errormsg = errormsg + "Please select income range<br />";
+			highlightErrors('income');
+ 		}
+		if($('education').value=='0') {
+			errormsg = errormsg + "Please select education range<br />";
+			highlightErrors('education');
+ 		}
 		if(email1.length==0 || email2.length==0) {
 			errormsg = errormsg + "Email cannot be blank<br />";
 			highlightErrors('email1');
@@ -83,22 +99,10 @@
 			errormsg = errormsg + "Email fields must match<br />";
 			highlightErrors('email2');
  		}
-		if(address1.length==0) {
-			errormsg = errormsg + "Address Line 1 cannot be blank<br />";
-			highlightErrors('address1');
- 		}
-		if(city.length==0) {
-			errormsg = errormsg + "City cannot be blank<br />";
-			highlightErrors('city');
- 		}
-		if(state.length==0) {
-			errormsg = errormsg + "State cannot be blank<br />";
-			highlightErrors('state');
- 		}
-		if(zip.length < 5) {
-			errormsg = errormsg + "You must enter in a 5-digit ZIP code<br/>";
-			highlightErrors('zip');
- 		}
+    if(zip.length < 5) {
+      errormsg = errormsg + "You must enter in a 5-digit ZIP code<br/>";
+      highlightErrors('zip');
+    }
 		if(username.length==0) {
 			errormsg = errormsg + "You must choose a user name<br />";
 			highlightErrors('username');
@@ -131,17 +135,14 @@
 						callback:function(data){
 							if (data.available){
 						//if email is not used already
-							RegisterAgent.addUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, address1:address1, address2:address2, city:city, state:state, zipcode:zip, username:username, password1:password1, password2:password2}, {
+							RegisterAgent.addSarpUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, age:age, income:income, gender:gender, education:education, zipcode:zip, username:username, password1:password1, password2:password2}, {
 								callback:function(data){
+                  alert(1);
 									if (data.successful){
-										
-										if(data.q == true) {
-											window.location = "register2a.do";		
-										} else {
-											window.location = "register2b.do";
-										}
-													
-									}
+											window.location = "/";		
+									} else {
+                      alert(data.reason);
+                  }
 								},
 								errorHandler:function(errorString, exception){ 
 								alert("SystemAgent.createQuotaStats( error:" + errorString + exception);
@@ -202,8 +203,8 @@
 	<div id="register">
 	<!-- begin SIGN-IN -->
 	<div>
-		<p>Already have an account at Let's Improve Transportation? <a href="login.do">Sign in</a>.</p
-		<h3>Register for Let's Improve Transportation</h3>
+		<p>Already have an account at ClimateConcerns.org? <a href="login.do">Sign in</a>.</p
+		<h3>Register for ClimateConcerns.org</h3>
 	</div>
 	<!-- end  SIGN-IN -->
 	
@@ -227,96 +228,68 @@
 				<span class="value"><input id="lname" type="text" /></span>
 			</p><br />
 			<p>
+				<span class="label">Age:</span>
+				<span class="value">
+          <select id="age">
+            <option value="0">Please select</option>
+            <option value="1">18 - 24</option>
+            <option value="2">25 - 34</option>
+            <option value="3">35 - 44</option>
+            <option value="4">45 - 54</option>
+            <option value="5">55 - 64</option>
+            <option value="6">65 and over</option>
+          </select>
+        </span>
+			</p><br />
+			<p>
+				<span class="label">Gender:</span>
+				<span class="value">
+          <select id="gender">
+            <option value="">Please select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </span>
+			</p><br />
+			<p>
+				<span class="label">Income Level:</span>
+				<span class="value">
+          <select id="income">
+            <option value="0">Please select</option>
+            <option value="1">Less than $25,000</option>
+            <option value="2">$25,000 to $49,999</option>
+            <option value="3">$50,000 to $74,999</option>
+            <option value="4">$75,000 to $99,999</option>
+            <option value="5">$100,000 to $149,999</option>
+            <option value="6">$150,000 or more</option>
+          </select>
+        </span>
+			</p><br />
+			<p>
+				<span class="label">Education Level:</span>
+				<span class="value">
+          <select id="education">
+            <option value="0">Please select</option>
+            <option value="1">Some Highschool</option>
+            <option value="2">Highschool Graduate</option>
+            <option value="3">Some College</option>
+            <option value="4">College Graduate</option>
+            <option value="5">Some Graduate School</option>
+            <option value="6">Graduate School Graduate</option>
+          </select>
+        </span>
+			</p><br />
+			<p>
+        <span class="label">ZIP Code:</span>
+        <span class="value"><input id="zip" type="text" size="5" maxlength="5"/></span>
+			</p><br />
+			<p>
 				<span class="label">Email address:</span>
 				<span class="value"><input id="email1" type="text" /></span><span id="erroremail" style="color:#D85703;font-weight:bold;font-size: .8em;"></span>
 			</p><br />
 			<p>
 				<span class="label">Re-type email address:</span>
 				<span class="value"><input id="email2" type="text" /></span>
-			</p><br />
-			<p>
-				<span class="label">Home address line 1: </span>
-				<span class="value"><input id="address1" type="text" /></span>
-			</p><br />
-			<p>
-				<span class="label">Home address line 2:</span>
-				<span class="value"><input id="address2" type="text" /></span>
-			</p><br />
-			<p>
-				<span class="label">City:</span>
-				<span class="value"><input id="city" type="text" /></span>
-			</p><br />
-			<p>
-				<span class="label">State:</span>
-				<span class="value">
-						<select name="Target" id="state">
-							<option value="Washington" selected="selected">Washington</option>
-						 	<option value="Alabama">Alabama</option>
-							<option value="Alaska">Alaska</option>
-							<option value="Arizona">Arizona</option>
-
-							<option value="Arkansas">Arkansas</option>
-							<option value="California">California</option>
-							<option value="Colorado">Colorado</option>
-							<option value="Connecticut">Connecticut</option>
-							<option value="Delaware">Delaware</option>
-							<option value="District of Columbia">District of Columbia</option>
-
-							<option value="Florida">Florida</option>
-							<option value="Georgia">Georgia</option>
-							<option value="Guam">Guam</option>
-							<option value="Hawaii">Hawaii</option>
-							<option value="Idaho">Idaho</option>
-							<option value="Illinois">Illinois</option>
-
-							<option value="Indiana">Indiana</option>
-							<option value="Iowa">Iowa</option>
-							<option value="Kansas">Kansas</option>
-							<option value="Kentucky">Kentucky</option>
-							<option value="Louisiana">Louisiana</option>
-							<option value="Maine">Maine</option>
-
-							<option value="Maryland">Maryland</option>
-							<option value="Massachusetts">Massachusetts</option>
-							<option value="Michigan">Michigan</option>
-							<option value="Minnesota">Minnesota</option>
-							<option value="Mississippi">Mississippi</option>
-							<option value="Missouri">Missouri</option>
-
-							<option value="Montana">Montana</option>
-							<option value="Nebraska">Nebraska</option>
-							<option value="Nevada">Nevada</option>
-							<option value="New Hampshire">New Hampshire</option>
-							<option value="New Jersey">New Jersey</option>
-							<option value="New Mexico">New Mexico</option>
-
-							<option value="New York">New York</option>
-							<option value="North Carolina">North Carolina</option>
-							<option value="North Dakota">North Dakota</option>
-							<option value="Ohio">Ohio</option>
-							<option value="Oklahoma">Oklahoma</option>
-
-							<option value="Oregon">Oregon</option>
-							<option value="Pennsylvania">Pennsylvania</option>
-							<option value="Rhode Island">Rhode Island</option>
-							<option value="South Carolina">South Carolina</option>
-							<option value="South Dakota">South Dakota</option>
-
-							<option value="Tennessee">Tennessee</option>
-							<option value="Texas">Texas</option>
-							<option value="Utah">Utah</option>
-							<option value="Vermont">Vermont</option>
-
-							<option value="Virginia">Virginia</option>
-							<option value="West Virginia">West Virginia</option>
-							<option value="Wisconsin">Wisconsin</option>
-							<option value="Wyoming">Wyoming</option>
-						</select>		
-				</span>
-			</p><br />
-			<p>
-				<span class="label">ZIP Code:</span>
-				<span class="value"><input id="zip" type="text" size="5" maxlength="5"/></span>
 			</p><br />
 		</div>
 		<div class="form-right">
@@ -329,7 +302,7 @@
 		
 		<div class="form-left">
 			<p>
-				<span class="label">User name:</span>
+				<span class="label">Login name:</span>
 				<span class="value"><input id="username" type="text" /></span><span id="errorusername" style="color:#D85703;font-weight:bold;font-size: .8em;"></span>
 			</p><br />
 			<p>
@@ -353,11 +326,8 @@
 			<p>You user name is how you will be identified by other participants on the Lets Improve Transportation website. Feel free to choose a creative name. Your user name should not be the same as your real name. It may consist of a-z, 0-9, and underscores.</p>
 		</div>
 	</fieldset>
-	<div id="step-bar" class="box5 padding5 clearfix">
-		<p class="floatLeft" id="step-progress">Step 1 of 3</p>
-		<p class="floatLeft" id="submit-description">Click the Submit button, to submit your registration and see if you qualify for our study. You will be asked to fill out a consent form and a questionnaire, before we process your account.</p>
-		<p class="floatRight" id="submit-button"><input type="button" value="Next" onclick="submitForm(this.form)" id="submitBtn" style="font-size:14pt;"/>
-		</p>
+	<div id="step-bar" class="box5 padding5 clearfix" style="text-align:center;">
+    <input type="button" value="Register" onclick="submitForm(this.form)" id="submitBtn" style="font-size:14pt;"/>
 	</div>
 	</form>
 	<!-- end CONTACT INFO -->

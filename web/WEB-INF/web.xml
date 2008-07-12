@@ -97,7 +97,7 @@
                 /dwr/interface/PESAgent.js,
                 /dwr/engine.js,
                 /dwr/util.js,
-                /dwr/call/plaincall/RegisterAgent.addUser.dwr,
+                /dwr/call/plaincall/RegisterAgent.addSarpUser.dwr,
                 /dwr/call/plaincall/GlossaryPublicAgent.getTerms.dwr,
                 /dwr/call/plaincall/GlossaryPublicAgent.getTermHTML.dwr,
                 /dwr/call/plaincall/GlossaryPublicAgent.getTermObject.dwr,

@@ -75,26 +75,12 @@
 	
     <create creator="spring" javascript="RegisterAgent">
         <param name="beanName" value="registerAgent"/>
-        <include method="addUser"/>
+        <include method="addSarpUser"/>
         <include method="deleteUser"/>
-        <include method="addConsent"/>
-        <include method="addQuotaInfo"/>
-        <include method="createQuotaQualify"/>
-        <include method="deleteUser"/>
-        <include method="deleteVehicle"/>
-        <include method="createGetVehicles"/>
-        <include method="addVehicle"/>
-        <include method="updateVehicle"/>
-        <include method="getTolls"/>
-        <include method="addQuestionnaire"/>
-        <include method="setToll"/>
         <include method="checkUsername"/>
         <include method="checkEmail"/>
-        <include method="saveUserTrip"/>
-        <include method="getUserTrips"/>
-        <include method="removeTravelTrip"/>
-	<include method="createRegisterObjects"/>
-	<include method="createCancel"/>
+        <include method="createRegisterObjects"/>
+        <include method="createCancel"/>
     </create>
     
     <create creator="spring" javascript="ProfileAgent">

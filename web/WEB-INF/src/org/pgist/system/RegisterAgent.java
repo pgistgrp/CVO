@@ -865,5 +865,115 @@ public class RegisterAgent {
 	}
 	
 
-	
+    /**
+     * Add user stage one, basic registration information
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>firstname - string, user's first name</li>
+     *     <li>lastname - string, user's last name</li>
+     *     <li>email1 - string, user's email address</li>
+     *     <li>email2 - string, user's email address to confirm</li>
+     *     <li>address1 - string, user's home address line 1</li>
+     *     <li>address2 - string, user's home address line 2 (optional)</li>
+     *     <li>city - string, user's city</li>
+     *     <li>state - string, user's state</li>
+     *     <li>zipcode - String, user's zipcode</li>
+     *     <li>username - String, user's desired username</li>
+     *     <li>password1 - string, password</li>
+     *     <li>password2 - string, confirm password</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>id - int, the id for the new user object</li>
+     *   </ul>
+     */
+    public Map addSarpUser(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String firstname = (String) params.get("firstname");
+        String lastname = (String) params.get("lastname");
+        String email1 = (String) params.get("email1");
+        String email2 = (String) params.get("email2");
+        String zipcode = (String) params.get("zipcode");
+        String income = (String) params.get("income");
+        String age = (String) params.get("age");
+        String gender = (String) params.get("gender");
+        String education = (String) params.get("education");
+        String username = (String) params.get("username");
+        String password1 = (String) params.get("password1");
+        String password2 = (String) params.get("password2");
+        
+        if(firstname==null || "".equals(firstname.trim())){
+            map.put("reason", "first name cannot be blank.");
+            return map;
+        }
+        if(lastname==null || "".equals(lastname.trim())){
+            map.put("reason", "last name cannot be blank.");
+            return map;
+        }
+        if((email1==null || email2==null)|| ("".equals(email1.trim()) || "".equals(email2.trim()) )){
+            map.put("reason", "email fields cannot be blank.");
+            return map;
+        }
+        if(!email1.equals(email2)) {
+            map.put("reason", "email addresses must match.");
+            return map;
+        }
+        if(income==null || "".equals(income.trim())){
+            map.put("reason", "please select income.");
+            return map;
+        }
+        if(age==null || "".equals(age.trim())){
+            map.put("reason", "please select age.");
+            return map;
+        }
+        if(gender==null || "".equals(gender.trim())){
+            map.put("reason", "please select gender.");
+            return map;
+        }
+        if(education==null || "".equals(education.trim())){
+            map.put("reason", "please select education.");
+            return map;
+        } 
+        if(username==null || "".equals(username.trim())){
+            map.put("reason", "username cannot be blank.");
+            return map;
+        }
+        if((password1==null || password2==null)|| ("".equals(password1.trim()) || "".equals(password2.trim()) )){
+            map.put("reason", "password fields cannot be blank.");
+            return map;
+        }
+        if(!password1.equals(password2)) {
+            map.put("reason", "passwords must match.");
+            return map;
+        }
+        if(password1.length()<6) {
+            map.put("reason", "password must be at least six characters long.");
+            return map;
+        }
+        
+        try {
+            
+            if(registerService.checkEmail(email1) && registerService.checkUsername(username)) {
+                Long id = registerService.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1);
+                registerService.login(request, id);
+                map.put("id", id);
+                boolean qualify = registerService.createQuotaQualify(id);
+                map.put("q", qualify);
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//addSarpUser()
+    
+    
 } //RegisterAgent()

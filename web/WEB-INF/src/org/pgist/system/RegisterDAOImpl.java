@@ -474,5 +474,42 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     public Collection getTransTypes() throws Exception {
     	return getHibernateTemplate().find(hql_getTransTypes, "transport");
     }
+
+
+    @Override
+    public Long addSarpUser(String firstname, String lastname, String email1,
+            String age, String gender, String income, String education,
+            String zipcode, String username, String password1) throws Exception {
+        User u = new User();
+        
+        u.setFirstname(firstname);
+        u.setLastname(lastname);
+        u.setEmail(email1);
+        u.setZipcode(zipcode);
+        u.setLoginname(username.trim());
+        u.setAge(Integer.parseInt(age));
+        u.setGender("male".equals(gender));
+        u.setIncome(Integer.parseInt(income));
+        u.setEducation(Integer.parseInt(education));
+        u.setPassword(password1);
+        u.setEnabled(true);
+        u.encodePassword();
+        
+        Collection roles = getHibernateTemplate().find(hql_addUser2, new Object[] {
+                "participant",
+        });
+        Iterator itRoles = roles.iterator();
+        while(itRoles.hasNext()) {
+            Role role = (Role) itRoles.next();
+            String roleName = role.getName();
+            if(roleName.equals("participant")) {
+                u.addRole(role);
+            }
+        }
+        
+        save(u);
+        
+        return u.getId();
+    }
     
 }
