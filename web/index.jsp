@@ -1,23 +1,19 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <!--####
-	Project: Let's Improve Transportation!
-	Page: Main index page - http://www.letsimprovetransportation.org
+	Project: Voicing Climate Concerns
+	Page: Main index page - http://www.climateconcerns.org
 	Description: This page serves as the main index.  Here the user can read info 
 	about the project, click to learn more, and/or log into the system.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Zhong Wang, John Le
-	Todo Items:
-		[x] Initial Skeleton Code (Jordan)
-		[ ] Txt and layout changes (Jordan and Adam)
-		[x] Make it look all web 2.0 (Adam)
+	     Front End: Jordan Isip, Adam Hindman, Michalis Avraam
+	     Back End: Zhong Wang, John Le, Michalis Avraam
 #### -->
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Let's Improve Transportation!</title>
+<title>Voicing Climate Concerns</title>
 <script src="scripts/search.js" type="text/javascript"></script>
 <style type="text/css">
 body {
@@ -90,7 +86,12 @@ small {display:block;margin-top:20px;}
 	<div><img class="splash" src="images/home-splashimage.png" alt="Let's Improve Transportation!"></div>
 	
 	<div id="text">
-		<div id="facts"><p>During the next 25 years the central Puget Sound population is expected to grow by <strong>1.2 million people</strong>.</p><p>How will this growth impact our already congested <strong>transportation system?</strong></p><p>What <strong>improvements</strong> are necessary to keep our region moving?</p><p><strong>Who</strong> gets to have a voice in this decision?</p><div class="clearBoth"></div></div>
+		<div id="facts">
+		<p style="background-color:yellow">During the next 25 years the central Puget Sound population is expected to grow by <strong>1.2 million people</strong>.</p>
+		<p style="background-color:yellow">How will this growth impact our already congested <strong>transportation system?</strong></p>
+		<p style="background-color:yellow">What <strong>improvements</strong> are necessary to keep our region moving?</p>
+		<p style="background-color:yellow"><strong>Who</strong> gets to have a voice in this decision?</p>
+		<div class="clearBoth"></div></div>
 		<p>
 
     <%--
@@ -98,7 +99,7 @@ small {display:block;margin-top:20px;}
 		<h4>Qualified participants may be eligible for compensation.</h4>
     --%>
 		
-    <p>Let's Improve Transportation is an experiment in participatory democracy which was first conducted during a four-week period in
+    <p style="background-color:yellow">Let's Improve Transportation is an experiment in participatory democracy which was first conducted during a four-week period in
 October and November 2007. You can learn more about this research study. We are no longer registering participants. If you would like to
 reivew the website and Fall 2007 experiment, please log as follows:
     <p>User Name: guest<br>Password: guest
@@ -116,7 +117,7 @@ reivew the website and Fall 2007 experiment, please log as follows:
 			<div class="clearBoth"></div>
 		</div>
 					<p class="rightAlign"><a href="recoverpassword.jsp">Forgot your password?</a></p>
-	<small>This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</small>
+	<small style="background-color:yellow">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</small>
 	</div>
 </body>
 </html>

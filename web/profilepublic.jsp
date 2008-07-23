@@ -12,7 +12,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 <head>
-<title>Let's Improve Transportation: Profile</title>
+<title>Voicing Climate Concerns: Profile</title>
 
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -76,18 +76,18 @@ function getDiscussion(start, end) {
   <!-- End Global Headers -->
 <!-- Begin container - Main page content begins here -->
 <div id="container" class="clearfix">
-	<p><h3 class="headerColor" style="display:inline">LIT Participant Profile</h3>
+	<p><h3 class="headerColor" style="display:inline">VCC Participant Profile</h3>
 	<pg:url page="usercp.do"> Edit your profile and settings</pg:url>
 	<!-- start PROFILE-FIELDS section -->
 	<div id="profile-fields">
 		<div id="statistics" class="box9">
 			<h4 class="headerColor">My statistics</h4>
 			<p>
-				<span class="label">Last visit to LIT website:</span>
+				<span class="label">Last visit to VCC website:</span>
 				<span class="value">${lastlogin}</span>
 			</p><br />
 			<p>
-				<span class="label">Total Visits to LIT website:</span>
+				<span class="label">Total Visits to VCC website:</span>
 				<span class="value">${visits}</span>
 			</p><br />
 			<p>
