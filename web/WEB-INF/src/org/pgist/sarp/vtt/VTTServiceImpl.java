@@ -86,7 +86,6 @@ public class VTTServiceImpl implements VTTService {
      */
     
     
-    @Override
     public void toggleVTT(Long vttId, boolean closed) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         vtt.setClosed(closed);
@@ -94,7 +93,6 @@ public class VTTServiceImpl implements VTTService {
     } //toggleVTT()
     
     
-    @Override
     public InfoObject publish(Long vttId, String title) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         vtt.getId();
@@ -117,7 +115,6 @@ public class VTTServiceImpl implements VTTService {
     } //publish()
     
     
-    @Override
     public VTT createVTT(Long id, Long chtId, String name, String purpose, String instruction) throws Exception {
         CHT cht = chtDAO.getCHTById(chtId);
         if (cht==null) throw new Exception("can not find the specified object");
@@ -135,19 +132,16 @@ public class VTTServiceImpl implements VTTService {
     } //createVTT()
 
 
-    @Override
     public List<User> getOtherUsers(VTT vtt) throws Exception {
         return vttDAO.getOtherUsers(vtt);
     } //getOtherUsers()
 
 
-    @Override
     public VTT getVTTById(Long vttId) throws Exception {
         return (VTT) vttDAO.load(VTT.class, vttId);
     } //getVTTById()
 
 
-    @Override
     public CategoryReference setRootCatReference(VTT vtt, User user) throws Exception {
         CategoryReference root2 = vtt.getCategories().get(user.getId());
         if (root2!=null) return root2;
@@ -201,7 +195,6 @@ public class VTTServiceImpl implements VTTService {
     } //setRootCatReference()
 
 
-    @Override
     public void setClearVTTWinner(Long vttId) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         vtt.setWinner(null);
@@ -210,13 +203,11 @@ public class VTTServiceImpl implements VTTService {
     } //setClearVTTWinner()
 
 
-    @Override
     public Collection<VTTComment> getComments(Long catRefId, PageSetting setting) throws Exception {
         return vttDAO.getComments(catRefId, setting);
     } //getComments()
 
 
-    @Override
     public VTTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception {
         CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
         
@@ -240,20 +231,17 @@ public class VTTServiceImpl implements VTTService {
     } //createComment()
 
 
-    @Override
     public void deleteComment(VTTComment comment) throws Exception {
         comment.setDeleted(true);
         cstDAO.save(comment);
     } //deleteComment()
 
 
-    @Override
     public VTTComment getCommentById(Long cid) throws Exception {
         return (VTTComment) vttDAO.load(VTTComment.class, cid);
     } //getCommentById()
 
 
-    @Override
     public VTTComment setVotingOnComment(Long cid, boolean agree) throws Exception {
         VTTComment comment = (VTTComment) cstDAO.load(VTTComment.class, cid);
         if (comment==null) throw new Exception("can't find the specified Comment with id "+cid);
@@ -266,13 +254,11 @@ public class VTTServiceImpl implements VTTService {
     } //setVotingOnComment()
 
 
-    @Override
     public CategoryValue getCategoryValueById(Long id) throws Exception {
         return vttDAO.getCategoryValueById(id);
     } //getCategoryValueById()
 
 
-    @Override
     public void saveCategoryValue(Long catRefId, String name, String unit) throws Exception {
         CategoryValue catValue = vttDAO.getCategoryValueById(catRefId);
         catValue.setName(name);
@@ -287,7 +273,6 @@ public class VTTServiceImpl implements VTTService {
     } //saveCategoryValue()
 
 
-    @Override
     public void publish(Long vttId) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         CategoryReference root = vtt.getCats().get(WebUtils.currentUserId());
@@ -297,13 +282,11 @@ public class VTTServiceImpl implements VTTService {
     } //publish()
 
 
-    @Override
     public CategoryReference getCategoryReferenceById(Long id) throws Exception {
         return chtDAO.getCategoryReferenceById(id);
     } //getCategoryReferenceById()
 
 
-    @Override
     public VTTSpecialistComment createSpecialistComment(Long vttId, String title, String content, boolean emailNotify) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         
