@@ -10,14 +10,14 @@
       <tr id="catRow-${category.id}">
         <td style="width:4em;"><a id="catcmp-${category.id}" style="display:none;cursor:pointer;" href="javascript:catTree.category1Clicked(${category.id});">compare</a></td>
         <td style="width:3px;"></td>
-        <td id="catCol-${category.id}" align="left" style="font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${fn:escapeXml(category)}</td>
+        <td id="catCol-${category.id}" align="left" style="font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${fn:escapeXml(category.catRef.category.name)}</td>
       </tr>
       </c:when>
       <c:otherwise>
       <tr id="catRow-${category.id}">
         <td style="width:4em;border-top:1px dotted red;"><a id="catcmp-${category.id}" style="display:none;cursor:pointer;" href="javascript:catTree.category1Clicked(${category.id});">compare</a></td>
         <td style="width:3px;border-top:1px dotted red;"></td>
-        <td id="catCol-${category.id}" align="left" style="border-top:1px dotted red;font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${fn:escapeXml(category)}</td>
+        <td id="catCol-${category.id}" align="left" style="border-top:1px dotted red;font-weight:bold;cursor:pointer;" onclick="catTree.category0Clicked(${category.id})">${fn:escapeXml(category.catRef.category.name)}</td>
       </tr>
       </c:otherwise>
     </c:choose>

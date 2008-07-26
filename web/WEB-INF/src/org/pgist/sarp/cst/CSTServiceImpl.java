@@ -751,21 +751,23 @@ public class CSTServiceImpl implements CSTService {
         final CST cst = cstDAO.getCSTById(cstId);
         
         class CategoryFactory {
-            private CategoryReference root;
-            public CategoryReference createCategoryReference(String name) {
+            private CategoryInfo root;
+            public CategoryInfo createCategoryInfo(String name) {
                 CategoryReference catRef = new CategoryReference(name);
                 catRef.setCstId(cstId);
-                return catRef;
+                CategoryInfo info = new CategoryInfo();
+                info.setCatRef(catRef);
+                return info;
             }
             public TagReference createTagReference(String name) {
                 TagReference tagRef = new TagReference(name);
                 tagRef.setBctId(cst.getBct().getId());
                 return tagRef;
             }
-            public void setResult(CategoryReference root) {
+            public void setResult(CategoryInfo root) {
                 this.root = root;
             }
-            public CategoryReference getRoot() {
+            public CategoryInfo getRoot() {
                 return root;
             }
         };
@@ -790,10 +792,10 @@ public class CSTServiceImpl implements CSTService {
             throw e;
         }
         
-        CategoryReference winner = factory.getRoot();
+        CategoryInfo winner = factory.getRoot();
         
         User moderator = systemDAO.getAdmin();
-        winner.setCstId(cstId);
+        winner.getCatRef().setCstId(cstId);
         
         cst.setWinner(moderator);
         cst.setWinnerCategory(winner);
@@ -802,6 +804,12 @@ public class CSTServiceImpl implements CSTService {
         cstDAO.save(winner);
         cstDAO.save(cst);
     } //setClusteredCategory()
+
+
+    @Override
+    public CategoryInfo getCategoryInfoById(Long categoryId) throws Exception {
+        return (CategoryInfo) cstDAO.load(CategoryInfo.class, categoryId);
+    }
 
 
 } //class CSTServiceImpl

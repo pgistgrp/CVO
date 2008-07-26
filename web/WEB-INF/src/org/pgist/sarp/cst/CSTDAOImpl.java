@@ -185,7 +185,7 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         
         CategoryReference root = null;
         
-        if (focusRoot==cst.getWinnerCategory()) {
+        if (cst.getWinnerCategory()!=null && focusRoot==cst.getWinnerCategory().getCatRef()) {
             root = focusRoot;
         } else {
             root = cst.getCategories().get(WebUtils.currentUserId());
@@ -261,7 +261,7 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         
         CategoryReference root = null;
         
-        if (focusRoot==cst.getWinnerCategory()) {
+        if (cst.getWinnerCategory()!=null && focusRoot==cst.getWinnerCategory().getCatRef()) {
             root = focusRoot;
         } else {
             root = cst.getCategories().get(WebUtils.currentUserId());

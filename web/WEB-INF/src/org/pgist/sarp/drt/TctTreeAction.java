@@ -63,7 +63,7 @@ public class TctTreeAction extends Action {
         
         CST cst = (CST) infoObject.getTarget();
         
-        CategoryReference catref = cst.getWinnerCategory();
+        CategoryReference catref = cst.getWinnerCategory().getCatRef();
         request.setAttribute("published", false);
         request.setAttribute("root", catref);
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);

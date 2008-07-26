@@ -39,7 +39,7 @@ public class CST {
     
     private User winner;
     
-    private CategoryReference winnerCategory;
+    private CategoryInfo winnerCategory;
     
     private boolean closed;
     
@@ -191,14 +191,14 @@ public class CST {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="winner_cat_id" lazy="true" class="org.pgist.sarp.cst.CategoryReference"
+     * @hibernate.many-to-one column="winner_cat_id" lazy="true" class="org.pgist.sarp.cst.CategoryInfo"
      */
-    public CategoryReference getWinnerCategory() {
+    public CategoryInfo getWinnerCategory() {
         return winnerCategory;
     }
 
 
-    public void setWinnerCategory(CategoryReference winnerCategory) {
+    public void setWinnerCategory(CategoryInfo winnerCategory) {
         this.winnerCategory = winnerCategory;
     }
 

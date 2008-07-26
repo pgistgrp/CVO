@@ -262,7 +262,10 @@ def getIndicators(catList = None, userIdList = None):
 			if len(child.children) > 0:
 				for leaf in getChildLeafList(child):
 					userIndList = [child.category.name]
-					userIndList.append(leaf)
+					if isinstance(leaf, ListType):
+						userIndList = userIndList + leaf
+					else:
+						userIndList.append(leaf)
 					rankInd = (rank, userIndList)
 					indicatorList[pos].append(rankInd)
 					rank += 1
@@ -331,6 +334,7 @@ def getIndicatorFrequencies(indicatorList = None):
 		for rankIndicator in userIndicators:
 			rank, indicator = rankIndicator
 			if isinstance(indicator, ListType):
+				print indicator
 				indicatorName = ".".join(indicator)
 			elif isinstance(indicator, StringType):
 				indicatorName = indicator

@@ -29,7 +29,6 @@
   
 <script type="text/javascript">
     ///////////////////////////////////////////////////new change/////////////////////////
-    var chtId = ${cht.id};
     var vttId = ${vtt.id};
     var currentCategory = null;
     var previousCategory = null;
@@ -48,7 +47,7 @@
     });
     
     function doOnLoad(){
-      getComments(1);
+      //getComments(1);
       tinyMCE.idCounter=0;
       tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
     }
@@ -78,8 +77,8 @@
       return string.replace(/\n/g,"<br>");
     }
  
-    function getComments(page) {
-      VTTAgent.getComments({catRefId:${root.id}, page:page}, <pg:wfinfo/>,{
+  function getComments(page) {
+      VTTAgent.getSpecialistComments({vttId:${vtt.id}, page:page}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -94,7 +93,7 @@
               alert("get comments error: " + errorString +" "+ exception);
           }
       });
-    }
+  }
   
   function cancelVTTComment() {
     $('txtNewCommentTitle').value = '';
@@ -113,7 +112,7 @@
         alert('please input content');
         return;
     }
-    VTTAgent.createComment({catRefId:${root.id}, title:title, content:content}, <pg:wfinfo/>,{
+    VTTAgent.createComment({vttId:${vtt.id}, title:title, content:content}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -211,8 +210,7 @@
   button#ss{font-size:12pt;padding:5px;}
   
   #col-left{width:28%;height:450px;}
-  #col{width:30%;height:450px;}
-  #col-right{width:38%;height:450px;}
+  #col-right{width:68%;height:450px;}
   
   #topMenu {
     padding:5px;
@@ -247,7 +245,7 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <h2 class="headerColor">Value Tree Tool for participant
+    <h2 class="headerColor">Value Tree Tool for Specialist
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
         <logic:iterate id="other" name="others">
@@ -262,12 +260,11 @@
     
     <div id="col-left">
       <div id="cats" style="height:410px;overflow:auto;">
-        <jsp:include page="vttCatsTable.jsp"/>
+        <!--jsp:include page="vttCatsTable.jsp"/-->
       </div>
     </div>
     
-    <div id="col"></div>
-    <div id="col-right"><jsp:include page="vttValueTree.jsp"/></div>
+    <div id="col-right"><!--jsp:include page="vttValueTree.jsp"/--></div>
     
     <div style="clear:both"></div>
     <div id="spacer">

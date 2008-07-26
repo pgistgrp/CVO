@@ -552,4 +552,66 @@ public class VTTAgent {
     }//publish()
     
     
+    /**
+     * Create a VTT comment for the given vtt.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>vttId - int, id of a VTT object</li>
+     *     <li>title - string, comment title</li>
+     *     <li>content - string, comment content</li>
+     *   </ul>
+     * 
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createSpecialistComment(HttpServletRequest request, Map params, Map wfinfo) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long vttId = null;
+        try {
+            request.setAttribute("wfinfo", wfinfo);
+            
+            vttId = new Long((String) params.get("vttId"));
+            if (vttId==null) {
+                map.put("reason", "can't find this VTT");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("reason", "can't find this VTT");
+            return map;
+        }
+        
+        try {
+            String title = (String) params.get("title");
+            String content = (String) params.get("content");
+            
+            if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
+            if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
+            
+            VTTSpecialistComment comment = vttService.createSpecialistComment(vttId, title, content, false);
+            
+            map.put("successful", true);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createSpecialistComment()
+    
+    
 }//class VTTAgent

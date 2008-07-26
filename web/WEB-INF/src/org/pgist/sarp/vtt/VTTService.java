@@ -49,5 +49,7 @@ public interface VTTService {
     
     void publish(Long vttId) throws Exception;
 
+    VTTSpecialistComment createSpecialistComment(Long vttId, String title, String content, boolean emailNotify) throws Exception;
+
     
 }//interface VTTService

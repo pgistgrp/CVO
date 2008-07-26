@@ -167,7 +167,7 @@ public class CHTServiceImpl implements CHTService {
         if (root2!=null) return root2;
         
         //copy winner
-        CategoryReference root1 = cht.getCst().getWinnerCategory();
+        CategoryReference root1 = cht.getCst().getWinnerCategory().getCatRef();
         
         Queue<CategoryReference> queue1 = new LinkedList<CategoryReference>();
         queue1.offer(root1);

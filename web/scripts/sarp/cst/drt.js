@@ -58,7 +58,7 @@ var catTree = {
       {
         callback:function(data){
             if (data.successful){
-              $('catTop').innerHTML = data.catRef.category.name;
+              $('catTop').innerHTML = data.catRef.catRef.category.name;
               var s = '<table>';
               for (var i=0; i<data.tags.length; i++) {
                 if (s!='') s += '<tr><td>';
@@ -91,7 +91,7 @@ var catTree = {
       {
         callback:function(data){
             if (data.successful){
-              $('catBottom').innerHTML = data.catRef.category.name;
+              $('catBottom').innerHTML = data.catRef.catRef.category.name;
               var s = '<table>';
               for (var i=0; i<data.tags.length; i++) {
                 if (s!='') s += '<tr><td>';

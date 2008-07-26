@@ -39,8 +39,6 @@ public class CategoryReference implements Serializable, Node {
     
     protected User user;
     
-    protected int frequency;
-    
     
     public CategoryReference() {
     }
@@ -186,20 +184,6 @@ public class CategoryReference implements Serializable, Node {
     }
     
     
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public int getFrequency() {
-        return frequency;
-    }
-
-
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
-    }
-    
-    
     /*
      * ------------------------------------------------------------------------
      */
@@ -219,8 +203,4 @@ public class CategoryReference implements Serializable, Node {
     }
 
 
-
-
-    
-    
 }//class CategoryReference

@@ -303,4 +303,28 @@ public class VTTServiceImpl implements VTTService {
     } //getCategoryReferenceById()
 
 
+    @Override
+    public VTTSpecialistComment createSpecialistComment(Long vttId, String title, String content, boolean emailNotify) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        
+        if (vtt==null) throw new Exception("can't find the specified VTT with id "+vttId);
+        
+        VTTSpecialistComment comment = new VTTSpecialistComment();
+        comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
+        comment.setVtt(vtt);
+        comment.setTitle(title);
+        comment.setContent(content);
+        comment.setCreateTime(new Date());
+        comment.setNumAgree(1);
+        comment.setNumVote(1);
+        comment.setEmailNotify(emailNotify);
+        
+        cstDAO.save(comment);
+        
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_VTT_SPEC_COMMENT, comment.getId(), true);
+        
+        return comment;
+    } //createSpecialistComment()
+
+
 } //class VTTServiceImpl

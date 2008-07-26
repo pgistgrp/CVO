@@ -19,6 +19,8 @@
 # Output:
 #     result : a root category reference
 
+from sets import Set
+
 # Category Information class
 class CategoryInformation:
 	def __init__(self):
@@ -64,7 +66,7 @@ def findUniqueCategories(catList = []):
 		for child in catList[iter].children:
 			allCatsList.append(child.category.name)
 	
-	uniqueCatsList = set(allCatsList)
+	uniqueCatsList = Set(allCatsList)
 	
 	# Build a dictionary of the unique ones
 	uniqueCatsDict = dict([(x, 0) for x in uniqueCatsList])
@@ -80,14 +82,14 @@ def findUniqueCategories(catList = []):
 def isSimilar(listA = [], listB = []):
 	if len(listA) == 0 or len(listB) == 0:
 		return 1
-	setA = set(listA)
-	setB = set(listB)
+	setA = Set(listA)
+	setB = Set(listB)
 	jaccard = float(len(setA.intersection(setB))) / float(len(setA.union(setB)))
 	return jaccard
 
 def difference(listA = [], listB = []):
-	setA = set(listA)
-	setB = set(listB)
+	setA = Set(listA)
+	setB = Set(listB)
 	return list(setB.symmetric_difference(setA))
 
 
@@ -107,7 +109,6 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 	catInfoList = []
 	
 	# Loop through the users
-	print "111 ", len(userIdList)
 	for iter in range(len(userIdList)):
 		print iter
 		user = userIdList[iter]
@@ -183,28 +184,27 @@ def saveToDB(catInfoList = None):
 		raise RuntimeError, "Nothing provided to be saved in the DB. Exiting..."
 	
 	# We need to loop through the catInfoList and create caegoryReferences
-	rootCat = factory.createCategoryReference('root')
+	rootCat = factory.createCategoryInfo('root')
 	for cat in catInfoList:
-		tempCat = factory.createCategoryReference(cat.name)
+		info = factory.createCategoryInfo(cat.name)
 		for tag in cat.tags:
-			tempCat.tags.add(factory.createTagReference(tag))
+			info.catRef.tags.add(factory.createTagReference(tag))
 		for user in cat.users:
 			# TODO: Add all users that had the category
-			pass
-		tempCat.frequency = cat.freqName
-		#tempCat.freqSet = cat.freqSet
-		#tempCat.freqName = cat.freqName
-		#tempCat.freqNameAndSet = cat.freqNameAndSet
+			info.addUser(user)
+		info.freqSet = cat.freqSet
+		info.freqName = cat.freqName
+		info.freqNameAndSet = cat.freqNameAndSet
 		for alias in cat.alias:
 			# TODO: Add all aliases of the category
-			pass
+			info.alias.add(alias)
 		for score in cat.jaccardScores:
 			# TODO: Add the scores
-			pass
+			info.addScore(score)
 		for tagsDiff in cat.tagsDiff:
 			# TODO: Add the tag differences between the categories
-			pass
-		rootCat.getChildren().add(tempCat)
+			info.tagsDiff.add(tagsDiff)
+		rootCat.addChild(info)
 	print rootCat
 	factory.setResult(rootCat)
 	return

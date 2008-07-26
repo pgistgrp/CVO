@@ -75,6 +75,7 @@
                <value>org/pgist/sarp/bct/TagReference.hbm.xml</value>
                <value>org/pgist/sarp/cst/CST.hbm.xml</value>
                <value>org/pgist/sarp/cst/CategoryReference.hbm.xml</value>
+               <value>org/pgist/sarp/cst/CategoryInfo.hbm.xml</value>
                <value>org/pgist/sarp/cst/CSTComment.hbm.xml</value>
                <value>org/pgist/sarp/cht/CHT.hbm.xml</value>
                <value>org/pgist/sarp/cht/CHTComment.hbm.xml</value>
@@ -82,6 +83,7 @@
                <value>org/pgist/sarp/vtt/VTT.hbm.xml</value>
                <value>org/pgist/sarp/vtt/CategoryValue.hbm.xml</value>
                <value>org/pgist/sarp/vtt/VTTComment.hbm.xml</value>
+               <value>org/pgist/sarp/vtt/VTTSpecialistComment.hbm.xml</value>
                <value>org/pgist/sarp/vtt/MUnitSet.hbm.xml</value>
                <value>org/pgist/sarp/vtt/EUnitSet.hbm.xml</value>
                <!-- Other schema information -->

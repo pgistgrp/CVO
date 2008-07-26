@@ -32,12 +32,12 @@
       <param name="include" value="id, name, deleted"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.sarp.bct.CategoryReference">
+    <convert converter="bean" match="org.pgist.sarp.cst.CategoryReference">
       <param name="include" value="id, category, theme"/>
     </convert>
 
-    <convert converter="bean" match="org.pgist.sarp.cst.CategoryReference">
-      <param name="include" value="id, category, theme"/>
+    <convert converter="bean" match="org.pgist.sarp.cst.CategoryInfo">
+      <param name="include" value="id, catRef, users, alias, tagsDiff, jaccardScores, freqSet, freqName, freqNameAndSet"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.sarp.bct.Theme"/>
@@ -155,6 +155,7 @@
       <include method="getWinner"/>
       <include method="publish"/>
       <include method="getTags"/>
+      <include method="createSpecialistComment"/>
     </create>
 
 

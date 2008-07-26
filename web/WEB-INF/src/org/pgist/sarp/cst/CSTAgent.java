@@ -243,14 +243,14 @@ public class CSTAgent {
             
             Long categoryId = new Long( (String) params.get("categoryId") );
             
-            CategoryReference ref = cstService.getCategoryReferenceById(categoryId);
+            CategoryInfo ref = cstService.getCategoryInfoById(categoryId);
             if (ref==null) {
                 map.put("reason", "CategoryReference doesn't exist.");
                 return map;
             }
             
             map.put("catRef", ref);
-            map.put("tags", ref.getTags());
+            map.put("tags", ref.getCatRef().getTags());
             map.put("successful", true);
         } catch(Exception e) {
             e.printStackTrace();
