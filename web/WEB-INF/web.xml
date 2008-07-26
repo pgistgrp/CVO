@@ -281,19 +281,19 @@
         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
         <init-param>
             <param-name>config</param-name>
-            <param-value>WEB-INF/config/dwr.xml</param-value>
+            <param-value>/WEB-INF/config/dwr.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-cvo</param-name>
-            <param-value>WEB-INF/config/dwr-sarp.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-sarp.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-lm</param-name>
-            <param-value>WEB-INF/config/dwr-lm.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-lm.xml</param-value>
         </init-param>
         <init-param>
             <param-name>config-workflow</param-name>
-            <param-value>WEB-INF/config/dwr-workflow.xml</param-value>
+            <param-value>/WEB-INF/config/dwr-workflow.xml</param-value>
         </init-param>
         <init-param>
             <param-name>debug</param-name>
