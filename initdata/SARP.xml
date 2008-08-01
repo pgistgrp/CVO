@@ -275,7 +275,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.cht" title="Category Hierarchy tool" auto="false" access="moderator" revisitable="true">
+        <pgame name="pgame-sarp.cht" title="Category Hierarchy tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
             </description>
