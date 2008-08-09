@@ -1,5 +1,6 @@
 package org.pgist.sarp.vtt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts.action.Action;
@@ -65,6 +66,7 @@ public class VTTViewAction extends Action {
         }
         
         User user = systemService.getUserById(userId);
+        User currentUser = systemService.getUserById(WebUtils.currentUserId());
         if (user==null) {
             throw new Exception("can not find the given user");
         } else {
@@ -73,9 +75,12 @@ public class VTTViewAction extends Action {
         }
         
         request.setAttribute("user", user);
+        request.setAttribute("currentUser", currentUser);
         request.setAttribute("cht", vtt.getCht());
         request.setAttribute("vtt", vtt);
-        request.setAttribute("others", vtt.getUsers());
+        List<User> users = new ArrayList<User>(vtt.getUsers());
+        users.remove(currentUser);
+        request.setAttribute("others", users);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

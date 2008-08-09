@@ -9,6 +9,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.vtt.VTTService;
+import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 import org.pgist.wfengine.util.Utils;
 import org.springframework.web.context.WebApplicationContext;
@@ -30,6 +31,7 @@ public class PathValueTag extends SimpleTagSupport {
     
     private CategoryPath path;
     
+    private Long userId;
     
     public void setVar(String var) {
         this.var = var;
@@ -38,6 +40,11 @@ public class PathValueTag extends SimpleTagSupport {
 
     public void setPath(CategoryPath category) {
         this.path = category;
+    }
+
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
 
@@ -59,7 +66,7 @@ public class PathValueTag extends SimpleTagSupport {
         VTTService vttService = (VTTService) appContext.getBean("vttService");
         
         try {
-            Object object = Utils.narrow(vttService.getCategoryPathValueByPathId(WebUtils.currentUserId(), path.getId()));
+            Object object = Utils.narrow(vttService.getCategoryPathValueByPathId(userId, path.getId()));
             context.setAttribute(var, object);
         } catch (Exception e) {
             throw new JspException(e);

@@ -707,6 +707,11 @@
       <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
+      <name>userId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>path</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>

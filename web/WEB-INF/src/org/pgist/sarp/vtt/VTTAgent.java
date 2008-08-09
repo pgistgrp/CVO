@@ -15,6 +15,7 @@ import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -350,10 +351,11 @@ public class VTTAgent {
     
     
     /**
-     * Get CategoryPathValue for the given CategoryPath id.
+     * Get CategoryPathValue for the given User id and CategoryPath id.
      * 
      * @param params A map contains:
      *   <ul>
+     *     <li>userId - int, id of a User object</li>
      *     <li>pathId - int, id of a CategoryPath object</li>
      *   </ul>
      * 
@@ -380,6 +382,24 @@ public class VTTAgent {
     public Map getCategoryPathValue(HttpServletRequest request, Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
+        
+        User user = null;
+        try {
+            request.setAttribute("wfinfo", wfinfo);
+            
+            Long userId = new Long((String) params.get("userId"));
+            if (userId==null) {
+                map.put("reason", "can't find this user");
+                return map;
+            }
+            
+            user = systemService.getUserById(userId);
+        } catch (Exception e) {
+            map.put("reason", "can't find this user");
+            return map;
+        }
+        
+        request.setAttribute("user", user);
         
         Long pathId = null;
         try {

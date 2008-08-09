@@ -38,36 +38,50 @@
     var previousCategory = null;
     var currentUserId = ${user.id};
     var page = 1;
-    var navigation = [0, 0, 0, 0];
     
     var tree1 = {
       selectedId : null,
       select : function(id) {
         displayIndicator(true);
         var current = this.selectedId;
-        VTTAgent.getCategoryPathValue({pathId:id}, <pg:wfinfo/>,{
-          callback:function(data){
-              if (data.successful){
-                  displayIndicator(false);
-                  $("col").innerHTML = data.html;
-                  
-                  if (current!=null) {
-                    $('row-'+current).className = "catUnSelected";
-                    $('vtrow-'+current).className = "catUnSelected";
+        <c:choose>
+          <c:when test="${currentUser==user}">
+            VTTAgent.getCategoryPathValue({userId:currentUserId, pathId:id}, <pg:wfinfo/>,{
+              callback:function(data){
+                  if (data.successful){
+                      displayIndicator(false);
+                      $("col").innerHTML = data.html;
+                      
+                      if (current!=null) {
+                        $('row-'+current).className = "catUnSelected";
+                        $('vtrow-'+current).className = "catUnSelected";
+                      }
+                      tree1.selectedId = id;
+                      currentCategory = $('col-'+tree1.selectedId).innerHTML;
+                      $('row-'+tree1.selectedId).className = "catSelected";
+                      $('vtrow-'+tree1.selectedId).className = "catSelected";
+                  }else{
+                      displayIndicator(false);
+                      alert(data.reason);
                   }
-                  tree1.selectedId = id;
-                  currentCategory = $('col-'+tree1.selectedId).innerHTML;
-                  $('row-'+tree1.selectedId).className = "catSelected";
-                  $('vtrow-'+tree1.selectedId).className = "catSelected";
-              }else{
-                  displayIndicator(false);
-                  alert(data.reason);
+              },
+              errorHandler:function(errorString, exception){ 
+                  alert("get comments error: " + errorString +" "+ exception);
               }
-          },
-          errorHandler:function(errorString, exception){ 
-              alert("get comments error: " + errorString +" "+ exception);
-          }
-        });
+            });
+          </c:when>
+          <c:otherwise>
+            displayIndicator(false);
+            if (current!=null) {
+              $('row-'+current).className = "catUnSelected";
+              $('vtrow-'+current).className = "catUnSelected";
+            }
+            tree1.selectedId = id;
+            currentCategory = $('col-'+tree1.selectedId).innerHTML;
+            $('row-'+tree1.selectedId).className = "catSelected";
+            $('vtrow-'+tree1.selectedId).className = "catSelected";
+          </c:otherwise>
+        </c:choose>
       }
     };
     
@@ -332,7 +346,6 @@
           </logic:notEqual>
         </logic:iterate>
       </select></h2>
-    
     <div id="col-left">
       <div id="cats" style="height:410px;overflow:auto;">
         <jsp:include page="vttCatsTable.jsp"/>
@@ -346,7 +359,7 @@
     <div id="spacer">
     </div>
     <div>
-      <c:if test="${!published}">
+      <c:if test="${currentUser==user && !published}">
         <input id="publishBtn" type="button" value="Publish" onclick="publish();">
       </c:if>
     </div>
