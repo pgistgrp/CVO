@@ -1,11 +1,10 @@
 package org.pgist.sarp.vtt;
 
 import java.util.Collection;
-import java.util.List;
 
+import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.sarp.drt.InfoObject;
-import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -23,17 +22,11 @@ public interface VTTService {
 
     VTT getVTTById(Long vttId) throws Exception;
 
-    CategoryReference setRootCatReference(VTT vtt, User user) throws Exception;
-
     VTT createVTT(Long id, Long chtId, String name, String purpose, String instruction) throws Exception;
 
-    List<User> getOtherUsers(VTT vtt) throws Exception;
+    Collection<VTTComment> getComments(Long userId, Long vttId, PageSetting setting) throws Exception;
 
-    void setClearVTTWinner(Long vttId) throws Exception;
-
-    Collection<VTTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
-
-    VTTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception;
+    VTTComment createComment(Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception;
 
     void deleteComment(VTTComment comment) throws Exception;
 
@@ -43,13 +36,17 @@ public interface VTTService {
 
     CategoryReference getCategoryReferenceById(Long id) throws Exception;
     
-    CategoryValue getCategoryValueById(Long id) throws Exception;
-
-    void saveCategoryValue(Long catRefId, String name, String unit) throws Exception;
+    CategoryPathValue getCategoryPathValueByPathId(Long userId, Long pathId) throws Exception;
     
-    void publish(Long vttId) throws Exception;
+    void saveCategoryPathValue(Long userId, Long pathId, String name, String unit) throws Exception;
+    
+    void publish(Long vttId, Long userId) throws Exception;
 
     VTTSpecialistComment createSpecialistComment(Long vttId, String title, String content, boolean emailNotify) throws Exception;
+
+    void setClusteredPaths(Long vttId) throws Exception;
+
+    CategoryPath getCategoryPathById(Long pathId) throws Exception;
 
     
 }//interface VTTService

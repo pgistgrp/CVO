@@ -3,11 +3,11 @@ package org.pgist.sarp.vtt;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.sarp.cht.CategoryPath;
 
 
 /**
- * Measurement Unit Set for one CategoryReference (path).
+ * Measurement Unit Set for one CategoryPath.
  * 
  * @author kenny
  *
@@ -18,7 +18,7 @@ public class MUnitSet {
     
     private Long id;
     
-    private CategoryReference catRef;
+    private CategoryPath path;
     
     // map: unit --> frequency
     private Map<String, Integer> freqs = new HashMap<String, Integer>();
@@ -28,6 +28,9 @@ public class MUnitSet {
     
     // map: expert id --> comment
     private Map<Long, String> expComments = new HashMap<Long, String>();
+    
+    // map: user id --> unit selected by this user
+    private Map<Long, String> userSelections= new HashMap<Long, String>();
     
     
     /**
@@ -48,15 +51,15 @@ public class MUnitSet {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="catref_id" lazy="true" class="org.pgist.sarp.cst.CategoryReference"
+     * @hibernate.many-to-one column="path_id" lazy="true"
      */
-    public CategoryReference getCatRef() {
-        return catRef;
+    public CategoryPath getPath() {
+        return path;
     }
     
     
-    public void setCatRef(CategoryReference catRef) {
-        this.catRef = catRef;
+    public void setPath(CategoryPath path) {
+        this.path = path;
     }
 
 
@@ -79,9 +82,9 @@ public class MUnitSet {
     /**
      * @return
      * 
-     * @hibernate.map table="sarp_munitset_user_eunitset_map"
+     * @hibernate.map table="sarp_munitset_exp_eunitset_map"
      * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="user_id" type="long"
+     * @hibernate.collection-index column="exp_id" type="long"
      * @hibernate.collection-many-to-many column="eunitset_id" class="org.pgist.sarp.vtt.EUnitSet"
      */
     public Map<Long, EUnitSet> getExpUnits() {
@@ -95,9 +98,9 @@ public class MUnitSet {
     /**
      * @return
      * 
-     * @hibernate.map table="sarp_munitset_user_comment_map"
+     * @hibernate.map table="sarp_munitset_exp_comment_map"
      * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="user_id" type="long"
+     * @hibernate.collection-index column="exp_id" type="long"
      * @hibernate.collection-element type="string" column="comment" length="256"
      */
     public Map<Long, String> getExpComments() {
@@ -105,6 +108,26 @@ public class MUnitSet {
     }
     public void setExpComments(Map<Long, String> expComments) {
         this.expComments = expComments;
+    }
+
+
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.map table="sarp_munitset_user_eunitset_map"
+     * @hibernate.collection-key column="munitset_id"
+     * @hibernate.collection-index column="user_id" type="long"
+     * @hibernate.collection-element type="string" column="selected_unit" length="256"
+     */
+    public Map<Long, String> getUserSelections() {
+        return userSelections;
+    }
+
+
+    public void setUserSelections(Map<Long, String> userSelections) {
+        this.userSelections = userSelections;
     }
     
     

@@ -45,7 +45,7 @@
       select : function(id) {
         displayIndicator(true);
         var current = this.selectedId;
-        VTTAgent.getCategoryValue({catRefId:id}, <pg:wfinfo/>,{
+        VTTAgent.getCategoryPathValue({pathId:id}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -93,7 +93,7 @@
     
     function saveValue(id, value, name, unit) {
       displayIndicator(true);
-      VTTAgent.saveCategoryValue({catRefId:id, value:value, name:name, unit:unit}, <pg:wfinfo/>,{
+      VTTAgent.saveCategoryPathValue({vttId:${vtt.id}, pathId:id, value:value, name:name, unit:unit}, <pg:wfinfo/>,{
         callback:function(data){
             if (data.successful){
                 displayIndicator(false);
@@ -152,7 +152,7 @@
   }
   
   function getComments(page) {
-      VTTAgent.getComments({catRefId:${root.id}, page:page}, <pg:wfinfo/>,{
+      VTTAgent.getComments({vttId:${vtt.id}, page:page}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -186,7 +186,7 @@
         alert('please input content');
         return;
     }
-    VTTAgent.createComment({catRefId:${root.id}, title:title, content:content}, <pg:wfinfo/>,{
+    VTTAgent.createComment({vttId:${vtt.id}, title:title, content:content}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);

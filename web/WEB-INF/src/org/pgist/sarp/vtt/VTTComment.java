@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.users.User;
 
 
@@ -24,7 +23,9 @@ public class VTTComment implements Serializable {
 	
 	private Long id;
 	
-	private CategoryReference catRef;
+	private VTT vtt;
+	
+	private User owner;
 	
     private String title;
     
@@ -64,15 +65,30 @@ public class VTTComment implements Serializable {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="catref_id" cascade="all" lazy="true"
+     * @hibernate.many-to-one column="vtt_id" lazy="true"
      */
-    public CategoryReference getCatRef() {
-        return catRef;
+    public VTT getVtt() {
+        return vtt;
     }
 
 
-    public void setCatRef(CategoryReference catRef) {
-        this.catRef = catRef;
+    public void setVtt(VTT vtt) {
+        this.vtt = vtt;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="owner_id" lazy="true"
+     */
+    public User getOwner() {
+        return owner;
+    }
+
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
 

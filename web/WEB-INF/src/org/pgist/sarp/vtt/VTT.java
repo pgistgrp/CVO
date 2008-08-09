@@ -1,10 +1,12 @@
 package org.pgist.sarp.vtt;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.pgist.sarp.cht.CHT;
-import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.users.User;
 
 
@@ -24,23 +26,11 @@ public class VTT {
     
     private String instruction = "";
     
-    /*
-     * For published user value tree
-     */
-    private Map<Long, CategoryReference> categories = new HashMap<Long, CategoryReference>();
-    
-    /*
-     * For unpublished user value tree
-     */
-    private Map<Long, CategoryReference> cats = new HashMap<Long, CategoryReference>();
-    
-    private Map<Long, CategoryReference> favorites = new HashMap<Long, CategoryReference>();
+    private List<CategoryPath> paths = new ArrayList<CategoryPath>();
     
     private CHT cht;
     
-    private User winner;
-    
-    private CategoryReference winnerCategory;
+    private Set<User> users = new HashSet<User>();
     
     private boolean closed;
     
@@ -108,54 +98,18 @@ public class VTT {
     /**
      * @return
      * 
-     * @hibernate.map table="sarp_vtt_user_category_map"
+     * @hibernate.list table="sarp_vtt_path_list"
      * @hibernate.collection-key column="vtt_id"
-     * @hibernate.collection-index column="user_id" type="long"
-     * @hibernate.collection-many-to-many column="root_catref_id" class="org.pgist.sarp.cst.CategoryReference"
+     * @hibernate.collection-index column="index_order"
+     * @hibernate.collection-many-to-many column="root_catref_id" class="org.pgist.sarp.cht.CategoryPath"
      */
-	public Map<Long, CategoryReference> getCategories() {
-		return categories;
+	public List<CategoryPath> getPaths() {
+		return paths;
 	}
 
 
-	public void setCategories(Map<Long, CategoryReference> categories) {
-		this.categories = categories;
-	}
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.map table="sarp_vtt_user_cat_map"
-     * @hibernate.collection-key column="vtt_id"
-     * @hibernate.collection-index column="user_id" type="long"
-     * @hibernate.collection-many-to-many column="root_catref_id" class="org.pgist.sarp.cst.CategoryReference"
-     */
-    public Map<Long, CategoryReference> getCats() {
-        return cats;
-    }
-
-
-    public void setCats(Map<Long, CategoryReference> cats) {
-        this.cats = cats;
-    }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.map table="sarp_vtt_user_favorite_map"
-     * @hibernate.collection-key column="vtt_id"
-     * @hibernate.collection-index column="user_id" type="long"
-     * @hibernate.collection-many-to-many column="favorite_catref_id" class="org.pgist.sarp.cst.CategoryReference"
-     */
-	public Map<Long, CategoryReference> getFavorites() {
-		return favorites;
-	}
-
-
-	public void setFavorites(Map<Long, CategoryReference> favorites) {
-		this.favorites = favorites;
+	public void setPaths(List<CategoryPath> paths) {
+		this.paths = paths;
 	}
 
 
@@ -175,36 +129,19 @@ public class VTT {
 
 
     /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="winner_id" lazy="true" class="org.pgist.users.User"
-     */
-    public User getWinner() {
-        return winner;
+     * @hibernate.set lazy="false" table="pgist_vtt_user_link" cascade="none"
+     * @hibernate.collection-key column="vtt_id"
+     * @hibernate.collection-one-to-many column="user_id" class="org.pgist.users.User"
+     */   
+	public Set<User> getUsers() {
+        return users;
     }
-
-
-    public void setWinner(User winner) {
-        this.winner = winner;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
 
     /**
-     * @return
-     * 
-     * @hibernate.many-to-one column="winner_cat_id" lazy="true" class="org.pgist.sarp.cst.CategoryReference"
-     */
-    public CategoryReference getWinnerCategory() {
-        return winnerCategory;
-    }
-
-
-    public void setWinnerCategory(CategoryReference winnerCategory) {
-        this.winnerCategory = winnerCategory;
-    }
-
-
-	/**
      * @return
      * 
      * @hibernate.property not-null="true"

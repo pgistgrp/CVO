@@ -32,9 +32,9 @@ public class VTTCateogryClusterTask implements WorkflowTask {
     public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
         System.out.println("\n@ VTTCateogryClusterTask.execute()\n");
         
-        Long chtId = new Long(inouts.getIntValue(IN_VTT_ID));
+        Long vttId = new Long(inouts.getIntValue(IN_VTT_ID));
         
-        //vttService.setClusteredCategory(chtId);
+        vttService.setClusteredPaths(vttId);
     } //execute()
     
     

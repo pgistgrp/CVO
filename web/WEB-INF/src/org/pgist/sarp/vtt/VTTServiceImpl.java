@@ -1,15 +1,9 @@
 package org.pgist.sarp.vtt;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 
 import org.pgist.sarp.bct.BCTDAO;
-import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.cht.CHT;
 import org.pgist.sarp.cht.CHTDAO;
 import org.pgist.sarp.cht.CategoryPath;
@@ -22,7 +16,6 @@ import org.pgist.tagging.TagDAO;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-import org.python.util.PythonInterpreter;
 
 
 /**
@@ -96,14 +89,10 @@ public class VTTServiceImpl implements VTTService {
     public InfoObject publish(Long vttId, String title) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         vtt.getId();
-        vtt.getCategories();
-        vtt.getFavorites();
+        vtt.getPaths();
         vtt.getInstruction();
         vtt.getName();
         vtt.getPurpose();
-        vtt.getCats();
-        vtt.getWinner();
-        vtt.getWinnerCategory();
         
         InfoObject infoObject = new InfoObject();
         infoObject.setTitle(title);
@@ -126,15 +115,12 @@ public class VTTServiceImpl implements VTTService {
         vtt.setInstruction(instruction);
         vtt.setPurpose(purpose);
         
+        vtt.getPaths().addAll(chtDAO.getPathsByChtId(chtId, null));
+        
         vttDAO.save(vtt);
         
         return vtt;
     } //createVTT()
-
-
-    public List<User> getOtherUsers(VTT vtt) throws Exception {
-        return vttDAO.getOtherUsers(vtt);
-    } //getOtherUsers()
 
 
     public VTT getVTTById(Long vttId) throws Exception {
@@ -142,80 +128,19 @@ public class VTTServiceImpl implements VTTService {
     } //getVTTById()
 
 
-    public CategoryReference setRootCatReference(VTT vtt, User user) throws Exception {
-        CategoryReference root2 = vtt.getCategories().get(user.getId());
-        if (root2!=null) return root2;
-        
-        root2 = vtt.getCats().get(user.getId());
-        if (root2!=null) return root2;
-        
-        //copy winner
-        CategoryReference root1 = vtt.getCht().getWinnerCategory();
-        
-        Queue<CategoryReference> queue1 = new LinkedList<CategoryReference>();
-        queue1.offer(root1);
-        
-        Queue<CategoryReference> queue2 = new LinkedList<CategoryReference>();
-        root2 = new CategoryReference(root1);
-        root2.setUser(user);
-        vttDAO.save(root2);
-        root2.setCstId(vtt.getId());
-        queue2.offer(root2);
-        
-        CategoryValue catValue = new CategoryValue(root2);
-        vttDAO.save(catValue);
-        
-        while (!queue1.isEmpty()) {
-            CategoryReference parent1 = queue1.poll();
-            CategoryReference parent2 = queue2.poll();
-            
-            for (CategoryReference one : parent1.getChildren()) {
-                CategoryReference two = new CategoryReference(one);
-                two.setUser(user);
-                two.setCstId(vtt.getId());
-                two.getParents().add(parent2);
-                parent2.getChildren().add(two);
-                vttDAO.save(two);
-                
-                catValue = new CategoryValue(two);
-                vttDAO.save(catValue);
-                
-                queue1.offer(one);
-                queue2.offer(two);
-            }
-        }
-        
-        vttDAO.save(root2);
-        
-        vtt.getCats().put(user.getId(), root2);
-        
-        vttDAO.save(vtt);
-        
-        return root2;
-    } //setRootCatReference()
-
-
-    public void setClearVTTWinner(Long vttId) throws Exception {
-        VTT vtt = vttDAO.getVTTById(vttId);
-        vtt.setWinner(null);
-        vtt.setWinnerCategory(null);
-        vttDAO.save(vtt);
-    } //setClearVTTWinner()
-
-
-    public Collection<VTTComment> getComments(Long catRefId, PageSetting setting) throws Exception {
-        return vttDAO.getComments(catRefId, setting);
+    public Collection<VTTComment> getComments(Long userId, Long vttId, PageSetting setting) throws Exception {
+        return vttDAO.getComments(userId, vttId, setting);
     } //getComments()
 
 
-    public VTTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception {
-        CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
-        
-        if (catRef==null) throw new Exception("can't find the specified CategoryReference with id "+catRefId);
+    public VTTComment createComment(Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception {
+        User user = systemDAO.getUserById(userId);
+        VTT vtt = vttDAO.getVTTById(vttId);
         
         VTTComment comment = new VTTComment();
         comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
-        comment.setCatRef(catRef);
+        comment.setVtt(vtt);
+        comment.setOwner(user);
         comment.setTitle(title);
         comment.setContent(content);
         comment.setCreateTime(new Date());
@@ -254,13 +179,20 @@ public class VTTServiceImpl implements VTTService {
     } //setVotingOnComment()
 
 
-    public CategoryValue getCategoryValueById(Long id) throws Exception {
-        return vttDAO.getCategoryValueById(id);
+    public CategoryPathValue getCategoryPathValueByPathId(Long userId, Long pathId) throws Exception {
+        return vttDAO.getCategoryPathValueByPathId(userId, pathId);
     } //getCategoryValueById()
 
 
-    public void saveCategoryValue(Long catRefId, String name, String unit) throws Exception {
-        CategoryValue catValue = vttDAO.getCategoryValueById(catRefId);
+    public void saveCategoryPathValue(Long userId, Long pathId, String name, String unit) throws Exception {
+        CategoryPathValue catValue = vttDAO.getCategoryPathValueByPathId(userId, pathId);
+        
+        if (catValue==null) {
+            User user = systemDAO.getUserById(userId);
+            CategoryPath path = (CategoryPath) vttDAO.load(CategoryPath.class, pathId);
+            catValue = new CategoryPathValue(path, user);
+        }
+        
         catValue.setName(name);
         catValue.setCriterion(unit);
         if (name==null || name.trim().length()==0) {
@@ -273,11 +205,12 @@ public class VTTServiceImpl implements VTTService {
     } //saveCategoryValue()
 
 
-    public void publish(Long vttId) throws Exception {
+    public void publish(Long vttId, Long userId) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
-        CategoryReference root = vtt.getCats().get(WebUtils.currentUserId());
-        vtt.getCats().put(WebUtils.currentUserId(), null);
-        vtt.getCategories().put(WebUtils.currentUserId(), root);
+        User user = systemDAO.getUserById(userId);
+        
+        vtt.getUsers().add(user);
+        
         vttDAO.save(vtt);
     } //publish()
 
@@ -308,6 +241,23 @@ public class VTTServiceImpl implements VTTService {
         
         return comment;
     } //createSpecialistComment()
+
+
+    @Override
+    public void setClusteredPaths(Long vttId) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        
+        if (vtt==null) throw new Exception("can't find the specified VTT with id "+vttId);
+        
+        //TODO: cluster paths
+        
+    } //setClusteredPaths()
+
+
+    @Override
+    public CategoryPath getCategoryPathById(Long pathId) throws Exception {
+        return (CategoryPath) vttDAO.load(CategoryPath.class, pathId);
+    } //getCategoryPathById()
 
 
 } //class VTTServiceImpl

@@ -6,7 +6,7 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.system.SystemService;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
@@ -68,25 +68,14 @@ public class VTTViewAction extends Action {
         if (user==null) {
             throw new Exception("can not find the given user");
         } else {
-            CategoryReference catref = vtt.getCategories().get(userId);
-            if (catref==null && WebUtils.currentUserId().equals(userId)) {
-                request.setAttribute("published", false);
-                catref = vtt.getCats().get(userId);
-                if (catref==null) {
-                    catref = vttService.setRootCatReference(vtt, user);
-                }
-            } else {
-                request.setAttribute("published", true);
-            }
-            request.setAttribute("root", catref);
+            List<CategoryPath> paths = vtt.getPaths();
+            request.setAttribute("paths", paths);
         }
-        
-        List<User> list = vttService.getOtherUsers(vtt);
         
         request.setAttribute("user", user);
         request.setAttribute("cht", vtt.getCht());
         request.setAttribute("vtt", vtt);
-        request.setAttribute("others", list);
+        request.setAttribute("others", vtt.getUsers());
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

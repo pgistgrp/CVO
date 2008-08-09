@@ -697,22 +697,17 @@
   
 
   <tag>
-    <name>categoryValue</name>
-    <tag-class>org.pgist.tags.CategoryValueTag</tag-class>
+    <name>pathValue</name>
+    <tag-class>org.pgist.tags.PathValueTag</tag-class>
     <body-content>empty</body-content>
-    <description>Tag which grab Category Value</description>
+    <description>Tag which grab Path Value</description>
     <attribute>
       <name>var</name>
       <required>true</required>
       <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-      <name>isLeaf</name>
-      <required>true</required>
-      <rtexprvalue>false</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>category</name>
+      <name>path</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>

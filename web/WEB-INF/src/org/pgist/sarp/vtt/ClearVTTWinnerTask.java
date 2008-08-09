@@ -6,6 +6,8 @@ import org.pgist.wfengine.WorkflowTask;
 
 
 /**
+ * TODO: TO BE REMOVED!
+ * 
  * Automatic workflow task for clearing CHT winner.
  * 
  * @author kenny
@@ -34,7 +36,7 @@ public class ClearVTTWinnerTask implements WorkflowTask {
         
         Long vttId = new Long(inouts.getIntValue(IN_VTT_ID));
         
-        vttService.setClearVTTWinner(vttId);
+        //vttService.setClearVTTWinner(vttId);
     }//execute()
     
     

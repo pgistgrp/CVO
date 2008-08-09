@@ -1,7 +1,5 @@
 package org.pgist.sarp.vtt;
 
-import java.util.List;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -61,11 +59,9 @@ public class VTTExpertToolAction extends Action {
             throw new Exception("You have no access to this function.");
         }
         
-        List<User> list = vttService.getOtherUsers(vtt);
-        
         request.setAttribute("user", user);
         request.setAttribute("vtt", vtt);
-        request.setAttribute("others", list);
+        request.setAttribute("others", vtt.getUsers());
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

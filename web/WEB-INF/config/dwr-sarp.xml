@@ -150,8 +150,8 @@
       <include method="deleteComment"/>
       <include method="getVotingOnComment"/>
       <include method="setVotingOnComment"/>
-      <include method="getCategoryValue"/>
-      <include method="saveCategoryValue"/>
+      <include method="getCategoryPathValue"/>
+      <include method="saveCategoryPathValue"/>
       <include method="getWinner"/>
       <include method="publish"/>
       <include method="getTags"/>

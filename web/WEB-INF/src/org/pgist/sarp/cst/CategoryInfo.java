@@ -111,9 +111,10 @@ public class CategoryInfo {
     
     /**
      * @return
-     * @hibernate.set table="sarp_cst_cat_info_alias_link"
+     * @hibernate.map table="sarp_cst_cat_info_alias_link"
      * @hibernate.collection-key column="catinfo_id"
-     * @hibernate.collection-element type="string" column="alias"
+     * @hibernate.collection-index column="alias" type="string" length="255"
+     * @hibernate.collection-element type="int" column="frequency"
      */
     public Map<String, Integer> getAlias() {
         return alias;

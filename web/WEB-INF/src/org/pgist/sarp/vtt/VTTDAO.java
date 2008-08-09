@@ -17,12 +17,12 @@ public interface VTTDAO extends BaseDAO {
     
     VTT getVTTById(Long vttId) throws Exception;
 
-    Collection<VTTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
+    Collection<VTTComment> getComments(Long userId, Long vttId, PageSetting setting) throws Exception;
 
     void increaseVoting(VTTComment comment, boolean agree) throws Exception;
 
     List<User> getOtherUsers(VTT vtt) throws Exception;
 
-    CategoryValue getCategoryValueById (Long id) throws Exception;
+    CategoryPathValue getCategoryPathValueByPathId(Long userId, Long pathId) throws Exception;
     
 } //interface VTTDAO

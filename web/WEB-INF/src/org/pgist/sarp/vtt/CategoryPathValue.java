@@ -1,6 +1,7 @@
 package org.pgist.sarp.vtt;
 
-import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.sarp.cht.CategoryPath;
+import org.pgist.users.User;
 
 
 /**
@@ -8,14 +9,16 @@ import org.pgist.sarp.cst.CategoryReference;
  * 
  * @author kenny
  *
- * @hibernate.class table="sarp_vtt_category_value" lazy="true"
+ * @hibernate.class table="sarp_vtt_path_value" lazy="true"
  */
-public class CategoryValue {
+public class CategoryPathValue {
     
     
     private Long id;
     
-    private CategoryReference catRef;
+    private CategoryPath path;
+    
+    private User user;
     
     private boolean value;
     
@@ -24,20 +27,20 @@ public class CategoryValue {
     private String criterion;
     
     
-    public CategoryValue() {
+    public CategoryPathValue() {
     }
     
     
-    public CategoryValue(CategoryReference catRef) {
-        this.id = catRef.getId();
-        this.catRef = catRef;
+    public CategoryPathValue(CategoryPath path, User user) {
+        this.user = user;
+        this.path = path;
     }
     
     
     /**
      * @return
      * 
-     * @hibernate.id generator-class="assigned"
+     * @hibernate.id generator-class="native"
      */
     public Long getId() {
         return id;
@@ -52,15 +55,30 @@ public class CategoryValue {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="catref_id" lazy="true" class="org.pgist.sarp.cst.CategoryReference"
+     * @hibernate.many-to-one column="path_id" lazy="true"
      */
-    public CategoryReference getCatRef() {
-        return catRef;
+    public CategoryPath getPath() {
+        return path;
     }
 
 
-    public void setCatRef(CategoryReference catRef) {
-        this.catRef = catRef;
+    public void setPath(CategoryPath path) {
+        this.path = path;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="user_id" lazy="true"
+     */
+    public User getUser() {
+        return user;
+    }
+
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 

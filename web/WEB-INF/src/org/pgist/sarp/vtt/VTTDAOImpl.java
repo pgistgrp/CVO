@@ -25,17 +25,18 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     } //getVTTById()
     
     
-    private static final String hql_getComments1 = "select count(id) from VTTComment c where c.deleted=false and c.catRef.id=?";
-    private static final String hql_getComments2 = "from VTTComment c where c.deleted=false and c.catRef.id=? order by c.id desc";
+    private static final String hql_getComments1 = "select count(id) from VTTComment c where c.deleted=false and c.vtt.id=? and c.owner.id=?";
+    private static final String hql_getComments2 = "from VTTComment c where c.deleted=false and c.vtt.id=? and c.owner.id=? order by c.id desc";
     
     
     @Override
-    public Collection<VTTComment> getComments(Long catRefId, PageSetting setting) throws Exception {
+    public Collection<VTTComment> getComments(Long userId, Long vttId, PageSetting setting) throws Exception {
         List<VTTComment> list = new ArrayList<VTTComment>();
         
         //get total rows number
         Query query = getSession().createQuery(hql_getComments1);
-        query.setLong(0, catRefId);
+        query.setLong(0, vttId);
+        query.setLong(1, userId);
         int count = ((Number) query.uniqueResult()).intValue();
         
         if (count==0) return list;
@@ -45,7 +46,8 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
         
         //get records
         query = getSession().createQuery(hql_getComments2);
-        query.setLong(0, catRefId);
+        query.setLong(0, vttId);
+        query.setLong(1, userId);
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
@@ -79,9 +81,14 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     } //getOtherUsers()
 
 
+    private static final String hql_getCategoryPathValueByPathId = "from CategoryPathValue pv where pv.path.id=? and pv.user.id=?";
+    
     @Override
-    public CategoryValue getCategoryValueById(Long id) throws Exception {
-        return (CategoryValue) getHibernateTemplate().load(CategoryValue.class, id);
+    public CategoryPathValue getCategoryPathValueByPathId(Long userId, Long pathId) throws Exception {
+        Query query = getSession().createQuery(hql_getCategoryPathValueByPathId);
+        query.setLong(0, pathId);
+        query.setLong(1, userId);
+        return (CategoryPathValue) query.uniqueResult();
     } //getCategoryValueById()
     
     

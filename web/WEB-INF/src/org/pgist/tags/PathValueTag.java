@@ -7,18 +7,20 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.vtt.VTTService;
+import org.pgist.util.WebUtils;
 import org.pgist.wfengine.util.Utils;
 import org.springframework.web.context.WebApplicationContext;
 
 
 /**
+ * Get the corresponding CategoryPathValue object for the current user and current vttId.
  * 
  * @author kenny
  *
  */
-public class CategoryValueTag extends SimpleTagSupport {
+public class PathValueTag extends SimpleTagSupport {
     
     
     private static final long serialVersionUID = 1L;
@@ -26,9 +28,7 @@ public class CategoryValueTag extends SimpleTagSupport {
     
     private String var;
     
-    private String isLeaf;
-    
-    private CategoryReference category;
+    private CategoryPath path;
     
     
     public void setVar(String var) {
@@ -36,13 +36,8 @@ public class CategoryValueTag extends SimpleTagSupport {
     }
 
 
-    public void setIsLeaf(String isLeaf) {
-        this.isLeaf = isLeaf;
-    }
-
-
-    public void setCategory(CategoryReference category) {
-        this.category = category;
+    public void setPath(CategoryPath category) {
+        this.path = category;
     }
 
 
@@ -64,8 +59,7 @@ public class CategoryValueTag extends SimpleTagSupport {
         VTTService vttService = (VTTService) appContext.getBean("vttService");
         
         try {
-            Object object = Utils.narrow(vttService.getCategoryValueById(category.getId()));
-            context.setAttribute(isLeaf, category.getChildren().size()==0);
+            Object object = Utils.narrow(vttService.getCategoryPathValueByPathId(WebUtils.currentUserId(), path.getId()));
             context.setAttribute(var, object);
         } catch (Exception e) {
             throw new JspException(e);
@@ -73,4 +67,4 @@ public class CategoryValueTag extends SimpleTagSupport {
     }//doTag()
     
     
-}//class CategoryValueTag
+}//class PathValueTag
