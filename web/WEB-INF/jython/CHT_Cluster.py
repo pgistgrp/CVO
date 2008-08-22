@@ -23,36 +23,15 @@
 #         addPath(CategoryPath)
 
 # Helping module for sorting list of lists
+# Import string module
+import string
 import operator
 from org.pgist.sarp.cst import CategoryReference
-
 # Helping module to identify type of data passed to us
 from types import *
 
-# Import string module
-import string
-
-# Program to cluster CHT user categories.
-# Objects:
-#     CategoryReference
-#         .category   (name)
-#         .children
-#         .frequency
-#     Category
-#         .name
-#     TagReference
-#         .tag
-#     Tag
-#         .name
-# Input:
-#     userIdList
-#     catList
-#     factory : a factory to create new instances of category and tag.
-#         createCategoryReference(string name)
-#         createTagReference(string name)
-# Output:
-#     result : a root category reference
-
+# constant
+separator = "/"
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
@@ -375,7 +354,7 @@ def getIndicatorFrequencies(indicatorList = None):
 			rank, indicator = rankIndicator
 			if isinstance(indicator, ListType):
 				print indicator
-				indicatorName = ".".join(indicator)
+				indicatorName = separator.join(indicator)
 			elif isinstance(indicator, StringType):
 				indicatorName = indicator
 			else:
@@ -393,11 +372,11 @@ def getIndicatorFrequencies(indicatorList = None):
 				# .freq
 				statisticsDict[indicatorName].freq += 1
 				# .level
-				statisticsDict[indicatorName].level = indicatorName.count(".") + 1
+				statisticsDict[indicatorName].level = indicatorName.count(separator) + 1
 				# .leaf
-				statisticsDict[indicatorName].leaf = (indicatorName.split(".")).pop()
+				statisticsDict[indicatorName].leaf = (indicatorName.split(separator)).pop()
 				# .initialNode
-				statisticsDict[indicatorName].initialNode = (indicatorName.split(".")).pop(0)
+				statisticsDict[indicatorName].initialNode = (indicatorName.split(separator)).pop(0)
 				# .rank
 				statisticsDict[indicatorName].compositeRank.append(rank)
 				# .keep
@@ -494,9 +473,9 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		# indicator holds the name
 		# stat holds: .freq .leaf .initialNode .level
 		print "#### ", indic
-		isPath = indic.count('.')
+		isPath = indic.count(separator)
 		if isPath > 0:
-			indCats = indic.split('.')
+			indCats = indic.split(separator)
 		else:
 			indCats = indic
 		

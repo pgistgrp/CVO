@@ -45,9 +45,9 @@ class CategoryReference:
 		self.category = Category()
 		self.children = []
 		self.frequency = 0
-		self.tag = []
+		self.tags = []
 	def __str__(self):
-	      return self.category, len(self.children), self.frequency, self.tag.name
+	      return self.category, len(self.children), self.frequency, self.tags.name
 	def __len__(self):
 		return len(self.children)
 
@@ -215,14 +215,14 @@ def buildSampleData(catsToUse = [], tagsToUse = [], numUsers = None):
 				newTagRef.tag = newTag
 				# Check if the tag reference already exist
 				exists = 0
-				for existingTag in newCatRef.tag:
+				for existingTag in newCatRef.tags:
 					if existingTag.tag.name == newTagRef.tag.name:
 						exists = 1
 				if exists == 0:
 					# Assign this tag reference to the category
-					newCatRef.tag.append(newTagRef)
+					newCatRef.tags.append(newTagRef)
 			# Add the category to the user's categories if it has tags
-			if len(newCatRef.tag) > 0:
+			if len(newCatRef.tags) > 0:
 				rootCat.children.append(newCatRef)
 		
 		# Add the root category to the catList
