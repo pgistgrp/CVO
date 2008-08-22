@@ -111,7 +111,7 @@ public class CategoryInfo {
     
     /**
      * @return
-     * @hibernate.map table="sarp_cst_cat_info_alias_link"
+     * @hibernate.map table="sarp_cst_cat_info_alias_link" cascade="all"
      * @hibernate.collection-key column="catinfo_id"
      * @hibernate.collection-index column="alias" type="string" length="255"
      * @hibernate.collection-element type="int" column="frequency"
@@ -124,9 +124,19 @@ public class CategoryInfo {
     }
     
     
+    public void addAlias(String alias) {
+        Integer n = this.alias.get(alias);
+        if (n==null) {
+            this.alias.put(alias, 1);
+        } else {
+            this.alias.put(alias, n+1);
+        }
+    }
+    
+    
     /**
      * @return
-     * @hibernate.set table="sarp_cst_cat_info_tagsdiff_link"
+     * @hibernate.set table="sarp_cst_cat_info_tagsdiff_link" cascade="all"
      * @hibernate.collection-key column="catinfo_id"
      * @hibernate.collection-element type="string" column="tagsdiff"
      */
@@ -140,7 +150,7 @@ public class CategoryInfo {
     
     /**
      * @return
-     * @hibernate.set table="sarp_cst_cat_info_score_link"
+     * @hibernate.set table="sarp_cst_cat_info_score_link" cascade="all"
      * @hibernate.collection-key column="catinfo_id"
      * @hibernate.collection-element type="integer" column="jaccardscores"
      */

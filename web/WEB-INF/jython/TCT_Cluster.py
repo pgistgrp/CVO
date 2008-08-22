@@ -19,11 +19,9 @@
 # Output:
 #     result : a root category reference
 
-from sets import Set
-
-import string
-
 #import random
+from sets import Set
+import string
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
@@ -323,7 +321,7 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 				# Check if the tag set is also the same
 				inCatTags = []
 				# Add the tags in a set
-				for tagRef in userCats.tag:
+				for tagRef in userCats.tags:
 					inCatTags.append(tagRef.tag.name)
 				# Calculate similarity
 				if ((len(inCatTags)) > 0) and (len(catInfoList[catInfoLoc].tags) > 0):
@@ -345,7 +343,7 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 				catAdded = 0
 				# Category doesn't exist by name. Check if it exists by tag set
 				inCatTags = []
-				for tagRef in userCats.tag:
+				for tagRef in userCats.tags:
 					inCatTags.append(tagRef.tag.name)
 				# Check all known categories' tag set for similarity
 				for catInfo in catInfoList:
@@ -370,7 +368,7 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 					catInfo.name = cleanName
 					catInfo.freqName += 1
 					catInfo.users.append(user)
-					for tagRef in userCats.tag:
+					for tagRef in userCats.tags:
 						catInfo.tags.append(tagRef.tag.name)
 					# Add it to the catInfoList
 					catInfoList.append(catInfo)
@@ -387,24 +385,23 @@ def saveToDB(catInfoList = None):
 	# We need to loop through the catInfoList and create caegoryReferences
 	rootCat = factory.createCategoryInfo('root')
 	for cat in catInfoList:
+		print "------------ >", cat.name
 		info = factory.createCategoryInfo(cat.name)
 		for tag in cat.tags:
 			info.catRef.tags.add(factory.createTagReference(tag))
 		for user in cat.users:
-			# TODO: Add all users that had the category
 			info.addUser(user)
 		info.freqSet = cat.freqSet
 		info.freqName = cat.freqName
 		info.freqNameAndSet = cat.freqNameAndSet
 		for alias in cat.alias:
-			# TODO: Add all aliases of the category
-			info.alias.add(alias)
+			info.addAlias(alias)
 		for score in cat.jaccardScores:
-			# TODO: Add the scores
-			info.addScore(score)
+			info.addScore(int(score*1000))
 		for tagsDiff in cat.tagsDiff:
 			# TODO: Add the tag differences between the categories
-			info.tagsDiff.add(tagsDiff)
+			# TODO: Commented out temporarily: info.tagsDiff.add(tagsDiff)
+			pass
 		rootCat.addChild(info)
 	print rootCat
 	factory.setResult(rootCat)
@@ -425,16 +422,18 @@ def saveToDB(catInfoList = None):
 	self.freqNameAndSet = 0
 """	
 
+catInfo = buildCategoriesInformation(catList, userIdList)
+saveToDB(catInfo)
 
-if __name__ == "__main__":
-	#(catList, userIdList) = buildSampleData()
-	catInfo = buildCategoriesInformation(catList, userIdList)
-	saveToDB(catInfo)
-	"""
-	for cat in catInfo:
-		print cat.name, cat.label
-		print "\t", cat.users
-		print "\t", cat.alias
-		print "\t", cat.tags
-		print
-	"""
+#if __name__ == "__main__":
+#	(catList, userIdList) = buildSampleData()
+#	catInfo = buildCategoriesInformation(catList, userIdList)
+#	saveToDB(catInfo)
+# """
+# for cat in catInfo:
+# 	print cat.name, cat.label
+# 	print "\t", cat.users
+# 	print "\t", cat.alias
+# 	print "\t", cat.tags
+# 	print
+# """
