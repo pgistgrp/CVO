@@ -45,7 +45,7 @@
         displayIndicator(true);
         var current = this.selectedId;
         <c:choose>
-          <c:when test="${currentUser==user}">
+          <c:when test="${currentUser==user && !vtt.closed}">
             VTTAgent.getCategoryPathValue({userId:currentUserId, pathId:id}, <pg:wfinfo/>,{
               callback:function(data){
                   if (data.successful){
@@ -105,9 +105,9 @@
       </pg:show>
     }
     
-    function saveValue(id, value, name, unit) {
+    function saveValue(id, name, unit) {
       displayIndicator(true);
-      VTTAgent.saveCategoryPathValue({vttId:${vtt.id}, pathId:id, value:value, name:name, unit:unit}, <pg:wfinfo/>,{
+      VTTAgent.saveCategoryPathValue({vttId:${vtt.id}, pathId:id, name:name, unit:unit}, <pg:wfinfo/>,{
         callback:function(data){
             if (data.successful){
                 displayIndicator(false);
@@ -124,11 +124,6 @@
             alert("save category value error: " + errorString +" "+ exception);
         }
       });
-    }
-    
-    function radioClicked(isvalue) {
-      $('valueName').disabled = !isvalue;
-      $('valueUnit').disabled = !isvalue;
     }
     
     function keepBreaks(string){

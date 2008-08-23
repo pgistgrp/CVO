@@ -36,7 +36,7 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-						<span class="discussionTitle">${fn:escapeXml(comment.title)}</span>
+						<span class="discussionTitle">${pg:purify(comment.title)}</span>
 					</div>
 						<c:choose>
 								<c:when test="${baseuser.id == comment.author.id}">
@@ -47,8 +47,8 @@
 								</c:otherwise>
 						</c:choose>
 						<div id="discussionText${comment.id}" class="discussionText peekaboobugfix">
-							<p>${fn:escapeXml(comment.content)}</p>
-							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${fn:escapeXml(comment.author.loginname)}">${fn:escapeXml(comment.author.loginname)}</pg:url></h3>
+							<p>${pg:purify(comment.content)}</p>
+							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${pg:purify(comment.author.loginname)}">${pg:purify(comment.author.loginname)}</pg:url></h3>
 						</div>
 						<div class="discussionComments peekaboobugfix">
 				<c:choose>

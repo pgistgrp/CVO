@@ -74,6 +74,9 @@ public class VTTViewAction extends Action {
             request.setAttribute("paths", paths);
         }
         
+        boolean published = vtt.getUsers().contains(user);
+        
+        request.setAttribute("published", published);
         request.setAttribute("user", user);
         request.setAttribute("currentUser", currentUser);
         request.setAttribute("cht", vtt.getCht());

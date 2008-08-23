@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.apache.taglibs.standard.tag.common.core.Util;
 import org.pgist.criteria.Criteria;
 import org.pgist.criteria.CriteriaRef;
 import org.pgist.criteria.CriteriaSuite;
@@ -206,6 +207,17 @@ public class PgistELFunctions extends SimpleTagSupport {
 	    }
 	    
 	    return newList;
+	}
+	
+	public static String purify(String html) {
+	    if (html == null) return "";
+	    
+	    html = Util.escapeXml(html);
+	    html = html.replace("\r\n", "<br>");
+	    html = html.replace("\n", "<br>");
+	    html = html.replace("\r", "<br>");
+	    
+	    return html;
 	}
 	
 }// class PgistELFunctions

@@ -2,6 +2,7 @@ package org.pgist.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Properties;
 
 import org.python.util.PythonInterpreter;
 
@@ -12,6 +13,8 @@ import org.python.util.PythonInterpreter;
  */
 public class JythonAPI {
     
+    
+    private static boolean initialized = false;
     
     private String contextPath;
     
@@ -34,6 +37,14 @@ public class JythonAPI {
     
     
     public PythonInterpreter getInterpreter() {
+        synchronized (this) {
+            if (!initialized) {
+                initialized = true;
+                Properties postProperties = new Properties();
+                postProperties.setProperty("python.home", contextPath+"/WEB-INF/lib/jython");
+                PythonInterpreter.initialize(new Properties(), postProperties, null);
+            }
+        }
         return new PythonInterpreter();
     }
     

@@ -1,29 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
-<p>Category Path "<b>${path.title}</b>"</p>
-<p>Is this (${path.title}) a value?<br>
+<p>Indicator creation for Category Path "<b>${path.title}</b>"</p>
 
-<c:if test="${value!=null}">
-  <label><input type="radio" id="isValue" name="catValue" checked value="true" onclick="radioClicked(true);">Yes</label>
-  <label><input type="radio" id="isNotValue" name="catValue" value="false" onclick="radioClicked(false);">No</label>
-  <p>Insert appropriate measurement for path "${path.title}":<br>
-  <input type="text" id="valueName" value="${value.name}">
-  <p>Insert an unit for this measurement:<br>
-  <input type="text" id="valueUnit" value="${value.criterion}">
-</c:if>
-<c:if test="${value==null}">
-  <label><input type="radio" id="isValue" name="catValue" value="true" onclick="radioClicked(true);">Yes</label>
-  <label><input type="radio" id="isNotValue" name="catValue" checked value="false" onclick="radioClicked(false);">No</label>
-  <p>Insert appropriate measurement for category "${path.title}":<br>
-  <input type="text" id="valueName" value="" disabled="true">
-  <p>Insert an unit for this measurement:<br>
-  <input type="text" id="valueUnit" value="" disabled="true">
-</c:if>
+<label><input type="radio" id="selectTagRadio" name="selectTagRadio" value="true" checked="${value.tag}">Select a tag</label>
+<select id="valueNameTag" style="min-width:50px;" onclick="$('selectTagRadio').click();">
+  <option value=""></option>
+  <c:forEach var="tag" items="${tags}">
+    <option value="${tag}">${tag}</option>
+  </c:forEach>
+</select>
+, or<br>
+<label><input type="radio" id="selectTagRadio1" name="selectTagRadio" value="false" onfocus="$('valueName').focus();" checked="${!value.tag}">write my own: </label>
+<input type="text" id="valueName" value="${value.name}" onclick="$('selectTagRadio1').click();">
+<p>Suggested Unit of Messurement (e.g. for rainfall, cm per year):<br>
+<input type="text" id="valueUnit" value="${value.criterion}">
 
-<c:if test="${value==null}">
-<p><input id="btnAdd" type="button" value="Add" onclick="saveValue(${path.id}, $('isValue').checked, $('valueName').value, $('valueUnit').value);">
-</c:if>
-<c:if test="${value!=null}">
-<p><input id="btnAdd" type="button" value="Save" onclick="saveValue(${path.id}, $('isValue').checked, $('valueName').value, $('valueUnit').value);">
-</c:if>
+<p><input id="btnAdd" type="button" value="Add Indicator" onclick="saveValue(${path.id}, $('selectTagRadio').selected ? $('valueNameTag').value : $('valueName').value, $('valueUnit').value);">
 

@@ -7,10 +7,10 @@
 <ul>
 <logic:iterate id="tag" name="tags">
   <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
-	<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${fn:escapeXml(tag.tag.name)}</a>&nbsp;[<a href="javascript:derelateTag(${catRef.id}, ${tag.id});">&rarr;</a>]</li>
+	<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${pg:purify(tag.tag.name)}</a>&nbsp;[<a href="javascript:derelateTag(${catRef.id}, ${tag.id});">&rarr;</a>]</li>
   </pg:show>
   <pg:hide condition="${(user.id==baseuser.id && !cst.closed) || modtool}">
-	<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${fn:escapeXml(tag.tag.name)}</a></li>
+	<li id="tag${tag.id}" style="list-style: none;"><a href="javascript:getConcerns(${tag.id});">${pg:purify(tag.tag.name)}</a></li>
   </pg:hide>
 </logic:iterate>
 </ul>

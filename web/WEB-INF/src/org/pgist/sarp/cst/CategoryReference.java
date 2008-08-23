@@ -9,6 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.pgist.model.Node;
+import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.bct.TagReferenceComparator;
 import org.pgist.tagging.Category;
 import org.pgist.users.User;
@@ -35,7 +36,7 @@ public class CategoryReference implements Serializable, Node {
     
     protected String theme = "";
     
-    protected SortedSet tags = new TreeSet(new TagReferenceComparator());
+    protected SortedSet<TagReference> tags = new TreeSet<TagReference>(new TagReferenceComparator());
     
     protected User user;
     
@@ -159,12 +160,12 @@ public class CategoryReference implements Serializable, Node {
      * @hibernate.collection-key column="catref_id"
      * @hibernate.collection-many-to-many column="tagref_id" class="org.pgist.sarp.bct.TagReference"
      */
-    public SortedSet getTags() {
+    public SortedSet<TagReference> getTags() {
         return tags;
     }
 
 
-    public void setTags(SortedSet tags) {
+    public void setTags(SortedSet<TagReference> tags) {
         this.tags = tags;
     }
     

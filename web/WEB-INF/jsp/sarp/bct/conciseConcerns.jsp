@@ -18,7 +18,7 @@
           <tr><td>
             <table style="width:100%">
               <tr><td align="left">Author: <b>${concern.author.loginname}</b></td><td align="right"><b>${concern.numAgree} of ${concern.numVote} people agree so far</b></td></tr>
-              <tr><td colspan="2">"${fn:escapeXml(concern.content)}"</td></tr>
+              <tr><td colspan="2">"${pg:purify(concern.content)}"</td></tr>
               <tr>
               <c:choose>
                 <c:when test="${loop.last}">
@@ -39,7 +39,7 @@
                           <li class="box8 tagsInline">
                         </c:otherwise>
                       </c:choose>
-                      <a href="javascript:infoObject.getConcerns(1, ${tagref.id});">${fn:escapeXml(tagref.tag.name)}</a></li>
+                      <a href="javascript:infoObject.getConcerns(1, ${tagref.id});">${pg:purify(tagref.tag.name)}</a></li>
                     </c:forEach>
                   </ul>
                 </td>

@@ -40,7 +40,7 @@
 								</div><!-- end discussionRowHeader -->
 								<div class="discussionBody">
 									<div id="editingArea${concern.id}" style="display:none"></div>
-									<div class="discussionText" id="discussionText${concern.id}"><p>"${fn:escapeXml(concern.content)}"</p></div>
+									<div class="discussionText" id="discussionText${concern.id}"><p>"${pg:purify(concern.content)}"</p></div>
 									<h3 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="user=${concern.author.loginname}">${concern.author.loginname}</pg:url></h3>
 										<div class="discussionComments" id="discussionComments">
 										    <h3><pg:url page="/concern.do" params="id=${concern.id}">${concern.replies} Comments</pg:url></h3> (${concern.views} views)
@@ -59,7 +59,7 @@
 														</c:otherwise>
 													</c:choose>
 
-													<a href="javascript:changeCurrentFilter(${tagref.id});">${fn:escapeXml(tagref.tag.name)}</a></li>
+													<a href="javascript:changeCurrentFilter(${tagref.id});">${pg:purify(tagref.tag.name)}</a></li>
 												</c:forEach>
 											</ul>
 											</div>

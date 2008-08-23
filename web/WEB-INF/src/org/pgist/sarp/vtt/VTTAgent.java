@@ -1,7 +1,9 @@
 package org.pgist.sarp.vtt;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +12,10 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.cht.CHTService;
 import org.pgist.sarp.cht.CategoryPath;
+import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
@@ -418,8 +422,22 @@ public class VTTAgent {
         try {
             CategoryPath path = vttService.getCategoryPathById(pathId);
             CategoryPathValue value = vttService.getCategoryPathValueByPathId(WebUtils.currentUserId(), pathId);
+            if (value==null) {
+                value = new CategoryPathValue();
+                value.setPath(path);
+                value.setCriterion("");
+                value.setName("");
+                value.setTag(true);
+            }
+            List<String> tags = new ArrayList<String>();
+            for (CategoryReference catRef : value.getPath().getCategories()) {
+                for (TagReference tagRef : catRef.getTags()) {
+                    tags.add(tagRef.getTag().getName());
+                }
+            }
             request.setAttribute("value", value);
             request.setAttribute("path", path);
+            request.setAttribute("tags", tags);
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttCategoryPathValue.jsp"));
             map.put("successful", true);
@@ -442,7 +460,6 @@ public class VTTAgent {
      *     <li>vttId - int, id of a VTT object</li>
      *     <li>pathId - int, id of a CategoryPath object</li>
      *     <li>name - string</li>
-     *     <li>value - boolean</li>
      *     <li>unit - string</li>
      *   </ul>
      * 
@@ -499,21 +516,14 @@ public class VTTAgent {
         }
         
         String name = (String) params.get("name");
-        String value = (String) params.get("value");
         String unit = (String) params.get("unit");
         
-        if ("true".equals(value)) {
-            if (name==null || name.length()==0) {
-                map.put("reason", "please input measurement");
-                return map;
-            } else if (unit==null || unit.length()==0) {
-                map.put("reason", "please input unit of measurement");
-                return map;
-            }
-        } else {
-            //discard name and unit
-            name = "";
-            unit = "";
+        if (name==null || name.length()==0) {
+            map.put("reason", "please input measurement");
+            return map;
+        } else if (unit==null || unit.length()==0) {
+            map.put("reason", "please input unit of measurement");
+            return map;
         }
         
         try {

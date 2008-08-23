@@ -196,9 +196,9 @@ public class VTTServiceImpl implements VTTService {
         catValue.setName(name);
         catValue.setCriterion(unit);
         if (name==null || name.trim().length()==0) {
-            catValue.setValue(false);
+            catValue.setTag(false);
         } else {
-            catValue.setValue(true);
+            catValue.setTag(true);
         }
         
         vttDAO.save(catValue);

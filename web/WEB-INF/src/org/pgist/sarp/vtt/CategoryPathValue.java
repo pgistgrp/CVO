@@ -20,8 +20,10 @@ public class CategoryPathValue {
     
     private User user;
     
-    private boolean value;
+    // if it's a tag or a user input name
+    private boolean tag;
     
+    // name here now is either a tag name or a user input name
     private String name;
     
     private String criterion;
@@ -87,13 +89,13 @@ public class CategoryPathValue {
      * 
      * @hibernate.property not-null="true"
      */
-    public boolean isValue() {
-        return value;
+    public boolean isTag() {
+        return tag;
     }
 
 
-    public void setValue(boolean value) {
-        this.value = value;
+    public void setTag(boolean tag) {
+        this.tag = tag;
     }
 
 
