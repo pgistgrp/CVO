@@ -425,10 +425,10 @@ def saveToDB(catInfoList = None):
 catInfo = buildCategoriesInformation(catList, userIdList)
 saveToDB(catInfo)
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
 #	(catList, userIdList) = buildSampleData()
-#	catInfo = buildCategoriesInformation(catList, userIdList)
-#	saveToDB(catInfo)
+	catInfo = buildCategoriesInformation(catList, userIdList)
+	saveToDB(catInfo)
 # """
 # for cat in catInfo:
 # 	print cat.name, cat.label
