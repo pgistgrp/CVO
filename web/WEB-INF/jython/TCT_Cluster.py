@@ -25,31 +25,31 @@ import string
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
-class Category:
-	def __init__(self, name=None):
-		self.name = ''
+#class Category:
+#	def __init__(self, name=None):
+#		self.name = ''
 
 # Tag object from Zhong's code
-class Tag:
-	def __init__(self, name=None):
-		self.name = ''
+#class Tag:
+#	def __init__(self, name=None):
+#		self.name = ''
 	
 # TagReference from Zhong's code
-class TagReference:
-	def __init__(self, tag=None):
-		self.tag = Tag()
+#class TagReference:
+#	def __init__(self, tag=None):
+#		self.tag = Tag()
 
 # categoryReference Class to be used for SAMPLE data
-class CategoryReference:
-	def __init__(self, category=None, children=None, tag=None):
-		self.category = Category()
-		self.children = []
-		self.frequency = 0
-		self.tags = []
-	def __str__(self):
-	      return self.category, len(self.children), self.frequency, self.tags.name
-	def __len__(self):
-		return len(self.children)
+#class CategoryReference:
+#	def __init__(self, category=None, children=None, tag=None):
+#		self.category = Category()
+#		self.children = []
+#		self.frequency = 0
+#		self.tags = []
+#	def __str__(self):
+#	      return self.category, len(self.children), self.frequency, self.tags.name
+#	def __len__(self):
+#		return len(self.children)
 
 
 # Category Information class
