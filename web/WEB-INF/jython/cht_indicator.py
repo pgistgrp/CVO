@@ -60,7 +60,7 @@ import random
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
-
+"""
 class Category:
 	def __init__(self, name=None):
 		self.name = ''
@@ -86,7 +86,7 @@ class CategoryReference:
 	      return self.category, len(self.children), self.frequency, self.tag.name
 	def __len__(self):
 		return len(self.children)
-
+"""
 # Informational Class to be used for statistical analysis
 class CategoryInformation:
 	def __init__(self, label=None, catFreq=None, subFreq=None, subList=None):
@@ -395,7 +395,7 @@ def getIndicatorFrequencies(indicatorList = None):
 		for rankIndicator in indicators:
 			rank, indicator = rankIndicator
 			if isinstance(indicator, ListType):
-				indicatorName = "|".join(indicator)
+				indicatorName = "/".join(indicator)
 			elif isinstance(indicator, StringType):
 				indicatorName = indicator
 			else:

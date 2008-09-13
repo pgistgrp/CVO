@@ -24,5 +24,13 @@ public interface VTTDAO extends BaseDAO {
     List<User> getOtherUsers(VTT vtt) throws Exception;
 
     CategoryPathValue getCategoryPathValueByPathId(Long userId, Long pathId) throws Exception;
+
+    List<CategoryPathValue> getCategoryPathValuesByPathId(Long id) throws Exception;
+
+    MUnitSet getMUnitSetByPathId(Long pathId) throws Exception;
+
+    Collection<VTTSpecialistComment> getSpecialistComments(Long userId, Long vttId, PageSetting setting) throws Exception;
     
+    void increaseSpecialistVoting(VTTSpecialistComment comment, boolean agree) throws Exception;
+
 } //interface VTTDAO

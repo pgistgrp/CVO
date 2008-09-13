@@ -2,6 +2,8 @@ package org.pgist.sarp.vtt;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.pgist.sarp.bct.BCTDAO;
 import org.pgist.sarp.cht.CHT;
@@ -227,6 +229,7 @@ public class VTTServiceImpl implements VTTService {
         
         VTTSpecialistComment comment = new VTTSpecialistComment();
         comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
+        comment.setOwner(comment.getAuthor());
         comment.setVtt(vtt);
         comment.setTitle(title);
         comment.setContent(content);
@@ -249,8 +252,23 @@ public class VTTServiceImpl implements VTTService {
         
         if (vtt==null) throw new Exception("can't find the specified VTT with id "+vttId);
         
-        //TODO: cluster paths
-        
+        //cluster paths
+        for (CategoryPath path : vtt.getPaths()) {
+            MUnitSet mUnitSet = new MUnitSet();
+            mUnitSet.setPath(path);
+            Map<String, Integer> freqs = mUnitSet.getFreqs();
+            for (CategoryPathValue value : vttDAO.getCategoryPathValuesByPathId(path.getId())) {
+                String name = value.getCriterion();
+                Integer freq = freqs.get(name);
+                if (freq==null) {
+                    freqs.put(name, 1);
+                } else {
+                    freqs.put(name, freq + 1);
+                }
+            }
+            
+            vttDAO.save(mUnitSet);
+        }
     } //setClusteredPaths()
 
 
@@ -258,6 +276,40 @@ public class VTTServiceImpl implements VTTService {
     public CategoryPath getCategoryPathById(Long pathId) throws Exception {
         return (CategoryPath) vttDAO.load(CategoryPath.class, pathId);
     } //getCategoryPathById()
+
+
+    @Override
+    public MUnitSet getMUnitSetByPathId(Long pathId) throws Exception {
+        return vttDAO.getMUnitSetByPathId(pathId);
+    } //getMUnitSetByPathId()
+
+
+    public Collection<VTTSpecialistComment> getSpecialistComments(Long userId, Long vttId, PageSetting setting) throws Exception {
+        return vttDAO.getSpecialistComments(userId, vttId, setting);
+    } //getComments()
+
+
+    public VTTSpecialistComment getSpecialistCommentById(Long cid) throws Exception {
+        return (VTTSpecialistComment) vttDAO.load(VTTSpecialistComment.class, cid);
+    } //getSpecialistCommentById()
+
+
+    public void deleteSpecialistComment(VTTSpecialistComment comment) throws Exception {
+        comment.setDeleted(true);
+        cstDAO.save(comment);
+    } //deleteSpecialistComment()
+
+
+    public VTTSpecialistComment setVotingOnSpecialistComment(Long cid, boolean agree) throws Exception {
+        VTTSpecialistComment comment = (VTTSpecialistComment) cstDAO.load(VTTSpecialistComment.class, cid);
+        if (comment==null) throw new Exception("can't find the specified SpecialistComment with id "+cid);
+        
+        systemDAO.setVoting(YesNoVoting.TYPE_SARP_VTT_SPEC_COMMENT, cid, agree);
+        
+        vttDAO.increaseSpecialistVoting(comment, agree);
+        
+        return comment;
+    } //setVotingOnComment()
 
 
 } //class VTTServiceImpl

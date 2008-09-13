@@ -48,5 +48,15 @@ public interface VTTService {
 
     CategoryPath getCategoryPathById(Long pathId) throws Exception;
 
+    MUnitSet getMUnitSetByPathId(Long pathId) throws Exception;
+
+    Collection<VTTSpecialistComment> getSpecialistComments(Long userId, Long vttId, PageSetting setting) throws Exception;
+
+    VTTSpecialistComment getSpecialistCommentById(Long cid) throws Exception;
+
+    void deleteSpecialistComment(VTTSpecialistComment comment) throws Exception;
+
+    VTTSpecialistComment setVotingOnSpecialistComment(Long cid, boolean agree) throws Exception;
+
     
 }//interface VTTService

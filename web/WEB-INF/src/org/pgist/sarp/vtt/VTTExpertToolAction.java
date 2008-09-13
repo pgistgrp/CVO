@@ -1,10 +1,16 @@
 package org.pgist.sarp.vtt;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.system.SystemService;
+import org.pgist.users.Role;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
@@ -49,8 +55,20 @@ public class VTTExpertToolAction extends Action {
     ) throws Exception {
         VTT vtt = vttService.getVTTById(new Long(request.getParameter("vttId")));
         
-        Long userId = WebUtils.currentUserId();
+        Long userId = null;
+        try {
+            String str = request.getParameter("userId");
+            if (str==null || str.trim().length()==0) {
+                userId = WebUtils.currentUserId();
+            } else {
+                userId = new Long(str);
+            }
+        } catch (Exception e) {
+            throw new Exception("can not find the given user");
+        }
+        
         User user = systemService.getUserById(userId);
+        User currentUser = systemService.getUserById(WebUtils.currentUserId());
         if (user==null) {
             throw new Exception("can not find the given user");
         }
@@ -60,8 +78,21 @@ public class VTTExpertToolAction extends Action {
         }
         
         request.setAttribute("user", user);
+        request.setAttribute("currentUser", currentUser);
         request.setAttribute("vtt", vtt);
-        request.setAttribute("others", vtt.getUsers());
+        List<User> users = new ArrayList<User>(vtt.getUsers());
+        Set<User> toBeRemoved = new HashSet<User>();
+        users.remove(currentUser);
+        for (User one : users) {
+            for (Role role : one.getRoles()) {
+                if ("expert".equals(role.getName())) {
+                    toBeRemoved.add(user);
+                    break;
+                }
+            }
+        }
+        users.removeAll(toBeRemoved);
+        request.setAttribute("others", users);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         

@@ -155,7 +155,11 @@
       <include method="getWinner"/>
       <include method="publish"/>
       <include method="getTags"/>
+      <include method="getSpecialistComments"/>
       <include method="createSpecialistComment"/>
+      <include method="deleteSpecialistComment"/>
+      <include method="setVotingOnSpecialistComment"/>
+      <include method="getExpertUnitSet"/>
     </create>
 
 

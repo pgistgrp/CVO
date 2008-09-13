@@ -31,7 +31,7 @@ from org.pgist.sarp.cst import CategoryReference
 from types import *
 
 # constant
-separator = "/"
+separator = '/'
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		

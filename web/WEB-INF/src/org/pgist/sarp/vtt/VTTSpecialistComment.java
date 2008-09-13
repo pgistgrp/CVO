@@ -18,6 +18,8 @@ public class VTTSpecialistComment {
     
     private VTT vtt;
     
+    private User owner;
+    
     private String title;
     
     private String content;
@@ -61,6 +63,18 @@ public class VTTSpecialistComment {
     }
     public void setVtt(VTT vtt) {
         this.vtt = vtt;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.many-to-one column="owner_id" lazy="true" cascade="all"
+     */
+    public User getOwner() {
+        return owner;
+    }
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
     
     

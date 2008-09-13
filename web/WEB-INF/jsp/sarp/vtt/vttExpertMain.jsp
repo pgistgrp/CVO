@@ -36,6 +36,35 @@
     var page = 1;
     var navigation = [0, 0, 0, 0];
     
+    var tree1 = {
+      selectedId : null,
+      select : function(id) {
+        displayIndicator(true);
+        var current = this.selectedId;
+        VTTAgent.getExpertUnitSet({userId:currentUserId, pathId:id}, <pg:wfinfo/>,{
+          callback:function(data){
+              if (data.successful){
+                  displayIndicator(false);
+                  $("col-right").innerHTML = data.html;
+                  
+                  if (current!=null) {
+                    $('row-'+current).className = "catUnSelected";
+                  }
+                  tree1.selectedId = id;
+                  currentCategory = $('col-'+tree1.selectedId).innerHTML;
+                  $('row-'+tree1.selectedId).className = "catSelected";
+              }else{
+                  displayIndicator(false);
+                  alert(data.reason);
+              }
+          },
+          errorHandler:function(errorString, exception){ 
+              alert("get comments error: " + errorString +" "+ exception);
+          }
+        });
+      }
+    };
+    
     tinyMCE.init({
         mode : "exact",
         theme : "advanced",
@@ -47,7 +76,7 @@
     });
     
     function doOnLoad(){
-      //getComments(1);
+      getComments(1);
       tinyMCE.idCounter=0;
       tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
     }
@@ -77,7 +106,11 @@
       return string.replace(/\n/g,"<br>");
     }
  
-  function getComments(page) {
+    function onSelectChanged() {
+      location.href = '/workflow.do?workflowId='+${requestScope['org.pgist.wfengine.WORKFLOW_ID']}+'&contextId='+${requestScope['org.pgist.wfengine.CONTEXT_ID']}+'&activityId='+${requestScope['org.pgist.wfengine.ACTIVITY_ID']}+'&userId='+$('otherCategory').value;
+    }
+    
+    function getComments(page) {
       VTTAgent.getSpecialistComments({vttId:${vtt.id}, page:page}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
@@ -112,7 +145,7 @@
         alert('please input content');
         return;
     }
-    VTTAgent.createComment({vttId:${vtt.id}, title:title, content:content}, <pg:wfinfo/>,{
+    VTTAgent.createSpecialistComment({vttId:${vtt.id}, title:title, content:content}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -133,7 +166,7 @@
   function deleteVTTComment(cid) {
     if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
     displayIndicator(true);
-    VTTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
+    VTTAgent.deleteSpecialistComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
               displayIndicator(false);
               if (data.successful){
@@ -149,7 +182,7 @@
   }
   
   function setVoteOnComment(cid, agree){
-      VTTAgent.setVotingOnComment({cid: cid, agree:agree}, {
+      VTTAgent.setVotingOnSpecialistComment({cid: cid, agree:agree}, {
       callback:function(data){
         if (data.successful){
           var votingDiv = 'voting-comment'+cid;
@@ -247,24 +280,25 @@
   <div id="cont-resize">
     <h2 class="headerColor">Value Tree Tool for Specialist
     <select id="otherCategory" onChange="onSelectChanged();">
-        <option value="${baseuser.id}">My Categories</option>
-        <logic:iterate id="other" name="others">
-          <logic:equal name="other" property="id" value="${user.id}">
-          <option value="${other.id}" SELECTED>${other.loginname}</option>
-          </logic:equal>
-          <logic:notEqual name="other" property="id" value="${user.id}">
-          <option value="${other.id}">${other.loginname}</option>
-          </logic:notEqual>
-        </logic:iterate>
-      </select></h2>
+      <option value="${baseuser.id}">My Categories</option>
+      <logic:iterate id="other" name="others">
+        ${other.id} --- ${user.id}
+        <logic:equal name="other" property="id" value="${user.id}">
+        <option value="${other.id}" SELECTED>${other.loginname}</option>
+        </logic:equal>
+        <logic:notEqual name="other" property="id" value="${user.id}">
+        <option value="${other.id}">${other.loginname}</option>
+        </logic:notEqual>
+      </logic:iterate>
+    </select></h2>
     
     <div id="col-left">
       <div id="cats" style="height:410px;overflow:auto;">
-        <!--jsp:include page="vttCatsTable.jsp"/-->
+        <jsp:include page="vttCatsTable.jsp"/>
       </div>
     </div>
     
-    <div id="col-right"><!--jsp:include page="vttValueTree.jsp"/--></div>
+    <div id="col-right"></div>
     
     <div style="clear:both"></div>
     <div id="spacer">
@@ -291,7 +325,6 @@
 
 </div>
 </div>
-
 
 <!--feedback form-->
 
