@@ -29,7 +29,7 @@ public interface VTTDAO extends BaseDAO {
 
     MUnitSet getMUnitSetByPathId(Long pathId) throws Exception;
 
-    Collection<VTTSpecialistComment> getSpecialistComments(Long userId, Long vttId, PageSetting setting) throws Exception;
+    Collection<VTTSpecialistComment> getSpecialistComments(Long targetUserId, Long vttId, PageSetting setting) throws Exception;
     
     void increaseSpecialistVoting(VTTSpecialistComment comment, boolean agree) throws Exception;
 

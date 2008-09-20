@@ -55,21 +55,21 @@ public class VTTExpertToolAction extends Action {
     ) throws Exception {
         VTT vtt = vttService.getVTTById(new Long(request.getParameter("vttId")));
         
-        Long userId = null;
+        Long targetUserId = null;
         try {
-            String str = request.getParameter("userId");
+            String str = request.getParameter("targetUserId");
             if (str==null || str.trim().length()==0) {
-                userId = WebUtils.currentUserId();
+                targetUserId = WebUtils.currentUserId();
             } else {
-                userId = new Long(str);
+                targetUserId = new Long(str);
             }
         } catch (Exception e) {
             throw new Exception("can not find the given user");
         }
         
-        User user = systemService.getUserById(userId);
+        User targetUser = systemService.getUserById(targetUserId);
         User currentUser = systemService.getUserById(WebUtils.currentUserId());
-        if (user==null) {
+        if (targetUser==null) {
             throw new Exception("can not find the given user");
         }
         
@@ -77,23 +77,21 @@ public class VTTExpertToolAction extends Action {
             throw new Exception("You have no access to this function.");
         }
         
-        request.setAttribute("user", user);
+        request.setAttribute("targetUser", targetUser);
         request.setAttribute("currentUser", currentUser);
         request.setAttribute("vtt", vtt);
-        List<User> users = new ArrayList<User>(vtt.getUsers());
-        Set<User> toBeRemoved = new HashSet<User>();
-        users.remove(currentUser);
-        for (User one : users) {
-            for (Role role : one.getRoles()) {
-                if ("expert".equals(role.getName())) {
-                    toBeRemoved.add(user);
-                    break;
-                }
-            }
-        }
-        users.removeAll(toBeRemoved);
-        request.setAttribute("others", users);
+        List<User> users = new ArrayList<User>(vtt.getExperts());
         
+        if (targetUser==currentUser) {
+            request.setAttribute("isOwner", true);
+            request.setAttribute("published", users.contains(targetUser));
+        } else {
+            request.setAttribute("isOwner", false);
+            request.setAttribute("published", false);
+        }
+        
+        users.remove(currentUser);
+        request.setAttribute("others", users);
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("main");

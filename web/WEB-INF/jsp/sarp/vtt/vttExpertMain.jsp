@@ -32,7 +32,7 @@
     var vttId = ${vtt.id};
     var currentCategory = null;
     var previousCategory = null;
-    var currentUserId = ${user.id};
+    var targetUserId = ${targetUser.id};
     var page = 1;
     var navigation = [0, 0, 0, 0];
     
@@ -41,7 +41,7 @@
       select : function(id) {
         displayIndicator(true);
         var current = this.selectedId;
-        VTTAgent.getExpertUnitSet({userId:currentUserId, pathId:id}, <pg:wfinfo/>,{
+        VTTAgent.getExpertUnitSet({targetUserId:targetUserId, pathId:id}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -81,37 +81,16 @@
       tinyMCE.execCommand('mceAddControl',false,'txtNewComment');
     }
     
-    function saveValue(id, value, name, unit) {
-      displayIndicator(true);
-      VTTAgent.saveCategoryValue({catRefId:id, value:value, name:name, unit:unit}, <pg:wfinfo/>,{
-        callback:function(data){
-            if (data.successful){
-                displayIndicator(false);
-                $('btnAdd').value="Save";
-                $('col-right').innerHTML = data.html;
-                $('vtrow-'+tree1.selectedId).className = "catSelected";
-                alert('saved');
-            }else{
-                displayIndicator(false);
-                alert(data.reason);
-            }
-        },
-        errorHandler:function(errorString, exception){ 
-            alert("save category value error: " + errorString +" "+ exception);
-        }
-      });
-    }
-    
     function keepBreaks(string){
       return string.replace(/\n/g,"<br>");
     }
  
     function onSelectChanged() {
-      location.href = '/workflow.do?workflowId='+${requestScope['org.pgist.wfengine.WORKFLOW_ID']}+'&contextId='+${requestScope['org.pgist.wfengine.CONTEXT_ID']}+'&activityId='+${requestScope['org.pgist.wfengine.ACTIVITY_ID']}+'&userId='+$('otherCategory').value;
+      location.href = '/workflow.do?workflowId='+${requestScope['org.pgist.wfengine.WORKFLOW_ID']}+'&contextId='+${requestScope['org.pgist.wfengine.CONTEXT_ID']}+'&activityId='+${requestScope['org.pgist.wfengine.ACTIVITY_ID']}+'&targetUserId='+$('otherCategory').value;
     }
     
     function getComments(page) {
-      VTTAgent.getSpecialistComments({vttId:${vtt.id}, page:page}, <pg:wfinfo/>,{
+      VTTAgent.getSpecialistComments({vttId:${vtt.id}, targetUserId:targetUserId, page:page}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -145,7 +124,7 @@
         alert('please input content');
         return;
     }
-    VTTAgent.createSpecialistComment({vttId:${vtt.id}, title:title, content:content}, <pg:wfinfo/>,{
+    VTTAgent.createSpecialistComment({targetUserId:targetUserId, vttId:${vtt.id}, title:title, content:content}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -209,12 +188,43 @@
       });
   }
   
-  function publish(){
-      if (!confirm('Are you sure to publish your value tree?')) return;
-      VTTAgent.publish({vttId:vttId}, {
+  function toggleSelection(musetId, type, criterion, checked) {
+    //alert(eusetId+' | '+type+' | '+criterion+' | '+checked);
+    VTTAgent.toggleSelection({musetId:musetId, type:type, criterion:criterion, checked:checked}, {
+      callback:function(data){
+        if (data.successful){
+          return true;
+        }else{
+          alert(data.reason);
+          return false;
+        }
+      },
+      errorHandler:function(errorString, exception){ 
+        alert("setVote error:" + errorString + exception);
+      }
+    });
+  }
+  
+  function publishExpertUnits(){
+      if (!confirm('Are you sure to publish your decision?')) return;
+      VTTAgent.publishExpertUnits({vttId:vttId}, {
       callback:function(data){
         if (data.successful){
           $('publishBtn').disabled=true;
+        }else{
+          alert(data.reason);
+        }
+      },
+      errorHandler:function(errorString, exception){ 
+          alert("publish error:" + errorString + exception);
+      }
+      });
+  }
+  
+  function saveUnitComment(musetId){
+      VTTAgent.setUnitComment({musetId:musetId, content:$('unitComment').value}, {
+      callback:function(data){
+        if (data.successful){
         }else{
           alert(data.reason);
         }
@@ -282,25 +292,28 @@
     <select id="otherCategory" onChange="onSelectChanged();">
       <option value="${baseuser.id}">My Categories</option>
       <logic:iterate id="other" name="others">
-        ${other.id} --- ${user.id}
-        <logic:equal name="other" property="id" value="${user.id}">
+        <logic:equal name="other" property="id" value="${targetUser.id}">
         <option value="${other.id}" SELECTED>${other.loginname}</option>
         </logic:equal>
-        <logic:notEqual name="other" property="id" value="${user.id}">
+        <logic:notEqual name="other" property="id" value="${targetUser.id}">
         <option value="${other.id}">${other.loginname}</option>
         </logic:notEqual>
       </logic:iterate>
     </select></h2>
     
-    <div id="col-left">
-      <div id="cats" style="height:410px;overflow:auto;">
+    <div id="col-left" style="height:450px;overflow:auto;">
+      <div id="cats">
         <jsp:include page="vttCatsTable.jsp"/>
       </div>
     </div>
     
-    <div id="col-right"></div>
+    <div id="col-right" style="height:450px;overflow:none;"></div>
     
-    <div style="clear:both"></div>
+    <div style="clear:both">
+      <c:if test="${isOnwer && !published}">
+        <input id="publishBtn" type="button" value="Publish" onclick="publishExpertUnits();">
+      </c:if>
+    </div>
     <div id="spacer">
     </div>
     

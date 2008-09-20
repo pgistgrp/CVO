@@ -114,7 +114,6 @@
                 $('btnAdd').value="Save";
                 $('col-right').innerHTML = data.html;
                 $('vtrow-'+tree1.selectedId).className = "catSelected";
-                alert('saved');
             }else{
                 displayIndicator(false);
                 alert(data.reason);
@@ -341,14 +340,14 @@
           </logic:notEqual>
         </logic:iterate>
       </select></h2>
-    <div id="col-left">
-      <div id="cats" style="height:410px;overflow:auto;">
+    <div id="col-left" style="height:430px;overflow:auto;">
+      <div id="cats">
         <jsp:include page="vttCatsTable.jsp"/>
       </div>
     </div>
     
-    <div id="col"></div>
-    <div id="col-right"><jsp:include page="vttValueTree.jsp"/></div>
+    <div id="col" style="height:430px;overflow:auto;"></div>
+    <div id="col-right" style="height:430px;overflow:auto;"><jsp:include page="vttValueTree.jsp"/></div>
     
     <div style="clear:both"></div>
     <div id="spacer">

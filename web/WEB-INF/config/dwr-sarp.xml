@@ -160,6 +160,9 @@
       <include method="deleteSpecialistComment"/>
       <include method="setVotingOnSpecialistComment"/>
       <include method="getExpertUnitSet"/>
+      <include method="toggleSelection"/>
+      <include method="publishExpertUnits"/>
+      <include method="setUnitComment"/>
     </create>
 
 

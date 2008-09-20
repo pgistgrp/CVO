@@ -2,7 +2,6 @@ package org.pgist.sarp.vtt;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.pgist.sarp.bct.BCTDAO;
@@ -222,14 +221,17 @@ public class VTTServiceImpl implements VTTService {
     } //getCategoryReferenceById()
 
 
-    public VTTSpecialistComment createSpecialistComment(Long vttId, String title, String content, boolean emailNotify) throws Exception {
+    public VTTSpecialistComment createSpecialistComment(Long vttId, Long targetUserId, String title, String content, boolean emailNotify) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         
         if (vtt==null) throw new Exception("can't find the specified VTT with id "+vttId);
         
+        User owner = vttDAO.getUserById(targetUserId);
+        if (owner==null) throw new Exception("Can't find the targeted user.");
+        
         VTTSpecialistComment comment = new VTTSpecialistComment();
         comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
-        comment.setOwner(comment.getAuthor());
+        comment.setOwner(owner);
         comment.setVtt(vtt);
         comment.setTitle(title);
         comment.setContent(content);
@@ -284,8 +286,14 @@ public class VTTServiceImpl implements VTTService {
     } //getMUnitSetByPathId()
 
 
-    public Collection<VTTSpecialistComment> getSpecialistComments(Long userId, Long vttId, PageSetting setting) throws Exception {
-        return vttDAO.getSpecialistComments(userId, vttId, setting);
+    @Override
+    public MUnitSet getMUnitSetById(Long id) throws Exception {
+        return (MUnitSet) vttDAO.load(MUnitSet.class, id);
+    } //getMUnitSetByPathId()
+
+
+    public Collection<VTTSpecialistComment> getSpecialistComments(Long targetUserId, Long vttId, PageSetting setting) throws Exception {
+        return vttDAO.getSpecialistComments(targetUserId, vttId, setting);
     } //getComments()
 
 
@@ -310,6 +318,62 @@ public class VTTServiceImpl implements VTTService {
         
         return comment;
     } //setVotingOnComment()
+
+
+    @Override
+    public void setToggleSelection(Long musetId, String type, String criterion, boolean checked) throws Exception {
+        MUnitSet muset = (MUnitSet) vttDAO.load(MUnitSet.class, musetId);
+        if (muset==null) throw new Exception("Can't find this MUnitSet");
+        
+        Long userId = WebUtils.currentUserId();
+        EUnitSet euset = muset.getExpUnits().get(userId);
+        if (euset==null) {
+            euset = new EUnitSet();
+            muset.getExpUnits().put(userId, euset);
+        }
+        
+        if ("appr".equalsIgnoreCase(type)) {
+            Map<String, Boolean> apprs = euset.getApprs();
+            apprs.put(criterion, checked);
+        } else if ("avail".equalsIgnoreCase(type)) {
+            Map<String, Boolean> avails = euset.getAvails();
+            avails.put(criterion, checked);
+        } else if ("dup".equalsIgnoreCase(type)) {
+            Map<String, Boolean> dups = euset.getDups();
+            dups.put(criterion, checked);
+        } else if ("rec".equalsIgnoreCase(type)) {
+            Map<String, Boolean> recs = euset.getRecs();
+            for (String key : recs.keySet()) {
+                recs.put(key, false);
+            }
+            recs.put(criterion, checked);
+        }
+        
+        muset.getExpUnits().put(userId, euset);
+        
+        vttDAO.save(euset);
+        vttDAO.save(muset);
+    } //setToggleSelection()
+
+
+    @Override
+    public void publishExpertUnits(Long vttId) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        User user = vttDAO.getUserById(WebUtils.currentUserId());
+        vtt.getExperts().add(user);
+        vttDAO.save(user);
+    } //publishExpertUnits()
+
+
+    @Override
+    public void setUnitComment(Long musetId, String content) throws Exception {
+        MUnitSet muset = (MUnitSet) vttDAO.load(MUnitSet.class, musetId);
+        if (muset==null) throw new Exception("Can't find this MUnitSet");
+        
+        muset.getExpComments().put(WebUtils.currentUserId(), content);
+        
+        vttDAO.save(muset);
+    } //setUnitComment()
 
 
 } //class VTTServiceImpl

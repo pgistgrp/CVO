@@ -587,7 +587,7 @@ public class VTTAgent {
      * @param params A map contains:
      *   <ul>
      *     <li>pathId - int, id of a CategoryPath object</li>
-     *     <li>userId - int</li>
+     *     <li>targetUserId - int</li>
      *   </ul>
      * 
      * @param wfinfo A map contains:
@@ -607,7 +607,8 @@ public class VTTAgent {
      *             <li>path - A CategoryPath object</li>
      *             <li>freqs - A map from unit names to frequencies</li>
      *             <li>euset - A EUnitSet object</li>
-     *             <li>owner - A boolean to indicate if the current user is the same as the requested user</li>
+     *             <li>comment - A string</li>
+     *             <li>isOwner - A boolean to indicate if the current user is the same as the requested user</li>
      *           </ul>
      *     </li>
      *   </ul>
@@ -630,10 +631,10 @@ public class VTTAgent {
             return map;
         }
         
-        Long userId = null;
+        Long targetUserId = null;
         try {
-            userId = new Long((String) params.get("userId"));
-            if (userId==null) {
+            targetUserId = new Long((String) params.get("targetUserId"));
+            if (targetUserId==null) {
                 map.put("reason", "can't find this User");
                 return map;
             }
@@ -646,8 +647,10 @@ public class VTTAgent {
             MUnitSet muset = vttService.getMUnitSetByPathId(pathId);
             request.setAttribute("path", muset.getPath());
             request.setAttribute("freqs", muset.getFreqs());
-            request.setAttribute("euset", muset.getExpUnits().get(userId));
-            request.setAttribute("owner", WebUtils.currentUserId().equals(userId));
+            request.setAttribute("muset", muset);
+            request.setAttribute("euset", muset.getExpUnits().get(targetUserId));
+            request.setAttribute("comment", muset.getExpComments().get(targetUserId));
+            request.setAttribute("isOwner", WebUtils.currentUserId().equals(targetUserId));
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttExpertUnitSet.jsp"));
             map.put("successful", true);
         } catch (Exception e) {
@@ -661,11 +664,51 @@ public class VTTAgent {
     
     
     /**
+     * Publish my Expert Units.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>vttId - int, id of the VTT object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map publishExpertUnits(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long vttId = null;
+        try {
+            vttId = new Long((String) params.get("vttId"));
+        } catch (Exception e) {
+            map.put("reason", "chtId is required.");
+            return map;
+        }
+        
+        try {
+            vttService.publishExpertUnits(vttId);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //publishExpertUnits()
+    
+    
+    /**
      * Create a VTT comment for the given vtt.
      * 
      * @param params A map contains:
      *   <ul>
      *     <li>vttId - int, id of a VTT object</li>
+     *     <li>targetUserId - int</li>
      *     <li>title - string, comment title</li>
      *     <li>content - string, comment content</li>
      *   </ul>
@@ -701,6 +744,18 @@ public class VTTAgent {
             return map;
         }
         
+        Long targetUserId = null;
+        try {
+            targetUserId = new Long((String) params.get("targetUserId"));
+            if (targetUserId==null) {
+                map.put("reason", "can't find this User");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("reason", "can't find this User");
+            return map;
+        }
+        
         try {
             String title = (String) params.get("title");
             String content = (String) params.get("content");
@@ -708,7 +763,7 @@ public class VTTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
-            VTTSpecialistComment comment = vttService.createSpecialistComment(vttId, title, content, false);
+            VTTSpecialistComment comment = vttService.createSpecialistComment(vttId, targetUserId, title, content, false);
             
             map.put("successful", true);
             
@@ -728,6 +783,7 @@ public class VTTAgent {
      * @param params A map contains:
      *   <ul>
      *     <li>vttId - int, id of a VTT object</li>
+     *     <li>targetUserId - int</li>
      *     <li>page - int, page number of the requestd page of comments</li>
      *   </ul>
      * 
@@ -770,11 +826,23 @@ public class VTTAgent {
             return map;
         }
         
+        Long targetUserId = null;
+        try {
+            targetUserId = new Long((String) params.get("targetUserId"));
+            if (targetUserId==null) {
+                map.put("reason", "can't find this User");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("reason", "can't find this User");
+            return map;
+        }
+        
         try {
             PageSetting setting = new PageSetting(10);
             setting.setPage((String) params.get("page"));
             
-            Collection<VTTSpecialistComment> comments = vttService.getSpecialistComments(WebUtils.currentUserId(), vttId, setting);
+            Collection<VTTSpecialistComment> comments = vttService.getSpecialistComments(targetUserId, vttId, setting);
             
             request.setAttribute("comments", comments);
             request.setAttribute("setting", setting);
@@ -931,6 +999,93 @@ public class VTTAgent {
         
         return map;
     }//setVotingOnSpecialistComment()
+    
+    
+    /**
+     * Toggle selection
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>musetId</li>
+     *     <li>type</li>
+     *     <li>criterion</li>
+     *     <li>checked</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map toggleSelection(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long musetId = null;
+        try {
+            musetId = new Long((String) params.get("musetId"));
+        } catch (Exception e) {
+            map.put("reason", "musetId is required.");
+            return map;
+        }
+        
+        String type = (String) params.get("type");
+        String criterion = (String) params.get("criterion");
+        
+        boolean checked = "true".equalsIgnoreCase((String) params.get("checked"));
+        
+        try {
+            vttService.setToggleSelection(musetId, type, criterion, checked);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//toggleSelection()
+    
+    
+    /**
+     * Publish my Expert Units.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>musetId - int, id of the MUnitSet object. Required.</li>
+     *     <li>content - string. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setUnitComment(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long musetId = null;
+        try {
+            musetId = new Long((String) params.get("musetId"));
+        } catch (Exception e) {
+            map.put("reason", "musetId is required.");
+            return map;
+        }
+        
+        try {
+            vttService.setUnitComment(musetId, (String) params.get("content"));
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //setUnitComment()
     
     
 }//class VTTAgent

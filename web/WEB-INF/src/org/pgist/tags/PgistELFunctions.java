@@ -28,6 +28,8 @@ import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CSTComment;
 import org.pgist.sarp.drt.Comment;
 import org.pgist.sarp.drt.DRTAnnouncement;
+import org.pgist.sarp.vtt.VTTComment;
+import org.pgist.sarp.vtt.VTTSpecialistComment;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.springframework.web.context.WebApplicationContext;
@@ -184,6 +186,12 @@ public class PgistELFunctions extends SimpleTagSupport {
                 } else if (object instanceof CHTComment) {
                     CHTComment comment = (CHTComment) object;
                     voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CHT_COMMENT, comment.getId());
+                } else if (object instanceof VTTComment) {
+                    VTTComment comment = (VTTComment) object;
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SARP_VTT_COMMENT, comment.getId());
+                } else if (object instanceof VTTSpecialistComment) {
+                    VTTSpecialistComment comment = (VTTSpecialistComment) object;
+                    voting = systemService.getVoting(YesNoVoting.TYPE_SARP_VTT_SPEC_COMMENT, comment.getId());
                 } else if (object instanceof CategoryPath) {
                     CategoryPath path = (CategoryPath) object;
                     voting = systemService.getVoting(YesNoVoting.TYPE_SARP_CHT_PATH, path.getId());

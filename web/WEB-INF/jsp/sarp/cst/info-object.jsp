@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<div id="col-left" style="float:left;width:30%;overflow:auto;height:50%;border-right:1px solid #B4D579;">
+<div id="col-left" style="float:left;width:30%;overflow:auto;height:300px;border-right:1px solid #B4D579;">
   <b>Categories:</b>
   <table id="catTable" width="100%" cellpadding="2" cellspacing="0">
   <c:forEach var="category" items="${infoObject.target.winnerCategory.children}" varStatus="loop">
@@ -25,12 +25,12 @@
   </table>
 </div>
 
-<div id="col-right1" style="overflow:auto;height:50%;">
+<div id="col-right1" style="overflow:auto;height:300px;">
   <div style="width:48%;height:100%;float:left;border-right:1px solid #B4D579;">
     <b style="background-color:#D6E7EF;">Tags for "<span id="catTop"></span>":</b>
     <div id="tagsTop"></div>
   </div>
-  <div style="width:48%;height:100%;float:left;">
+  <div style="width:48%;overflow:auto;height:300px;float:left;">
     <b style="background-color:#FFF1DC;">Tags for "<span id="catBottom"></span>":</b>
     <div id="tagsBottom"></div>
   </div>

@@ -32,6 +32,8 @@ public class VTT {
     
     private Set<User> users = new HashSet<User>();
     
+    private Set<User> experts = new HashSet<User>();
+    
     private boolean closed;
     
 	
@@ -138,6 +140,19 @@ public class VTT {
     }
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+
+    /**
+     * @hibernate.set lazy="false" table="pgist_vtt_expert_link" cascade="none"
+     * @hibernate.collection-key column="vtt_id"
+     * @hibernate.collection-one-to-many column="user_id" class="org.pgist.users.User"
+     */   
+    public Set<User> getExperts() {
+        return experts;
+    }
+    public void setExperts(Set<User> experts) {
+        this.experts = experts;
     }
 
 

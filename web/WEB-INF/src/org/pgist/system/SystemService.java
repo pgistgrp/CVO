@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.util.Collection;
 
+import org.pgist.sarp.vtt.VTT;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
@@ -112,6 +113,6 @@ public interface SystemService {
     Collection getTransTypes() throws Exception;
     
     void deleteUser(Long id) throws Exception;
-    
+
     
 }//interface SystemService

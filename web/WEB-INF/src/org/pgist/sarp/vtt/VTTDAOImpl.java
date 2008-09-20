@@ -3,6 +3,7 @@ package org.pgist.sarp.vtt;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.pgist.system.BaseDAOImpl;
@@ -117,13 +118,13 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     
     
     @Override
-    public Collection<VTTSpecialistComment> getSpecialistComments(Long userId, Long vttId, PageSetting setting) throws Exception {
+    public Collection<VTTSpecialistComment> getSpecialistComments(Long targetUserId, Long vttId, PageSetting setting) throws Exception {
         List<VTTSpecialistComment> list = new ArrayList<VTTSpecialistComment>();
         
         //get total rows number
         Query query = getSession().createQuery(hql_getSpecialistComments1);
         query.setLong(0, vttId);
-        query.setLong(1, userId);
+        query.setLong(1, targetUserId);
         int count = ((Number) query.uniqueResult()).intValue();
         
         if (count==0) return list;
@@ -134,7 +135,7 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
         //get records
         query = getSession().createQuery(hql_getSpecialistComments2);
         query.setLong(0, vttId);
-        query.setLong(1, userId);
+        query.setLong(1, targetUserId);
         query.setFirstResult(setting.getFirstRow());
         query.setMaxResults(setting.getRowOfPage());
         
@@ -155,5 +156,5 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
         }
     } //increaseSpecialistVoting()
 
-
+    
 } //class VTTDAOImpl
