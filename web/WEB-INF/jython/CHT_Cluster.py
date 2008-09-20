@@ -34,6 +34,7 @@ import string
 import operator
 # Helping module to identify type of data passed to us
 from types import *
+from org.pgist.sarp.cst import CategoryReference
 
 
 # Import random module
