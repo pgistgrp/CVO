@@ -446,6 +446,7 @@ def getIndicatorFrequencies(indicatorList = None):
 			rank, indicator = rankIndicator
 			if isinstance(indicator, ListType):
 				print indicator
+				indicatorName = ""
 				for ind in indicator:
 					indicatorName += ind
 					indicatorName += "/"
