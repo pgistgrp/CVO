@@ -319,11 +319,10 @@ def buildSampleData(sampleCats = [], numUsers = None):
 
 
 
-def getChildLeafList(category=CategoryReference()):
+def getChildLeafList(category=CategoryReference(), childLeafList = []):
 	# BEGIN HELPER FUNCTION FOR GETTING THE LEAF
 	# Receives a CategoryReference() and returns a list of each leaf
 	# ********************************************************************************************
-	childLeafList = []
 	if category is None:
 		return
 	else:
@@ -367,7 +366,8 @@ def getIndicators(catList = None, userIdList = None):
 		for child in categoryList.children:
 			# Check if there are subcategories
 			if ((len(child.children)) > 0):
-				for leaf in getChildLeafList(child):
+				childLeafList = []
+				for leaf in getChildLeafList(child, childLeafList):
 					userIndList = [child.category.name]
 					if isinstance(leaf, ListType):
 						for leafElement in leaf:
