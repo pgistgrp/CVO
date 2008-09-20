@@ -22,6 +22,12 @@
 #         addCategory(CategoryReference)
 #         addPath(CategoryPath)
 
+print
+print "**************************************************************"
+print
+print "\t Jython CHT TOOL - Building Indicators"
+print  
+
 # Helping module for sorting list of lists
 import operator
 
@@ -34,7 +40,7 @@ from types import *
 import string
 
 # Import random module
-import random
+#import random
 
 # Program to cluster CHT user categories.
 # Objects:
@@ -86,7 +92,8 @@ class CategoryReference:
 	      return self.category, len(self.children), self.frequency, self.tag.name
 	def __len__(self):
 		return len(self.children)
-"""
+
+
 # Informational Class to be used for statistical analysis
 class CategoryInformation:
 	def __init__(self, label=None, catFreq=None, subFreq=None, subList=None):
@@ -321,12 +328,13 @@ def getIndicators(catList = None, userIdList = None):
 				for leaf in getChildLeafList(child):
 					userIndList = [child.category.name]
 					if isinstance(leaf, ListType):
-						userIndList = userIndList + leaf
+						for leafElement in leaf:
+							userIndList.append(leafElement)
 					else:
 						userIndList.append(leaf)
-					rankInd = (rank, userIndList)
-					userInd.indList.append(rankInd)
-					rank += 1
+				rankInd = (rank, userIndList)
+				userInd.indList.append(rankInd)
+				rank += 1
 			else:
 				rankInd = (rank, child.category.name)
 				userInd.indList.append(rankInd)
@@ -414,11 +422,11 @@ def getIndicatorFrequencies(indicatorList = None):
 				# .freq
 				statisticsDict[indicatorName].freq += 1
 				# .level
-				statisticsDict[indicatorName].level = indicatorName.count("|") + 1
+				statisticsDict[indicatorName].level = indicatorName.count("/") + 1
 				# .leaf
-				statisticsDict[indicatorName].leaf = (indicatorName.split("|")).pop()
+				statisticsDict[indicatorName].leaf = (indicatorName.split("/")).pop()
 				# .initialNode
-				statisticsDict[indicatorName].initialNode = (indicatorName.split("|")).pop(0)
+				statisticsDict[indicatorName].initialNode = (indicatorName.split("/")).pop(0)
 				# .rank
 				statisticsDict[indicatorName].compositeRank.append(rank)
 				# .keep
@@ -517,9 +525,9 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		# indicator holds the name
 		# stat holds: .freq .leaf .initialNode .level
 		print "#### ", indic
-		isPath = indic.count('|')
+		isPath = indic.count('/')
 		if isPath > 0:
-			indCats = indic.split('|')
+			indCats = indic.split('/')
 		else:
 			indCats = indic
 		
@@ -541,12 +549,18 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 
 #(catList, userIdList) = buildSampleData()
 
-printInputData(catList)
+#printInputData(catList)
 
+print "\t\t Getting indicators..."
+print
 indicators = getIndicators(catList, userIdList)
 
+print "\t\t Calculating indicator statistics..."
+print
 indicatorStats = getIndicatorFrequencies(indicators)
 
+print "\t\t Caclulating category statistics..."
+print
 categoryStats = getCategoryFrequencies(indicators)
 
 #i = 0
@@ -554,5 +568,12 @@ categoryStats = getCategoryFrequencies(indicators)
 #	print i, indic
 #	i += 1
 
+print "\t\t Saving to database..."
+print
 saveToDB(indicatorStats, categoryStats)
 
+print
+print "\t Ending Jython CHT tool..."
+print
+print "**************************************************************"
+print 
