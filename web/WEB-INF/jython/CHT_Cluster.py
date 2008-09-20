@@ -589,7 +589,7 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 			newPath.getCategories().add(catHash[indCats])
 		newPath.setFrequency(indicStat.freq)
 		newPath.setTitle(indic)
-		newPath.setUsers(indicStat.users)
+		#newPath.setUsers(indicStat.users)
 		factory.addPath(newPath)
         print newPath.title
 		
