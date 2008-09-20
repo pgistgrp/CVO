@@ -328,8 +328,8 @@ def getChildLeafList(category=CategoryReference(), childLeafList = []):
 	else:
 		if category.children and len(category.children) > 0:
 			for x in range(len(category.children)):
-				childLeaf = getChildLeafList(category.children[x])
-				childLeafList.append(childLeaf)
+				childLeaf = getChildLeafList(category.children[x], childLeafList)
+				childLeafList.extend(childLeaf)
 		else:
 			return (category.category.name)	
 	return childLeafList
