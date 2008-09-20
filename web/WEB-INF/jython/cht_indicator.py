@@ -92,6 +92,8 @@ class CategoryReference:
 	      return self.category, len(self.children), self.frequency, self.tag.name
 	def __len__(self):
 		return len(self.children)
+"""
+
 
 
 # Informational Class to be used for statistical analysis
