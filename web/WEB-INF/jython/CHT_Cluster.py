@@ -22,13 +22,44 @@
 #         addCategory(CategoryReference)
 #         addPath(CategoryPath)
 
+print
+print "**************************************************************"
+print
+print "\t Jython CHT TOOL - Building Indicators"
+print  
+
 # Helping module for sorting list of lists
 # Import string module
 import string
 import operator
-from org.pgist.sarp.cst import CategoryReference
 # Helping module to identify type of data passed to us
 from types import *
+
+
+# Import random module
+#import random
+
+# Program to cluster CHT user categories.
+# Objects:
+#     CategoryReference
+#         .category   (name)
+#         .children
+#         .frequency
+#     Category
+#         .name
+#     TagReference
+#         .tag
+#     Tag
+#         .name
+# Input:
+#     userIdList
+#     catList
+#     factory : a factory to create new instances of category and tag.
+#         createCategoryReference(string name)
+#         createTagReference(string name)
+# Output:
+#     result : a root category reference
+
 
 # constant
 separator = '/'
@@ -62,6 +93,9 @@ class CategoryReference:
 	def __len__(self):
 		return len(self.children)
 """
+
+
+
 # Informational Class to be used for statistical analysis
 class CategoryInformation:
 	def __init__(self, label=None, catFreq=None, subFreq=None, subList=None):
@@ -74,10 +108,21 @@ class CategoryInformation:
 		return len(self.label)
 
 
+# Indicator Class
+class userIndicator:
+	def __init___(self):
+		self.userId = 0
+		self.indList = []
+	def __str__(self):
+		return self.userId, self.indList
+	def __len__(self):
+		return len(self.indList)
+
 # Indicator Statistics Class
 # class PathStatistics:
 class IndicatorStatistics:
 	def __init__(self, name = None, freq = None, level = None, leaf = None):
+		self.name = ""
 		self.label = ""
 		self.freq = 0
 		self.level = 0
@@ -86,10 +131,50 @@ class IndicatorStatistics:
 		self.compositeRank = []
 		self.rank = 0
 		self.keep = 0
+		self.userList = []
 	def __str__(self):
 		return self.name
 	def __len__(self):
 		return freq
+
+
+# Helper class to remove unwanted characters
+"""
+class Translator:
+    allchars = string.maketrans('','')
+    def __init__(self, frm='', to='', delete='', keep=None):
+        if len(to) == 1:
+            to = to * len(frm)
+        self.trans = string.maketrans(frm, to)
+        if keep is None:
+            self.delete = delete
+        else:
+            self.delete = self.allchars.translate(self.allchars, keep.translate(self.allchars, delete))
+    def __call__(self, s):
+        return s.translate(self.trans, self.delete)
+"""        
+"""
+
+This class handles the three most common cases where I find myself having to stop and think about how to use translate:
+
+1) Keeping only a given set of characters.
+
+>>> trans = Translator(keep=string.digits)
+>>> trans('Chris Perkins : 224-7992')
+'2247992'
+
+2) Deleting a given set of characters.
+
+>>> trans = Translator(delete=string.digits)
+>>> trans('Chris Perkins : 224-7992')
+'Chris Perkins : -'
+
+3) Replacing a set of characters with a single character.
+
+>>> trans = Translator(string.digits, '#')
+>>> trans('Chris Perkins : 224-7992')
+'Chris Perkins : ###-####'
+"""
 
 # Helper class to remove unwanted characters
 
@@ -133,7 +218,7 @@ This class handles the three most common cases where I find myself having to sto
 
 
 
-"""
+
 def buildSampleData(sampleCats = [], numUsers = None):
 	# ********************************************************************************************
 	# BUILDING SAMPLE DATA
@@ -142,13 +227,13 @@ def buildSampleData(sampleCats = [], numUsers = None):
 
 	# Check user-supplied input
 	if len(sampleCats) == 0:
-		sampleCatsBuild = ['A','B','C','D','E']
-		#sampleCats = ('Water Runoff', 'Acid Rain', 'Air Pollution', 'Sewage', 'Boating Pollution', 'Agricultural Runoff', 'Invasive Species', 'Fishing', 'Non-Conventional Pollution', 'Oil Spills')
+		#sampleCatsBuild = ['A','B','C','D','E']
+		sampleCatsBuild = ['Water Runoff', 'Acid Rain', 'Air Pollution', 'Sewage', 'Boating Pollution', 'Agricultural Runoff', 'Invasive Species', 'Fishing', 'Non-Conventional Pollution', 'Oil Spills']
 	else:
 		sampleCatsBuild = sampleCats
 		
 	if numUsers is None:
-		numUsers = 1000
+		numUsers = 2
 
 	# Make numUsers users - IDs start from 1000 and end at 1000 + numUsers
 	endUserId = 1000 + numUsers
@@ -202,7 +287,7 @@ def buildSampleData(sampleCats = [], numUsers = None):
 				subCatsForCat = catsRemain
 			# If there are not subcategories remaining, then we don't need to make subcategories
 			elif catsRemain == 0:
-				subCatsForCat = 0	
+				subCatsForCat = 0
 			else:
 				# Else get random number of subcategories for the category
 				subCatsForCat = random.randint(0,catsRemain)
@@ -232,7 +317,7 @@ def buildSampleData(sampleCats = [], numUsers = None):
 
 
 
-"""
+
 def getChildLeafList(category=CategoryReference()):
 	# BEGIN HELPER FUNCTION FOR GETTING THE LEAF
 	# Receives a CategoryReference() and returns a list of each leaf
@@ -272,26 +357,30 @@ def getIndicators(catList = None, userIdList = None):
 
 	# Loop through the categories list provided
 	for user, categoryList in enumerate(catList):
-		indicatorList.append([])
+		userInd = userIndicator()
+		userInd.userId = user
+		userInd.indList = []
 		# Incorporate the rank
 		rank = 1
 		# First category is always root, so move to children
 		for child in categoryList.children:
 			# Check if there are subcategories
-			if len(child.children) > 0:
+			if ((len(child.children)) > 0):
 				for leaf in getChildLeafList(child):
 					userIndList = [child.category.name]
 					if isinstance(leaf, ListType):
-						userIndList = userIndList + leaf
+						for leafElement in leaf:
+							userIndList.append(leafElement)
 					else:
 						userIndList.append(leaf)
-					rankInd = (rank, userIndList)
-					indicatorList[user].append(rankInd)
-					rank += 1
+				rankInd = (rank, userIndList)
+				userInd.indList.append(rankInd)
+				rank += 1
 			else:
 				rankInd = (rank, child.category.name)
-				indicatorList[user].append(rankInd)
+				userInd.indList.append(rankInd)
 				rank += 1
+		indicatorList.append(userInd)
 	return indicatorList
 	# END GET USER INDICATORS FROM CATEGORY LIST
 	# ******************************************************************************************
@@ -350,11 +439,13 @@ def getIndicatorFrequencies(indicatorList = None):
 	# each element of the indicator list is actually a user's indicators
 	for userIndicators in indicatorList:
 	# We have a unique user's indicators
-		for rankIndicator in userIndicators:
+		userId = userIndicators.userId
+		indicators = userIndicators.indList
+		for rankIndicator in indicators:
 			rank, indicator = rankIndicator
 			if isinstance(indicator, ListType):
+				indicatorName = "/".join(indicator)
 				print indicator
-				indicatorName = separator.join(indicator)
 			elif isinstance(indicator, StringType):
 				indicatorName = indicator
 			else:
@@ -364,6 +455,7 @@ def getIndicatorFrequencies(indicatorList = None):
 				# It's there. Increase the frequency
 				statisticsDict[indicatorName].freq += 1
 				statisticsDict[indicatorName].compositeRank.append(rank)
+				statisticsDict[indicatorName].userList.append(userId)
 			else:
 				# Not existing. Create and update fields
 				statisticsDict[indicatorName] = IndicatorStatistics()
@@ -372,15 +464,16 @@ def getIndicatorFrequencies(indicatorList = None):
 				# .freq
 				statisticsDict[indicatorName].freq += 1
 				# .level
-				statisticsDict[indicatorName].level = indicatorName.count(separator) + 1
+				statisticsDict[indicatorName].level = indicatorName.count("/") + 1
 				# .leaf
-				statisticsDict[indicatorName].leaf = (indicatorName.split(separator)).pop()
+				statisticsDict[indicatorName].leaf = (indicatorName.split("/")).pop()
 				# .initialNode
-				statisticsDict[indicatorName].initialNode = (indicatorName.split(separator)).pop(0)
+				statisticsDict[indicatorName].initialNode = (indicatorName.split("/")).pop(0)
 				# .rank
 				statisticsDict[indicatorName].compositeRank.append(rank)
 				# .keep
 				statisticsDict[indicatorName].keep = 0
+				statisticsDict[indicatorName].userList = [userId]
 	return statisticsDict
 	# END GET INDICATOR FREQUENCIES
 	# ********************************************************************************************
@@ -403,7 +496,8 @@ def getCategoryFrequencies(indicatorList = None):
     # Begin getting frequency calculation
     for userIndicators in indicatorList:
         # This is a list of a user's indicators
-        for rankIndicator in userIndicators:
+        indicators = userIndicators.indList
+        for rankIndicator in indicators:
             rank, indicator = rankIndicator
             isCategory = 0
             # Check if this is a single-element indicator or a list
@@ -473,9 +567,9 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		# indicator holds the name
 		# stat holds: .freq .leaf .initialNode .level
 		print "#### ", indic
-		isPath = indic.count(separator)
+		isPath = indic.count('/')
 		if isPath > 0:
-			indCats = indic.split(separator)
+			indCats = indic.split('/')
 		else:
 			indCats = indic
 		
@@ -489,18 +583,39 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 			newPath.getCategories().add(catHash[indCats])
 		newPath.setFrequency(indicStat.freq)
 		newPath.setTitle(indic)
+		newPath.setUsers(indicStat.users)
 		factory.addPath(newPath)
         print newPath.title
 		
 # end of your algorithm
 
-printInputData(catList)
+#(catList, userIdList) = buildSampleData()
 
+#printInputData(catList)
+
+print "\t\t Getting indicators..."
+print
 indicators = getIndicators(catList, userIdList)
 
+print "\t\t Calculating indicator statistics..."
+print
 indicatorStats = getIndicatorFrequencies(indicators)
 
+print "\t\t Caclulating category statistics..."
+print
 categoryStats = getCategoryFrequencies(indicators)
 
+#i = 0
+#for indic, indicStat in indicatorStats.iteritems():
+#	print i, indic
+#	i += 1
+
+print "\t\t Saving to database..."
+print
 saveToDB(indicatorStats, categoryStats)
 
+print
+print "\t Ending Jython CHT tool..."
+print
+print "**************************************************************"
+print 
