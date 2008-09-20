@@ -433,9 +433,6 @@ def saveToDB(catInfoList = None):
 	self.freqNameAndSet = 0
 """	
 
-#catInfo = buildCategoriesInformation(catList, userIdList)
-#saveToDB(catInfo)
-
 if __name__ == "__main__":
 	#(catList, userIdList) = buildSampleData()
 	print "\t\t Building Category Information..."
@@ -444,6 +441,10 @@ if __name__ == "__main__":
 	print "\t\t Saving to database..."
 	print
 	saveToDB(catInfo)
+else:
+	catInfo = buildCategoriesInformation(catList, userIdList)
+	saveToDB(catInfo)
+
 # """
 # for cat in catInfo:
 # 	print cat.name, cat.label
