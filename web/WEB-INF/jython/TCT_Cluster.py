@@ -19,38 +19,46 @@
 # Output:
 #     result : a root category reference
 
+print
+print
+print "**************************************************************"
+print
+print "\t Jython TCT Clustering Tool"
+print
+
 #import random
 from sets import Set
 import string
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
-#class Category:
-#	def __init__(self, name=None):
-#		self.name = ''
+"""
+class Category:
+	def __init__(self, name=None):
+		self.name = ''
 
 # Tag object from Zhong's code
-#class Tag:
-#	def __init__(self, name=None):
-#		self.name = ''
+class Tag:
+	def __init__(self, name=None):
+		self.name = ''
 	
 # TagReference from Zhong's code
-#class TagReference:
-#	def __init__(self, tag=None):
-#		self.tag = Tag()
+class TagReference:
+	def __init__(self, tag=None):
+		self.tag = Tag()
 
 # categoryReference Class to be used for SAMPLE data
-#class CategoryReference:
-#	def __init__(self, category=None, children=None, tag=None):
-#		self.category = Category()
-#		self.children = []
-#		self.frequency = 0
-#		self.tags = []
-#	def __str__(self):
-#	      return self.category, len(self.children), self.frequency, self.tags.name
-#	def __len__(self):
-#		return len(self.children)
-
+class CategoryReference:
+	def __init__(self, category=None, children=None, tag=None):
+		self.category = Category()
+		self.children = []
+		self.frequency = 0
+		self.tags = []
+	def __str__(self):
+	      return self.category, len(self.children), self.frequency, self.tags.name
+	def __len__(self):
+		return len(self.children)
+"""
 
 # Category Information class
 class CategoryInformation:
@@ -389,6 +397,9 @@ def saveToDB(catInfoList = None):
 		info = factory.createCategoryInfo(cat.name)
 		for tag in cat.tags:
 			info.catRef.tags.add(factory.createTagReference(tag))
+		# Add the different tags used too
+		for diffTag in cat.tagsDiff:
+			info.catRef.tags.add(factory.createTagReference(difftag))			
 		for user in cat.users:
 			info.addUser(user)
 		info.freqSet = cat.freqSet
@@ -422,12 +433,16 @@ def saveToDB(catInfoList = None):
 	self.freqNameAndSet = 0
 """	
 
-catInfo = buildCategoriesInformation(catList, userIdList)
-saveToDB(catInfo)
+#catInfo = buildCategoriesInformation(catList, userIdList)
+#saveToDB(catInfo)
 
 if __name__ == "__main__":
-#	(catList, userIdList) = buildSampleData()
+	#(catList, userIdList) = buildSampleData()
+	print "\t\t Building Category Information..."
+	print
 	catInfo = buildCategoriesInformation(catList, userIdList)
+	print "\t\t Saving to database..."
+	print
 	saveToDB(catInfo)
 # """
 # for cat in catInfo:
@@ -437,3 +452,9 @@ if __name__ == "__main__":
 # 	print "\t", cat.tags
 # 	print
 # """
+
+print
+print "\t Ending Jython TCT Cluster Tool"
+print
+print "**************************************************************"
+print
