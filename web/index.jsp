@@ -6,8 +6,8 @@
 	Description: This page serves as the main index.  Here the user can read info 
 	about the project, click to learn more, and/or log into the system.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Michalis Avraam
-	     Back End: Zhong Wang, John Le, Michalis Avraam
+	     Front End: Michalis Avraam, Robert Aguirre, Tim Nyerges
+	     Back End: Zhong Wang, Michalis Avraam
 #### -->
 
 <html>
@@ -83,27 +83,22 @@ small {display:block;margin-top:20px;}
 </style>
 </head>
 <body>
-	<div><img class="splash" src="images/home-splashimage.png" alt="Let's Improve Transportation!"></div>
+	<div><img class="splash" src="images/home-splashimage.png" alt="Voicing Climate Concerns"></div>
 	
 	<div id="text">
 		<div id="facts">
-		<p style="background-color:yellow">During the next 25 years the central Puget Sound population is expected to grow by <strong>1.2 million people</strong>.</p>
-		<p style="background-color:yellow">How will this growth impact our already congested <strong>transportation system?</strong></p>
-		<p style="background-color:yellow">What <strong>improvements</strong> are necessary to keep our region moving?</p>
-		<p style="background-color:yellow"><strong>Who</strong> gets to have a voice in this decision?</p>
+		<p>During the coming decades coastal Oregon communities, like coastal areas in general, will be impacted by climate change and variability.</p>
+		<p>What concerns do you have?</p>
+		<p>How might these <strong>concerns</strong> be <strong>measured</strong>?</p>
+		<p> <strong>Make your voice heard!</strong></p>
+		
 		<div class="clearBoth"></div></div>
 		<p>
-
-    <%--
-		<h1>Let's Improve Transportation is an experiment in participatory democracy. <a href="/lmMenu.do?workflowId=&contextId=&activityId=&" title="Learn more about this study">Learn more</a> about this research study or <b><a href="register.do">register now</a><b>.</h1>
-		<h4>Qualified participants may be eligible for compensation.</h4>
-    --%>
-		
-    <p style="background-color:yellow">Let's Improve Transportation is an experiment in participatory democracy which was first conducted during a four-week period in
-October and November 2007. You can learn more about this research study. We are no longer registering participants. If you would like to
-reivew the website and Fall 2007 experiment, please log as follows:
-    <p>User Name: guest<br>Password: guest
     
+		<h1><strong>Voicing Climate Concerns</strong> is an experiment in participatory democracy. <a href="/lmMenu.do?workflowId=&contextId=&activityId=&" title="Learn more about this study">Learn more</a> about this research study or <b><a href="register.do">register now</a></b>.</h1>
+    		
+		<p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about climate change and variability along the Oregon Coast and analysts produce maps depicting those concerns contigent on availabity of data. If you would like to participate in the experiment, please log in (or register above):</p>
+    		
 		<div id="login">
 			<form action="/login.do" method="POST">
 				<div class="cell"><strong>User Name</strong><br /><input type="text" name="loginname" value="${user.loginname}" /></div>
@@ -117,7 +112,7 @@ reivew the website and Fall 2007 experiment, please log as follows:
 			<div class="clearBoth"></div>
 		</div>
 					<p class="rightAlign"><a href="recoverpassword.jsp">Forgot your password?</a></p>
-	<small style="background-color:yellow">This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program.</small>
+	<small>This research is funded by the National Oceanic and Atmospheric Administration, Climate Program Office, Sectoral Applications Research Program NA07OAR4310410.</small>
 	</div>
 </body>
 </html>
