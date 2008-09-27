@@ -210,7 +210,7 @@
 	
 	<!-- begin OVERVIEW -->
 	<div id="overview" class="box2">
-		<p>Let's Improve Transportation (LIT) is part of a research study at the University of Washington. To participate fill out the information below. Qualified participants may be eligible for payment. Complete the information below to find out if you are eligible.</p>
+		<p>Voicing Climate Concerns (VCC) is part of a research study at the University of Washington and Oregon State University. Before participating, please help us by filling in the information below. </p>
 	</div>
 	<!-- end OVERVIEW -->
 	
@@ -294,11 +294,11 @@
 		</div>
 		<div class="form-right">
 			<div id="errors" style="color:#D85703;font-weight:bold;"></div>
-			<p><strong>Privacy of your information:</strong>You personal information is confidential. It will not be shared with anyone. Your email will be used to send you updates of the study progress. If you qualify for payment, your mailing address will only be used to mail you your payment once the study is complete.</p>
+			<p><strong>Privacy of your information:</strong>Your personal information is confidential. It will not be shared with anyone. Your email will be used to send you updates of the study progress. </p>
 		</div>
 	</fieldset>
 	<fieldset>
-		<legend>Create your Let's Improve Transportation account</legend>
+		<legend>Create your Voicing Climate Concerns account</legend>
 		
 		<div class="form-left">
 			<p>
@@ -323,7 +323,7 @@
 
 		</div>
 		<div class="form-right">
-			<p>You user name is how you will be identified by other participants on the Lets Improve Transportation website. Feel free to choose a creative name. Your user name should not be the same as your real name. It may consist of a-z, 0-9, and underscores.</p>
+			<p>You user name is how you will be identified by other participants on the Voicing Climate Concerns website. Feel free to choose a creative name. Your user name should not be the same as your real name. It may consist of a-z, 0-9, and underscores.</p>
 		</div>
 	</fieldset>
 	<div id="step-bar" class="box5 padding5 clearfix" style="text-align:center;">

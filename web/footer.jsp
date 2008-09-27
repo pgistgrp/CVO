@@ -3,5 +3,5 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <div id="footer-text" class="floatLeft">
 <span style="background-color: yellow">
-This research is funded by National Science Foundation, Division of Experimental and Integrative Activities, Information Technology Research (ITR) Program, Project Number EIA 0325916, funds managed within the Digital Government Program. All dollar figures that appear in this website are estimates. Go to <a href="http://www.pgist.org" target="_blank">www.pgist.org</a> for more information. Questions about this study can be sent to <a href="mailto:info@letsimprovetransportation.org">info@letsimprovetransportation.org</a></div>
+This research is funded by the National Oceanic and Atmospheric Administration, Climate Program Office, Sectoral Applications Research Program NA07OAR4310410. </a></div>
 </span>
