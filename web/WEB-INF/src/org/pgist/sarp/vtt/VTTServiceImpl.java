@@ -185,13 +185,13 @@ public class VTTServiceImpl implements VTTService {
     } //getCategoryValueById()
 
 
-    public void saveCategoryPathValue(Long userId, Long pathId, String name, String unit) throws Exception {
+    public void saveCategoryPathValue(Long userId, Long pathId, String name, String unit, boolean isTag) throws Exception {
         CategoryPathValue catValue = vttDAO.getCategoryPathValueByPathId(userId, pathId);
         
         if (catValue==null) {
             User user = systemDAO.getUserById(userId);
             CategoryPath path = (CategoryPath) vttDAO.load(CategoryPath.class, pathId);
-            catValue = new CategoryPathValue(path, user);
+            catValue = new CategoryPathValue(path, user, isTag);
         }
         
         catValue.setName(name);

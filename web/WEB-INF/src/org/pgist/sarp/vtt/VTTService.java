@@ -38,7 +38,7 @@ public interface VTTService {
     
     CategoryPathValue getCategoryPathValueByPathId(Long userId, Long pathId) throws Exception;
     
-    void saveCategoryPathValue(Long userId, Long pathId, String name, String unit) throws Exception;
+    void saveCategoryPathValue(Long userId, Long pathId, String name, String unit, boolean isTag) throws Exception;
     
     void publish(Long vttId, Long userId) throws Exception;
 

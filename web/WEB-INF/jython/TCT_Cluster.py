@@ -345,7 +345,7 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 					# The two sets are not similar exactly, only by name
 					catInfoList[catInfoLoc].freqName += 1
 					catInfoList[catInfoLoc].jaccardScores.append(jScore)
-					catInfoList[catInfoLoc].tagsDiff.append(difference(catInfoList[catInfoLoc].tags,inCatTags))
+					catInfoList[catInfoLoc].tagsDiff.extend(difference(catInfoList[catInfoLoc].tags,inCatTags))
 					catInfoList[catInfoLoc].users.append(user)
 			elif catInfoList.count(cleanName) == 0:
 				catAdded = 0
@@ -399,7 +399,8 @@ def saveToDB(catInfoList = None):
 			info.catRef.tags.add(factory.createTagReference(tag))
 		# Add the different tags used too
 		for diffTag in cat.tagsDiff:
-			info.catRef.tags.add(factory.createTagReference(difftag))			
+			print "====> ", diffTag
+			info.catRef.tags.add(factory.createTagReference(diffTag))			
 		for user in cat.users:
 			info.addUser(user)
 		info.freqSet = cat.freqSet

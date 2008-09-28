@@ -461,6 +461,7 @@ public class VTTAgent {
      *     <li>pathId - int, id of a CategoryPath object</li>
      *     <li>name - string</li>
      *     <li>unit - string</li>
+     *     <li>isTag - boolean</li>
      *   </ul>
      * 
      * @param wfinfo A map contains:
@@ -527,7 +528,7 @@ public class VTTAgent {
         }
         
         try {
-            vttService.saveCategoryPathValue(WebUtils.currentUserId(), pathId, name, unit);
+            vttService.saveCategoryPathValue(WebUtils.currentUserId(), pathId, name, unit, "true".equalsIgnoreCase((String) params.get("isTag")));
             
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttValueTree.jsp"));
             map.put("successful", true);

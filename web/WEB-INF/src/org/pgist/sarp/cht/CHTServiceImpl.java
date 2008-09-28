@@ -3,6 +3,7 @@ package org.pgist.sarp.cht;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -339,9 +340,15 @@ public class CHTServiceImpl implements CHTService {
         class CategoryFactory {
             private CategoryReference root = new CategoryReference("root");
             private List<CategoryPath> paths = new ArrayList<CategoryPath>();
+            private Map<String, CategoryReference> catMap;
+            
+            public CategoryFactory(Map<String, CategoryReference> catMap) {
+                this.catMap = catMap;
+            }
             
             public CategoryReference createCategoryReference(String name) {
                 CategoryReference catRef = new CategoryReference(name);
+                catRef.getTags().addAll(catMap.get(name).getTags());
                 catRef.setCstId(chtId);
                 return catRef;
             }
@@ -375,14 +382,27 @@ public class CHTServiceImpl implements CHTService {
             }
         };
         
-        CategoryFactory factory = new CategoryFactory();
-        
         List<Long> userIdList = new ArrayList<Long>();
         List<CategoryReference> catList = new ArrayList<CategoryReference>();
         for (Map.Entry<Long, CategoryReference> entry : cht.getCategories().entrySet()) {
             userIdList.add(entry.getKey());
             catList.add(entry.getValue());
         }
+        
+        Map<String, CategoryReference> catMap = new HashMap<String, CategoryReference>();
+        Queue<CategoryReference> queue = new LinkedList<CategoryReference>();
+        for (CategoryReference root : catList) {
+            queue.addAll(root.getChildren());
+        }
+        while (!queue.isEmpty()) {
+            CategoryReference child = queue.poll();
+            catMap.put(child.getCategory().getName(), child);
+            for (CategoryReference one : child.getChildren()) {
+                queue.offer(one);
+            }
+        }
+        
+        CategoryFactory factory = new CategoryFactory(catMap);
         
         try {
             PythonInterpreter interpreter = jythonAPI.getInterpreter();

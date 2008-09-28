@@ -33,9 +33,10 @@ public class CategoryPathValue {
     }
     
     
-    public CategoryPathValue(CategoryPath path, User user) {
+    public CategoryPathValue(CategoryPath path, User user, boolean tag) {
         this.user = user;
         this.path = path;
+        this.tag = tag;
     }
     
     

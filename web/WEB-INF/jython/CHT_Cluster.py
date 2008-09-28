@@ -331,7 +331,8 @@ def getChildLeafList(category=CategoryReference(), childLeafList = []):
 				childLeaf = getChildLeafList(category.children[x], childLeafList)
 				childLeafList.extend(childLeaf)
 		else:
-			return (category.category.name)	
+			childLeafList.append(category.category.name)
+			#return (category.category.name)	
 	return childLeafList
 	# ********************************************************************************************
 	# END HELPER FUNCTION
@@ -566,7 +567,6 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 	for cat, catStat in categoryStats.iteritems():
 		catHash[cat] = factory.createCategoryReference(catStat.label)
 		factory.addCategory(catHash[cat])
-		print catStat.label
 
 	# Traverse the indicators and save them one by one
 	for indic, indicStat in indicatorStats.iteritems():

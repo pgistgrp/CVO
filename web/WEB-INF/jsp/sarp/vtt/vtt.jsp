@@ -105,9 +105,9 @@
       </pg:show>
     }
     
-    function saveValue(id, name, unit) {
+    function saveValue(id, name, unit, isTag) {
       displayIndicator(true);
-      VTTAgent.saveCategoryPathValue({vttId:${vtt.id}, pathId:id, name:name, unit:unit}, <pg:wfinfo/>,{
+      VTTAgent.saveCategoryPathValue({vttId:${vtt.id}, pathId:id, name:name, unit:unit, isTag:isTag}, <pg:wfinfo/>,{
         callback:function(data){
             if (data.successful){
                 displayIndicator(false);
