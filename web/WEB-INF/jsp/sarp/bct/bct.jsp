@@ -588,33 +588,27 @@ function editTags(concernId){
   <wf:subNav />
   <!-- End Global Headers -->
   <!-- #container is the container that wraps around all the main page content -->
-  <div id="container">
+<div id="container">
     <!-- begin "overview and instructions" area -->
-    <div id="overview" class="box2">
+<div id="overview" class="box2">
 
       <h3>Overview and instructions</h3>
         
-        <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
-      <pg:narrow name="current"/>
+    <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+  <pg:narrow name="current"/>
       
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-      In this step you can:
-      <ul>
-        <li>Type two or more keywords that describe your concerns</li>
-        <li>Type an explanation of your concerns</li>
-      </ul>
-      <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-        <p id="hiddenRM" style="display:none">Use the brainstorm concerns tool to ....</p>
-      </pg:termHighlight>
-    </div>
-    <!-- end overview -->
-
-    <a name="filterJump"></a>
-    <pg:show condition="${!bct.closed}">
-    <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
-    </pg:show>
-    <pg:show condition="${bct.closed}">
-    <div id="discussion">
+  <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants describe their concerns about climate change and variability. Participants summarize those concerns with keywords and/or keyphrases (3-5 words). A participant enters a concern using  2 or 3 sentences (more or less). The system identifies keywords. A person can then summarize the concern by clicking a check box for keywords, or enter one or more keyphrases (usually a bit more descriptive of the concern).</pg:termHighlight>
+  <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="></pg:termHighlight><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">See an example. Read more about this step</a>
+  </pg:termHighlight></p>
+  <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><p id="hiddenRM" style="display:none">Here is an example concern: Robert is worried about grape growing near the coast.</p>
+  </pg:termHighlight>
+  </div>
+<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="></pg:termHighlight>
+  </pg:show>
+  <pg:show condition="${bct.closed}">
+</div>
+<div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
+  <div id="discussion">
     </pg:show>
       <div id="discussionHeader">
         <div class="sectionTitle">
