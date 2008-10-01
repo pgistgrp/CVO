@@ -598,13 +598,13 @@ function editTags(concernId){
       <pg:narrow name="current"/>
       
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-      Before we can determine how to best improve the transportation system, we need to know what the problems are. In this step you can:
+      In this step you can:
       <ul>
-        <li>Read concerns posted by other participants.</li>
-        <li>Share your own concerns.</li>
+        <li>Type two or more keywords that describe your concerns</li>
+        <li>Type an explanation of your concerns</li>
       </ul>
       <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-        <p id="hiddenRM" style="display:none">When step 1b concludes the moderators will review and summarize them according to themes. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
+        <p id="hiddenRM" style="display:none">Use the brainstorm concerns tool to ....</p>
       </pg:termHighlight>
     </div>
     <!-- end overview -->
@@ -666,12 +666,11 @@ function editTags(concernId){
       <pg:show condition="${!bct.closed}">
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
-        <h3>Add your own concern</h3>
+        <h3>Add your concern keywords</h3>
         <p>Consider these questions:</p>
         <ul>
-          <li>What problems do you encounter in your daily trips to work, shopping, errands, or entertainment? </li>
-          <li>In what ways do you feel our current transportation system 
-          fails to meet the needs of our growing and changing region?</li>
+          <li>How would you describe your concerns about climate change on the Oregon coast in a short phrase of four or five keywords?</li>
+          <li>Would you like to elaborate on why you chose those keywords to describe your concerns about climate change on the Oregon coast?</li>
         </ul>
         <fieldset>
         <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type in one concern about the transportation system. You can enter more later.</textarea>
