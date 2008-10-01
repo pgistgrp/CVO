@@ -660,15 +660,9 @@ function editTags(concernId){
       <pg:show condition="${!bct.closed}">
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
-        <h3>Add your concern keywords</h3>
-        <p>Consider these questions:</p>
-        <ul>
-          <li>How would you describe your concerns about climate change on the Oregon coast in a short phrase of four or five keywords?</li>
-          <li>Would you like to elaborate on why you chose those keywords to describe your concerns about climate change on the Oregon coast?</li>
-        </ul>
-        <fieldset>
-        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type in one concern about the transportation system. You can enter more later.</textarea>
-        </fieldset>
+        <h3>
+          <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type in one concern about regional climate change. You can enter more later.</textarea>
+        </h3>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
           <h3>Keyword your concern</h3>
     <p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of keywords as labels.  At this stage of the process, they assist the moderator in writing summaries, so it is important to keyword your concerns with words that help convey your meaning.">What is a keyword?</a> <img src="images/external.png" alt="(new window)"></p>
