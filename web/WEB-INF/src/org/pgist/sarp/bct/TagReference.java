@@ -2,7 +2,6 @@ package org.pgist.sarp.bct;
 
 import java.io.Serializable;
 
-import org.pgist.tagging.Category;
 import org.pgist.tagging.Tag;
 
 
@@ -28,8 +27,15 @@ public class TagReference implements Serializable {
     }
     
     
-    public TagReference(String name) {
+    public TagReference(String name, Long bctId) {
         this.tag = new Tag(name);
+        this.bctId = bctId;
+    }
+    
+    
+    public TagReference(Tag tag, Long bctId) {
+        this.tag = tag;
+        this.bctId = bctId;
     }
     
     

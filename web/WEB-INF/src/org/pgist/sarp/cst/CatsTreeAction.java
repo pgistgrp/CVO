@@ -71,7 +71,7 @@ public class CatsTreeAction extends Action {
             }
             
             request.setAttribute("published", true);
-            request.setAttribute("root", cst.getWinnerCategory());
+            request.setAttribute("root", cst.getWinnerCategory().getCatRef());
             
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             

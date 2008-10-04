@@ -338,7 +338,7 @@ public class CHTServiceImpl implements CHTService {
         final CHT cht = chtDAO.getCHTById(chtId);
         
         class CategoryFactory {
-            private CategoryReference root = new CategoryReference("root");
+            private CategoryReference root = new CategoryReference("root", cht.getCst().getId());
             private List<CategoryPath> paths = new ArrayList<CategoryPath>();
             private Map<String, CategoryReference> catMap;
             
@@ -347,14 +347,14 @@ public class CHTServiceImpl implements CHTService {
             }
             
             public CategoryReference createCategoryReference(String name) {
-                CategoryReference catRef = new CategoryReference(name);
+                CategoryReference catRef = new CategoryReference(name, cht.getCst().getId());
                 catRef.getTags().addAll(catMap.get(name).getTags());
                 catRef.setCstId(chtId);
                 return catRef;
             }
             
             public TagReference createTagReference(String name) {
-                TagReference tagRef = new TagReference(name);
+                TagReference tagRef = new TagReference(name, cht.getCst().getBct().getId());
                 tagRef.setBctId(cht.getCst().getId());
                 return tagRef;
             }

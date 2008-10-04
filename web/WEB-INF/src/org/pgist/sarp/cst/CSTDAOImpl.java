@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.pgist.sarp.bct.TagReference;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
@@ -61,6 +62,32 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         if (list.size()>0) return (CategoryReference) list.get(0);
         return null;
     }//getCategoryReferenceByName()
+
+
+    private static final String hql_getTagReferenceByName = "from TagReference tr where tr.bctId=? and lower(tr.tag.name)=?";
+    
+    
+    public TagReference getTagReferenceByName(Long bctId, String name) throws Exception {
+        List list = getHibernateTemplate().find(hql_getTagReferenceByName, new Object[] {
+                bctId,
+                name.toLowerCase(),
+        });
+        if (list.size()>0) return (TagReference) list.get(0);
+        return null;
+    }//getTagReferenceByName()
+
+
+    private static final String getTagByName = "from Tag t where lower(t.name)=?";
+    
+    
+    @Override
+    public Tag getTagByName(String name) throws Exception {
+        List list = getHibernateTemplate().find(getTagByName, new Object[] {
+                name.toLowerCase(),
+        });
+        if (list.size()>0) return (Tag) list.get(0);
+        return null;
+    }
 
 
     private static final String hql_getConcernsByTag1 = "select count(distinct c) from Concern c inner join c.tags as tr where c.bct.id=? and c.deleted=? and tr.id=?";
@@ -239,7 +266,7 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
         CST cst = (CST) load(CST.class, cstId);
         
         if (modtool) {
-            return getOrphanTags(cstId, cst.getWinnerCategory().getId(), setting);
+            return getOrphanTags(cstId, cst.getWinnerCategory().getCatRef().getId(), setting);
         } else {
             CategoryReference root = cst.getCategories().get(WebUtils.currentUserId());
             if (root==null) {
@@ -255,8 +282,7 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     	Long bctId = cst.getBct().getId();
     	
     	//get IN string
-        CategoryReference focus = getCategoryReferenceById(categoryId);
-        CategoryReference focusRoot = focus;
+        CategoryReference focusRoot = getCategoryReferenceById(categoryId);
         while (focusRoot.getParents().size()>0) focusRoot = focusRoot.getParents().iterator().next();
         
         CategoryReference root = null;

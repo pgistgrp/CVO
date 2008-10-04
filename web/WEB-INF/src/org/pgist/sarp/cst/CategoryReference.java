@@ -45,10 +45,16 @@ public class CategoryReference implements Serializable, Node {
     }
 
 
-    public CategoryReference(String name) {
+    public CategoryReference(String name, Long cstId) {
         this.category = new Category(name);
+        this.cstId = cstId;
     }
     
+    
+    public CategoryReference(Category category, Long cstId) {
+        this.cstId = cstId;
+        this.category = category;
+    }
     
     public CategoryReference(CategoryReference sample) {
         //shallow copy

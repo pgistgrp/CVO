@@ -6,6 +6,7 @@ import java.util.List;
 import org.pgist.sarp.bct.TagReference;
 import org.pgist.system.BaseDAO;
 import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
@@ -25,6 +26,10 @@ public interface CSTDAO extends BaseDAO {
     Category getCategoryByName(String name) throws Exception;
     
     CategoryReference getCategoryReferenceByName(Long cstId, String name) throws Exception;
+
+    TagReference getTagReferenceByName(Long id, String name) throws Exception;
+    
+    Tag getTagByName(String name) throws Exception;
 
     Collection getConcernsByTag(Long cstId, Long tagRefId, PageSetting setting) throws Exception;
     

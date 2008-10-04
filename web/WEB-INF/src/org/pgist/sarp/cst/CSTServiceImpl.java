@@ -3,6 +3,7 @@ package org.pgist.sarp.cst;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.pgist.sarp.drt.InfoObject;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 import org.pgist.tagging.TagDAO;
 import org.pgist.users.User;
 import org.pgist.util.JythonAPI;
@@ -183,7 +185,7 @@ public class CSTServiceImpl implements CSTService {
             /*
              * create the new category reference
              */
-            categoryReference = new CategoryReference("root");
+            categoryReference = new CategoryReference("root", cstId);
             User user = cstDAO.getUserById(WebUtils.currentUserId());
             categoryReference.setUser(user);
             categoryReference.setCategory(category);
@@ -313,7 +315,7 @@ public class CSTServiceImpl implements CSTService {
         }
         
         if (newCat==null) {
-            newCat = new CategoryReference("root");
+            newCat = new CategoryReference("root", null);
             newCat.setCategory(category);
             newCat.getTags().addAll(categoryReference.getTags());
             cstDAO.save(newCat);
@@ -457,9 +459,11 @@ public class CSTServiceImpl implements CSTService {
         CategoryReference parent = null;
         if (parentId==null) {
             parent = cst.getCategories().get(WebUtils.currentUserId());
+            if (parent==null) parent = cst.getCats().get(WebUtils.currentUserId());
         } else {
             parent = cstDAO.getCategoryReferenceById(parentId);
             if (parent==null) parent = cst.getCategories().get(WebUtils.currentUserId());
+            if (parent==null) parent = cst.getCats().get(WebUtils.currentUserId());
         }
         
         if (parent.getCstId().longValue()!=cstId.longValue()) throw new Exception("no such category reference in this cst.");
@@ -655,7 +659,7 @@ public class CSTServiceImpl implements CSTService {
 
     @Override
     public CategoryReference setRootCatReference(CST cst, User user) throws Exception {
-        CategoryReference catref = new CategoryReference("root");
+        CategoryReference catref = new CategoryReference("root", cst.getId());
         catref.setCstId(cst.getId());
         cstDAO.save(catref);
         
@@ -749,19 +753,45 @@ public class CSTServiceImpl implements CSTService {
     @Override
     public void setClusteredCategory(final Long cstId) throws Exception {
         final CST cst = cstDAO.getCSTById(cstId);
+        final Map<String, CategoryReference> catsMap = new HashMap<String, CategoryReference>();
+        final Map<String, TagReference> tagsMap = new HashMap<String, TagReference>();
         
         class CategoryFactory {
             private CategoryInfo root;
-            public CategoryInfo createCategoryInfo(String name) {
-                CategoryReference catRef = new CategoryReference(name);
-                catRef.setCstId(cstId);
+            public CategoryInfo createCategoryInfo(String name) throws Exception {
+                CategoryReference catRef = catsMap.get(name);
+                if (catRef==null) {
+                    catRef = cstDAO.getCategoryReferenceByName(cstId, name);
+                    if (catRef==null) {
+                        catRef = new CategoryReference(name, cstId);
+                    } else {
+                        Category cat = cstDAO.getCategoryByName(name);
+                        if (cat==null) {
+                            catRef = new CategoryReference(name, cstId);
+                        } else {
+                            catRef = new CategoryReference(cat, cstId);
+                        }
+                    }
+                    catsMap.put(name, catRef);
+                }
                 CategoryInfo info = new CategoryInfo();
                 info.setCatRef(catRef);
                 return info;
             }
-            public TagReference createTagReference(String name) {
-                TagReference tagRef = new TagReference(name);
-                tagRef.setBctId(cst.getBct().getId());
+            public TagReference createTagReference(String name) throws Exception {
+                TagReference tagRef = tagsMap.get(name);
+                if (tagRef==null) {
+                    tagRef = cstDAO.getTagReferenceByName(cst.getBct().getId(), name);
+                    if (tagRef==null) {
+                        Tag tag = cstDAO.getTagByName(name);
+                        if (tag==null) {
+                            tagRef = new TagReference(name, cst.getBct().getId());
+                        } else {
+                            tagRef = new TagReference(tag, cst.getBct().getId());
+                        }
+                    }
+                    tagsMap.put(name, tagRef);
+                }
                 return tagRef;
             }
             public void setResult(CategoryInfo root) {

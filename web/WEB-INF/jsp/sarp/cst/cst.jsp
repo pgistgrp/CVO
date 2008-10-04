@@ -634,8 +634,22 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">
-      Back to Moderator Control Panel</a></p>
+    <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+    
+    <!-- begin "overview and instructions" area -->
+    <div id="overview" class="box2">
+      <h3>Overview and instructions</h3>
+      <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+      <pg:narrow name="current"/>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants describe their concerns about climate change and variability. Participants summarize those concerns with keywords and/or keyphrases (3-5 words). A participant enters a concern using  2 or 3 sentences (more or less). The system identifies keywords. A person can then summarize the concern by clicking a check box for keywords, or enter one or more keyphrases (usually a bit more descriptive of the concern).</pg:termHighlight>
+      <p>
+        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
+      </p>
+      <p id="hiddenRM" style="display:none">
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Here is an example concern: Robert is worried about grape growing near the coast.</pg:termHighlight>
+      </p>
+    </div>
+    
     <pg:show condition="${!modtool}">
     <h2 class="headerColor">Concerns Synthesis Tool for participant
     <select id="otherCategory" onChange="onSelectChanged();">
