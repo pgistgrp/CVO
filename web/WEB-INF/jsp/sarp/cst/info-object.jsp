@@ -25,13 +25,13 @@
   </table>
 </div>
 
-<div id="col-right1" style="overflow:auto;height:300px;">
-  <div style="width:48%;height:100%;float:left;border-right:1px solid #B4D579;">
-    <b style="background-color:#D6E7EF;">Tags for "<span id="catTop"></span>":</b>
+<div id="col-right1" style="overflow:auto;height:300px;text-align:center;">
+  <div style="width:49%;overflow:none;height:298px;float:left;border-right:1px solid #B4D579;">
+    <div style="background-color:#D6E7EF;font-weight:bold;">Category: "<span id="catTop"></span>":</div>
     <div id="tagsTop"></div>
   </div>
-  <div style="width:48%;overflow:auto;height:300px;float:left;">
-    <b style="background-color:#FFF1DC;">Tags for "<span id="catBottom"></span>":</b>
+  <div style="width:49%;overflow:none;height:298px;float:left;">
+    <div style="background-color:#FFF1DC;font-weight:bold;">Category: "<span id="catBottom"></span>":</div>
     <div id="tagsBottom"></div>
   </div>
 </div>

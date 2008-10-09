@@ -60,11 +60,41 @@ var catTree = {
             if (data.successful){
               $('catTop').innerHTML = data.catRef.catRef.category.name;
               var s = '<table>';
-              for (var i=0; i<data.tags.length; i++) {
-                if (s!='') s += '<tr><td>';
-                s += data.tags[i].tag.name;
-                s += '</td></tr>';
+              
+              // alias
+              var size = 0;
+              var ss = '';
+              if (data.catRef.alias) {
+                for (var a in data.catRef.alias) {
+                  ss += a+' ('+data.catRef.alias[a]+')<br>';
+                  size++;
+                }
               }
+              if (size>0) {
+                s += '<tr><td align="right" valign="top"><b>aliases:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+              } else {
+                s += '<tr><td align="right"><b>aliases:</b></td><td align="left">none</td></tr>';
+              }
+              
+              s += '<tr><td align="right"><b>freq set:</b></td><td align="left">'+data.catRef.freqSet+'</td></tr>';
+              s += '<tr><td align="right"><b>freq name:</b></td><td align="left">'+data.catRef.freqName+'</td></tr>';
+              s += '<tr><td align="right"><b>freq name and set:</b></td><td align="left">'+data.catRef.freqNameAndSet+'</td></tr>';
+              
+              //tags
+              size = 0;
+              ss = '';
+              if (data.tags) {
+                for (var i=0; i<data.tags.length; i++) {
+                  ss += data.tags[i].tag.name+'<br>';
+                  size++;
+                }
+              }
+              if (size>0) {
+                s += '<tr><td align="right" valign="top"><b>tags:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+              } else {
+                s += '<tr><td align="right"><b>tags:</b></td><td align="left">none</td></tr>';
+              }
+
               $('tagsTop').innerHTML = s;
               if (selectedId0!=null) {
                 $('catRow-'+selectedId0).style.backgroundColor='';
@@ -93,11 +123,41 @@ var catTree = {
             if (data.successful){
               $('catBottom').innerHTML = data.catRef.catRef.category.name;
               var s = '<table>';
-              for (var i=0; i<data.tags.length; i++) {
-                if (s!='') s += '<tr><td>';
-                s += data.tags[i].tag.name;
-                s += '</td></tr>';
+              
+              // alias
+              var size = 0;
+              var ss = '';
+              if (data.catRef.alias) {
+                for (var a in data.catRef.alias) {
+                  ss += a+' ('+data.catRef.alias[a]+')<br>';
+                  size++;
+                }
               }
+              if (size>0) {
+                s += '<tr><td align="right" valign="top"><b>aliases:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+              } else {
+                s += '<tr><td align="right"><b>aliases:</b></td><td align="left">none</td></tr>';
+              }
+              
+              s += '<tr><td align="right"><b>freq set:</b></td><td align="left">'+data.catRef.freqSet+'</td></tr>';
+              s += '<tr><td align="right"><b>freq name:</b></td><td align="left">'+data.catRef.freqName+'</td></tr>';
+              s += '<tr><td align="right"><b>freq name and set:</b></td><td align="left">'+data.catRef.freqNameAndSet+'</td></tr>';
+              
+              //tags
+              size = 0;
+              ss = '';
+              if (data.tags) {
+                for (var i=0; i<data.tags.length; i++) {
+                  ss += data.tags[i].tag.name+'<br>';
+                  size++;
+                }
+              }
+              if (size>0) {
+                s += '<tr><td align="right" valign="top"><b>tags:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+              } else {
+                s += '<tr><td align="right"><b>tags:</b></td><td align="left">none</td></tr>';
+              }
+              
               $('tagsBottom').innerHTML = s;
               if (selectedId1!=null) {
                 $('catRow-'+selectedId1).style.backgroundColor='';
