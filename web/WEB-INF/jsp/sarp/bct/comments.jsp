@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- Begin Breadcrumbs -->
 <div id="breadCrumbs" class="clearBoth"> 
-    <pg:url page="/cctview.do" params="cctId=${cct.id}">Step 1a: Brainstorm</pg:url> &rarr; Comments about a concern
+    <pg:url page="/bctview.do" params="bctId=${bct.id}">Step 1a: Brainstorm</pg:url> &rarr; Comments about a concern
 </div>
 <!-- End Breadcrumbs -->
 
