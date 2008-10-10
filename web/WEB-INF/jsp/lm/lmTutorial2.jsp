@@ -7,7 +7,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 	<head>
-	<title>Learn More Tutorial - Page 2</title>
+	<title>Tutorial Page 2</title>
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -76,10 +76,10 @@ font-size:12pt;
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
@@ -92,74 +92,7 @@ font-size:12pt;
 			<p class="floatRight" id="step-progress">Page 2 of 2</p>
 
 		</div>	
-		<h2>Tutorial - Page 2 of 2</h2>
-		<h3>The map is yours too!</h3>
-			<p>During the discussions on Let's Improve Transportation, you will find the map useful for exploring proposed transportation projects and proposals for funded transportation packages.  You will also find that you and your co-contributors can add to our maps, by adding keywords to specific places.  Refer to this diagram below, which identifies the various controls on the map.</p>
-		<br>
-		
-		<div id="map"  class="floatLeft peekaboobugfix">
-			<div class="floatLeft" id="mapLegend">
-				<p><div class="icon"><img src="images/lm-mapIcon1.png"></div>
-				<div class="value">Select the Keyword Cloud to choose which keywords to display on the map.</div></p>
-
-				<p><div class="icon"><img src="images/lm-mapIcon2.png"></div>
-				<div class="value">Turn on or turn off the satellite imagery on the map. </div></p>
-
-				<p><div class="icon"><img src="images/lm-mapIcon3.png"></div>
-				<div class="value">Use the scale bar to zoom in or out of the map.</div></p>
-				
-				<p><div class="icon"><img src="images/lm-mapIcon4.png"></div>
-				<div class="value">Hold down [ctrl] while clicking to add your keywords to the map.</div></p>
-				
-				<p><div class="icon"><img src="images/lm-mapIcon5.png"></div>
-				<div class="value">Click and hold to move around the map, just like Google Maps!</div></p>
-
-				<p><div class="icon"><img src="images/lm-mapIcon6.png"></div>
-				<div class="value">Click on a project to display its information.</div></p>
-
-			</div>
-			<div id="mapCell" style="position: relative;" class="floatRight">
-				<img src="images/lm-map.png">
-				<img src="images/lm-mapPointer1.png" style="position:absolute;top:11px;_top:21px;left:250px;">
-				<img src="images/lm-mapPointer2.png" style="position:absolute;top:11px;_top:21px;left:310px;">
-				<img src="images/lm-mapPointer3.png" style="position:absolute;top:141px;_top:151px;left:32px;">
-				<img src="images/lm-mapPointer4.png" style="position:absolute;top:200px;_top:210px;left:300px;">
-				<img src="images/lm-mapPointer5.png" style="position:absolute;top:300px;_top:310px;left:100px;">
-				<img src="images/lm-mapPointer6.png" style="position:absolute;top:400px;_top:360px;left:300px;">		
-			</div>
-				
-			<br class="clearBoth">
-		</div>		
-		
-		<br>
-
-		<h3>Find conversations to join using our discussion search bar!</h3>
-		<p>In order to really find the conversations that interest you, you'll probably want to become familiar with the discussion search bar, located on each discussion page in Let's Improve Transportation.</p>
-
-
-		<div id="map"  class="floatLeft peekaboobugfix">
-			<div class="floatLeft" id="filterLegend">
-				<p><div class="icon"><img src="images/lm-filtericon1.png"></div>
-				<div class="value">Enter text to search for discussions.</div></p>
-
-				<p><div class="icon"><img src="images/lm-filtericon2.png"></div>
-				<div class="value">Browse by keywords using the Keyword Cloud.</div></p>
-
-				<p><div class="icon"><img src="images/lm-filtericon3.png"></div>
-				<div class="value">Find recent posts, or dust off some older posts.</div></p>
-				
-				<p><div class="icon"><img src="images/lm-filtericon4.png"></div>
-				<div class="value">Didn't find what you're looking for? Start a new discussion!</div></p>
-				
-
-			</div>
-			<div id="filterCell" style="position: relative;" class="floatRight">
-				<img src="images/lm-filterbar.png" style="margin-top:80px">
-				<img src="images/lm-filterpointer1.png" style="position:absolute;top:61px;left:120px;">
-				<img src="images/lm-filterpointer2.png" style="position:absolute;top:135px;left:290px;">
-				<img src="images/lm-filterpointer3.png" style="position:absolute;top:135px;left:480px;">
-				<img src="images/lm-filterpointer4.png" style="position:absolute;top:30px;left:505px;">
-			</div>
+		<h2>The "Tutorial" section is not being supported. Please register or return "Home."</h2>
 
 		<br />
 	</div>
@@ -180,10 +113,10 @@ font-size:12pt;
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>

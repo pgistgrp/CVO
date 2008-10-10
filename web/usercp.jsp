@@ -13,7 +13,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation - Edit your Profile</title>
+	<title>Profile</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -235,8 +235,8 @@ function formOther(){
 		 <html:hidden property="save" value="true"/>
 		<h3 class="headerColor" style="display:inline">Edit your participant profile information&nbsp;&nbsp;&nbsp;</h3>
 		<pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View your profile</pg:url>
-		<p>Here you can edit your Let's Improve Transportation user profile. Some information
-			in your user profile will appear to all other participants in the LIT challenge,
+		<p>Here you can edit your Voicing Climate Concerns user profile. Some information
+			in your user profile will appear to all other participants,
 			but if a field is marked by this icon ( <img src="images/icon_private.png" /> )
 			it will be kept private. You can return to this page to edit your profile at any
 			time. Simply click "user settings" at the top of any page.</p>
@@ -261,8 +261,8 @@ function formOther(){
 			</div>
 			<div class="clearBoth"></div>
 			<div class="settings-col1">Why I'm here<br />
-				<span> Tell us about your interest in transportation and why you've chosen to
-				take on the LIT challenge. (255 character limit)</span>  </div>
+				<span> Tell us about your interest in the regional impacts of global climate change on the Oregon coast and why you've chosen to
+				participate. (255 character limit)</span>  </div>
 			<div class="settings-col2">
 				<html:textarea property="profileDesc" value="${user.profileDesc}" rows="5" cols="50"/>
 			</div>
@@ -362,31 +362,14 @@ function formOther(){
 					<html:text property="workZipcode" styleId="wzip" value="${user.workZipcode}"/>
 				</div>
 				<div class="clearBoth"></div>
-			</div>
-			<div id="right" class="floatRight">
-				<h3>Method of transportation</h3>
-				<br />
-				<span>How do you usually travel from your home to work and other regular errands?</span>
-				<p>
-					
-					<html:select styleId="primaryTrans" onmouseup="javascript:formOther()" property="primaryTransport" value="${user.primaryTransport.id}">
-						<html:option value=""></html:option>
-						<c:forEach var="transtype" items="${transtypes}" varStatus="loop">
-								<html:option value="${transtype.id}">${transtype.value}</html:option>		
-						</c:forEach>
-					</html:select>
-					
-			  <div id="transOther" style="display:none">
-						<strong>Please explain</strong><br>
-						<html:text property="primaryTransport" value=""/>
-			  </div>
+			
 
 				</p>
 				<div class="clearBoth"></div>
 			</div>
 			</fieldset>
 			<div id="errors1" class="floatLeft" style="display:none"> Errors will go here. </div>
-			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form,1)" value="Update my Profile" />
+			
 			<br class="clearBoth" />
 		</div>
 
@@ -395,8 +378,7 @@ function formOther(){
 		<html:hidden property="save" value="true"/>
 		<!-- end EDIT-PROFILE -->
 		<h3 class="headerColor">View and edit your private user settings</h3>
-		<p>This information is private, and not shared with other participants in the LIT
-			challenge. You can always return to this page to edit it in the future. </p>
+		<p>This information is private, and not shared with other participants. You can always return to this page to edit it in the future. </p>
 		<!-- begin EDIT-SETTINGS -->
 		<div id="edit-settings">
 		 
@@ -419,14 +401,14 @@ function formOther(){
 				No</label>
 			</div>
 			<div class="email-col3"> <strong>About e-mail notification for discussions:</strong><br />
-				When you post a new comment in a LIT discussion you always have the option
+				When you post a new comment in the discussion you always have the option
 					of selecting to receive e-mail notifications when there is new activity in that
 					discussion. Select no here if you wish to stop receiving any e-mails notifying
 					about discussion activity. </div>
 			<div class="clearBoth"></div>
 			<br />
 			<div class="email-col1">Do you wish to receive e-mails from the moderator announcing
-				progress in the LIT challenge?</div>
+				progress in the experiment?</div>
 			<div class="email-col2">
 				<label>
 				<html:radio property="emailNotify" value="true" />
@@ -436,11 +418,10 @@ function formOther(){
 				<html:radio property="emailNotify" value="false" />
 				No</label>
 			</div>
-			<div class="email-col3"> <strong>Note to paid research study participants:</strong><br />
-				We highly recommend that all paid research study participants select to receive
+			<div class="email-col3"> <strong>Note to research study participants:</strong><br />
+				We highly recommend that all research study participants choose to receive
 					e-mails from the moderator. Not receiving these e-mails may result in missing
-					important steps in the LIT challenge, and thus impact your qualification for
-					payment. </div>
+					important steps in the experiment. </div>
 			<div class="clearBoth"></div>
 			<br />
 			</fieldset>

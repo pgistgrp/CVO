@@ -9,7 +9,7 @@
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
-<title>Let's Improve Transportation - Learnmore: Review Projects</title>
+<title>Maps</title>
 <!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -102,10 +102,10 @@ function renderProjects(){
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton currentBox"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
@@ -114,92 +114,9 @@ function renderProjects(){
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
 	<!-- begin Object --> 
-	<h2 class="headerColor">Project Map</h2>
-	<p>Explore the projects being considered in Let's Improve Transportation.
-	  The participants in this website will actually discuss these projects.  
-		<pg:url page="index.do">Click here to login</pg:url>.</p>
-	<div id="object">
-		<a href="javascript:Util.expandAll('objectives');">Expand all</a>
-		<a href="javascript:Util.collapseAll('objectives');">Collapse all</a>
-		<div id="rp3a-left" class="floatLeft">
-			<!-- begin collapsible list of projects -->
-			<div id="newtable">
-				<table cellpadding=0 cellspacing=0>
-					<tr class="tableHeading">
-						<th colspan="2" class="first">Proposed Projects</th>
-						<th class="right"><span class="hiddenLabel" style="display:none">Money Needed</span></th>
-					</tr>
-					
-					
-					<c:forEach var="category" begin="1" end="2">
-						<!-- start road projects -->
-						<tr>
-							<c:choose>
-								<c:when test="${category == 1}">
-									<td class="category" colspan="3"><strong>Road Projects</strong></td>
-								</c:when>
-								<c:otherwise>
-									<td class="category" colspan="3"><strong>Transit Projects</strong></td>
-								</c:otherwise>
-							</c:choose>
-						</tr>
-						<!-- end CATEGORY LABEL -->
-						<!-- ******* LOOP ENTIRE PROJECT ******** -->
-						<c:forEach var="project" items="${projects}" varStatus="loop">
-							
-							<c:if test="${project.transMode == category}">
-								<!-- begin PROJECT -->
-								<tr class="fundingType">
-									<td class="fundingSourceItem">
-											<a href="javascript:Util.toggleRow(${loop.index});">
-											<img src="images/plus.gif" id="icon${loop.index}" class="icon">${project.name}</a>
-									</td>
-									<td class="col2" colspan="2" align="right"> <!--${(project.inclusive) ? 'Select at most one' : 'Select any number'}-->&nbsp; </td>
-								</tr>
-								<!-- end PROJECT -->
+	<h2 class="headerColor">The "Climate Change Maps" section is not being supported. Please register or return "Home."</h2>
 
-								<!-- begin HIDDEN ROW of OPTIONS -->
-								<tr style="display:none;" class="objectives" id="row${loop.index}">
-									<td colspan="3">
-										<table>
-											<!-- start project alt -->
-											<c:forEach var="alt" items="${project.alternatives}" varStatus="loop">
-												<tr>
-													<td class="col1"><pg:url page="lmAlt.do" target="_blank" params="altId=${alt.id}">${alt.name}</pg:url></td>
-													
-													<td class="cost">$<fmt:formatNumber maxFractionDigits="0" value="${alt.cost/1000000}" /> million </td>
-                                                    <script type="text/javascript">
-                                                                prjaltlist.push({"id":"${alt.id}", "fpids":"${alt.fpids}", "mode":"${alt.project.transMode}"}); 
-                                                                altfpids = "${alt.fpids}";
-                                                                if(altfpids.length > 0) fpidlist += "," + "${alt.fpids}";
-                                                    </script>
-												</tr>
-											</c:forEach>
-											<!-- end project alt-->
-										</table>
-									</td>
-								</tr>
-								<!-- end HIDDEN ROW -->
-							</c:if>
-						</c:forEach>
-					</c:forEach>
-
-				</table>
-			</div>
-
-			<!-- end collapsible project list -->
-		</div>
-		<!-- end rp3a-left -->
-	</div>
-	<!-- begin cell containing Google Map object -->
-	<!-- GUIRONG: This can be up to 420px wide -->
-	<div id="map" class="floatRight"></div>
-	<!-- end cell containing Google Map object -->
-	<!-- begin firefox height hack -->
-	<div class="clearBoth"></div>
-	<!-- end firefox height hack -->
-</div>
-<!-- end Object-->
+	
 </div>
 <!-- end container -->
 <!-- start feedback form -->
@@ -212,10 +129,10 @@ function renderProjects(){
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton currentBox"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton currentBox"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>

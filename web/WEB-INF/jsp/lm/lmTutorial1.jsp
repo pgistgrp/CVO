@@ -7,7 +7,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 	<head>
-	<title>Tutorial</title>
+	<title>Tutorial Page 1</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -98,10 +98,10 @@ left:530px;
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
@@ -113,69 +113,8 @@ left:530px;
 				<p class="floatLeft" id="submit-button"><input type="button" value="Next Page" style="font-size:1.2em;" onclick="location.href='lmTutorial2.do'"/></p>
 				<p class="floatRight" id="step-progress">Page 1 of 2</p>
 		</div>
-		<h2>Tutorial</h2>
-		<p>There are some cool features on this website we'd like you to know about, so
-			you can better make use of them!</p>
-		<h2>Keyword your concerns, discussion posts, and the map!</h2>
-		<p>By adding keywords to things you care about, you can direct other users to specific
-			concerns, discussion posts, and the points on the map. There are two things to
-			keep in mind throughout your use of Lets Improve Transportation.</p>
-
-		<br />
-
-		<div id="keywordit" style="position:relative;"> 
-		<img src="images/lm-keywordit.png" class="floatRight" />
-			<h3>1. Care about it? Keyword it!</h3>
-			<p>After every concern you enter, and after every post to our discussion forums,
-				you may choose to add keywords to categorize your post. Even places on the map
-				can be keyworded.</p>
-			<p class="arrow">Add keywords to your concerns for safe keeping. <span>&rarr;</span></p>
-			<br class="clearBoth" />
-		</div>
+		<h2>The "Tutorial" section is not being supported. Please register or return "Home."</h2>
 		
-		<br />
-
-		<div id="kw-discussion" style="position:relative;" class="peekaboobugfix">
-			<p class="arrow"><span>&larr;</span> Add keywords to your discussion posts too. </p>
-			<img src="images/lm-kwdiscussion.gif" class="floatLeft"/>
-			<br class="clearBoth" />
-		</div>		
-		
-		<br />
-		
-		<div id="kw-cloud" style="position:relative;" class="peekaboobugfix">
-		<h3>2. Need to find it? Use the Keyword Cloud!</h3>
-		<p>The Keyword Cloud allows you to review the keywords that your co-contributors
-			are using. Select a keyword in the cloud to find discussion posts or concerns
-			that use that keyword. It can also be used to find keywords on a map. Its a great
-			way to browse whats out there! You can also use Search.</p>
-			<p class="arrow">Click this button to use the Keyword Cloud <span>&rarr;</span></p>
-			<img src="images/keyword-cloud.gif" class="floatRight"/>
-			<br class="clearBoth" /> 
-		</div>
-
-		<br />
-
-		<div id="kw-browse" style="position:relative;" class="peekaboobugfix">
-			<p class="arrow"><span>&larr;</span> Add keywords to your discussion posts too. </p>
-			<img src="images/lm-browsekw.gif" class="floatLeft"/>
-			<br class="clearBoth" />
-		</div>			
-		
-		<br />
-
-		<div id="kw-tagsize" style="position:relative;" class="peekaboobugfix">
-			<p class="arrow">Smaller keywords are less popular<span>&rarr;</span></p>
-			<p class="arrow2">Larger keywords are more popular<span>&rarr;</span></p>
-			<img src="images/lm-kwsize.gif" class="floatRight"/>
-			<br class="clearBoth" />
-		</div>			
-
-		<br />
-		<div id="step-bar" class="box10 padding6 clearfix">
-				<p class="floatLeft" id="submit-button"><input type="button" value="Next Page" style="font-size:1.2em;" onclick="location.href='lmTutorial2.do'"/></p>
-				<p class="floatRight" id="step-progress">Page 1 of 2</p>
-		</div>
 		
 	</div>
 	<!-- end container -->
@@ -186,10 +125,10 @@ left:530px;
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>

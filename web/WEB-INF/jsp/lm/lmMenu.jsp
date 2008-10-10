@@ -8,7 +8,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation - Learn More Menu</title>
+	<title>Learn More Menu</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -36,10 +36,10 @@ p.nomargin {margin-left:0px;}
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
@@ -48,13 +48,13 @@ p.nomargin {margin-left:0px;}
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<h2 class="headerColor">Learn More</h2> 
-		<p>This is just a small section of our website where you can learn more about the Let's Improve Transportation experiment in participatory democracy, review a map of proposed transportation improvement projects, and browse other resources. The entire website will be available to registered participants. <a href="register.do">Register now</a>.</p>
-		<h3 class="headerColor"><pg:url page="lmAbout.do">Read More about <em>Let's Improve Transportation</em></pg:url></h3>
-		<h3 class="headerColor"><pg:url page="lmFaq.do">Read our Frequently Asked Questions</pg:url></h3>
+		<p>This section of the website only contains a link to the Oregon Coastal Atlas. However, this section of the website is being set aside for potential links to learn more about the Voicing Climate Concerns experiment in participatory democracy, to review maps of the regional impacts of global climate change on the Oregon coast, or to browse other resources. The entire website will be available to registered participants. <a href="register.do">Register now</a>.</p>
+		<h3 class="headerColor"><pg:url page="lmAbout.do">Read More about <em>Voicing Climate Concerns</em></pg:url></h3>
+		<h3 class="headerColor"><pg:url page="lmFaq.do">Read the Frequently Asked Questions</pg:url></h3>
 		<h3 class="headerColor"><pg:url page="lmTutorial1.do">Learn about the more advanced features of this site</pg:url></h3>
-		<h3 class="headerColor"><pg:url page="lmGallery.do">View a map of proposed transportation improvements</pg:url></h3>
-		<h3 class="headerColor"><pg:url page="lmResources.do">Browse articles and other resources about transportation planning</pg:url></h3>
-		<h3 class="headerColor"><pg:url page="glossaryPublic.do">Look up a word in our interactive transportation glossary</pg:url></h3>
+		<h3 class="headerColor"><pg:url page="lmGallery.do">View maps about the regional impacts of global climate change on the Oregon coast</pg:url></h3>
+		<h3 class="headerColor"><pg:url page="lmResources.do">Browse articles and other resources about the regional impacts of global climate change</pg:url></h3>
+		<h3 class="headerColor"><pg:url page="glossaryPublic.do">Look up a word in the interactive global climate change glossary</pg:url></h3>
 		<br />
 	</div>
 	<!-- end container -->
@@ -65,10 +65,10 @@ p.nomargin {margin-left:0px;}
 				<h3 class="headerColor">Learn More</h3>
 			</div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About LIT</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Project Map</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
 		</div>
