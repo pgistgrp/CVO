@@ -8,7 +8,7 @@
 
 <c:choose>
 	<c:when test="${fn:length(comments) <= 0}">
-		<div id="noTopicsBox1" style="width:100%; color:#3B4429; text-align:center;"><h3 class="headerColor">There aren't any comments yet!</h3></div>
+		<div id="noTopicsBox1" style="width:100%; color:#3B4429; text-align:center;"><h3 class="headerColor">No comments yet!</h3></div>
 	</c:when>
 	<c:otherwise>
 		

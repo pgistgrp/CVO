@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Concerns Synthesis Tool</title>
+<title>Concerns Category Tool</title>
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <!--CSS Libraries -->
@@ -120,17 +120,17 @@
               relatedTagsArr.push(data.tags[i].id);
             }
             
-            document.getElementById('col').innerHTML = '<h4>Tags within "' + currentCategory.label.escapeHTML() + '"</h4>';
+            document.getElementById('col').innerHTML = '<h4>Keywords within "' + currentCategory.label.escapeHTML() + '"</h4>';
             document.getElementById('col').innerHTML += data.html;
             
             if (data.tags.length > 0){
               getConcernsByTags(0);
-              $('col').innerHTML += '<a href="javascript:getConcernsByTags(1); new Effect.Highlight(\'sidebar_concerns\'); void(0);">Show concerns with the above tags</a>';
+              $('col').innerHTML += '<a href="javascript:getConcernsByTags(1); new Effect.Highlight(\'sidebar_concerns\'); void(0);">Show concerns with the above keywords</a>';
             }
             
           }
           if (type == 1){
-            $('sidebar_tags').innerHTML = '<h4>Tags not in "' + currentCategory.label.escapeHTML() + '"</h4>' + data.html;
+            $('sidebar_tags').innerHTML = '<h4>Keywords not in "' + currentCategory.label.escapeHTML() + '"</h4>' + data.html;
           }
         }else{
           alert("Getting tags not successful: " + data.reason);
@@ -388,8 +388,8 @@
   }
   
   function resetCols(){
-    $('col').innerHTML = '<h4>Select a category in the left to see tags assciated with it.</h4>';
-    $('sidebar_tags').innerHTML = '<h4>Orphan Tags</h4>';
+    $('col').innerHTML = '<h4>Select a category label in the left column to work on keyword/phrases.</h4>';
+    $('sidebar_tags').innerHTML = '<h4>Orphan Keywords/phrases</h4>';
   }
   
   function onSelectChanged() {
@@ -634,14 +634,14 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+<!--    <p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p> -->
     
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants describe their concerns about climate change and variability. Participants summarize those concerns with keywords and/or keyphrases (3-5 words). A participant enters a concern using  2 or 3 sentences (more or less). The system identifies keywords. A person can then summarize the concern by clicking a check box for keywords, or enter one or more keyphrases (usually a bit more descriptive of the concern).</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants group concern keywords/keyphrases into categories to summarize and organize concerns using the left, right, and center columns below. Scan the keywords in the right column to gain an idea of what keywords are similar to one another. In the textbox at the top of the left column, insert a category label (one of more words are OK) that seems to generalize over one or more keywords/keyphrases. You may use the same spelling for a category label as one of the keywords/phrases as you see fit. Click the "Add Category" button to move label into list in the left column. Click on the label to make it 'active'. Over in the right column, click on arrow(s) in front keyword(s)/phrase(s) to move the keyword(s)/phrase(s) into the center column for the 'active category'. Clicking on an arrow in the center column moves the keywords/phrases back to the right column. For the active category label, you may add a description in the textbox at the bottom of the left column. Repeat any of the above as many times as is appropriate to generalize keywords/phrases into categories. When finished to share with others, click the "Publish" button at bottom of left column.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
       </p>
@@ -651,7 +651,7 @@
     </div>
     
     <pg:show condition="${!modtool}">
-    <h2 class="headerColor">Concerns Synthesis Tool for participant
+    <h2 class="headerColor">Categorize concern keywords/phrases
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
         <logic:iterate id="other" name="others">
@@ -721,7 +721,7 @@
             <div class="tabber" id="myTab">
                 <!-- AB 1 -->
                 <div id="sidebar_tags_header" class="tabbertab">
-                  <H2>Tags</H2>
+                  <H2>Keywords</H2>
                   <div id="sidebar_tags">
                     <!-- load tags into this div -->
                   </div>

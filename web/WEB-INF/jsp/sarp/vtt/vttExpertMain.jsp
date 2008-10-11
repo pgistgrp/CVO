@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Value Tree Tool</title>
+<title>Indicator Creation Tool</title>
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <!--CSS Libraries -->
@@ -143,7 +143,7 @@
   }
   
   function deleteVTTComment(cid) {
-    if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
+    if (!confirm('Delete this comment? No way to undo.')) return;
     displayIndicator(true);
     VTTAgent.deleteSpecialistComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
@@ -288,7 +288,7 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <h2 class="headerColor">Value Tree Tool for Specialist
+    <h2 class="headerColor">Concerns Indicator Recommendations from Specialists
     <select id="otherCategory" onChange="onSelectChanged();">
       <option value="${baseuser.id}">My Categories</option>
       <logic:iterate id="other" name="others">

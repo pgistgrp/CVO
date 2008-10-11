@@ -213,7 +213,7 @@
   }
   
   function deleteCHTComment(cid) {
-    if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
+    if (!confirm('Are you sure you want to delete this comment? No way to undo.')) return;
     displayIndicator(true);
     CHTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
@@ -246,7 +246,7 @@
           }
         }else{
           if (data.voted) {
-            $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for your participation.';
+            $('structure_question').innerHTML = 'Your vote has been recorded. Thank you for participating.';
           } else {
             alert(data.reason);
           }
@@ -259,7 +259,7 @@
   };
   
   function publish(){
-      if (!confirm('Are you sure to publish your categories?')) return;
+      if (!confirm('Sure you want to publish categories?')) return;
       CHTAgent.publish({chtId:chtId}, {
       callback:function(data){
         if (data.successful){
@@ -324,7 +324,22 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <h2 class="headerColor">Category Hierarchy Tool for participant
+    <!-- Instruction and overview -->
+	<div id="overview" class="box2">
+      <h3>Overview and instructions</h3>
+      <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+      <pg:narrow name="current"/>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants arrange the concern category labels into hierarchies, from general to more specific. This helps identify indicator variables that can be used for creating map displays of climate concerns. To start, click on a concern category label in the left column. Clicking on an arrow at the top of the left column will move the label in the direction of the arrow. Labels can be ordered top to bottom and left to right. All labels at the left-most side of the column are 'top level' for that category label. Any label set to the right of an immediate higher label with be a sublabel (subcategory). This arranging of category label, subcategory label, and if appropriate, sub-subcategory etcetera labels, forms hierarchies. These hierarchies provide a way to construct 'paths to indicators'; that is a path from general concerns to specific concerns.  More specific concern categories (right-most labels) form the basis, in the next step, for identifying indicator measurements of climate change/variability. Repeat any of the above instructions as many times as is appropriate to form hierarchies. When finished to share with others, click the "Publish" button at the bottom of left column.</pg:termHighlight>
+      <p>
+        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
+      </p>
+      <p id="hiddenRM" style="display:none">
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Here is an example concern: Robert is worried about grape growing near the coast.</pg:termHighlight>
+      </p>
+    </div>
+<!-- end of overview and instructions -->
+
+	<h2 class="headerColor">Create category hierarchies
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
         <logic:iterate id="other" name="others">
@@ -356,7 +371,7 @@
     </div>
     
     <div id="col">
-      <div class="topMenu" style="clear:both;">Related Tags</div>
+      <div class="topMenu" style="clear:both;">Keywords/phrases related to concern cateogory </div>
       <div id="tags"></div>
     </div>
     
@@ -371,7 +386,7 @@
     
     <br>
     
-    <p><b>Discussion about the categories:</b>
+    <p><b>Discussion about categories:</b>
     <div id="discussionBox" class="discussionBox"></div>
     
     <pg:show condition="${!cht.closed}">

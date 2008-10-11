@@ -305,11 +305,12 @@
             <table width="100%"><tr><td width="650px;">
             <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
                 <h3 class="headerColor">Overview and instructions</h3>
-                <p>The moderators have reviewed the concerns and summarized them according to themes. Now you can:</p>
+                <p>The discussion and review tool faciliates participant commenting about each others contributions within the context of the step activity.</p>
                 <ul>
-                    <li>Review the concern themes</li>
-                    <li>Discuss how well these summaries represent participants' concerns</li>
-                    <li>Suggest revisions to the summaries in your discussion comments</li>
+                    <li>For brainstorming concerns, the dicussion focuses on concerns and keywords/phrases.</li>
+                    <li>For concern category creation, the discussion focuses on comparisons of the category labels together with the keywords/phrases.</li>
+                    <li>For category ordering/organization, the discussion focuses on the general/specific levels of categories.</li>
+					<li>For indicator creation, the discussion focuses on identiying indicator labels and measurement units.</li>
                 </ul>
                 <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
                 <p id="hiddenRM" style="display:none">After the brainstorm concluded, the moderators synthesized and summarized the concerns offered by participants. (<pg:url page="lmFaq.do" target="_blank" anchor="step1-created">Read more about the summarization process</pg:url>). Each concern theme is associated with a group of keywords. As you review summaries let us know if you think these summaries are accurate and if you feel any important themes were left out. The moderator will make revisions based on participant comments. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we we assess different "factors" used to evaluate proposed transportation improvement projects.</p>

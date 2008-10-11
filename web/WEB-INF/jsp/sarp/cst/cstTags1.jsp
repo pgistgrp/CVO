@@ -15,7 +15,7 @@
     </pg:hide>
 	</logic:iterate>
 </ul>
-<h4>Orphan Tags</h4>
+<h4>Orphan Keywords</h4>
 <ul>
 	<logic:iterate id="tag" name="orphanTags">
     <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">

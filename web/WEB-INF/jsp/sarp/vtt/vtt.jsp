@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Value Tree Tool</title>
+<title>Concern Indicator Tool</title>
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <!--CSS Libraries -->
@@ -145,7 +145,7 @@
             document.getElementById('col').innerHTML += data.html;
           }
         }else{
-          alert("Getting tags not successful: " + data.reason);
+          alert("Retrieving keywords not successful: " + data.reason);
         }
         Util.loading(false);
       },
@@ -213,7 +213,7 @@
   }
   
   function deleteVTTComment(cid) {
-    if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
+    if (!confirm('Delete this comment? No way to undo.')) return;
     displayIndicator(true);
     VTTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
@@ -259,7 +259,7 @@
   }
   
   function publish(){
-      if (!confirm('Are you sure to publish your value tree?')) return;
+      if (!confirm('Publish concern-indicator paths?')) return;
       VTTAgent.publish({vttId:vttId}, {
       callback:function(data){
         if (data.successful){
@@ -328,7 +328,22 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="container">
   <div id="cont-resize">
-    <h2 class="headerColor">Value Tree Tool for participant
+      <!-- Instruction and overview -->
+	<div id="overview" class="box2">
+      <h3>Overview and instructions</h3>
+      <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+      <pg:narrow name="current"/>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants specify indicators and measurement units for the hierarchy paths constructed in the previous step. Click on a path in the left column. In the middle column, enter an indicator label for that path by selecting a keyword/phrase from the pull down box or enter your own indicator label. Then, suggest a unit of measurement suitable for that climate concern indicator. These indicators and measurement units will be used to create climage change/variability maps as data become available from the Oregon Coastal Atlas. Repeat any of the above instructions as many times as is appropriate to identify indicators and units of measurements to be used in creating climate change maps. When finished to share with others, click the "Publish" button at the bottom of left column.</pg:termHighlight>
+      <p>
+        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
+      </p>
+      <p id="hiddenRM" style="display:none">
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Here is an example concern: Robert is worried about grape growing near the coast.</pg:termHighlight>
+      </p>
+    </div>
+<!-- end of overview and instructions -->
+
+    <h2 class="headerColor">Specify indicators and measurement units
     <select id="otherCategory" onChange="onSelectChanged();">
         <option value="${baseuser.id}">My Categories</option>
         <logic:iterate id="other" name="others">
@@ -360,7 +375,7 @@
     
     <br>
     
-    <p><b>Discussion about the categories:</b>
+    <p><b>Discussion about categories:</b>
     <div id="discussionBox" class="discussionBox"></div>
     
     <pg:show condition="${!vtt.closed}">

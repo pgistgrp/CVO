@@ -1,7 +1,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<center><b>Current Path Values:</b></center>
+<center><b>Current path categories:</b></center>
 <table id="catsTable" width="100%" cell-padding="1" cell-spacing="0">
   <c:forEach var="path" items="${vtt.paths}">
     <pg:pathValue var="value" userId="${user.id}" path="${path}" />
