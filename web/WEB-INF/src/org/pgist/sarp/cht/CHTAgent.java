@@ -583,7 +583,7 @@ public class CHTAgent {
      *         <ul>
      *           <li>successful - a boolean value denoting if the operation succeeds</li>
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
-     *           <li>navigation - int[4] of 0 or 1</li>
+     *           <li>navigation - int[6] of 0 or 1</li>
      *         </ul>
      */
     public Map getNavigation(HttpServletRequest request, Map params) {
@@ -591,7 +591,7 @@ public class CHTAgent {
         map.put("successful", false);
         
         try {
-            int[] navigation = new int[] { 0, 0, 0, 0 };
+            int[] navigation = new int[] { 0, 0, 0, 0, 1, 0 };
             map.put("navigation", navigation);
             
             Long catRefId = null;
@@ -606,23 +606,31 @@ public class CHTAgent {
             CategoryReference catRef = chtService.getCategoryReferenceById(catRefId);
             
             if (catRef!=null) {
-                CategoryReference parent = catRef.getParents().iterator().next();
-                CategoryReference grandpa = null;
-                if (parent.getParents().size()>0) {
-                    grandpa = parent.getParents().iterator().next();
+                if ("root-ignore".equals(catRef.getParents().iterator().next().getCategory().getName())) {
+                    // ignore
+                    navigation[4] = 0;
+                    navigation[5] = 1;
+                } else {
+                    CategoryReference parent = catRef.getParents().iterator().next();
+                    CategoryReference grandpa = null;
+                    if (parent.getParents().size()>0) {
+                        grandpa = parent.getParents().iterator().next();
+                        navigation[4] = 0;
+                        navigation[5] = 0;
+                    }
+                    
+                    int index = parent.getChildren().indexOf(catRef);
+                    if (index>0) {
+                        //can move up
+                        navigation[0] = 1;
+                        //can move right
+                        navigation[3] = 1;
+                    }
+                    //can move down
+                    if (index<parent.getChildren().size()-1) navigation[1] = 1;
+                    //can move left
+                    if (grandpa!=null) navigation[2] = 1;
                 }
-                
-                int index = parent.getChildren().indexOf(catRef);
-                if (index>0) {
-                    //can move up
-                    navigation[0] = 1;
-                    //can move right
-                    navigation[3] = 1;
-                }
-                //can move down
-                if (index<parent.getChildren().size()-1) navigation[1] = 1;
-                //can move left
-                if (grandpa!=null) navigation[2] = 1;
             }
             
             map.put("successful", true);
@@ -639,6 +647,7 @@ public class CHTAgent {
      * 
      * @param params A map contains:<br>
      *         <ul>
+     *           <li>chtId - int, a CHT instance id</li>
      *           <li>catRefId - int, a CategoryReference instance id</li>
      *           <li>direction - int, 0 : up, 1 : down, 2 : left, 3 : right</li>
      *         </ul>
@@ -655,7 +664,16 @@ public class CHTAgent {
         map.put("successful", false);
         
         try {
+            Long chtId = null;
             Long catRefId = null;
+            
+            try {
+                chtId = new Long( (String) params.get("chtId") );
+            } catch (Exception e) {
+                e.printStackTrace();
+                map.put("reason", "can't find the specified CHT");
+                return map;
+            }
             
             try {
                 catRefId = new Long( (String) params.get("catRefId") );
@@ -665,7 +683,13 @@ public class CHTAgent {
                 return map;
             }
             
+            CHT cht = chtService.getCHTById(chtId);
             CategoryReference catRef = chtService.getCategoryReferenceById(catRefId);
+            
+            if (cht==null) {
+                map.put("reason", "can't find the specified CHT");
+                return map;
+            }
             
             if (catRef==null) {
                 map.put("reason", "can't find the specified category");
@@ -673,12 +697,13 @@ public class CHTAgent {
             }
             
             int direction = Integer.parseInt((String) params.get("direction"));
-            if (direction<0 || direction>3) {
+            if (direction<0 || direction>5) {
                 map.put("reason", "unknown direction");
                 return map;
             }
             
-            request.setAttribute("root", chtService.moveCategoryReference(catRefId, direction));
+            request.setAttribute("root", chtService.moveCategoryReference(cht, catRefId, direction));
+            request.setAttribute("ignoreRoot", cht.getIgnores().get(WebUtils.currentUserId()));
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cht/chtCatsTable.jsp"));
             
             map.put("successful", true);

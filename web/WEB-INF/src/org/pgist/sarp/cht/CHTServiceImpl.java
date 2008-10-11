@@ -198,6 +198,7 @@ public class CHTServiceImpl implements CHTService {
         chtDAO.save(root2);
         
         cht.getCats().put(user.getId(), root2);
+        cht.getIgnores().put(user.getId(), new CategoryReference("root-ignore", cht.getCst().getId()));
         
         chtDAO.save(cht);
         
@@ -287,7 +288,7 @@ public class CHTServiceImpl implements CHTService {
 
 
     @Override
-    public CategoryReference moveCategoryReference(Long catRefId, int direction) throws Exception {
+    public CategoryReference moveCategoryReference(CHT cht, Long catRefId, int direction) throws Exception {
         CategoryReference catRef = chtDAO.getCategoryReferenceById(catRefId);
         CategoryReference parent = catRef.getParents().iterator().next();
         CategoryReference grandpa = null;
@@ -295,6 +296,9 @@ public class CHTServiceImpl implements CHTService {
         if (parent.getParents().size()>0) {
             grandpa = parent.getParents().iterator().next();
         }
+        
+        CategoryReference root = cht.getCats().get(WebUtils.currentUserId());
+        if (root==null) cht.getCategories().get(WebUtils.currentUserId());
         
         int index = parent.getChildren().indexOf(catRef);
         
@@ -316,20 +320,23 @@ public class CHTServiceImpl implements CHTService {
                 if (index==0) throw new Exception("can't move right");
                 parent.getChildren().get(index-1).getChildren().add(parent.getChildren().remove(index));
                 break;
+            case 4:
+                if (!"root-ignore".equals(parent.getCategory().getName())) {
+                    parent.getChildren().remove(catRef);
+                    cht.getIgnores().get(WebUtils.currentUserId()).getChildren().add(catRef);
+                }
+            case 5:
+                if ("root-ignore".equals(parent.getCategory().getName())) {
+                    root.getChildren().add(catRef);
+                    parent.getChildren().remove(catRef);
+                }
+                break;
         }
         
         chtDAO.save(parent);
+        chtDAO.save(cht);
         
-        while (catRef.getParents().size()>0) {
-            Iterator<CategoryReference> iter = catRef.getParents().iterator();
-            if (iter.hasNext()) {
-                catRef = catRef.getParents().iterator().next();
-            } else {
-                break;
-            }
-        }
-        
-        return catRef;
+        return root;
     } //moveCategoryReference()
 
 

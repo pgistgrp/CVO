@@ -43,7 +43,7 @@
     var previousCategory = null;
     var currentUserId = ${user.id};
     var page = 1;
-    var navigation = [0, 0, 0, 0];
+    var navigation = [0, 0, 0, 0, 1, 0];
     
     var tree1 = {
       selectedId : null,
@@ -60,7 +60,7 @@
           callback:function(data){
             if (data.successful){
               navigation = data.navigation;
-              for (var i=0; i<4; i++) {
+              for (var i=0; i<6; i++) {
                 var element = $('navigator-'+i);
                 if (navigation[i]==0) {
                   element.src = '/images/gray-go-'+i+'.png';
@@ -88,7 +88,7 @@
         if (navigation[n]==0) return;
         if (this.selectedId==null) return;
         var catRefId = this.selectedId;
-        CHTAgent.moveCategoryReference({catRefId:catRefId, direction:n},{
+        CHTAgent.moveCategoryReference({chtId:chtId, catRefId:catRefId, direction:n},{
           callback:function(data){
             if (data.successful){
               $('cats').innerHTML = data.html;
@@ -343,6 +343,8 @@
         <img id="navigator-1" src="/images/gray-go-1.png" style="cursor:pointer;" onclick="tree1.navigate(1);">
         <img id="navigator-2" src="/images/gray-go-2.png" style="cursor:pointer;" onclick="tree1.navigate(2);">
         <img id="navigator-3" src="/images/gray-go-3.png" style="cursor:pointer;" onclick="tree1.navigate(3);">
+        <img id="navigator-4" src="/images/gray-go-4.png" style="cursor:pointer;" onclick="tree1.navigate(4);">
+        <img id="navigator-5" src="/images/gray-go-5.png" style="cursor:pointer;" onclick="tree1.navigate(5);">
         </pg:show>
         <pg:hide condition="${user.id==baseuser.id && !cht.closed}">
         ${user.loginname}'s categories

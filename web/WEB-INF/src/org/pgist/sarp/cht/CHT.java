@@ -25,6 +25,11 @@ public class CHT {
     private String instruction = "";
     
     /*
+     * for ignored category references
+     */
+    private Map<Long, CategoryReference> ignores = new HashMap<Long, CategoryReference>();
+    
+    /*
      * For published user hierarchy
      */
     private Map<Long, CategoryReference> categories = new HashMap<Long, CategoryReference>();
@@ -102,6 +107,24 @@ public class CHT {
 
     public void setPurpose(String purpose) {
         this.purpose = purpose;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map cascade="all" table="sarp_cht_user_ignores_map"
+     * @hibernate.collection-key column="cht_id"
+     * @hibernate.collection-index column="user_id" type="long"
+     * @hibernate.collection-many-to-many column="root_catref_id" class="org.pgist.sarp.cst.CategoryReference"
+     */
+    public Map<Long, CategoryReference> getIgnores() {
+        return ignores;
+    }
+
+
+    public void setIgnores(Map<Long, CategoryReference> ignores) {
+        this.ignores = ignores;
     }
 
 

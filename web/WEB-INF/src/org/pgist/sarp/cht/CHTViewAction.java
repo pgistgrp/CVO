@@ -83,6 +83,7 @@ public class CHTViewAction extends Action {
         
         List<User> list = chtService.getOtherUsers(cht);
         
+        request.setAttribute("ignoreRoot", cht.getIgnores().get(userId));
         request.setAttribute("user", user);
         request.setAttribute("cst", cht.getCst());
         request.setAttribute("cht", cht);
