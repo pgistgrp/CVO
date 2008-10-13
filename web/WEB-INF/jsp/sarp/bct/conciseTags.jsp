@@ -8,7 +8,7 @@
 <c:choose>
   <c:when test="${fn:length(tags) == 0}">
       <div style="width:235px;padding-left:5px;margin-bottom:10px;border:1px solid #D6E5EE;background:#F4F9FB;">
-        <p>No tags, yet.</p>
+        <p>No keywords, yet.</p>
       </div>
   </c:when>
   <c:otherwise>

@@ -308,12 +308,12 @@
                 <p>The discussion and review tool faciliates participant commenting about each others contributions within the context of the step activity.</p>
                 <ul>
                     <li>For brainstorming concerns, the dicussion focuses on concerns and keywords/phrases.</li>
-                    <li>For concern category creation, the discussion focuses on comparisons of the category labels together with the keywords/phrases.</li>
-                    <li>For category ordering/organization, the discussion focuses on the general/specific levels of categories.</li>
-					<li>For indicator creation, the discussion focuses on identiying indicator labels and measurement units.</li>
+                    <li>For creating concern categories, the discussion focuses on comparisons of the category labels together with the keywords/phrases.</li>
+                    <li>For creating category hierarchies, the discussion focuses on the general/specific levels of categories.</li>
+					<li>For creating concern indicators, the discussion focuses on identifying indicator labels and measurement units.</li>
                 </ul>
                 <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-                <p id="hiddenRM" style="display:none">After the brainstorm concluded, the moderators synthesized and summarized the concerns offered by participants. (<pg:url page="lmFaq.do" target="_blank" anchor="step1-created">Read more about the summarization process</pg:url>). Each concern theme is associated with a group of keywords. As you review summaries let us know if you think these summaries are accurate and if you feel any important themes were left out. The moderator will make revisions based on participant comments. The final version of these summaries will be included in the final report of the <em>LIT Challenge</em>. The summaries will also be used in Step 2 when we we assess different "factors" used to evaluate proposed transportation improvement projects.</p>
+                <p id="hiddenRM" style="display:none">The content for discussion and review is different for each of the four steps. However, the process for discussion is the same.  A participant may comment on any contribution provided.  Comments on comments are not supported, because that type of interaction quickly moves off track about the topic. Please do comment on any aspect of the topic and/or process, as this will help participants and the moderator know how the process is moving.</p>
             </pg:termHighlight>
             </td><td></td><td style="padding-left:10px;width:180px;">
                 <div id="votingMenu" class="floatLeft">

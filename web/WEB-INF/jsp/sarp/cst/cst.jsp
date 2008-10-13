@@ -498,7 +498,7 @@
   
   <c:if test="${!published && !cst.closed}">
     function publish(){
-      if (!confirm('Are you sure to publish your categories?')) return;
+      if (!confirm('Sure you want to publish categories?')) return;
       CSTAgent.publish({cstId:cstId}, {
       callback:function(data){
         if (data.successful){
@@ -646,7 +646,7 @@
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
       </p>
       <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Here is an example concern: Robert is worried about grape growing near the coast.</pg:termHighlight>
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Higher average mean temperatures could cause increased evaporation and decreased rainfall, which would affect the flow growing.  More intense rainfall could cause an increasing in flooding, more landslides and mudslide damage.</pg:termHighlight>
       </p>
     </div>
     

@@ -542,14 +542,14 @@
                         <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="announcement" value="Experts are preparing for ICT, please wait." />
+                    <property name="announcement" value="Specialists are preparing concern indicator recommendations, please wait." />
                 </props>
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.vtt.experttool" title="VTT Expert Users Screen" auto="false" access="expert" revisitable="false">
+        <pgame name="pgame-sarp.vtt.experttool" title="Specialist recommendation tool" auto="false" access="expert" revisitable="false">
             <description>
-              <![CDATA[<small>VTT Expert Users Screen</small>]]>
+              <![CDATA[<small>Specialists recommend indicator units</small>]]>
             </description>
             <actionName>action-sarp.vtt.experttool</actionName>
             <declaration>

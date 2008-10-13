@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
-<h4>Unrelated Tags</h4>
+<h4>Unrelated Keywords/phrases</h4>
 <ul>
 	<logic:iterate id="tag" name="tags">
     <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">

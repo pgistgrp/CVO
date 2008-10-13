@@ -141,7 +141,7 @@
               relatedTagsArr.push(data.tags[i].id);
             }
             
-            document.getElementById('tags').innerHTML = '<h4>Tags within "' + tree1.currentCategory + '"</h4>';
+            document.getElementById('tags').innerHTML = '<h4>Keywords/phrases within "' + tree1.currentCategory + '"</h4>';
             document.getElementById('tags').innerHTML += data.html;
           }
         }else{
