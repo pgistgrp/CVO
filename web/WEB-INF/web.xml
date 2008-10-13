@@ -46,16 +46,8 @@
     </filter>
     
     <filter>
-        <filter-name>pgist filter</filter-name>
-        <filter-class>org.pgist.web.PgistFilter</filter-class>
-        <init-param>
-            <param-name>force-close-connection</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>login-url</param-name>
-            <param-value>/index.jsp</param-value>
-        </init-param>
+        <filter-name>security filter</filter-name>
+        <filter-class>org.pgist.web.SecurityFilter</filter-class>
         <init-param>
             <param-name>http-port</param-name>
             <param-value>@tomcat.port.http@</param-value>
@@ -66,7 +58,20 @@
         </init-param>
         <init-param>
             <param-name>https-url</param-name>
-            <param-value>/login.do, /index.jsp, /login.jsp</param-value>
+            <param-value>/login.do, /index.jsp, /login.jsp, /register.do, /RegisterAgent.js, /dwr/call/plaincall/RegisterAgent.checkUsername.dwr, /dwr/call/plaincall/RegisterAgent.checkEmail.dwr, /dwr/call/plaincall/RegisterAgent.addSarpUser.dwr</param-value>
+        </init-param>
+    </filter>
+    
+    <filter>
+        <filter-name>pgist filter</filter-name>
+        <filter-class>org.pgist.web.PgistFilter</filter-class>
+        <init-param>
+            <param-name>force-close-connection</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>login-url</param-name>
+            <param-value>/index.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>ignore-url</param-name>
@@ -144,6 +149,11 @@
         <url-pattern>/cstview.do</url-pattern>
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>security filter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     
     <filter-mapping>

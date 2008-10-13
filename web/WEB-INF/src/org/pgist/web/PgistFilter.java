@@ -44,15 +44,6 @@ public class PgistFilter implements Filter {
      */
     protected HashSet<String> ignoreURLs = new HashSet<String>();
     
-    /*
-     * All requested urls in the httpsURLs will be forced to use https protocol.
-     */
-    protected HashSet<String> httpsURLs = new HashSet<String>();
-    
-    protected int httpPort = 80;
-    
-    protected int httpsPort = 443;
-    
     
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
@@ -71,24 +62,6 @@ public class PgistFilter implements Filter {
         for (int i=0; i<array.length; i++) {
             ignoreURLs.add(array[i].trim());
         }
-        
-        String httpsURL = filterConfig.getInitParameter("https-url");
-        array = httpsURL.split(",");
-        for (int i=0; i<array.length; i++) {
-            httpsURLs.add(array[i].trim());
-        }
-        
-        String port = filterConfig.getInitParameter("http-port");
-        if (port!=null && port.trim().length()>0) {
-            port = port.trim();
-            httpPort = Integer.parseInt(port);
-        }
-        
-        port = filterConfig.getInitParameter("https-port");
-        if (port!=null && port.trim().length()>0) {
-            port = port.trim();
-            httpsPort = Integer.parseInt(port);
-        }
     }//init()
 
     
@@ -105,27 +78,6 @@ public class PgistFilter implements Filter {
         //System.out.println("PgistFilter: "+path);
         
         UserInfo userInfo = null;
-        
-        String httpsPrefix = "https://" + req.getServerName() + ":" + httpsPort;
-        req.setAttribute("httpsPrefix", httpsPrefix);
-        String httpPrefix = "http://" + req.getServerName();
-        if (httpPort!=80) httpPrefix += ":" + httpPort;
-        req.setAttribute("httpPrefix", httpPrefix);
-        
-        /*
-         * check if the requested url should use https protocol.
-         */
-        if (httpsURLs.contains(path)) {
-            if (!req.isSecure()) {
-                req.getSession(true);
-                if (req.getQueryString()!=null) {
-                    res.sendRedirect( httpsPrefix + req.getRequestURI() + '?' + req.getQueryString() );
-                } else {
-                    res.sendRedirect( httpsPrefix + req.getRequestURI() );
-                }
-                return;
-            }
-        }
         
         /*
          * check if the requested url is in ignore urls.
@@ -148,7 +100,7 @@ public class PgistFilter implements Filter {
                 if (!"/".equalsIgnoreCase(req.getRequestURI())) {
                     String savedURL = res.encodeRedirectURL(initURL.toString());
                     
-                    if ("/index.jsp".equalsIgnoreCase(req.getRequestURI())) savedURL = httpPrefix + "/main.jsp";
+                    if ("/index.jsp".equalsIgnoreCase(req.getRequestURI())) savedURL = "/main.jsp";
                     
                     /*
                      * Save the original requested URL in cookie
@@ -161,7 +113,7 @@ public class PgistFilter implements Filter {
                 /*
                  * redirect to login page
                  */
-                res.sendRedirect( httpsPrefix + loginURL );
+                res.sendRedirect( loginURL );
                 
                 return;
             } else {

@@ -137,7 +137,6 @@
 						//if email is not used already
 							RegisterAgent.addSarpUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, age:age, income:income, gender:gender, education:education, zipcode:zip, username:username, password1:password1, password2:password2}, {
 								callback:function(data){
-                  alert(1);
 									if (data.successful){
 											window.location = "/";		
 									} else {
