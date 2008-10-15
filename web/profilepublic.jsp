@@ -99,9 +99,10 @@ function getDiscussion(start, end) {
 			<span class="label">Username</span>
 			<span class="value">${user.loginname}</span>
 		</p><br />
+		<!--
 		<p>
 			<span class="label">Home location</span>
-			<span class="value">${user.city}, ${user.zipcode}</span>
+			<span class="value">${user.city},${user.zipcode}</span>
 		</p><br />
 		<p>
 			<span class="label">Work Location</span>
@@ -122,7 +123,7 @@ function getDiscussion(start, end) {
 			<span class="value" style="width:700px;">${user.profileDesc}</span> 
 		</p>
 		<br />
-	
+-->	
 		<div class="clearBoth"></div>
 
 		<p>
