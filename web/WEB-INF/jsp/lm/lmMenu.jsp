@@ -28,6 +28,7 @@ p.nomargin {margin-left:0px;}
 	<body>
 	<!-- Begin the header - loaded from a separate file -->
     <wf:nav />
+	<!-- remove blue ribbon
 	<!-- End header -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">
@@ -45,10 +46,12 @@ p.nomargin {margin-left:0px;}
 		</div>
 	</div>
 	<!-- End header menu -->
+	-->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
 		<h2 class="headerColor">Learn More</h2> 
-		<p>This section of the website only contains a link to the Oregon Coastal Atlas. However, this section of the website is being set aside for potential links to learn more about the Voicing Climate Concerns experiment in participatory democracy, to review maps of the regional impacts of global climate change on the Oregon coast, or to browse other resources. The entire website will be available to registered participants. <a href="register.do">Register now</a>.</p>
+		<p>This section of the website contains a link to the <a href="http://www.coastalatlas.net"title="Oregon Coastal Atlas">Oregon Coastal Atlas</a>. However, this section of the website is being set aside for potential links to learn more about the Voicing Climate Concerns experiment in participatory democracy, to review maps of the regional impacts of global climate change on the Oregon coast, or to browse other resources. The entire website will be available to registered participants. <a href="register.do">Register now</a>.</p>
+				<!-- comment out the links
 		<h3 class="headerColor"><pg:url page="lmAbout.do">Read More about <em>Voicing Climate Concerns</em></pg:url></h3>
 		<h3 class="headerColor"><pg:url page="lmFaq.do">Read the Frequently Asked Questions</pg:url></h3>
 		<h3 class="headerColor"><pg:url page="lmTutorial1.do">Learn about the more advanced features of this site</pg:url></h3>
@@ -56,8 +59,10 @@ p.nomargin {margin-left:0px;}
 		<h3 class="headerColor"><pg:url page="lmResources.do">Browse articles and other resources about the regional impacts of global climate change</pg:url></h3>
 		<h3 class="headerColor"><pg:url page="glossaryPublic.do">Look up a word in the interactive global climate change glossary</pg:url></h3>
 		<br />
+	    -->
 	</div>
 	<!-- end container -->
+	<!--
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
 	<div id="headerMenu">
 		<div id="headerContainer">
@@ -74,6 +79,7 @@ p.nomargin {margin-left:0px;}
 		</div>
 	</div>
 	<!-- End header menu -->
+	-->
 	<!-- Begin footer -->
 	<!-- End footer -->
 	</body>
