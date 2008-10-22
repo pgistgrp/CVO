@@ -73,7 +73,7 @@
     <!--end discussionTagsList -->
 
     <c:if test="${baseuser.id == concern.author.id}">
-        <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Tags</a></div>
+        <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Keywords</a></div>
     </c:if>
   </div>
   <!-- end discussion body -->

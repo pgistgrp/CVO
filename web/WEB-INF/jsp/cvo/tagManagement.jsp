@@ -49,14 +49,14 @@ $('overview').style.display = 'none'; $('slate').style.display = 'none'; $('bar'
 	<div id="lightbox"></div>
 	<!-- LIGHTBOX -->
 	<div id="pageTitle"> <span class="title_page">Moderator Dashboard: </span>
-		<h1>Tag Management</h1>
+		<h1>Keyword Management</h1>
 		<div id="bread">
 			<ul>
 				<li class="first"><a href="null">Moderator Dashboard</a>
 					<ul>
 						<li>&#187; <a href="null">Databases</a></li>
 						<ul>
-							<li>&#187; <a href="null">Tag Management</a></li>
+							<li>&#187; <a href="null">Keyword Management</a></li>
 						</ul>
 					</ul>
 				</li>
@@ -69,14 +69,14 @@ $('overview').style.display = 'none'; $('slate').style.display = 'none'; $('bar'
 		<p class="indent"><strong>Instructions: </strong>${cctForm.cct.instruction}</p>
 	</div>
 	<div id="caughtException">
-		<h2>A Problem has Occured</h2>
+		<h2>A Problem has Occurred</h2>
 		<br>
 		We are sorry but there was a problem accessing the server to complete your request. <b>Please
 		try refreshing the page.</b></div>
 	<div id="fullSlate">
 		<h2>Add your concern</h2>
 		<br>
-		What is one of your concerns about the Central Puget Sound Transportation System?
+		What is one of your concerns about Climate Concerns on the Oregon Coast?
 		View examples of concerns in the right column (<a href="javascript:tabFocus(1);">concerns
 		tab</a>). </div>
 	<!--START SIDEBAR -->
@@ -84,9 +84,6 @@ $('overview').style.display = 'none'; $('slate').style.display = 'none'; $('bar'
 <!--END SIDEBAR -->
 <div id="footerContainer">
 	<div id="footer"><a href="http://www.pgist.org" target="_blank"><img src="/images/footer_pgist.jpg" alt="Powered by the PGIST Portal" border="0" align="right"></a></div>
-	<div id="nsf">This research is funded by National Science Foundation, Division of
-		Experimental and Integrative Activities, Information Technology Research (ITR)
-		Program, Project Number EIA 0325916, funds managed within the Digital Government
-		Program.</div>
+	<div id="nsf"></div>
 </div>
 </body></html>

@@ -18,7 +18,7 @@
     </td>
     <td style="width:10px; border-right:thin dotted #B4D579;"></td>
     <td>
-      <b>Tags</b>
+      <b>Keywords</b>
       <div style="display:inline;">
         <select name="tagsort" id="tagsort" onChange="javascript:infoObject.getTags(1); ">
           <option value="0">a-z</option>

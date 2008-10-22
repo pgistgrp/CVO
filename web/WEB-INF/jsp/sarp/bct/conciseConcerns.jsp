@@ -29,7 +29,7 @@
                 </c:otherwise>
               </c:choose>
                   <ul class="tagsInline">
-                    <li class="tagsInline"><strong>Tags:</strong> </li>
+                    <li class="tagsInline"><strong>Keywords:</strong> </li>
                     <c:forEach items="${concern.tags}" var="tagref">
                       <c:choose>
                         <c:when test="${baseuser.id == concern.author.id}">
