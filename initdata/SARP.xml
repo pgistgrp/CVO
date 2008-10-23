@@ -68,7 +68,7 @@
         
         <pgame name="pgame-sarp.bct" title="Brainstorm concern tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Brainstorm climate concerns and keywords/phrases</small>]]>
+              <![CDATA[<small>Brainstorm climate concerns and keywords|phrases</small>]]>
             </description>
             <actionName>action-sarp.bct</actionName>
             <declaration>
@@ -80,7 +80,7 @@
         
         <pgame name="pgame-sarp.drt.bct" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review climate concerns and keywords/phrases, then comment</small>]]>
+              <![CDATA[<small>Review climate concerns and keywords|phrases, then comment</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -133,7 +133,7 @@
         
         <pgame name="pgame-sarp.cst" title="Concern category tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Create climate concern categories by clustering keywords/phrases</small>]]>
+              <![CDATA[<small>Create climate concern categories by clustering keywords|phrases</small>]]>
             </description>
             <actionName>action-sarp.cst</actionName>
             <declaration>

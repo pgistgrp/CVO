@@ -3,7 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
 <p align="right">[ <a href="javascript:$('myTab').tabber.tabShow(0); void(0);">Back to all keywords</a> ]</p>
-<br><span class="title_section">Viewing Keyword:</span>
+<br><span class="title_section">Viewing Keywords:</span>
 <logic:iterate id="concern" name="concerns">
 			<div id="concernId${concern.id}" class="theConcern">
 						<logic:notEqual name="type" value="0">
