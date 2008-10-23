@@ -305,17 +305,18 @@
             <table width="100%"><tr><td width="650px;">
             <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
                 <h3 class="headerColor">Overview and instructions</h3>
-                <p>The discussion and review tool faciliates participant commenting about each others contributions within the context of the step activity.</p>
+                <p>The review and comment tool faciliates participant commenting about each others contributions within the context of the step activity.</p>
                 <ul>
-                    <li>For brainstorming concerns, the dicussion focuses on concerns and keywords/phrases.</li>
-                    <li>For creating concern categories, the discussion focuses on comparisons of the category labels together with the keywords/phrases.</li>
-                    <li>For creating category hierarchies, the discussion focuses on the general/specific levels of categories.</li>
-					<li>For creating concern indicators, the discussion focuses on identifying indicator labels and measurement units.</li>
+                    <li>For brainstorming concerns, the reivew focuses on concerns and keywords/phrases.</li>
+                    <li>For creating concern categories, the reivew  focuses on comparisons of the category labels together with the keywords/phrases.</li>
+                    <li>For creating category hierarchies, the reivew  focuses on the general/specific levels of categories.</li>
+					<li>For creating concern indicators, the reivew  focuses on identifying indicator labels and measurement units.</li>
                 </ul>
                 <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
                 <p id="hiddenRM" style="display:none">The content for discussion and review is different for each of the four steps. However, the process for discussion is the same.  A participant may comment on any contribution provided.  Comments on comments are not supported, because that type of interaction quickly moves off track about the topic. Please do comment on any aspect of the topic and/or process, as this will help participants and the moderator know how the process is moving.</p>
             </pg:termHighlight>
-            </td><td></td><td style="padding-left:10px;width:180px;">
+            </td>
+            <td></td><td style="padding-left:10px;width:180px;">
                 <div id="votingMenu" class="floatLeft">
                 <div id="voting">
                   <div id="votingMenuTally" class="box1">

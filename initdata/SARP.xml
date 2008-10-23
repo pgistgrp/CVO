@@ -61,14 +61,14 @@
                     <var name="oid"/>
                 </outs>
                 <props>
-                    <property name="title" value="Discuss and Review for BCT" />
+                    <property name="title" value="Review and Comment for BCT" />
                 </props>
             </declaration>
         </pgame>
         
         <pgame name="pgame-sarp.bct" title="Brainstorm concern tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Brainstorm climate concerns and keywords</small>]]>
+              <![CDATA[<small>Brainstorm climate concerns and keywords/phrases</small>]]>
             </description>
             <actionName>action-sarp.bct</actionName>
             <declaration>
@@ -78,9 +78,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.bct" title="Discuss and review tool" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.bct" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Discuss and evaluate climate concerns and keywords</small>]]>
+              <![CDATA[<small>Review climate concerns and keywords/phrases, then comment</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -133,7 +133,7 @@
         
         <pgame name="pgame-sarp.cst" title="Concern category tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Create climate concern categories by clustering keywords</small>]]>
+              <![CDATA[<small>Create climate concern categories by clustering keywords/phrases</small>]]>
             </description>
             <actionName>action-sarp.cst</actionName>
             <declaration>
@@ -157,7 +157,7 @@
                     <var name="oid"/>
                 </outs>
                 <props>
-                    <property name="title" value="Discuss and Review for CST" />
+                    <property name="title" value="Review and Comment for CST" />
                 </props>
             </declaration>
         </pgame>
@@ -174,9 +174,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.cst" title="Discuss and review tool" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.cst" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Discuss and evaluate climate concern categories</small>]]>
+              <![CDATA[<small>Review climate concern categories, then comment</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -301,7 +301,7 @@
                     <var name="oid"/>
                 </outs>
                 <props>
-                    <property name="title" value="Discuss and Review for CHT" />
+                    <property name="title" value="Review and Comment for CHT" />
                 </props>
             </declaration>
         </pgame>
@@ -318,9 +318,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.cht" title="Discuss and review tool" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.cht" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Discuss and evaluate category hierarchies of climate concerns</small>]]>
+              <![CDATA[<small>Review category hierarchies of climate concerns, then comment</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -451,12 +451,12 @@
                     <var name="oid"/>
                 </outs>
                 <props>
-                    <property name="title" value="Discuss and Review for VTT" />
+                    <property name="title" value="Review and Comment for CIT" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.cluster.vtt.categories" title="Cluster VTT categories" auto="true">
+        <pgame name="pgame-sarp.cluster.vtt.categories" title="Cluster CIT categories" auto="true">
             <description>
               <![CDATA[Cluster VTT categories]]>
             </description>
@@ -468,9 +468,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.vtt" title="Discuss and review tool" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.vtt" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Discuss and evaluate climate concern indicators</small>]]>
+              <![CDATA[<small>Review climate concern indicators, then comment</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -490,7 +490,7 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.vttmod" title="VTT Mod Tool" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.vttmod" title="CIT Mod Tool" auto="false" access="all" revisitable="false">
             <description>
               <![CDATA[<small>VTT Mod Tool</small>]]>
             </description>
@@ -525,7 +525,7 @@
                         <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="announcement" value="Moderator is modifying ICT, please wait." />
+                    <property name="announcement" value="Moderator is modifying in CIT, please wait." />
                 </props>
             </declaration>
         </pgame>
@@ -571,7 +571,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.vtt.clear.winner" title="Clear VTT Winner." auto="true">
+        <pgame name="pgame-sarp.vtt.clear.winner" title="Clear CIT Winner." auto="true">
             <description>
               <![CDATA[<small>Clear VTT Winner.</small>]]>
             </description>
