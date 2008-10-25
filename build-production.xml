@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project default="compile" basedir=".">
+
+    <property name="base" value="." />
+    
+    <property file="${base}/build.properties"/>
+    
+    <property name="web" value="web" />
+    <property name="temp" value="${base}/temp" />
+    <property name="src" value="${web}/WEB-INF/src" />
+    <property name="deplib" value="lib" />
+    <property name="lib" value="${web}/WEB-INF/lib" />
+    <property name="build" value="${web}/WEB-INF/classes" />
+    <property name="webapp" value="${tomcat.path}"/>
+    <property name="javadoc" value="docs/api"/>
+    <property name="doctime" value="2006"/>
+
+
+    <path id="classpath">
+        <fileset dir="${deplib}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <pathelement location="${build}"/>
+    </path>
+
+
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${build}" />
+        <mkdir dir="${temp}" />
+    </target>
+
+
+    <target name="clean" >
+        <delete dir="${build}" />
+        <delete dir="${temp}" />
+    </target>
+
+
+    <target name="config">
+        <copy todir="${temp}" overwrite="true">
+          <fileset dir="${web}">
+            <include name="WEB-INF/web.xml"/>
+            <include name="WEB-INF/config/*"/>
+          </fileset>
+        </copy>
+        <replace file="${temp}/WEB-INF/web.xml">
+            <replacefilter token="@google.mapKey@" value="${google.mapKey}"/>
+            <replacefilter token="@tomcat.port.http@" value="${tomcat.port.http}"/>
+            <replacefilter token="@tomcat.port.https@" value="${tomcat.port.https}"/>
+            <replacefilter token="@tomcat.session.timeout@" value="${tomcat.session.timeout}"/>
+        </replace>
+        <replace file="${temp}/WEB-INF/config/context-database.xml">
+            <replacefilter token="@database.userName@" value="${database.userName}"/>
+            <replacefilter token="@database.password@" value="${database.password}"/>
+            <replacefilter token="@database.databaseName@" value="${database.databaseName}"/>
+        </replace>
+    </target>
+
+
+    <target name="compile" depends="init">
+        <javac classpathref="classpath" srcdir="${src}" destdir="${build}" debug="on">
+            <include name="**/*.java" />
+        </javac>
+        <copy todir="${build}" >
+            <fileset dir="${src}" >
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="mapping" depends="compile" description="Hibernate Mapping Files with XDoclet">
+        <taskdef name="hibernatemapping" classname="xdoclet.modules.hibernate.HibernateDocletTask">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <hibernatemapping destdir="${build}" excludedtags="@version,@author,@todo" force="true" verbose="true">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <hibernate version="3.0" />
+        </hibernatemapping>
+    </target>
+
+
+    <target name="createdb" depends="mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="createdb" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+    
+    <target name="updatedb" depends="mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="updatedb" configPath="${temp}/WEB-INF/config"/>
+    </target>
+
+
+    <target name="restoredb" depends="mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="createdb" configPath="${temp}/WEB-INF/config" dataPath="${base}/backup"/>
+    </target>
+    
+    
+    <target name="backupdb" depends="mapping">
+        <taskdef name="SystemInit" classname="org.pgist.tests.SystemInit" classpathref="classpath">
+        </taskdef>
+        <SystemInit action="backup" configPath="${temp}/WEB-INF/config" dataPath="${base}/backup"/>
+    </target>
+    
+    
+    <target name="loadTaxData" depends="compile">
+        <taskdef name="TaxCalcDataLoader" classname="org.pgist.tests.TaxCalcDataLoader" classpathref="classpath">
+        </taskdef>
+        <TaxCalcDataLoader configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata/taxcalc"/>
+    </target>
+    
+    
+    <target name="loadTestData" depends="mapping">
+        <taskdef name="LoadTestData" classname="org.pgist.tests.PrepTestDataLoader" classpathref="classpath">
+        </taskdef>
+        <LoadTestData configPath="${temp}/WEB-INF/config"/>
+    </target>
+    
+    <target name="loadGisData" depends="mapping">
+        <taskdef name="GISDataLoader" classname="org.pgist.tests.GISDataLoader" classpathref="classpath">
+        </taskdef>
+        <GISDataLoader configPath="${temp}/WEB-INF/config" xlsPath="${base}/initdata/PostGIS/PGISTDB.xls" />
+    </target>
+    
+    <target name="workflow">
+        <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath">
+        </taskdef>
+        <WorkflowImporter definition="workflow.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+    
+    <target name="LIT_pgames">
+		    <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
+        <WorkflowImporter definition="LIT_pgames.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="LIT_pmethods">
+		    <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
+        <WorkflowImporter definition="LIT_pmethods.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="LIT_meetings">
+		    <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
+        <WorkflowImporter definition="LIT_meetings.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="LIT_situations">
+		    <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
+        <WorkflowImporter definition="LIT_situations.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="SARP">
+		    <taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
+        <WorkflowImporter definition="SARP.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
+    
+
+    <target name="hibernate" depends="compile">
+        <taskdef name="TestHibernate" classname="org.pgist.tests.TestHibernate" classpathref="classpath">
+        </taskdef>
+        <TestHibernate configPath="${temp}/WEB-INF/config" script="testdata/hibernate.bsh"/>
+    </target>
+    
+
+    <target name="matrix" depends="compile">
+        <taskdef name="TestMatrix" classname="org.pgist.tests.TestMatrix" classpathref="classpath">
+        </taskdef>
+        <TestMatrix configPath="${temp}/WEB-INF/config" script="testdata/matrix.bsh" output="testdata/matrix.log"/>
+    </target>
+    
+
+    <target name="ga" depends="compile">
+        <taskdef name="TestGAKnapsack" classname="org.pgist.tests.TestGAKnapsack" classpathref="classpath">
+        </taskdef>
+        <TestGAKnapsack engine="testdata/knapsack.bsh" fitness="testdata/fitness.bsh"/>
+    </target>
+    
+
+    <target name="lucene" depends="compile">
+        <taskdef name="TestLucene" classname="org.pgist.tests.TestLucene" classpathref="classpath">
+        </taskdef>
+        <TestLucene indexPath="${webapp}/WEB-INF/lucene" script="testdata/lucene.bsh"/>
+    </target>
+    
+
+    <target name="htmlparser" depends="compile">
+        <taskdef name="TestLucene" classname="org.pgist.tests.TestHtmlParser" classpathref="classpath">
+        </taskdef>
+        <TestLucene script="testdata/htmlparser.bsh"/>
+    </target>
+    
+
+    <target name="staticpage" depends="compile">
+        <taskdef name="StaticPageIndexing" classname="org.pgist.tests.StaticPageIndexing" classpathref="classpath">
+        </taskdef>
+        <StaticPageIndexing indexPath="${webapp}/WEB-INF/lucene"
+            dataPath="${base}/initdata" sourcePath="${web}/WEB-INF/jsp/lm" />
+    </target>
+    
+
+    <target name="javadoc">
+        <delete dir="${javadoc}"/>
+        <mkdir dir="${javadoc}"/>
+        <javadoc classpathref="classpath" destdir="${javadoc}" author="true" version="true"
+                 use="true" windowtitle="PGIST API" doctitle="PGIST" Locale="en_US"
+                 bottom="Copyright &#169; ${doctime} University of Washington. All Rights Reserved.">
+            <packageset dir="${src}" defaultexcludes="yes">
+              <include name="**"/>
+            </packageset>
+        </javadoc>
+        <copy todir="${javadoc-webapp}">
+          <fileset dir="${javadoc}">
+          </fileset>
+        </copy>
+    </target>
+
+
+    <target name="deploy" depends="compile, mapping, config">
+        <mkdir dir="${webapp}"/>
+        <copy todir="${webapp}">
+          <fileset dir="${web}">
+            <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
+            <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+            <exclude name="WEB-INF/src/**"/>
+            <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
+          </fileset>
+        </copy>
+        <copy todir="${webapp}" overwrite="true">
+          <fileset dir="${temp}">
+            <include name="WEB-INF/web.xml"/>
+            <include name="WEB-INF/config/*"/>
+          </fileset>
+        </copy>
+    </target>
+
+    
+    <target name="fastdeploy" depends="compile, config">
+        <mkdir dir="${webapp}"/>
+        <copy todir="${webapp}">
+            <fileset dir="${web}">
+                <exclude name="WEB-INF/web.xml"/>
+                <exclude name="WEB-INF/classes/org/pgist/ddl/**"/>
+                <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+                <exclude name="WEB-INF/src/**"/>
+                <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
+            </fileset>
+        </copy>
+        <copy todir="${webapp}" overwrite="true">
+          <fileset dir="${temp}">
+            <include name="WEB-INF/config/context-database.xml"/>
+          </fileset>
+        </copy>
+    </target>
+    
+
+    <target name="war" depends="compile, mapping">
+        <war destfile="${base}/cvotest.war" webxml="${web}/WEB-INF/web.xml">
+            <fileset dir="${web}">
+                <exclude name="WEB-INF/classes/org/pgist/tests/**"/>
+                <exclude name="WEB-INF/src/**"/>
+                <exclude name="WEB-INF/lib/log4j-1.2.9.jar"/>
+            </fileset>
+        </war>
+    </target>
+
+
+    <target name="junit" depends="compile">
+        <junit printsummary="on" fork="false" haltonfailure="false" failureproperty="tests.failed" showoutput="true">
+            <classpath refid="classpath"/>
+            <formatter type="brief" usefile="false"/>
+            <batchtest>
+                <fileset dir="${src}">
+                    <include name="**/Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+  
+    <target name="axis">
+        <!--axis-admin port="${target.port}" hostname="${target.server}" failonerror="true" debug="true"
+            servletpath="${target.appname}/services/AdminService" xmlfile="${endpoint-stub.wsdd}"
+        /-->
+        
+        <!--taskdef name="templatedoclet" classname="xdoclet.DocletTask" classpathref="classpath"/>
+        
+        <tstamp>
+            <format property="TODAY" pattern="dd-MM-yy"/>
+        </tstamp>
+        
+        <templatedoclet destdir="${build}" verbose="1">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <template templateFile="web/WEB-INF/config/axis-wsdd.xdt" destinationFile="deploy.wsdd">
+                <configParam name="Xmlencoding" value="utf-8" />
+            </template>
+        </templatedoclet-->
+    </target>
+    
+    
+    <!--
+    <target name="webservice" description="Web Service with XDoclet">
+        <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
+        <ejbdoclet destdir="${temp}">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+            <axisdeploy destDir="${temp}"
+                contextProviderUrl="localhost:8080"
+                contextFactoryName="org.jnp.interfaces.NamingContextFactory"
+            />
+            <axisundeploy destDir="${temp}"/>
+        </ejbdoclet>
+    </target>
+    -->
+    
+    
+</project>
+
