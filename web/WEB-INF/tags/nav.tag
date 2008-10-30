@@ -21,6 +21,7 @@
                 <span><pg:url page="/login.do">Log in</pg:url></span>
             </c:otherwise>
             </c:choose>
+            <span style="text-align:right"><a href="javascript:location.reload(true)">Reload Page</a>
         </div>
 
         <!-- Begin Search -->
