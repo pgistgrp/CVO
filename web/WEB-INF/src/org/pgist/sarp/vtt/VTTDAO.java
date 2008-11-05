@@ -33,4 +33,6 @@ public interface VTTDAO extends BaseDAO {
     
     void increaseSpecialistVoting(VTTSpecialistComment comment, boolean agree) throws Exception;
 
+    MUnitSet getMUnitSetById(Long musetId) throws Exception;
+
 } //interface VTTDAO

@@ -17,9 +17,11 @@
   <jsp:include page="vttCatsTable.jsp" />
 </div>
 
+<form name="mainForm" method="POST" action="#">
 <div id="col-right" style="overflow:auto;height:350px;text-align:center;">
   <b>Units of Measurement Specialist Analysis and Selection:</b>
 </div>
+</form>
 
 <div id="col-right2" style="overflow:hidden;clear:both;height:20px;border-top:1px solid #B4D579;">
   <div style="float:left;overflow:hidden;">

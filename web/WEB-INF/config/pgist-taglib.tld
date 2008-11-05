@@ -748,5 +748,23 @@
   </tag>
   
 
+  <tag>
+    <name>msetSelection</name>
+    <tag-class>org.pgist.tags.MsetSelectionTag</tag-class>
+    <body-content>empty</body-content>
+    <description>msetSelection</description>
+    <attribute>
+      <name>mset</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>unit</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
 </taglib>
 

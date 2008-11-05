@@ -3,10 +3,9 @@ var tree1 = {
   select : function(id) {
     displayIndicator(true);
     var current = this.selectedId;
-    VTTAgent.getExpertUnitSet({targetUserId:targetUserId, pathId:id}, <pg:wfinfo/>,{
+    VTTAgent.getPathStats({pathId:id}, {
       callback:function(data){
           if (data.successful){
-              displayIndicator(false);
               $("col-right").innerHTML = data.html;
               
               if (current!=null) {
@@ -16,9 +15,9 @@ var tree1 = {
               currentCategory = $('col-'+tree1.selectedId).innerHTML;
               $('row-'+tree1.selectedId).className = "catSelected";
           }else{
-              displayIndicator(false);
               alert(data.reason);
           }
+          displayIndicator(false);
       },
       errorHandler:function(errorString, exception){ 
           alert("get comments error: " + errorString +" "+ exception);
@@ -27,3 +26,33 @@ var tree1 = {
   }
 };
 
+infoObject.loadTarget = function() {
+};
+
+function saveUnitSelection(pathId) {
+  $('btnSave').disabled = true;
+  
+  var userSels = document.mainForm.userSel;
+  var selection = '';
+  for (var i=0; i<userSels.length; i++) {
+    if (userSels[i].checked) {
+      selection = userSels[i].value;
+      break;
+    }
+  }
+  
+  VTTAgent.saveSelection({pathId:pathId, unit:selection}, {
+    callback:function(data){
+        if (data.successful){
+            tree1.select(pathId);
+        }else{
+            alert(data.reason);
+            $('btnSave').disabled = false;
+        }
+        displayIndicator(false);
+    },
+    errorHandler:function(errorString, exception){ 
+        alert("get comments error: " + errorString +" "+ exception);
+    }
+  });
+}

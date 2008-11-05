@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
-<div id="col-left" style="float:left;width:100%;overflow:auto;height:50%;border-right:1px solid #B4D579;">
+<div id="col-left" style="float:left;width:100%;overflow:auto;height:300px;border-right:1px solid #B4D579;">
   <b>CHT Path Voting:</b>
   <pg:chtGetPaths var="paths" chtId="${infoObject.target.id}" orderby="${orderby}" />
   <table id="catTable" width="100%" cellpadding="2" cellspacing="0">

@@ -2,7 +2,10 @@ package org.pgist.sarp.vtt;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.pgist.sarp.bct.BCTDAO;
 import org.pgist.sarp.cht.CHT;
@@ -374,6 +377,90 @@ public class VTTServiceImpl implements VTTService {
         
         vttDAO.save(muset);
     } //setUnitComment()
+
+
+    @Override
+    public void setClusteredExpertsSelections(Long vttId) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        
+        for (CategoryPath path : vtt.getPaths()) {
+            MUnitSet mset = vttDAO.getMUnitSetByPathId(path.getId());
+            
+            Map<String, Integer> apprFreqs = mset.getApprFreqs();
+            Map<String, Integer> availFreqs = mset.getAvailFreqs();
+            Map<String, Integer> dupFreqs = mset.getDupFreqs();
+            Map<String, Integer> recFreqs = mset.getRecoFreqs();
+            
+            for (Map.Entry<Long, EUnitSet> entry : mset.getExpUnits().entrySet()) {
+                for (Map.Entry<String, Boolean> apprEntry : entry.getValue().getApprs().entrySet()) {
+                    String unit = apprEntry.getKey();
+                    Integer count = apprFreqs.get(unit);
+                    if (count==null) {
+                        apprFreqs.put(unit, 1);
+                    } else {
+                        apprFreqs.put(unit, count+1);
+                    }
+                }
+                
+                for (Map.Entry<String, Boolean> availEntry : entry.getValue().getAvails().entrySet()) {
+                    String unit = availEntry.getKey();
+                    Integer count = availFreqs.get(unit);
+                    if (count==null) {
+                        availFreqs.put(unit, 1);
+                    } else {
+                        availFreqs.put(unit, count+1);
+                    }
+                }
+                
+                for (Map.Entry<String, Boolean> dupEntry : entry.getValue().getDups().entrySet()) {
+                    String unit = dupEntry.getKey();
+                    Integer count = dupFreqs.get(unit);
+                    if (count==null) {
+                        dupFreqs.put(unit, 1);
+                    } else {
+                        dupFreqs.put(unit, count+1);
+                    }
+                }
+                
+                for (Map.Entry<String, Boolean> recoEntry : entry.getValue().getRecs().entrySet()) {
+                    String unit = recoEntry.getKey();
+                    Integer count = recFreqs.get(unit);
+                    if (count==null) {
+                        recFreqs.put(unit, 1);
+                    } else {
+                        recFreqs.put(unit, count+1);
+                    }
+                }
+                
+                Set<String> units = new HashSet<String>();
+                units.addAll(apprFreqs.keySet());
+                units.addAll(availFreqs.keySet());
+                units.addAll(dupFreqs.keySet());
+                units.addAll(recFreqs.keySet());
+                
+                for (String unit : units) {
+                    if (apprFreqs.get(unit)==null) apprFreqs.put(unit, 0);
+                    if (availFreqs.get(unit)==null) availFreqs.put(unit, 0);
+                    if (dupFreqs.get(unit)==null) dupFreqs.put(unit, 0);
+                    if (recFreqs.get(unit)==null) recFreqs.put(unit, 0);
+                }
+            }
+            
+            vttDAO.save(mset);
+        }
+    } //setClusteredExpertsSelections()
+
+
+    @Override
+    public void saveSelection(Long pathId, Long userId, String unit) throws Exception {
+        MUnitSet mset = vttDAO.getMUnitSetByPathId(pathId);
+        if (unit==null) {
+            mset.getUserSelections().remove(userId);
+        } else {
+            mset.getUserSelections().put(userId, unit);
+        }
+        vttDAO.save(mset);
+    } //saveSelection()
 
 
 } //class VTTServiceImpl

@@ -468,6 +468,18 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.cluster.vtt.experts" title="Cluster CIT experts selections" auto="true">
+            <description>
+              <![CDATA[Cluster VTT experts selections]]>
+            </description>
+            <taskName>task-sarp.cluster.vtt.experts</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
         <pgame name="pgame-sarp.drt.vtt" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Review climate concern indicators, then comment</small>]]>
@@ -1029,6 +1041,13 @@
                         <pgame name="pgame-sarp.vtt.wait" />
                     </sequence>
                 </branch>
+                <pgame name="pgame-sarp.cluster.vtt.experts">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
                 <repeat exitCondition="pmethod.vttExitCondition">
                     <sequence>
                         <pgame name="pgame-sarp.toggle.drt">

@@ -71,6 +71,10 @@
         <property name="vttService" ref="vttService"/>
     </bean>
     
+    <bean id="task-sarp.cluster.vtt.experts" class="org.pgist.sarp.vtt.VTTExpertsClusterTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
     <bean id="task-sarp.vtt.clear.winner" class="org.pgist.sarp.vtt.ClearVTTWinnerTask">
         <property name="vttService" ref="vttService"/>
     </bean>
@@ -104,6 +108,7 @@
               <entry><key><value>task-sarp.publish.vtt</value></key><ref bean="task-sarp.publish.vtt" /></entry>
               <entry><key><value>task-sarp.toggle.vtt</value></key><ref bean="task-sarp.toggle.vtt" /></entry>
               <entry><key><value>task-sarp.cluster.vtt.categories</value></key><ref bean="task-sarp.cluster.vtt.categories" /></entry>
+              <entry><key><value>task-sarp.cluster.vtt.experts</value></key><ref bean="task-sarp.cluster.vtt.experts" /></entry>
               <entry><key><value>task-sarp.vtt.clear.winner</value></key><ref bean="task-sarp.vtt.clear.winner" /></entry>
               <entry><key><value>task-sarp.drt.clear.vote</value></key><ref bean="task-sarp.drt.clear.vote" /></entry>
               <entry><key><value>task-sarp.toggle.drt</value></key><ref bean="task-sarp.toggle.drt" /></entry>

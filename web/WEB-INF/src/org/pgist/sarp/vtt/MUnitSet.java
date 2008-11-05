@@ -29,6 +29,18 @@ public class MUnitSet {
     // map: expert id --> comment
     private Map<Long, String> expComments = new HashMap<Long, String>();
     
+    // map: unit --> appropriate frequency
+    private Map<String, Integer> apprFreqs = new HashMap<String, Integer>();
+    
+    // map: unit --> available frequency
+    private Map<String, Integer> availFreqs = new HashMap<String, Integer>();
+    
+    // map: unit --> duplicate frequency
+    private Map<String, Integer> dupFreqs = new HashMap<String, Integer>();
+    
+    // map: unit --> recommended frequency
+    private Map<String, Integer> recoFreqs = new HashMap<String, Integer>();
+    
     // map: user id --> unit selected by this user
     private Map<Long, String> userSelections= new HashMap<Long, String>();
     
@@ -79,6 +91,78 @@ public class MUnitSet {
     }
 
 
+    public Map<String, Integer> getApprFreqs() {
+        return apprFreqs;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="sarp_munitset_unit_apprfreq_map"
+     * @hibernate.collection-key column="munitset_id"
+     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-element type="int" column="freq"
+     */
+    public void setApprFreqs(Map<String, Integer> apprFreqs) {
+        this.apprFreqs = apprFreqs;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="sarp_munitset_unit_availfreq_map"
+     * @hibernate.collection-key column="munitset_id"
+     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-element type="int" column="freq"
+     */
+    public Map<String, Integer> getAvailFreqs() {
+        return availFreqs;
+    }
+
+
+    public void setAvailFreqs(Map<String, Integer> availFreqs) {
+        this.availFreqs = availFreqs;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="sarp_munitset_unit_dupfreq_map"
+     * @hibernate.collection-key column="munitset_id"
+     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-element type="int" column="freq"
+     */
+    public Map<String, Integer> getDupFreqs() {
+        return dupFreqs;
+    }
+
+
+    public void setDupFreqs(Map<String, Integer> dupFreqs) {
+        this.dupFreqs = dupFreqs;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.map table="sarp_munitset_unit_recofreq_map"
+     * @hibernate.collection-key column="munitset_id"
+     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-element type="int" column="freq"
+     */
+    public Map<String, Integer> getRecoFreqs() {
+        return recoFreqs;
+    }
+
+
+    public void setRecoFreqs(Map<String, Integer> recoFreqs) {
+        this.recoFreqs = recoFreqs;
+    }
+
+
     /**
      * @return
      * 
@@ -111,8 +195,6 @@ public class MUnitSet {
     }
 
 
-    
-    
     /**
      * @return
      * 

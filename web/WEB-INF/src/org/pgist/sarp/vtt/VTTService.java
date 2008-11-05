@@ -66,5 +66,9 @@ public interface VTTService {
 
     void setUnitComment(Long musetId, String content) throws Exception;
 
+    void setClusteredExpertsSelections(Long vttId) throws Exception;
+
+    void saveSelection(Long pathId, Long userId, String unit) throws Exception;
+
     
 }//interface VTTService

@@ -163,6 +163,8 @@
       <include method="toggleSelection"/>
       <include method="publishExpertUnits"/>
       <include method="setUnitComment"/>
+      <include method="getPathStats"/>
+      <include method="saveSelection"/>
     </create>
 
 

@@ -156,5 +156,11 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
         }
     } //increaseSpecialistVoting()
 
+
+    @Override
+    public MUnitSet getMUnitSetById(Long musetId) throws Exception {
+        return (MUnitSet) load(MUnitSet.class, musetId);
+    } //getMUnitSetById()
+
     
 } //class VTTDAOImpl
