@@ -66,24 +66,19 @@
                <value>org/pgist/wfengine/RunningHistory.hbm.xml</value>
                <value>org/pgist/wfengine/Activity.hbm.xml</value>
                <value>org/pgist/wfengine/Workflow.hbm.xml</value>
-               <value>org/pgist/sarp/drt/Comment.hbm.xml</value>
+               <value>org/pgist/sarp/GenericComment.hbm.xml</value>
                <value>org/pgist/sarp/drt/InfoObject.hbm.xml</value>
                <value>org/pgist/sarp/drt/DRTAnnouncement.hbm.xml</value>
                <value>org/pgist/sarp/bct/BCT.hbm.xml</value>
                <value>org/pgist/sarp/bct/Concern.hbm.xml</value>
-               <value>org/pgist/sarp/bct/ConcernComment.hbm.xml</value>
                <value>org/pgist/sarp/bct/TagReference.hbm.xml</value>
                <value>org/pgist/sarp/cst/CST.hbm.xml</value>
                <value>org/pgist/sarp/cst/CategoryReference.hbm.xml</value>
                <value>org/pgist/sarp/cst/CategoryInfo.hbm.xml</value>
-               <value>org/pgist/sarp/cst/CSTComment.hbm.xml</value>
                <value>org/pgist/sarp/cht/CHT.hbm.xml</value>
-               <value>org/pgist/sarp/cht/CHTComment.hbm.xml</value>
                <value>org/pgist/sarp/cht/CategoryPath.hbm.xml</value>
                <value>org/pgist/sarp/vtt/CategoryPathValue.hbm.xml</value>
                <value>org/pgist/sarp/vtt/VTT.hbm.xml</value>
-               <value>org/pgist/sarp/vtt/VTTComment.hbm.xml</value>
-               <value>org/pgist/sarp/vtt/VTTSpecialistComment.hbm.xml</value>
                <value>org/pgist/sarp/vtt/MUnitSet.hbm.xml</value>
                <value>org/pgist/sarp/vtt/EUnitSet.hbm.xml</value>
                <!-- Other schema information -->

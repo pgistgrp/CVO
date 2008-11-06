@@ -37,6 +37,8 @@
     var currentCategory = null;
     var previousCategory = null;
     var currentUserId = ${user.id};
+    var ownerId = "${param.userId}";
+    if (ownerId=='') ownerId = currentUserId;
     var page = 1;
     
     var tree1 = {
@@ -160,7 +162,7 @@
   }
   
   function getComments(page) {
-      VTTAgent.getComments({vttId:${vtt.id}, page:page}, <pg:wfinfo/>,{
+      VTTAgent.getComments({vttId:${vtt.id}, ownerId:ownerId, page:page}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);
@@ -194,7 +196,7 @@
         alert('please input content');
         return;
     }
-    VTTAgent.createComment({vttId:${vtt.id}, title:title, content:content}, <pg:wfinfo/>,{
+    VTTAgent.createComment({vttId:${vtt.id}, ownerId:ownerId, title:title, content:content}, <pg:wfinfo/>,{
           callback:function(data){
               if (data.successful){
                   displayIndicator(false);

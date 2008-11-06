@@ -99,9 +99,9 @@ public class CHTDAOImpl extends BaseDAOImpl implements CHTDAO {
     }//getComments()
 
 
-    private static final String hql_increaseVoting_21 = "update CHTComment c set c.numVote=c.numVote+1 where c.id=?";
+    private static final String hql_increaseVoting_21 = "update GenericComment c set c.numVote=c.numVote+1 where c.id=?";
     
-    private static final String hql_increaseVoting_22 = "update CHTComment c set c.numAgree=c.numAgree+1 where c.id=?";
+    private static final String hql_increaseVoting_22 = "update GenericComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
     @Override

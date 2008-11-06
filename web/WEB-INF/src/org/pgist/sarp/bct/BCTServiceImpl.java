@@ -373,7 +373,7 @@ public class BCTServiceImpl implements BCTService {
         comment.setCreateTime(WebUtils.getDate());
         
         User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
-        comment.setOwner(owner);
+        comment.setAuthor(owner);
         
         for (String tagStr : tags) {
             Tag tag = analyzer.getTag(tagStr.trim());
@@ -408,7 +408,7 @@ public class BCTServiceImpl implements BCTService {
             
         User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
-        if (owner.getId().equals(comment.getOwner().getId())) {
+        if (owner.getId().equals(comment.getAuthor().getId())) {
             throw new Exception("You are not the owner of this comment");
         }
         
@@ -440,7 +440,7 @@ public class BCTServiceImpl implements BCTService {
         
         User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
-        if (!owner.getId().equals(comment.getOwner().getId())) {
+        if (!owner.getId().equals(comment.getAuthor().getId())) {
             throw new Exception("You are not the owner of this comment");
         }
         

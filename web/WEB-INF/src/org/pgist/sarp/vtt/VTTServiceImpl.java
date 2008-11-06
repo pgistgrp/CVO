@@ -2,7 +2,6 @@ package org.pgist.sarp.vtt;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -138,13 +137,13 @@ public class VTTServiceImpl implements VTTService {
 
 
     public VTTComment createComment(Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception {
-        User user = systemDAO.getUserById(userId);
         VTT vtt = vttDAO.getVTTById(vttId);
         
         VTTComment comment = new VTTComment();
         comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
-        comment.setVtt(vtt);
+        User user = systemDAO.getUserById(userId);
         comment.setOwner(user);
+        comment.setVtt(vtt);
         comment.setTitle(title);
         comment.setContent(content);
         comment.setCreateTime(new Date());

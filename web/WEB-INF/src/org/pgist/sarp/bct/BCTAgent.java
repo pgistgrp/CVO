@@ -1456,7 +1456,7 @@ public class BCTAgent {
                 writer = searchHelper.getIndexWriter();
                 Document doc = new Document();
                 doc.add( new Field("type", "comment", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("author", comment.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                doc.add( new Field("author", comment.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("title", comment.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("body", comment.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
@@ -1559,7 +1559,7 @@ public class BCTAgent {
                 
                 Document doc = new Document();
                 doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("author", comment.getOwner().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
+                doc.add( new Field("author", comment.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
                 doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("title", comment.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
                 doc.add( new Field("body", comment.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );

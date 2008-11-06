@@ -47,7 +47,7 @@
 								</c:otherwise>
 						</c:choose>
 						<div id="discussionText${comment.id}" class="discussionText peekaboobugfix">
-							<p>${pg:purify(comment.content)}</p>
+							<p>${comment.content}</p>
 							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${pg:purify(comment.author.loginname)}">${pg:purify(comment.author.loginname)}</pg:url></h3>
 						</div>
 						<div class="discussionComments peekaboobugfix">

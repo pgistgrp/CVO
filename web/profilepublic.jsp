@@ -46,6 +46,7 @@ function prevDiscussion() {
 }
 
 function getDiscussion(start, end) {
+  return;
 	var user = "${param.user}"; //Make this works, then do the next buttons
 	ProfileAgent.getUserDiscussion({username:user, start:start, end:end}, {
 		callback:function(data){
@@ -77,7 +78,6 @@ function getDiscussion(start, end) {
 <!-- Begin container - Main page content begins here -->
 <div id="container" class="clearfix">
 	<p><h3 class="headerColor" style="display:inline">VCC Participant Profile</h3>
-	<pg:url page="usercp.do"> Edit your profile and settings</pg:url>
 	<!-- start PROFILE-FIELDS section -->
 	<div id="profile-fields">
 		<div id="statistics" class="box9">
@@ -99,31 +99,6 @@ function getDiscussion(start, end) {
 			<span class="label">Username</span>
 			<span class="value">${user.loginname}</span>
 		</p><br />
-		<!--
-		<p>
-			<span class="label">Home location</span>
-			<span class="value">${user.city},${user.zipcode}</span>
-		</p><br />
-		<p>
-			<span class="label">Work Location</span>
-			<span class="value">${user.workCity}, ${user.workZipcode}</span>
-		</p><br />
-		<p>
-			<span class="label">Vocation</span>
-			<span class="value">${user.vocation}</span>
-		</p><br />
-		<p>
-			<span class="label">Transportation</span>
-			<span class="value"><span>${user.primaryTransport.value}</span>
-		</p>
-		<br />
-		<div class="clearBoth"></div>
-		<p>
-			<span class="label">Why I'm here</span> 
-			<span class="value" style="width:700px;">${user.profileDesc}</span> 
-		</p>
-		<br />
--->	
 		<div class="clearBoth"></div>
 
 		<p>
@@ -199,63 +174,6 @@ function getDiscussion(start, end) {
 		</p><br />				
 		<div class="clearBoth"></div>
 		
-		<p>
-			<span class="label">My planning factor weights</span>
-	<span class="value">
-				<div id="weights" style="width:600px;">
-
-					<!-- begin RECENT DISCUSSIONS HEADER -->				
-					<div class="listRow headingColor heading clearfix">
-						<div class="profile-col1 floatLeft" style="margin-left:.2em">
-							<div class="floatLeft">
-								<h4>Planning Factor</h4>
-							</div>
-						</div>
-						<div class="profile-col2 floatRight">
-							<h4>Weights</h4>
-						</div>
-					</div>
-					<!-- end RECENT DISCUSSIONS HEADER -->
-					
-					<!-- begin A RECENT DISCUSSION -->
-					<c:choose>	
-					<c:when test="${fn:length(criterias) == 0}">
-						<p>This user has no planning factors at this time.</p>
-					</c:when>
-					<c:otherwise>
-						<c:set var="rowcount" value="0"/>
-						<c:forEach var="criteria" items="${criterias}" varStatus="loop">
-						
-							<!-- begin A RECENT DISCUSSION -->
-								<c:choose>
-								<c:when test='${rowcount==0}'>
-								<div class="listRow clearfix">
-								<c:set var="rowcount" value="1"/>
-								</c:when>
-								<c:otherwise>
-								<div class="listRow odd clearfix">
-								<c:set var="rowcount" value="0"/>
-								</c:otherwise>
-								</c:choose>
-							
-									<div class="profile-col1 floatLeft">
-										<div class="floatLeft">
-											${criteria.name}
-										</div>
-									</div>
-									<div class="profile-col2 floatRight">${criteria.tempWeight}</div>
-									
-								</div>
-							<!-- end A RECENT DISCUSSION -->
-						</c:forEach>
-					</c:otherwise>
-					</c:choose>
-					
-				</div>
-				<!-- end RECENT DISCUSSIONS -->
-
-  </div>
-	  </span>
 	</div>
 	</p><br />
 	<div class="clearBoth"></div>

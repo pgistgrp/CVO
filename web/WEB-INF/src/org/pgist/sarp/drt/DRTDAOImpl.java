@@ -65,9 +65,9 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
     }//increaseVoting()
 
 
-    private static final String hql_increaseVoting_21 = "update Comment c set c.numVote=c.numVote+1 where c.id=?";
+    private static final String hql_increaseVoting_21 = "update GenericComment c set c.numVote=c.numVote+1 where c.id=?";
     
-    private static final String hql_increaseVoting_22 = "update Comment c set c.numAgree=c.numAgree+1 where c.id=?";
+    private static final String hql_increaseVoting_22 = "update GenericComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
 	@Override

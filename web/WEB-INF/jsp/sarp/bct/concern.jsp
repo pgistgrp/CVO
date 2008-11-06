@@ -135,7 +135,7 @@
 	
 	function setCommentVoting(id, agree){
 		//alert("id: " + id + " agree: " + agree); 
-		BCTAgent.setCommentVoting({id:id,agree:agree}, {
+		BCTAgent.setConcernCommentVoting({id:id,agree:agree}, {
 			callback:function(data){
 				if (data.successful){
 					if($('voting-post'+id) != undefined){

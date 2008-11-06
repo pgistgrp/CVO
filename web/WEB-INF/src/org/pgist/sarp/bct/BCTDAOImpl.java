@@ -523,9 +523,9 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
     }//getConcernComments()
 
 
-    private static final String hql_increaseConcernCommentVoting_11 = "update ConcernComment c set c.numVote=c.numVote+1 where c.id=?";
+    private static final String hql_increaseConcernCommentVoting_11 = "update GenericComment c set c.numVote=c.numVote+1 where c.id=?";
     
-    private static final String hql_increaseConcernCommentVoting_12 = "update ConcernComment c set c.numAgree=c.numAgree+1 where c.id=?";
+    private static final String hql_increaseConcernCommentVoting_12 = "update GenericComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
     public void increaseVoting(ConcernComment comment, boolean agree) throws Exception {

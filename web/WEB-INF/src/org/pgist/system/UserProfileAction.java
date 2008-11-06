@@ -47,7 +47,6 @@ public class UserProfileAction extends Action {
      * When call this action, the following parameters are required:<br>
      * <ul>
      *   <li>user - string, username.</li>
-
      * </ul>
      */
     public ActionForward execute(
@@ -69,19 +68,17 @@ public class UserProfileAction extends Action {
     			if(date != null) {
     				strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
     			}
-    			int post = profileService.getPostCount(username);
+    			//int post = profileService.getPostCount(username);
     			int visits = profileService.getTotalVisits(username);
     			//Collection discussions = profileService.getUserDiscussion(username);
     			String[] tags = profileService.getAllTags(username);
-    			Set criterias = profileService.getUserCriteria(username);
     			
     			request.setAttribute("user", u);
     			request.setAttribute("tags", tags);
     			request.setAttribute("concerns", concerns);
-    			request.setAttribute("criterias", criterias);
     			//request.setAttribute("discussions", discussions);
     			request.setAttribute("lastlogin", strDate);
-    			request.setAttribute("post", post);
+    			//request.setAttribute("post", post);
         		request.setAttribute("visits", visits);
         		return mapping.findForward("publicprofile");
         		
@@ -92,8 +89,6 @@ public class UserProfileAction extends Action {
             	request.setAttribute("username", user);
                 return mapping.findForward("publicprofile");
             }
-    		
-
     }//execute()
     
     

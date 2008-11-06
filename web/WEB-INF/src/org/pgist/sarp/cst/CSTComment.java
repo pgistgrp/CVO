@@ -1,11 +1,9 @@
 package org.pgist.sarp.cst;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import org.pgist.users.User;
+import org.pgist.sarp.GenericComment;
 
 
 /**
@@ -13,53 +11,20 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="sarp_cst_comment" lazy="true"
+ * @hibernate.joined-subclass name="VTTSpecialistComment" table="sarp_cst_comment" lazy="true"
+ * @hibernate.joined-subclass-key column="id"
  */
-public class CSTComment implements Serializable {
+public class CSTComment extends GenericComment implements Serializable {
     
     
 	private static final long serialVersionUID = -2561599748380339322L;
 	
 	
-	private Long id;
-	
 	private CategoryReference catRef;
 	
-    private String title;
-    
-    private String content;
-    
-    private User author;
-    
-    private Date createTime;
-    
-    private Set tags = new HashSet();
-    
-    private int numAgree;
-    
-    private int numVote;
-    
-    private boolean deleted;
-    
     private CSTComment parent;
     
-    private boolean emailNotify = false;
     
-    
-	/**
-     * @return
-     * @hibernate.id generator-class="native"
-     */
-    public Long getId() {
-        return id;
-    }
-
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
     /**
      * @return
      * 
@@ -77,62 +42,6 @@ public class CSTComment implements Serializable {
 
     /**
      * @return
-     * @hibernate.property
-     */
-    public String getTitle() {
-        return title;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property type="text"
-     */
-    public String getContent() {
-        return content;
-    }
-
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.many-to-one column="author_id" lazy="true" cascade="all"
-     */
-    public User getAuthor() {
-        return author;
-    }
-
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-    
-    
-    /**
-     * @return
      * 
      * @hibernate.set lazy="true" table="sarp_cst_comment_tag_link" cascade="all"
      * @hibernate.collection-key column="comment_id"
@@ -145,62 +54,6 @@ public class CSTComment implements Serializable {
 
     public void setTags(Set tags) {
         this.tags = tags;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public int getNumAgree() {
-        return numAgree;
-    }
-
-
-    public void setNumAgree(int numAgree) {
-        this.numAgree = numAgree;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public int getNumVote() {
-        return numVote;
-    }
-
-
-    public void setNumVote(int numVote) {
-        this.numVote = numVote;
-    }
-
-
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property not-null="true"
-     */
-    public boolean isEmailNotify() {
-        return emailNotify;
-    }
-
-
-    public void setEmailNotify(boolean emailNotify) {
-        this.emailNotify = emailNotify;
     }
 
 

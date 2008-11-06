@@ -98,7 +98,7 @@
 
 <div id="comment${comment.id}" class="discussionRow">
   <c:choose>
-  <c:when test="${baseuser.id == comment.owner.id}">
+  <c:when test="${baseuser.id == comment.author.id}">
   <div class="discussionRowHeader box6">
     </c:when>
     <c:otherwise>
@@ -113,7 +113,7 @@
       </div>
       <span class="discussionTitle"><a id="commentAnchor${comment.id}" name="commentAnchor${comment.id}" href="#commentAnchor${comment.id}">${comment.title}</a></div>
     <c:choose>
-    <c:when test="${baseuser.id == comment.owner.id}">
+    <c:when test="${baseuser.id == comment.author.id}">
     <div class="discussionBody box7 padding5">
       </c:when>
       <c:otherwise>
@@ -125,29 +125,11 @@
             <p>${comment.content}</p>
           </div>
           <div id="commentOwner${comment.id}">
-            <h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${comment.owner.loginname}">${comment.owner.loginname}</pg:url></h3>
+            <h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${comment.author.loginname}">${comment.author.loginname}</pg:url></h3>
           </div>
         </div>
         <pg:show condition="${!bct.closed}">
         <div class="discussionComments peekaboobugfix"> <a href="javascript:setQuote(${comment.id});">Quote</a> </div>
-        <!--
-						<c:if test="${fn:length(comment.tags) > 0}">
-							<ul class="tagsInline">
-								<li class="tagsInline"><strong>Tags:</strong> </li>
-								<c:forEach var="tag" items="${comment.tags}">
-									<c:choose>
-										<c:when test="${baseuser.id == comment.owner.id}">
-											<li class="box6 tagsInline">		
-										</c:when>
-										<c:otherwise>
-											<li class="box8 tagsInline">
-										</c:otherwise>
-									</c:choose>
-									<a href="javascript:changeCurrentFilter('${tag.name}');">${tag.name}</a></li>
-								</c:forEach>
-							</ul>
-							<div style="clear: left;"></div>
-						</c:if>-->
         <pg:show roles="moderator">
           <div class="smallText" style="text-align:right;"> Moderator options:
             <input type="button" onClick="deleteComment(${comment.id});" value="Delete" />

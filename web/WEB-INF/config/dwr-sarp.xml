@@ -92,7 +92,7 @@
       <include method="createConcernComment"/>
       <include method="editConcernComment"/>
       <include method="deleteConcernComment"/>
-      <include method="setCommentVoting"/>
+      <include method="setConcernCommentVoting"/>
       <include method="test"/>
     </create>
 

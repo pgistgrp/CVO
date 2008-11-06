@@ -89,6 +89,7 @@ public class VTTAgent {
      * 
      * @param params A map contains:
      *   <ul>
+     *     <li>ownerId - int</li>
      *     <li>vttId - int, id of a VTT object</li>
      *     <li>page - int, page number of the requestd page of comments</li>
      *   </ul>
@@ -132,11 +133,23 @@ public class VTTAgent {
             return map;
         }
         
+        Long ownerId = null;
+        try {
+            ownerId = new Long((String) params.get("ownerId"));
+            if (ownerId==null) {
+                map.put("reason", "can't find this user");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("reason", "can't find this user");
+            return map;
+        }
+        
         try {
             PageSetting setting = new PageSetting(10);
             setting.setPage((String) params.get("page"));
             
-            Collection<VTTComment> comments = vttService.getComments(WebUtils.currentUserId(), vttId, setting);
+            Collection<VTTComment> comments = vttService.getComments(ownerId, vttId, setting);
             
             request.setAttribute("comments", comments);
             request.setAttribute("setting", setting);
@@ -160,6 +173,7 @@ public class VTTAgent {
      * 
      * @param params A map contains:
      *   <ul>
+     *     <li>ownerId - int</li>
      *     <li>vttId - int, id of a VTT object</li>
      *     <li>title - string, comment title</li>
      *     <li>content - string, comment content</li>
@@ -196,6 +210,18 @@ public class VTTAgent {
             return map;
         }
         
+        Long ownerId = null;
+        try {
+            ownerId = new Long((String) params.get("ownerId"));
+            if (ownerId==null) {
+                map.put("reason", "can't find this user");
+                return map;
+            }
+        } catch (Exception e) {
+            map.put("reason", "can't find this user");
+            return map;
+        }
+        
         try {
             String title = (String) params.get("title");
             String content = (String) params.get("content");
@@ -203,7 +229,7 @@ public class VTTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
-            VTTComment comment = vttService.createComment(WebUtils.currentUserId(), vttId, title, content, false);
+            VTTComment comment = vttService.createComment(ownerId, vttId, title, content, false);
             
             map.put("successful", true);
             

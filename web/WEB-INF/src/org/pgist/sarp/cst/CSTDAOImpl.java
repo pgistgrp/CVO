@@ -410,9 +410,9 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     }//getComments()
 
 
-    private static final String hql_increaseVoting_21 = "update CSTComment c set c.numVote=c.numVote+1 where c.id=?";
+    private static final String hql_increaseVoting_21 = "update GenericComment c set c.numVote=c.numVote+1 where c.id=?";
     
-    private static final String hql_increaseVoting_22 = "update CSTComment c set c.numAgree=c.numAgree+1 where c.id=?";
+    private static final String hql_increaseVoting_22 = "update GenericComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
     @Override

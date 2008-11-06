@@ -56,9 +56,9 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     } //getComments()
 
 
-    private static final String hql_increaseVoting_21 = "update VTTComment c set c.numVote=c.numVote+1 where c.id=?";
+    private static final String hql_increaseVoting_21 = "update GenericComment c set c.numVote=c.numVote+1 where c.id=?";
     
-    private static final String hql_increaseVoting_22 = "update VTTComment c set c.numAgree=c.numAgree+1 where c.id=?";
+    private static final String hql_increaseVoting_22 = "update GenericComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
     @Override
@@ -143,9 +143,9 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     }
     
     
-    private static final String hql_increaseSpecialistVoting_21 = "update VTTSpecialistComment c set c.numVote=c.numVote+1 where c.id=?";
+    private static final String hql_increaseSpecialistVoting_21 = "update GenericComment c set c.numVote=c.numVote+1 where c.id=?";
     
-    private static final String hql_increaseSpecialistVoting_22 = "update VTTSpecialistComment c set c.numAgree=c.numAgree+1 where c.id=?";
+    private static final String hql_increaseSpecialistVoting_22 = "update GenericComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
     
     @Override
