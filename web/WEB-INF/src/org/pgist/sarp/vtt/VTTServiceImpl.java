@@ -118,7 +118,11 @@ public class VTTServiceImpl implements VTTService {
         vtt.setInstruction(instruction);
         vtt.setPurpose(purpose);
         
-        vtt.getPaths().addAll(chtDAO.getPathsByChtId(chtId, null));
+        for (CategoryPath path : chtDAO.getPathsByChtId(chtId, null)) {
+            if (path.getNumAgree()>path.getNumVote()/2.0) {
+                vtt.getPaths().add(path);
+            }
+        }
         
         vttDAO.save(vtt);
         

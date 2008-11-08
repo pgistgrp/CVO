@@ -67,7 +67,7 @@ separator = '/'
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
-"""
+
 class Category:
 	def __init__(self, name=None):
 		self.name = ''
@@ -93,7 +93,7 @@ class CategoryReference:
 	      return self.category, len(self.children), self.frequency, self.tag.name
 	def __len__(self):
 		return len(self.children)
-"""
+
 
 
 
@@ -327,7 +327,7 @@ def getChildLeafList(category=CategoryReference(), childLeafList = []):
 		return
 	else:
 		if len(category.children) > 0:
-			for x in range(0, (len(category.children) - 1)):
+			for x in range(0, (len(category.children))):
 				childLeaf = getChildLeafList(category.children[x], childLeafList)
 				childLeafList.extend(childLeaf)
 		else:
@@ -368,7 +368,7 @@ def getIndicators(catList = None, userIdList = None):
 			# Check if there are subcategories
 			if ((len(child.children)) > 0):
 				childLeafList = []
-				parent = categoryList.category.name
+				parent = child.category.name
 				for leaf in getChildLeafList(child, childLeafList):
 					if isinstance(leaf, ListType):
 						userIndList = [parent]
@@ -384,7 +384,11 @@ def getIndicators(catList = None, userIdList = None):
 				rankInd = (rank, child.category.name)
 				userInd.indList.append(rankInd)
 				rank += 1
-			indicatorList.append(userInd)
+			for childInd in userInd.indList:
+				userIndParts = userIndicator()
+				userIndParts.userId = user
+				userIndParts.indList = childInd
+				indicatorList.append(userIndParts)
 	return indicatorList
 	# END GET USER INDICATORS FROM CATEGORY LIST
 	# ******************************************************************************************
@@ -444,45 +448,39 @@ def getIndicatorFrequencies(indicatorList = None):
 	for userIndicators in indicatorList:
 	# We have a unique user's indicators
 		userId = userIndicators.userId
-		indicators = userIndicators.indList
-		for rankIndicator in indicators:
-			rank, indicator = rankIndicator
-			if isinstance(indicator, ListType):
-				print indicator
-				indicatorName = ""
-				for ind in indicator:
-					indicatorName += ind
-					indicatorName += "/"
-					#indicatorName = "/".join(indicator)
-				indicatorname = indicatorName[:-1]
-			elif isinstance(indicator, StringType):
-				indicatorName = indicator
-			else:
-				raise RuntimeError, "Failure to use given indicator list for statistical analysis. Expecting a list of lists" 
-			# Check if the indicator is already there
-			if statisticsDict.has_key(indicatorName):
-				# It's there. Increase the frequency
-				statisticsDict[indicatorName].freq += 1
-				statisticsDict[indicatorName].compositeRank.append(rank)
-				statisticsDict[indicatorName].userList.append(userId)
-			else:
-				# Not existing. Create and update fields
-				statisticsDict[indicatorName] = IndicatorStatistics()
-				# input .label
-				statisticsDict[indicatorName].label = indicatorName
-				# .freq
-				statisticsDict[indicatorName].freq += 1
-				# .level
-				statisticsDict[indicatorName].level = indicatorName.count("/") + 1
-				# .leaf
-				statisticsDict[indicatorName].leaf = (indicatorName.split("/")).pop()
-				# .initialNode
-				statisticsDict[indicatorName].initialNode = (indicatorName.split("/")).pop(0)
-				# .rank
-				statisticsDict[indicatorName].compositeRank.append(rank)
-				# .keep
-				statisticsDict[indicatorName].keep = 0
-				statisticsDict[indicatorName].userList = [userId]
+		indicatorRank = userIndicators.indList
+		rank, indicator = indicatorRank
+		if isinstance(indicator, ListType):
+			indicatorName = ""
+			indicatorName = "/".join(indicator)
+		elif isinstance(indicator, StringType):
+			indicatorName = indicator
+		else:
+			raise RuntimeError, "Failure to use given indicator list for statistical analysis. Expecting a list of lists" 
+		# Check if the indicator is already there
+		if statisticsDict.has_key(indicatorName):
+			# It's there. Increase the frequency
+			statisticsDict[indicatorName].freq += 1
+			statisticsDict[indicatorName].compositeRank.append(rank)
+			statisticsDict[indicatorName].userList.append(userId)
+		else:
+			# Not existing. Create and update fields
+			statisticsDict[indicatorName] = IndicatorStatistics()
+			# input .label
+			statisticsDict[indicatorName].label = indicatorName
+			# .freq
+			statisticsDict[indicatorName].freq += 1
+			# .level
+			statisticsDict[indicatorName].level = indicatorName.count("/") + 1
+			# .leaf
+			statisticsDict[indicatorName].leaf = (indicatorName.split("/")).pop()
+			# .initialNode
+			statisticsDict[indicatorName].initialNode = (indicatorName.split("/")).pop(0)
+			# .rank
+			statisticsDict[indicatorName].compositeRank.append(rank)
+			# .keep
+			statisticsDict[indicatorName].keep = 0
+			statisticsDict[indicatorName].userList.append(userId)
 	return statisticsDict
 	# END GET INDICATOR FREQUENCIES
 	# ********************************************************************************************
@@ -505,38 +503,37 @@ def getCategoryFrequencies(indicatorList = None):
     # Begin getting frequency calculation
     for userIndicators in indicatorList:
         # This is a list of a user's indicators
-        indicators = userIndicators.indList
-        for rankIndicator in indicators:
-            rank, indicator = rankIndicator
-            isCategory = 0
-            # Check if this is a single-element indicator or a list
-            if isinstance(indicator, ListType):
-                # This is a category that appears as a leaf
-                category = indicator[:]
-                isCategory = 0
-            elif isinstance(indicator, StringType):
-                # This is a category that appears as a node with no leafs
-                category = indicator
-                isCategory = 1
-            else:
-                raise RuntimeError, "Failure to use given indicator list for statistical analysis"
-            if isinstance(category, ListType):
-                for i in (0, len(category) - 1):
-                    if category[i] not in categoryStatsDict:
-                        categoryStatsDict[category[i]] = CategoryInformation()
-                        categoryStatsDict[category[i]].label = category[i]
-                    if i == (len(category) - 1):
-                        categoryStatsDict[category[i]].leafFreq += 1
-                    else:
-                        categoryStatsDict[category[i]].nodeFreq += 1
-            # Check if the category is already in our dictionary
-            elif category not in categoryStatsDict:
-                categoryStatsDict[category] = CategoryInformation()
-                categoryStatsDict[category].label = category
-                if isCategory:
-                    categoryStatsDict[category].leafFreq += 1
-                else:
-                    categoryStatsDict[category].nodeFreq += 1   
+		indicatorRank = userIndicators.indList
+		rank, indicator = indicatorRank
+		isCategory = 0
+		# Check if this is a single-element indicator or a list
+		if isinstance(indicator, ListType):
+			# This is a category that appears as a leaf
+			category = indicator[:]
+			isCategory = 0
+		elif isinstance(indicator, StringType):
+			# This is a category that appears as a node with no leafs
+			category = indicator
+			isCategory = 1
+		else:
+			raise RuntimeError, "Failure to use given indicator list for statistical analysis"
+		if isinstance(category, ListType):
+			for i in (0, len(category) - 1):
+				if category[i] not in categoryStatsDict:
+					categoryStatsDict[category[i]] = CategoryInformation()
+					categoryStatsDict[category[i]].label = category[i]
+				if i == (len(category) - 1):
+					categoryStatsDict[category[i]].leafFreq += 1
+				else:
+					categoryStatsDict[category[i]].nodeFreq += 1
+		# Check if the category is already in our dictionary
+		elif category not in categoryStatsDict:
+			categoryStatsDict[category] = CategoryInformation()
+			categoryStatsDict[category].label = category
+			if isCategory:
+				categoryStatsDict[category].leafFreq += 1
+			else:
+				categoryStatsDict[category].nodeFreq += 1   
     return categoryStatsDict
     # END CATEGORIES FREQUENCIES
     # ********************************************************************************************
@@ -593,6 +590,7 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		newPath.setTitle(indic)
 		#newPath.setUsers(indicStat.users)
 		factory.addPath(newPath)
+        #print newPath.title
 		
 # end of your algorithm
 
