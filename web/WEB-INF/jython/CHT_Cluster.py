@@ -387,7 +387,7 @@ def getIndicators(catList = None, userIdList = None):
 				rank += 1
 			for childInd in userInd.indList:
 				userIndParts = userIndicator()
-				userIndParts.userId = user
+				userIndParts.userId = userIdList[x]
 				userIndParts.indList = childInd
 				indicatorList.append(userIndParts)
 	return indicatorList
