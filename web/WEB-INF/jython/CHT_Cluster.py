@@ -357,9 +357,10 @@ def getIndicators(catList = None, userIdList = None):
 	indicatorList = []
 
 	# Loop through the categories list provided
-	for user, categoryList in enumerate(catList):
+	for x in range(len(userIdList)):
 		userInd = userIndicator()
-		userInd.userId = user
+		userInd.userId = userIdList[x]
+		categoryList = catList[x]
 		userInd.indList = []
 		# Incorporate the rank
 		rank = 1
@@ -459,10 +460,13 @@ def getIndicatorFrequencies(indicatorList = None):
 			raise RuntimeError, "Failure to use given indicator list for statistical analysis. Expecting a list of lists" 
 		# Check if the indicator is already there
 		if statisticsDict.has_key(indicatorName):
-			# It's there. Increase the frequency
-			statisticsDict[indicatorName].freq += 1
-			statisticsDict[indicatorName].compositeRank.append(rank)
-			statisticsDict[indicatorName].userList.append(userId)
+			if statisticsDict[indicatorName].userList.count(userId):
+				pass
+			else:
+				# It's there. Increase the frequency as the user didn't add it
+				statisticsDict[indicatorName].freq += 1
+				statisticsDict[indicatorName].compositeRank.append(rank)
+				statisticsDict[indicatorName].userList.append(userId)
 		else:
 			# Not existing. Create and update fields
 			statisticsDict[indicatorName] = IndicatorStatistics()
