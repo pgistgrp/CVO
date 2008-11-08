@@ -286,7 +286,8 @@ def isSimilar(listA = [], listB = []):
 	setA = Set(listA)
 	setB = Set(listB)
 	jaccard = float(len(setA.intersection(setB))) / float(len(setA.union(setB)))
-	return jaccard
+	
+	return int(jaccard*1000)
 
 def difference(listA = [], listB = []):
 	setA = Set(listA)
@@ -336,8 +337,8 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 					jScore = isSimilar(inCatTags, catInfoList[catInfoLoc].tags)
 				else:
 					# One of the sets is empty, therefore similarity is 0
-					jScore = 0.0
-				if jScore >= 0.8:
+					jScore = 0
+				if jScore >= 800:
 					# The two sets are identical
 					catInfoList[catInfoLoc].freqNameAndSet += 1
 					catInfoList[catInfoLoc].users.append(user)
@@ -362,7 +363,7 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 					else:
 						# One of the sets is empty, therefore similarity is 0
 						jScore = 0
-					if jScore >= 0.8:
+					if jScore >= 800:
 						# There is a match on the sets level
 						catInfo.freqSet += 1
 						catInfo.alias.append(userCats.category.name)
@@ -407,12 +408,25 @@ def saveToDB(catInfoList = None):
 		info.freqName = cat.freqName
 		info.freqNameAndSet = cat.freqNameAndSet
 		for alias in cat.alias:
-			info.addAlias(alias)
+			#
+			#
+			#
+			#info.addAlias(alias)
+			#
+			#
+			#
+			pass
 		for score in cat.jaccardScores:
-			info.addScore(int(score*1000))
+			info.addScore(score)
 		for tagsDiff in cat.tagsDiff:
+			#
+			#
+			#
 			# TODO: Add the tag differences between the categories
 			# TODO: Commented out temporarily: info.tagsDiff.add(tagsDiff)
+			#
+			#
+			#
 			pass
 		rootCat.addChild(info)
 	print rootCat
