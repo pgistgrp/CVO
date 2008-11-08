@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.digester.SetRootRule;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
@@ -229,7 +228,7 @@ public class VTTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
-            VTTComment comment = vttService.createComment(ownerId, vttId, title, content, false);
+            VTTComment comment = vttService.createComment(new Long((String) wfinfo.get("workflowId")), ownerId, vttId, title, content, false);
             
             map.put("successful", true);
             
@@ -793,7 +792,7 @@ public class VTTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
-            VTTSpecialistComment comment = vttService.createSpecialistComment(vttId, targetUserId, title, content, false);
+            VTTSpecialistComment comment = vttService.createSpecialistComment(new Long((String) wfinfo.get("workflowId")), vttId, targetUserId, title, content, false);
             
             map.put("successful", true);
             

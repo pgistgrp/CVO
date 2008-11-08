@@ -1063,7 +1063,7 @@ public class CSTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
-            CSTComment comment = cstService.createComment(catRefId, title, content, false);
+            CSTComment comment = cstService.createComment(new Long((String) wfinfo.get("workflowId")), catRefId, title, content, false);
             
             map.put("successful", true);
             

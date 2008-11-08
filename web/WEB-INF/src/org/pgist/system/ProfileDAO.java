@@ -12,17 +12,17 @@ public interface ProfileDAO {
 	
 	boolean setUserInfo(User user, String homecity, String homezipcode, String workcity, String workzipcode, String vocation, String primarytransport, String profiledesc) throws Exception;
 	
-	Date getLastLogin(String username) throws Exception;
+	Date getLastLogin(Long userId) throws Exception;
 	
-	int getTotalVisits(String username) throws Exception;
+	int getTotalVisits(Long userId) throws Exception;
 	
-	int getPostCount(String username) throws Exception;
+	int getPostCount(Long userId) throws Exception;
 	
-	Collection getUserConcerns(String username) throws Exception;
+	Collection getUserConcerns(Long userId) throws Exception;
 	
 	Collection getUserDiscussion(String username, int start, int end) throws Exception;
 	
-	String[] getAllTags(String username) throws Exception;
+	String[] getAllTags(Long userId) throws Exception;
 	
 	Set getUserCriteria(String username) throws Exception;
 	

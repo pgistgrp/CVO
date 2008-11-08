@@ -3,7 +3,6 @@ package org.pgist.system;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -46,7 +45,7 @@ public class UserProfileAction extends Action {
     /**
      * When call this action, the following parameters are required:<br>
      * <ul>
-     *   <li>user - string, username.</li>
+     *   <li>userId - integer</li>
      * </ul>
      */
     public ActionForward execute(
@@ -55,30 +54,30 @@ public class UserProfileAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-    		String username = request.getParameter("user");
+    		Long userId = new Long((String) request.getParameter("userId"));
 			
     		try {
     	        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user");
     	        request.setAttribute("baseuser", userInfo);
         		
-    			User u = profileService.getUserInfo(username);
-    			Date date = profileService.getLastLogin(username);
-    			Collection concerns = profileService.getUserConcerns(username);
+    			User u = profileService.getUserInfo(userId);
+    			Date date = profileService.getLastLogin(u.getId());
+    			Collection concerns = profileService.getUserConcerns(userId);
     			String strDate = "";
     			if(date != null) {
     				strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
     			}
-    			//int post = profileService.getPostCount(username);
-    			int visits = profileService.getTotalVisits(username);
-    			//Collection discussions = profileService.getUserDiscussion(username);
-    			String[] tags = profileService.getAllTags(username);
+    			int post = profileService.getPostCount(userId);
+    			int visits = profileService.getTotalVisits(u.getId());
+    			//Collection discussions = profileService.getUserDiscussion(userId);
+    			String[] tags = profileService.getAllTags(userId);
     			
     			request.setAttribute("user", u);
     			request.setAttribute("tags", tags);
     			request.setAttribute("concerns", concerns);
     			//request.setAttribute("discussions", discussions);
     			request.setAttribute("lastlogin", strDate);
-    			//request.setAttribute("post", post);
+    			request.setAttribute("post", post);
         		request.setAttribute("visits", visits);
         		return mapping.findForward("publicprofile");
         		

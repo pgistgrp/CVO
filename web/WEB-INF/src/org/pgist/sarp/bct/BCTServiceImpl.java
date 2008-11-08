@@ -360,12 +360,13 @@ public class BCTServiceImpl implements BCTService {
     }//setVotingOnConcern()
 
 
-    public ConcernComment createConcernComment(Long concernId, String title, String content, String[] tags) throws Exception {
+    public ConcernComment createConcernComment(Long workflowId, Long concernId, String title, String content, String[] tags) throws Exception {
         Concern concern = bctDAO.getConcernById(concernId);
         
         if (concern==null) throw new Exception("can't find the specified concern");
             
         ConcernComment comment = new ConcernComment();
+        comment.setWorkflowId(workflowId);
         comment.setConcern(concern);
         comment.setTitle(title);
         comment.setContent(content);

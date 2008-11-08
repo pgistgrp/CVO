@@ -70,7 +70,7 @@ public interface CSTService {
 
     Collection<CSTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
 
-    CSTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception;
+    CSTComment createComment(Long workflowId, Long catRefId, String title, String content, boolean emailNotify) throws Exception;
 
     CSTComment getCommentById(Long cid) throws Exception;
 

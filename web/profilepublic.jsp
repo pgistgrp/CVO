@@ -162,17 +162,6 @@ function getDiscussion(start, end) {
 		</p><br />
 		
 		<div class="clearBoth"></div>
-		<p>
-			<span class="label">My recent discussion activity</span>
-	  <span class="value">
-	<div id="profile-recent" style="width:600px;">
-	<!-- begin RECENT DISCUSSIONS HEADER -->
-				
-	<!-- end RECENT DISCUSSIONS -->
-	</div>
-	  </span>
-		</p><br />				
-		<div class="clearBoth"></div>
 		
 	</div>
 	</p><br />

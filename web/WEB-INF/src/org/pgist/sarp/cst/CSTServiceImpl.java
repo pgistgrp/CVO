@@ -682,12 +682,13 @@ public class CSTServiceImpl implements CSTService {
 
 
     @Override
-    public CSTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception {
+    public CSTComment createComment(Long workflowId, Long catRefId, String title, String content, boolean emailNotify) throws Exception {
         CategoryReference catRef = cstDAO.getCategoryReferenceById(catRefId);
         
         if (catRef==null) throw new Exception("can't find the specified CategoryReference with id "+catRefId);
         
         CSTComment comment = new CSTComment();
+        comment.setWorkflowId(workflowId);
         comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
         comment.setCatRef(catRef);
         comment.setTitle(title);

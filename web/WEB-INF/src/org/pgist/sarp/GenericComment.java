@@ -16,6 +16,8 @@ public abstract class GenericComment {
     
     protected Long id;
     
+    protected Long workflowId;
+    
     protected String title;
     
     protected String content;
@@ -46,6 +48,18 @@ public abstract class GenericComment {
     
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public Long getWorkflowId() {
+        return workflowId;
+    }
+    public void setWorkflowId(Long workflowId) {
+        this.workflowId = workflowId;
     }
 
 

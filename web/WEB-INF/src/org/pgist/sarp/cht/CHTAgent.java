@@ -342,7 +342,7 @@ public class CHTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
-            CHTComment comment = chtService.createComment(catRefId, title, content, false);
+            CHTComment comment = chtService.createComment(new Long((String) wfinfo.get("workflowId")), catRefId, title, content, false);
             
             map.put("successful", true);
             

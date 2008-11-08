@@ -1,8 +1,6 @@
 package org.pgist.system;
 
-import java.text.DateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,45 +29,6 @@ public class ProfileAgent {
         this.profileService = profileService;
     }
 	
-	/**
-     * Get Public User Information
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>username - string, user's login name</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>user - user object containing only public information</li>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map getUserInfo(HttpServletRequest request, Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        String username = (String) params.get("username");
-    	
-    	if(username==null || "".equals(username.trim())){
-    		map.put("reason", "username cannot be blank.");
-    		return map;
-    	}
-    	
-        try {
-        	
-        	User user = profileService.getUserInfo(username);
-            request.setAttribute("user", user);
-            map.put("user", user);
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//getUserInfo()
-    
     
 	/**
      * Verify the current user
@@ -181,89 +140,6 @@ public class ProfileAgent {
         
         return map;
     }
-    
-    
-	/**
-     * Get user statistics
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>username - string, user's login name</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map getUserStats(HttpServletRequest request, Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        String username = (String) params.get("username");
-        
-        if(username==null || "".equals(username.trim())){
-    		map.put("reason", "username cannot be blank.");
-    		return map;
-    	}
-       
-        try {
-        	Date date = profileService.getLastLogin(username);
-        	int visits = profileService.getTotalVisits(username);
-        	int post = profileService.getPostCount(username);
-        		
-        	String strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
-        	map.put("date", strDate);
-        	map.put("visits", visits);
-        	map.put("post", post);
-            
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        return map;
-    } //getUserStats();
-    
-    
-	/**
-     * Get users concerns
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>username - string, user's login name</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *     <li>html - html page profile_concerns.jsp</li>
-     *   </ul>
-     */
-    public Map getUserConcerns(HttpServletRequest request, Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        String username = (String) params.get("username");
-        
-        if(username==null || "".equals(username.trim())){
-    		map.put("reason", "username cannot be blank.");
-    		return map;
-    	}
-       
-        try {
-        	Collection concerns = profileService.getUserConcerns(username);
-        		
-        	map.put("concerns", concerns);
-            
-        	request.setAttribute("concerns", concerns);
-
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_concerns.jsp"));       
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        return map;
-    } //getUserConcerns();
     
     
 	/**

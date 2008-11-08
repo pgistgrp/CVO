@@ -136,10 +136,11 @@ public class VTTServiceImpl implements VTTService {
     } //getComments()
 
 
-    public VTTComment createComment(Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception {
+    public VTTComment createComment(Long workflowId, Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         
         VTTComment comment = new VTTComment();
+        comment.setWorkflowId(workflowId);
         comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
         User user = systemDAO.getUserById(userId);
         comment.setOwner(user);
@@ -223,7 +224,7 @@ public class VTTServiceImpl implements VTTService {
     } //getCategoryReferenceById()
 
 
-    public VTTSpecialistComment createSpecialistComment(Long vttId, Long targetUserId, String title, String content, boolean emailNotify) throws Exception {
+    public VTTSpecialistComment createSpecialistComment(Long workflowId, Long vttId, Long targetUserId, String title, String content, boolean emailNotify) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
         
         if (vtt==null) throw new Exception("can't find the specified VTT with id "+vttId);
@@ -232,6 +233,7 @@ public class VTTServiceImpl implements VTTService {
         if (owner==null) throw new Exception("Can't find the targeted user.");
         
         VTTSpecialistComment comment = new VTTSpecialistComment();
+        comment.setWorkflowId(workflowId);
         comment.setAuthor(cstDAO.getUserById(WebUtils.currentUserId()));
         comment.setOwner(owner);
         comment.setVtt(vtt);

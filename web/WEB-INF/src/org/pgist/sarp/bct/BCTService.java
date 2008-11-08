@@ -212,7 +212,7 @@ public interface BCTService {
     boolean setVotingOnConcern(Long id, boolean agree) throws Exception;
 
     
-    ConcernComment createConcernComment(Long concernId, String title, String content, String[] tags) throws Exception;
+    ConcernComment createConcernComment(Long workflowId, Long concernId, String title, String content, String[] tags) throws Exception;
     
     
     ConcernComment editConcernComment(Long commentId, String title, String content, String[] tags) throws Exception;

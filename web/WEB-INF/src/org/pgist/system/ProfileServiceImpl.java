@@ -25,9 +25,9 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 	
 	
-    public User getUserInfo(String username) throws Exception {
-    	User user = systemService.getUserByName(username, false);
-    	return profileDAO.getUserInfo(user);
+    public User getUserInfo(Long userId) throws Exception {
+    	User user = systemService.getUserById(userId);
+    	return user;
     }
     
     
@@ -40,23 +40,23 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     
-    public Date getLastLogin(String username) throws Exception {
-    	return profileDAO.getLastLogin(username);
+    public Date getLastLogin(Long id) throws Exception {
+    	return profileDAO.getLastLogin(id);
     }
     
     
-    public int getTotalVisits(String username) throws Exception {
-    	return profileDAO.getTotalVisits(username);
+    public int getTotalVisits(Long userId) throws Exception {
+    	return profileDAO.getTotalVisits(userId);
     }
     
     
-    public int getPostCount(String username) throws Exception {
-    	return profileDAO.getPostCount(username);
+    public int getPostCount(Long id) throws Exception {
+    	return profileDAO.getPostCount(id);
     }
     
     
-    public Collection getUserConcerns(String username) throws Exception {
-    	return profileDAO.getUserConcerns(username);
+    public Collection getUserConcerns(Long id) throws Exception {
+    	return profileDAO.getUserConcerns(id);
     }
     
     
@@ -65,8 +65,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
     
     
-    public String[] getAllTags(String username) throws Exception {
-    	return profileDAO.getAllTags(username);
+    public String[] getAllTags(Long userId) throws Exception {
+    	return profileDAO.getAllTags(userId);
     }
     
     

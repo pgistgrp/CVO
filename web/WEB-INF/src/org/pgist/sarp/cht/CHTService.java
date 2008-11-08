@@ -38,7 +38,7 @@ public interface CHTService {
 
     Collection<CHTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
 
-    CHTComment createComment(Long catRefId, String title, String content, boolean emailNotify) throws Exception;
+    CHTComment createComment(Long workflowId, Long catRefId, String title, String content, boolean emailNotify) throws Exception;
 
     CHTComment getCommentById(Long cid) throws Exception;
 

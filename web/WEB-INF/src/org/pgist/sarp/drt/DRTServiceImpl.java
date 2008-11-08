@@ -78,12 +78,13 @@ public class DRTServiceImpl implements DRTService {
 
 
 	@Override
-	public Comment createComment(Long oid, String title, String content, boolean emailNotify) throws Exception {
+	public Comment createComment(Long workflowId, Long oid, String title, String content, boolean emailNotify) throws Exception {
 		InfoObject infoObject = drtDAO.getInfoObjectById(oid);
 		
 		if (infoObject==null) throw new Exception("can't find the specified InfoObject with id "+oid);
 		
 		Comment comment = new Comment();
+		comment.setWorkflowId(workflowId);
 		comment.setAuthor(drtDAO.getUserById(WebUtils.currentUserId()));
 		comment.setTarget(infoObject);
 		comment.setTitle(title);

@@ -265,7 +265,7 @@ public class DRTAgent {
         	if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
         	if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
         	
-            Comment comment = drtService.createComment(oid, title, content, false);
+            Comment comment = drtService.createComment(new Long((String) wfinfo.get("workflowId")), oid, title, content, false);
             
             map.put("successful", true);
             

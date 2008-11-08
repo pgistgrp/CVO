@@ -326,8 +326,8 @@ def getChildLeafList(category=CategoryReference(), childLeafList = []):
 	if category is None:
 		return
 	else:
-		if category.children and len(category.children) > 0:
-			for x in range(len(category.children)):
+		if len(category.children) > 0:
+			for x in range(0, (len(category.children) - 1)):
 				childLeaf = getChildLeafList(category.children[x], childLeafList)
 				childLeafList.extend(childLeaf)
 		else:
@@ -368,21 +368,23 @@ def getIndicators(catList = None, userIdList = None):
 			# Check if there are subcategories
 			if ((len(child.children)) > 0):
 				childLeafList = []
+				parent = categoryList.category.name
 				for leaf in getChildLeafList(child, childLeafList):
-					userIndList = [child.category.name]
 					if isinstance(leaf, ListType):
+						userIndList = [parent]
 						for leafElement in leaf:
 							userIndList.append(leafElement)
 					else:
+						userIndList = [parent]
 						userIndList.append(leaf)
-				rankInd = (rank, userIndList)
-				userInd.indList.append(rankInd)
+					rankInd = (rank, userIndList)
+					userInd.indList.append(rankInd)
 				rank += 1
 			else:
 				rankInd = (rank, child.category.name)
 				userInd.indList.append(rankInd)
 				rank += 1
-		indicatorList.append(userInd)
+			indicatorList.append(userInd)
 	return indicatorList
 	# END GET USER INDICATORS FROM CATEGORY LIST
 	# ******************************************************************************************
@@ -591,7 +593,6 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		newPath.setTitle(indic)
 		#newPath.setUsers(indicStat.users)
 		factory.addPath(newPath)
-        print newPath.title
 		
 # end of your algorithm
 

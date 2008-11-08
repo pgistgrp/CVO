@@ -1438,7 +1438,7 @@ public class BCTAgent {
         ConcernComment comment = null;
         
         try {
-            comment = bctService.createConcernComment(concernId, title, content, tags);
+            comment = bctService.createConcernComment(new Long((String) wfinfo.get("workflowId")), concernId, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {

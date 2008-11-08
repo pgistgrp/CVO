@@ -25,7 +25,7 @@ public interface DRTService {
 
 	Collection<Comment> getComments(Long oid, PageSetting setting) throws Exception;
 
-	Comment createComment(Long oid, String title, String content, boolean emailNotify) throws Exception;
+	Comment createComment(Long workflowId, Long oid, String title, String content, boolean emailNotify) throws Exception;
 
 	InfoObject setVotingOnInfoObject(Long oid, boolean agree) throws Exception;
 

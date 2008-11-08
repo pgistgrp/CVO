@@ -26,7 +26,7 @@ public interface VTTService {
 
     Collection<VTTComment> getComments(Long userId, Long vttId, PageSetting setting) throws Exception;
 
-    VTTComment createComment(Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception;
+    VTTComment createComment(Long workflowId, Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception;
 
     void deleteComment(VTTComment comment) throws Exception;
 
@@ -42,7 +42,7 @@ public interface VTTService {
     
     void publish(Long vttId, Long userId) throws Exception;
 
-    VTTSpecialistComment createSpecialistComment(Long vttId, Long targetUserId, String title, String content, boolean emailNotify) throws Exception;
+    VTTSpecialistComment createSpecialistComment(Long workflowId, Long vttId, Long targetUserId, String title, String content, boolean emailNotify) throws Exception;
 
     void setClusteredPaths(Long vttId) throws Exception;
 
