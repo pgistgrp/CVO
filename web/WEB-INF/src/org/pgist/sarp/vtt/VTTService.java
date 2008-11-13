@@ -70,5 +70,12 @@ public interface VTTService {
 
     void saveSelection(Long pathId, Long userId, String unit) throws Exception;
 
+    CategoryPath createPath(Long vttId, String pathIds) throws Exception;
+
+    void deletePathById(Long vttId, Long pathId) throws Exception;
+
+    void saveUnit(Long pathId, String indicator, String measurement,
+            boolean appr, boolean avail, boolean dup, boolean reco) throws Exception;
+
     
 }//interface VTTService

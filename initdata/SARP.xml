@@ -515,6 +515,7 @@
                     <property name="javascript">
                         <![CDATA[
                         <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/vtt/vttMod.js'></script>
                         ]]>
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/vtt/vttMod.jsp" />

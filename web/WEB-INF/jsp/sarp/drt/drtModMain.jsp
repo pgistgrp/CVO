@@ -26,6 +26,7 @@
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
+<script src="scripts/search.js" type="text/javascript"></script>
 
 <pg:property name="style" />
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Query;
+import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -161,6 +162,33 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     public MUnitSet getMUnitSetById(Long musetId) throws Exception {
         return (MUnitSet) load(MUnitSet.class, musetId);
     } //getMUnitSetById()
+
+
+    private static final String hql_checkPath = "select cp from VTT vtt join vtt.paths cp where vtt.id=? and cp.title=?";
+    
+    
+    @Override
+    public boolean checkPath(Long vttId, String title) throws Exception {
+        Query query = getSession().createQuery(hql_checkPath);
+        query.setLong(0, vttId);
+        query.setString(1, title);
+        
+        CategoryPath path = (CategoryPath) query.uniqueResult();
+        
+        return path!=null;
+    }
+
+
+    @Override
+    public CategoryPath getCategoryPathById(Long pathId) throws Exception {
+        return (CategoryPath) getHibernateTemplate().load(CategoryPath.class, pathId);
+    }
+
+
+    @Override
+    public void delete(Object object) throws Exception {
+        getHibernateTemplate().delete(object);
+    }
 
     
 } //class VTTDAOImpl

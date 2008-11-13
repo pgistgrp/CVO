@@ -7,7 +7,7 @@ infoObject.pathIds = [];
 infoObject.addToPath = function(refId, refName) {
   this.pathIds[this.pathIds.length] = refId;
   if ($('newPath').value.length>0) {
-    $('newPath').value += '.';
+    $('newPath').value += '/';
   }
   $('newPath').value += refName;
   $('li-'+refId).hide();

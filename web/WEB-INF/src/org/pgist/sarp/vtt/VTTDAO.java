@@ -3,6 +3,7 @@ package org.pgist.sarp.vtt;
 import java.util.Collection;
 import java.util.List;
 
+import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.system.BaseDAO;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -34,5 +35,11 @@ public interface VTTDAO extends BaseDAO {
     void increaseSpecialistVoting(VTTSpecialistComment comment, boolean agree) throws Exception;
 
     MUnitSet getMUnitSetById(Long musetId) throws Exception;
+
+    boolean checkPath(Long vttId, String title) throws Exception;
+
+    CategoryPath getCategoryPathById(Long pathId) throws Exception;
+
+    void delete(Object object) throws Exception;
 
 } //interface VTTDAO

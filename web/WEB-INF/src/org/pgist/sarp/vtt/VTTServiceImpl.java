@@ -468,4 +468,113 @@ public class VTTServiceImpl implements VTTService {
     } //saveSelection()
 
 
+    @Override
+    public CategoryPath createPath(Long vttId, String pathIds) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        CategoryPath path = new CategoryPath();
+        path.setCht(vtt.getCht());
+        path.setFrequency(0);
+        path.setNumAgree(0);
+        path.setNumVote(0);
+        
+        String[] ids = pathIds.split(",");
+        
+        for (String id : ids) {
+            if (id==null || id.trim().length()==0) continue;
+            
+            CategoryReference catRef = chtDAO.getCategoryReferenceById(new Long(id));
+            path.getCategories().add(catRef);
+        }
+        path.genTitle();
+        
+        if (!vttDAO.checkPath(vttId, path.getTitle())) {
+            vttDAO.save(path);
+        } else {
+            throw new Exception("path already exists!");
+        }
+        
+        vtt.getPaths().add(path);
+        
+        return path;
+    } //createPath()
+
+
+    @Override
+    public void deletePathById(Long vttId, Long pathId) throws Exception {
+        VTT vtt = vttDAO.getVTTById(vttId);
+        CategoryPath path = vttDAO.getCategoryPathById(pathId);
+        vtt.getPaths().remove(path);
+        
+        MUnitSet muset = vttDAO.getMUnitSetByPathId(pathId);
+        vttDAO.delete(muset);
+        
+        vttDAO.save(vtt);
+    }
+
+
+    @Override
+    public void saveUnit(Long pathId, String indicator, String measurement,
+            boolean appr, boolean avail, boolean dup, boolean reco) throws Exception {
+        User user = systemDAO.getUserById(WebUtils.currentUserId());
+        CategoryPath path = vttDAO.getCategoryPathById(pathId);
+        
+        CategoryPathValue value = new CategoryPathValue(path, user, false);;
+        value.setUser(user);
+        value.setName(indicator);
+        value.setCriterion(measurement);
+        vttDAO.save(value);
+        
+        MUnitSet muset = vttDAO.getMUnitSetByPathId(pathId);
+        if (muset==null) {
+            muset = new MUnitSet();
+            muset.setPath(path);
+            if (appr) muset.getApprFreqs().put(indicator, 1);
+            if (avail) muset.getAvailFreqs().put(indicator, 1);
+            if (dup) muset.getDupFreqs().put(indicator, 1);
+            if (reco) muset.getRecoFreqs().put(indicator, 1);
+        } else {
+            int count = muset.getApprFreqs().get(indicator)==null? 0 : muset.getApprFreqs().get(indicator);
+            boolean oldAppr = muset.getApprFreqs().get(indicator)!=null;
+            if (appr!=oldAppr) {
+                if (appr) {
+                    muset.getApprFreqs().put(indicator, count+1);
+                } else {
+                    muset.getApprFreqs().put(indicator, count-1);
+                }
+            }
+            
+            count = muset.getAvailFreqs().get(indicator)==null? 0 : muset.getAvailFreqs().get(indicator);
+            boolean oldAvail = muset.getAvailFreqs().get(indicator)!=null;
+            if (avail!=oldAvail) {
+                if (avail) {
+                    muset.getAvailFreqs().put(indicator, count+1);
+                } else {
+                    muset.getAvailFreqs().put(indicator, count-1);
+                }
+            }
+            
+            count = muset.getDupFreqs().get(indicator)==null? 0 : muset.getDupFreqs().get(indicator);
+            boolean oldDup = muset.getDupFreqs().get(indicator)!=null;
+            if (dup!=oldDup) {
+                if (dup) {
+                    muset.getDupFreqs().put(indicator, count+1);
+                } else {
+                    muset.getDupFreqs().put(indicator, count-1);
+                }
+            }
+            
+            count = muset.getRecoFreqs().get(indicator)==null? 0 : muset.getRecoFreqs().get(indicator);
+            boolean oldReco = muset.getRecoFreqs().get(indicator)!=null;
+            if (reco!=oldReco) {
+                if (reco) {
+                    muset.getRecoFreqs().put(indicator, count+1);
+                } else {
+                    muset.getRecoFreqs().put(indicator, count-1);
+                }
+            }
+        }
+        vttDAO.save(muset);
+    } //saveUnit()
+
+
 } //class VTTServiceImpl

@@ -15,6 +15,7 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.sarp.bct.TagReference;
+import org.pgist.sarp.cht.CHT;
 import org.pgist.sarp.cht.CHTService;
 import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CategoryReference;
@@ -1220,6 +1221,148 @@ public class VTTAgent {
         
         return map;
     } //saveSelection()
+    
+    
+    /**
+     * Add a new CategoryPath.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>vttId - int, id of the VTT object. Required.</li>
+     *     <li>pathId - int, id of the CategoryPath object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map addPath(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String pathIds = (String) params.get("ids");        
+        Long vttId = new Long((String) params.get("vttId"));
+        
+        try {
+            CategoryPath path = vttService.createPath(vttId, pathIds);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //addPath()
+    
+    
+    /**
+     * Add all CategoryPath paths.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>vttId - int, id of the VTT object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getPaths(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long vttId = new Long((String) params.get("vttId"));
+        
+        try {
+            VTT vtt = vttService.getVTTById(vttId);
+            
+            request.setAttribute("vtt", vtt);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttModPaths.jsp"));
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //getPaths()
+    
+
+    public Map getPathInfo(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long pathId = new Long((String) params.get("pathId"));
+        
+        try {
+            CategoryPath path = vttService.getCategoryPathById(pathId);
+            
+            request.setAttribute("path", path);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttModPathInfo.jsp"));
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }
+    
+    
+    public Map deletePath(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long vttId = new Long((String) params.get("vttId"));
+        Long pathId = new Long((String) params.get("pathId"));
+        
+        try {
+            vttService.deletePathById(vttId, pathId);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //deletePath()
+    
+    
+    public Map saveUnit(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long pathId = new Long((String) params.get("pathId"));
+        String indicator = (String) params.get("indicator");
+        String measurement = (String) params.get("measurement");
+        boolean appr = Boolean.valueOf((String) params.get("appr"));
+        boolean avail = Boolean.valueOf((String) params.get("avail"));
+        boolean dup = Boolean.valueOf((String) params.get("dup"));
+        boolean reco = Boolean.valueOf((String) params.get("reco"));
+        
+        try {
+            vttService.saveUnit(pathId, indicator, measurement, appr, avail, dup, reco);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //saveUnit()
     
     
 }//class VTTAgent
