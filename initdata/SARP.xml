@@ -340,7 +340,7 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.chtmod" title="CHT Mod Tool" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.chtmod" title="CHT Mod Tool" auto="false" access="moderator" revisitable="false">
             <description>
               <![CDATA[<small>CHT Mod Tool</small>]]>
             </description>
@@ -502,7 +502,7 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.vttmod" title="CIT Mod Tool" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.vttmod" title="CIT Mod Tool" auto="false" access="moderator" revisitable="false">
             <description>
               <![CDATA[<small>VTT Mod Tool</small>]]>
             </description>

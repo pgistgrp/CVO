@@ -45,3 +45,18 @@ infoObject.setVotingOnPath = function(pathId, agree) {
   });
 };
 
+infoObject.getPaths =function(orderby) {
+  CHTAgent.getDRTPaths({chtId:infoObject.targetId, orderby:orderby}, {
+      callback:function(data){
+          if (data.successful){
+            $("col-left").innerHTML = data.html;
+          }else{
+            alert(data.reason);
+          }
+      },
+      errorHandler:function(errorString, exception){
+          alert("get winner error: " + errorString +" "+ exception);
+      }
+  });
+};
+

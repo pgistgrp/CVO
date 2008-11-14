@@ -140,6 +140,7 @@
       <include method="moveCategoryReference"/>
       <include method="addPath"/>
       <include method="getPaths"/>
+      <include method="getDRTPaths"/>
     </create>
 
 

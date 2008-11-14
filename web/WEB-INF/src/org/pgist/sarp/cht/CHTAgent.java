@@ -808,7 +808,7 @@ public class CHTAgent {
     
     
     /**
-     * Add all CategoryPath paths.
+     * Get all CategoryPath paths.
      * 
      * @param params A map contains:
      *   <ul>
@@ -842,6 +842,52 @@ public class CHTAgent {
         
         return map;
     } //getPaths()
+    
+    
+    /**
+     * Get CategoryPath paths for DRT.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>chtId - int, id of the CHT object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getDRTPaths(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long chtId = new Long((String) params.get("chtId"));
+        String orderby = (String) params.get("orderby");
+        if ("title".equalsIgnoreCase(orderby)) {
+            request.setAttribute("orderby", "title asc");
+        } else if ("freq".equalsIgnoreCase(orderby)) {
+            request.setAttribute("orderby", "frequency desc");
+        } else if ("vote".equalsIgnoreCase(orderby)) {
+            request.setAttribute("orderby", "numVote desc, numAgree desc");
+        }
+        
+        try {
+            CHT cht = chtService.getCHTById(chtId);
+            
+            request.setAttribute("cht", cht);
+            request.setAttribute("chtId", cht.getId());
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cht/drtPaths.jsp"));
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //getDRTPaths()
     
     
 }//class CHTAgent

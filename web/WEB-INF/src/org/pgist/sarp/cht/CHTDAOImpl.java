@@ -117,9 +117,9 @@ public class CHTDAOImpl extends BaseDAOImpl implements CHTDAO {
     
     @Override
     public List<CategoryPath> getPathsByChtId(Long chtId, String orderby) {
-        if (orderby==null || orderby.trim().length()==0) orderby = "frequency";
+        if (orderby==null || orderby.trim().length()==0) orderby = "frequency desc";
         
-        Query query = getSession().createQuery(hql_getPathsByChtId+orderby+" DESC");
+        Query query = getSession().createQuery(hql_getPathsByChtId + orderby);
         query.setLong(0, chtId);
         
         return query.list();

@@ -113,7 +113,14 @@ public class BCTServiceImpl implements BCTService {
 
         Tag tag = null;
         TagReference ref = null;
+        
+        Set<String> tags = new HashSet<String>();
+        
         for (String tagName : tagStrs) {
+            tags.add(tagName);
+        }
+        
+        for (String tagName : tags) {
             if (tagName == null || "".equals(tagName.trim())) continue;
 
             tag = analyzer.getTag(tagName.trim());
