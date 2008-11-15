@@ -390,7 +390,7 @@ def getIndicators(catList = None, userIdList = None):
 										# Does it have children too?
 										numOfSubSubSubSubChildren = len(subSubSubChild.children)
 										if numOfSubSubSubSubChildren > 0:
-											for subSubSubSubchild in subSubSubChild.children:
+											for subSubSubSubChild in subSubSubChild.children:
 												numOfSubSubSubSubSubChildren = len(subSubSubSubChild.children)
 												if numOfSubSubSubSubSubChildren > 0:
 													pass
