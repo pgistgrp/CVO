@@ -443,7 +443,7 @@ def getIndicators(catList = None, userIdList = None):
 		for childInd in userInd.indList:
 			userIndParts = userIndicator()
 			userIndParts.userId = userIdList[x]
-			userIndParts.indList = childInd
+			userIndParts.indList = childInd[:]
 			indicatorList.append(userIndParts)
 			
 	return indicatorList
