@@ -443,7 +443,7 @@ def getIndicators(catList = None, userIdList = None):
 		for childInd in userInd.indList:
 			userIndParts = userIndicator()
 			userIndParts.userId = userIdList[x]
-			userIndParts = childInd
+			userIndParts.indList = childInd
 			indicatorList.append(userIndParts)
 			
 	return indicatorList
@@ -502,9 +502,8 @@ def getIndicatorFrequencies(indicatorList = None):
 	statisticsDict = dict()
 	# Begin getting frequency calculations
 	# each element of the indicator list is actually a user's indicators
-	for rank, userIndicators in indicatorList:
+	for userIndicators in indicatorList:
 	# We have a unique user's indicators
-		print rank, "\n", userIndicators
 		userId = userIndicators.userId
 		indicatorRank = userIndicators.indList
 		rank, indicator = indicatorRank
