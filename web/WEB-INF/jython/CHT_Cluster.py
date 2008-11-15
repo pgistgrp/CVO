@@ -504,6 +504,7 @@ def getIndicatorFrequencies(indicatorList = None):
 	# each element of the indicator list is actually a user's indicators
 	for rank, userIndicators in indicatorList:
 	# We have a unique user's indicators
+		print rank, "\n", userIndicators
 		userId = userIndicators.userId
 		indicatorRank = userIndicators.indList
 		rank, indicator = indicatorRank
