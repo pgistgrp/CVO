@@ -408,7 +408,7 @@ def getIndicators(catList = None, userIdList = None):
 								else:
 									label = child.category.name + "/" + subChild.category.name + "/" + subSubChild.category.name
 									userIndList = [label]
-									rankInd = (rank, usedIndList)
+									rankInd = (rank, userIndList)
 									userInd.indList.append(rankInd)
 									rank = rank + 1
 						else:		# No subchildren
