@@ -355,8 +355,7 @@ def getIndicators(catList = None, userIdList = None):
 	
 	# Create an empty Indicator List
 	indicatorList = []
-	indicatorListToReturn = []
-
+	
 	# Loop through the categories list provided
 	for x in range(len(userIdList)):
 		userInd = userIndicator()
@@ -439,14 +438,15 @@ def getIndicators(catList = None, userIdList = None):
 				userInd.indList.append(rankInd)
 				rank += 1
 			"""
-
-			for childInd in userInd.indList:
-				userIndParts = userIndicator()
-				userIndParts.userId = userIdList[x]
-				userIndParts.indList = childInd
-				indicatorListToReturn.append(userIndParts)
-				
-	return indicatorListToReturn
+		"""
+		for childInd in userInd.indList:
+			userIndParts = userIndicator()
+			userIndParts.userId = userIdList[x]
+			userIndParts.indList = childInd
+			indicatorListToReturn.append(userIndParts)
+		"""
+		
+	return indicatorList
 	# END GET USER INDICATORS FROM CATEGORY LIST
 	# ******************************************************************************************
 
