@@ -390,14 +390,15 @@ def getIndicators(catList = None, userIdList = None):
 										# Does it have children too?
 										numOfSubSubSubSubChildren = len(subSubSubChild.children)
 										if numOfSubSubSubSubChildren > 0:
-											numOfSubSubSubSubSubChildren = len(subSubSubSubChild.children)
-											if numOfSubSubSubSubSubChildren > 0:
-												pass
-											else:
-												userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
-												rankInd = (rank, userIndList)
-												userInd.indLst.append(rankInd)
-												rank = rank + 1
+											for subSubSubSubchild in subSubSubChild.children:
+												numOfSubSubSubSubSubChildren = len(subSubSubSubChild.children)
+												if numOfSubSubSubSubSubChildren > 0:
+													pass
+												else:
+													userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
+													rankInd = (rank, userIndList)
+													userInd.indLst.append(rankInd)
+													rank = rank + 1
 										else:
 											userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name]
 											rankInd = (rank, userIndList)
