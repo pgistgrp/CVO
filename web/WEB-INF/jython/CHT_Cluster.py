@@ -502,7 +502,7 @@ def getIndicatorFrequencies(indicatorList = None):
 	statisticsDict = dict()
 	# Begin getting frequency calculations
 	# each element of the indicator list is actually a user's indicators
-	for userIndicators in indicatorList:
+	for rank, userIndicators in indicatorList:
 	# We have a unique user's indicators
 		userId = userIndicators.userId
 		indicatorRank = userIndicators.indList
