@@ -420,7 +420,7 @@ def getIndicators(catList = None, userIdList = None):
 					# We have finished one of our children. Move one
 					numOfChildren = numOfChildren - 1
 				
-"""				
+			"""				
 			# Check if there are subcategories
 			if ((len(child.children)) > 0):
 				childLeafList = []
@@ -440,7 +440,8 @@ def getIndicators(catList = None, userIdList = None):
 				rankInd = (rank, child.category.name)
 				userInd.indList.append(rankInd)
 				rank += 1
-"""
+			"""
+
 			for childInd in userInd.indList:
 				userIndParts = userIndicator()
 				userIndParts.userId = userIdList[x]
