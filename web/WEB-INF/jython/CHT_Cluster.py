@@ -626,6 +626,9 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 	catHash = dict()
 	# Buid all the categories with the factory
 	for cat, catStat in categoryStats.iteritems():
+		print "\n\n\n\n"
+		print "\t" + cat
+		print "\t\t" + catStat.label 
 		catHash[cat] = factory.createCategoryReference(catStat.label)
 		factory.addCategory(catHash[cat])
 
