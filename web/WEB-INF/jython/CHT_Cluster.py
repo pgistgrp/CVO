@@ -438,14 +438,13 @@ def getIndicators(catList = None, userIdList = None):
 				userInd.indList.append(rankInd)
 				rank += 1
 			"""
-		"""
+		
 		for childInd in userInd.indList:
 			userIndParts = userIndicator()
 			userIndParts.userId = userIdList[x]
-			userIndParts.indList = childInd
-			indicatorListToReturn.append(userIndParts)
-		"""
-		
+			userIndParts = childInd
+			indicatorList.append(userIndParts)
+			
 	return indicatorList
 	# END GET USER INDICATORS FROM CATEGORY LIST
 	# ******************************************************************************************
