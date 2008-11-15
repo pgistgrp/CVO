@@ -397,7 +397,7 @@ def getIndicators(catList = None, userIdList = None):
 												else:
 													userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
 													rankInd = (rank, userIndList)
-													userInd.indLst.append(rankInd)
+													userInd.indList.append(rankInd)
 													rank = rank + 1
 										else:
 											userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name]
