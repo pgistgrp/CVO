@@ -370,7 +370,7 @@ def getIndicators(catList = None, userIdList = None):
 			numOfChildren = len(child.children)
 			# if no children, then we are done here
 			if numOfChildren == 0:
-				userIndList = [child.name]
+				userIndList = [child.category.name]
 				rankInd = (rank, userIndList)
 				userInd.indList.append(rankInd)
 				rank = rank + 1
