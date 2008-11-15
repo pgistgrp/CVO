@@ -394,25 +394,22 @@ def getIndicators(catList = None, userIdList = None):
 											if numOfSubSubSubSubSubChildren > 0:
 												pass
 											else:
-												label = child.category.name + "/" + subChild.category.name + "/" + subSubChild.category.name + "/" + subSubSubChild.category.name + "/" + subSubSubSubChild.category.name
-												userIndList = [label]
+												userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
 												rankInd = (rank, userIndList)
 												userInd.indLst.append(rankInd)
 												rank = rank + 1
 										else:
-											label = child.category.name + "/" + subChild.category.name + "/" + subSubChild.category.name + "/" + subSubSubChild.category.name
-											userIndList = [label]
+											userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name]
 											rankInd = (rank, userIndList)
 											userInd.indList.append(rankInd)
 											rank = rank + 1
 								else:
-									label = child.category.name + "/" + subChild.category.name + "/" + subSubChild.category.name
-									userIndList = [label]
+									userIndList = [child.category.name, subChild.category.name, subSubChild.category.name]
 									rankInd = (rank, userIndList)
 									userInd.indList.append(rankInd)
 									rank = rank + 1
 						else:		# No subchildren
-							label = child.category.name + "/" + subChild.category.name
+							label = [child.category.name, subChild.category.name]
 							userIndList = [label]
 							rankInd = (rank, userIndList)
 							userInd.indList.append(rankInd)
