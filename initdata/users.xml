@@ -27,6 +27,7 @@
         <gender>Male</gender>
         <roles>
             <role>moderator</role>
+            <role>expert</role>
             <role>participant</role>
         </roles>
     </user>

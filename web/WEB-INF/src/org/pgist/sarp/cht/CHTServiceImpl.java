@@ -298,7 +298,10 @@ public class CHTServiceImpl implements CHTService {
         }
         
         CategoryReference root = cht.getCats().get(WebUtils.currentUserId());
-        if (root==null) cht.getCategories().get(WebUtils.currentUserId());
+        if (root==null) root = cht.getCategories().get(WebUtils.currentUserId());
+        
+        System.out.println("cats -------------> "+cht.getCats());
+        System.out.println("categories -------------> "+cht.getCategories());
         
         int index = parent.getChildren().indexOf(catRef);
         
