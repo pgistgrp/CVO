@@ -95,11 +95,12 @@ public class ProfileDAOImpl extends BaseDAOImpl implements ProfileDAO{
     }
 
     
-    private static final String hql_getTotalVisits = "select count(sl) from SystemLog sl where sl.userId=?";
+    private static final String hql_getTotalVisits = "select count(sl) from SystemLog sl where sl.url like '%/login.do' and sl.successful=? and sl.userId=?";
     
     public int getTotalVisits(Long userId) throws Exception {
         Query query = getSession().createQuery(hql_getTotalVisits);
-        query.setLong(0, userId);
+        query.setBoolean(0, true);
+        query.setLong(1, userId);
         Number count = (Number) query.uniqueResult();
         return count.intValue();
     }

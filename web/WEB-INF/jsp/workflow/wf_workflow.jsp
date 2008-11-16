@@ -40,7 +40,7 @@
 									<div class="date">
 									    <fmt:formatDate value="${gHistoryActivity.beginTime}" pattern="MM/dd" /> - 
 									    <fmt:formatDate value="${gHistoryActivity.endTime}" pattern="MM/dd" />
-                                    </div>
+                  </div>
 								</pg:show>
 							</c:when>
 							<c:otherwise>
@@ -115,11 +115,16 @@
 				<c:forEach var="gActive" items="${mActive.context.runningActivities}" varStatus="loop">
 					<pg:narrow name="gActive"/>
 					<c:choose>
-						<c:when test="${gActive.access == 'moderator'}">
-							<pg:show roles="moderator">
+						<c:when test="${gActive.access == 'moderator' || gActive.access == 'expert'}">
+							<pg:show roles="moderator, expert">
 								<div class="home-row clearfix">
 									<div class="step">
-										<a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.title}</a><br />
+                    <pg:show roles="expert">
+										  <a href="/workflow.do?workflowId=${workflow.id}&contextId=${mActive.context.id}&activityId=${gActive.id}">${gActive.title}</a><br />
+                    </pg:show>
+                    <pg:hide roles="expert">
+										  ${gActive.title}<br />
+                    </pg:hide>
 										<small>${gActive.description}</small>
 									</div>
 									<div class="date">
