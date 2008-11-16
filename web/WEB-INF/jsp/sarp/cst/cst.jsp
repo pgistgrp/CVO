@@ -499,12 +499,14 @@
   <c:if test="${!published && !cst.closed}">
     function publish(){
       if (!confirm('Sure you want to publish categories?')) return;
+      $('publishBtn').disabled=true;
       CSTAgent.publish({cstId:cstId}, {
       callback:function(data){
         if (data.successful){
-          $('publishBtn').disabled=true;
+          window.location.reload();
         }else{
           alert(data.reason);
+          $('publishBtn').disabled=false;
         }
       },
       errorHandler:function(errorString, exception){ 

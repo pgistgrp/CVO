@@ -262,12 +262,14 @@
   
   function publish(){
       if (!confirm('Publish concern-indicator paths?')) return;
+      $('publishBtn').disabled=true;
       VTTAgent.publish({vttId:vttId}, {
       callback:function(data){
         if (data.successful){
-          $('publishBtn').disabled=true;
+          window.location.reload();
         }else{
           alert(data.reason);
+          $('publishBtn').disabled=false;
         }
       },
       errorHandler:function(errorString, exception){ 

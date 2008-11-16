@@ -260,11 +260,13 @@
   
   function publish(){
       if (!confirm('Sure you want to publish categories?')) return;
+          $('publishBtn').disabled=true;
       CHTAgent.publish({chtId:chtId}, {
       callback:function(data){
         if (data.successful){
-          $('publishBtn').disabled=true;
+          window.location.reload();
         }else{
+          $('publishBtn').disabled=false;
           alert(data.reason);
         }
       },

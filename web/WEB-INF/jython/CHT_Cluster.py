@@ -442,7 +442,7 @@ def getIndicators(catList = None, userIdList = None):
 		
 		for childInd in userInd.indList:
 			userIndParts = userIndicator()
-			userIndParts.userId = userIdList[x]s
+			userIndParts.userId = userIdList[x]
 			userIndParts.indList = childInd[:]
 			indicatorList.append(userIndParts)
 			
@@ -508,7 +508,6 @@ def getIndicatorFrequencies(indicatorList = None):
 		indicatorRank = userIndicators.indList
 		rank, indicator = indicatorRank
 		if isinstance(indicator, ListType):
-			indicatorName = ""
 			indicatorName = "/".join(indicator)
 		elif isinstance(indicator, StringType):
 			indicatorName = indicator
