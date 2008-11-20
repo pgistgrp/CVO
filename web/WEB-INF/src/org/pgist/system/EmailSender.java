@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -153,6 +154,32 @@ public class EmailSender {
         
         send(user.getEmail(), merge(template.getSubject(), values), merge(template.getContent(), values));
     }//send()
+
+
+    public void send(Set<User> recipients, String templateName, Map<String, Object> vars, Long excludedUserId) {
+        EmailTemplate template = (EmailTemplate) templates.get(templateName);
+        
+        if (template==null) {
+            try {
+                template = emailDAO.getTemplateByName(templateName);
+                templates.put(templateName, template);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        for (User one : recipients) {
+            if (one.getId().equals(excludedUserId)) continue;
+            if (!one.isEmailNotify()) continue;
+            vars.put("recipient", one);
+            
+            try {
+                send(one.getEmail(), merge(template.getSubject(), vars), merge(template.getContent(), vars));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     
     
 }//class EmailSender

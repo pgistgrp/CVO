@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +19,7 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.search.SearchHelper;
+import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
@@ -47,6 +50,8 @@ public class BCTAgent {
     private SystemService systemService;
     
     private SearchHelper searchHelper;
+    
+    private EmailSender emailSender;
     
     
     /**
@@ -86,6 +91,11 @@ public class BCTAgent {
      */
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
+    }
+
+
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
     }
 
 
@@ -1437,8 +1447,12 @@ public class BCTAgent {
         
         ConcernComment comment = null;
         
+        String workflowId = (String) wfinfo.get("workflowId");
+        String contextId = (String) wfinfo.get("contextId");
+        String activityId = (String) wfinfo.get("activityId");
+        
         try {
-            comment = bctService.createConcernComment(new Long((String) wfinfo.get("workflowId")), concernId, title, content, tags);
+            comment = bctService.createConcernComment(new Long(workflowId), concernId, title, content, tags);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -1448,6 +1462,20 @@ public class BCTAgent {
         }
         
         if (comment!=null) {
+            // sending email
+            try {
+                Set<User> recipients = bctService.getThreadUsers(concernId);
+                String url = "concern.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId+"&id="+concernId;
+                
+                Map<String, Object> vars = new HashMap<String, Object>();
+                vars.put("concern", comment.getConcern());
+                vars.put("url", url);
+                
+                emailSender.send(recipients, "concern_comment", vars, WebUtils.currentUserId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             /*
              * Indexing with Lucene.
              */

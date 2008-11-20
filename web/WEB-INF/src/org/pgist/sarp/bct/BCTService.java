@@ -1,8 +1,10 @@
 package org.pgist.sarp.bct;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.pgist.sarp.drt.InfoObject;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -240,6 +242,9 @@ public interface BCTService {
 	
 	
 	Collection getConciseTags(BCT bct, PageSetting setting, int sorting) throws Exception;
+
+	
+    Set<User> getThreadUsers(Long concernId) throws Exception;
     
     
 }//interface BCTService

@@ -516,4 +516,10 @@ public class BCTServiceImpl implements BCTService {
 	}//getConciseTags()
 
 
+    @Override
+    public Set<User> getThreadUsers(Long concernId) throws Exception {
+        return bctDAO.getThreadUsers(concernId);
+    }
+
+
 }//class BCTServiceImpl

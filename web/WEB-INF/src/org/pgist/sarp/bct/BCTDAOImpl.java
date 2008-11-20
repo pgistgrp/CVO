@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.users.User;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -576,6 +579,17 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
         
         return query.list();
 	}//getConciseTags()
+
+
+    private static final String hql_getThreadUsers = "select c.author as a from Concern c where c.id=?";
+
+
+    @Override
+    public Set<User> getThreadUsers(Long concernId) throws Exception {
+        Set<User> users = new HashSet<User>();
+        users.addAll(getHibernateTemplate().find(hql_getThreadUsers, concernId));
+        return users;
+    }
 
 
 }//class BCTDAOImpl

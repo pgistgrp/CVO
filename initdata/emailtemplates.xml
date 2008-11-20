@@ -33,7 +33,7 @@
     
     ${url}<br />
     
- 		Thanks for your participation,<br />
+                 Thanks for your participation,<br />
     
     Let's Improve Transportation!]]>
         </content>
@@ -65,58 +65,79 @@
             ]]>
             </content>
             <!--
-		<p>Welcome to Let's Improve Transportation, or LIT.</p>
-		<p>Your user account has been successfully created. Your Login Name is ${loginname}. Your participant id number is ${webqid}. (You will need this number to access surveys.)
-		Thanks for becoming the newest participant in the LIT Challenge. To login and get started simply go to:
-		<a href="http://www.letsimprovetransportation.org">www.letsimprovetransportation.org</a> </p>
-		<p>See you online soon!<br/>
-		Matt and Kevin, the LIT moderators</p>
+                <p>Welcome to Let's Improve Transportation, or LIT.</p>
+                <p>Your user account has been successfully created. Your Login Name is ${loginname}. Your participant id number is ${webqid}. (You will need this number to access surveys.)
+                Thanks for becoming the newest participant in the LIT Challenge. To login and get started simply go to:
+                <a href="http://www.letsimprovetransportation.org">www.letsimprovetransportation.org</a> </p>
+                <p>See you online soon!<br/>
+                Matt and Kevin, the LIT moderators</p>
             -->
     </template>
     
     
     <template name="announcement">
-	<description>Send an email to notify participants of announcements.</description>
-	<subject>LIT: New Moderator Announcement</subject>
-	<notes>Variable: ${announcement}</notes>
-	<content><![CDATA[
-	<h3>The LIT Moderator has posted a new system announcement:</h3>
+        <description>Send an email to notify participants of announcements.</description>
+        <subject>LIT: New Moderator Announcement</subject>
+        <notes>Variable: ${announcement}</notes>
+        <content><![CDATA[
+        <h3>The LIT Moderator has posted a new system announcement:</h3>
 
-	${announcement}]]>
-	</content>
+        ${announcement}]]>
+        </content>
     </template>
     
     
     <template name="modpasswordreset">
-    	<description>Send an email to user that their password was reset by the moderator</description>
-    	<subject>LIT: Password Reset</subject>
-    	<notes>Variable: ${newpassword}</notes>
-    	<content><![CDATA[
-    	<p>The LIT Moderator has reset your password to:
-    	<strong>${newpassword}</strong></p>
-    	
-    	<p>You can change your password by clicking on the User Settings button in the LIT system</p>
-    	]]>
-    	</content>
+            <description>Send an email to user that their password was reset by the moderator</description>
+            <subject>LIT: Password Reset</subject>
+            <notes>Variable: ${newpassword}</notes>
+            <content><![CDATA[
+            <p>The LIT Moderator has reset your password to:
+            <strong>${newpassword}</strong></p>
+            
+            <p>You can change your password by clicking on the User Settings button in the LIT system</p>
+            ]]>
+            </content>
     </template>
     
     
     <template name="recoverpassword">
-	<description>Send a password recovery to the user, allows them to reset their password</description>
-	<subject>LIT: Password Recovery</subject>
-	<notes>Variable: ${code}</notes>
-	<content><![CDATA[
-	<p>Your password recovery code is: <strong>${code}</strong><br/>
-	This code is used to reset your password and will expire in 30 minutes.
-	</p>
-	<p>Please follow the link below to reset your password:
-	<a href="http://www.letsimprovetransportation.org/resetpassword.do?code=${code}">Password Recovery</a></p>
+        <description>Send a password recovery to the user, allows them to reset their password</description>
+        <subject>LIT: Password Recovery</subject>
+        <notes>Variable: ${code}</notes>
+        <content><![CDATA[
+        <p>Your password recovery code is: <strong>${code}</strong><br/>
+        This code is used to reset your password and will expire in 30 minutes.
+        </p>
+        <p>Please follow the link below to reset your password:
+        <a href="http://www.letsimprovetransportation.org/resetpassword.do?code=${code}">Password Recovery</a></p>
 
-	<p>If the link above does not work copy and paste the following URL into your browsers location bar:<br>
-	<strong>http://www.letsimprovetransportation.org/resetpassword.do?code=${code}</strong>
-	</p>
-	]]>
-	</content>
+        <p>If the link above does not work copy and paste the following URL into your browsers location bar:<br>
+        <strong>http://www.letsimprovetransportation.org/resetpassword.do?code=${code}</strong>
+        </p>
+        ]]>
+        </content>
+    </template>
+    
+    
+    <template name="concern_comment">
+        <description>Send an email notification to participants whose concern comment is replied.</description>
+        <subject>New Comment on concern</subject>
+        <notes>Variable: ${concern}, ${recipient}, ${url}</notes>
+        <content><![CDATA[${recipient.loginname},<br /><br />
+    
+    Somebody has contributed a new comment to the following discussion:<br /><br />
+    
+    <span style="padding-left:4em;">"${concern.content}"</span><br /><br />
+    
+    Follow this link to view the discussion:<br /><br />
+    
+    <span style="padding-left:4em;">http://www.climateconcerns.org/${url}</span><br /><br />
+    
+    Thanks for your participation,<br /><br />
+    
+    Voicing Climate Concerns (www.climateconcerns.org)]]>
+        </content>
     </template>
     
     
