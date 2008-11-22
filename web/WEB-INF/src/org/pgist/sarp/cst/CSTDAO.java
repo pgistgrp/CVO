@@ -2,6 +2,7 @@ package org.pgist.sarp.cst;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.pgist.sarp.bct.TagReference;
 import org.pgist.system.BaseDAO;
@@ -54,6 +55,8 @@ public interface CSTDAO extends BaseDAO {
     Collection<CSTComment> getComments(Long catRefId, PageSetting setting) throws Exception;
 
     void increaseVoting(CSTComment comment, boolean agree) throws Exception;
+
+    Set<User> getThreadUsers(Long catRefId) throws Exception;
 
 
 }//interface CSTDAO

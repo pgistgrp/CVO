@@ -20,6 +20,7 @@ import org.pgist.sarp.cht.CHTService;
 import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.search.SearchHelper;
+import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
@@ -48,7 +49,14 @@ public class VTTAgent {
     
     private SearchHelper searchHelper;
     
+    private EmailSender emailSender;
     
+    
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
+
+
     /**
      * This is not an AJAX service method.
      *
@@ -229,7 +237,29 @@ public class VTTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
+            String workflowId = (String) wfinfo.get("workflowId");
+            String contextId = (String) wfinfo.get("contextId");
+            String activityId = (String) wfinfo.get("activityId");
+            
             VTTComment comment = vttService.createComment(new Long((String) wfinfo.get("workflowId")), ownerId, vttId, title, content, false);
+            
+            if (comment!=null) {
+                // sending email
+                try {
+                    Set<User> recipients = vttService.getThreadUsers(ownerId, vttId);
+                    String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
+                    
+                    String type = "\"Concern indicator tool\" in step \"Create Climate Concern Indicators\"";
+                    
+                    Map<String, Object> vars = new HashMap<String, Object>();
+                    vars.put("type", type);
+                    vars.put("url", url);
+                    
+                    emailSender.send(recipients, "generic_comment", vars, WebUtils.currentUserId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             
             map.put("successful", true);
             

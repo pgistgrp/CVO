@@ -2,11 +2,14 @@ package org.pgist.sarp.drt;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.system.YesNoVoting;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -112,6 +115,17 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
         decreaseVoting(announcement, voting.isVoting());
         getSession().delete(voting);
     } //deleteVote()
+
+
+    private static final String hql_getThreadUsers = "select c.author as a from Comment c where c.target.id=?";
+
+
+    @Override
+    public Set<User> getThreadUsers(Long oid) throws Exception {
+        Set<User> users = new HashSet<User>();
+        users.addAll(getHibernateTemplate().find(hql_getThreadUsers, oid));
+        return users;
+    } //getThreadUsers()
 
 
 }//class DRTDAOImpl

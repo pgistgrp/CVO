@@ -411,7 +411,7 @@ def getIndicators(catList = None, userIdList = None):
 									rank = rank + 1
 						else:		# No subchildren
 							label = [child.category.name, subChild.category.name]
-							userIndList = [label]
+							userIndList = label
 							rankInd = (rank, userIndList)
 							userInd.indList.append(rankInd)
 							rank = rank + 1
@@ -506,6 +506,7 @@ def getIndicatorFrequencies(indicatorList = None):
 	# We have a unique user's indicators
 		userId = userIndicators.userId
 		indicatorRank = userIndicators.indList
+		print "--------------", indicatorRank
 		rank, indicator = indicatorRank
 		if isinstance(indicator, ListType):
 			indicatorName = "/".join(indicator)

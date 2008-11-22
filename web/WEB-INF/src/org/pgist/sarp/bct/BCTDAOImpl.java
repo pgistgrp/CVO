@@ -499,7 +499,7 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
 
     private static final String hql_getConcernComments_A_1 = "select count(c.id) from ConcernComment c where c.deleted=? and c.concern.id=?";
     
-    private static final String hql_getConcernComments_A_2 = "from ConcernComment c where c.deleted=? and c.concern.id=? order by c.id asc";
+    private static final String hql_getConcernComments_A_2 = "from ConcernComment c where c.deleted=? and c.concern.id=? order by c.id desc";
     
     
     public Collection getConcernComments(Long concernId, PageSetting setting) throws Exception {

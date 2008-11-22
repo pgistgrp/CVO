@@ -60,6 +60,12 @@
             <replacefilter token="@database.password@" value="${database.password}"/>
             <replacefilter token="@database.databaseName@" value="${database.databaseName}"/>
         </replace>
+        <replace file="${temp}/WEB-INF/config/context-system.xml">
+            <replacefilter token="@emailFrom@" value="${email.from}"/>
+            <replacefilter token="@emailFromThrough@" value="${email.through}"/>
+            <replacefilter token="@emailUserName@" value="${email.username}"/>
+            <replacefilter token="@emailPassword@" value="${email.password}"/>
+        </replace>
     </target>
 
 

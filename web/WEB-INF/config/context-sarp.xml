@@ -29,6 +29,7 @@
         <property name="systemService" ref="systemService"/>
         <property name="searchHelper" ref="searchHelper"/>
         <property name="engine" ref="engine"/>
+        <property name="emailSender" ref="emailSender"/>
     </bean>
 
 
@@ -89,6 +90,7 @@
         <property name="cstService" ref="cstService"/>
         <property name="systemService" ref="systemService"/>
         <property name="searchHelper" ref="searchHelper"/>
+        <property name="emailSender" ref="emailSender"/>
     </bean>
 
     <!-- CHT : Concern Hierarchy Tool -->
@@ -118,6 +120,7 @@
         <property name="chtService" ref="chtService"/>
         <property name="systemService" ref="systemService"/>
         <property name="searchHelper" ref="searchHelper"/>
+        <property name="emailSender" ref="emailSender"/>
     </bean>
     
     <!-- VTT : Value Tree Tool -->
@@ -147,6 +150,7 @@
         <property name="vttService" ref="vttService"/>
         <property name="systemService" ref="systemService"/>
         <property name="searchHelper" ref="searchHelper"/>
+        <property name="emailSender" ref="emailSender"/>
     </bean>
     
 

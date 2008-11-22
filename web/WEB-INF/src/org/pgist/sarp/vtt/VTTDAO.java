@@ -2,6 +2,7 @@ package org.pgist.sarp.vtt;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.system.BaseDAO;
@@ -41,5 +42,7 @@ public interface VTTDAO extends BaseDAO {
     CategoryPath getCategoryPathById(Long pathId) throws Exception;
 
     void delete(Object object) throws Exception;
+
+    Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception;
 
 } //interface VTTDAO

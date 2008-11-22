@@ -1,10 +1,12 @@
 package org.pgist.sarp.vtt;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.sarp.drt.InfoObject;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -76,6 +78,8 @@ public interface VTTService {
 
     void saveUnit(Long pathId, String indicator, String measurement,
             boolean appr, boolean avail, boolean dup, boolean reco) throws Exception;
+
+    Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception;
 
     
 }//interface VTTService

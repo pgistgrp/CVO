@@ -1465,6 +1465,7 @@ public class BCTAgent {
             // sending email
             try {
                 Set<User> recipients = bctService.getThreadUsers(concernId);
+                recipients.add(comment.getConcern().getAuthor());
                 String url = "concern.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId+"&id="+concernId;
                 
                 Map<String, Object> vars = new HashMap<String, Object>();

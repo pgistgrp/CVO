@@ -3,6 +3,7 @@ package org.pgist.sarp.drt;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,12 +11,17 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.sarp.bct.BCT;
+import org.pgist.sarp.cht.CHT;
+import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.sarp.vtt.VTT;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 import org.pgist.wfengine.EnvironmentHandler;
@@ -265,7 +271,47 @@ public class DRTAgent {
         	if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
         	if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
         	
+            String workflowId = (String) wfinfo.get("workflowId");
+            String contextId = (String) wfinfo.get("contextId");
+            String activityId = (String) wfinfo.get("activityId");
+            
             Comment comment = drtService.createComment(new Long((String) wfinfo.get("workflowId")), oid, title, content, false);
+            
+            if (comment!=null) {
+                // sending email
+                try {
+                    Set<User> recipients = drtService.getThreadUsers(oid);
+                    String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
+                    
+                    InfoObject infoObject = drtService.getInfoObjectById(oid);
+                    
+                    String type = "";
+                    boolean needSending = true;
+                    if (infoObject.getTarget() instanceof BCT) {
+                        type = "\"Review and comment tool\" for step \"Brainstorm Concerns and Keywords\"";
+                    } else if (infoObject.getTarget() instanceof CST) {
+                        type = "\"Review and comment tool\" for step \"Create Climate Concern Categories\"";
+                    } else if (infoObject.getTarget() instanceof CHT) {
+                        type = "\"Review and comment tool\" for step \"Create Hierarches of Climate Concern Categories\"";
+                    } else if (infoObject.getTarget() instanceof VTT) {
+                        type = "\"Review and comment tool\" for step \"Create Climate Concern Indicators\"";
+                    } else {
+                        needSending = false;
+                    }
+                    
+                    System.out.println("==============> "+needSending);
+                    
+                    if (needSending) {
+                        Map<String, Object> vars = new HashMap<String, Object>();
+                        vars.put("type", type);
+                        vars.put("url", url);
+                        
+                        emailSender.send(recipients, "generic_comment", vars, WebUtils.currentUserId());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             
             map.put("successful", true);
             

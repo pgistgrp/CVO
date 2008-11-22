@@ -2,9 +2,11 @@ package org.pgist.sarp.drt;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import org.pgist.system.SystemDAO;
 import org.pgist.system.YesNoVoting;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -198,6 +200,12 @@ public class DRTServiceImpl implements DRTService {
         DRTAnnouncement announcement = (DRTAnnouncement) drtDAO.load(DRTAnnouncement.class, aid);
         announcement.setDone(true);
     } //setAnnouncementDone()
+
+
+    @Override
+    public Set<User> getThreadUsers(Long oid) throws Exception {
+        return drtDAO.getThreadUsers(oid);
+    }
     
     
 }//class DRTServiceImpl

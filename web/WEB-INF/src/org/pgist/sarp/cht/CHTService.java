@@ -2,6 +2,7 @@ package org.pgist.sarp.cht;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.sarp.drt.InfoObject;
@@ -63,6 +64,8 @@ public interface CHTService {
     CategoryPath setVotingOnPath(Long pathId, boolean agree) throws Exception;
 
     CategoryPath createPath(Long chtId, String pathIds) throws Exception;
+
+    Set<User> getThreadUsers(Long catRefId) throws Exception;
     
     
 }//interface CHTService

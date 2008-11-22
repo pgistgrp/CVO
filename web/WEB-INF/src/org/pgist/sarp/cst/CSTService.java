@@ -2,6 +2,7 @@ package org.pgist.sarp.cst;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.pgist.sarp.bct.BCT;
 import org.pgist.sarp.drt.InfoObject;
@@ -85,6 +86,8 @@ public interface CSTService {
     void setClusteredCategory(Long cstId) throws Exception;
 
     CategoryInfo getCategoryInfoById(Long categoryId) throws Exception;
+
+    Set<User> getThreadUsers(Long catRefId) throws Exception;
 
     
 }//interface CSTService

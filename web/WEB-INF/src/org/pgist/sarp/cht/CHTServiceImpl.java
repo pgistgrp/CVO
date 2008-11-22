@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 import org.pgist.sarp.bct.BCTDAO;
 import org.pgist.sarp.bct.TagReference;
@@ -498,6 +499,12 @@ public class CHTServiceImpl implements CHTService {
         
         return path;
     } //createPath()
+
+
+    @Override
+    public Set<User> getThreadUsers(Long catRefId) throws Exception {
+        return chtDAO.getThreadUsers(catRefId);
+    }
 
 
 }//class CHTServiceImpl

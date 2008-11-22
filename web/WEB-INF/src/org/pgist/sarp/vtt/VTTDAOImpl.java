@@ -2,8 +2,10 @@ package org.pgist.sarp.vtt;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.sarp.cht.CategoryPath;
@@ -188,6 +190,17 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     @Override
     public void delete(Object object) throws Exception {
         getHibernateTemplate().delete(object);
+    }
+
+
+    private static final String hql_getThreadUsers = "select c.author as a from VTTComment c where c.vtt.id=? and c.owner.id=?";
+
+
+    @Override
+    public Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception {
+        Set<User> users = new HashSet<User>();
+        users.addAll(getHibernateTemplate().find(hql_getThreadUsers, new Object[] {vttId, ownerId}));
+        return users;
     }
 
     

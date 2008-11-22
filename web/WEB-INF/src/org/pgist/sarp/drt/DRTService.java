@@ -1,8 +1,10 @@
 package org.pgist.sarp.drt;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.pgist.system.YesNoVoting;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -44,6 +46,8 @@ public interface DRTService {
     void deleteVote(DRTAnnouncement announcement, YesNoVoting voting) throws Exception;
 
     void setAnnouncementDone(Long aid) throws Exception;
+
+    Set<User> getThreadUsers(Long oid) throws Exception;
 
 	
 }//interface DRTService

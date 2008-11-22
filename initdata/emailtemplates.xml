@@ -132,7 +132,26 @@
     
     Follow this link to view the discussion:<br /><br />
     
-    <span style="padding-left:4em;">http://www.climateconcerns.org/${url}</span><br /><br />
+    <span style="padding-left:4em;"><a href="http://www.climateconcerns.org/${url}">http://www.climateconcerns.org/${url}</a></span><br /><br />
+    
+    Thanks for your participation,<br /><br />
+    
+    Voicing Climate Concerns (www.climateconcerns.org)]]>
+        </content>
+    </template>
+    
+    
+    <template name="generic_comment">
+        <description>Send an email notification to participants whose CST comment is replied.</description>
+        <subject>New Comment on ${type}</subject>
+        <notes>Variable: ${type}, ${recipient}, ${url}</notes>
+        <content><![CDATA[${recipient.loginname},<br /><br />
+    
+    Somebody has contributed a new comment to discussion in the ${type}<br /><br />
+    
+    Follow this link to view the discussion:<br /><br />
+    
+    <span style="padding-left:4em;"><a href="http://www.climateconcerns.org/${url}">http://www.climateconcerns.org/${url}</a></span><br /><br />
     
     Thanks for your participation,<br /><br />
     

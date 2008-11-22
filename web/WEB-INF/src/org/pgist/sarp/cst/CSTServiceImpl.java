@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.pgist.sarp.bct.BCT;
 import org.pgist.sarp.bct.BCTDAO;
@@ -840,6 +841,12 @@ public class CSTServiceImpl implements CSTService {
     @Override
     public CategoryInfo getCategoryInfoById(Long categoryId) throws Exception {
         return (CategoryInfo) cstDAO.load(CategoryInfo.class, categoryId);
+    }
+
+
+    @Override
+    public Set<User> getThreadUsers(Long catRefId) throws Exception {
+        return cstDAO.getThreadUsers(catRefId);
     }
 
 

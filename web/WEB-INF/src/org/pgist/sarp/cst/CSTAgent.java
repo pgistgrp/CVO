@@ -3,6 +3,7 @@ package org.pgist.sarp.cst;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +11,12 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
+import org.pgist.sarp.bct.BCT;
+import org.pgist.sarp.cht.CHT;
+import org.pgist.sarp.drt.InfoObject;
+import org.pgist.sarp.vtt.VTT;
 import org.pgist.search.SearchHelper;
+import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
@@ -37,6 +43,8 @@ public class CSTAgent {
     
     private SearchHelper searchHelper;
     
+    private EmailSender emailSender;
+    
     
     /**
      * This is not an AJAX service method.
@@ -55,6 +63,11 @@ public class CSTAgent {
 
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
+    }
+
+
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
     }
 
 
@@ -1063,7 +1076,29 @@ public class CSTAgent {
             if (title.length()>100) throw new Exception("title can't exceeds 100 chars");
             if (content.length()>8192) throw new Exception("content can't exceeds 8192 chars");
             
+            String workflowId = (String) wfinfo.get("workflowId");
+            String contextId = (String) wfinfo.get("contextId");
+            String activityId = (String) wfinfo.get("activityId");
+            
             CSTComment comment = cstService.createComment(new Long((String) wfinfo.get("workflowId")), catRefId, title, content, false);
+            
+            if (comment!=null) {
+                // sending email
+                try {
+                    Set<User> recipients = cstService.getThreadUsers(catRefId);
+                    String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
+                    
+                    String type = "\"Concern category tool\" in step \"Create Climate Concern Categories\"";
+                    
+                    Map<String, Object> vars = new HashMap<String, Object>();
+                    vars.put("type", type);
+                    vars.put("url", url);
+                    
+                    emailSender.send(recipients, "generic_comment", vars, WebUtils.currentUserId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             
             map.put("successful", true);
             

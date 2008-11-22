@@ -2,6 +2,7 @@ package org.pgist.sarp.cht;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.cst.CategoryReference;
@@ -37,6 +38,8 @@ public interface CHTDAO extends BaseDAO {
     void increaseVoting(CategoryPath path, boolean agree) throws Exception;
 
     boolean checkPath(Long chtId, String title) throws Exception;
+
+    Set<User> getThreadUsers(Long catRefId) throws Exception;
 
 
 }//interface CHTDAO

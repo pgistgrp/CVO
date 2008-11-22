@@ -577,4 +577,10 @@ public class VTTServiceImpl implements VTTService {
     } //saveUnit()
 
 
+    @Override
+    public Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception {
+        return vttDAO.getThreadUsers(ownerId, vttId);
+    }
+
+
 } //class VTTServiceImpl

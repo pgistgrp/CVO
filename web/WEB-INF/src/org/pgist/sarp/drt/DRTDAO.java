@@ -1,9 +1,11 @@
 package org.pgist.sarp.drt;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.pgist.system.BaseDAO;
 import org.pgist.system.YesNoVoting;
+import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
 
@@ -27,6 +29,8 @@ public interface DRTDAO extends BaseDAO {
     void deleteVote(DRTAnnouncement announcement, YesNoVoting voting) throws Exception;
 
     void decreaseVoting(DRTAnnouncement announcement, boolean agree) throws Exception;
+
+    Set<User> getThreadUsers(Long oid) throws Exception;
 
 	
 }//interface DRTDAO

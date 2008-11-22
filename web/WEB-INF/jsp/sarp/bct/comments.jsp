@@ -125,7 +125,7 @@
             <p>${comment.content}</p>
           </div>
           <div id="commentOwner${comment.id}">
-            <h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${comment.author.id}">${comment.author.loginname}</pg:url></h3>
+            <h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${comment.author.id}">${comment.author.loginname}</pg:url> at ${comment.createTime}</h3>
           </div>
         </div>
         <pg:show condition="${!bct.closed}">

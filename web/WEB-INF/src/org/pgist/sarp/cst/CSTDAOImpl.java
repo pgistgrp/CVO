@@ -5,9 +5,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.sarp.bct.TagReference;
@@ -422,6 +424,17 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
             getSession().createQuery(hql_increaseVoting_22).setLong(0, comment.getId()).executeUpdate();
         }
     }//increaseVoting()
+
+
+    private static final String hql_getThreadUsers = "select c.author as a from CSTComment c where c.catRef.id=?";
+
+
+    @Override
+    public Set<User> getThreadUsers(Long catRefId) throws Exception {
+        Set<User> users = new HashSet<User>();
+        users.addAll(getHibernateTemplate().find(hql_getThreadUsers, catRefId));
+        return users;
+    }
 
 
 }//class CSTDAOImpl
