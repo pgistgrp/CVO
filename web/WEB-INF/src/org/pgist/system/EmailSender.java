@@ -157,6 +157,10 @@ public class EmailSender {
 
 
     public void send(Set<User> recipients, String templateName, Map<String, Object> vars, Long excludedUserId) {
+        // turn off email sending temporarily
+        return;
+        
+        /*
         EmailTemplate template = (EmailTemplate) templates.get(templateName);
         
         if (template==null) {
@@ -179,6 +183,7 @@ public class EmailSender {
                 e.printStackTrace();
             }
         }
+        */
     }
     
     
