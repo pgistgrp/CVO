@@ -42,7 +42,7 @@
 								<div class="discussionBody">
 									<div id="editingArea${concern.id}" style="display:none"></div>
 									<div class="discussionText" id="discussionText${concern.id}"><p>"${concern.content}"</p></div>
-									<h3 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="user=${concern.author.loginname}">${concern.author.loginname}</pg:url></h3>
+									<h3 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url></h3>
 										<div class="discussionComments" id="discussionComments">
 										    <h3><pg:url page="/concern.do" params="id=${concern.id}">${concern.replies} Comments</pg:url></h3> (${concern.views} views)
 										</div>

@@ -90,7 +90,7 @@
 						</c:choose>
 						<div class="discussionText peekaboobugfix">
 							<p>${post.content}</p>
-							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${post.owner.loginname}">${post.owner.loginname}</pg:url></h3>
+							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${post.owner.id}">${post.owner.loginname}</pg:url></h3>
 						</div>
 						<div class="discussionComments">
 						    <input type="button" alt="Reply" onclick="location.href='#replyAnchor'" name="Reply" class="button" value="Reply" id="Reply">
@@ -185,7 +185,7 @@
 							
 							<div id="replyContent${reply.id}"><p>${reply.content}</p></div>
 							<div id="replyOwner${reply.id}">
-								<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${reply.owner.loginname}">${reply.owner.loginname}</pg:url></h3>    
+								<h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${reply.owner.id}">${reply.owner.loginname}</pg:url></h3>    
 							</div>
 						</div>
 						<div class="discussionComments peekaboobugfix">

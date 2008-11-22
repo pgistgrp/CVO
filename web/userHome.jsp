@@ -190,7 +190,7 @@
 	<div id="container">
 		<h2 class="headerColor">Welcome, ${baseuser.loginname}</h2>
     <pg:hide roles="guest">
-		  <pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View</pg:url> / <pg:url page="/usercp.do">Edit your profile</pg:url>
+		  <pg:url page="publicprofile.do" params="userId=${baseuser.id}">View</pg:url> / <pg:url page="/usercp.do">Edit your profile</pg:url>
     </pg:hide>
 	<!-- not needed
     <h3 style="display:inline;margin:0px;padding:0px;margin-left:20px">Your participant ID is <strong>${webq}</strong></h3>

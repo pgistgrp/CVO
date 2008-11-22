@@ -400,7 +400,6 @@
           <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
           <input type="button" onClick="createCHTComment();" value="Submit">
           <input type="button" onClick="cancelCHTComment();" value="Cancel" />
-          <input type="checkbox" id="newCommentNotifier" />E-mail me when someone responds to this comment
         </form>
       </div>
     </pg:show>

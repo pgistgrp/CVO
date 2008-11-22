@@ -84,7 +84,7 @@
 		<c:set var="rowcount" value="0"/>
 		</c:otherwise>
 		</c:choose>
-		<td><pg:url page="/publicprofile.do" target="_blank" params="user=${user.loginname}">${user.loginname}</pg:url></td>
+		<td><pg:url page="/publicprofile.do" target="_blank" params="userId=${user.id}">${user.loginname}</pg:url></td>
 		  <td>${user.firstname} ${user.lastname} </td>
 		  <td>${user.email}</td>
 		<td>

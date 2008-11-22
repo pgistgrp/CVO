@@ -43,7 +43,7 @@
       <p>"${concern.content}"</p>
     </div>
     <h3 id="discussionAuthor">-
-        <pg:url page="/publicprofile.do" target="_blank" params="user=${concern.author.loginname}">${concern.author.loginname}</pg:url>
+        <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url>
     </h3>
     <!--<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3> (${concern.views} views)</div>-->
     <div class="discussionTagsList">
@@ -127,7 +127,7 @@
             <p>${comment.content}</p>
           </div>
           <div id="commentOwner${comment.id}">
-            <h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${comment.owner.loginname}">${comment.owner.loginname}</pg:url></h3>
+            <h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${comment.owner.id}">${comment.owner.loginname}</pg:url></h3>
           </div>
         </div>
         <div class="discussionComments peekaboobugfix"> <a href="javascript:setQuote(${comment.id});">Quote</a> </div>

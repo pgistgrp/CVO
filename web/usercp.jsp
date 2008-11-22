@@ -234,7 +234,7 @@ function formOther(){
 	<html:form action="/profileedit.do" styleId="profileForm" method="POST">
 		 <html:hidden property="save" value="true"/>
 		<h3 class="headerColor" style="display:inline">Edit your participant profile information&nbsp;&nbsp;&nbsp;</h3>
-		<pg:url page="publicprofile.do" params="user=${baseuser.loginname}">View your profile</pg:url>
+		<pg:url page="publicprofile.do" params="userId=${baseuser.id}">View your profile</pg:url>
 		<p>Here you can edit your Voicing Climate Concerns user profile. Some information
 			in your user profile will appear to all other participants,
 			but if a field is marked by this icon ( <img src="images/icon_private.png" /> )

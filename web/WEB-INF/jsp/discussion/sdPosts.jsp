@@ -54,7 +54,7 @@
 						</c:choose>
 						<div id="discussionText${post.id}" class="discussionText peekaboobugfix">
 							<p>${post.content}</p>
-							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="user=${post.owner.loginname}">${post.owner.loginname}</pg:url></h3>
+							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${post.owner.id}">${post.owner.loginname}</pg:url></h3>
 						</div>
 						<div class="discussionComments peekaboobugfix">
 				<c:choose>
