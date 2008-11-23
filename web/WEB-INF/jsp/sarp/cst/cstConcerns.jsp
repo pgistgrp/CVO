@@ -7,7 +7,7 @@
 <logic:iterate id="concern" name="concerns">
 			<div id="concernId${concern.id}" class="theConcern">
 						<logic:notEqual name="type" value="0">
-							<span class="participantName"><b><a href="userProfile${concern.id}.jsp"><bean:write name="concern" property="author.firstname" />&nbsp;<bean:write name="concern" property="author.lastname" /></b></a>&nbsp;said:</span>
+							<span class="participantName"><b><a href="userProfile${concern.id}.jsp"><bean:write name="concern" property="author.loginname" /></a></b>&nbsp;said:</span>
 							<br>
 						</logic:notEqual>
 						<logic:equal name="type" value="0">
