@@ -40,7 +40,7 @@
       <p>"${concern.content}"</p>
     </div>
     <h3 id="discussionAuthor">-
-        <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url>
+        <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> at ${concern.createTime}
     </h3>
     <!--<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3> (${concern.views} views)</div>-->
     <div class="discussionTagsList">

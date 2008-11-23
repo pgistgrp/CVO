@@ -48,7 +48,7 @@
 						</c:choose>
 						<div id="discussionText${comment.id}" class="discussionText peekaboobugfix">
 							<p>${comment.content}</p>
-							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${comment.author.id}">${comment.author.loginname}</pg:url></h3>
+							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${comment.author.id}">${comment.author.loginname}</pg:url> at ${conern.createTime}</h3>
 						</div>
 						<div class="discussionComments peekaboobugfix">
 				<c:choose>

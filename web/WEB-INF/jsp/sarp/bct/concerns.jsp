@@ -17,7 +17,7 @@
 			<div id="concernId${concern.id}" class="theConcern"><!--${((loop.index % 2) == 0) ? 'disc_row_a' : 'disc_row_a'}-->
 						<logic:notEqual name="type" value="0">
 							<small><strong>
-		    					<pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url></strong>&nbsp;said:</small>
+		    					<pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url></strong>&nbsp;at ${concern.createTime} said:</small>
 							<br>
 						</logic:notEqual>
 						<logic:equal name="type" value="0">
@@ -27,7 +27,6 @@
 							<span class="concerns">
 						</logic:notEqual>
 						"<bean:write name="concern" property="content" />"</span><br>
-						
 
 								<c:forEach items="${concern.tags}" var="tagref">
 										<span class="tags"><a href="javascript:sideBar.changeCurrentFilter(${tagref.id});">${tagref.tag.name}</a></span>
