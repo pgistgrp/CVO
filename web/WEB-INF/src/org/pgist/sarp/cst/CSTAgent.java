@@ -808,7 +808,7 @@ public class CSTAgent {
             request.setAttribute("concerns", values[2]);
             request.setAttribute("setting", setting);
             
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstConcerns.jsp"));
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cst/cstConcerns.jsp"));
             
             map.put("successful", true);
         } catch(Exception e) {
@@ -867,7 +867,7 @@ public class CSTAgent {
             request.setAttribute("concerns", values[2]);
             request.setAttribute("setting", setting);
             
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/cvo/cstConcerns.jsp"));
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/cst/cstConcerns.jsp"));
             
             map.put("successful", true);
         } catch(Exception e) {
