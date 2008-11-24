@@ -714,7 +714,7 @@
       </pg:hide>
     </div>
     
-    <div id="col"></div>
+    <div id="col" style="overflow:auto;"></div>
     
     <div id="col-right">
         <!--START Tabs -->
