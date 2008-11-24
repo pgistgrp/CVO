@@ -20,7 +20,6 @@
     </c:otherwise>
   </c:choose>
       <td>${path.title}</td>
-      <td>${path.frequency}</td>
       <td id="pathnum-${path.id}">${path.numAgree}/${path.numVote}</td>
       <td id="pathvot-${path.id}">
         <c:choose>
@@ -33,6 +32,7 @@
           </c:otherwise>
         </c:choose>
       </td>
+      <td>${path.frequency}</td>
     </tr>
 </c:forEach>
 </table>
