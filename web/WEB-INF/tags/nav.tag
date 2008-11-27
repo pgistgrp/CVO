@@ -15,10 +15,10 @@
                 <pg:hide roles="guest">
                   <span><pg:url page="/usercp.do">User Settings</pg:url></span>
                 </pg:hide>
-                <span><pg:url page="/logout.do">Log out</pg:url></span>
+                <span><pg:url page="/logout.do">Log Out</pg:url></span>
             </c:when>
             <c:otherwise>
-                <span><pg:url page="/login.do">Log in</pg:url></span>
+                <span><pg:url page="/login.do">Log In</pg:url></span>
             </c:otherwise>
             </c:choose>
             <span style="text-align:right"><a href="javascript:location.reload(true)">Reload Page</a>

@@ -33,7 +33,7 @@
 								</c:forEach>
 
 						<logic:equal name="type" value="0">
-						<div id=actionMenu class="actionMenu"><strong>Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});" rel="lightbox" class="lbOn">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTagsPopup('${concern.id}');">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
+						<div id=actionMenu class="actionMenu"><strong>Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});" rel="lightbox" class="lbOn">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTagsPopup('${concern.id}');">Edit keywords</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
 						<br>
 						<div id="editConcernArea${concern.id}" style="display:none">Test</div>
 						</logic:equal>

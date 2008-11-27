@@ -62,7 +62,7 @@
 				tinyMCE.setContent('');
 	 	 		var newPostTags = $(this.newPostTagsInput).value;
 	 	 		
-	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags);
+	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Keywords: " + newPostTags);
 				SDAgent.createPost({isid:this.structureId, ioid: this.objectId, title: newPostTitle, content: newPost, tags:newPostTags}, {
 				callback:function(data){
 						if (data.successful){

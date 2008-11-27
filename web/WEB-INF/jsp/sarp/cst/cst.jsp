@@ -451,7 +451,7 @@
   }
   
   function deleteCSTComment(cid) {
-    if (!confirm('Are you sure to delete this comment? There\'s not way to undo it.')) return;
+    if (!confirm('Are you sure to delete this comment? There\'s no way to undo it.')) return;
     displayIndicator(true);
     CSTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
@@ -643,12 +643,12 @@
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants group concern keywords/keyphrases into categories to summarize and organize concerns using the left, right, and center columns below. Scan the keywords in the right column to gain an idea of what keywords are similar to one another. In the textbox at the top of the left column, insert a category label (one of more words are OK) that seems to generalize over one or more keywords/keyphrases. You may use the same spelling for a category label as one of the keywords/phrases as you see fit. Click the "Add Category" button to move label into list in the left column. Click on the label to make it 'active'. Over in the right column, click on arrow(s) in front keyword(s)/phrase(s) to move the keyword(s)/phrase(s) into the center column for the 'active category'. Clicking on an arrow in the center column moves the keywords/phrases back to the right column. For the active category label, you may add a description in the textbox at the bottom of the left column. Repeat any of the above as many times as is appropriate to generalize keywords/phrases into categories. When finished to share with others, click the "Publish" button at bottom of left column.</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Participants group concern keywords/phrases into categories to highlight similar ideas. Scan the keywords in the right column to gain a sense of what keywords are similar to one another. In the textbox at the top of the left column, insert a category word/phrase that generalizes over keywords/phrases. You may create a new label or use one of keywords/phrases. Click the "Add Category" button to insert the label into the left column. Clicking on the label makes it 'active'. In the right column, click on arrow(s) for keyword(s)/phrase(s) to move the keyword(s) into the center column for the 'active' category. Clicking on an arrow in the center column moves the keyword(s)/phrase(s) back to the right column. For the active category label, you may add a description in the textbox at the bottom of the left column. Repeat the above as appropriate to generalize keywords/phrases into categories. When finished to share with others, click the "Publish" button at bottom of the left column.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
       </p>
       <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Higher average mean temperatures could cause increased evaporation and decreased rainfall, which would affect the flow growing.  More intense rainfall could cause an increasing in flooding, more landslides and mudslide damage.</pg:termHighlight>
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">For example, climate impacts might include higher temperatures.  Higher temperatures might include more rainfall. More rainfall might include more flooding.</pg:termHighlight>
       </p>
     </div>
     
@@ -667,7 +667,7 @@
       </select></h2>
     </pg:show>
     <pg:show condition="${modtool}">
-      <h2 class="headerColor">Moderator Tool for TCT</h2>
+      <h2 class="headerColor">Moderator Tool for CCT</h2>
     </pg:show>
     
     <pg:show condition="${modtool}">

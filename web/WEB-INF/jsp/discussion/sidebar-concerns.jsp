@@ -71,7 +71,7 @@
 										</div><!--end discussionTagsList -->
 										<c:if test="${baseuser.id == concern.author.id}">
 												<div class="box6">
-													<strong>Author Actions:</strong> <a href="javascript:editConcern(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTags(${concern.id});">Edit Tags</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a> 
+													<strong>Author Actions:</strong> <a href="javascript:editConcern(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTags(${concern.id});">Edit Keywords</a> &nbsp; <a href="javascript:deleteConcern(${concern.id});">Delete Concern</a> 
 												</div>
 										</c:if>
 								</div><!-- end discussion body -->	

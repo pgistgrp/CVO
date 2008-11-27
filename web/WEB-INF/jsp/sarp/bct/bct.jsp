@@ -267,10 +267,10 @@ var allNewConcernTags = new Array;
         $(bct.divAddConcernTagsList).innerHTML = renderTags();
         $('manualTag').value = ""; //clear textbox
       }else{
-        alert("Tag can not be blank!");  
+        alert("Keyword/phase cannot be blank!");  
       }
     }else{
-      alert("Tag can not be blank!");  
+      alert("Keyword/phase cannot be blank!");  
     }
     //for(i=0; i< newConcernTagsArray.length; i++){
     //  alert(newConcernTagsArray[i].tagName + " status:" + newConcernTagsArray[i].status);  
@@ -292,7 +292,7 @@ var allNewConcernTags = new Array;
   function saveConcern(){
     getSelectedTags();
     if(newConcernSelectedTagsArray.length<bct.numTagsInNewConcern){
-    alert("You must use at least "+ bct.numTagsInNewConcern +" tags");
+    alert("You must use at least "+ bct.numTagsInNewConcern +" keywords/phrases");
     }else{
     var concern = $(bct.txtAddConcern).value;
     var newConcernSelectedTagsString = '';
@@ -521,7 +521,7 @@ function editTagsPopup(concernId){
     os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
     os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
         os += '<input type="button" value="Add Tag" onClick="addManualEditTag('+concernId+');" /></form>';
-        os += '<p><small>You must use at least 2 or more tags to continue.</small></p>';
+        os += '<p><small>You must use at least 2 or more keywords/phrases to continue.</small></p>';
          os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
     os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
        return os;
@@ -535,7 +535,7 @@ function editTagsPopup(concernId){
       $('manualEditTag').value = ""; //clear textbox
       $(tagDiv).innerHTML = renderEditingTags(concernId);  
     }else{
-      alert("Tag can not be blank.");
+      alert("Keyword/phase cannot be blank.");
     }
     
     //alert(tagDiv);
@@ -554,7 +554,7 @@ concernTags = str;
 function editTags(concernId){
   getSelectedTags();
   if(newConcernSelectedTagsArray.length<bct.numTagsInNewConcern){
-    alert("You must use at least "+ bct.numTagsInNewConcern +" tags");
+    alert("You must use at least "+ bct.numTagsInNewConcern +" keywords/phrases");
   }else{
   var newConcernSelectedTagsString = newConcernSelectedTagsArray.toString();
   //for (i=0; i<newConcernSelectedTagsArray.length; i++){
@@ -594,9 +594,9 @@ function editTags(concernId){
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants describe their concerns about climate change and variability. Participants summarize those concerns with keywords and/or keyphrases (3-5 words). A participant enters a concern using  2 or 3 sentences (more or less). The system identifies keywords. A person can then summarize the concern by clicking a check box for keywords, or enter one or more keyphrases (usually a bit more descriptive of the concern).</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Describe your concerns about climate change and variability. Although any number of sentences can be used, 1, 2, or 3 sentences would be fine. The system identifies keywords. Select one or more of the keywords by clicking a check box. If desired, enter one or more keywords/phrases into the text box. Keyphrases (2-5 words) add a bit more meaning when tagging a concern.</pg:termHighlight>
       <p>
-        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
+        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Read more about this step</pg:termHighlight></a>
       </p>
       <p id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Here is an example concern: Robert is worried about grape growing near the coast.</pg:termHighlight>
@@ -663,15 +663,15 @@ function editTags(concernId){
           <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type in one concern about regional climate change. You can enter more later.</textarea>
         </h3>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
-          <h3>Keyword your concern</h3>
-    <p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of keywords as labels.  At this stage of the process, they assist the moderator in writing summaries, so it is important to keyword your concerns with words that help convey your meaning.">What is a keyword?</a> <img src="images/external.png" alt="(new window)"></p>
-          <p>Suggested keywords:</p>
+          <h3>Keyword/phrase your concern</h3>
+    <p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of keywords as labels.  Keywords assist participants in labeling concerns to make concerns quicker to understand, so it is important to keyword your concerns with words that help convey your meaning.">What is a keyword?</a> <img src="images/external.png" alt="(new window)"></p>
+          <p>Previously suggested keywords/phrases:</p>
           <ul id="addConcernTagsList" class="tagsList">
             <!-- render suggested tags here -->
           </ul>
           <form action="javascript: addManualTag();">
-            <input id="manualTag" type="text" size="10" value="Add your own keyword" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
-            <input type="button" value="Add Keyword" onClick="addManualTag();" />
+            <input id="manualTag" type="text" size="10" value="Add keyword/phrase" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
+            <input type="button" value="Add Keyphrase" onClick="addManualTag();" />
           </form>
           <p><small>You must use at least 2 or more keywords to continue.</small></p>
         </div>

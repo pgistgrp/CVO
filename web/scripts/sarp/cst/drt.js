@@ -90,9 +90,9 @@ var catTree = {
                 }
               }
               if (size>0) {
-                s += '<tr><td align="right" valign="top"><b>tags:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+                s += '<tr><td align="right" valign="top"><b>keywords:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
               } else {
-                s += '<tr><td align="right"><b>tags:</b></td><td align="left">none</td></tr>';
+                s += '<tr><td align="right"><b>keywords:</b></td><td align="left">none</td></tr>';
               }
 
               $('tagsTop').innerHTML = s;
@@ -153,9 +153,9 @@ var catTree = {
                 }
               }
               if (size>0) {
-                s += '<tr><td align="right" valign="top"><b>tags:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+                s += '<tr><td align="right" valign="top"><b>keywords:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
               } else {
-                s += '<tr><td align="right"><b>tags:</b></td><td align="left">none</td></tr>';
+                s += '<tr><td align="right"><b>keywords:</b></td><td align="left">none</td></tr>';
               }
               
               $('tagsBottom').innerHTML = s;

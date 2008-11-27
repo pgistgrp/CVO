@@ -337,12 +337,12 @@
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants specify indicators and measurement units for the hierarchy paths constructed in the previous step. Click on a path in the left column. In the middle column, enter an indicator label for that path by selecting a keyword/phrase from the pull down box or enter your own indicator label. Then, suggest a unit of measurement suitable for that climate concern indicator. These indicators and measurement units will be used to create climage change/variability maps as data become available from the Oregon Coastal Atlas. Repeat any of the above instructions as many times as is appropriate to identify indicators and units of measurements to be used in creating climate change maps. When finished to share with others, click the "Publish" button at the bottom of left column.</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">In this step, participants specify indicators and measurement units for the hierarchy paths constructed previousky. Click on a path in the left column. In the middle column, enter an indicator label for that path by selecting a keyword/phrase from the pull down box or enter your own indicator labe into the text boxl. Then, suggest a unit of measurement suitable for that climate concern indicator. These indicators and measurement units will be used to create climate change/variability maps using data as it becomes available from the Oregon Coastal Atlas data archive. Repeat the above instructions as many times as is appropriate to identify indicators and units of measurements to be used in creating climate change maps. When finished to share with others, click the "Publish" button at the bottom of left column.</pg:termHighlight>
       <p>
-        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">See an example. Read more about this step</pg:termHighlight></a>
+        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Read more about this step</pg:termHighlight></a>
       </p>
       <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Here is an example concern: Robert is worried about grape growing near the coast.</pg:termHighlight>
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">The Oregon Coastal Atlas has thousands of data files. Many of them pretain to climate change and variability. However, it is possible that many of the indicator variables created in during this process do not at this time have data readily available. We will find out in future steps of the project based on participant concerns.</pg:termHighlight>
       </p>
     </div>
 <!-- end of overview and instructions -->

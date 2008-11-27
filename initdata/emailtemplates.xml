@@ -4,17 +4,17 @@
 
     <template name="term_rejected">
         <description>Send an email to participant to inform him that the term he proposed is rejected.</description>
-        <subject>Let's Improve Transportation!: your glossary submission has been rejected.</subject>
+        <subject>Voicing Climate Concerns: your glossary submission has been rejected.</subject>
         <notes>Variable: ${term}, ${user}, ${reason}</notes>
         <content><![CDATA[{user.loginname},<br />
     
-    You recently submitted the term "${term.name}" to the Let's Improve Transportation glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:<br />
+    You recently submitted the term "${term.name}" to the Voicing Climate Concerns glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:<br />
     
     "${reason}"<br />
     
     Thank you for your participation,<br />
     
-    Let's Improve Transportation!]]>
+    Voicing Climate Concerns]]>
         </content>
     </template>
     
@@ -35,7 +35,7 @@
     
                  Thanks for your participation,<br />
     
-    Let's Improve Transportation!]]>
+    Voicing Climate Concerns]]>
         </content>
     </template>
     
@@ -54,21 +54,21 @@
     
     <template name="registration">
             <description>Send an email notification to user that their account has been created.</description>
-            <subject>Welcome to Let's Improve Transportation</subject>
+            <subject>Welcome to Voicing Climate Concerns</subject>
             <notes>Variable: ${loginname}, ${webqid}</notes>
             <content><![CDATA[
-    <p>Welcome to Let's Improve Transportation, or LIT.</p>
+    <p>Welcome to Voicing Climate Concerns,</p>
     <p>Your user account has been successfully created. Your Login Name is ${loginname}. Your participant id number is ${webqid}. (You will need this number to access surveys.)
     Thanks for becoming the newest participant in the LIT Challenge. You will receive an email soon when the website is ready for your participation.
     <p>See you online soon!<br/>
-    Matt and Kevin, the LIT moderators</p>
+    VCC moderators</p>
             ]]>
             </content>
             <!--
-                <p>Welcome to Let's Improve Transportation, or LIT.</p>
+                <p>Welcome to Voicing Climate Concerns, or LIT.</p>
                 <p>Your user account has been successfully created. Your Login Name is ${loginname}. Your participant id number is ${webqid}. (You will need this number to access surveys.)
                 Thanks for becoming the newest participant in the LIT Challenge. To login and get started simply go to:
-                <a href="http://www.letsimprovetransportation.org">www.letsimprovetransportation.org</a> </p>
+                <a href="http://www.climateconcerns.org">www.climateconcerns.org</a> </p>
                 <p>See you online soon!<br/>
                 Matt and Kevin, the LIT moderators</p>
             -->
@@ -110,10 +110,10 @@
         This code is used to reset your password and will expire in 30 minutes.
         </p>
         <p>Please follow the link below to reset your password:
-        <a href="http://www.letsimprovetransportation.org/resetpassword.do?code=${code}">Password Recovery</a></p>
+        <a href="http://www.climateconcerns.org/resetpassword.do?code=${code}">Password Recovery</a></p>
 
         <p>If the link above does not work copy and paste the following URL into your browsers location bar:<br>
-        <strong>http://www.letsimprovetransportation.org/resetpassword.do?code=${code}</strong>
+        <strong>http://www.climateconcerns.org/resetpassword.do?code=${code}</strong>
         </p>
         ]]>
         </content>

@@ -40,15 +40,16 @@
 	<p></p>
 	<h3 class="headerColor"><a name="step1a" style="background-color:yellow">Step 1a: Brainstorm</a></h3>
 		<ul>
-			<li><strong><a name="whattag" style="background-color:yellow">What is a tag?</a></strong>
-				<p>Think of tags as labels.  These labels help make your concerns easier to find among the many other concerns provided by other participants.  Tags are important for this first step in our process, as it assists the moderator in finding and clustering concerns so that summaries can be written.  It is important, therefore, to tag your concerns with words or word phrases that you feel appropriately convey the meaning of your concern.</p>
+			<li><strong><a name="whattag" style="background-color:yellow">What is a keyword?</a></strong>
+				<p>Think of keywords as labels.  These labels help make your concerns easier to find among the many other concerns provided by other participants.  Keywords are important for this first step in our process, as they assist in finding and clustering concerns so that categories of concerns can be composed  It is important, therefore, to keyword your concerns with labels or phrases that you feel appropriately convey the meaning of your concern.</p>
 			</li>
 		</ul>
-	<h3 class="headerColor"><a name="step1b" style="background-color:yellow">Step 1b: Review Summaries</a></h3>	
+	<h3 class="headerColor"><a name="step1b" style="background-color:yellow">Step 1b: Review and Comment</a></h3>	
 		<ul>
-			<li><strong><a name="howsummaries" style="background-color:yellow">How are these summaries created?</a></strong>
-				<p>As participants add concerns, the moderator will review a subset of these concerns by sampling the tags participants used to label their concerns.  While reading the concerns, the moderator will place these concerns into topical themes, by creating themes and adding tags to these themes.  Due to the many concerns added by participants, it is possible that the moderator will not be able to review every concern, or every group of concerns tagged with the same tag.  Therefore, your responsibility as a participant is to review these summaries and discuss how these summaries might be re-written differently.</p>
+			<li><strong><a name="howsummaries" style="background-color:yellow">How are these reviews and comments used?</a></strong>
+				<p>As participants add concerns, participants have an opportunity to see what others are writing about.  Later on participants will categorize keywords (and hence concerns) into groups.  Due to the many concerns added by participants, it is possible that some concerns will be missed, or keyword not considered.</p>
 			</li>
+			<!-- Remove 
 			<li><strong><a name="whosummaries" style="background-color:yellow">Who reads these summaries?</a></strong>
 				<p>You and your fellow participants will initially read and review these summaries.  The moderator may revise these summaries based on participant feedback and discussion.  At the conclusion of this step, the summaries will cease to be updated and will be included in a final report given to decision makers.  All the comments and discussion about these summaries will also be included, to showcase the variety of opinions.</p>
 			</li>
@@ -58,6 +59,7 @@
 			<li><strong><a name="howsummariesrevised" style="background-color:yellow">How are summaries revised?</a></strong>
 				<p>When a significant number of participants indicate that they disagree with a summary, the moderator will review discussions and suggested revisions by participants. If it appears that a revision is necessary, the moderator will make changes and notify participants. At the conclusion of this step, the summaries will no longer be revised. Some participants may disagree with the 'final' version of a summary. These participants can express this disagreement in the poll as well as their discussion comments about the summary. These comments will always be available for review to all participants and will also be available to decision makers as an appendix to the final report.</p>
 			</li>
+			-->
 		</ul>
   </div>
   <!-- end container -->

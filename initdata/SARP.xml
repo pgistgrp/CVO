@@ -226,7 +226,7 @@
                     <var name="oid"/>
                 </ins>
                 <props>
-                    <property name="announcement" value="Moderator is modifying TCT, please wait." />
+                    <property name="announcement" value="Moderator is working on suggested changes, please wait." />
                 </props>
             </declaration>
         </pgame>
@@ -555,14 +555,14 @@
                         <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="announcement" value="Specialists are preparing concern indicator recommendations, please wait." />
+                    <property name="announcement" value="Specialists are preparing measurement unit recommendations, please wait." />
                 </props>
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.vtt.experttool" title="Specialist recommendation tool" auto="false" access="expert" revisitable="false">
+        <pgame name="pgame-sarp.vtt.experttool" title="Specialist tool" auto="false" access="expert" revisitable="false">
             <description>
-              <![CDATA[<small>Specialists recommend indicator units</small>]]>
+              <![CDATA[<small>Specialists recommend measurement units</small>]]>
             </description>
             <actionName>action-sarp.vtt.experttool</actionName>
             <declaration>

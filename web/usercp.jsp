@@ -390,7 +390,7 @@ function formOther(){
 			</div>
 			<div class="clearBoth"></div>
 			<br />
-			<div class="email-col1">Do you wish to receive e-mails notifying you of new activity in my discussions?</div>
+			<div class="email-col1">I wish to receive e-mails notifying me of new activity in my discussions.</div>
 			<div class="email-col2">
 				<label>
 				<html:radio property="emailNotifyDisc" value="true" />
@@ -403,12 +403,12 @@ function formOther(){
 			<div class="email-col3"> <strong>About e-mail notification for discussions:</strong><br />
 				When you post a new comment in the discussion you always have the option
 					of selecting to receive e-mail notifications when there is new activity in that
-					discussion. Select no here if you wish to stop receiving any e-mails notifying
+					discussion. Select no here if you wish to stop receiving e-mails notifying you
 					about discussion activity. </div>
 			<div class="clearBoth"></div>
 			<br />
-			<div class="email-col1">Do you wish to receive e-mails from the moderator announcing
-				progress in the experiment?</div>
+			<div class="email-col1">I wish to receive e-mails from the moderator announcing
+				progress in the experiment.</div>
 			<div class="email-col2">
 				<label>
 				<html:radio property="emailNotify" value="true" />
@@ -421,7 +421,7 @@ function formOther(){
 			<div class="email-col3"> <strong>Note to research study participants:</strong><br />
 				We highly recommend that all research study participants choose to receive
 					e-mails from the moderator. Not receiving these e-mails may result in missing
-					important steps in the experiment. </div>
+					important steps in the process. </div>
 			<div class="clearBoth"></div>
 			<br />
 			</fieldset>

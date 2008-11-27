@@ -305,7 +305,7 @@ function renderEditingTags(concernId){
 	os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
 	os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
       os += '<input type="button" value="Add Tag" onClick="addManualEditTag('+concernId+');" /></form>';
-      os += '<p><small>You must use at least 2 or more tags to continue.</small></p>';
+      os += '<p><small>You must use at least 2 or more keywords/phrases to continue.</small></p>';
      	os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
 	os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
      return os;
@@ -329,7 +329,7 @@ function addManualEditTag(concernId){
 		$('manualEditTag').value = ""; //clear textbox
 		$(tagDiv).innerHTML = renderEditingTags(concernId);  
 	}else{
-		alert("Tag can not be blank.");
+		alert("Keyword/phase cannot be blank.");
 	}
 }
 		
@@ -337,7 +337,7 @@ function renderEditingTags(concernId){
 	os = '<ul  class="tagsList">' + renderTags(); + '</ul>';
 	os += '<form action="javascript: addManualEditTag('+concernId+');"><input id="manualEditTag" type="text" />';
       os += '<input type="button" value="Add Tag" onClick="addManualEditTag('+concernId+');" /></form>';
-      os += '<p><small>You must use at least 2 or more tags to continue.</small></p>';
+      os += '<p><small>You must use at least 2 or more keywords/phrases to continue.</small></p>';
      	os += '<div><hr><input type="button" id="subeditTags" value="Submit Edits" onClick="editTags('+concernId+')">';
 	os += '<input type="button" value="Cancel" onClick="javascript:toggleEditing(\'tags\', '+concernId+');"></div>';
      return os;
@@ -347,7 +347,7 @@ function renderEditingTags(concernId){
 function editTags(concernId){
 	getSelectedTags();
 	if(newConcernSelectedTagsArray.length<bct.numTagsInNewConcern){
-		alert("You must use at least "+ bct.numTagsInNewConcern +" tags");
+		alert("You must use at least "+ bct.numTagsInNewConcern +" keywords/phrases");
 	}else{
 	var newConcernSelectedTagsString = newConcernSelectedTagsArray.toString();
 	//for (i=0; i<newConcernSelectedTagsArray.length; i++){

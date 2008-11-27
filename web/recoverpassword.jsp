@@ -7,7 +7,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation - Registration</title>
+	<title>Voicing Climate Concerns</title>
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
