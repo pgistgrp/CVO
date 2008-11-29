@@ -170,14 +170,20 @@ public class CHTServiceImpl implements CHTService {
         //copy winner
         CategoryReference root1 = cht.getCst().getWinnerCategory().getCatRef();
         
+        root2 = new CategoryReference(root1);
+        root2.setUser(user);
+        root2.setCstId(cht.getId());
+        
+        chtDAO.save(root2);
+        cht.getCats().put(user.getId(), root2);
+        
+        CategoryReference rootIgnore = new CategoryReference("root-ignore", cht.getCst().getId());
+        
         Queue<CategoryReference> queue1 = new LinkedList<CategoryReference>();
         queue1.offer(root1);
         
         Queue<CategoryReference> queue2 = new LinkedList<CategoryReference>();
-        root2 = new CategoryReference(root1);
-        root2.setUser(user);
-        root2.setCstId(cht.getId());
-        queue2.offer(root2);
+        queue2.offer(rootIgnore);
         
         while (!queue1.isEmpty()) {
             CategoryReference parent1 = queue1.poll();
@@ -195,10 +201,7 @@ public class CHTServiceImpl implements CHTService {
             }
         }
         
-        chtDAO.save(root2);
-        
-        cht.getCats().put(user.getId(), root2);
-        cht.getIgnores().put(user.getId(), new CategoryReference("root-ignore", cht.getCst().getId()));
+        cht.getIgnores().put(user.getId(), rootIgnore);
         
         chtDAO.save(cht);
         
