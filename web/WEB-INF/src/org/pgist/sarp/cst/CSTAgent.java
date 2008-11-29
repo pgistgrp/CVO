@@ -11,10 +11,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
-import org.pgist.sarp.bct.BCT;
-import org.pgist.sarp.cht.CHT;
-import org.pgist.sarp.drt.InfoObject;
-import org.pgist.sarp.vtt.VTT;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
@@ -1088,13 +1084,7 @@ public class CSTAgent {
                     Set<User> recipients = cstService.getThreadUsers(catRefId);
                     String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
                     
-                    String type = "\"Concern category tool\" in step \"Create Climate Concern Categories\"";
-                    
-                    Map<String, Object> vars = new HashMap<String, Object>();
-                    vars.put("type", type);
-                    vars.put("url", url);
-                    
-                    emailSender.send(recipients, "generic_comment", vars, WebUtils.currentUserId());
+                    emailSender.enqueue(recipients, WebUtils.currentUserId(), url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

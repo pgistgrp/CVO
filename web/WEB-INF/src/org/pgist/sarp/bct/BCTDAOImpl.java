@@ -581,7 +581,7 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
 	}//getConciseTags()
 
 
-    private static final String hql_getThreadUsers = "select c.author as a from Concern c where c.id=?";
+    private static final String hql_getThreadUsers = "select cc.author from ConcernComment cc where cc.concern.id=?";
 
 
     @Override

@@ -2,6 +2,8 @@ package org.pgist.system;
 
 import java.util.List;
 
+import org.hibernate.Query;
+
 
 /**
  * 
@@ -42,6 +44,24 @@ public class EmailDAOImpl extends BaseDAOImpl implements EmailDAO {
     public EmailTemplate getTemplateById(Long id) throws Exception {
         return (EmailTemplate) getHibernateTemplate().get(EmailTemplate.class, id);
     }//getTemplateById()
+
+
+    @Override
+    public void clearEmailNotifications() throws Exception {
+        Query query = query = getSession().createQuery("delete EmailNotification where flag=?");
+        query.setBoolean(0, true);
+        query.executeUpdate();
+    } //clearEmailNotifications()
+
+
+    @Override
+    public List<EmailNotification> getEmailNotifications() throws Exception {
+        Query query = getSession().createQuery("update EmailNotification e set e.flag=?");
+        query.setBoolean(0, true);
+        query.executeUpdate();
+        
+        return getHibernateTemplate().find("from EmailNotification e where e.flag=? order by e.user.id", true);
+    }
     
     
 }//class EmailDAOImpl

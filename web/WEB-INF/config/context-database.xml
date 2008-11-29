@@ -41,6 +41,7 @@
                <!-- POJO schema information -->
                <value>org/pgist/system/RecoverPassword.hbm.xml</value>
                <value>org/pgist/system/EmailTemplate.hbm.xml</value>
+               <value>org/pgist/system/EmailNotification.hbm.xml</value>
                <value>org/pgist/system/Feedback.hbm.xml</value>
                <value>org/pgist/system/YesNoVoting.hbm.xml</value>
                <value>org/pgist/system/SystemLog.hbm.xml</value>
@@ -135,6 +136,8 @@
           <prop key="log*">PROPAGATION_REQUIRED</prop>
           <prop key="import*">PROPAGATION_REQUIRED</prop>
           <prop key="calcUserValues">PROPAGATION_REQUIRED</prop>
+          <prop key="enqueue">PROPAGATION_REQUIRED</prop>
+          <prop key="checkAndSend">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>

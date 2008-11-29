@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
 import org.pgist.search.SearchHelper;
+import org.pgist.system.EmailSender;
 import org.pgist.tagging.TagAnalyzer;
 import org.pgist.util.JythonAPI;
 import org.pgist.util.WebUtils;
@@ -25,6 +26,43 @@ import org.springframework.web.context.WebApplicationContext;
  *
  */
 public class PgistListener implements ServletContextListener {
+    
+    
+    private class EmailSendingThread extends Thread {
+        
+        private boolean exit = false;
+        
+        private long sleeping = 1 * 60 * 1000;
+        
+        private EmailSender emailSender;
+        
+        public EmailSendingThread(EmailSender emailSender) {
+            this.emailSender = emailSender;
+        }
+        
+        public void run() {
+            while (!exit) {
+                // check and send email
+                emailSender.checkAndSend();
+                
+                // now sleep
+                try {
+                    Thread.currentThread().sleep(sleeping);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } //run()
+        
+        public void exit() {
+            this.exit = true;
+            interrupt();
+        }
+        
+    } //class EmailSendingThread
+    
+    
+    private EmailSendingThread daemon;
     
     
     public void contextInitialized(ServletContextEvent servletContextEvent) {
@@ -101,6 +139,14 @@ public class PgistListener implements ServletContextListener {
                 e.printStackTrace();
             }
             
+            /*
+             * The email sending daemon
+             */
+            
+            EmailSender emailSender = (EmailSender) context.getBean("emailSender");
+            daemon = new EmailSendingThread(emailSender);
+            daemon.start();
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -115,6 +161,7 @@ public class PgistListener implements ServletContextListener {
     
     
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        daemon.exit();
     }//contextDestroyed()
     
     

@@ -7,7 +7,7 @@ import java.util.List;
  * 
  * @author kenny
  */
-public interface EmailDAO {
+public interface EmailDAO extends BaseDAO {
     
     
     EmailTemplate getTemplateByName(String name) throws Exception;
@@ -20,6 +20,12 @@ public interface EmailDAO {
     
 
     EmailTemplate getTemplateById(Long id) throws Exception;
+
+
+    List<EmailNotification> getEmailNotifications() throws Exception;
+
+
+    void clearEmailNotifications() throws Exception;
     
     
 }//interface EmailDAO

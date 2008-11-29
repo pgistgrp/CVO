@@ -142,16 +142,17 @@
     
     
     <template name="generic_comment">
-        <description>Send an email notification to participants whose CST comment is replied.</description>
-        <subject>New Comment on ${type}</subject>
-        <notes>Variable: ${type}, ${recipient}, ${url}</notes>
+        <description>Send an email notification to participants whose comment is replied.</description>
+        <subject>New Comment(s) on discussion</subject>
+        <notes>Variable: ${recipient}, ${urls}</notes>
         <content><![CDATA[${recipient.loginname},<br /><br />
     
-    Somebody has contributed a new comment to discussion in the ${type}<br /><br />
-    
-    Follow this link to view the discussion:<br /><br />
-    
-    <span style="padding-left:4em;"><a href="http://www.climateconcerns.org/${url}">http://www.climateconcerns.org/${url}</a></span><br /><br />
+    Discussion was updated after your last post, please follow the link(s) below to view the discussion:
+    <br /><br />
+    <ul>
+      ${urls}
+    </ul>
+    <br /><br />
     
     Thanks for your participation,<br /><br />
     

@@ -11,12 +11,8 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
-import org.pgist.sarp.bct.BCT;
-import org.pgist.sarp.cht.CHT;
-import org.pgist.sarp.cst.CST;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
-import org.pgist.sarp.vtt.VTT;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
@@ -283,31 +279,7 @@ public class DRTAgent {
                     Set<User> recipients = drtService.getThreadUsers(oid);
                     String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
                     
-                    InfoObject infoObject = drtService.getInfoObjectById(oid);
-                    
-                    String type = "";
-                    boolean needSending = true;
-                    if (infoObject.getTarget() instanceof BCT) {
-                        type = "\"Review and comment tool\" for step \"Brainstorm Concerns and Keywords\"";
-                    } else if (infoObject.getTarget() instanceof CST) {
-                        type = "\"Review and comment tool\" for step \"Create Climate Concern Categories\"";
-                    } else if (infoObject.getTarget() instanceof CHT) {
-                        type = "\"Review and comment tool\" for step \"Create Hierarches of Climate Concern Categories\"";
-                    } else if (infoObject.getTarget() instanceof VTT) {
-                        type = "\"Review and comment tool\" for step \"Create Climate Concern Indicators\"";
-                    } else {
-                        needSending = false;
-                    }
-                    
-                    System.out.println("==============> "+needSending);
-                    
-                    if (needSending) {
-                        Map<String, Object> vars = new HashMap<String, Object>();
-                        vars.put("type", type);
-                        vars.put("url", url);
-                        
-                        emailSender.send(recipients, "generic_comment", vars, WebUtils.currentUserId());
-                    }
+                    emailSender.enqueue(recipients, WebUtils.currentUserId(), url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

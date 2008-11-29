@@ -2,6 +2,8 @@ package org.pgist.system;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -184,6 +186,96 @@ public class EmailSender {
             }
         }
         */
+    }
+    
+    
+    public void enqueue(Set<User> recipients, Long excludedUserId, String link) throws Exception {
+        for (User user : recipients) {
+            if (user.getId().equals(excludedUserId)) continue;
+            if (!user.isEmailNotify()) continue;
+            
+            EmailNotification en = new EmailNotification();
+            en.setFlag(false);
+            en.setUser(user);
+            en.setLink(link);
+            
+            emailDAO.save(en);
+        }
+    }
+    
+    
+    public void checkAndSend() {
+        try {
+            // get all email notifications and set their flags to true
+            List<EmailNotification> ens = emailDAO.getEmailNotifications();
+            
+            User user = null;
+            Set<String> links = new HashSet<String>();
+            Map<String, Object> vars = new HashMap<String, Object>();
+            
+            if (ens.size()==0) return;
+            
+            // merge and send email
+            for (int i=0; i<ens.size(); i++) {
+                try {
+                    EmailNotification en = ens.get(i);
+                    
+                    if (i==ens.size()-1) {
+                        //last one
+                        
+                        if (user!=en.getUser()) {
+                            // not in group, send the last one alone
+                            vars.put("recipient", en.getUser());
+                            String url = "http://www.climateconcerns.org/" + en.getLink();
+                            StringBuilder sb = new StringBuilder();
+                            sb.append("<li><a href=\"").append(url).append("\">").append(url).append("</a></li>");
+                            vars.put("urls", sb.toString());
+                            send(en.getUser(), "generic_comment", vars);
+                        }
+                        
+                        if (links.size()>0) {
+                            //send group
+                            StringBuilder sb = new StringBuilder();
+                            for (String link : links) {
+                                String url = "http://www.climateconcerns.org/" + link;
+                                sb.append("<li><a href=\"").append(url).append("\">").append(url).append("</a></li>");
+                            }
+                            vars.put("recipient", user);
+                            vars.put("urls", sb.toString());
+                            send(en.getUser(), "generic_comment", vars);
+                        }
+                        
+                        break;
+                    } else if (user!=en.getUser()) {
+                        if (user==null) {
+                            //first one, continue
+                        } else {
+                            // group boundary, send group
+                            StringBuilder sb = new StringBuilder();
+                            for (String link : links) {
+                                String url = "http://www.climateconcerns.org/" + link;
+                                sb.append("<li><a href=\"").append(url).append("\">").append(url).append("</a></li>");
+                            }
+                            vars.put("recipient", user);
+                            vars.put("urls", sb.toString());
+                            send(en.getUser(), "generic_comment", vars);
+                        }
+                    } else {
+                        // in group, continue
+                    }
+                    
+                    links.add(en.getLink());
+                    user = en.getUser();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            
+            // delete all emails with flag true
+            emailDAO.clearEmailNotifications();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     

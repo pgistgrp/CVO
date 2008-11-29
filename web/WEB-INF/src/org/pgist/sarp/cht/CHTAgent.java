@@ -363,13 +363,7 @@ public class CHTAgent {
                     Set<User> recipients = chtService.getThreadUsers(catRefId);
                     String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
                     
-                    String type = "\"Concern hierarchy tool\" in step \"Create Hierarches of Climate Concern Categories\"";
-                    
-                    Map<String, Object> vars = new HashMap<String, Object>();
-                    vars.put("type", type);
-                    vars.put("url", url);
-                    
-                    emailSender.send(recipients, "generic_comment", vars, WebUtils.currentUserId());
+                    emailSender.enqueue(recipients, WebUtils.currentUserId(), url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

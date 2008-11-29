@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -1465,14 +1464,13 @@ public class BCTAgent {
             // sending email
             try {
                 Set<User> recipients = bctService.getThreadUsers(concernId);
+                System.out.println("recipients 000 =================> "+recipients);
                 recipients.add(comment.getConcern().getAuthor());
                 String url = "concern.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId+"&id="+concernId;
                 
-                Map<String, Object> vars = new HashMap<String, Object>();
-                vars.put("concern", comment.getConcern());
-                vars.put("url", url);
+                System.out.println("recipients 111 =================> "+recipients);
                 
-                emailSender.send(recipients, "concern_comment", vars, WebUtils.currentUserId());
+                emailSender.enqueue(recipients, WebUtils.currentUserId(), url);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -15,7 +15,6 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.sarp.bct.TagReference;
-import org.pgist.sarp.cht.CHT;
 import org.pgist.sarp.cht.CHTService;
 import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CategoryReference;
@@ -249,13 +248,7 @@ public class VTTAgent {
                     Set<User> recipients = vttService.getThreadUsers(ownerId, vttId);
                     String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
                     
-                    String type = "\"Concern indicator tool\" in step \"Create Climate Concern Indicators\"";
-                    
-                    Map<String, Object> vars = new HashMap<String, Object>();
-                    vars.put("type", type);
-                    vars.put("url", url);
-                    
-                    emailSender.send(recipients, "generic_comment", vars, WebUtils.currentUserId());
+                    emailSender.enqueue(recipients, WebUtils.currentUserId(), url);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
