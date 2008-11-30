@@ -398,6 +398,17 @@ public class CSTAgent {
                 return map;
             }
             
+            name = name.trim();
+            
+            for (int i=0; i<name.length(); i++) {
+                char ch = name.charAt(i);
+                if (Character.isLetterOrDigit(ch) || ch==' ' || ch=='\'') {
+                    // well formed
+                } else {
+                    throw new Exception("Only letter/digit/space/single-quote are allowed in category name");
+                }
+            }
+            
             CategoryReference newCat = cstService.addCategoryReference(cstId, parentId, name);
             
             map.put("newId", newCat.getId());

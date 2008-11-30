@@ -4,7 +4,8 @@
 <div id="col-left" style="float:left;width:30%;overflow:auto;height:300px;border-right:1px solid #B4D579;">
   <b>Categories:</b>
   <table id="catTable" width="100%" cellpadding="2" cellspacing="0">
-  <c:forEach var="category" items="${infoObject.target.winnerCategory.children}" varStatus="loop">
+  <pg:sort name="categories" items="${infoObject.target.winnerCategory.children}" key="catRef.category.name" type="lowerCase" />
+  <c:forEach var="category" items="${categories}" varStatus="loop">
     <c:choose>
       <c:when test="${loop.first}">
       <tr id="catRow-${category.id}">

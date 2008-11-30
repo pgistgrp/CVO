@@ -73,6 +73,10 @@ public class SortTag extends SimpleTagSupport {
                             Double d1 = new Double(value1);
                             Double d2 = new Double(value2);
                             return d1.compareTo(d2);
+                        } else if ("lowerCase".equalsIgnoreCase(type)) {
+                            String s1 = value1.toLowerCase();
+                            String s2 = value2.toLowerCase();
+                            return s1.compareTo(s2);
                         } else {
                             if (value1==null || value2==null) throw new Exception("null values is compared");
                             return value1.compareTo(value2);

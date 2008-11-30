@@ -116,6 +116,7 @@ public class BCTServiceImpl implements BCTService {
         
         Set<String> tags = new HashSet<String>();
         
+        // filter out duplicated tags
         for (String tagName : tagStrs) {
             tags.add(tagName);
         }
@@ -151,6 +152,10 @@ public class BCTServiceImpl implements BCTService {
             
             c.getTags().add(ref);
         } //for
+        
+        if (c.getTags().size()<2) {
+            throw new Exception("You must use at least 2 keywords/phrases");
+        }
 
         bctDAO.save(c);
 
