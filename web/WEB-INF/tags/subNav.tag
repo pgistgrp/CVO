@@ -20,7 +20,7 @@
     <c:set var="running" value="${pg:contains(requestScope['org.pgist.wfengine.CONTEXT'].runningActivities, serial)}" />
     <c:set var="histories" value="${pg:contains(requestScope['org.pgist.wfengine.HISTORIES'], serial)}" />
     
-    <c:if test="${serial.access != 'moderator'}">
+    <c:if test="${serial.access != 'moderator' && serial.access != 'expert'}">
       <div class="headerButton floatLeft ${(serial.id == current.id) ? 'currentBox' : ''}">
         <c:choose>
             <c:when test="${running || histories}">
