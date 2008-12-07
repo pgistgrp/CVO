@@ -395,7 +395,7 @@ def saveToDB(catInfoList = None):
 	rootCat = factory.createCategoryInfo('root')
 	for cat in catInfoList:
 		print "------------ >", cat.name
-		info = factory.createCategoryInfo(cat.name)
+		info = factory.createCategoryInfo(cat.label)
 		for tag in cat.tags:
 			info.catRef.tags.add(factory.createTagReference(tag))
 		# Add the different tags used too
