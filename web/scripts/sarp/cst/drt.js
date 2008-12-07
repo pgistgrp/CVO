@@ -66,7 +66,7 @@ var catTree = {
               var ss = '';
               if (data.catRef.alias) {
                 for (var a in data.catRef.alias) {
-                  ss += a+' ('+data.catRef.alias[a]+')<br>';
+                  ss += a+'<br>';
                   size++;
                 }
               }
@@ -129,7 +129,7 @@ var catTree = {
               var ss = '';
               if (data.catRef.alias) {
                 for (var a in data.catRef.alias) {
-                  ss += a+' ('+data.catRef.alias[a]+')<br>';
+                  ss += a+'<br>';
                   size++;
                 }
               }
