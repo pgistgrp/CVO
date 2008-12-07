@@ -408,26 +408,9 @@ def saveToDB(catInfoList = None):
 		info.freqName = cat.freqName
 		info.freqNameAndSet = cat.freqNameAndSet
 		for alias in cat.alias:
-			#
-			#
-			#
-			#info.addAlias(alias)
-			#
-			#
-			#
-			pass
+			info.addAlias(alias)
 		for score in cat.jaccardScores:
 			info.addScore(score)
-		for tagsDiff in cat.tagsDiff:
-			#
-			#
-			#
-			# TODO: Add the tag differences between the categories
-			# TODO: Commented out temporarily: info.tagsDiff.add(tagsDiff)
-			#
-			#
-			#
-			pass
 		rootCat.addChild(info)
 	print rootCat
 	factory.setResult(rootCat)
