@@ -11,9 +11,15 @@
 </select>
 , or<br>
 <label><input type="radio" id="selectTagRadio1" name="selectTagRadio" value="false" onfocus="$('valueName').focus();" <c:if test="${!value.tag}">checked</c:if>>enter my own: </label>
+<<<<<<< vttCategoryPathValue.jsp
+<input type="text" id="valueName" value="<c:if test="${!value.tag}">${value.name}</c:if>" onclick="$('selectTagRadio1').click();">
+<p>Suggested unit of measurement (e.g. for rainfall, cm per year):<br>
+<input type="text" id="valueUnit" value="${value.criterion}">
+=======
 <input type="text" id="valueName" maxlength="50" value="<c:if test="${!value.tag}">${value.name}</c:if>" onclick="$('selectTagRadio1').click();">
 <p>Suggested unit of messurement (e.g. for rainfall, cm per year):<br>
 <input type="text" id="valueUnit" maxlength="50" value="${value.criterion}">
+>>>>>>> 1.1.2.5
 
 <p><input id="btnAdd" type="button" value="<c:if test="${value.id==null}">Add Indicator</c:if><c:if test="${value.id!=null}">Save</c:if>" onclick="saveValue(${path.id}, $('selectTagRadio').checked ? $('valueNameTag').options[$('valueNameTag').selectedIndex].value : $('valueName').value, $('valueUnit').value, $('selectTagRadio').checked ? 'true' : 'false');">
 
