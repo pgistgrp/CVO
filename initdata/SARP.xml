@@ -80,7 +80,7 @@
         
         <pgame name="pgame-sarp.drt.bct" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review climate concerns and keywords|phrases, then comment</small>]]>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -176,7 +176,7 @@
         
         <pgame name="pgame-sarp.drt.cst" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review climate concern categories, then comment</small>]]>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -320,7 +320,7 @@
         
         <pgame name="pgame-sarp.drt.cht" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review category hierarchies of climate concerns, then comment</small>]]>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -482,7 +482,7 @@
         
         <pgame name="pgame-sarp.drt.vtt" title="Review and comment tool" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review climate concern indicators, then comment</small>]]>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
