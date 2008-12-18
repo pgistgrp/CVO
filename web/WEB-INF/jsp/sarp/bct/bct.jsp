@@ -664,7 +664,7 @@ function editTags(concernId){
         </h3>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
           <h3>Keyword/phrase your concern</h3>
-    <p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of keywords as labels.  Keywords assist participants in labeling concerns to make concerns quicker to understand, so it is important to keyword your concerns with words that help convey your meaning.">What is a keyword?</a> <img src="images/external.png" alt="(new window)"></p>
+    <p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of keywords as labels for quick understanding.">What is a keyword?</a> <img src="images/external.png" alt="(new window)"></p>
           <p>Previously suggested keywords/phrases:</p>
           <ul id="addConcernTagsList" class="tagsList">
             <!-- render suggested tags here -->
