@@ -326,6 +326,7 @@ def getIndicators(catList = None, userIdList = None):
 				userIndList = [child.category.name]
 				rankInd = (rank, userIndList)
 				userInd.indList.append(rankInd)
+				userIndList = None
 				rank = rank + 1
 			else:
 				# We entered a first level child
@@ -346,26 +347,33 @@ def getIndicators(catList = None, userIdList = None):
 											if numOfSubSubSubSubSubChildren > 0:
 												pass
 											else:
-												userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
+												label = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
+												userIndList = label
 												rankInd = (rank, userIndList)
 												userInd.indList.append(rankInd)
 												rank = rank + 1
+												userIndList = None
 									else:
-										userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name]
+										label = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name]
+										userIndList = label
 										rankInd = (rank, userIndList)
 										userInd.indList.append(rankInd)
 										rank = rank + 1
+										userIndList = None
 							else:
-								userIndList = [child.category.name, subChild.category.name, subSubChild.category.name]
+								label = [child.category.name, subChild.category.name, subSubChild.category.name]
+								userIndList = label
 								rankInd = (rank, userIndList)
 								userInd.indList.append(rankInd)
 								rank = rank + 1
+								userIndList = None
 					else:		# No subchildren
 						label = [child.category.name, subChild.category.name]
 						userIndList = label
 						rankInd = (rank, userIndList)
 						userInd.indList.append(rankInd)
 						rank = rank + 1
+						userIndList = None
 		"""				
 		# Check if there are subcategories
 		if ((len(child.children)) > 0):
