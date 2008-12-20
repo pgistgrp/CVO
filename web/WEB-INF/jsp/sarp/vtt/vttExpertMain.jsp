@@ -131,6 +131,7 @@
                   $('txtNewCommentTitle').value = '';
                   tinyMCE.setContent('');
                   getComments(1);
+                  alert('Saved.');
               }else{
                   displayIndicator(false);
                   alert(data.reason);

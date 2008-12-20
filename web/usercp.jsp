@@ -250,24 +250,6 @@ function formOther(){
 			<div class="settings-col2">${user.loginname}</div>
 			<div class="clearBoth"></div>
 			</p>
-			<div class="settings-col1">WebQ Id</div>
-			<div class="settings-col2">${user.webQ.value}</div>
-			<div class="clearBoth"></div>
-			
-			<div class="settings-col1">Vocation<br />
-				<span>What do you do?</span></div>
-			<div class="settings-col2">
-				<html:text property="vocation" size="50" value="${user.vocation}"/>
-			</div>
-			<div class="clearBoth"></div>
-			<div class="settings-col1">Why I'm here<br />
-				<span> Tell us about your interest in the regional impacts of global climate change on the Oregon coast and why you've chosen to
-				participate. (255 character limit)</span>  </div>
-			<div class="settings-col2">
-				<html:textarea property="profileDesc" value="${user.profileDesc}" rows="5" cols="50"/>
-			</div>
-			<div class="clearBoth"></div>
-			</fieldset>
 			<fieldset id="commute">
 			<legend>My Commute</legend>
 			<div id="left" class="floatLeft">

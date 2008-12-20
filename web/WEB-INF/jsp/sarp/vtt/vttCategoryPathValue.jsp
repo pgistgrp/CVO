@@ -3,7 +3,7 @@
 <p>Indicator creation from category path "<b>${path.title}</b>"</p>
 
 <label><input type="radio" id="selectTagRadio" name="selectTagRadio" value="true" <c:if test="${value.tag}">checked</c:if>>Select a keyword</label>
-<select id="valueNameTag" style="min-width:50px;" onclick="$('selectTagRadio').click();">
+<select id="valueNameTag" style="min-width:50px;" width="150" onclick="$('selectTagRadio').click();">
   <option value=""></option>
   <c:forEach var="tag" items="${tags}">
     <option value="${tag}" <c:if test="${tag==value.name}">selected</c:if>>${tag}</option>
