@@ -34,6 +34,8 @@ import string
 import operator
 # Helping module to identify type of data passed to us
 from types import *
+
+# PGIST Imports
 from org.pgist.sarp.cst import CategoryReference
 
 
@@ -67,7 +69,7 @@ separator = '/'
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
-
+"""
 class Category:
 	def __init__(self, name=None):
 		self.name = ''
@@ -93,8 +95,7 @@ class CategoryReference:
 	      return self.category, len(self.children), self.frequency, self.tag.name
 	def __len__(self):
 		return len(self.children)
-
-
+"""
 
 
 # Informational Class to be used for statistical analysis
@@ -154,28 +155,6 @@ class Translator:
     def __call__(self, s):
         return s.translate(self.trans, self.delete)
 """        
-"""
-
-This class handles the three most common cases where I find myself having to stop and think about how to use translate:
-
-1) Keeping only a given set of characters.
-
->>> trans = Translator(keep=string.digits)
->>> trans('Chris Perkins : 224-7992')
-'2247992'
-
-2) Deleting a given set of characters.
-
->>> trans = Translator(delete=string.digits)
->>> trans('Chris Perkins : 224-7992')
-'Chris Perkins : -'
-
-3) Replacing a set of characters with a single character.
-
->>> trans = Translator(string.digits, '#')
->>> trans('Chris Perkins : 224-7992')
-'Chris Perkins : ###-####'
-"""
 
 # Helper class to remove unwanted characters
 
@@ -191,34 +170,8 @@ class Translator:
             self.delete = self.allchars.translate(self.allchars, keep.translate(self.allchars, delete))
     def __call__(self, s):
         return s.translate(self.trans, self.delete)
-        
-"""
-
-This class handles the three most common cases where I find myself having to stop and think about how to use translate:
-
-1) Keeping only a given set of characters.
-
->>> trans = Translator(keep=string.digits)
->>> trans('Chris Perkins : 224-7992')
-'2247992'
-
-2) Deleting a given set of characters.
-
->>> trans = Translator(delete=string.digits)
->>> trans('Chris Perkins : 224-7992')
-'Chris Perkins : -'
-
-3) Replacing a set of characters with a single character.
-
->>> trans = Translator(string.digits, '#')
->>> trans('Chris Perkins : 224-7992')
-'Chris Perkins : ###-####'
-"""
 
 # END GENERAL CLASS DECLARATIONS
-
-
-
 
 def buildSampleData(sampleCats = [], numUsers = None):
 	# ********************************************************************************************
@@ -563,37 +516,37 @@ def getCategoryFrequencies(indicatorList = None):
     # Begin getting frequency calculation
     for userIndicators in indicatorList:
         # This is a list of a user's indicators
-		indicatorRank = userIndicators.indList
-		rank, indicator = indicatorRank
+	indicatorRank = userIndicators.indList
+	rank, indicator = indicatorRank
+	isCategory = 0
+	# Check if this is a single-element indicator or a list
+	if isinstance(indicator, ListType):
+		# This is a category that appears as a leaf
+		category = indicator[:]
 		isCategory = 0
-		# Check if this is a single-element indicator or a list
-		if isinstance(indicator, ListType):
-			# This is a category that appears as a leaf
-			category = indicator[:]
-			isCategory = 0
-		elif isinstance(indicator, StringType):
-			# This is a category that appears as a node with no leafs
-			category = indicator
-			isCategory = 1
-		else:
-			raise RuntimeError, "Failure to use given indicator list for statistical analysis"
-		if isinstance(category, ListType):
-			for i in (0, len(category) - 1):
-				if category[i] not in categoryStatsDict:
-					categoryStatsDict[category[i]] = CategoryInformation()
-					categoryStatsDict[category[i]].label = category[i]
-				if i == (len(category) - 1):
-					categoryStatsDict[category[i]].leafFreq += 1
-				else:
-					categoryStatsDict[category[i]].nodeFreq += 1
-		# Check if the category is already in our dictionary
-		elif category not in categoryStatsDict:
-			categoryStatsDict[category] = CategoryInformation()
-			categoryStatsDict[category].label = category
-			if isCategory:
-				categoryStatsDict[category].leafFreq += 1
-			else:
-				categoryStatsDict[category].nodeFreq += 1   
+	elif isinstance(indicator, StringType):
+		# This is a category that appears as a node with no leafs
+                category = indicator
+                isCategory = 1
+	else:
+		raise RuntimeError, "Failure to use given indicator list for statistical analysis"
+	if isinstance(category, ListType):
+		for i in (0, len(category) - 1):
+			if category[i] not in categoryStatsDict:
+				categoryStatsDict[category[i]] = CategoryInformation()
+				categoryStatsDict[category[i]].label = category[i]
+                                if i == (len(category) - 1):
+                                        categoryStatsDict[category[i]].leafFreq += 1
+                                else:
+                                        categoryStatsDict[category[i]].nodeFreq += 1
+	# Check if the category is already in our dictionary
+	elif category not in categoryStatsDict:
+		categoryStatsDict[category] = CategoryInformation()
+		categoryStatsDict[category].label = category
+	if isCategory:
+		categoryStatsDict[category].leafFreq += 1
+        else:
+                categoryStatsDict[category].nodeFreq += 1   
     return categoryStatsDict
     # END CATEGORIES FREQUENCIES
     # ********************************************************************************************
