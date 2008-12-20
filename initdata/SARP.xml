@@ -95,6 +95,20 @@
                         ]]>
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
+                    <property name="overview">
+                        <![CDATA[
+                            <h3 class="headerColor">Overview and instructions</h3>
+                            <p>The review and comment tool supports participant commenting about the overall process, focusing on whether the process should move forward to the next step.</p>
+                            <ul>
+                              <li>For brainstorming concerns, are sufficient keywords/phrases used to characterize a variety of concerns?</li>
+                              <li>For creating concern categories, are sufficient categories used to characterize the majority of keywords/phrases/concerns?</li>
+                              <li>For creating category hierarchies, are sufficient hierarchy paths used to characterize the general to specific levels of categories?</li>
+                              <li>For creating concern indicators, have sufficient indicator labels and respective measurement units been recommended to guide a search for data?</li>
+                            </ul>
+                            <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
+                            <p id="hiddenRM" style="display:none">Although the content material generated in each step is different, the review and comment process is similar. Remember this review and comment activity is about the overall process. When reviewing concerns, if you want to comment about particular concerns, please return to the Brainstorm and Concerns Tool by clicking at the top of the page. When comparing categories, the term "aliases" in the middle column indicates the number of similar category labels that were found. The term "freq set" indicates the number of similar keyword sets for other labels that were found.  The term "freq name" indicates the number of same named category labels found. The term "freq name and set" indicates the number of both same name and sets found.</p>
+                        ]]>
+                    </property>
                 </props>
             </declaration>
         </pgame>
@@ -192,6 +206,11 @@
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/cst/info-object.jsp" />
                     <property name="showLoopChoice" value="true" />
+                    <property name="overview">
+                        <![CDATA[
+                            Overview and Instruction for DRT CST.
+                        ]]>
+                    </property>
                 </props>
             </declaration>
         </pgame>
@@ -336,6 +355,11 @@
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/cht/info-object.jsp" />
                     <property name="showLoopChoice" value="true" />
+                    <property name="overview">
+                        <![CDATA[
+                            Overview and Instruction for DRT CHT.
+                        ]]>
+                    </property>
                 </props>
             </declaration>
         </pgame>
@@ -498,6 +522,11 @@
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-object.jsp" />
                     <property name="showLoopChoice" value="true" />
+                    <property name="overview">
+                        <![CDATA[
+                            Overview and Instruction for DRT VTT.
+                        ]]>
+                    </property>
                 </props>
             </declaration>
         </pgame>

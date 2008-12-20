@@ -304,16 +304,7 @@
         <div id="overview" class="box2">
             <table width="100%"><tr><td width="650px;">
             <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-                <h3 class="headerColor">Overview and instructions</h3>
-                <p>The review and comment tool supports participant commenting about the overall process, focusing on whether the process should move forward to the next step.</p>
-                <ul>
-                    <li>For brainstorming concerns, are sufficient keywords/phrases used to characterize a variety of concerns?</li>
-                    <li>For creating concern categories, are sufficient categories used to characterize the majority of keywords/phrases/concerns?</li>
-                    <li>For creating category hierarchies, are sufficient hierarchy paths used to characterize the general to specific levels of categories?</li>
-					<li>For creating concern indicators, have sufficient indicator labels and respective measurement units been recommended to guide a search for data?</li>
-                </ul>
-                <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-                <p id="hiddenRM" style="display:none">Although the content material generated in each step is different, the review and comment process is similar. Remember this review and comment activity is about the overall process. When reviewing concerns, if you want to comment about particular concerns, please return to the Brainstorm and Concerns Tool by clicking at the top of the page. When comparing categories, the term "aliases" in the middle column indicates the number of similar category labels that were found. The term "freq set" indicates the number of similar keyword sets for other labels that were found.  The term "freq name" indicates the number of same named category labels found. The term "freq name and set" indicates the number of both same name and sets found.</p>
+                <pg:include property="overview" />
             </pg:termHighlight>
             </td>
             <td></td><td style="padding-left:10px;width:180px;">

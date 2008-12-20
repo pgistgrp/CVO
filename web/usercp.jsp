@@ -318,7 +318,7 @@ function formOther(){
 						<html:option value="SD">South Dakota</html:option>
 						<html:option value="TN">Tennessee</html:option>
 						<html:option value="TX">Texas</html:option>
-						<html:option value="UT">Utah</html:option>
+            <html:option value="UT">Utah</html:option>
 						<html:option value="VT">Vermont</html:option>
 						<html:option value="VA">Virginia</html:option>
 						<html:option value="WA">Washington</html:option>
