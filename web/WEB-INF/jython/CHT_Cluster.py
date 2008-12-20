@@ -446,7 +446,7 @@ def printInputData(catList = None):
 
 
 def getIndicatorFrequencies(indicatorList = None):
-	# BEGIND GET INDICATOR FREQUENCIES
+	# BEGIN GET INDICATOR FREQUENCIES
 	# Accepts an indicators list
 	# Returns a dictionary with key = indicator and value = IndicatorStatistics class instance
 	# ********************************************************************************************
@@ -535,7 +535,7 @@ def getCategoryFrequencies(indicatorList = None):
 			categoryStatsDict[category].label = category
 			categoryStatsDict[category].leafFreq += 1
 		else:
-			categoryStatsDict[category].leaFreq += 1
+			categoryStatsDict[category].leafFreq += 1
 	else:
 		raise RuntimeError, "Failure to use given indicator list for statistical analysis"
 	if isinstance(category, ListType):
@@ -586,15 +586,15 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		factory.addCategory(catHash[cat])
 
 	# Traverse the indicators and save them one by one
-	for indic, indicStat in indicatorStats.iteritems():
+	for indicName, indicStat in indicatorStats.iteritems():
 		# indicator holds the name
 		# stat holds: .freq .leaf .initialNode .level
-		print "#### ", indic
-		isPath = indic.count('/')
+		print "#### ", indicName
+		isPath = indicName.count('/')
 		if isPath > 0:
-			indCats = indic.split('/')
+			indCats = indicName.split('/')
 		else:
-			indCats = indic
+			indCats = indicName
 		
 		newPath = factory.createCategoryPath()
 		if isPath > 0:
@@ -602,10 +602,13 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 			for pathCat in indCats:
 				if (catHash.has_key(pathCat)):
 					newPath.getCategories().add(catHash[pathCat])
+				else:
+					cat2add = factory.createCategoryReference(pathCat)
+					newPath.getCategories().add(cat2add)
 		else:
 			newPath.getCategories().add(catHash[indCats])
 		newPath.setFrequency(indicStat.freq)
-		newPath.setTitle(indic)
+		newPath.setTitle(indicName)
 		#newPath.setUsers(indicStat.users)
 		factory.addPath(newPath)
         #print newPath.title
