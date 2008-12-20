@@ -328,70 +328,65 @@ def getIndicators(catList = None, userIdList = None):
 				userInd.indList.append(rankInd)
 				rank = rank + 1
 			else:
-				# Loop through the children
-				while numOfChildren:
-					# We entered a first level child
-					for subChild in child.children:
-						# Does it have children too?
-						numOfSubSubChildren = len(subChild.children)
-						if numOfSubSubChildren > 0:
-							for subSubChild in subChild.children:
-								# Does it have children too?
-								numOfSubSubSubChildren = len(subSubChild.children)
-								if numOfSubSubSubChildren > 0:
-									for subSubSubChild in subSubChild.children:
-										# Does it have children too?
-										numOfSubSubSubSubChildren = len(subSubSubChild.children)
-										if numOfSubSubSubSubChildren > 0:
-											for subSubSubSubChild in subSubSubChild.children:
-												numOfSubSubSubSubSubChildren = len(subSubSubSubChild.children)
-												if numOfSubSubSubSubSubChildren > 0:
-													pass
-												else:
-													userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
-													rankInd = (rank, userIndList)
-													userInd.indList.append(rankInd)
-													rank = rank + 1
-										else:
-											userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name]
-											rankInd = (rank, userIndList)
-											userInd.indList.append(rankInd)
-											rank = rank + 1
-								else:
-									userIndList = [child.category.name, subChild.category.name, subSubChild.category.name]
-									rankInd = (rank, userIndList)
-									userInd.indList.append(rankInd)
-									rank = rank + 1
-						else:		# No subchildren
-							label = [child.category.name, subChild.category.name]
-							userIndList = label
-							rankInd = (rank, userIndList)
-							userInd.indList.append(rankInd)
-							rank = rank + 1
-					# We have finished one of our children. Move one
-					numOfChildren = numOfChildren - 1
-				
-			"""				
-			# Check if there are subcategories
-			if ((len(child.children)) > 0):
-				childLeafList = []
-				parent = child.category.name
-				for leaf in getChildLeafList(child, childLeafList):
-					if isinstance(leaf, ListType):
-						userIndList = [parent]
-						for leafElement in leaf:
-							userIndList.append(leafElement)
-					else:
-						userIndList = [parent]
-						userIndList.append(leaf)
-					rankInd = (rank, userIndList)
-					userInd.indList.append(rankInd)
-				rank += 1
-			else:
-				rankInd = (rank, child.category.name)
+				# We entered a first level child
+				for subChild in child.children:
+					# Does it have children too?
+					numOfSubSubChildren = len(subChild.children)
+					if numOfSubSubChildren > 0:
+						for subSubChild in subChild.children:
+							# Does it have children too?
+							numOfSubSubSubChildren = len(subSubChild.children)
+							if numOfSubSubSubChildren > 0:
+								for subSubSubChild in subSubChild.children:
+									# Does it have children too?
+									numOfSubSubSubSubChildren = len(subSubSubChild.children)
+									if numOfSubSubSubSubChildren > 0:
+										for subSubSubSubChild in subSubSubChild.children:
+											numOfSubSubSubSubSubChildren = len(subSubSubSubChild.children)
+											if numOfSubSubSubSubSubChildren > 0:
+												pass
+											else:
+												userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name, subSubSubSubChild.category.name]
+												rankInd = (rank, userIndList)
+												userInd.indList.append(rankInd)
+												rank = rank + 1
+									else:
+										userIndList = [child.category.name, subChild.category.name, subSubChild.category.name, subSubSubChild.category.name]
+										rankInd = (rank, userIndList)
+										userInd.indList.append(rankInd)
+										rank = rank + 1
+							else:
+								userIndList = [child.category.name, subChild.category.name, subSubChild.category.name]
+								rankInd = (rank, userIndList)
+								userInd.indList.append(rankInd)
+								rank = rank + 1
+					else:		# No subchildren
+						label = [child.category.name, subChild.category.name]
+						userIndList = label
+						rankInd = (rank, userIndList)
+						userInd.indList.append(rankInd)
+						rank = rank + 1
+		"""				
+		# Check if there are subcategories
+		if ((len(child.children)) > 0):
+			childLeafList = []
+			parent = child.category.name
+			for leaf in getChildLeafList(child, childLeafList):
+				if isinstance(leaf, ListType):
+					userIndList = [parent]
+					for leafElement in leaf:
+						userIndList.append(leafElement)
+				else:
+					userIndList = [parent]
+					userIndList.append(leaf)
+				rankInd = (rank, userIndList)
 				userInd.indList.append(rankInd)
-				rank += 1
-			"""
+			rank += 1
+		else:
+			rankInd = (rank, child.category.name)
+			userInd.indList.append(rankInd)
+			rank += 1
+		"""
 		
 		for childInd in userInd.indList:
 			userIndParts = userIndicator()
