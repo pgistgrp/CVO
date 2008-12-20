@@ -527,7 +527,12 @@ def getCategoryFrequencies(indicatorList = None):
 	elif isinstance(indicator, StringType):
 		# This is a category that appears as a node with no leafs
                 category = indicator
-                isCategory = 1
+		if category not in categoryStatsDict:
+			categoryStatsDict[category] = CategoryInformation()
+			categoryStatsDict[category].label = category
+			categoryStatsDict[category].leafFreq += 1
+		else:
+			categoryStatsDict[category].leaFreq += 1
 	else:
 		raise RuntimeError, "Failure to use given indicator list for statistical analysis"
 	if isinstance(category, ListType):
@@ -539,14 +544,6 @@ def getCategoryFrequencies(indicatorList = None):
                                         categoryStatsDict[category[i]].leafFreq += 1
                                 else:
                                         categoryStatsDict[category[i]].nodeFreq += 1
-	# Check if the category is already in our dictionary
-	elif category not in categoryStatsDict:
-		categoryStatsDict[category] = CategoryInformation()
-		categoryStatsDict[category].label = category
-	if isCategory:
-		categoryStatsDict[category].leafFreq += 1
-        else:
-                categoryStatsDict[category].nodeFreq += 1   
     return categoryStatsDict
     # END CATEGORIES FREQUENCIES
     # ********************************************************************************************
