@@ -90,7 +90,7 @@
 	variability), or to variations in natural or anthropogenic
 	external forcing (external variability).</p>
 				
-	<h2 class="headerColor">Nine Ways that Climate Change and Variability Could Impact What You Value</h2>
+	<h2 class="headerColor">Ways Climate Change and Variability Might Impact Values</h2>
 	<p>To help you in your thinking about impacts, use this quick guide to <b>9</b> things that are probably going to be different about 
 	your regional climate in the future and what to expect as a result (general list based on Australian Greenhouse Office 2006). 
 	What indicators would you want public agencies to use in order to measure those impacts?</p>

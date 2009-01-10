@@ -49,8 +49,11 @@
 
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
-	<div id="container"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-		<h2 class="headerColor">Can I participate in this experiment?</h2>
+	<div id="container">
+    
+    <!-- <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="> -->
+	
+    	<h2 class="headerColor">Can I participate in this experiment?</h2>
 		<p>
         Any Oregon Coastal community stakeholders can participate in the experiment.
         </p>
