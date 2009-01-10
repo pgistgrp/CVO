@@ -8,7 +8,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 <head>
-	<title>Learn More Menu</title>
+	<title>Learn More About</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 		@import "styles/lit.css";

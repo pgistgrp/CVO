@@ -7,14 +7,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 	<head>
-	<title>About</title>
-	<!-- Site Wide CSS -->
+	<title>About Climate Concerns</title>
 	<style type="text/css" media="screen">
-@import "styles/lit.css";
-
-#container h3 {font-size:1.5em;}
-#container {font-size:12pt;}
-</style>
+		@import "styles/lit.css";
+		#container {font-size:12pt;}
+		#container h3 {font-size:1.2em;margin:30px auto;}
+		p {margin-left:10px;margin-top:5px;}
+		p.nomargin {margin-left:0px;}
+	</style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
 	<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
