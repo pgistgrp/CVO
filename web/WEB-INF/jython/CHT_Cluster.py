@@ -603,6 +603,7 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 				if (catHash.has_key(pathCat)):
 					newPath.getCategories().add(catHash[pathCat])
 				else:
+					print "======================== CATEGORY PATH NOT FOUND!!!", pathCat, catHash.has_key(pathCat) 
 					cat2add = factory.createCategoryReference(pathCat)
 					newPath.getCategories().add(cat2add)
 					catHash[pathCat] = cat2add
