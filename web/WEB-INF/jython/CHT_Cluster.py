@@ -598,13 +598,14 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		
 		newPath = factory.createCategoryPath()
 		if isPath > 0:
-			print catHash
+			print "==========  ", catHash
 			for pathCat in indCats:
 				if (catHash.has_key(pathCat)):
 					newPath.getCategories().add(catHash[pathCat])
 				else:
 					cat2add = factory.createCategoryReference(pathCat)
 					newPath.getCategories().add(cat2add)
+					catHash[pathCat] = cat2add
 		else:
 			newPath.getCategories().add(catHash[indCats])
 		newPath.setFrequency(indicStat.freq)

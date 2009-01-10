@@ -97,6 +97,7 @@
                     <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
                     <property name="overview">
                         <![CDATA[
+                            ##REPLACE ME##
                             <h3 class="headerColor">Overview and instructions</h3>
                             <p>The review and comment tool supports participant commenting about the overall process, focusing on whether the process should move forward to the next step.</p>
                             <ul>
@@ -208,7 +209,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-                            Overview and Instruction for DRT CST.
+                            Overview and Instruction for DRT CST. ##REPLACE ME##
                         ]]>
                     </property>
                 </props>
@@ -357,7 +358,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-                            Overview and Instruction for DRT CHT.
+                            Overview and Instruction for DRT CHT. ##REPLACE ME##
                         ]]>
                     </property>
                 </props>
@@ -524,7 +525,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-                            Overview and Instruction for DRT VTT.
+                            Overview and Instruction for DRT VTT. ##REPLACE ME##
                         ]]>
                     </property>
                 </props>
