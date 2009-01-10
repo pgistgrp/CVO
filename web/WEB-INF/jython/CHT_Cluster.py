@@ -65,7 +65,7 @@ from org.pgist.sarp.cst import CategoryReference
 
 
 # constant
-separator = '/'
+separator = '||'
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
@@ -465,7 +465,7 @@ def getIndicatorFrequencies(indicatorList = None):
 		print "--------------", indicatorRank
 		rank, indicator = indicatorRank
 		if isinstance(indicator, ListType):
-			indicatorName = "/".join(indicator)
+			indicatorName = separator.join(indicator)
 		elif isinstance(indicator, StringType):
 			indicatorName = indicator
 		else:
@@ -487,11 +487,11 @@ def getIndicatorFrequencies(indicatorList = None):
 			# .freq
 			statisticsDict[indicatorName].freq += 1
 			# .level
-			statisticsDict[indicatorName].level = indicatorName.count("/") + 1
+			statisticsDict[indicatorName].level = indicatorName.count(separator) + 1
 			# .leaf
-			statisticsDict[indicatorName].leaf = (indicatorName.split("/")).pop()
+			statisticsDict[indicatorName].leaf = (indicatorName.split(separator)).pop()
 			# .initialNode
-			statisticsDict[indicatorName].initialNode = (indicatorName.split("/")).pop(0)
+			statisticsDict[indicatorName].initialNode = (indicatorName.split(separator)).pop(0)
 			# .rank
 			statisticsDict[indicatorName].compositeRank.append(rank)
 			# .keep
@@ -590,9 +590,9 @@ def saveToDB(indicatorStats = None, categoryStats = None):
 		# indicator holds the name
 		# stat holds: .freq .leaf .initialNode .level
 		print "#### ", indicName
-		isPath = indicName.count('/')
+		isPath = indicName.count(separator)
 		if isPath > 0:
-			indCats = indicName.split('/')
+			indCats = indicName.split(separator)
 		else:
 			indCats = indicName
 		
