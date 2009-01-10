@@ -32,8 +32,8 @@
             <div id="headerTitle" class="floatLeft">
                 <h3 class="headerColor">Learn More About</h3>
             </div>
-            <div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
-            <div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
+            <div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
             <!--
             <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
@@ -103,140 +103,140 @@
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>1</b> Higher mean temperatures</p></div>
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>		
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased evaporation and change in humidity</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased severity of droughts</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Reduced alpine winter snow cover</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Reduced range of alpine ecosystems and species</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased stress to coral reefs</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>		
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased evaporation and change in humidity</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased severity of droughts</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Reduced alpine winter snow cover</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Reduced range of alpine ecosystems and species</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased stress to coral reefs</div>
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">Evaporation: water volume per area</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">Humidity: percent</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">Groundwater: volume</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">Stream flow: cubic feet per second</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">Alpine ecosystem: km2 by type</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">Alpine ecosystem species: count of species by type</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">Coral reefs: m2 by category of health</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">Evaporation: water volume per area</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">Humidity: percent</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">Groundwater: volume</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">Stream flow: cubic feet per second</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">Alpine ecosystem: km2 by type</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">Alpine ecosystem species: count of species by type</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">Coral reefs: m2 by category of health</div>
 				
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>2</b> Higher maximum temperatures,</p></div>
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px">with more hot days and more heat waves</p></div>
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased incidence of death and serious illness, particularly in older age groups</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased heat stress in livestock and wildlife</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased risk of damage to some crops (like grapes)</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased forest fire danger (frequency and intensity)</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased electric cooling demand and reduced energy supply reliability</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased incidence of death and serious illness, particularly in older age groups</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased heat stress in livestock and wildlife</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased risk of damage to some crops (like grapes)</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased forest fire danger (frequency and intensity)</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased electric cooling demand and reduced energy supply reliability</div>
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>
 
 
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>3</b> Higher minimum temperatures,</p></div>
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px">with fewer cold days and frost days</p></div>
 				
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Decreased cold-related human morbidity and mortality</div>				
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Decreased risk of damage to some crops and increased risk to others</div>				 
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Extended range and activity of some pest and disease vectors</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Reduced heating energy demand</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Decreased cold-related human morbidity and mortality</div>				
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Decreased risk of damage to some crops and increased risk to others</div>				 
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Extended range and activity of some pest and disease vectors</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Reduced heating energy demand</div>
 				
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>
 
 				
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>4</b> Decrease in precipitation</p></div>
 				
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Decreased average runoff, streamflow</div>				
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Decreased water quality</div>				 
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Decreased water resources</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Decrease in hydro-power potential</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Impacts on rivers and wetland ecosystems</div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Decreased average runoff, streamflow</div>				
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Decreased water quality</div>				 
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Decreased water resources</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Decrease in hydro-power potential</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Impacts on rivers and wetland ecosystems</div>			
 				
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>
 
 				
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>5</b> Increased severity of drought</p></div>				
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Decreased crop yields and rangeland productivity</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased damage to foundations caused by ground shrinkage</div>				
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased forest fire danger</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Decreased crop yields and rangeland productivity</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased damage to foundations caused by ground shrinkage</div>				
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased forest fire danger</div>
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>				
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>				
 
 
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>6</b> Decreased relative humidity</p></div>				
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased forest fire danger</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased comfort of living conditions at high temperatures</div>				
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased forest fire danger</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased comfort of living conditions at high temperatures</div>				
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>
 				
 
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>7</b> More intense rain</p></div>				
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased flood, landslide and mudslide damage</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased flood runoff</div>		
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased soil erosion</div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased pressure on disaster relief systems</div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased flood, landslide and mudslide damage</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased flood runoff</div>		
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased soil erosion</div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased pressure on disaster relief systems</div>	
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>
 
 				
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>8</b> Increased intensity of cyclones and storms</p></div>				
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased risk to human lives and health</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased storm surge leading to coastal flooding, coastal erosion and damage to coastal infrastructure</div>		
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased damage to coastal ecosystems</div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased risk to human lives and health</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased storm surge leading to coastal flooding, coastal erosion and damage to coastal infrastructure</div>		
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased damage to coastal ecosystems</div>	
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>				
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>				
 
 
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:20px">If this happens ...</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:20px"><b>9</b> Increased mean sea level</p></div>				
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">... then you can expect</b></div>			
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:182px">these kinds of impacts ...</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Salt water intrusion into ground water and coastal wetlands</div>
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:182px">Increased coastal flooding (particularly when combined with storm surge)</div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">... then you can expect</b></div>			
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:70px">these kinds of impacts ...</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Salt water intrusion into ground water and coastal wetlands</div>
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:70px">Increased coastal flooding (particularly when combined with storm surge)</div>			
 
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">... as measured by</b></div>	
-	<div><b style="display:inline;margin:0px;padding:0px;margin-left:336px">these sorts of indicators.</b></div>	
-	<div><p style="display:inline;margin:0px;padding:0px;margin-left:336px">How would you want to measure the expected impacts?</div>					
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
+	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
+	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>					
 
 	<!-- End explanation -->
     
@@ -249,8 +249,8 @@
             <div id="headerTitle" class="floatLeft">
                 <h3 class="headerColor">Learn More About</h3>
             </div>
-            <div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
-            <div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
+            <div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
             <!--
             <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
