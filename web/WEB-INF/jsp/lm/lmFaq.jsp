@@ -30,43 +30,59 @@
 	<body>
 	<wf:nav />
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Learn More</h3>
-			</div>
-			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
-			<div class="floatLeft headerButton currentBox"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
-		</div>
-	</div>
+    <div id="headerMenu">
+        <div id="headerContainer">
+            <div id="headerTitle" class="floatLeft">
+                <h3 class="headerColor">Learn More About</h3>
+            </div>
+            <div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+            <!--
+            <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+            -->
+        </div>
+    </div>
+
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-		<h2 class="headerColor">The "FAQ" section is not being supported. Please register or return "Home."</h2>
-		
+		<h2 class="headerColor">Can I participate in this experiment?</h2>
+		<p>
+        Any Oregon Coastal community stakeholders can participate in the experiment.
+        </p>
+        
+        <h2 class="headerColor"></h2>
+        <p>
+        </p>
+        
+        
+        
+        
 		<br /></pg:termHighlight>
 	</div>
 	<!-- end container -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Learn More</h3>
-			</div>
-			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
-			<div class="floatLeft headerButton currentBox"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
-			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
-		</div>
-	</div>
+    <div id="headerMenu">
+        <div id="headerContainer">
+            <div id="headerTitle" class="floatLeft">
+                <h3 class="headerColor">Learn More About</h3>
+            </div>
+            <div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+            <!--
+            <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+            -->
+        </div>
+    </div>
+
 	<!-- End header menu -->
 	<!-- Begin footer -->
 	<!-- End footer -->
