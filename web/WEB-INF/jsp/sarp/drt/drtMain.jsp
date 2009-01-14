@@ -303,8 +303,9 @@
 
         <div id="overview" class="box2">
             <table width="100%"><tr><td width="650px;">
+            <pg:property var="overview" name="overview"/>
             <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-                <pg:include property="overview" />
+                ${overview}
             </pg:termHighlight>
             </td>
             <td></td><td style="padding-left:10px;width:180px;">
