@@ -366,14 +366,14 @@ def buildCategoriesInformation(catList = [], userIdList = []):
 					if jScore >= 800:
 						# There is a match on the sets level
 						catInfo.freqSet += 1
-						catInfo.alias.append(userCats.category.name)
+						catInfo.alias.append(remNums(userCats.category.name))
 						catAdded = 1
 						break
 				# Check if we already added it
 				if catAdded == 0:
 					# Category was never added and no set similarity found. Add it as new
 					catInfo = CategoryInformation()
-					catInfo.label = userCats.category.name
+					catInfo.label = remNums(userCats.category.name)
 					catInfo.name = cleanName
 					catInfo.freqName += 1
 					catInfo.users.append(user)
