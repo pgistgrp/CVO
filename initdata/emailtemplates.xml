@@ -42,7 +42,7 @@
     
     <template name="feedback">
         <description>Send an email notification to moderator that participant commits a feedback.</description>
-        <subject>LIT: New feedback item submitted</subject>
+        <subject>VCC: New feedback item submitted</subject>
         <notes>Variable: ${feedback}</notes>
         <content><![CDATA[
         A user has just submitted the following feedback:<br />
@@ -77,10 +77,10 @@
     
     <template name="announcement">
         <description>Send an email to notify participants of announcements.</description>
-        <subject>LIT: New Moderator Announcement</subject>
+        <subject>VCC: New Moderator Announcement</subject>
         <notes>Variable: ${announcement}</notes>
         <content><![CDATA[
-        <h3>The LIT Moderator has posted a new system announcement:</h3>
+        <h3>The VCC Moderator has posted a new system announcement:</h3>
 
         ${announcement}]]>
         </content>
@@ -89,10 +89,10 @@
     
     <template name="modpasswordreset">
             <description>Send an email to user that their password was reset by the moderator</description>
-            <subject>LIT: Password Reset</subject>
+            <subject>VCC: Password Reset</subject>
             <notes>Variable: ${newpassword}</notes>
             <content><![CDATA[
-            <p>The LIT Moderator has reset your password to:
+            <p>The VCC Moderator has reset your password to:
             <strong>${newpassword}</strong></p>
             
             <p>You can change your password by clicking on the User Settings button in the LIT system</p>
@@ -103,7 +103,7 @@
     
     <template name="recoverpassword">
         <description>Send a password recovery to the user, allows them to reset their password</description>
-        <subject>LIT: Password Recovery</subject>
+        <subject>VCC: Password Recovery</subject>
         <notes>Variable: ${code}</notes>
         <content><![CDATA[
         <p>Your password recovery code is: <strong>${code}</strong><br/>
