@@ -47,7 +47,7 @@
         <content><![CDATA[
         A user has just submitted the following feedback:<br />
         
-        ${feedback}]]><br />
+        ${feedback.content}]]><br />
         </content>
     </template>
     
