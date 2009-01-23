@@ -60,15 +60,34 @@
     concerns contigent on availabity of data.</p>
     
     <p>
-    There are 4 steps to complete this experiment.
+    There are 4 steps to complete this experiment.  Following the execution of each step, participants
+    have the opportunity to review and comment about the group process.  As part of the review and 
+    comment process, participants vote on whether the group is ready to proceed to the next step
     </p>
     
     <p>
-    Images to show how it works.
+    In Step 1, participants voice their concerns about climate change and attach key words or phrases
+    of their choosing to each of their concerns
     </p>
     
     <p>
-    etc..
+    In Step 2, participants create categories by clustering the keywords and phrases they and the other
+    participants articulated in Step 1.
+    </p>
+    
+    <p>
+    In Step 3, participants create hierarchies out of the climate concern categories they and other 
+    participants created in Step 2.
+    </p>
+    
+    <p>
+    In Step 4, participants develop indicators to address the concerns organized in the 
+    previous step.  Participants will choose an indicator name and a unit of measurement appropriate
+    to address each concern.  Technical specialists with knowledge about the data holdings of the Oregon Coastal
+    Atlas will then provide feedback on the indicators developed by the participants.  Finally, in the 
+    review and comment phase of Step 4, participants will prioritise the indicators generated.  
+    After the completion of all four steps of the experiment, a report on the outcome of the experiment 
+    will be generated, and participants will have the opportunity to review and comment on the report.
     </p>
 		
 	<br />
