@@ -32,5 +32,7 @@ public interface DRTDAO extends BaseDAO {
 
     Set<User> getThreadUsers(Long oid) throws Exception;
 
+    InfoObject getInfoObjectByTargetId(Long oid) throws Exception;
+
 	
 }//interface DRTDAO

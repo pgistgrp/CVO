@@ -1464,11 +1464,8 @@ public class BCTAgent {
             // sending email
             try {
                 Set<User> recipients = bctService.getThreadUsers(concernId);
-                System.out.println("recipients 000 =================> "+recipients);
                 recipients.add(comment.getConcern().getAuthor());
                 String url = "concern.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId+"&id="+concernId;
-                
-                System.out.println("recipients 111 =================> "+recipients);
                 
                 emailSender.enqueue(recipients, WebUtils.currentUserId(), url);
             } catch (Exception e) {

@@ -3,6 +3,7 @@ package org.pgist.sarp.drt;
 import java.util.Collection;
 import java.util.Set;
 
+import org.pgist.sarp.report.Report;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -48,6 +49,10 @@ public interface DRTService {
     void setAnnouncementDone(Long aid) throws Exception;
 
     Set<User> getThreadUsers(Long oid) throws Exception;
+
+    InfoObject getInfoObjectByTargetId(Long bctId) throws Exception;
+
+    void save(Report report) throws Exception;
 
 	
 }//interface DRTService

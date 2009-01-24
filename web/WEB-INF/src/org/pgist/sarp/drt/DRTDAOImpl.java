@@ -128,4 +128,15 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
     } //getThreadUsers()
 
 
+    private static final String hql_getInfoObjectByTargetId = " from InfoObject i where i.target.id=?";
+    
+    
+    @Override
+    public InfoObject getInfoObjectByTargetId(Long oid) throws Exception {
+        Query query = getSession().createQuery(hql_getInfoObjectByTargetId);
+        query.setLong(0, oid);
+        return (InfoObject) query.uniqueResult();
+    } //getInfoObjectByTargetId()
+
+
 }//class DRTDAOImpl

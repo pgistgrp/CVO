@@ -54,4 +54,9 @@ public class JythonAPI {
     }
     
     
+    public String getContextPath() {
+        return contextPath;
+    }
+    
+    
 } //class JythonAPI

@@ -87,6 +87,15 @@
         <property name="drtService" ref="drtService"/>
     </bean>
     
+    <bean id="task-sarp.create.report" class="org.pgist.sarp.report.CreateReportTask">
+        <property name="jythonAPI" ref="jythonAPI"/>
+        <property name="bctService" ref="bctService"/>
+        <property name="cstService" ref="cstService"/>
+        <property name="chtService" ref="chtService"/>
+        <property name="vttService" ref="vttService"/>
+        <property name="drtService" ref="drtService"/>
+    </bean>
+    
     
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
@@ -112,6 +121,7 @@
               <entry><key><value>task-sarp.vtt.clear.winner</value></key><ref bean="task-sarp.vtt.clear.winner" /></entry>
               <entry><key><value>task-sarp.drt.clear.vote</value></key><ref bean="task-sarp.drt.clear.vote" /></entry>
               <entry><key><value>task-sarp.toggle.drt</value></key><ref bean="task-sarp.toggle.drt" /></entry>
+              <entry><key><value>task-sarp.create.report</value></key><ref bean="task-sarp.create.report" /></entry>
             </map>
         </property>
         <property name="actions">
@@ -125,6 +135,7 @@
               <entry><key><value>action-sarp.drtwait</value></key><value>/drtwait.do</value></entry>
               <entry><key><value>action-sarp.vtt.experttool</value></key><value>/expertTool.do</value></entry>
               <entry><key><value>action-sarp.vttwait</value></key><value>/vttwait.do</value></entry>
+              <entry><key><value>action-sarp.report</value></key><value>/report.do</value></entry>
             </map>
         </property>
     </bean>

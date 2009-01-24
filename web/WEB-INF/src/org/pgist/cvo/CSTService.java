@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.pgist.discussion.InfoStructure;
+import org.pgist.sarp.cst.CST;
 import org.pgist.tagging.Category;
 import org.pgist.util.PageSetting;
 
@@ -63,6 +64,8 @@ public interface CSTService {
      * @throws Exception
      */
     InfoStructure publish(Long workflowId, Long cctId, String title) throws Exception;
+
+    CST getCSTById(Long cstId) throws Exception;
 
     
 }//interface CSTService

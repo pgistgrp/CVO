@@ -635,6 +635,37 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-sarp.create.report" title="Create Report." auto="true">
+            <description>
+              <![CDATA[<small>Create Report</small>]]>
+            </description>
+            <taskName>task-sarp.create.report</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                    <var name="bct_oid"/>
+                    <var name="cst_id"/>
+                    <var name="cst_oid"/>
+                    <var name="cht_id"/>
+                    <var name="cht_oid"/>
+                    <var name="vtt_id"/>
+                    <var name="vtt_oid"/>
+                </ins>
+                <outs>
+                    <var name="report_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.report" title="Report" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Report</small>]]>
+            </description>
+            <actionName>action-sarp.report</actionName>
+            <declaration>
+            </declaration>
+        </pgame>
+    
     </pgames>
     
     <!-- PMethods -->
@@ -643,10 +674,10 @@
     
         <pmethod name="pmethod-sarp.bct" description="Step 1: Brainstorm Concerns and Keywords">
             <declaration>
-                <ins>
+                <outs>
                     <var name="pmethod.bct_id"/>
                     <var name="pmethod.bct_oid"/>
-                </ins>
+                </outs>
             </declaration>
             <sequence>
                 <pgame name="pgame-sarp.create.bct">
@@ -1155,6 +1186,54 @@
             </sequence>
         </pmethod>
         
+        <pmethod name="pmethod-sarp.report" description="Step 5: Report">
+            <declaration>
+                <ins>
+                    <var name="pmethod.bct_id"/>
+                    <var name="pmethod.bct_oid"/>
+                    <var name="pmethod.cst_id"/>
+                    <var name="pmethod.cst_oid"/>
+                    <var name="pmethod.cht_id"/>
+                    <var name="pmethod.cht_oid"/>
+                    <var name="pmethod.vtt_id"/>
+                    <var name="pmethod.vtt_oid"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.report_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.report">
+                    <declaration>
+                        <ins>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                            <var name="bct_oid" ref="pmethod.bct_oid"/>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                            <var name="cst_oid" ref="pmethod.cst_oid"/>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                            <var name="cht_oid" ref="pmethod.cht_oid"/>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                            <var name="vtt_oid" ref="pmethod.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="report_id" ref="pmethod.report_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sarp.report">
+                            <declaration>
+                                <ins>
+                                    <var name="report_id" ref="pmethod.report_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+            </sequence>
+        </pmethod>
+        
     </pmethods>
     
     <!-- PMeetings -->
@@ -1255,6 +1334,43 @@
             </sequence>
         </meeting>
         
+        <meeting name="meeting-sarp.report" description="Step 5: Report">
+            <declaration>
+                <ins>
+                    <var name="meeting.bct_id"/>
+                    <var name="meeting.bct_oid"/>
+                    <var name="meeting.cst_id"/>
+                    <var name="meeting.cst_oid"/>
+                    <var name="meeting.cht_id"/>
+                    <var name="meeting.cht_oid"/>
+                    <var name="meeting.vtt_id"/>
+                    <var name="meeting.vtt_oid"/>
+                </ins>
+                <outs>
+                    <var name="meeting.report_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.report">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                            <var name="pmethod.bct_oid" ref="meeting.bct_oid"/>
+                            <var name="pmethod.cst_id" ref="meeting.cst_id"/>
+                            <var name="pmethod.cst_oid" ref="meeting.cst_oid"/>
+                            <var name="pmethod.cht_id" ref="meeting.cht_id"/>
+                            <var name="pmethod.cht_oid" ref="meeting.cht_oid"/>
+                            <var name="pmethod.vtt_id" ref="meeting.vtt_id"/>
+                            <var name="pmethod.vtt_oid" ref="meeting.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.report_id" ref="meeting.report_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
     </meetings>
     
     <!-- Situations -->
@@ -1301,6 +1417,23 @@
                         <outs>
                             <var name="meeting.vtt_id" ref="situation.vtt_id"/>
                             <var name="meeting.vtt_oid" ref="situation.vtt_oid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.report">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.bct_id" ref="situation.bct_id"/>
+                            <var name="meeting.bct_oid" ref="situation.bct_oid"/>
+                            <var name="meeting.cst_id" ref="situation.cst_id"/>
+                            <var name="meeting.cst_oid" ref="situation.cst_oid"/>
+                            <var name="meeting.cht_id" ref="situation.cht_id"/>
+                            <var name="meeting.cht_oid" ref="situation.cht_oid"/>
+                            <var name="meeting.vtt_id" ref="situation.vtt_id"/>
+                            <var name="meeting.vtt_oid" ref="situation.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.report_id" ref="situation.report_id"/>
                         </outs>
                     </declaration>
                 </meeting>

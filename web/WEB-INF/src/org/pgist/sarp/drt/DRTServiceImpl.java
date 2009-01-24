@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
+import org.pgist.sarp.report.Report;
 import org.pgist.system.SystemDAO;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
@@ -205,7 +206,19 @@ public class DRTServiceImpl implements DRTService {
     @Override
     public Set<User> getThreadUsers(Long oid) throws Exception {
         return drtDAO.getThreadUsers(oid);
-    }
+    } //getThreadUsers()
+
+
+    @Override
+    public InfoObject getInfoObjectByTargetId(Long oid) throws Exception {
+        return drtDAO.getInfoObjectByTargetId(oid);
+    } //getInfoObjectByTargetId()
+
+
+    @Override
+    public void save(Report report) throws Exception {
+        drtDAO.save(report);
+    } //save()
     
     
 }//class DRTServiceImpl

@@ -82,6 +82,7 @@
                <value>org/pgist/sarp/vtt/VTT.hbm.xml</value>
                <value>org/pgist/sarp/vtt/MUnitSet.hbm.xml</value>
                <value>org/pgist/sarp/vtt/EUnitSet.hbm.xml</value>
+               <value>org/pgist/sarp/report/Report.hbm.xml</value>
                <!-- Other schema information -->
                <value>org/pgist/PgistOtherSchema.hbm.xml</value>
            </list>
