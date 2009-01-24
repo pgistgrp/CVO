@@ -10,7 +10,6 @@
     <td style="width:20%;">Voting</td>
   </tr>
 <pg:chtGetPaths var="paths" chtId="${chtId}" orderby="${orderby}" />
-<pg:sort name="paths" items="${paths}" key="title" type="lowerCase" />
 <c:forEach var="path" items="${paths}" varStatus="loop">
   <c:choose>
     <c:when test="${loop.index % 2 == 0}">

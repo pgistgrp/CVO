@@ -12,7 +12,7 @@
   </tr>
   <c:forEach var="unit" items="${units}">
   <tr>
-    <td>${unit}</td>
+    <td>${unit} ()</td>
     <td>${apprFreqs[unit]}</td>
     <td>${availFreqs[unit]}</td>
     <td>${dupFreqs[unit]}</td>

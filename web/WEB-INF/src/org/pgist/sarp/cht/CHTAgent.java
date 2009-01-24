@@ -895,6 +895,8 @@ public class CHTAgent {
             request.setAttribute("orderby", "frequency desc");
         } else if ("vote".equalsIgnoreCase(orderby)) {
             request.setAttribute("orderby", "numVote desc, numAgree desc");
+        } else {
+            request.setAttribute("orderby", "title asc");
         }
         
         try {

@@ -3,6 +3,7 @@
 
 <div id="col-left" style="float:left;width:100%;overflow:auto;height:300px;border-right:1px solid #B4D579;">
   <c:set var="chtId" value="${infoObject.target.id}" scope="request" />
+  <c:set var="orderby" value="title" scope="request" />
   <jsp:include page="drtPaths.jsp" />
 </div>
 
