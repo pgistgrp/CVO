@@ -349,7 +349,7 @@
 
     <h2 class="headerColor">Specify indicators and measurement units
     <select id="otherCategory" onChange="onSelectChanged();">
-        <option value="${baseuser.id}">My Categories</option>
+        <option value="${baseuser.id}">My Category Paths</option>
         <logic:iterate id="other" name="others">
           <logic:equal name="other" property="id" value="${user.id}">
           <option value="${other.id}" SELECTED>${other.loginname}</option>

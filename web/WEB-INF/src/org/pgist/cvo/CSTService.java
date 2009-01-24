@@ -65,7 +65,5 @@ public interface CSTService {
      */
     InfoStructure publish(Long workflowId, Long cctId, String title) throws Exception;
 
-    CST getCSTById(Long cstId) throws Exception;
-
     
 }//interface CSTService
