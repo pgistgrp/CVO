@@ -203,12 +203,11 @@ public class VTTServiceImpl implements VTTService {
             catValue = new CategoryPathValue(path, user, isTag);
         }
         
+        catValue.setTag(isTag);
         catValue.setName(name);
         catValue.setCriterion(unit);
         if (name==null || name.trim().length()==0) {
             catValue.setTag(false);
-        } else {
-            catValue.setTag(true);
         }
         
         vttDAO.save(catValue);
@@ -436,69 +435,65 @@ public class VTTServiceImpl implements VTTService {
         VTT vtt = vttDAO.getVTTById(vttId);
         
         for (CategoryPath path : vtt.getPaths()) {
-            MUnitSet mset = vttDAO.getMUnitSetByPathId(path.getId());
+            List<MUnitSet> msets = vttDAO.getMUnitSetsByPathId(path.getId());
             
-            Map<String, Integer> apprFreqs = mset.getApprFreqs();
-            Map<String, Integer> availFreqs = mset.getAvailFreqs();
-            Map<String, Integer> dupFreqs = mset.getDupFreqs();
-            Map<String, Integer> recFreqs = mset.getRecoFreqs();
-            
-            for (Map.Entry<Long, EUnitSet> entry : mset.getExpUnits().entrySet()) {
-                for (Map.Entry<String, Boolean> apprEntry : entry.getValue().getApprs().entrySet()) {
-                    String unit = apprEntry.getKey();
-                    Integer count = apprFreqs.get(unit);
-                    if (count==null) {
-                        apprFreqs.put(unit, 1);
-                    } else {
-                        apprFreqs.put(unit, count+1);
+            for (MUnitSet mset : msets) {
+                Map<String, Integer> apprFreqs = mset.getApprFreqs();
+                Map<String, Integer> availFreqs = mset.getAvailFreqs();
+                Map<String, Integer> dupFreqs = mset.getDupFreqs();
+                Map<String, Integer> recFreqs = mset.getRecoFreqs();
+                
+                for (String unit : mset.getFreqs().keySet()) {
+                    apprFreqs.put(unit, 0);
+                    availFreqs.put(unit, 0);
+                    dupFreqs.put(unit, 0);
+                    recFreqs.put(unit, 0);
+                }
+                
+                for (Map.Entry<Long, EUnitSet> entry : mset.getExpUnits().entrySet()) {
+                    for (Map.Entry<String, Boolean> apprEntry : entry.getValue().getApprs().entrySet()) {
+                        String unit = apprEntry.getKey();
+                        Integer count = apprFreqs.get(unit);
+                        if (count==null) {
+                            apprFreqs.put(unit, 1);
+                        } else {
+                            apprFreqs.put(unit, count+1);
+                        }
+                    }
+                    
+                    for (Map.Entry<String, Boolean> availEntry : entry.getValue().getAvails().entrySet()) {
+                        String unit = availEntry.getKey();
+                        Integer count = availFreqs.get(unit);
+                        if (count==null) {
+                            availFreqs.put(unit, 1);
+                        } else {
+                            availFreqs.put(unit, count+1);
+                        }
+                    }
+                    
+                    for (Map.Entry<String, Boolean> dupEntry : entry.getValue().getDups().entrySet()) {
+                        String unit = dupEntry.getKey();
+                        Integer count = dupFreqs.get(unit);
+                        if (count==null) {
+                            dupFreqs.put(unit, 1);
+                        } else {
+                            dupFreqs.put(unit, count+1);
+                        }
+                    }
+                    
+                    for (Map.Entry<String, Boolean> recoEntry : entry.getValue().getRecs().entrySet()) {
+                        String unit = recoEntry.getKey();
+                        Integer count = recFreqs.get(unit);
+                        if (count==null) {
+                            recFreqs.put(unit, 1);
+                        } else {
+                            recFreqs.put(unit, count+1);
+                        }
                     }
                 }
                 
-                for (Map.Entry<String, Boolean> availEntry : entry.getValue().getAvails().entrySet()) {
-                    String unit = availEntry.getKey();
-                    Integer count = availFreqs.get(unit);
-                    if (count==null) {
-                        availFreqs.put(unit, 1);
-                    } else {
-                        availFreqs.put(unit, count+1);
-                    }
-                }
-                
-                for (Map.Entry<String, Boolean> dupEntry : entry.getValue().getDups().entrySet()) {
-                    String unit = dupEntry.getKey();
-                    Integer count = dupFreqs.get(unit);
-                    if (count==null) {
-                        dupFreqs.put(unit, 1);
-                    } else {
-                        dupFreqs.put(unit, count+1);
-                    }
-                }
-                
-                for (Map.Entry<String, Boolean> recoEntry : entry.getValue().getRecs().entrySet()) {
-                    String unit = recoEntry.getKey();
-                    Integer count = recFreqs.get(unit);
-                    if (count==null) {
-                        recFreqs.put(unit, 1);
-                    } else {
-                        recFreqs.put(unit, count+1);
-                    }
-                }
-                
-                Set<String> units = new HashSet<String>();
-                units.addAll(apprFreqs.keySet());
-                units.addAll(availFreqs.keySet());
-                units.addAll(dupFreqs.keySet());
-                units.addAll(recFreqs.keySet());
-                
-                for (String unit : units) {
-                    if (apprFreqs.get(unit)==null) apprFreqs.put(unit, 0);
-                    if (availFreqs.get(unit)==null) availFreqs.put(unit, 0);
-                    if (dupFreqs.get(unit)==null) dupFreqs.put(unit, 0);
-                    if (recFreqs.get(unit)==null) recFreqs.put(unit, 0);
-                }
+                vttDAO.save(mset);
             }
-            
-            vttDAO.save(mset);
         }
     } //setClusteredExpertsSelections()
     

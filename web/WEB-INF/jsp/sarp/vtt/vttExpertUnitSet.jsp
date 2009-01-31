@@ -3,6 +3,9 @@
 <p><b>Units of measurement for category path "${path.title}"</b>
 <div style="height:250px;overflow:auto;clear:both;">
 <form name="umForm" action="#">
+<div style="clear:both; text-align:right; margin-right:20px;">
+  <label style="cursor:pointer;" for="rec-none">Recommend none of the above<label> <input id="rec-none" name="rec-${path.id}" type="radio" value="" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);"></td>
+</div>
 <c:forEach var="block" items="${grid}" varStatus="loop">
 <span style="font-weight:bold;">${block.key.name}</span>
 <table id="catsTable" width="100%" cell-padding="1" cell-spacing="0">
@@ -74,12 +77,6 @@
     </td>
   </tr>
   </c:forEach>
-  <c:if test="${loop.last}">
-  <tr>
-    <td colspan="4" align="right">Recommend none of the above</td>
-    <td align="center"><input id="rec-none" name="rec-${path.id}" type="radio" value="" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);"></td>
-  </tr>
-  </c:if>
 </table>
 <br>
 </c:forEach>
