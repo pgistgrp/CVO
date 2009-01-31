@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -697,12 +698,51 @@ public class VTTAgent {
         }
         
         try {
-            MUnitSet muset = vttService.getMUnitSetByPathId(pathId);
-            request.setAttribute("path", muset.getPath());
-            request.setAttribute("freqs", muset.getFreqs());
-            request.setAttribute("muset", muset);
-            request.setAttribute("euset", muset.getExpUnits().get(targetUserId));
-            request.setAttribute("comment", muset.getExpComments().get(targetUserId));
+            ExpertPathComment comment = vttService.getExpertPathComment(pathId, targetUserId);
+            CategoryPath path = vttService.getCategoryPathById(pathId);
+            List<MUnitSet> musets = vttService.getMUnitSetsByPathId(pathId);
+            
+            TreeMap<MUnitSet, TreeMap<String, Object[]>> grid = new TreeMap<MUnitSet, TreeMap<String, Object[]>>();
+            
+            for (MUnitSet mUnitSet : musets) {
+                EUnitSet eUnitSet = mUnitSet.getExpUnits().get(targetUserId);
+                TreeMap<String, Object[]> row = grid.get(mUnitSet);
+                
+                if (row==null) {
+                    row = new TreeMap<String, Object[]>();
+                    grid.put(mUnitSet, row);
+                }
+                
+                for (Map.Entry<String, Integer> entry : mUnitSet.getFreqs().entrySet()) {
+                    String unit = entry.getKey();
+                    Integer count = entry.getValue();
+                    Object[] cols = row.get(unit);
+                    if (cols==null) {
+                        cols = new Object[] {0, false, false, false, false};
+                        row.put(unit, cols);
+                    }
+                    
+                    cols[0] = ((Integer) cols[0]) + count;
+                    if (eUnitSet!=null) {
+                        if (eUnitSet.getApprs().get(unit)==Boolean.TRUE) {
+                            cols[1] = true;
+                        }
+                        if (eUnitSet.getAvails().get(unit)==Boolean.TRUE) {
+                            cols[2] = true;
+                        }
+                        if (eUnitSet.getDups().get(unit)==Boolean.TRUE) {
+                            cols[3] = true;
+                        }
+                        if (eUnitSet.getRecs().get(unit)==Boolean.TRUE) {
+                            cols[4] = true;
+                        }
+                    }
+                }
+            }
+            
+            request.setAttribute("path", path);
+            request.setAttribute("grid", grid);
+            request.setAttribute("comment", comment);
             request.setAttribute("isOwner", WebUtils.currentUserId().equals(targetUserId));
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttExpertUnitSet.jsp"));
             map.put("successful", true);
@@ -1059,7 +1099,8 @@ public class VTTAgent {
      * 
      * @param params A map contains:
      *   <ul>
-     *     <li>musetId</li>
+     *     <li>pathId</li>
+     *     <li>name</li>
      *     <li>type</li>
      *     <li>criterion</li>
      *     <li>checked</li>
@@ -1075,21 +1116,22 @@ public class VTTAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        Long musetId = null;
+        Long pathId = null;
         try {
-            musetId = new Long((String) params.get("musetId"));
+            pathId = new Long((String) params.get("pathId"));
         } catch (Exception e) {
-            map.put("reason", "musetId is required.");
+            map.put("reason", "pathId is required.");
             return map;
         }
         
+        String name = (String) params.get("name");
         String type = (String) params.get("type");
         String criterion = (String) params.get("criterion");
         
         boolean checked = "true".equalsIgnoreCase((String) params.get("checked"));
         
         try {
-            vttService.setToggleSelection(musetId, type, criterion, checked);
+            vttService.setToggleSelection(pathId, name, type, criterion, checked);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1120,16 +1162,16 @@ public class VTTAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        Long musetId = null;
+        Long pathId = null;
         try {
-            musetId = new Long((String) params.get("musetId"));
+            pathId = new Long((String) params.get("pathId"));
         } catch (Exception e) {
-            map.put("reason", "musetId is required.");
+            map.put("reason", "pathId is required.");
             return map;
         }
         
         try {
-            vttService.setUnitComment(musetId, (String) params.get("content"));
+            vttService.setUnitComment(pathId, (String) params.get("content"));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1175,7 +1217,7 @@ public class VTTAgent {
         }
         
         try {
-            MUnitSet mset = vttService.getMUnitSetByPathId(pathId);
+            MUnitSet mset = null;//vttService.getMUnitSetByPathId(pathId);
             Set<String> units = new HashSet<String>();
             units.addAll(mset.getApprFreqs().keySet());
             units.addAll(mset.getAvailFreqs().keySet());

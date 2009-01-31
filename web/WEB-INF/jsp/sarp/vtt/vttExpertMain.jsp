@@ -189,9 +189,8 @@
       });
   }
   
-  function toggleSelection(musetId, type, criterion, checked) {
-    //alert(eusetId+' | '+type+' | '+criterion+' | '+checked);
-    VTTAgent.toggleSelection({musetId:musetId, type:type, criterion:criterion, checked:checked}, {
+  function toggleSelection(pathId, name, type, criterion, checked) {
+    VTTAgent.toggleSelection({pathId:pathId, name:name, type:type, criterion:criterion, checked:checked}, {
       callback:function(data){
         if (data.successful){
           return true;
@@ -222,10 +221,11 @@
       });
   }
   
-  function saveUnitComment(musetId){
-      VTTAgent.setUnitComment({musetId:musetId, content:$('unitComment').value}, {
+  function saveUnitComment(pathId){
+      VTTAgent.setUnitComment({pathId:pathId, content:$('unitComment').value}, {
       callback:function(data){
         if (data.successful){
+          alert('saved');
         }else{
           alert(data.reason);
         }

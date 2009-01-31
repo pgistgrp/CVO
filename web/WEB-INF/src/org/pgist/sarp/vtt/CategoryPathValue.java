@@ -26,6 +26,7 @@ public class CategoryPathValue {
     // name here now is either a tag name or a user input name
     private String name;
     
+    // criterion here now is unit
     private String criterion;
     
     

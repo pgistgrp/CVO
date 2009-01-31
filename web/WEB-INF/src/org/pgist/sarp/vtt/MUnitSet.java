@@ -1,5 +1,6 @@
 package org.pgist.sarp.vtt;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,21 +14,20 @@ import org.pgist.sarp.cht.CategoryPath;
  *
  * @hibernate.class table="sarp_vtt_munit_set" lazy="true"
  */
-public class MUnitSet {
+public class MUnitSet implements Comparable<MUnitSet> {
     
     
     private Long id;
     
     private CategoryPath path;
     
+    private String name;
+    
     // map: unit --> frequency
     private Map<String, Integer> freqs = new HashMap<String, Integer>();
     
     // map: expert id --> expert unit
     private Map<Long, EUnitSet> expUnits = new HashMap<Long, EUnitSet>();
-    
-    // map: expert id --> comment
-    private Map<Long, String> expComments = new HashMap<Long, String>();
     
     // map: unit --> appropriate frequency
     private Map<String, Integer> apprFreqs = new HashMap<String, Integer>();
@@ -72,6 +72,19 @@ public class MUnitSet {
     
     public void setPath(CategoryPath path) {
         this.path = path;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property
+     */
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
 
@@ -182,22 +195,6 @@ public class MUnitSet {
     /**
      * @return
      * 
-     * @hibernate.map table="sarp_munitset_exp_comment_map"
-     * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="exp_id" type="long"
-     * @hibernate.collection-element type="string" column="comment" length="256"
-     */
-    public Map<Long, String> getExpComments() {
-        return expComments;
-    }
-    public void setExpComments(Map<Long, String> expComments) {
-        this.expComments = expComments;
-    }
-
-
-    /**
-     * @return
-     * 
      * @hibernate.map table="sarp_munitset_user_eunitset_map"
      * @hibernate.collection-key column="munitset_id"
      * @hibernate.collection-index column="user_id" type="long"
@@ -210,6 +207,12 @@ public class MUnitSet {
 
     public void setUserSelections(Map<Long, String> userSelections) {
         this.userSelections = userSelections;
+    }
+
+
+    @Override
+    public int compareTo(MUnitSet o) {
+        return this.name.compareTo(o.getName());
     }
     
     

@@ -1,6 +1,7 @@
 package org.pgist.sarp.vtt;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.pgist.sarp.cht.CategoryPath;
@@ -50,7 +51,7 @@ public interface VTTService {
 
     CategoryPath getCategoryPathById(Long pathId) throws Exception;
 
-    MUnitSet getMUnitSetByPathId(Long pathId) throws Exception;
+    List<MUnitSet> getMUnitSetsByPathId(Long pathId) throws Exception;
 
     Collection<VTTSpecialistComment> getSpecialistComments(Long targetUserId, Long vttId, PageSetting setting) throws Exception;
 
@@ -62,11 +63,11 @@ public interface VTTService {
 
     MUnitSet getMUnitSetById(Long id) throws Exception;
 
-    void setToggleSelection(Long musetId, String type, String criterion, boolean checked) throws Exception;
+    void setToggleSelection(Long pathId, String name, String type, String criterion, boolean checked) throws Exception;
 
     void publishExpertUnits(Long vttId) throws Exception;
 
-    void setUnitComment(Long musetId, String content) throws Exception;
+    void setUnitComment(Long pathId, String content) throws Exception;
 
     void setClusteredExpertsSelections(Long vttId) throws Exception;
 
@@ -80,6 +81,8 @@ public interface VTTService {
             boolean appr, boolean avail, boolean dup, boolean reco) throws Exception;
 
     Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception;
+
+    ExpertPathComment getExpertPathComment(Long pathId, Long userId) throws Exception;
 
     
 }//interface VTTService

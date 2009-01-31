@@ -29,7 +29,7 @@ public interface VTTDAO extends BaseDAO {
 
     List<CategoryPathValue> getCategoryPathValuesByPathId(Long id) throws Exception;
 
-    MUnitSet getMUnitSetByPathId(Long pathId) throws Exception;
+    List<MUnitSet> getMUnitSetsByPathId(Long pathId) throws Exception;
 
     Collection<VTTSpecialistComment> getSpecialistComments(Long targetUserId, Long vttId, PageSetting setting) throws Exception;
     
@@ -44,5 +44,7 @@ public interface VTTDAO extends BaseDAO {
     void delete(Object object) throws Exception;
 
     Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception;
+
+    ExpertPathComment getExpertPathComment(Long pathId, Long userId) throws Exception;
 
 } //interface VTTDAO

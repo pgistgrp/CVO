@@ -3,8 +3,10 @@ package org.pgist.sarp.vtt;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.pgist.sarp.bct.BCTDAO;
 import org.pgist.sarp.cht.CHT;
@@ -262,58 +264,85 @@ public class VTTServiceImpl implements VTTService {
         
         if (vtt==null) throw new Exception("can't find the specified VTT with id "+vttId);
         
+        TreeMap<String, MUnitSet> sets = new TreeMap<String, MUnitSet>();
+        
         //cluster paths
         for (CategoryPath path : vtt.getPaths()) {
-            MUnitSet mUnitSet = new MUnitSet();
-            mUnitSet.setPath(path);
-            Map<String, Integer> freqs = mUnitSet.getFreqs();
             for (CategoryPathValue value : vttDAO.getCategoryPathValuesByPathId(path.getId())) {
-                String name = value.getCriterion();
-                Integer freq = freqs.get(name);
+                String name = value.getName();
+                String unit = value.getCriterion();
+                
+                MUnitSet mUnitSet = sets.get(name);
+                if (mUnitSet==null) {
+                    mUnitSet = new MUnitSet();
+                    mUnitSet.setName(name);
+                    mUnitSet.setPath(path);
+                    sets.put(name, mUnitSet);
+                }
+                
+                Map<String, Integer> freqs = mUnitSet.getFreqs();
+                
+                Integer freq = freqs.get(unit);
                 if (freq==null) {
-                    freqs.put(name, 1);
+                    freqs.put(unit, 1);
                 } else {
-                    freqs.put(name, freq + 1);
+                    freqs.put(unit, freq + 1);
                 }
             }
-            
+        }
+        
+        for (MUnitSet mUnitSet : sets.values()) {
             vttDAO.save(mUnitSet);
         }
     } //setClusteredPaths()
+    
+    
 
 
     @Override
     public CategoryPath getCategoryPathById(Long pathId) throws Exception {
         return (CategoryPath) vttDAO.load(CategoryPath.class, pathId);
     } //getCategoryPathById()
+    
+    
 
 
     @Override
-    public MUnitSet getMUnitSetByPathId(Long pathId) throws Exception {
-        return vttDAO.getMUnitSetByPathId(pathId);
+    public List<MUnitSet> getMUnitSetsByPathId(Long pathId) throws Exception {
+        return vttDAO.getMUnitSetsByPathId(pathId);
     } //getMUnitSetByPathId()
 
 
+    
+    
     @Override
     public MUnitSet getMUnitSetById(Long id) throws Exception {
         return (MUnitSet) vttDAO.load(MUnitSet.class, id);
     } //getMUnitSetByPathId()
+    
+    
 
 
     public Collection<VTTSpecialistComment> getSpecialistComments(Long targetUserId, Long vttId, PageSetting setting) throws Exception {
         return vttDAO.getSpecialistComments(targetUserId, vttId, setting);
     } //getComments()
+    
+    
 
 
     public VTTSpecialistComment getSpecialistCommentById(Long cid) throws Exception {
         return (VTTSpecialistComment) vttDAO.load(VTTSpecialistComment.class, cid);
     } //getSpecialistCommentById()
+    
+    
 
 
     public void deleteSpecialistComment(VTTSpecialistComment comment) throws Exception {
         comment.setDeleted(true);
         cstDAO.save(comment);
     } //deleteSpecialistComment()
+    
+    
 
 
     public VTTSpecialistComment setVotingOnSpecialistComment(Long cid, boolean agree) throws Exception {
@@ -326,42 +355,53 @@ public class VTTServiceImpl implements VTTService {
         
         return comment;
     } //setVotingOnComment()
+    
+    
 
 
     @Override
-    public void setToggleSelection(Long musetId, String type, String criterion, boolean checked) throws Exception {
-        MUnitSet muset = (MUnitSet) vttDAO.load(MUnitSet.class, musetId);
-        if (muset==null) throw new Exception("Can't find this MUnitSet");
+    public void setToggleSelection(Long pathId, String name, String type, String criterion, boolean checked) throws Exception {
+        List<MUnitSet> musets = vttDAO.getMUnitSetsByPathId(pathId);
         
         Long userId = WebUtils.currentUserId();
-        EUnitSet euset = muset.getExpUnits().get(userId);
-        if (euset==null) {
-            euset = new EUnitSet();
-            muset.getExpUnits().put(userId, euset);
-        }
         
-        if ("appr".equalsIgnoreCase(type)) {
-            Map<String, Boolean> apprs = euset.getApprs();
-            apprs.put(criterion, checked);
-        } else if ("avail".equalsIgnoreCase(type)) {
-            Map<String, Boolean> avails = euset.getAvails();
-            avails.put(criterion, checked);
-        } else if ("dup".equalsIgnoreCase(type)) {
-            Map<String, Boolean> dups = euset.getDups();
-            dups.put(criterion, checked);
-        } else if ("rec".equalsIgnoreCase(type)) {
-            Map<String, Boolean> recs = euset.getRecs();
-            for (String key : recs.keySet()) {
-                recs.put(key, false);
+        for (MUnitSet muset : musets) {
+            EUnitSet euset = muset.getExpUnits().get(userId);
+            if (euset==null) {
+                euset = new EUnitSet();
+                muset.getExpUnits().put(userId, euset);
             }
-            recs.put(criterion, checked);
+            
+            if (!muset.getName().equals(name)) {
+                if ("rec".equalsIgnoreCase(type)) {
+                    Map<String, Boolean> recs = euset.getRecs();
+                    recs.clear();
+                }
+            } else {
+                if ("appr".equalsIgnoreCase(type)) {
+                    Map<String, Boolean> apprs = euset.getApprs();
+                    apprs.put(criterion, checked);
+                } else if ("avail".equalsIgnoreCase(type)) {
+                    Map<String, Boolean> avails = euset.getAvails();
+                    avails.put(criterion, checked);
+                } else if ("dup".equalsIgnoreCase(type)) {
+                    Map<String, Boolean> dups = euset.getDups();
+                    dups.put(criterion, checked);
+                } else if ("rec".equalsIgnoreCase(type)) {
+                    Map<String, Boolean> recs = euset.getRecs();
+                    recs.clear();
+                    if (criterion!=null && criterion.length()>0) {
+                        recs.put(criterion, checked);
+                    }
+                }
+            }
+            
+            vttDAO.save(euset);
+            vttDAO.save(muset);
         }
-        
-        muset.getExpUnits().put(userId, euset);
-        
-        vttDAO.save(euset);
-        vttDAO.save(muset);
     } //setToggleSelection()
+    
+    
 
 
     @Override
@@ -374,16 +414,23 @@ public class VTTServiceImpl implements VTTService {
 
 
     @Override
-    public void setUnitComment(Long musetId, String content) throws Exception {
-        MUnitSet muset = (MUnitSet) vttDAO.load(MUnitSet.class, musetId);
-        if (muset==null) throw new Exception("Can't find this MUnitSet");
+    
+    
+    public void setUnitComment(Long pathId, String content) throws Exception {
+        ExpertPathComment comment = vttDAO.getExpertPathComment(pathId, WebUtils.currentUserId());
+        if (comment==null) {
+            comment = new ExpertPathComment();
+            comment.setOwner(vttDAO.getUserById(WebUtils.currentUserId()));
+            comment.setPath(vttDAO.getCategoryPathById(pathId));
+        }
+        comment.setContent(content);
         
-        muset.getExpComments().put(WebUtils.currentUserId(), content);
-        
-        vttDAO.save(muset);
+        vttDAO.save(comment);
     } //setUnitComment()
 
 
+    
+    
     @Override
     public void setClusteredExpertsSelections(Long vttId) throws Exception {
         VTT vtt = vttDAO.getVTTById(vttId);
@@ -454,11 +501,13 @@ public class VTTServiceImpl implements VTTService {
             vttDAO.save(mset);
         }
     } //setClusteredExpertsSelections()
+    
+    
 
 
     @Override
     public void saveSelection(Long pathId, Long userId, String unit) throws Exception {
-        MUnitSet mset = vttDAO.getMUnitSetByPathId(pathId);
+        List<MUnitSet> mset = vttDAO.getMUnitSetsByPathId(pathId);
         if (unit==null) {
             mset.getUserSelections().remove(userId);
         } else {
@@ -466,6 +515,8 @@ public class VTTServiceImpl implements VTTService {
         }
         vttDAO.save(mset);
     } //saveSelection()
+    
+    
 
 
     @Override
@@ -497,6 +548,8 @@ public class VTTServiceImpl implements VTTService {
         
         return path;
     } //createPath()
+    
+    
 
 
     @Override
@@ -510,6 +563,8 @@ public class VTTServiceImpl implements VTTService {
         
         vttDAO.save(vtt);
     }
+    
+    
 
 
     @Override
@@ -581,6 +636,12 @@ public class VTTServiceImpl implements VTTService {
     public Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception {
         return vttDAO.getThreadUsers(ownerId, vttId);
     }
+
+
+    @Override
+    public ExpertPathComment getExpertPathComment(Long pathId, Long userId) throws Exception {
+        return vttDAO.getExpertPathComment(pathId, userId);
+    } //getExpertPathComment()
 
 
 } //class VTTServiceImpl

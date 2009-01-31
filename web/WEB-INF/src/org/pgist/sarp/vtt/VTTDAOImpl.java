@@ -109,10 +109,10 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
     private static final String hql_getMUnitSetByPathId = "from MUnitSet m where m.path.id=?";
     
     @Override
-    public MUnitSet getMUnitSetByPathId(Long pathId) throws Exception {
+    public List<MUnitSet> getMUnitSetsByPathId(Long pathId) throws Exception {
         Query query = getSession().createQuery(hql_getMUnitSetByPathId);
         query.setLong(0, pathId);
-        return (MUnitSet) query.uniqueResult();
+        return (List<MUnitSet>) query.list();
     } //getMUnitSetByPathId()
 
     
@@ -201,6 +201,19 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
         Set<User> users = new HashSet<User>();
         users.addAll(getHibernateTemplate().find(hql_getThreadUsers, new Object[] {vttId, ownerId}));
         return users;
+    }
+
+
+    private static final String hql_getExpertPathComment = "from ExpertPathComment e where e.path.id=? and e.owner.id=?";
+    
+    
+    @Override
+    public ExpertPathComment getExpertPathComment(Long pathId, Long userId) throws Exception {
+        List<ExpertPathComment> results = getHibernateTemplate().find(hql_getExpertPathComment, new Object[] {pathId, userId});
+        
+        if (results.size()>0) return results.get(0);
+        
+        return null;
     }
 
     
