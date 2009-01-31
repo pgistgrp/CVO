@@ -98,13 +98,12 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Overview and instructions</h3>
-                            <p>Review and comment supports participant commenting about this step in the overall process, focusing on whether the process should move forward to the next step.</p>
                             <p>Are sufficient keywords/phrases used to characterize the variety of concerns?</p>
                             <!--  <li>For creating concern categories, are sufficient categories used to characterize the majority of keywords/phrases/concerns?</li>
                               <li>For creating category hierarchies, are sufficient hierarchy paths used to characterize the general to specific levels of categories?</li>
                               <li>For creating concern indicators, have sufficient indicator labels and respective measurement units been recommended to guide a search for data?</li> -->
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-                            <p id="hiddenRM" style="display:none">Although the content material generated in each step is different, the review and comment process is similar. Remember this review and comment activity is about the overall process.<br><br>When reviewing concerns, if you want to comment about particular concerns, please return to the Brainstorm and Concerns Tool by clicking at the top of the page.</p>
+                            <p id="hiddenRM" style="display:none">Review and comment supports participant commenting about this step in the overall process, focusing on whether the process should move forward to the next step.  Add a comment to join the conversation about this step.  Vote to move forward when you are satisfied.<br><br>When reviewing concerns, if you want to comment about particular concerns, please return to the Brainstorm and Concerns Tool by clicking at the top of the page.</p>
                         ]]>
                     </property>
                 </props>
@@ -207,10 +206,9 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Overview and instructions</h3>
-                            <p>Review and comment supports participant commenting about this step in the overall process, focusing on whether the process should move forward to the next step.</p>
                             <p>Are sufficient categories used to characterize the majority of keywords/phrases/concerns?</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more about this step</a>
-                            <p id="hiddenRM" style="display:none">Although the content material generated in each step is different, the review and comment process is similar. Remember this review and comment activity is about the overall process.<br><br>When comparing categories, the term "aliases" in the middle column indicates the number of similar category labels that were found. The term "freq set" indicates the number of similar keyword sets for other labels that were found.  The term "freq name" indicates the number of same named category labels found. The term "freq name and set" indicates the number of both same name and sets found.</p>
+                            <p id="hiddenRM" style="display:none">Review and comment supports participant commenting about this step in the overall process, focusing on whether the process should move forward to the next step.  Add a comment to join the conversation about this step.  Vote to move forward when you are satisfied.<br><br>When comparing categories, the term "aliases" in the middle column indicates the number of similar category labels that were found. The term "freq set" indicates the number of similar keyword sets for other labels that were found.  The term "freq name" indicates the number of same named category labels found. The term "freq name and set" indicates the number of both same name and sets found.</p>
                         ]]>
                     </property>
                 </props>

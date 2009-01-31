@@ -594,12 +594,12 @@ function editTags(concernId){
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Describe your concerns about climate change and variability. Although any number of sentences can be used, 1, 2, or 3 sentences would be fine. The system identifies keywords. Select one or more of the keywords by clicking a check box. If desired, enter one or more keywords/phrases into the text box. Keyphrases (2-5 words) add a bit more meaning when tagging a concern.</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Describe your concerns about climate change and tag them with appropriate key words or phrases.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Read more about this step</pg:termHighlight></a>
       </p>
       <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Here is an example concern: Robert is worried about grape growing near the coast.</pg:termHighlight>
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Although any number of sentences can be used, 1, 2, or 3 sentences would be fine. The system identifies keywords. Select one or more of the keywords by clicking a check box. If desired, enter one or more keywords/phrases into the text box. Keyphrases (2-5 words) add a bit more meaning when tagging a concern.<br><br>Here is an example concern: Robert is worried about grapes growing near the coast.</pg:termHighlight>
       </p>
     </div>
     <a name="filterJump"></a>
