@@ -170,7 +170,10 @@
       <include method="getPaths"/>
       <include method="getPathInfo"/>
       <include method="deletePath"/>
-      <include method="saveUnit"/>
+      <include method="addIndicator"/>
+      <include method="deleteIndicator"/>
+      <include method="addUnit"/>
+      <include method="deleteUnit"/>
     </create>
 
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.StyledEditorKit.BoldAction;
@@ -1278,14 +1279,16 @@ public class VTTAgent {
                     }
                 }
                 
-                for (String unit : block.keySet()) {
-                    Object[] row = block.get(unit);
-                    row[6] = totalSelection;
-                }
-                
                 for (Map.Entry<Long, String> entry : mUnitSet.getUserSelections().entrySet()) {
                     Object[] row = block.get(entry.getValue());
                     row[5] = (Integer) row[5] + 1;
+                }
+            }
+            
+            for (TreeMap<String, Object[]> block : grid.values()) {
+                for (String unit : block.keySet()) {
+                    Object[] row = block.get(unit);
+                    row[6] = totalSelection;
                 }
             }
             
@@ -1437,10 +1440,23 @@ public class VTTAgent {
         
         try {
             CategoryPath path = vttService.getCategoryPathById(pathId);
+            List<MUnitSet> musets = vttService.getMUnitSetsByPathId(pathId);
+            
+            TreeMap<MUnitSet, TreeSet<String>> grid = new TreeMap<MUnitSet, TreeSet<String>>();
+            for (MUnitSet muset : musets) {
+                TreeSet<String> units = new TreeSet<String>();
+                grid.put(muset, units);
+                
+                units.addAll(muset.getApprFreqs().keySet());
+                units.addAll(muset.getAvailFreqs().keySet());
+                units.addAll(muset.getDupFreqs().keySet());
+                units.addAll(muset.getRecoFreqs().keySet());
+            }
             
             request.setAttribute("path", path);
+            request.setAttribute("musets", musets);
+            request.setAttribute("grid", grid);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttModPathInfo.jsp"));
-            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1473,20 +1489,15 @@ public class VTTAgent {
     } //deletePath()
     
     
-    public Map saveUnit(HttpServletRequest request, Map params) {
+    public Map addIndicator(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
         Long pathId = new Long((String) params.get("pathId"));
         String indicator = (String) params.get("indicator");
-        String measurement = (String) params.get("measurement");
-        boolean appr = Boolean.valueOf((String) params.get("appr"));
-        boolean avail = Boolean.valueOf((String) params.get("avail"));
-        boolean dup = Boolean.valueOf((String) params.get("dup"));
-        boolean reco = Boolean.valueOf((String) params.get("reco"));
         
         try {
-            vttService.saveUnit(pathId, indicator, measurement, appr, avail, dup, reco);
+            vttService.addIndicator(pathId, indicator);
             
             map.put("successful", true);
         } catch (Exception e) {
@@ -1496,7 +1507,69 @@ public class VTTAgent {
         }
         
         return map;
-    } //saveUnit()
+    } //addIndicator()
+    
+    
+    public Map deleteIndicator(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long musetId = new Long((String) params.get("musetId"));
+        
+        try {
+            vttService.deleteIndicator(musetId);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //deleteIndicator()
+    
+    
+    public Map addUnit(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long musetId = new Long((String) params.get("musetId"));
+        String unit = (String) params.get("unit");
+        
+        try {
+            vttService.addUnit(musetId, unit);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //addUnit()
+    
+    
+    public Map deleteUnit(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long musetId = new Long((String) params.get("musetId"));
+        String unit = (String) params.get("unit");
+        
+        try {
+            vttService.deleteUnit(musetId, unit);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //deleteUnit()
     
     
 }//class VTTAgent

@@ -1,24 +1,23 @@
-<center><b>Path : ${path.title}</b></center>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<center><b>Path : ${path.title}</b> <input type="button" value="add indicator" onclick="infoObject.addIndicator(${path.id});"></center>
 <br>
 <table>
-  <tr>
-    <td align="right">Indicator:</td>
-    <td><input type="text" maxlength="100" size="50" id="indicator" value=""></td>
-  </tr>
-  <tr>
-    <td align="right">Suggested unit of measurement:</td>
-    <td><input type="text" maxlength="100" size="50" id="measurement" value=""></td>
-  </tr>
+  <c:forEach var="block" items="${grid}" varStatus="loop0">
+    <tr>
+      <td>
+        <span style="font-weight:bold;">Indicator:</span> <span style="font-weight:bold; color:red;">${block.key.name}</span>
+        <input type="button" value="delete indicator" onclick="infoObject.deleteIndicator(${path.id}, ${block.key.id});">
+        <input type="button" value="add unit" onclick="infoObject.addUnit(${path.id}, ${block.key.id});">
+      </td>
+    </tr>
+    <c:forEach var="unit" items="${block.value}" varStatus="loop1">
+      <tr>
+        <td style="padding-left:40px;">
+          ${unit}
+          <input type="button" value="delete unit" onclick="infoObject.deleteUnit(${path.id}, ${block.key.id}, '${unit}');">
+        </td>
+      </tr>
+    </c:forEach>
+  </c:forEach>
 </table>
-<b>Specialist Information:</b>
-<table>
-  <tr>
-    <td width="20"></td>
-    <td><label style="cursor: pointer;	cursor: hand;" for="appr">Appropriate</label> <input type="checkbox" id="appr" value="appr"></td>
-    <td style="padding-left:20px;"><label style="cursor: pointer;	cursor: hand;" for="avail">Available</label> <input type="checkbox" id="avail" value="avail"></td>
-    <td style="padding-left:20px;"><label style="cursor: pointer;	cursor: hand;" for="dup">Duplicate</label> <input type="checkbox" id="dup" value="dup"></td>
-    <td style="padding-left:20px;"><label style="cursor: pointer;	cursor: hand;" for="reco">Recommended</label> <input type="checkbox" id="reco" value="reco"></td>
-  </tr>
-</table>
-<br>
-<center><input type="button" value="Save" onclick="tree1.saveUnit();"></center>

@@ -1,7 +1,9 @@
 package org.pgist.sarp.vtt;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -558,73 +560,6 @@ public class VTTServiceImpl implements VTTService {
     }
     
     
-
-
-    @Override
-    public void saveUnit(Long pathId, String indicator, String measurement,
-            boolean appr, boolean avail, boolean dup, boolean reco) throws Exception {
-        User user = systemDAO.getUserById(WebUtils.currentUserId());
-        CategoryPath path = vttDAO.getCategoryPathById(pathId);
-        
-        CategoryPathValue value = new CategoryPathValue(path, user, false);;
-        value.setUser(user);
-        value.setName(indicator);
-        value.setCriterion(measurement);
-        vttDAO.save(value);
-        
-        MUnitSet muset = vttDAO.getMUnitSetByPathId(pathId);
-        if (muset==null) {
-            muset = new MUnitSet();
-            muset.setPath(path);
-            if (appr) muset.getApprFreqs().put(indicator, 1);
-            if (avail) muset.getAvailFreqs().put(indicator, 1);
-            if (dup) muset.getDupFreqs().put(indicator, 1);
-            if (reco) muset.getRecoFreqs().put(indicator, 1);
-        } else {
-            int count = muset.getApprFreqs().get(indicator)==null? 0 : muset.getApprFreqs().get(indicator);
-            boolean oldAppr = muset.getApprFreqs().get(indicator)!=null;
-            if (appr!=oldAppr) {
-                if (appr) {
-                    muset.getApprFreqs().put(indicator, count+1);
-                } else {
-                    muset.getApprFreqs().put(indicator, count-1);
-                }
-            }
-            
-            count = muset.getAvailFreqs().get(indicator)==null? 0 : muset.getAvailFreqs().get(indicator);
-            boolean oldAvail = muset.getAvailFreqs().get(indicator)!=null;
-            if (avail!=oldAvail) {
-                if (avail) {
-                    muset.getAvailFreqs().put(indicator, count+1);
-                } else {
-                    muset.getAvailFreqs().put(indicator, count-1);
-                }
-            }
-            
-            count = muset.getDupFreqs().get(indicator)==null? 0 : muset.getDupFreqs().get(indicator);
-            boolean oldDup = muset.getDupFreqs().get(indicator)!=null;
-            if (dup!=oldDup) {
-                if (dup) {
-                    muset.getDupFreqs().put(indicator, count+1);
-                } else {
-                    muset.getDupFreqs().put(indicator, count-1);
-                }
-            }
-            
-            count = muset.getRecoFreqs().get(indicator)==null? 0 : muset.getRecoFreqs().get(indicator);
-            boolean oldReco = muset.getRecoFreqs().get(indicator)!=null;
-            if (reco!=oldReco) {
-                if (reco) {
-                    muset.getRecoFreqs().put(indicator, count+1);
-                } else {
-                    muset.getRecoFreqs().put(indicator, count-1);
-                }
-            }
-        }
-        vttDAO.save(muset);
-    } //saveUnit()
-
-
     @Override
     public Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception {
         return vttDAO.getThreadUsers(ownerId, vttId);
@@ -635,6 +570,64 @@ public class VTTServiceImpl implements VTTService {
     public ExpertPathComment getExpertPathComment(Long pathId, Long userId) throws Exception {
         return vttDAO.getExpertPathComment(pathId, userId);
     } //getExpertPathComment()
+
+
+    @Override
+    public void addIndicator(Long pathId, String indicator) throws Exception {
+        List<MUnitSet> musets = vttDAO.getMUnitSetsByPathId(pathId);
+        for (MUnitSet muset : musets) {
+            if (indicator.equalsIgnoreCase(muset.getName())) {
+                throw new Exception("this indicator already exists");
+            }
+        }
+        
+        MUnitSet muset = new MUnitSet();
+        muset.setName(indicator);
+        muset.setPath(vttDAO.getCategoryPathById(pathId));
+        muset.setUserSelections(new HashMap<Long, String>());
+        muset.setApprFreqs(new HashMap<String, Integer>());
+        muset.setAvailFreqs(new HashMap<String, Integer>());
+        muset.setDupFreqs(new HashMap<String, Integer>());
+        muset.setRecoFreqs(new HashMap<String, Integer>());
+        muset.setExpUnits(new HashMap<Long, EUnitSet>());
+        muset.setFreqs(new HashMap<String, Integer>());
+        vttDAO.save(muset);
+    } //addIndicator()
+
+
+    @Override
+    public void deleteIndicator(Long musetId) throws Exception {
+        MUnitSet muset = vttDAO.getMUnitSetById(musetId);
+        vttDAO.delete(muset);
+    } //deleteIndicator()
+
+
+    @Override
+    public void addUnit(Long musetId, String unit) throws Exception {
+        MUnitSet muset = vttDAO.getMUnitSetById(musetId);
+        
+        muset.getApprFreqs().put(unit, 0);
+        muset.getAvailFreqs().put(unit, 0);
+        muset.getDupFreqs().put(unit, 0);
+        muset.getRecoFreqs().put(unit, 0);
+        muset.getFreqs().put(unit, 0);
+        
+        vttDAO.save(muset);
+    } //addUnit()
+
+
+    @Override
+    public void deleteUnit(Long musetId, String unit) throws Exception {
+        MUnitSet muset = vttDAO.getMUnitSetById(musetId);
+        
+        muset.getApprFreqs().remove(unit);
+        muset.getAvailFreqs().remove(unit);
+        muset.getDupFreqs().remove(unit);
+        muset.getRecoFreqs().remove(unit);
+        muset.getFreqs().remove(unit);
+        
+        vttDAO.save(muset);
+    } //deleteUnit()
 
 
 } //class VTTServiceImpl

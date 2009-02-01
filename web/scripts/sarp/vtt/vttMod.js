@@ -137,3 +137,73 @@ infoObject.addPath = function() {
 });
 };
 
+infoObject.addIndicator = function(pathId) {
+  s = prompt('indicator name');
+  if (s=='') return;
+  
+  VTTAgent.addIndicator({pathId:pathId, indicator:s}, {
+    callback:function(data){
+      if (data.successful){
+        tree1.select(pathId);
+      } else {
+        alert(data.reason);
+      }
+    },
+    errorHandler:function(errorString, exception){
+      alert("addIndicator error: "+errorString+" "+exception);
+    }
+  });
+}
+
+infoObject.deleteIndicator = function(pathId, musetId) {
+  if (!confirm('Are your sure to delete this indicator?')) return;
+  
+  VTTAgent.deleteIndicator({musetId:musetId}, {
+    callback:function(data){
+      if (data.successful){
+        tree1.select(pathId);
+      } else {
+        alert(data.reason);
+      }
+    },
+    errorHandler:function(errorString, exception){
+      alert("deleteIndicator error: "+errorString+" "+exception);
+    }
+  });
+}
+
+infoObject.addUnit = function(pathId, musetId) {
+  s = prompt('unit name');
+  if (s=='') return;
+  
+  VTTAgent.addUnit({musetId:musetId, unit:s}, {
+    callback:function(data){
+      if (data.successful){
+        tree1.select(pathId);
+      } else {
+        alert(data.reason);
+      }
+    },
+    errorHandler:function(errorString, exception){
+      alert("addUnit error: "+errorString+" "+exception);
+    }
+  });
+}
+
+infoObject.deleteUnit = function(pathId, musetId, unit) {
+  if (!confirm('Are your sure to delete this unit?')) return;
+  
+  VTTAgent.deleteUnit({musetId:musetId, unit:unit}, {
+    callback:function(data){
+      if (data.successful){
+        tree1.select(pathId);
+      } else {
+        alert(data.reason);
+      }
+    },
+    errorHandler:function(errorString, exception){
+      alert("deleteUnit error: "+errorString+" "+exception);
+    }
+  });
+}
+

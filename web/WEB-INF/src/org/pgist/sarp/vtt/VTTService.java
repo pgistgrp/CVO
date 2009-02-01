@@ -77,12 +77,17 @@ public interface VTTService {
 
     void deletePathById(Long vttId, Long pathId) throws Exception;
 
-    void saveUnit(Long pathId, String indicator, String measurement,
-            boolean appr, boolean avail, boolean dup, boolean reco) throws Exception;
-
     Set<User> getThreadUsers(Long ownerId, Long vttId) throws Exception;
 
     ExpertPathComment getExpertPathComment(Long pathId, Long userId) throws Exception;
 
+    void addIndicator(Long pathId, String indicator) throws Exception;
+
+    void deleteIndicator(Long musetId) throws Exception;
+
+    void addUnit(Long musetId, String unit) throws Exception;
+
+    void deleteUnit(Long musetId, String unit) throws Exception;
+    
     
 }//interface VTTService
