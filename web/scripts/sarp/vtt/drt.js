@@ -41,10 +41,19 @@ function saveUnitSelection(pathId) {
     }
   }
   
-  VTTAgent.saveSelection({pathId:pathId, unit:selection}, {
+  musetId = 0;
+  unit = '';
+  if (selection.length>0) {
+    var index = selection.indexOf('-');
+    musetId = selection.substr(0, index);
+    unit = selection.substr(index+1);
+  }
+  
+  VTTAgent.saveSelection({pathId:pathId, musetId:musetId, unit:unit}, {
     callback:function(data){
         if (data.successful){
             tree1.select(pathId);
+            alert("saved.");
         }else{
             alert(data.reason);
             $('btnSave').disabled = false;
@@ -52,7 +61,7 @@ function saveUnitSelection(pathId) {
         displayIndicator(false);
     },
     errorHandler:function(errorString, exception){ 
-        alert("get comments error: " + errorString +" "+ exception);
+        alert("save selection error: " + errorString +" "+ exception);
     }
   });
 }

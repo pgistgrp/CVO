@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
@@ -1217,20 +1218,80 @@ public class VTTAgent {
         }
         
         try {
-            MUnitSet mset = null;//vttService.getMUnitSetByPathId(pathId);
-            Set<String> units = new HashSet<String>();
-            units.addAll(mset.getApprFreqs().keySet());
-            units.addAll(mset.getAvailFreqs().keySet());
-            units.addAll(mset.getDupFreqs().keySet());
-            units.addAll(mset.getRecoFreqs().keySet());
+            TreeMap<MUnitSet, TreeMap<String, Object[]>> grid = new TreeMap<MUnitSet, TreeMap<String, Object[]>>();
+            
+            boolean selected = false;
+            List<MUnitSet> msets = vttService.getMUnitSetsByPathId(pathId);
+            int totalSelection = 0;
+            for (MUnitSet mUnitSet : msets) {
+                totalSelection += mUnitSet.getUserSelections().size();
+                TreeMap<String, Object[]> block = new TreeMap<String, Object[]>();
+                grid.put(mUnitSet, block);
+                
+                String myUnit = mUnitSet.getUserSelections().get(WebUtils.currentUserId());
+                
+                for (String unit : mUnitSet.getApprFreqs().keySet()) {
+                    Object[] row = block.get(unit);
+                    if (row==null) {
+                        row = new Object[] {0, 0, 0, 0, false, 0, 0};
+                        block.put(unit, row);
+                    }
+                    row[0] = mUnitSet.getApprFreqs().get(unit);
+                    if (unit.equals(myUnit)) {
+                        row[4] = true;
+                    }
+                }
+                
+                for (String unit : mUnitSet.getAvailFreqs().keySet()) {
+                    Object[] row = block.get(unit);
+                    if (row==null) {
+                        row = new Object[] {0, 0, 0, 0, false, 0, 0};
+                        block.put(unit, row);
+                    }
+                    row[1] = mUnitSet.getAvailFreqs().get(unit);
+                    if (unit.equals(myUnit)) {
+                        row[4] = true;
+                    }
+                }
+                
+                for (String unit : mUnitSet.getDupFreqs().keySet()) {
+                    Object[] row = block.get(unit);
+                    if (row==null) {
+                        row = new Object[] {0, 0, 0, 0, false, 0, 0};
+                        block.put(unit, row);
+                    }
+                    row[2] = mUnitSet.getDupFreqs().get(unit);
+                    if (unit.equals(myUnit)) {
+                        row[4] = true;
+                    }
+                }
+                
+                for (String unit : mUnitSet.getRecoFreqs().keySet()) {
+                    Object[] row = block.get(unit);
+                    if (row==null) {
+                        row = new Object[] {0, 0, 0, 0, false, 0, 0};
+                        block.put(unit, row);
+                    }
+                    row[3] = mUnitSet.getRecoFreqs().get(unit);
+                    if (unit.equals(myUnit)) {
+                        row[4] = true;
+                    }
+                }
+                
+                for (String unit : block.keySet()) {
+                    Object[] row = block.get(unit);
+                    row[6] = totalSelection;
+                }
+                
+                for (Map.Entry<Long, String> entry : mUnitSet.getUserSelections().entrySet()) {
+                    Object[] row = block.get(entry.getValue());
+                    row[5] = (Integer) row[5] + 1;
+                }
+            }
+            
             request.setAttribute("pathId", pathId);
-            request.setAttribute("mset", mset);
-            request.setAttribute("units", units);
-            request.setAttribute("apprFreqs", mset.getApprFreqs());
-            request.setAttribute("availFreqs", mset.getAvailFreqs());
-            request.setAttribute("dupFreqs", mset.getDupFreqs());
-            request.setAttribute("recoFreqs", mset.getRecoFreqs());
-            request.setAttribute("userSelection", mset.getUserSelections().get(WebUtils.currentUserId()));
+            request.setAttribute("grid", grid);
+            request.setAttribute("selected", selected);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttPathStats.jsp"));
             map.put("successful", true);
         } catch (Exception e) {
@@ -1270,13 +1331,21 @@ public class VTTAgent {
             return map;
         }
         
+        Long musetId = null;
+        try {
+            musetId = new Long((String) params.get("musetId"));
+        } catch (Exception e) {
+            map.put("reason", "musetId is required.");
+            return map;
+        }
+        
         try {
             String unit = (String) params.get("unit");
             if (unit!=null) {
                 unit = unit.trim();
                 if (unit.length()==0) unit = null;
             }
-            vttService.saveSelection(pathId, WebUtils.currentUserId(), unit);
+            vttService.saveSelection(pathId, musetId, WebUtils.currentUserId(), unit);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

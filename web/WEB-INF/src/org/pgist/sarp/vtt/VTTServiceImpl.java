@@ -501,14 +501,16 @@ public class VTTServiceImpl implements VTTService {
 
 
     @Override
-    public void saveSelection(Long pathId, Long userId, String unit) throws Exception {
-        List<MUnitSet> mset = vttDAO.getMUnitSetsByPathId(pathId);
-        if (unit==null) {
-            mset.getUserSelections().remove(userId);
-        } else {
-            mset.getUserSelections().put(userId, unit);
+    public void saveSelection(Long pathId, Long musetId, Long userId, String unit) throws Exception {
+        List<MUnitSet> msets = vttDAO.getMUnitSetsByPathId(pathId);
+        for (MUnitSet mset : msets) {
+            if (!mset.getId().equals(musetId)) {
+                mset.getUserSelections().remove(userId);
+            } else {
+                mset.getUserSelections().put(userId, unit);
+            }
+            vttDAO.save(mset);
         }
-        vttDAO.save(mset);
     } //saveSelection()
     
     
@@ -552,10 +554,6 @@ public class VTTServiceImpl implements VTTService {
         VTT vtt = vttDAO.getVTTById(vttId);
         CategoryPath path = vttDAO.getCategoryPathById(pathId);
         vtt.getPaths().remove(path);
-        
-        MUnitSet muset = vttDAO.getMUnitSetByPathId(pathId);
-        vttDAO.delete(muset);
-        
         vttDAO.save(vtt);
     }
     

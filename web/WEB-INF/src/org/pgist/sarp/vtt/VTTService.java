@@ -71,7 +71,7 @@ public interface VTTService {
 
     void setClusteredExpertsSelections(Long vttId) throws Exception;
 
-    void saveSelection(Long pathId, Long userId, String unit) throws Exception;
+    void saveSelection(Long pathId, Long musetId, Long userId, String unit) throws Exception;
 
     CategoryPath createPath(Long vttId, String pathIds) throws Exception;
 

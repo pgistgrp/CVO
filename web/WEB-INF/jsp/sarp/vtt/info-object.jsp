@@ -18,8 +18,10 @@
 </div>
 
 <form name="mainForm" method="POST" action="#">
-<div id="col-right" style="overflow:auto;height:350px;text-align:center;">
+<div id="col-right" style="overflow:auto;height:350px;">
+  <center>
   <b>Units of Measurement Specialist Analysis and Selection:</b>
+  </center>
 </div>
 </form>
 
