@@ -40,7 +40,12 @@
 								</div><!-- end discussionRowHeader -->
 								<div class="discussionBody">
 									<div id="editingArea${concern.id}" style="display:none"></div>
-									<div class="discussionTagsList">
+									<div class="discussionText" id="discussionText${concern.id}"><p>"${pg:purify(concern.content)}"</p></div>
+									<h3 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> at ${concern.createTime}</h3>
+										<div class="discussionComments" id="discussionComments">
+										    <h3><pg:url page="/concern.do" params="id=${concern.id}">${concern.replies} Comments</pg:url></h3> (${concern.views} views)
+										</div>
+										<div class="discussionTagsList">
 											<!-- iterate through concern tags here -->	
 											<div id="tagsUL${concern.id}"><ul class="tagsInline">
 												<li class="tagsInline"><strong>Keywords:</strong> </li>
@@ -65,11 +70,6 @@
 										<!-- end tag iteration -->
 	
 										</div><!--end discussionTagsList -->
-									<div class="discussionText" id="discussionText${concern.id}"><p>"${pg:purify(concern.content)}"</p></div>
-									<h4 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> at ${concern.createTime}</h4>
-										<div class="discussionComments" id="discussionComments">
-										    <h3><pg:url page="/concern.do" params="id=${concern.id}">${concern.replies} Comments</pg:url></h3> (${concern.views} views)
-										</div>
                     <pg:show condition="${!bct.closed}">
 										<c:if test="${baseuser.id == concern.author.id}">
 											<c:if test="${concern.numVote == 1}">
