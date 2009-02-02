@@ -43,7 +43,7 @@
 									<div class="discussionTagsList">
 											<!-- iterate through concern tags here -->	
 											<div id="tagsUL${concern.id}"><ul class="tagsInline">
-												<li class="tagsInline"><strong>Keywords:</strong> </li>
+												<li class="tagsInline"><strong><br>Keywords:</strong> </li>
 												<c:forEach items="${concern.tags}" var="tagref">
 													<c:choose>
 														<c:when test="${baseuser.id == concern.author.id}">
@@ -68,7 +68,7 @@
 									<div class="discussionText" id="discussionText${concern.id}"><p>"${pg:purify(concern.content)}"</p></div>
 									<h4 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> at ${concern.createTime}</h4>
 										<div class="discussionComments" id="discussionComments">
-										    <h3><pg:url page="/concern.do" params="id=${concern.id}">${concern.replies} Comments</pg:url></h3> (${concern.views} views)
+										    <h4><pg:url page="/concern.do" params="id=${concern.id}">${concern.replies} Comments</pg:url></h4> (${concern.views} views)
 										</div>
                     <pg:show condition="${!bct.closed}">
 										<c:if test="${baseuser.id == concern.author.id}">
