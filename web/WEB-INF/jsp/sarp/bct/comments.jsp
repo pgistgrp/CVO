@@ -36,6 +36,9 @@
 <div id="summary" class="box3 floatLeft">
   <div class="discussionBody" id="discussionBody">
     <div id="editingArea${concern.id}" style="display:none"></div>
+    <div id="discussionText${concern.id}">
+      <p>"${concern.content}"</p>
+    </div>
     <!--<div class="discussionComments" id="discussionComments"><h3><a href="concern.do?id=${concern.id}">${concern.replies} Comments</a></h3> (${concern.views} views)</div>-->
     <div class="discussionTagsList">
       <!-- iterate through concern tags here -->
@@ -62,17 +65,14 @@
       <!-- end tag iteration -->
     </div>
     <!--end discussionTagsList -->
-    <div id="discussionText${concern.id}">
-      <p>"${concern.content}"</p>
-    </div>
-    <h3 id="discussionAuthor">-
-        <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> at ${concern.createTime}
-    </h3>
     <pg:show condition="${!bct.closed}">
     <c:if test="${baseuser.id == concern.author.id}">
         <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Keywords</a></div>
     </c:if>
     </pg:show>
+    <h1 id="discussionAuthor">-
+        <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> at ${concern.createTime}
+    </h1>
   </div>
   <!-- end discussion body -->
 </div>
@@ -85,7 +85,7 @@
     <p>
     <h3 class="headerColor">${fn:length(comments)}
       <c:choose>
-        <c:when test="${fn:length(comments) == 1}"> Do you agree with this concern? </c:when>
+        <c:when test="${fn:length(comments) == 1}"> Comment about this concern </c:when>
         <c:otherwise> Comments about this concern</c:otherwise>
       </c:choose>
     </h3>
