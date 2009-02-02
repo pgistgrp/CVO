@@ -116,6 +116,8 @@
                 $('btnAdd').value="Save";
                 $('col-right').innerHTML = data.html;
                 $('vtrow-'+tree1.selectedId).className = "catSelected";
+		// brandon added next line		
+		alert('Your indicator has been saved.');
             }else{
                 displayIndicator(false);
                 alert(data.reason);
