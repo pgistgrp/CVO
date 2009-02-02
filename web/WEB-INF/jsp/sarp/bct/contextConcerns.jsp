@@ -66,7 +66,7 @@
 	
 										</div><!--end discussionTagsList -->
 									<div class="discussionText" id="discussionText${concern.id}"><p>"${pg:purify(concern.content)}"</p></div>
-									<h4 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> at <fmt:formatDate value="${concern.createTime}" pattern="MM/dd/yy, hh:mm aaa"/></h4>
+									<h4 id="discussionAuthor">- <pg:url page="/publicprofile.do" target="_blank" params="userId=${concern.author.id}">${concern.author.loginname}</pg:url> on <fmt:formatDate value="${concern.createTime}" pattern="MM/dd/yy at hh:mm aaa"/></h4>
 										<div class="discussionComments" id="discussionComments">
 										    <h3><pg:url page="/concern.do" params="id=${concern.id}">${concern.replies} Comments</pg:url></h3> (${concern.views} views)
 										</div>
