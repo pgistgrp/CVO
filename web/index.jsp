@@ -97,7 +97,7 @@ small {display:block;margin-top:20px;}
     
 		<h1><strong>Voicing Climate Concerns</strong> is an experiment in participatory democracy. <a href="/lmMenu.do?workflowId=&contextId=&activityId=&" title="Learn more about this study">Learn more</a> about this research study or <b><a href="register.do">register now</a></b>.</h1>
     		
-		<p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about climate change and variability along the Oregon Coast and analysts produce maps depicting those concerns contigent on availabity of data. If you would like to participate in the experiment, please log in (or register above):</p>
+		<p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about climate change and variability along the Oregon Coast and analysts produce maps depicting those concerns contingent on availabity of data. If you would like to participate in the experiment, please log in (or register above):</p>
     		
 		<div id="login">
 			<form action="/login.do" method="POST">

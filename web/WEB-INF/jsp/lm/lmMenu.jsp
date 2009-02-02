@@ -57,7 +57,7 @@
 		
     <p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about 
     climate change and variability along the Oregon Coast and analysts produce maps depicting those 
-    concerns contigent on availabity of data.</p>
+    concerns contingent on availabity of data.</p>
     
     <p>
     There are 4 steps to complete this experiment.  Following the execution of each step, participants
