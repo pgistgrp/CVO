@@ -347,7 +347,7 @@
       </p>
       <p id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><i>Task one: Add and publish your indicators.</i> To create an indicator, first select and highlight a hierarchy label in the left column. In the middle column, select the most specific keyword/phrase from the pull down box or even enter your own keyword/keyphrase. Then suggest how you would measure that specific keyword/keyphrase by entering a unit of measurement and creating a potential indicator. You can select, highlight and modify your indicators at any time. Indicators will be used to create climate vulnerability maps using data as it becomes available from the Oregon Coastal Atlas data archive. When finished to share with others, click the "Publish" button at the bottom of left column. Your indicators will be listed on the right column. You are still able to edit your hierarchies after you “Publish," but the button will disappear because each change is saved.
-	<br><br><i>Task two: Post a comment about your indicators for a vote by others.</i> Post a comment about how you selected the most specific keywords/phrases and suggested the best way to measure it.
+	<br><br><i>Task two: Post a comment.</i> Post a comment about how you selected the most specific keywords/phrases and suggested the best way to measure it.
 	<br><br><i>Task three: Modify your indicators.</i> After looking at other’s comments about your concern, you have the option of modifying your indicators.</pg:termHighlight>
       </p>
     </div>
