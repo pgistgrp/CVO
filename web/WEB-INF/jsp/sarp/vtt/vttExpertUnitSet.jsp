@@ -7,7 +7,7 @@
   <label style="cursor:pointer;" for="rec-none">Recommend none of the above<label> <input id="rec-none" name="rec-${path.id}" type="radio" value="" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);"></td>
 </div>
 <c:forEach var="block" items="${grid}" varStatus="loop">
-<span style="font-weight:bold;">${block.key.name}</span>
+Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
 <table id="catsTable" width="100%" cell-padding="1" cell-spacing="0">
   <tr>
     <th align="center">Unit</th>
