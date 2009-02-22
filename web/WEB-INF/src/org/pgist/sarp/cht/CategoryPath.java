@@ -21,6 +21,8 @@ public class CategoryPath {
     
     private List<CategoryReference> categories = new ArrayList<CategoryReference>();
     
+    private List<Long> users = new ArrayList<Long>();
+    
     private int numAgree = 0;
     
     private int numVote = 0;
@@ -81,6 +83,23 @@ public class CategoryPath {
     
     public void setCategories(List<CategoryReference> categories) {
         this.categories = categories;
+    }
+
+    
+    /**
+     * @return
+     * 
+     * @hibernate.list lazy="true" cascade="all" table="sarp_cat_path_users" cascade="all"
+     * @hibernate.collection-key column="path_id"
+     * @hibernate.collection-index column="index_order"
+     * @hibernate.collection-element type="long" column="user_id"
+     */
+    public List<Long> getUsers() {
+        return users;
+    }
+    
+    public void setUsers(List<Long> users) {
+        this.users = users;
     }
 
     

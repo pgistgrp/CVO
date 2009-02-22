@@ -484,7 +484,7 @@ public class VTTAgent {
                 value.setName("");
                 value.setTag(true);
             }
-            List<String> tags = new ArrayList<String>();
+            Set<String> tags = new TreeSet<String>();
             for (CategoryReference catRef : value.getPath().getCategories()) {
                 for (TagReference tagRef : catRef.getTags()) {
                     tags.add(tagRef.getTag().getName());
@@ -706,6 +706,8 @@ public class VTTAgent {
             
             TreeMap<MUnitSet, TreeMap<String, Object[]>> grid = new TreeMap<MUnitSet, TreeMap<String, Object[]>>();
             
+            boolean noneSelected = true;
+            
             for (MUnitSet mUnitSet : musets) {
                 EUnitSet eUnitSet = mUnitSet.getExpUnits().get(targetUserId);
                 TreeMap<String, Object[]> row = grid.get(mUnitSet);
@@ -737,6 +739,7 @@ public class VTTAgent {
                         }
                         if (eUnitSet.getRecs().get(unit)==Boolean.TRUE) {
                             cols[4] = true;
+                            noneSelected = false;
                         }
                     }
                 }
@@ -745,6 +748,7 @@ public class VTTAgent {
             request.setAttribute("path", path);
             request.setAttribute("grid", grid);
             request.setAttribute("comment", comment);
+            request.setAttribute("noneSelected", noneSelected);
             request.setAttribute("isOwner", WebUtils.currentUserId().equals(targetUserId));
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttExpertUnitSet.jsp"));
             map.put("successful", true);

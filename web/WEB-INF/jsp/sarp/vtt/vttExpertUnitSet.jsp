@@ -4,7 +4,15 @@
 <div style="height:250px;overflow:auto;clear:both;">
 <form name="umForm" action="#">
 <div style="clear:both; text-align:right; margin-right:20px;">
-  <label style="cursor:pointer;" for="rec-none">Recommend none of the above<label> <input id="rec-none" name="rec-${path.id}" type="radio" value="" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);"></td>
+  <label style="cursor:pointer;" for="rec-none">Recommend none of the above<label>
+  <c:choose>
+    <c:when test="${noneSelected}">
+      <input id="rec-none" name="rec-${path.id}" type="radio" value="" CHECKED onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);">
+    </c:when>
+    <c:otherwise>
+      <input id="rec-none" name="rec-${path.id}" type="radio" value="" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);">
+    </c:otherwise>
+  </c:choose>
 </div>
 <c:forEach var="block" items="${grid}" varStatus="loop">
 Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
