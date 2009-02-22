@@ -38,7 +38,7 @@ Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
       </c:if>
       <c:if test="${isOwner!=true}">
         <c:if test="${row.value[1]==true}">Yes</c:if>
-        <c:if test="${row.value[1]==true}">No</c:if>
+        <c:if test="${row.value[1]!=true}">No</c:if>
       </c:if>
     </td>
     <td align="center">

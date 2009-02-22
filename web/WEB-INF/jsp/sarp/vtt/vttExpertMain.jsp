@@ -311,7 +311,7 @@
     <div id="col-right" style="height:450px;overflow:none;"></div>
     
     <div style="clear:both">
-      <c:if test="${isOnwer && !published}">
+      <c:if test="${isOwner && !published}">
         <input id="publishBtn" type="button" value="Publish" onclick="publishExpertUnits();">
       </c:if>
     </div>

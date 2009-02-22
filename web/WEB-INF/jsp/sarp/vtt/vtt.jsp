@@ -10,7 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Concern Indicator Tool</title>
 
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <!--CSS Libraries -->
 
   <style type="text/css" media="screen">@import "/styles/lit.css";</style>

@@ -68,7 +68,7 @@ public class CategoryInfo {
      * @hibernate.list lazy="false" table="sarp_cst_cat_info_info_link" cascade="all"
      * @hibernate.collection-key column="parent_id"
      * @hibernate.collection-index column="index_order"
-     * @hibernate.collection-one-to-many column="child_id" class="org.pgist.sarp.cst.CategoryInfo"
+     * @hibernate.collection-many-to-many column="child_id" class="org.pgist.sarp.cst.CategoryInfo"
      */
     public List<CategoryInfo> getChildren() {
         return children;

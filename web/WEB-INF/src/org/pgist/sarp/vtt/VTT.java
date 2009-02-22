@@ -131,10 +131,10 @@ public class VTT {
 
 
     /**
-     * @hibernate.set lazy="false" table="pgist_vtt_user_link" cascade="none"
+     * @hibernate.set table="sarp_vtt_user_link"
      * @hibernate.collection-key column="vtt_id"
-     * @hibernate.collection-one-to-many column="user_id" class="org.pgist.users.User"
-     */   
+     * @hibernate.collection-many-to-many class="org.pgist.users.User"
+     */
 	public Set<User> getUsers() {
         return users;
     }
@@ -144,10 +144,10 @@ public class VTT {
 
 
     /**
-     * @hibernate.set lazy="false" table="pgist_vtt_expert_link" cascade="none"
+     * @hibernate.set table="sarp_vtt_expert_link"
      * @hibernate.collection-key column="vtt_id"
-     * @hibernate.collection-one-to-many column="user_id" class="org.pgist.users.User"
-     */   
+     * @hibernate.collection-many-to-many class="org.pgist.users.User"
+     */
     public Set<User> getExperts() {
         return experts;
     }

@@ -55,7 +55,7 @@ public class BCT {
      * 
      * @hibernate.set lazy="true" cascade="all" order-by="createTime desc"
      * @hibernate.collection-key column="bct_id"
-     * @hibernate.collection-one-to-many class="org.pgist.sarp.bct.Concern"
+     * @hibernate.collection-many-to-many class="org.pgist.sarp.bct.Concern"
      */
     public Set getConcerns() {
         return concerns;
@@ -72,7 +72,7 @@ public class BCT {
      * 
      * @hibernate.set lazy="true" cascade="all" table="sarp_bct_tag_refs" order-by="id"
      * @hibernate.collection-key column="cct_id"
-     * @hibernate.collection-one-to-many class="org.pgist.sarp.bct.TagReference"
+     * @hibernate.collection-many-to-many class="org.pgist.sarp.bct.TagReference"
      */
     public Set getTagRefs() {
         return tagRefs;
