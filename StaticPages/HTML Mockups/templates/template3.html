@@ -17,10 +17,11 @@
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/findxy.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 </head>
 
-<body>
+<body onResize="findxy()">
 
 <div id="container">
   <div id="col-left">
@@ -28,13 +29,13 @@
 	Theme Summary
 	
 	</div>
-	<div id="post">
+	<div id="post" class="blueBB">
 	 Post Box
 	 <br />
 	Blah<br />
 	Blah<br />
 	</div>
-	<div id="replies">
+	<div id="replies" class="blueBB">
 	 Reply Box
 	 <br />
 	Blah<br />
@@ -48,6 +49,235 @@
 <div id="bar">
 <a id="SideConcernsTop" name="SideConcernsTop"></a>
 	<div class="tabber" id="myTab">
+	<!--START Tag Selector -->
+	<div id="tagSelector">
+		Tag Selected: <b>Safety</b> [ <a href="javascript:goPage(${setting.page});">Clear Selected</a> ]
+		<div id="pullDown" style="text-align:right;"><a href="javascript: expandTagSelector();">Pull My Finger</a></div>
+		<div id="allTags" style="display: none;">
+			<h1>All Currently Available Tags</h1>
+			
+			<span class="tagSize1"><a href="javascript:getConcernsByTag(448);">520 bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(458);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(440);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(411);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(405);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(471);">accountability</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(413);">accountability</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(453);">agencies</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(523);">air pollution</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(428);">alaskan way viaduct</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(442);">alternative</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(543);">are</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(530);">around</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(544);">because</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(434);">bicycle</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(509);">bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(464);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(459);">bus</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(414);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(406);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(400);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(394);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(465);">bus stop</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(512);">busses</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(519);">busses</a></span>&nbsp;
+		  	
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(448);">520 bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(458);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(440);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(411);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(405);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(471);">accountability</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(413);">accountability</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(453);">agencies</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(523);">air pollution</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(428);">alaskan way viaduct</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(442);">alternative</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(543);">are</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(530);">around</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(544);">because</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(434);">bicycle</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(509);">bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(464);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(459);">bus</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(414);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(406);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(400);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(394);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(465);">bus stop</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(512);">busses</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(519);">busses</a></span>&nbsp;
+		  	
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(448);">520 bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(458);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(440);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(411);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(405);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(471);">accountability</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(413);">accountability</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(453);">agencies</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(523);">air pollution</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(428);">alaskan way viaduct</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(442);">alternative</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(543);">are</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(530);">around</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(544);">because</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(434);">bicycle</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(509);">bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(464);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(459);">bus</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(414);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(406);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(400);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(394);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(465);">bus stop</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(512);">busses</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(519);">busses</a></span>&nbsp;
+		  	
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(448);">520 bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(458);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(440);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(411);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(405);">accessibility</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(471);">accountability</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(413);">accountability</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(453);">agencies</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(523);">air pollution</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(428);">alaskan way viaduct</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(442);">alternative</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(543);">are</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(530);">around</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(544);">because</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(434);">bicycle</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(509);">bridge</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(464);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(459);">bus</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(414);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(406);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(400);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(394);">bus</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(465);">bus stop</a></span>&nbsp;
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(512);">busses</a></span>&nbsp;
+	
+		
+		  	<span class="tagSize1"><a href="javascript:getConcernsByTag(519);">busses</a></span>&nbsp;
+		  	
+		  	
+		</div>
+	</div>
+		
+<!--END Tag Selector -->
+
 			<div id="sidebar_currentTaskContainer" class="tabbertab">
 	    	<h2>Concerns</h2>
 				<div id="sidebar_concerns"><h4>Concerns</h4>
@@ -82,5 +312,9 @@
   </div>
   <div id="clear"> </div>
 </div>
+<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+<script type="text/javascript">
+findxy();
+</script>
 </body>
 </html>

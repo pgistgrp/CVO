@@ -1,19 +1,31 @@
 package org.pgist.packages;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.pgist.funding.FundingSource;
 
 
-public class FundingSourceDTO {
-	String name;
-	Long fundingSourceID;
+public class FundingSourceDTO implements Comparable<FundingSourceDTO> {
+	private String name;
+	private Long fundingSourceId;
 	
-	SortedSet<FundingSourceAlternativeDTO> fundingSourceAlternatives = new TreeSet<FundingSourceAlternativeDTO>();
+	private List<FundingSourceAlternativeDTO> fundingSourceAlternatives = new ArrayList<FundingSourceAlternativeDTO>();
 
+	/**
+	 * Creates this DTO
+	 */
+	public FundingSourceDTO(FundingSource source) {
+		super();
+		this.name = source.getName();
+		this.fundingSourceId = source.getId();
+	}
+	
 	/**
 	 * @return the fundingSourceAlternatives
 	 */
-	public SortedSet<FundingSourceAlternativeDTO> getFundingSourceAlternatives() {
+	public List<FundingSourceAlternativeDTO> getFundingSourceAlternatives() {
 		return fundingSourceAlternatives;
 	}
 
@@ -21,22 +33,29 @@ public class FundingSourceDTO {
 	 * @param fundingSourceAlternatives the fundingSourceAlternatives to set
 	 */
 	public void setFundingSourceAlternatives(
-			SortedSet<FundingSourceAlternativeDTO> fundingSourceAlternatives) {
+			List<FundingSourceAlternativeDTO> fundingSourceAlternatives) {
 		this.fundingSourceAlternatives = fundingSourceAlternatives;
 	}
 
 	/**
-	 * @return the fundingSourceID
+	 * Sorts the alternatives
 	 */
-	public Long getFundingSourceID() {
-		return fundingSourceID;
+	public void sort() {
+		Collections.sort(this.fundingSourceAlternatives);
+	}
+	
+	/**
+	 * @return the fundingSourceId
+	 */
+	public Long getFundingSourceId() {
+		return fundingSourceId;
 	}
 
 	/**
-	 * @param fundingSourceID the fundingSourceID to set
+	 * @param fundingSourceId the fundingSourceId to set
 	 */
-	public void setFundingSourceID(Long fundingSourceID) {
-		this.fundingSourceID = fundingSourceID;
+	public void setFundingSourceId(Long fundingSourceID) {
+		this.fundingSourceId = fundingSourceID;
 	}
 
 	/**
@@ -52,6 +71,23 @@ public class FundingSourceDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(FundingSourceDTO o) {
+		return this.getName().compareTo(o.getName());
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof FundingSourceDTO) {
+			FundingSourceDTO temp = (FundingSourceDTO)obj;
+			return this.getFundingSourceId().equals(temp.getFundingSourceId());
+		}
+		return false;
+	}	
 }

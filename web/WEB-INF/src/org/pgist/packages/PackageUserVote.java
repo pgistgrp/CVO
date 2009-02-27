@@ -20,25 +20,25 @@ public class PackageUserVote {
      * vote for UNKNOWN.<br>
      * value: 0.
      */
-    public static int VOTE_UNKNOWN = 0;
+    public static final int VOTE_UNKNOWN = 0;
     
     /**
      * vote for VOTE_HIGH.<br>
      * value: 1.
      */
-    public static int VOTE_HIGH    = 1;
+    public static final int VOTE_HIGH    = 1;
     
     /**
      * vote for VOTE_MEDIUM.<br>
      * value: 2.
      */
-    public static int VOTE_MEDIUM  = 2;
+    public static final int VOTE_MEDIUM  = 2;
     
     /**
      * vote for VOTE_LOW.<br>
      * value: 3.
      */
-    public static int VOTE_LOW    = 3;
+    public static final int VOTE_LOW    = 3;
     
     private Long id;
     
@@ -65,7 +65,7 @@ public class PackageUserVote {
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="votesuite_id" cascade="none"
+     * @hibernate.many-to-one column="votesuite_id" cascade="all"
      */
     public PackageVoteSuite getVoteSuite() {
         return voteSuite;

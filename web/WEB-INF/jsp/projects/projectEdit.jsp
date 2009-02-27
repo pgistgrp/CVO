@@ -7,12 +7,21 @@
 <head>
 <title>Criteria List</title>
 <link rel="stylesheet" type="text/css" href="/styles/default.css'/>">
-<script>
-</script>
+<event:pageunload />
 </head>
 
 <body>
-  <h2>Edit Project.</h2>
+  <h2>Edit Project Alternative</h2>
+  
+  Variables for this page
+  <ul>
+  	<li>Project Id = ${project.id} </li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  	<li></li>
+  </ul>
+  	
 
 </body>
 </html:html>

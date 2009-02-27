@@ -2,7 +2,7 @@
 <ccts>
 
 
-    <cct id="test">
+    <cct>
         <creator type="loginname">admin</creator>
         <name>CCT Test.</name>
         <purpose>In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns.</purpose>

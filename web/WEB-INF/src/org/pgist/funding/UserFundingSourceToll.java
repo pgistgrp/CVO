@@ -8,13 +8,15 @@ package org.pgist.funding;
  */
 public class UserFundingSourceToll {
 
-    public static final String PARKING_DOWNTOWN = "Parking Downtown";
-    public static final String ALASKA_WAY_VIADUCT = "Alaska Way Viaduct";
-    public static final String I405N = "I-405 North";
-    public static final String I405S = "I-405 South";
-    public static final String SR520 = "SR 520 Floating Bridge";
-    public static final String I90 = "I-90";
-    public static final String SR167 = "SR 167";
+    public static final String PARKING_DOWNTOWN = "Commercial parking tax";
+    public static final String ALASKA_WAY_VIADUCT = "Toll on Alaska Way Viaduct";
+    public static final String I405N = "Toll on I-405, north of I-90";
+    public static final String I405S = "Toll on I-405, south of I-90";
+    public static final String I5N = "Toll on I-5, north of I-90";
+    public static final String I5S = "Toll on I-5, south of I-90";
+    public static final String SR520 = "Toll on SR 520 bridge";
+    public static final String I90 = "Toll on I-90";
+    public static final String SR167 = "Toll on SR 167";
 
 	private Long id;
     
@@ -74,7 +76,7 @@ public class UserFundingSourceToll {
 
 	/**
 	 * @return the fundingSource
-     * @hibernate.many-to-one column="user_id" cascade="none"
+     * @hibernate.many-to-one column="source_id" cascade="all"
    	 */
 	public FundingSource getFundingSource() {
 		return fundingSource;

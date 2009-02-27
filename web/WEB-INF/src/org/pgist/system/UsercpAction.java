@@ -1,18 +1,15 @@
 package org.pgist.system;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
-import org.pgist.util.WebUtils;
 
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public class UsercpAction extends Action {
@@ -22,7 +19,6 @@ public class UsercpAction extends Action {
 	
 	
 	private SystemService systemService;
-	private UserDAO userDAO;
 	
 	
 	public void setSystemService(SystemService systemService) {
@@ -30,75 +26,71 @@ public class UsercpAction extends Action {
 	}
 	
 	
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-    
 	public ActionForward execute(
             ActionMapping mapping,
             ActionForm form,
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
+			
 		UserForm uform = (UserForm) form;
 		User userInfo = systemService.getCurrentUser();
-    	request.setAttribute("user", userInfo);
+		if(uform.getEmail()==null || uform.getEmail().equals("")){
+			uform.setEmailNotify(userInfo.isEmailNotify());
+			uform.setEmailNotifyDisc(userInfo.isEmailNotifyDisc());
+		}
+		request.setAttribute("user", userInfo);
+    	request.setAttribute("transtypes", systemService.getTransTypes());
     	
 		if (!uform.isSave()) return mapping.findForward("usercp");
-		User user = uform.getUser();
-		
-	    //Check form input
+	
+		String email = uform.getEmail();
+		boolean emailNotify = uform.isEmailNotify();
+		boolean emailNotifyDisc = uform.isEmailNotifyDisc();
+        String password1 = uform.getPassword1();
+        String password2 = uform.getPassword2();
         String cpassword = uform.getCurrentpassword();
-        if (cpassword==null || "".equals(cpassword)) {
-            uform.setReason("Current Password is Required" + cpassword);
-            return mapping.findForward("usercp");
-        }
         
-        String email = user.getEmail();
+        System.out.println("UsercpAction: " + emailNotify + emailNotifyDisc);
+        
         if (email==null || "".equals(email)) {
             uform.setReason("Email is Required.");
             return mapping.findForward("usercp");
         } else if (email.indexOf("@")== -1 || email.indexOf(".")==-1){
         	uform.setReason("Please Enter a valid Email Address.");
             return mapping.findForward("usercp");
-        }  
-        
-        String password = user.getPassword();
-        String password1 = uform.getPassword1();
-        /*
-		
-        if (password==null || "".equals(password)) {
-            uform.setReason("Password is Required.");
-            return mapping.findForward("usercp");
-        }
-        
-        if (password1==null || "".equals(password1)) {
-            uform.setReason("Re-type Password is Required.");
-            return mapping.findForward("usercp");
-        }
-        */
-        
-        if (!password.equals(password1)) {
-            uform.setReason("Both Password Fields Must Match.");
-            return mapping.findForward("usercp");
-        }
+        } 
 
-        //check if current password is correct before save
-        User currentUser = userDAO.getUserById(WebUtils.currentUserId(), true, false);
+        if ((cpassword==null || "".equals(cpassword)) && (password1==null || "".equals(password1)) && (password2==null || "".equals(password2))) {
+        	cpassword="";
+        	password1="";
+        	password2="";
+        } else {
+        	if(password1.length() < 6){
+        		uform.setReason("Password must be six characters long");
+                return mapping.findForward("usercp");
+        	}
+            if (!password1.equals(password2)) {
+                uform.setReason("Both Password Fields Must Match.");
+                return mapping.findForward("usercp");
+            }
+        }
         
-		if(currentUser!=null && currentUser.checkPassword(cpassword)) {
-			currentUser.setEmail(email);
-			//if password field left blank then don't update password
-			if(password!=null || !("".equals(password))) {
-				currentUser.setPassword(password);
-			}
-			userDAO.editUser(currentUser); //use this to update user
-			return mapping.findForward("main");
-		} else {
-			uform.setReason("Current Password is Incorrect." + cpassword);
-		}
-    	
+        try {
+            boolean complete = systemService.editUserSettings(cpassword, password1, email, emailNotify, emailNotifyDisc);
+            if(complete) {
+            	uform.setReason("Your settings have been updated.");
+            } else {
+            	uform.setReason("Your Current password is incorrect.");
+            }
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            return mapping.findForward("usercp"); //Maybe redirect to different page           
+        } catch (Exception e) {
+            uform.setReason("Current Password is Incorrect.");
+        }
+	
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+        
         return mapping.findForward("usercp");
     }//execute()
     

@@ -2,6 +2,26 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	
+
+    <bean id="lmDAO" class="org.pgist.lm.LmDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="lmService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.lm.LmServiceImpl">
+                <property name="lmDAO" ref="lmDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="lmAgent" class="org.pgist.lm.LmAgent">
+        <property name="lmService" ref="lmService"/>
+    </bean>
+    
 </beans>
 

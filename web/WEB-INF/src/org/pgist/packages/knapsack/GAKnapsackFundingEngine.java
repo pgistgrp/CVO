@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
+import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.Population;
@@ -19,6 +20,23 @@ import org.jgap.impl.IntegerGene;
  *
  */
 public class GAKnapsackFundingEngine {
+    
+    
+    private static void printPopulation(String message, Population pop) {
+        System.out.println(message+" ------------------->");
+        for (IChromosome ch : (List<IChromosome>) pop.getChromosomes()) {
+            printChromosome(ch);
+        }
+        System.out.println(" <-------------------");
+    }//printPopulation()
+    
+    
+    private static void printChromosome(IChromosome ch) {
+        for (Gene one : (Gene[]) ch.getGenes()) {
+            System.out.print(one.getAllele());
+        }
+        System.out.println();
+    }//printPopulation()
     
     
     /**
@@ -35,13 +53,15 @@ public class GAKnapsackFundingEngine {
     private static IChromosome findBestSolution(
         GAKnapsackFundingFitnessFunction fitnessFunction,
         final int evolutionTimes,
-        final int populationSize
+        int populationSize
     ) throws Exception {
         Configuration.reset();
         
         // Start with a DefaultConfiguration, which comes setup with the most common settings.
         DefaultConfiguration conf = new DefaultConfiguration();
         conf.setPreservFittestIndividual(true);
+        
+        conf.setKeepPopulationSizeConstant(true);
         
         // Mutation Rate
         //MutationOperator mutationOperator = new MutationOperator(conf, 2);
@@ -66,16 +86,19 @@ public class GAKnapsackFundingEngine {
         List<IntegerGene> initGenes = new ArrayList<IntegerGene>();
         
         IntegerGene gene = null;
-        for (KSChoices choices : fitnessFunction.getChoices()) {
+        int choiceCount = 0;
+        for (KSChoices choices : fitnessFunction.getCalculator().getChoices()) {
             if (choices.isSingle()) {
                 sampleGenes.add(new IntegerGene(conf, 0, choices.getChoices().size()));
                 initGenes.add(new IntegerGene(conf, 0, choices.getChoices().size()));
+                choiceCount++;
             } else {
                 for (KSItem item : choices.getChoices()) {
                     gene = new IntegerGene(conf, 0, 1);
                     //gene.setApplicationData(item);
                     sampleGenes.add(gene);
                     initGenes.add(new IntegerGene(conf, 0, 1));
+                    choiceCount++;
                 }
             }
         }
@@ -95,29 +118,63 @@ public class GAKnapsackFundingEngine {
          * finding the answer), but the longer it will take to evolve
          * the population (which could be seen as bad).
          */
+        if (populationSize<sampleGenes.size()+1) populationSize = sampleGenes.size()+1;
         conf.setPopulationSize(populationSize);
         
-        /*
-         * Create random initial population of Chromosomes.
-         */
-        //Genotype population = Genotype.randomInitialGenotype(conf);
-        Population initialPopulation = new Population(conf, populationSize);
-        temp = new IntegerGene[initGenes.size()];
-        for (int i=0; i<initGenes.size(); i++) {
-            temp[i] = initGenes.get(i);
-            temp[i].setAllele(0);
-        }
-        IChromosome initial1 = new Chromosome(conf, temp);
-        initialPopulation.addChromosome(initial1);
+        Population pop = new Population(conf, populationSize);
         
-        Genotype population = new Genotype(conf, initialPopulation);
+        IntegerGene[] sGenes = (IntegerGene[]) sampleChromosome.getGenes();
+        IntegerGene[] newGenes = new IntegerGene[sGenes.length];
+        
+        //create an all-0 chromosome
+        for (int i=0; i<sGenes.length; i++) {
+            newGenes[i] = (IntegerGene) sGenes[i].newGene();
+            newGenes[i].setAllele(0);
+        }
+        IChromosome possibility = Chromosome.randomInitialChromosome(conf);
+        possibility.setGenes(newGenes);
+        pop.addChromosome(possibility);
+        
+        //create equal possibility chromosome
+        
+        for (int i=0; i<initGenes.size(); i++) {
+            for (int j=sGenes[i].getLowerBounds(); j<sGenes[i].getUpperBounds(); j++) {
+                newGenes = new IntegerGene[sGenes.length];
+                
+                for (int k=0; k<sGenes.length; k++) {
+                    newGenes[k] = (IntegerGene) sGenes[k].newGene();
+                    newGenes[k].setAllele(0);
+                }
+                
+                newGenes[i].setAllele(j+1);
+                possibility = Chromosome.randomInitialChromosome(conf);
+                possibility.setGenes(newGenes);
+                pop.addChromosome(possibility);
+            }
+        }
+        
+        //fill in the other chromosomes to random ones
+        for (int i=0; i<populationSize-choiceCount-1; i++) {
+            possibility = Chromosome.randomInitialChromosome(conf);
+            pop.addChromosome(possibility);
+        }
+        
+        //printPopulation(pop);
+        
+        Genotype population = new Genotype(conf, pop);
+        
+        //printPopulation(population.getPopulation());
         
         /*
          * Evolve the population. Since we don't know what the best answer
          * is going to be, we just evolve the max number of times.
          */
+        printPopulation("Before Loop", population.getPopulation());
         for (int i=0; i<evolutionTimes; i++) {
             population.evolve();
+            printPopulation("Loop "+i, population.getPopulation());
+            System.out.print("Fittest chromosome: ");
+            printChromosome(population.getFittestChromosome());
         }
         
         return population.getFittestChromosome();
@@ -147,12 +204,16 @@ public class GAKnapsackFundingEngine {
     public static Collection<KSItem> mcknap(
         KSChoices[] choices,
         double limit,
-        final int evolutionTimes,
-        final int populationSize
+        int evolutionTimes,
+        int populationSize
     ) throws Exception {
         ArrayList<KSItem> result = new ArrayList<KSItem>();
         
-        GAKnapsackFundingFitnessFunction fitnessFunction = new GAKnapsackFundingFitnessFunction(choices, limit);
+        GAKnapsackCalculator calculator = new GAKnapsackCalculator(choices, limit);
+        GAKnapsackFundingFitnessFunction fitnessFunction = new GAKnapsackFundingFitnessFunction(calculator, "/WEB-INF/config/knapsack-funding.bsh");
+        
+        evolutionTimes = fitnessFunction.getEvolutionTimes();
+        populationSize = fitnessFunction.getPopulationSize();
         
         IChromosome chromosome = findBestSolution(fitnessFunction, evolutionTimes, populationSize);
         

@@ -8,6 +8,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
 
 
 /**
@@ -21,27 +22,39 @@ public class SystemHandler {
     private List<Handler> handlers = new ArrayList<Handler>(20);
     
     
-    public SystemHandler(Session session, File dataPath, String file) throws Exception {
-        Handler.setSession(session);
-        Handler.dataPath = dataPath;
-        
+    public SystemHandler(ApplicationContext appContext, Session session, File dataPath, String file) throws Exception {
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(dataPath, file));
         Element root = document.getRootElement();
         
         List elements = root.elements("handler");
+        Handler handler = null;
         for (int i=0; i<elements.size(); i++) {
             Element element = (Element) elements.get(i);
             
-            String name = element.attributeValue("name");
-            if (name==null || "".equals(name)) throw new Exception("Attribute name is required for handler!");
+            String type = element.attributeValue("type");
             
-            String className = element.getTextTrim();
-            if (className==null || "".equals(className)) throw new Exception("Element handler can not be empty.!");
+            if ("sql".equals(type)) {
+                handler = new ScriptHandler();
+                handler.setName(element.getTextTrim());
+            } else {
+                String name = element.attributeValue("name");
+                if (name==null || "".equals(name)) throw new Exception("Attribute name is required for handler!");
+                
+                String className = element.getTextTrim();
+                if (className==null || "".equals(className)) throw new Exception("Element handler can not be empty.!");
+                
+                Class klass = Class.forName(className);
+                XMLHandler xmlHandler = (XMLHandler) klass.newInstance();
+                xmlHandler.setAppContext(appContext);
+                
+                handler = xmlHandler;
+                
+                handler.setName(name);
+            }
             
-            Class klass = Class.forName(className);
-            Handler handler = (Handler) klass.newInstance();
-            handler.setName(name);
+            handler.setSession(session);
+            handler.setDataPath(dataPath);
             
             handlers.add(handler);
         }//for i

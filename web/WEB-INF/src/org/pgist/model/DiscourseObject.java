@@ -1,5 +1,7 @@
 package org.pgist.model;
 
+import java.io.Serializable;
+
 import org.pgist.users.User;
 
 
@@ -7,9 +9,9 @@ import org.pgist.users.User;
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_discouse_object"
+ * @hibernate.class table="pgist_discourse_object"
  */
-public class DiscourseObject {
+public class DiscourseObject implements Serializable {
     
     
     protected Long id;
@@ -17,7 +19,7 @@ public class DiscourseObject {
     protected Discussible target;
     
     protected Post root;
-
+    
     protected User owner;
     
     
@@ -37,7 +39,7 @@ public class DiscourseObject {
     
     /**
      * @return
-     * @hibernate.many-to-one column="root_id" class="org.pgist.model.Post" casecad="all"
+     * @hibernate.many-to-one column="root_id" class="org.pgist.model.Post" lazy="true" cascade="all"
      */
     public Post getRoot() {
         return root;
@@ -51,7 +53,7 @@ public class DiscourseObject {
     
     /**
      * @return
-     * @hibernate.many-to-one column="target_id" class="org.pgist.model.Discussible" casecad="all"
+     * @hibernate.many-to-one column="target_id" class="org.pgist.model.Discussible" lazy="true" cascade="all"
      */
     public Discussible getTarget() {
         return target;
@@ -65,7 +67,7 @@ public class DiscourseObject {
     
     /**
      * @return
-     * @hibernate.many-to-one column="owner_id" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User" cascade="all"
      */
     public User getOwner() {
         return owner;

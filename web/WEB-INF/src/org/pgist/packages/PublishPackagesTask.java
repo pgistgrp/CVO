@@ -2,6 +2,7 @@ package org.pgist.packages;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.WorkflowInfo;
 import org.pgist.wfengine.WorkflowTask;
 
 
@@ -13,9 +14,9 @@ import org.pgist.wfengine.WorkflowTask;
 public class PublishPackagesTask implements WorkflowTask {
     
     
-    public static final String IN_CCT_ID = "cctId";
+    public static final String IN_CCT_ID = "cct_id";
     
-    public static final String IN_SUITE_ID = "suiteId";
+    public static final String IN_SUITE_ID = "suite_id";
     
     public static final String OUT_ISID = "is_id";
     
@@ -33,14 +34,16 @@ public class PublishPackagesTask implements WorkflowTask {
      */
     
     
-    public void execute(EnvironmentInOuts inouts) throws Exception {
+    public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
         System.out.println("@ PublishPackagesTask.execute()");
         
         Long suiteId = new Long(inouts.getIntValue(IN_SUITE_ID));
         
         Long cctId = new Long(inouts.getIntValue(IN_CCT_ID));
         
-        InfoStructure structure = packageService.publish(cctId, suiteId);
+        String title = inouts.getProperty("title");
+        
+        InfoStructure structure = packageService.publish(info.getWorkflow().getId(), cctId, suiteId, title);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()

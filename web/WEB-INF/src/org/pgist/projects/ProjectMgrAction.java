@@ -1,7 +1,5 @@
 package org.pgist.projects;
 
-import java.util.Collection;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -9,6 +7,29 @@ import org.apache.struts.action.ActionMapping;
 
 
 /**
+ * Project Management Action.<br>
+ * 
+ * This action is used by moderator to manage all projects in the whole system.<br>
+ * 
+ * It provides the following functionalities:
+ * <ul>
+ *   <li>list all projects and their alternatives</li>
+ *   <li>in the page, it performs CRUD operations with AJAX</li>
+ * </ul>
+ * 
+ * The action accepts no parameters.
+ * 
+ * The action forwards to page "view", with the following variables available in the jsp:
+ * <ul>
+ *   <li>projects - a collection of Project objects</li>
+ * </ul>
+ * 
+ * Examples:
+ * <ul>
+ *   <li>GET:
+ *       projectManage.do
+ *   </li>
+ * </ul>
  * 
  * @author kenny
  *
@@ -35,47 +56,17 @@ public class ProjectMgrAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        String id = (String) request.getParameter("id");
+        /*
+         * Logic:
+         *   (1) simply load all projects from the persistence layer
+         *   (3) forward to page "view" with the following values in request attributes:
+         *           "projects" - projects list
+         *   (-) Any error, forward to page "error"
+         */
         
-        if (id==null || "".equals(id)) {
-            //get the list page
-            
-            Collection projects = projectService.getProjects();
-            request.setAttribute("projects", projects);
-            
-            return mapping.findForward("list");
-        } else {
-            boolean edit = !"-1".equals(id);
-            request.setAttribute("edit", edit);
-            
-            //get the create/edit page
-            try {
-                edit = false;
-                
-                Project project = null;
-                
-                Long pid = new Long(id);
-                
-                if (pid==-1) {
-                    //create
-                    project = new Project();
-                    project.setId(-1L);
-                    project.setName("New Project");
-                } else {
-                    //edit
-                    project = projectService.getProjectById(pid);
-                }
-                
-                request.setAttribute("project", project);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return mapping.findForward("error");
-            }
-            
-            request.setAttribute("edit", edit);
-        }
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
-        return mapping.findForward("error");
+        return mapping.findForward("view");
     }//execute()
     
     

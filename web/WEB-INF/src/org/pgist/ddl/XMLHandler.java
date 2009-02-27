@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.Concern;
 import org.pgist.cvo.TagReference;
+import org.pgist.funding.FundingSource;
 import org.pgist.glossary.Term;
 import org.pgist.glossary.TermCategory;
 import org.pgist.system.EmailTemplate;
@@ -27,6 +28,7 @@ import org.pgist.tagging.Category;
 import org.pgist.tagging.Tag;
 import org.pgist.users.Role;
 import org.pgist.users.User;
+import org.springframework.context.ApplicationContext;
 
 
 /**
@@ -42,6 +44,8 @@ public abstract class XMLHandler implements Handler {
     protected static final DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.ENGLISH);
     
     protected static final Map<String, Role> roleMap = new HashMap<String, Role>();
+
+    protected static final Map<String, FundingSource> fsourceMap = new HashMap<String, FundingSource>();
     
     protected static final Map<String, User> userMap = new HashMap<String, User>();
     
@@ -61,6 +65,8 @@ public abstract class XMLHandler implements Handler {
     
     protected Session session;
     
+    protected ApplicationContext appContext;
+    
     
     public void setName(String name) {
         this.name = name;
@@ -77,6 +83,11 @@ public abstract class XMLHandler implements Handler {
     }
     
     
+    public void setAppContext(ApplicationContext appContext) {
+        this.appContext = appContext;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */
@@ -109,15 +120,33 @@ public abstract class XMLHandler implements Handler {
         return role;
     }//getRoleByName()
     
+    private static final String hql_getFundingSourceByName = "from FundingSource fs where lower(fs.name)=?";
     
-    private static final String hql_getUserByLoginName = "from User u where u.loginname=?";
+    
+    protected FundingSource getFundingSourceByName(String name) throws Exception {
+        if (fsourceMap.containsKey(name)) return fsourceMap.get(name);
+        
+        Query query = session.createQuery(hql_getFundingSourceByName);
+        query.setString(0, name.toLowerCase());
+        List list = query.list();
+        FundingSource source;
+        if (list.size()==0) {
+        	return null;
+        }
+        source = (FundingSource) list.get(0);        	        
+        fsourceMap.put(source.getName(), source);
+        
+        return source;
+    }//getFundingSourceByName()
+    
+    private static final String hql_getUserByLoginName = "from User u where lower(u.loginname)=?";
     
     
     protected User getUserByLoginName(String userName) throws Exception {
         if (userMap.containsKey(userName)) return userMap.get(userName);
         
         Query query = session.createQuery(hql_getUserByLoginName);
-        query.setString(0, userName);
+        query.setString(0, userName.toLowerCase());
         List list = query.list();
         if (list.size()==0) return null;
         
@@ -128,14 +157,14 @@ public abstract class XMLHandler implements Handler {
     }//getUserByLoginName()
     
     
-    private static final String hql_getTagByName = "from Tag t where t.name=?";
+    private static final String hql_getTagByName = "from Tag t where lower(t.name)=?";
     
     
     protected Tag getTagByName(String tagName) throws Exception {
         if (tagMap.containsKey(tagName)) return tagMap.get(tagName);
         
         Query query = session.createQuery(hql_getTagByName);
-        query.setString(0, tagName);
+        query.setString(0, tagName.toLowerCase());
         List list = query.list();
         if (list.size()==0) return null;
         
@@ -189,6 +218,12 @@ public abstract class XMLHandler implements Handler {
         session.saveOrUpdate(role);
     }//saveRole()
     
+    protected void saveFundingSource(FundingSource source) throws Exception {
+        if (!fsourceMap.containsValue(source)) {
+        	fsourceMap.put(source.getName(), source);
+        }
+        session.saveOrUpdate(source);
+    }//saveUser()
     
     protected void saveUser(User user) throws Exception {
         if (!userMap.containsValue(user)) {
@@ -256,7 +291,15 @@ public abstract class XMLHandler implements Handler {
         Query query = session.createQuery(hql_getUsers);
         return (List<User>) query.list();
     }//getUsers()
+
     
+    private static final String hql_getFundingSources = "from FundingSource order by id";
+    
+    @SuppressWarnings("unchecked")
+    protected List<FundingSource> getFundingSources() {
+        Query query = session.createQuery(hql_getFundingSources);
+        return (List<FundingSource>) query.list();
+    }//getFundingSources()    
     
     private static final String hql_getStopWords = "from StopWord order by id";
     

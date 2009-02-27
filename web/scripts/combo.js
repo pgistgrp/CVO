@@ -3,6 +3,17 @@ Effect.Yellow = function(element) {
 	new Effect.Highlight(element, arguments[1] || {});	
 }
 
+Effect.Drop = function(element) {
+	element = $(element);
+	new Effect.DropOut(element, arguments[1] || {});	
+}
+
+Effect.FadeIn = function(element) {
+	element = $(element);
+	new Effect.Appear(element, arguments[1] || {});	
+}
+
+
 Effect.OpenUp = function(element) {
      element = $(element);
      new Effect.BlindDown(element, arguments[1] || {});

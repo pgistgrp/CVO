@@ -77,11 +77,18 @@ public class TaxCalcDataLoader extends MatchingTask {
     	
         appContext = new FileSystemXmlApplicationContext(
                 new String[] {
-                    configPath + "/context-database.xml",
-                    configPath + "/context-system.xml",
-                    configPath + "/context-base.xml",
-                    configPath + "/context-cvo.xml",
-                    configPath + "/context-projects.xml",
+                        configPath + "/context-database.xml",
+                        configPath + "/context-system.xml",
+                        configPath + "/context-tasks.xml",
+                        configPath + "/context-other.xml",
+                        "classpath:/config/context-workflow.xml",
+                        configPath + "/context-base.xml",
+                        configPath + "/context-cvo.xml",
+                        configPath + "/context-criteria.xml",
+                        configPath + "/context-projects.xml",
+                        configPath + "/context-funding.xml",
+                        configPath + "/context-report.xml",
+                        configPath + "/context-packages.xml",
                 }
             );    	
     	
@@ -96,7 +103,7 @@ public class TaxCalcDataLoader extends MatchingTask {
     	
     	Consumption cons;
     	
-        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "consumption.csv")));
+        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "consumption1.csv")));
         String [] nextLine;
         
         while ((nextLine = reader.readNext()) != null) {
@@ -109,6 +116,7 @@ public class TaxCalcDataLoader extends MatchingTask {
         	cons.setSize3(toFloat(nextLine[4]));
         	cons.setSize4(toFloat(nextLine[5]));
         	cons.setSize5(toFloat(nextLine[6]));
+        	cons.setSize6(toFloat(nextLine[7]));
         	save(cons);
         }    	
     }
@@ -135,7 +143,7 @@ public class TaxCalcDataLoader extends MatchingTask {
     	
     	ZipCodeFactor zcf;
     	
-        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "zipCodeFactors.csv")));
+        CSVReader reader = new CSVReader(new FileReader(new File(dataPath, "zipCodeFactors1.csv")));
         String [] nextLine;
         
         while ((nextLine = reader.readNext()) != null) {
@@ -143,12 +151,14 @@ public class TaxCalcDataLoader extends MatchingTask {
         	zcf = new ZipCodeFactor();
         	zcf.setZipcode(nextLine[0]);
         	zcf.setSR99(toInt(nextLine[1]));
-        	zcf.setI405S(toInt(nextLine[1]));
-        	zcf.setSR520(toInt(nextLine[1]));
-        	zcf.setI90(toInt(nextLine[1]));
-        	zcf.setSR167(toInt(nextLine[1]));
-        	zcf.setParking(toInt(nextLine[1]));
-        	zcf.setI405N(toInt(nextLine[1]));
+        	zcf.setI405S(toInt(nextLine[2]));
+        	zcf.setSR520(toInt(nextLine[3]));
+        	zcf.setI90(toInt(nextLine[4]));
+        	zcf.setSR167(toInt(nextLine[5]));
+        	zcf.setParking(toInt(nextLine[6]));
+        	zcf.setI405N(toInt(nextLine[7]));
+        	zcf.setI5N(toInt(nextLine[8]));
+        	zcf.setI5S(toInt(nextLine[9]));
         	save(zcf);
         }    	    	    	
     }

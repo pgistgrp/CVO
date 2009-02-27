@@ -1,39 +1,66 @@
-/**
- * 
- */
 package org.pgist.projects;
 
-import java.sql.Connection;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.pgist.system.BaseDAO;
+
 
 /**
  * @author Guirong
  *
  */
 public interface ProjectDAO extends BaseDAO {
+    
+	void save(GradedCriteria p) throws Exception;
+	void save(GradedObjective p) throws Exception;
+    
+	void save(Project p) throws Exception;
+	
+        
+	Project getProject(long pid) throws Exception;
+	
+    
+	List getProjects(String criteria) throws Exception;
+	
+    
+	double[][][] getFootprint(long fpid) throws Exception;
+	
+    
+	Map getFootprints(String fpids) throws Exception;
+	Map getFootprintsByXY(double x, double y) throws Exception;
+	
+    
+	void saveFootprint(ProjectAlternative pa, double[][][] coords, String type) throws Exception;
+	void saveFootprint(ProjectAlternative pa, String fpids) throws Exception;
+	
+    Collection getProjects() throws Exception;
+    
+    
+    void delete(Project p) throws Exception;    
 
-	public void save(Project p) throws Exception;
+	ProjectAlternative getProjectAlternative(Long pid) throws Exception;
+    
+    void delete(ProjectAlternative a) throws Exception;    
 
-	public void save(ProjectAlternative a) throws Exception;
+	void save(ProjectAlternative a) throws Exception;   
 	
-	public void save(Package p) throws Exception;
+	ProjectSuite getProjectSuite(Long suiteID) throws Exception;
+
+	ProjectAltRef getProjectAlternativeReference(Long altId);
 	
-	public Project getProject(long pid) throws Exception;
+	void save(ProjectAltRef altRef) throws Exception;	
+    void delete(ProjectAltRef altRef) throws Exception;    
 	
-	public List getAllProjects() throws Exception;
+	void save(ProjectRef projectRef) throws Exception;	
+    void delete(ProjectRef projectRef) throws Exception;    
 	
-	public List getProjects(String criteria) throws Exception;
-	
-	public double[][] getFootprint(Connection conn, long fpid) throws Exception;
-	
-	public Map getFootprints(Connection conn, String fpids) throws Exception;
-	
-	public void saveFootprint(Connection conn, Project p, double[][] coords, int[]parts, String type) throws Exception;
-	
-	public Package getPackage(Long pid) throws Exception;
-	
-	
-}
+	void save(ProjectSuite suite) throws Exception;
+    
+    Project getProjectByName(String name) throws Exception;
+    
+    ProjectAlternative getProjectAlternativeByName(String name) throws Exception;	
+
+    
+}//interface ProjectDAO

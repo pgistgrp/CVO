@@ -53,6 +53,7 @@ public class ScriptHandler implements Handler {
         
         do {
             ScriptCommandDefinition definition = parser.getNextCommand();
+            
             if (definition==null) break;
             
             String sql = definition.getSQL();

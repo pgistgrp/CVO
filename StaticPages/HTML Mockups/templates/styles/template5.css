@@ -20,6 +20,7 @@
 	float: left;
 	margin-left: .3em;
 	height: 60%;
+
 }
 #slate {
 	margin-bottom: .3em !Important;
@@ -40,14 +41,13 @@
 .tabberlive .tabbertab{
 	overflow: auto;
 	position: relative;
-	height:97%;	
+	height:100%;	
 }
 #myTab {
 	/*border: 1px solid #00FF00;*/
 	height: 100%;
-	position: normal;
-	margin-top: -23px;
+	/*margin-top: -23px;*/
 }
 .cssbox {
-	margin-bottom: 30px;
+	/*margin-bottom: 30px;*/
 }

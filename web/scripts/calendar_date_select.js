@@ -342,6 +342,7 @@ CalendarDateSelect.prototype = {
   updateValue: function() {
     this.target_element.value = this.dateString();
     if (this.target_element.onchange) this.target_element.onchange();
+
   },
   today: function() {
     this.date = new Date();

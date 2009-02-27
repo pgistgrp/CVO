@@ -13,17 +13,40 @@
 	Author: Jordan Isip, Adam Hindman, Issac Yang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Integrate Layout (Adam)
+		[x] Integrate Layout (Adam)
 		[ ] Integrate Project Map or static image (Guirong/Issac)
 		[ ] Integrate Criteria Tree (Issac)
 #### -->
-
-<c:forEach var="toll" items="${userCommute.tolls}" varStatus="loop">
-	${toll.value}
-</c:forEach>
-
-<c:forEach var="toll" items="${tolls}" varStatus="loop">
-	${toll.value}
-</c:forEach>
-
-	${annualConsume}
+		<div id="estimates">
+			<div id="tolls">
+				<h3 class="headerColor peekaboobugfix">Estimated use of toll roads, taxed parking facilities, and annual taxable consumption</h3>
+			<p class="peekaboobugfix">Your estimates number of tolls has been estimated based on your home zip code, your usual commute mode of travel, and your commute route. You may change these estimates.</p>
+			<table id="tollRoads" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="25%"><strong>Estimated number of trips on potential toll roads per year</strong></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>
+						<c:forEach var="toll" items="${userCommute.tolls}" varStatus="loop">
+						${toll.name} <input type="text" id="eToll-${toll.id}" name="eTolls" value="${toll.value}" /><br />
+						</c:forEach>
+					</td>
+					<td>
+					<c:forEach var="toll" items="${tolls}" varStatus="loop">
+						${toll.name} <input type="text" id="eToll-${toll.id}" name="eTolls" value="${toll.value}" /><br />
+						</c:forEach>
+					</td>
+					<td colspan="2">Annual Consumption Rate (sales tax) <input type="text" id="annualConsume" value="${annualConsume}" /></td>
+				</tr>
+			</table>
+				<div class="clearboth">
+					<input type="button" name="calcEstimates" value="Update Annual Cost Report" 
+						style="clear:both;margin:1em;" class="floatRight">
+				</div>
+			<div class="clearBoth"></div>
+			</div>
+		</div>

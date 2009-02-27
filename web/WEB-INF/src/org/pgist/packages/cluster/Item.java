@@ -6,6 +6,12 @@
  *
  * $Id$
  * $Log$
+ * Revision 1.3  2007/05/24 23:30:09  paulin
+ * Got the clustering cleaned up
+ *
+ * Revision 1.2  2007/05/19 06:38:50  paulin
+ * Updated the clustering
+ *
  * Revision 1.3  2003/10/16 14:31:29  mkmaier
  * IMP: minor beautifying
  *
@@ -25,19 +31,14 @@ package org.pgist.packages.cluster;
  * @author Markus Maier
  * @version 0.1
  */
-public interface Item extends Clusterable {
+public interface Item {
+	
 	/**
-	 * Returns the user object for this Item.
+	 * Returns the distance to a Clusterable.
 	 * 
-	 * @return The user object for this Item.
+	 * @param c
+	 *            Clusterable to compute distance to.
+	 * @return float
 	 */
-	//	Object getUserObject();
-
-	/**
-	 * Sets the user object for this Item.
-	 * 
-	 * @param userObject
-	 *            The new user object.
-	 */
-	//	void setUserObject(Object userObject);
+	float distance(Item c);	
 }

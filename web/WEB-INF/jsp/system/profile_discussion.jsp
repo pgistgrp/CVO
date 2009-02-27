@@ -30,7 +30,7 @@
 <!-- end RECENT DISCUSSIONS HEADER -->
 <c:choose>	
 <c:when test="${fn:length(discussions) == 0}">
-	<p>This user has no dicussions at this time.</p>
+	<p>This user has no discussions at this time.</p>
 </c:when>
 <c:otherwise>
 	<c:set var="rowcount" value="0"/>
@@ -49,10 +49,8 @@
 			</c:choose>
 		
 			<div class="profile-col1 floatLeft">
-				<div class="floatLeft">
-					<a href="#">${discussion.title}</a><br />
-
-					<span>Some how get the step</span>
+			  <div class="floatLeft">
+					 ${discussion.title}<br />
 				</div>
 			</div>
 			<div class="profile-col2 floatRight"><fmt:formatDate value="${discussion.createTime}" pattern="MM/dd" var="discussionDate" />${discussionDate}</div>

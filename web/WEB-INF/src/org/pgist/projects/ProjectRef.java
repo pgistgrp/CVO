@@ -1,7 +1,8 @@
 package org.pgist.projects;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
+
 
 /**
  * A ProjectRef refers to a project object.
@@ -19,7 +20,7 @@ public class ProjectRef {
     
     private Project project;
     
-    private Set<ProjectAltRef> altRefs = new HashSet<ProjectAltRef>();
+    private Set<ProjectAltRef> altRefs = new TreeSet<ProjectAltRef>();
     
     
     /**
@@ -70,7 +71,7 @@ public class ProjectRef {
     /**
      * @return
      * 
-     * @hibernate.set lazy="false" cascade="all-delete-orphan"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan" sort="org.pgist.projects.ProjectAltRefComparator"
      * @hibernate.collection-key column="projref_id"
      * @hibernate.collection-one-to-many class="org.pgist.projects.ProjectAltRef"
      */
@@ -83,5 +84,78 @@ public class ProjectRef {
         this.altRefs = altRefs;
     }
     
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    /**
+     * Removes the project alternative reference from this project reference
+     * 
+     * @param altRef	The reference to remove
+     */
+	public void removeAltRef(ProjectAltRef altRef) {
+		//NOTE We do this manually because hibernate requires a specialized equals so to make sure
+		//this is accessed by ID alone we first search for the altRef with this id, then remove that
+		//alt ref
+		ProjectAltRef foundRef = null;
+		for(ProjectAltRef tempAltRef : getAltRefs()) {
+			//If it has a null ID then use the ID of the alternative
+			if(tempAltRef.getId() != null && altRef.getId() != null) {
+				if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
+					foundRef = tempAltRef;
+					break;					
+				}
+			} else {
+				if(tempAltRef.getId().equals(altRef.getId())) {
+					foundRef = tempAltRef;
+					break;
+				}
+			}
+		}
+		if(foundRef != null) {
+			getAltRefs().remove(foundRef);
+		}
+	}
+	
+	/**
+	 * Returns the number of alternative reference in this project referece
+	 * 
+	 * @return	The number of alternative references in this project reference
+	 */
+	public int getNumAltRefs() {
+		return altRefs.size();
+	}
+    
+	/**
+	 * Returns true if the specified alternative is inside this project ref
+	 * 
+	 * @param	alt		The alternative to search for
+	 */
+	public boolean containsAlternative(ProjectAlternative alt) {
+    	for (ProjectAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(alt.getId())) {
+				return true;
+			}
+    	}
+    	return false;
+	}
+
+
+	/**
+	 * Returns the project alt ref that has this projectAlt in it
+	 * 
+	 * @param projectAlt	The project alternative to look for
+	 * @return	The project alt ref with the project alternative in it, null if nothing found
+	 */
+	public ProjectAltRef getProjectAltRef(ProjectAlternative projectAlt) {
+    	for (ProjectAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(projectAlt.getId())) {
+				return altRef;
+			}
+    	}
+    	return null;
+	}
     
 }//class ProjectRef

@@ -2,6 +2,7 @@ package org.pgist.users;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.postgis.Geometry;
 /**
  * TravelTrip:{mode:tMode, frequency:tFrequency, markers:markerList, 
@@ -17,6 +18,7 @@ public class TravelTrip {
 	private Geometry route;
 	private User owner;
 	private double[] coords;
+	private boolean deleted;
 	
 	/**
 	 * @hibernate.id generator-class="native"
@@ -62,6 +64,7 @@ public class TravelTrip {
 	
 	/**
 	 * @hibernate.property type="org.postgis.hibernate.GeometryType"
+	 * @hibernate.column sql-type="geometry"
 	 */
 	public Geometry getRoute() {
 		return route;
@@ -85,5 +88,15 @@ public class TravelTrip {
 	}
 	public void setCoords(double[] coords) {
 		this.coords = coords;
+	}
+	
+	/**
+	 * @hibernate.property not-null="true" default="false"
+	 */
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }

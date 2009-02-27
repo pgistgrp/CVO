@@ -1,6 +1,5 @@
 package org.pgist.users;
 
-import org.postgis.hibernate.GeometryType;
 import org.postgis.Geometry;
 
 /**
@@ -107,6 +106,7 @@ public class TravelMarker {
 	
 	/**
 	 * @hibernate.property type="org.postgis.hibernate.GeometryType"
+	 * @hibernate.column sql-type="geometry"
 	 */
 	public Geometry getPoint(){
 		return this.point;

@@ -7,6 +7,9 @@
 	<property name="sessionFactory">
 	    <ref bean="sessionFactory" />
 	</property>
+	<property name="systemService" ref="systemService"/>
+	<property name="cstService" ref="cstService"/>
+	<property name="projectService" ref="projectService"/>
     </bean>
 
     
@@ -14,6 +17,7 @@
 	<property name="target">
 	    <bean class="org.pgist.report.ReportServiceImpl">
 		<property name="reportDAO" ref="reportDAO"/>
+		<property name="discussionDAO" ref="discussionDAO"/>
 	    </bean>
 	</property>
     </bean>
@@ -24,4 +28,3 @@
     </bean>
     
 </beans>
-

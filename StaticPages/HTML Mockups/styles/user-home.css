@@ -25,9 +25,13 @@ div.heading h4 {margin:0px;}
 	margin:0em auto 2em auto;
 }
 
+#mod-announcements{margin-bottom:1em;}
+
 /* --------------------------------------- */
 /* Left-col, aka the Overview of All Steps */
 /* --------------------------------------- */
+
+h4.step-header{font-size:12pt}
 
 .home-col1
 {
@@ -50,7 +54,9 @@ div.home-col1 > div > span {font-size:.9em;margin-left:.5em}
 padding:.5em 0em;
 }
 
-.home-row {font-size:.9em;}
+.home-row {font-size:11pt;height:auto;_margin:5px 0px;}
+.home-row input {margin-top:10px;margin-right:10px;}
+.home-row small {font-size:9pt;}
 
 #left-col, #right-col {margin-top:1em;}
 
@@ -60,7 +66,7 @@ float:left;
 }
 
 .highlighted {background:#FFE3B9}
-.step{float:left;width:320px;margin-bottom:.5em;margin-left:1em;}
+.step{float:left;width:320px;margin-bottom:.5em;margin-left:1em;margin-top:3px;}
 
 .date{float:right;clear:right;margin-bottom:.5em;}
 .disabled{color:#bbb;}
@@ -72,21 +78,26 @@ div.disabled a{color:#bbb;text-decoration:none;}
 /* -------------------------------------- */
 
 #right-col{
-width:49%;
+width:20%;
 float:right;
 }
 
-#announcements{
+#announcements,#announce-editor{
 background:#FCFFF5;
 border:1px solid #B4D579;
-height:400px;
 padding:10px;
 overflow:auto;
 }
 
+#announcements{height:400px;}
+#announce-editor{margin-top:1em;}
+
+#announcements h4 {margin:0px auto;}
+
 #mod-announcements{
 padding:5px;
 }
+
 
 /* -------- */
 /* Keywords */

@@ -8,7 +8,7 @@ text-align:center;
 color:#000;
 background:#ADCFDE;
 padding:.2em 0em;
-font-size:1em;
+font-size:12pt;
 }
 
 #newTable th.right {text-align:right;padding-right:5px;}
@@ -19,15 +19,23 @@ text-align:left;
 padding-left:10px;
 }
 
-#newTable td.category {text-align:left;border-bottom:2px solid #000;}
+#newTable td.category {
+text-align:left;
+border-bottom:2px solid #000;
+}
 
-#newTable th.first {text-align:left;padding-left:10px;}
+#newTable th.first {
+text-align:left;
+padding-left:10px;
+}
 
 #newTable td
 {
 padding:5px;
-font-size:.9em;
+font-size:10pt;
 }
+
+#newTable td.cost {font-size:9pt;}
 
 #newTable tr.fundingType
 {
@@ -36,7 +44,7 @@ background:#D6E7EF;
 
 #newTable tr.fundingType2
 {
-background:#EEF7DD;
+background:#DEECC3;
 }
 
 .odd{background:none;}

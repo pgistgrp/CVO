@@ -1,10 +1,13 @@
 package org.pgist.glossary;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.util.PageSetting;
 
 
 /**
@@ -17,16 +20,9 @@ public class GlossaryManageAction extends Action {
     
     private GlossaryService glossaryService;
     
-    private int count = 20;
-    
     
     public void setGlossaryService(GlossaryService glossaryService) {
         this.glossaryService = glossaryService;
-    }
-    
-    
-    public void setCount(int count) {
-        this.count = count;
     }
     
     
@@ -41,11 +37,27 @@ public class GlossaryManageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        PageSetting setting = new PageSetting(count);
-        setting.setPage(1);
+        String filter = "";
+        String sort = "name";
+        String direction = "asc";
+        Collection terms = glossaryService.getTerms(filter, sort, direction, new int[] {Term.STATUS_OFFICIAL});
         
-        request.setAttribute("terms", glossaryService.getTerms(setting));
-        request.setAttribute("setting", setting);
+        char ch = 0;
+        List initials = new ArrayList(27);
+        for (Term term : (Collection<Term>) terms) {
+            if (ch!=term.getInitial()) {
+                ch = term.getInitial();
+                initials.add(new Character(ch));
+            }
+        }
+        
+        request.setAttribute("filter", filter);
+        request.setAttribute("sort", sort);
+        request.setAttribute("direction", direction);
+        request.setAttribute("terms", terms);
+        request.setAttribute("initials", initials);
+        
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("list");
     }//execute()

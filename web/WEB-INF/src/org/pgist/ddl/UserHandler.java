@@ -14,7 +14,7 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public class UserHandler extends Handler {
+public class UserHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {
@@ -22,15 +22,19 @@ public class UserHandler extends Handler {
         for (int i=0,n=users.size(); i<n; i++) {
             Element element = (Element) users.get(i);
             
-            User user = new User();
-            
-            user.setDeleted(false);
-            user.setInternal(true);
-            user.setEnabled(true);
-            
             String loginname = element.elementTextTrim("loginname");
             if (loginname==null || "".equals(loginname)) throw new Exception("loginname is required for user");
-            user.setLoginname(loginname);
+            
+            User user = getUserByLoginName(loginname);
+            if (user==null) {
+                user = new User();
+                user.setLoginname(loginname);
+                user.setDeleted(false);
+                user.setInternal(true);
+                user.setEnabled(true);
+            } else {
+                user.getRoles().clear();
+            }
             
             String lastname = element.elementTextTrim("lastname");
             if (lastname==null || "".equals(lastname)) throw new Exception("lastname is required for user");
@@ -43,7 +47,8 @@ public class UserHandler extends Handler {
             String password = element.elementTextTrim("password");
             if (password==null || "".equals(password)) throw new Exception("password is required for user");
             user.setPassword(password);
-            boolean encrypted = "true".equals(element.attributeValue("password/encrypted"));
+            
+            boolean encrypted = "true".equals(element.valueOf("password/@encrypted"));
             if (!encrypted) user.encodePassword();
             
             String email = element.elementTextTrim("email");

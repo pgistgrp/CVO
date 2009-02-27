@@ -2,74 +2,122 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    
-    
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName">
+
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass">
            <value>org.postgresql.Driver</value>
         </property>
-        <property name="url">
-           <value>jdbc:postgresql://localhost/cvotest</value>
+        <property name="jdbcUrl">
+           <value>jdbc:postgresql://localhost/@database.databaseName@</value>
         </property>
-        <property name="username">
-           <value>pgist</value>
+        <property name="user">
+           <value>@database.userName@</value>
         </property>
         <property name="password">
-           <value>pgist</value>
+           <value>@database.password@</value>
+        </property>
+        <property name="minPoolSize">
+           <value>5</value>
+        </property>
+        <property name="maxPoolSize">
+           <value>20</value>
+        </property>
+        <property name="maxStatements">
+           <value>20</value>
+        </property>
+        <property name="maxStatementsPerConnection">
+           <value>100</value>
         </property>
     </bean>
-    
-    
+
+
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource">
-           <ref local="dataSource" />
+           <ref local="dataSource"/>
         </property>
         <property name="mappingResources">
            <list>
-               <value>org/pgist/users/User.hbm.xml</value>
+               <!-- POJO schema information -->
+               <value>org/pgist/system/RecoverPassword.hbm.xml</value>
+               <value>org/pgist/system/EmailTemplate.hbm.xml</value>
+               <value>org/pgist/system/EmailNotification.hbm.xml</value>
+               <value>org/pgist/system/Feedback.hbm.xml</value>
+               <value>org/pgist/system/YesNoVoting.hbm.xml</value>
+               <value>org/pgist/system/SystemLog.hbm.xml</value>
+               <value>org/pgist/system/County.hbm.xml</value>
+               <value>org/pgist/system/Announcement.hbm.xml</value>
+               <value>org/pgist/system/RegisterObject.hbm.xml</value>
+               <value>org/pgist/users/BaseUser.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
-               <value>org/pgist/model/Discussible.hbm.xml</value>
-               <value>org/pgist/model/DiscourseObject.hbm.xml</value>
-               <value>org/pgist/model/Post.hbm.xml</value>
-               <value>org/pgist/model/PGame.hbm.xml</value>
-               <value>org/pgist/cvo/Category.hbm.xml</value>
-               <value>org/pgist/cvo/Concern.hbm.xml</value>
-               <value>org/pgist/cvo/Tag.hbm.xml</value>
-               <value>org/pgist/workflow/DecisionSituation.hbm.xml</value>
-               <value>org/pgist/wfengine/WorkflowEnvironment.hbm.xml</value>
+               <value>org/pgist/users/Vehicle.hbm.xml</value>
+               <value>org/pgist/tagging/Category.hbm.xml</value>
+               <value>org/pgist/tagging/Tag.hbm.xml</value>
+               <value>org/pgist/glossary/Term.hbm.xml</value>
+               <value>org/pgist/glossary/TermLink.hbm.xml</value>
+               <value>org/pgist/glossary/TermSource.hbm.xml</value>
+               <value>org/pgist/glossary/TermComment.hbm.xml</value>
+               <value>org/pgist/glossary/TermCategory.hbm.xml</value>
+               <value>org/pgist/glossary/TermAcronym.hbm.xml</value>
+               <value>org/pgist/glossary/TermVariation.hbm.xml</value>
+               <value>org/pgist/glossary/TermParticipantRecord.hbm.xml</value>
+               <value>org/pgist/wfengine/Environment.hbm.xml</value>
+               <value>org/pgist/wfengine/Declaration.hbm.xml</value>
                <value>org/pgist/wfengine/RunningContext.hbm.xml</value>
-               <value>org/pgist/wfengine/Workflow.hbm.xml</value>
+               <value>org/pgist/wfengine/RunningHistory.hbm.xml</value>
                <value>org/pgist/wfengine/Activity.hbm.xml</value>
-               <value>org/pgist/wfengine/Template.hbm.xml</value>
-               <value>org/pgist/wfengine/Task.hbm.xml</value>
-               <value>org/pgist/wfengine/AccessManager.hbm.xml</value>
-               <value>org/pgist/voting/VotePackage.hbm.xml</value>
-               <value>org/pgist/voting/VoteSheet.hbm.xml</value>
-               <value>org/pgist/voting/VoteItem.hbm.xml</value>
+               <value>org/pgist/wfengine/Workflow.hbm.xml</value>
+               <value>org/pgist/sarp/GenericComment.hbm.xml</value>
+               <value>org/pgist/sarp/drt/InfoObject.hbm.xml</value>
+               <value>org/pgist/sarp/drt/DRTAnnouncement.hbm.xml</value>
+               <value>org/pgist/sarp/bct/BCT.hbm.xml</value>
+               <value>org/pgist/sarp/bct/Concern.hbm.xml</value>
+               <value>org/pgist/sarp/bct/TagReference.hbm.xml</value>
+               <value>org/pgist/sarp/cst/CST.hbm.xml</value>
+               <value>org/pgist/sarp/cst/CategoryReference.hbm.xml</value>
+               <value>org/pgist/sarp/cst/CategoryInfo.hbm.xml</value>
+               <value>org/pgist/sarp/cht/CHT.hbm.xml</value>
+               <value>org/pgist/sarp/cht/CategoryPath.hbm.xml</value>
+               <value>org/pgist/sarp/vtt/CategoryPathValue.hbm.xml</value>
+               <value>org/pgist/sarp/vtt/VTT.hbm.xml</value>
+               <value>org/pgist/sarp/vtt/MUnitSet.hbm.xml</value>
+               <value>org/pgist/sarp/vtt/EUnitSet.hbm.xml</value>
+               <value>org/pgist/sarp/vtt/ExpertPathComment.hbm.xml</value>
+               <value>org/pgist/sarp/report/Report.hbm.xml</value>
+               <!-- Other schema information -->
+               <value>org/pgist/PgistOtherSchema.hbm.xml</value>
            </list>
         </property>
         <property name="hibernateProperties">
            <props>
                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
                <prop key="hibernate.show_sql">true</prop>
+               <prop key="hibernate.format_sql">false</prop>
+               <prop key="hibernate.use_sql_comments">false</prop>
                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
                <prop key="hibernate.default_batch_fetch_size">20</prop>
+               <prop key="hibernate.c3p0.min_size">5</prop>
+               <prop key="hibernate.c3p0.max_size">20</prop>
+               <prop key="hibernate.c3p0.timeout">1800</prop>
+               <prop key="hibernate.c3p0.max_statements">100</prop>
            </props>
         </property>
     </bean>
-    
-    
+
+
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory">
            <ref local="sessionFactory" />
         </property>
     </bean>
-    
-    
+
+
     <bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
       <property name="transactionManager" ref="transactionManager"/>
       <property name="transactionAttributes">
         <props>
+          <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+          <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
           <prop key="add*">PROPAGATION_REQUIRED</prop>
           <prop key="save*">PROPAGATION_REQUIRED</prop>
           <prop key="set*">PROPAGATION_REQUIRED</prop>
@@ -77,12 +125,25 @@
           <prop key="edit*">PROPAGATION_REQUIRED</prop>
           <prop key="create*">PROPAGATION_REQUIRED</prop>
           <prop key="delete*">PROPAGATION_REQUIRED</prop>
-          <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
-          <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+          <prop key="relate*">PROPAGATION_REQUIRED</prop>
+          <prop key="derelate*">PROPAGATION_REQUIRED</prop>
+          <prop key="increase*">PROPAGATION_REQUIRED</prop>
+          <prop key="decrease*">PROPAGATION_REQUIRED</prop>
+          <prop key="copy*">PROPAGATION_REQUIRED</prop>
+          <prop key="duplicate*">PROPAGATION_REQUIRED</prop>
+          <prop key="move*">PROPAGATION_REQUIRED</prop>
+          <prop key="publish*">PROPAGATION_REQUIRED</prop>
+          <prop key="accept*">PROPAGATION_REQUIRED</prop>
+          <prop key="reject*">PROPAGATION_REQUIRED</prop>
+          <prop key="log*">PROPAGATION_REQUIRED</prop>
+          <prop key="import*">PROPAGATION_REQUIRED</prop>
+          <prop key="calcUserValues">PROPAGATION_REQUIRED</prop>
+          <prop key="enqueue">PROPAGATION_REQUIRED</prop>
+          <prop key="checkAndSend">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>
-    
-    
+
+
 </beans>
 

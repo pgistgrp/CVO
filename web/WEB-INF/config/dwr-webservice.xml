@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
 
 <dwr>
 
@@ -7,29 +7,12 @@
   <allow>
 
 
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
     <convert converter="bean" match="org.pgist.model.Post">
       <param name="exclude" value="parent, children, root"/>
     </convert>
-
-
-    <create creator="spring" javascript="WorkflowAgent">
-      <param name="beanName" value="workflowAgent"/>
-      <include method="getTemplates"/>
-      <include method="createSituation"/>
-      <include method="refreshSituationList"/>
-    </create>
-
-
-    <create creator="spring" javascript="WFModelingAgent">
-      <param name="beanName" value="wfModelingAgent"/>
-    </create>
-
-
-    <create creator="spring" javascript="DiscussionAgent">
-      <param name="beanName" value="discussionAgent"/>
-      <include method="getDiscussionBrief"/>
-      <include method="postComment"/>
-    </create>
 
 
   </allow>

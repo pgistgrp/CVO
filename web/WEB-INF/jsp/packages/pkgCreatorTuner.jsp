@@ -5,28 +5,29 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
 <!--####
 	Project: Let's Improve Transportation!
 	Page: Help Me 
 	Description: Users will use this component to re-weigh their criteria to have the system assist in the creation of a package.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Zhong Wang, John Le
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Add weigh criteria javascript - without setWeight (Jordan)
-		[ ] Integrate Layout (Adam)
+		[x] myLimit validations (Jordan)
+		[x] Polish it a bit (Adam)
 
 #### -->
 <html:html>
 <head>
-<title>Manage Criteria</title>
-<!-- Site Wide JavaScript -->
+<title>Package Tuner</title>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
+<script src="scripts/util.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
 <!-- DWR JavaScript Libraries -->
@@ -34,168 +35,270 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
-<!--Criteria Specific  Libraries-->
+<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
 <script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
 
+<style type="text/css">
+	@import "styles/lit.css";
+	@import "styles/table.css";
+	@import "styles/step3c.css";
+	@import "styles/weighCriteria.css";
+#top{padding:0px;}
+#left{margin-left:0px;}
+.dollarSign {display:inline;margin:auto 5px auto 10px}
+</style>
+
+
 	<script type="text/javascript" charset="utf-8">
+		
 		//START Global vars
-		var cctId = "${cct.id}";			
-		var sliderArray = new Array();
-		var remainingWeight = 100;
+		var usrPkgId = "${usrPkgId}";
+		var fundSuiteId = "${fundSuiteId}";
+		var projSuiteId = "${projSuiteId}";
 		
-		//END Global Vars
+		//Load the critSuiteId first for weighCriteria.js (external so we can reuse the functions)
+		var critSuiteId = "${critSuiteId}";
 		
-		/* *************** Pull all criteria and their associated weights and objectives (criteriaAssoc_weights.jsp) *************** */
-		function getWeights(){
-			CriteriaAgent.getWeights({cctId:cctId},{
-			  callback:function(data){
-			    if(data.successful){
-			    	$('criteria').innerHTML = data.html;
-			    	addAllSliders();
-					updateRemainingWeight();
-			    }else{
-					alert(data.reason);
+		function getTunerConfig(){
+
+			//alert("usrPkgId: " + usrPkgId + " projSuiteId: " + projSuiteId + " fundSuiteId: " + fundSuiteId + " critSuiteId: " + critSuiteId); 
+			PackageAgent.getTunerConfig({usrPkgId:usrPkgId,projSuiteId:projSuiteId,fundSuiteId:fundSuiteId,critSuiteId:critSuiteId}, {
+				callback:function(data){
+					if (data.successful){
+						//alert("config:" + data.config)
+					
+						var fcs = {};
+						var pcs = {};
+
+						//create the hash for funding sources
+						//key = altRefId, value = 0-2
+
+						var fundingSelects = document.getElementsByName('fundingChoices');
+						var projectSelects = document.getElementsByName('projectChoices');
+
+						fcs = convertSelectsToHash(fundingSelects,fcs)
+						pcs = convertSelectsToHash(projectSelects,pcs)
+
+						//alert("data: " + data.config + " fcs: " + fcs + " pcs: " + pcs)
+						createMyConfiguredPackage(data.config,fcs,pcs);
+					}else{
+						$('goBtn').disabled = false;
+						$('goBtn').value = "Re-submit Adjustments"
+						alert(data.reason);
+
+					}
+					
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("PackageAgent.getTunerConfig( error:" + errorString + exception);
 				}
-			  },
-			  errorHandler:function(errorString, exception){
-			        alert("getWeights error:"+errorString+" "+exception);
-			  }
-			  });
-		} 
+			});
+		}
 		
-		/* *************** Add All Criterion Sliders *************** */
-		function addAllSliders(){
-			<c:forEach var="criterion" items="${cct.criteria}" varStatus="loop">
-				addSlider('${criterion.id}');
-			</c:forEach>
+		function convertSelectsToHash(selects, hash){
+			for (var i=0; i < selects.length; i++) {
+				start = selects[i].id.indexOf('-') + 1;
+				stop = selects[i].id.length;
+				selectKey = selects[i].id.substring(start,stop);
+				selectValue = selects[i].value;
+				//alert("key: " +  selectKey + " value: " + selectValue);
+				
+				hash[selectKey] = selectValue;
+			};
+			
+			return hash;
+		}
+		
+		function createMyConfiguredPackage(config,fcs,pcs){
+			//alert("Funding Choices Hash: " + config.fundingChoices.inspect());
+			//alert("Project Choices Hash: " + config.projectChoices.inspect());
+
+			//alert("createmyconfiguredpackage config:" + config )			
+			var mylimit = $F('mylimit');
+			var avglimit = 0;
+			if(mylimit.length > 0){
+				var mylimitInt = parseInt(mylimit);
+				PackageAgent.createMyConfiguredPackage(config, fcs, pcs, mylimitInt, avglimit, usrPkgId, {
+					callback:function(data){
+						if (data.successful){
+							//alert("createmyconfiguredpackage worked");
+							location.href="closeWindowAndReload.jsp";
+						}else{
+						  $('goBtn').disabled = false;
+  						$('goBtn').value = "Re-submit Adjustments"
+							alert(data.reason);
+						}
+					},
+					errorHandler:function(errorString, exception){ 
+					alert("PackageAgent.createMyConfiguredPackage( error:" + errorString + exception);
+					$('goBtn').disabled = false;
+					$('goBtn').value = "Re-submit Adjustments"
+					}
+				});
+			}else{
+				alert("Please enter how much you are willing to pay per year.")
+				$('goBtn').disabled = false;
+				$('goBtn').value = "Re-submit Adjustments"
+			}
 		}
 
-		/* *************** Assign a slider to a criteria and add it to the global slider array *************** */
-		function addSlider(critId){
-		  	newSlider = new Control.Slider('handle' + critId,'track' + critId,{
-					onSlide:function(v){
-						critWeight = (v * 100).toFixed(); //scriptaculous returns values ranging 0..1
-						$('input' + critId).value= critWeight;
-						updateRemainingWeight();
-						},
-					onChange:function(v){
-						critWeight = (v * 100).toFixed();
-						$('input' + critId).value=  critWeight;
-						updateRemainingWeight();
-						},
-					minimum: 1,
-					maximum: 100,
-					sliderValue: $('input' + critId).value / 100 //grab value if user has already weighed this criteria
-				});
-			sliderArray.push(newSlider);
-		}
-		
-		/* *************** Set the value of the slider if user manually sets it in the textbox *************** */
-		function manualSliderChange(index, v){
-			sliderArray[index].setValue(v / 100);
-		}
-		
-		function updateRemainingWeight(){
-			remainingWeight = 0; //reset remainingWeight
-			for(i=0; i<sliderArray.length;i++){
-				remainingWeight += sliderArray[i].value;
-			}
-			$('remainingWeight').innerHTML = 100 - (remainingWeight * 100).toFixed();
-		}
-		
-		
-		/* *************** Toggle simple tree menu - maybe pull this into an external file since a few files are now using this? *************** */			
-		function expandList(objective,icon){
-			Effect.toggle(objective, 'appear', {duration: .5, afterFinish:
-				//window.setTimeout(toggleIcon,100);
-				function(){
-					if ($(objective).style.display != ""){
-							$(icon).src = "/images/plus.gif";
-						}else{
-							$(icon).src = "/images/minus.gif";
-						}
-					}
-			});
-		};
 	</script>
 	
-	<style type="text/css" media="screen">
-		
-	</style>
-
+	<script type='text/javascript' src='/scripts/weighCriteria.js'></script>
+<event:pageunload />
+</head>
 <body>
-	<h1>Help Me!</h1>
-	<p>Answer the following questions so that we can suggest a package that matches your general preferences.
-		you will be able to adjust your suggested package before moving on.</p>
+	<div id="container">
+		<div style="display: none;" id="loading-indicator"> Loading... 
+			<img src="/images/indicator_arrows.gif"> 
+		</div>
+		<div style="display:none;" id="saving-indicator"> Saving...
+			<img src="/images/indicator_arrows.gif">
+		</div>
+	<div id="top">
+			<h2 class="headerColor">Help me create a package</h2>
+      <pg:show roles="admin">
+        <a href="/gaTesting.do?type=Funding" target="_blank">Funding Algorithm</a> |
+        <a href="/gaTesting.do?type=Project" target="_blank">Project Algorithm</a>
+      </pg:show>
+			<div id="overview" class="box2">
+			<h3 class="headerColor">Instructions</h3>
+				<p>Complete this form and click the button at the bottom of this page to get started on a package.  Finish the package by making adjustments on the main page or reopen this tool to use it again.  <strong>Please be patient, this tool requires about 30 seconds to make selections.</strong> </p>
+			</div>
+			<div class="box6 padding5">
+				<h3 class="headerColor">1. How much are you willing to pay per year?</h3>
+				<label>What is the total annual cost <em><strong>you</strong></em> are willing to pay to fund your preferred transportation package?   This tool will select funding options so as not to exceed your personal limit.</label><br/>
+        Please enter a number between $${min} and $1000. <span class="dollarSign">$</span> <input type="text" id="mylimit" size="5"/><br/>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
+	<div id="object" class="stripWS">
+				<h3 class="headerColor">2. What is the relative importance of each improvement factor?</h3>
+        <label>You can keep your weights from Step 2b or you can change them here.  This tool will select projects that have high grades in your preferred improvement factors.</label>
+        <div id="criteria">
+					<!--load the criteria partial here -->
+				</div>
+				<!-- begin NewTable-->
+				<br />
+				<div id="newTable" class="stripWS">
+					<h3 class="headerColor">3. Which choices are you sure about?</h3>
+         <label>Mark the projects and funding sources that you want to include or exclude from the package that will be created. Feel free to leave any or all the choices as "No opinion".  This tool will be sure to include or exclude your choices.</label><br/><br/>
+					<div id="left" class="floatLeft">
+						<table cellpadding=0 cellspacing=0>
+							<!-- begin CATEGORY LABEL -->
+							<tr class="tableHeading">
+								<th colspan="2" class="first">Projects</th>
+								<th>Include or Exclude</th>
+							</tr>
+					
+							<c:forEach var="category" begin="1" end="2">
+								<!-- start road projects -->
+								<tr>
+									<c:choose>
+										<c:when test="${category == 1}">
+											<td class="category" colspan="3"><strong>Road projects</strong></td>
+										</c:when>
+										<c:otherwise>
+											<td class="category" colspan="3"><strong>Transit projects</strong></td>
+										</c:otherwise>
+									</c:choose>
+							
+								</tr>
+								<!-- end CATEGORY LABEL -->
+								<!-- ******* LOOP ENTIRE PROJECT ******** -->
+								<c:forEach var="projectRef" items="${projectRefs}" varStatus="loop">
+									<c:if test="${projectRef.project.transMode == category}">						
+										<!-- begin PROJECT -->
+										<tr class="${(projectRef.project.inclusive) ? 'fundingType' : 'fundingType2'}">
+											<td class="fundingSourceItem">${projectRef.project.name} Options</td>
+											<td colspan="2">&nbsp;
+												
+											</td>
+										</tr>
+										<!-- end PROJECT -->
+										<tr class="objectives" id="objective${projectRef.id}">
+											<td colspan="3">
+												<table>
+													<c:forEach var="altRef" items="${projectRef.altRefs}" varStatus="loop">
+														<tr>
+															<td>
+																<label>
+																	<span style="font-size:9pt">${altRef.alternative.name}</span>
+																</label>
+															</td>
+															<td class="cost">
+																<select name="projectChoices" id="projAltSelect-${altRef.alternative.id}">
+																	<option value="2">Include it</option>
+																	<option value="1" SELECTED>No opinion</option>
+																	<option value="0">Exclude it</option>
+																</select>
+															</td>
+														</tr>
+													</c:forEach>
+												</table>
+											</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+					
+								<!-- ******* END LOOP ENTIRE PROJECT ******** -->
+							</c:forEach>
+						</table>
+						<!-- end collapsible project list -->
+					</div>
+				
+					<div id="right">
+						<table cellpadding=0 cellspacing=0>
+							<tr class="tableHeading">
+								<th class="first">Funding source</th>
+								<th>Include or Exclude</th>
+							</tr>
+							<!-- begin FUNDING source -->
+							<c:forEach var="fundingRef" items="${fundingRefs}" varStatus="loop">
+								<tr class="fundingType">
+									<td class="fundingSourceItem">${fundingRef.source.name}</td>
+									<td colspan="3">&nbsp;</td>
+								</tr>
+								<!-- end FUNDING source -->
+								<!-- begin OPTIONS -->
+								<c:set var="doNothing"value="true"/>
+								<c:forEach var="altRef" items="${fundingRef.altRefs}" varStatus="loop">
+									<tr>
+										<td class="fundingSourceItem">
+											<label style="font-size:9pt">${altRef.alternative.name}</label>
+										</td>
 		
-	<!-- Start criteria headers -->
-	<div class="criteriaListHeader">
-	  <div class="weighCriteriaCol1 floatLeft">
-	    <h4 class="headerColor">Planning factor</h4>
-	  </div>
-	  <div class="weighCriteriaCol2 floatLeft">
-	    <h4 class="headerColor">Description</h4>
-	  </div>
-	  <div class="weighCriteriaCol3 floatLeft">
-	    <h4 class="headerColor">Weight</h4>
-	  </div>
-	  <div class="clearBoth"></div>
-	</div>
-	<!-- end criteria headers -->
-	
-	<form action="createPackage.do" method="POST" accept-charset="utf-8">
-		<h4>1) What are your preferred planning factor weights?  We will select projects with scores that best match your preferences.</h4>
-		<c:forEach var="criterion" items="${criteria}" varStatus="loop">
-			  <div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
-			    <div class="weighCriteriaCol1 floatLeft"><a href="#">
-			      <div class="floatLeft"><a href="javascript:expandList('objectives${criterion.id}','icon${criterion.id}');"> <img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
-			      <div class="floatLeft"> ${criterion.name}</div>
-			    </div>
-			    <div class="weighCriteriaCol2 floatLeft">${criterion.na}</div>
-			    <div class="weighCriteriaCol3 floatLeft">
-			    	<!-- start slider bar -->
-						<div id="track${criterion.id}" class="track" style="width:200px; height:9px;">
-							<div id="track${criterion.id}-left" class="track-left"></div><div id="handle${criterion.id}" style="cursor: col-resize; width:19px; height:20px;"><img src="images/slider-handle.png" alt="" style="float: left;" /></div>
-						</div>
+										<td class="right-col2">
+											<select name="fundingChoices" id="fundAltSelect-${altRef.alternative.id}">
+												<option value="2">Include it</option>
+												<option value="1" SELECTED>No opinion</option>
+												<option value="0">Exclude it</option>
+											</select>
+										</td>
+									</tr>
+								</c:forEach>
+							</c:forEach>
+							<!-- end OPTIONS -->
+						</table>
+					</div>
+					
+				</div>
+			</div>
+			<div class="clearBoth">
+			</div>
+			<div id="finished" class="box7">
+				<h3>Are you ready to get started on a package?</h3>
+				<input type="button" id="goBtn" onClick="getTunerConfig();this.value='Calculating please wait...'; this.disabled='true'; Util.loading(true); Util.loading(true, 'Creating Package');" value="I have completed this form. Start my package."/>
+				<div class="clearBoth"></div>
+			</div>
+		</div>
 
-						<input type="text" tabIndex="${loop.index + 1}" size="3" maxlength="3" id="input${criterion.id}"  name="critId" value = 
-						<c:choose>
-							<c:when test="${criterion.object.weight == null}">
-								"0"
-							</c:when>
-							<c:otherwise>
-								"${criterion.object.weight}"
-							</c:otherwise>
-						</c:choose>
-						 /> <!-- end input -->
-
-					<!-- end slider bar -->
-			    </div>
-			    <div class="clearBoth"></div>
-			    <div class="objectives" id="objectives${criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
-			      <ul class="smallText">
-			        <c:if test="${fn:length(criterion.objectives) == 0}">
-			          <li>None Selected</li>
-			        </c:if>
-			        <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
-			          <li>${objective.description}</li>
-			        </c:forEach>
-			      </ul>
-			    </div>
-			  </div>
-
-			<div class="clearBoth"></div>
-		</c:forEach>
-		<p>Remaining Weight: <b id="remainingWeight"><!--load remaining weight here --></b></p>
 		
-		<h4>2) How much are you willing to pay per year?</h4>
-			<p>What is the total annual cost <b>you</b> are willing to pay to fund your preferred transportation package? <input type="text" name="yourCost" /></P>
-			<p>What is the total annual cost that the <b>average resident</b> should have to pay to fund your preferred transportation package? <input type="text" name="avgCost" /></p>
-		<h4>3) Do you want us to include projects and funding sources already selected in your package, or suggest a new package?</h4>
-			<label><input type="radio" name="includeCurrent" /> Include my current selection</label>
-			<label><input type="radio" name="excludeCurrent" /> Create a brand-new package</label>
-			
-		<p><input type="submit" value="Submit &rarr;"></p>
-	</form>
+		<script type="text/javascript" charset="utf-8">
+			//getWeights();
+			getCriteriaSuiteById();
+
+			//setTimeout(function() {initWeights();}, 350);
+		</script>
 </body>
 </html:html>

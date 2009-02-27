@@ -1,6 +1,5 @@
 package org.pgist.tests;
 
-import java.util.List;
 import org.jgap.IChromosome;
 
 

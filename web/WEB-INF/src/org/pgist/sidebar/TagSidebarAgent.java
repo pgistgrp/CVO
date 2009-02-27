@@ -1,16 +1,6 @@
 package org.pgist.sidebar;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.pgist.glossary.GlossaryService;
-import org.pgist.glossary.Term;
-import org.pgist.util.PageSetting;
-
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**

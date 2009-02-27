@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<concerns cct="test">
+<concerns>
 
 
     <!--
@@ -8,11 +8,11 @@
     -->
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">SmithSam</participant>
         <content>We need a light rail system to commute from the suburbs to Seattle more quickly</content>
         <tags>
-            <tag>travel</tag>
+            <tag status="1">travel</tag>
             <tag>suburb</tag>
             <tag>bus</tag>
             <tag>light rail</tag>
@@ -21,7 +21,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">SmithSam</participant>
         <content>Buses are overcrowded.</content>
         <tags>
@@ -33,7 +33,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">BrownBob</participant>
         <content>Disabled riders need input in vehicle purchases by Metro</content>
         <tags>
@@ -46,7 +46,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">BrownBob</participant>
         <content>Restrooms at Metro transit stations need to be handicapped accessible</content>
         <tags>
@@ -56,7 +56,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">BrownBob</participant>
         <content>All transit planners should be transit users.</content>
         <tags>
@@ -68,7 +68,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">JonesJane</participant>
         <content>Transportation systems should be safe</content>
         <tags>
@@ -77,7 +77,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">JonesJane</participant>
         <content>Transportation systems should promote livability and walkability</content>
         <tags>
@@ -92,7 +92,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">JonesJane</participant>
         <content>The alaskan way viaduct is unsafe</content>
         <tags>
@@ -105,7 +105,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">RobinsonRob</participant>
         <content>Seattle needs to support more bicycle commuting</content>
         <tags>
@@ -118,7 +118,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">DoeDiane</participant>
         <content>The transportation system should be more accessible to all citizens</content>
         <tags>
@@ -127,7 +127,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">JohnsonJohn</participant>
         <content>We should not continue to fund a reliance on motor vehicles</content>
         <tags>
@@ -140,7 +140,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">JohnsonJohn</participant>
         <content>We should not add more lanes to the 520 bridge</content>
         <tags>
@@ -152,7 +152,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">JohnsonJohn</participant>
         <content>Planning agencies are not well coordinated</content>
         <tags>
@@ -164,7 +164,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">PerkinsPeter</participant>
         <content>Bus stops should be spaced at convenient locations</content>
         <tags>
@@ -177,7 +177,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">PerkinsPeter</participant>
         <content>There should be "no smoking" signs at bus stops</content>
         <tags>
@@ -190,7 +190,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">PerkinsPeter</participant>
         <content>Metro representatives should attend community meetings</content>
         <tags>
@@ -203,7 +203,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">GarfieldGary</participant>
         <content>Metro and Sound Transit do not understand their customers</content>
         <tags>
@@ -216,7 +216,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">MurphyMary</participant>
         <content>Non-commuter vehicles shouldn't drive in commuter lanes</content>
         <tags>
@@ -229,7 +229,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">MurphyMary</participant>
         <content>HOV lanes should be converted into regular lanes</content>
         <tags>
@@ -241,7 +241,7 @@
     </concern>
     
     
-    <concern>
+    <concern cct="CCT Test.">
         <participant type="loginname">MurphyMary</participant>
         <content>More data traffic data should be gathered when making transportation decisions</content>
         <tags>

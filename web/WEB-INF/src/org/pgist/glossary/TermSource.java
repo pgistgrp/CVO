@@ -1,5 +1,7 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
+
 
 /**
  * Glossary Sources
@@ -7,12 +9,14 @@ package org.pgist.glossary;
  *
  * @hibernate.class table="pgist_glossary_source"
  */
-public class TermSource {
+public class TermSource implements Serializable {
 
 
     private Long id;
     
-    private String source;
+    private String citation;
+    
+    private String url;
 
     
     /**
@@ -33,18 +37,37 @@ public class TermSource {
      * @return
      * @hibernate.property not-null="true"
      */
-    public String getSource() {
-        return source;
+    public String getCitation() {
+        return citation;
     }
 
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setCitation(String citation) {
+        this.citation = citation;
     }
+    
+    
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public String getUrl() {
+        return url;
+    }
+
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
 
 
     public String toString() {
-        return source;
+        return citation;
     }
     
     

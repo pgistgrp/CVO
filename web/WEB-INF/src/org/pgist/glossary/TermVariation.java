@@ -1,5 +1,7 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
+
 
 /**
  * Variation of a Glossary Term
@@ -8,7 +10,7 @@ package org.pgist.glossary;
  *
  * @hibernate.class table="pgist_glossary_variations"
  */
-public class TermVariation {
+public class TermVariation implements Serializable {
 
 
     private Long id;

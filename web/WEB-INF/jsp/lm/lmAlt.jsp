@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -15,15 +15,20 @@
 #### -->
 
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 	<head>
-	<title>Let's Improve Transportation: ${alternative.name}</title>
+	<title>Let's Improve Transportation: ${alt.project.name} - ${alt.name}</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 	@import "styles/lit.css";
 	@import "styles/table.css";
 	@import "styles/step3a-singleproject.css";
 	@import "styles/table-grades.css";
+	</style>
+	<style type="text/css">
+	    v\:* {
+	      behavior:url(#default#VML);
+	    }
 	</style>
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -33,53 +38,49 @@
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
 
-	<!-- data accessing js -->
-	<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAq4HJEw-8aIG3Ew6IOzpYEBTwM0brOpm-All5BF6PoaKBxRWWERSP-RPo4689bM1xw9IvCyK4oTwAIw"
-	      type="text/javascript"></script>
-	<script src="scripts/pgistmap2.js"></script>	<script type="text/javascript">
+    <javascript:gmapjs />
+    <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+    <script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
+	<script src="scripts/pgistmap2.js"></script>	
+    <script type="text/javascript">
 
 	
 	function load(){
 		pgistmap = new PGISTMapEditor('obj-right', 435, 485, false);
-		getFootprintsByAltId(${alternative.id});
+		getFootprintsByAltId(${alt.id});
 	}
 	var pgistmap = null;
 	
 	/* *************** Get footprints for a given project alternative id *************** */
-	var transmode = "${alternative.project.transMode}";
-	var transcolor = (transmode==0)?"#FF0000":"#00FF00";
+	var transmode = "${alt.project.transMode}";
+	var transcolor = (transmode==2)?"#00FF00":"#FF0000";
 	function getFootprintsByAltId(id){
 		ProjectAgent.getFootprintsByAltId({altid:id}, {
 			callback:function(data){
 				if (data.successful){
 					for(fpid in data.footprints){
+						var transicon = (transmode==2)?pgistmap.transiticon:pgistmap.roadicon;
+						var points = pgistmap.makeGPoints(data.footprints[fpid].coords);
+						var overlays = pgistmap.createOverlays(
+							points, 
+							data.footprints[fpid].geotype,
+							transcolor, 4, 0.9, "", transicon);
+						//make lines look better by adding thicker background lines
 						if(data.footprints[fpid].geotype==0 ||
 							data.footprints[fpid].geotype==2 || 
-							data.footprints[fpid].geotype==5){ // line
-							var points = pgistmap.makeGPoints(data.footprints[fpid].coords);
-							for(var j=0; j<points.length; j++){
-								pgistmap.map.addOverlay(
-									new GPolyline(points[j], "#FFFFFF", 8, 0.6) );
-								pgistmap.map.addOverlay(
-									new GPolyline(points[j], transcolor, 4, 0.9) );
-							}
-							pgistmap.scaleToCoords(points);
-							
-							//pgistmap.recoverCoords(data.footprints[fpid].coords);
-							//pgistmap.scaleToCoords();
-							//pgistmap.drawLines();
-						}else if(data.footprints[fpid].geotype==1 || 
-							data.footprints[fpid].geotype==4){ // point
-							pgistmap.recoverCoords(data.footprints[fpid].coords);
-							pgistmap.scaleToCoords();
-							pgistmap.drawPoints();	
-						}else{ //polygon
-							pgistmap.recoverCoords(data.footprints[fpid].coords);
-							pgistmap.scaleToCoords();
-							pgistmap.drawPolygons();	
-							
+							data.footprints[fpid].geotype==5){
+								var bgoverlays = pgistmap.createOverlays(
+									points, 
+									data.footprints[fpid].geotype,
+									"FFFFFF", 8, 0.9, "");
+								for(var j=0; j<overlays.length; j++){
+									pgistmap.map.addOverlay( bgoverlays[j] );
+								}
 						}
+						for(var j=0; j<overlays.length; j++){
+							pgistmap.map.addOverlay( overlays[j] );
+						}
+						pgistmap.scaleToCoords(points);
 					}
 				}else{
 					alert("Something wrong happened, reason: " + data.reason);
@@ -89,6 +90,7 @@
 			alert("ProjectAgent.getFootprint( error:" + errorString + exception);
 			}
 		});
+        
 	}
 	
 	</script>
@@ -99,7 +101,7 @@
 	<div id="container">
 	<!-- begin Object -->
 	<div id="object">
-		<h3 class="headerColor" id="project-title">${alternative.name}</h3>
+		<h3 class="headerColor" style="text-transform:none" id="project-title">${alt.project.name} - ${alt.name}</h3>
 		<!-- begin cell containing Google Map object -->
 		
 	
@@ -116,40 +118,41 @@
 		<!--begin project description -->
 		<p>
 		<h4 style="display:inline">Money needed to complete this project: </h4>
-		<span id="project-moneyNeeded">${alternative.cost} million</span>
+		<span id="project-moneyNeeded"> 
+			$<fmt:formatNumber maxFractionDigits="0" value="${alt.cost/1000000}" /> million</span>
 		</p>
 		<p>
-		<h4 style="display:inline">Sponsoring Agency: </h4>
-		<span id="project-sponsoringAgency">${alternative.sponsor}</span>
+		<h4 style="display:inline">Sponsoring agency: </h4>
+		<span id="project-sponsoringAgency">${alt.sponsor}</span>
 		</p>
 		<h4 style="display:inline">County: </h4>
-		<span id="project-county">${alternative.county}</span>
+		<span id="project-county">${alt.county}</span>
 		</p>
 		
 		<p>
-		<h4>Short Description</h4>
-		<span id="project-shortDescription">${alternative.shortDesc}</span>
+		<h4>Short description</h4>
+		<span id="project-shortDescription">${alt.shortDesc}</span>
 		</p>
 		<p>
-		<h4>Detailed Description</h4>
+		<h4>Detailed description</h4>
 		<span id="project-detailedDescription">
 			<pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-				${alternative.detailedDesc}
+				${alt.detailedDesc}
 			</pg:termHighlight>
 		</span>
 		<p>
 		<h4>Links to additional information about this project</h4>
 		<span id="project-links">
-			${alternative.links}
+			${alt.links}
 		</span>
 		</p>
 		<p>
 		<h4>Statement for</h4>
-		<span id="project-statementFor">${alternative.statementFor}</span>
+		<span id="project-statementFor">${alt.statementFor}</span>
 		</p>
 		<p>
 		<h4>Statement against</h4>
-		<span id="project-statementAgainst">${alternative.statementAgainst}</span>
+		<span id="project-statementAgainst">${alt.statementAgainst}</span>
 		</p>
 		<!-- end project description -->
 	</div>
@@ -165,4 +168,4 @@
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
 	</body>
-</html:html>
+</html>

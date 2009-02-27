@@ -1,5 +1,6 @@
 package org.pgist.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.pgist.users.User;
@@ -11,7 +12,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_pgames" lazy="true"
  */
-public class PGame {
+public class PGame implements Serializable {
     
     
     protected Long id;
@@ -106,7 +107,7 @@ public class PGame {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property type="text" not-null="true"
      */
     public String getInstruction() {
         return instruction;
@@ -121,7 +122,7 @@ public class PGame {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property type="text" not-null="true"
      */
     public String getPurpose() {
         return purpose;

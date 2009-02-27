@@ -7,32 +7,32 @@ package org.pgist.discussion;
  *
  * @hibernate.class table="pgist_info_object" lazy="true"
  */
-public class InfoObject {
+public class InfoObject extends GenericInfo {
     
     
-    private Long id;
+    private InfoStructure structure;
     
     private Object object;
     
     
     /**
      * @return
-     * @hibernate.id generator-class="native"
+     * @hibernate.many-to-one column="structure_id" lazy="true"
      */
-    public Long getId() {
-        return id;
+    public InfoStructure getStructure() {
+        return structure;
     }
-    
-    
-    public void setId(Long id) {
-        this.id = id;
+
+
+    public void setStructure(InfoStructure structure) {
+        this.structure = structure;
     }
-    
-    
+
+
     /**
      * @return object
      * 
-     * @hibernate.any id-type="long" cascade="all" meta-type="string"
+     * @hibernate.any id-type="long" meta-type="string"
      * @hibernate.any-column name="class_name"
      * @hibernate.any-column name="class_id"
      */
@@ -44,6 +44,16 @@ public class InfoObject {
     public void setObject(Object object) {
         this.object = object;
     }
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public String getLevel() {
+        return "structure";
+    }//getLevel()
     
     
 }//class InfoObject

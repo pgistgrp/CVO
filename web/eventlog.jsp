@@ -5,7 +5,7 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
 <head>
-<title>Let's Improve Transportation - User Settings</title>
+<title>Let's Improve Transportation - Event Log</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">@import "styles/lit.css";</style>
 
@@ -52,7 +52,7 @@ function paintRows()
 </script>
 </head>
 
-<body onload="javascript:paintRows();">
+<body onLoad="javascript:paintRows();">
  <!-- Begin the header - loaded from a separate file -->
   <div id="header">
 	<!-- Begin header -->
@@ -72,13 +72,13 @@ function paintRows()
 		<col />
 		<col style="text-align: right" />
 		<col />
-		<thead onclick="javascript:paintRows();">
+		<thead onClick="javascript:paintRows();">
 			<tr>
 				<td>User</td>
 				<td>Step</td>
 				<td>Method</td>
 				<td>Date</td>
-			</tr>
+			</tr> 
 		</thead>
 		<tbody>
 			<tr>

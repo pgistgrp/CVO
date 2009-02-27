@@ -1,19 +1,24 @@
 package org.pgist.criteria;
 
+import java.io.Serializable;
+
 
 /**
- * @author Mike and Guirong
+ * @author John
  * 
- * @hibernate.class table="pgist_criteria_objective" lazy="true"
+ * @hibernate.class table="pgist_crit_objective" lazy="true"
  */
-public class Objective {
+public class Objective implements Serializable {
 
+    
 	private Long id; 
 	
 	private String description;
-
 	
-	/**
+	
+    /**
+     * @return
+     * 
      * @hibernate.property not-null="true"
      */
 	public String getDescription() {
@@ -27,6 +32,8 @@ public class Objective {
 
 	
     /**
+     * @return
+     * 
      * @hibernate.id generator-class="native"
      */
 	public Long getId() {
@@ -37,6 +44,6 @@ public class Objective {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
+    
+    
 }//public class

@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- WARNING: These names must match perfectly the hard coded user toll names in the UserFundingSourceToll -->
 <fundingsources>
 
+	<!-- WARNING: These names must match perfectly the hard coded user toll names in the UserFundingSourceToll -->
 
     <source>
-    	<name>Parking Downtown</name>;
-    	<name>Alaska Way Viaduct</name>;
-    	<name>I-405 North</name>;
-    	<name>I-405 South</name>;
-    	<name>SR 520 Floating Bridge</name>;
-    	<name>I-90</name>;
-		<name>SR 167</name>;        
+    	<name>Commercial parking tax</name>;
+    </source>
+    <source>
+    	<name>Toll on Alaska Way Viaduct</name>;
+    </source>
+    <source>
+    	<name>Toll on I-405, north of I-90</name>;
+    </source>
+    <source>
+    	<name>Toll on I-405, south of I-90</name>;
+    </source>
+    <source>
+    	<name>Toll on SR 520 bridge</name>;
+    </source>
+    <source>
+    	<name>Toll on I-90</name>;
+    </source>
+    <source>
+		  <name>Toll on SR 167</name>;        
     </source>
        
 </fundingsources>

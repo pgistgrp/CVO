@@ -12,6 +12,7 @@ import org.pgist.funding.FundingSourceAlternative;
 import org.pgist.funding.FundingSourceRef;
 import org.pgist.funding.FundingSourceSuite;
 import org.pgist.packages.PackageSuite;
+import org.pgist.packages.UserPackage;
 import org.pgist.projects.Project;
 import org.pgist.projects.ProjectAltRef;
 import org.pgist.projects.ProjectAlternative;
@@ -33,6 +34,9 @@ public class PrepTestDataLoader extends MatchingTask {
     private ApplicationContext appContext = null;    
 	private SessionFactory sessionFactory = null; 
 
+	private FundingSourceAltRef user1FundingPick1;
+	private ProjectAltRef user1ProjectPick1;
+	
     private String configPath;
 	
     Session session = null;	
@@ -60,6 +64,7 @@ public class PrepTestDataLoader extends MatchingTask {
             if(loadSuites()) {
             	createFundingSources();
             	createProjects();
+            	//createUserPackage();
             } else {
         		System.out.println("Error loading database: You need to create a funding source suite, project suite, and package suite with ID = 200");         	
             }
@@ -91,6 +96,7 @@ public class PrepTestDataLoader extends MatchingTask {
                     configPath + "/context-base.xml",
                     configPath + "/context-cvo.xml",
                     configPath + "/context-projects.xml",
+                    configPath + "/context-funding.xml",
                 }
             );    	
     	
@@ -105,9 +111,10 @@ public class PrepTestDataLoader extends MatchingTask {
         num = session.createQuery("delete FundingSourceRef c").executeUpdate();
         System.out.println("Deleted " +num + " FundingSourceRef");        
         num = session.createQuery("delete FundingSourceAlternative c").executeUpdate();
-        System.out.println("Deleted " +num + " FundingSourceAlternative");        
-        num = session.createQuery("delete FundingSource c").executeUpdate();
-        System.out.println("Deleted " +num + " FundingSource");
+        System.out.println("Deleted " +num + " FundingSourceAlternative");
+        //You have to take this out or it kills the default tasks
+//        num = session.createQuery("delete FundingSource c").executeUpdate();
+//        System.out.println("Deleted " +num + " FundingSource");
         
         num = session.createQuery("delete ProjectAltRef c").executeUpdate();
         System.out.println("Deleted " +num + " ProjectAltRef");        
@@ -117,7 +124,15 @@ public class PrepTestDataLoader extends MatchingTask {
         System.out.println("Deleted " +num + " ProjectAlternative");        
         num = session.createQuery("delete Project c").executeUpdate();
         System.out.println("Deleted " +num + " Project");        
-         
+        
+    }
+    
+    private void createUserPackage() {
+    	UserPackage uPack = new UserPackage();
+    	session.saveOrUpdate(uPack);
+    	uPack.getFundAltRefs().add(user1FundingPick1);
+    	uPack.getProjAltRefs().add(user1ProjectPick1);
+    	session.saveOrUpdate(uPack);
     }
     
     private boolean loadSuites() {
@@ -176,6 +191,10 @@ public class PrepTestDataLoader extends MatchingTask {
     		session.saveOrUpdate(altRef);
     		session.saveOrUpdate(ref);
     		session.saveOrUpdate(fsSuite);
+    		
+    		if(i == 0) {
+    			user1FundingPick1 = altRef;
+    		}
     	}    	
     }
     
@@ -192,7 +211,7 @@ public class PrepTestDataLoader extends MatchingTask {
     private FundingSourceAlternative createAlternative(String name, float avgCost, FundingSource source) {
     	FundingSourceAlternative a1 = new FundingSourceAlternative();
     	a1.setName(name);
-    	a1.setAvgCost(avgCost);
+    	a1.setAvgCost((avgCost + 1) * 10);
     	a1.setOffPeakTripsRate(100);
     	a1.setPeakHourTripsRate(100);
     	a1.setRevenue(new Float(100));
@@ -222,9 +241,9 @@ public class PrepTestDataLoader extends MatchingTask {
     		//Add your alternatives
     		for(int j = 0; j< totalAlts; j++) {
     			if(j == 0) {
-    				alts[i] = createAlternative("Project Alt "+j, (float)j, projects[i]);
+    				alts[i] = createAlternative("Project Alt "+j, (float)(j + 1) * 10, projects[i]);
     			} else {
-        			createAlternative("Project Alt "+j, (float)j, projects[i]);    				
+        			createAlternative("Project Alt "+j, (float)(j + 1) * 10, projects[i]);    				
     			}
     		}    		
     	}
@@ -234,7 +253,7 @@ public class PrepTestDataLoader extends MatchingTask {
     	ProjectRef ref;
     	ProjectAltRef altRef;
     	
-    	for(int i = 0; i < total/2; i++) {
+    	for(int i = 0; i < total; i++) {
     		ref = new ProjectRef();
     		ref.setProject(projects[i]);    		
     		session.saveOrUpdate(ref);
@@ -249,6 +268,11 @@ public class PrepTestDataLoader extends MatchingTask {
     		session.saveOrUpdate(altRef);
     		session.saveOrUpdate(ref);
     		session.saveOrUpdate(pSuite);
+
+    		if(i == 0) {
+    			user1ProjectPick1 = altRef;
+    		}
+
     	}    	    	
     }
     
@@ -258,6 +282,7 @@ public class PrepTestDataLoader extends MatchingTask {
     	if(type > 8) type = 8;
     	Project project = new Project();
     	project.setName(name);
+    	project.setTransMode(1);
     	project.setDescription("desc");
     	session.saveOrUpdate(project);
     	return project;
@@ -273,7 +298,7 @@ public class PrepTestDataLoader extends MatchingTask {
     	projAlt.setSponsor("sponsor");
     	projAlt.setStatementFor("statementFor");
     	projAlt.setStatementAgainst("statementAgainst");
-    	projAlt.setCounty("county");    	
+    	projAlt.setCounty("county");
     	
     	session.saveOrUpdate(projAlt);
     	project.addAlternative(projAlt);

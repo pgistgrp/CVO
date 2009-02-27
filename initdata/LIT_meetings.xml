@@ -4,37 +4,80 @@
 
     <meetings>
     
-        <meeting name="meeting-init.situation" description="Initialize Decision Situation">
+        <meeting name="meeting-init.situation" access="moderator" description="Initialize Decision Situation">
             <declaration>
                 <outs>
+                    <var name="meeting.cct_id"/>
                     <var name="meeting.proj_suite_id"/>
                     <var name="meeting.fund_suite_id"/>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.repo_suite_id"/>
+                    <var name="meeting.pkg_suite_id"/>
+                    <var name="meeting.experiment_id"/>
                 </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-init.situation">
                     <declaration>
                         <outs>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
                             <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
                             <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <var name="pmethod.proj_isid" ref="meeting.proj_isid"/>
+                            <var name="pmethod.fund_isid" ref="meeting.fund_isid"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.repo_suite_id" ref="meeting.repo_suite_id"/>
+                            <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                            <var name="pmethod.experiment_id" ref="meeting.experiment_id"/>
                         </outs>
                     </declaration>
                 </pmethod>
             </sequence>
         </meeting>
         
-        <meeting name="meeting-cvo" description="Concern Value Object">
+        <meeting name="meeting-global" description="Always available">
             <declaration>
-                <outs>
+                <ins>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-global">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.proj_isid" ref="meeting.proj_isid"/>
+                            <var name="pmethod.fund_isid" ref="meeting.fund_isid"/>
+                        </ins>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-cvo" description="Step 1: Discuss Concerns">
+            <declaration>
+                <ins>
                     <var name="meeting.cct_id"/>
+                </ins>
+                <outs>
                     <var name="meeting.is_id"/>
                 </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-cvo">
                     <declaration>
-                        <outs>
+                        <ins>
                             <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                        </ins>
+                        <outs>
                             <var name="pmethod.theme_isid" ref="meeting.is_id"/>
                         </outs>
                     </declaration>
@@ -42,68 +85,130 @@
             </sequence>
         </meeting>
         
-       <meeting name="meeting-criteria" description="Criteria and Objectives">
+        <meeting name="meeting-criteria" description="Step 2: Assess Factors">
             <declaration>
-                <outs>
-                    <var name="meeting.crit_suite_id"/>
-                    <var name="meeting.crit_isid"/>
+                <ins>
                     <var name="meeting.cct_id"/>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.is_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.crit_isid"/>
                 </outs>
             </declaration>
             <sequence>
                 <pmethod name="pmethod-criteria">
                     <declaration>
-                        <outs>
-                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
-                            <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
+                        <ins>
                             <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.theme_isid" ref="meeting.is_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
                         </outs>
                     </declaration>
                 </pmethod>
             </sequence>
         </meeting>
         
-        <meeting name="meeting-projects-fundings" description="Review Projects and Fundings">
+        <meeting name="meeting-create-package" description="Step 3: Create Packages">
+            <declaration>
+                <ins>
+                    <var name="meeting.cct_id"/>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                    <var name="meeting.pkg_suite_id"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-projects">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.proj_is_id" ref="meeting.proj_isid"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <var name="pmethod.fund_is_id" ref="meeting.fund_isid"/>
+                            <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-packages" description="Step 4: Select a Package">
             <declaration>
                 <ins>
                     <var name="meeting.cct_id"/>
                     <var name="meeting.proj_suite_id"/>
                     <var name="meeting.fund_suite_id"/>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.pkg_suite_id"/>
                 </ins>
                 <outs>
-                    <var name="meeting.proj_isid"/>
-                    <var name="meeting.fund_isid"/>
+                    <var name="meeting.vote_suite_id"/>
                 </outs>
             </declaration>
             <sequence>
-                <branch>
-                    <sequence>
-                        <pmethod name="pmethod-projects">
-                            <declaration>
-                                <ins>
-                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
-                                    <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
-                                </ins>
-                                <outs>
-                                    <var name="pmethod.is_id" ref="meeting.proj_isid"/>
-                                </outs>
-                            </declaration>
-                        </pmethod>
-                    </sequence>
-                    <sequence>
-                        <pmethod name="pmethod-fundings">
-                            <declaration>
-                                <ins>
-                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
-                                    <var name="pmethod.suite_id" ref="meeting.fund_suite_id"/>
-                                </ins>
-                                <outs>
-                                    <var name="pmethod.is_id" ref="meeting.fund_isid"/>
-                                </outs>
-                            </declaration>
-                        </pmethod>
-                    </sequence>
-                </branch>
+                <pmethod name="pmethod-packages">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.vote_suite_id" ref="meeting.vote_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+    
+        <meeting name="meeting-report" description="Step 5: Prepare Group Report">
+            <declaration>
+                <ins>
+                    <var name="meeting.cct_id"/>   
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                    <!--<var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                    -->
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.repo_suite_id"/>
+                    <var name="meeting.pkg_suite_id"/>
+                    <var name="meeting.vote_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.repo_isid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-report">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
+                            <!-- <var name="pmethod.proj_isid" ref="meeting.proj_isid"/>
+                            <var name="pmethod.fund_isid" ref="meeting.fund_isid"/>-->
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.repo_suite_id" ref="meeting.repo_suite_id"/>
+                            <var name="pmethod.pkg_suite_id" ref="meeting.pkg_suite_id"/>
+                            <var name="pmethod.vote_suite_id" ref="meeting.vote_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.repo_isid" ref="meeting.repo_isid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
             </sequence>
         </meeting>
         

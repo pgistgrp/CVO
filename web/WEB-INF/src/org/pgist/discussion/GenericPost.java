@@ -1,5 +1,6 @@
 package org.pgist.discussion;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +13,7 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public abstract class GenericPost {
+public abstract class GenericPost implements Serializable {
     
     
     protected Long id;
@@ -27,7 +28,17 @@ public abstract class GenericPost {
     
     protected Date createTime;
     
+    protected Date modifyTime;
+    
+    protected int numAgree;
+    
+    protected int numVote;
+    
+    protected boolean emailNotify = false;
+    
     protected boolean deleted;
+    
+    protected Object object;
     
     
     /**
@@ -112,6 +123,62 @@ public abstract class GenericPost {
      * @return
      * @hibernate.property not-null="true"
      */
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumAgree() {
+        return numAgree;
+    }
+
+
+    public void setNumAgree(int numAgree) {
+        this.numAgree = numAgree;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getNumVote() {
+        return numVote;
+    }
+
+
+    public void setNumVote(int numVote) {
+        this.numVote = numVote;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isEmailNotify() {
+        return emailNotify;
+    }
+
+
+    public void setEmailNotify(boolean emailNotify) {
+        this.emailNotify = emailNotify;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
     public boolean isDeleted() {
         return deleted;
     }
@@ -119,6 +186,21 @@ public abstract class GenericPost {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    public Object getObject() {
+        return object;
+    }
+
+
+    public void setObject(Object object) {
+        this.object = object;
     }
 
 

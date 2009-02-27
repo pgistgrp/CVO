@@ -60,7 +60,7 @@ function WYSIWYG_Editor(instance_name, content, path, fwidth, fheight, styleHref
 
     // define the path to use for the editor components like images
     if(typeof(path)=='undefined'){
-        this.wysiwyg_path='.'; // default value
+        this.wysiwyg_path='/images'; // default value
     }else{
         path.replace(/[\/\\]$/,''); // remove trailing slashes
         this.wysiwyg_path=path;
@@ -170,22 +170,16 @@ WYSIWYG_Editor.prototype._display_editor = function (){
     document.write('   <textarea name="'+this.wysiwyg_hidden+'" id="'+this.wysiwyg_hidden+'" style="visibility:hidden;display:none;"></textarea>');
     document.write('      <table width="100%" border="0" cellspacing="0" cellpadding="0">');
     document.write('       <tr>');
-    document.write('        <td valign="top" >');
-    document.write('         <div id="'+this.instance_name+'_toolbars">');
-
+    document.write('        <td>');
         document.write('          <img alt="Bold" title="Bold" class="butClass" src="'+this.wysiwyg_path+'/bold.png" onClick="'+this.instance_name+'.doTextFormat(\'bold\',\'\')">');
         document.write('          <img alt="Italic" title="Italic" class="butClass" src="'+this.wysiwyg_path+'/italic.png" onClick="'+this.instance_name+'.doTextFormat(\'italic\',\'\')">');
-        document.write('          <img alt="Underline" title="Underline" class="butClass" src="'+this.wysiwyg_path+'/underline.png" onClick="'+this.instance_name+'.doTextFormat(\'underline\',\'\')">');
+        //document.write('          <img alt="Underline" title="Underline" class="butClass" src="'+this.wysiwyg_path+'/underline.png" onClick="'+this.instance_name+'.doTextFormat(\'underline\',\'\')">');
 
-        document.write('         <img alt="|" src="'+this.wysiwyg_path+'/images/separator.png">');
+        document.write('         <img alt="|" src="'+this.wysiwyg_path+'/separator.png">');
 
         document.write('          <img alt="Hyperlink" title="Hyperlink" class="butClass" src="'+this.wysiwyg_path+'/link.png" onClick="'+this.instance_name+'.doTextFormat(\'createlink\',\'\')">');
         document.write('          <img alt="Remove Link" title="Remove Link" class="butClass" src="'+this.wysiwyg_path+'/unlink.png" onClick="'+this.instance_name+'.doTextFormat(\'unlink\',\'\')">');
-        document.write('         <img alt="|" src="'+this.wysiwyg_path+'/images/separator.png">');
-        document.write('          <img alt="Cut" title="Cut" class="butClass" src="'+this.wysiwyg_path+'/cut.gif" onClick="'+this.instance_name+'.doTextFormat(\'cut\',\'\')">');
-        document.write('          <img alt="Copy" title="Copy" class="butClass" src="'+this.wysiwyg_path+'/copy.gif" onClick="'+this.instance_name+'.doTextFormat(\'copy\',\'\')">');
-        document.write('          <img alt="Paste" title="Paste" class="butClass" src="'+this.wysiwyg_path+'/paste.gif" onClick="'+this.instance_name+'.doTextFormat(\'paste\',\'\')">');
-        document.write('         <img alt="|" src="'+this.wysiwyg_path+'/images/separator.png">');
+        document.write('         <img alt="|" src="'+this.wysiwyg_path+'/separator.png">');
         document.write('          <img alt="Undo" title="Undo" class="butClass" src="'+this.wysiwyg_path+'/undo.gif" onClick="'+this.instance_name+'.doTextFormat(\'undo\',\'\')">');
         document.write('          <img alt="Redo" title="Redo" class="butClass" src="'+this.wysiwyg_path+'/redo.gif" onClick="'+this.instance_name+'.doTextFormat(\'redo\',\'\')">');
 
@@ -194,7 +188,17 @@ WYSIWYG_Editor.prototype._display_editor = function (){
     document.write('       </tr>');
     document.write('      </table>');
 
-    document.write('      <iframe id="'+this.wysiwyg_content+'" style="margin-left: 3px; background-color: white; color: black; width:100%; height:200 px;" ></iframe>');
+    document.write('      <iframe id="'+this.wysiwyg_content+'" style="margin-left: 3px; background-color: white; color: black; width:100%; height:140px;" ></iframe>');
+}
+
+/**
+*  
+**/
+WYSIWYG_Editor.prototype.setMessage=function(msg){
+	document.getElementById("wysiwyg_message").innerHTML = msg;
+	if(Effect){
+		new Effect.Appear('wysiwyg_message', {afterFinish: function(){ new Effect.Fade('wysiwyg_message',{duration: 1});}});
+	}
 }
 
 /**
@@ -233,6 +237,12 @@ WYSIWYG_Editor.prototype._load_content = function (){
     document.getElementById(this.wysiwyg_hidden).value=this.content;
 }
 
+WYSIWYG_Editor.prototype.putContent = function(htmlcontent){
+	document.getElementById(this.wysiwyg_content).contentWindow.document.body.innerHTML = htmlcontent;
+}
+WYSIWYG_Editor.prototype.getContent = function(htmlcontent){
+	return (document.getElementById(this.wysiwyg_content).contentWindow.document.body.innerHTML);
+}
 
 /**
 *   WYSIWYG_Editor::_get_offset_left

@@ -2,6 +2,7 @@ package org.pgist.funding;
 
 import org.pgist.discussion.InfoStructure;
 import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.WorkflowInfo;
 import org.pgist.wfengine.WorkflowTask;
 
 
@@ -33,7 +34,7 @@ public class PublishFundingsTask implements WorkflowTask {
      */
     
     
-    public void execute(EnvironmentInOuts inouts) throws Exception {
+    public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
         System.out.println("@ PublishFundingsTask.execute()");
         
         Long suiteId = new Long(inouts.getIntValue(IN_SUITE_ID));
@@ -42,7 +43,7 @@ public class PublishFundingsTask implements WorkflowTask {
         
         System.out.printf("\n\n\n(%d, %d)\n\n\n", suiteId, cctId);
         
-        InfoStructure structure = fundingService.publish(cctId, suiteId);
+        InfoStructure structure = fundingService.publish(info.getWorkflow().getId(), cctId, suiteId);
         
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()

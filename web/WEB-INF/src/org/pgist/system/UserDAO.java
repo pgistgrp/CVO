@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.pgist.exceptions.RoleExistException;
@@ -14,12 +15,18 @@ import org.pgist.util.PageSetting;
  * @author kenny
  *
  */
-public interface UserDAO {
+public interface UserDAO extends BaseDAO {
 
     
     Role getRoleByName(String roleName) throws Exception;
     
     
+    User getUserById(Long id, boolean enabled, boolean deleted) throws Exception;
+    
+    
+    User getUserByName(String loginname, boolean deleted) throws Exception;
+
+
     User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception;
     
     
@@ -68,7 +75,10 @@ public interface UserDAO {
     void updateProfile(User user) throws Exception;
 
 
-    void saveUser(User user);
+    void saveUser(User user) throws Exception;
+
+
+    Collection getUsersByRole(String role) throws Exception;
 
 
 }//class UserDAO

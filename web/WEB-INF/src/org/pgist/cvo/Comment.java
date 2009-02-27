@@ -36,6 +36,8 @@ public class Comment {
     
     private boolean deleted;
     
+    private boolean emailNotify = false;
+    
     private Object object;
 
     
@@ -83,7 +85,7 @@ public class Comment {
 
     /**
      * @return
-     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User" cascade="all"
+     * @hibernate.many-to-one column="owner_id" lazy="true" cascade="all"
      */
     public User getOwner() {
         return owner;
@@ -111,7 +113,7 @@ public class Comment {
     
     /**
      * @return
-     * @hibernate.many-to-one column="concern_id" lazy="true" class="org.pgist.cvo.Concern" cascade="all"
+     * @hibernate.many-to-one column="concern_id" lazy="true"
      */
     public Concern getConcern() {
         return concern;
@@ -182,6 +184,20 @@ public class Comment {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isEmailNotify() {
+        return emailNotify;
+    }
+
+
+    public void setEmailNotify(boolean emailNotify) {
+        this.emailNotify = emailNotify;
+    }
+
+
     /*
      * ------------------------------------------------------------------------
      */

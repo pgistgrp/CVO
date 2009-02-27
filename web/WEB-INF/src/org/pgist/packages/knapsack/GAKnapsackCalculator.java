@@ -70,7 +70,7 @@ public class GAKnapsackCalculator {
                 gene = (IntegerGene) chromosome.getGene(k);
                 if (gene.intValue()>0) {
                     item = choices[i].getChoices().get(gene.intValue()-1);
-                    totalCost += gene.intValue() * item.getCost();
+                    totalCost += item.getCost();
                 }
                 k++;
             } else {
@@ -99,7 +99,7 @@ public class GAKnapsackCalculator {
                 gene = (IntegerGene) chromosome.getGene(k);
                 if (gene.intValue()>0) {
                     item = choices[i].getChoices().get(gene.intValue()-1);
-                    totalBenefit += gene.intValue() * item.getProfit();
+                    totalBenefit += item.getProfit();
                 }
                 k++;
             } else {
@@ -127,7 +127,7 @@ public class GAKnapsackCalculator {
                 gene = (IntegerGene) chromosome.getGene(k);
                 if (gene.intValue()>0) {
                     item = (FundingSourceKSItem) choices[i].getChoices().get(gene.intValue()-1);
-                    totalCostToAvgRes += gene.intValue() * item.getAvgCost();
+                    totalCostToAvgRes += item.getAvgCost();
                 }
                 k++;
             } else {
@@ -145,3 +145,4 @@ public class GAKnapsackCalculator {
     
     
 }//class GAKnapsackCalculator
+

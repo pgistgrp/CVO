@@ -1,8 +1,8 @@
 package org.pgist.discussion;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -11,28 +11,106 @@ import java.util.List;
  *
  * @hibernate.class table="pgist_info_structure" lazy="true"
  */
-public class InfoStructure {
+public class InfoStructure extends GenericInfo {
     
     
-    private Long id;
+    /*
+     * sd for concern summary
+     */
+    public static final String TYPE_SDC = "sdc";
+    
+    /*
+     * sd for criteria
+     */
+    public static final String TYPE_SDCRIT = "sdcrit";
+    
+    /*
+     * sd for projects
+     */
+    public static final String TYPE_SDP = "sdp";
+    
+    /*
+     * sd for funding sources
+     */
+    public static final String TYPE_SDF = "sdf";
+    
+    /*
+     * sd for packages
+     */
+    public static final String TYPE_SDPKG = "sdpkg";
+    
+    /*
+     * sd for create package, maybe deleted later
+     */
+    public static final String TYPE_SDCP = "sdcp";
+    
+    /*
+     * sd for review report
+     */
+    public static final String TYPE_SDRR = "sdrr";
+    
+    /*
+     * sd for sarp BCT
+     */
+    public static final String TYPE_SARP_SD_BCT = "sarp_sd_bct";
+    
+    /*
+     * sd for sarp CST
+     */
+    public static final String TYPE_SARP_SD_CST = "sarp_sd_cst";
+    
+    /*
+     * sd for sarp CHT
+     */
+    public static final String TYPE_SARP_SD_CHT = "sarp_sd_cht";
+    
+    /*
+     * sd for sarp VTT
+     */
+    public static final String TYPE_SARP_SD_VTT = "sarp_sd_vtt";
+    
+    
+    private Long cctId;
+    
+    private Long suiteId;
     
     private String type;
     
-    private List infoObjects = new ArrayList();
+    /*
+     * the title for the html page
+     */
+    private String title;
+    
+    private Set infoObjects = new HashSet();
     
     
     /**
      * @return
      * 
-     * @hibernate.id generator-class="native"
+     * @hibernate.property not-null="true"
      */
-    public Long getId() {
-        return id;
+    public Long getCctId() {
+        return cctId;
     }
-    
-    
-    public void setId(Long id) {
-        this.id = id;
+
+
+    public void setCctId(Long cctId) {
+        this.cctId = cctId;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="false"
+     */
+    public Long getSuiteId() {
+        return suiteId;
+    }
+
+
+    public void setSuiteId(Long suiteId) {
+        this.suiteId = suiteId;
     }
     
     
@@ -54,17 +132,31 @@ public class InfoStructure {
     /**
      * @return
      * 
-     * @hibernate.list table="pgist_info_object" lazy="true" cascade="all"
-     * @hibernate.collection-one-to-many class="org.pgist.discussion.InfoObject"
-     * @hibernate.collection-index column="child_index"
-     * @hibernate.collection-key column="parent_id"
+     * @hibernate.property not-null="true"
      */
-    public List getInfoObjects() {
+    public String getTitle() {
+        return title;
+    }
+
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" order-by="response_time desc"
+     * @hibernate.collection-one-to-many class="org.pgist.discussion.InfoObject"
+     * @hibernate.collection-key column="structure_id"
+     */
+    public Set getInfoObjects() {
         return infoObjects;
     }
 
 
-    public void setInfoObjects(List infoObjects) {
+    public void setInfoObjects(Set infoObjects) {
         this.infoObjects = infoObjects;
     }
     
@@ -72,6 +164,11 @@ public class InfoStructure {
     /*
      * ------------------------------------------------------------------------
      */
+    
+    
+    public String getLevel() {
+        return "structure";
+    }//getLevel()
     
     
     public void addObject(Object object) {
@@ -88,6 +185,10 @@ public class InfoStructure {
             getInfoObjects().add(obj);
         }
     }//addObjects()
+
     
+    public void deleteInfoObjects() {
+    	infoObjects.clear();
+    }
     
 }//class InfoStructure

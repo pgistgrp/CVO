@@ -1,50 +1,271 @@
 /*
  * Bean Shell Script.
- * Testing script for hibernate execution.
+ * Testing script for matrix execution.
  */
+import org.pgist.wfengine.Workflow;
 
-userPackageSuiteId = 10223;
-projectSuiteId = 10217;
-fundingSuiteId = 10218;
-
-hql = "from UserPackage where suite.id=?";
-query = session.createQuery(hql);
-query.setLong(0, userPackageSuiteId);
-upkgs = query.list();
-
-hql = "from ProjectSuite where id=?";
-query = session.createQuery(hql);
-query.setLong(0, projectSuiteId);
-projects = query.uniqueResult().references;
-
-hql = "from FundingSourceSuite where id=?";
-query = session.createQuery(hql);
-query.setLong(0, fundingSuiteId);
-fundings = query.uniqueResult().references;
-
-print("user-project matrix in user package: ");
-
-for (upkg: upkgs) {
-  for (project: projects) {
-    for (projectAltRef: project.altRefs) {
-      if (upkg.projAltRefs.contains(projectAltRef)) System.out.print("1 ");
-      else System.out.print("0 ");
-    }
-  }
-  System.out.println();
+PrintWriter getOut(long number) {
+    return writer = new PrintWriter(new File(outputPath, "experiment-"+number+".html"));
 }
 
-System.out.println();
+hql = "from Experiment";
+query = session.createQuery(hql);
+experiments = query.list();
 
-print("user-funding matrix in user package: ");
-
-for (upkg: upkgs) {
-  for (funding: fundings) {
-    for (fundingAltRef: funding.altRefs) {
-      if (upkg.fundAltRefs.contains(fundingAltRef)) System.out.print("1 ");
-      else System.out.print("0 ");
+for (experiment: experiments) {
+    out = getOut(experiment.workflowId);
+    
+    workflow = session.load(Workflow.class, experiment.workflowId);
+    projectSuite = experiment.projectSuite;
+    fundingSuite = experiment.fundingSuite;
+    critSuite = experiment.critSuite;
+    pkgSuite = experiment.pkgSuite;
+    users = session.createQuery("from User order by loginname").list();
+    
+    out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<title>Statistics Of Experiment \""+workflow.name+"\"</title>");
+    out.println("</head>");
+    out.println("<body>");
+    
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    out.println("<tr><td>Workflow Id</td><td>"+experiment.workflowId+"</td></tr>");
+    out.println("<tr><td>Workflow Title</td><td>"+workflow.name+"</td></tr>");
+    out.println("<tr><td>Begin Time</td><td>"+workflow.beginTime+"</td></tr>");
+    out.println("<tr><td>End Time</td><td>"+workflow.endTime+"</td></tr>");
+    out.println("<tr><td>Total Projects</td><td>"+projectSuite.references.size()+"</td></tr>");
+    out.println("<tr><td>Total Funding Sources</td><td>"+fundingSuite.references.size()+"</td></tr>");
+    out.println("<tr><td>Total User Packages</td><td>"+pkgSuite.userPkgs.size()+"</td></tr>");
+    out.println("<tr><td>Total Candidate Packages</td><td>"+pkgSuite.clusteredPkgs.size()+"</td></tr>");
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("<h3>Projects:</h3>");
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    for (one : projectSuite.references) {
+        out.println("<tr><td colspan=\"2\"><b>"+one.project.name+"</b></td></tr>");
+        
+        for (altRef : one.altRefs) {
+            out.println("<tr><td>"+altRef.alternative.id+"</td><td>"+altRef.alternative.name+" ("+altRef.alternative.cost+")</td></tr>");
+        }
     }
-  }
-  System.out.println();
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("<h3>Funding Sources:</h3>");
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    for (one : fundingSuite.references) {
+        out.println("<tr><td colspan=\"2\"><b>"+one.source.name+"</b></td></tr>");
+        
+        for (altRef : one.altRefs) {
+            out.println("<tr><td>"+altRef.alternative.id+"</td><td>"+altRef.alternative.name+" ("+altRef.alternative.avgCost+")</td></tr>");
+        }
+    }
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("<h3>Users:</h3>");
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    for (one : users) {
+        out.println("<tr><td style=\"text-align:right;\">"+one.id+"</td><td>"+one.loginname+"</td></tr>");
+    }
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("<h3>User Package Matrix - Projects:</h3>");
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    out.println("<tr>");
+    out.println("<th>&nbsp;</th>");
+    for (project: projectSuite.references) {
+        for (projectAltRef: project.altRefs) {
+            out.println("<th>"+projectAltRef.alternative.id+"</th>");
+        }
+    }
+    out.println("</tr>");
+    for (upkg: pkgSuite.userPkgs) {
+        out.println("<tr>");
+        out.println("<td><b>User: "+upkg.author.id+"</b></td>");
+        for (project: projectSuite.references) {
+            for (projectAltRef: project.altRefs) {
+                if (upkg.projAltRefs.contains(projectAltRef)) {
+                    out.println("<td>1</td>");
+                } else {
+                    out.println("<td>0</td>");
+                }
+            }
+        }
+        out.println("</tr>");
+    }
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("<h3>User Package Matrix - Funding Srouces:</h3>");
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    out.println("<tr>");
+    out.println("<th>&nbsp;</th>");
+    for (funding: fundingSuite.references) {
+        for (fundingAltRef: funding.altRefs) {
+            out.println("<th>"+fundingAltRef.alternative.id+"</th>");
+        }
+    }
+    out.println("</tr>");
+    for (upkg: pkgSuite.userPkgs) {
+        out.println("<tr>");
+        out.println("<td><b>User: "+upkg.author.id+"</b></td>");
+        for (funding: fundingSuite.references) {
+            for (fundingAltRef: funding.altRefs) {
+                if (upkg.fundAltRefs.contains(fundingAltRef)) {
+                    out.println("<td>1</td>");
+                } else {
+                    out.println("<td>0</td>");
+                }
+            }
+        }
+        out.println("</tr>");
+    }
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("<h3>Candidate Package Matrix - Projects:</h3>");
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    out.println("<tr>");
+    out.println("<th>&nbsp;</th>");
+    for (project: projectSuite.references) {
+        for (projectAltRef: project.altRefs) {
+            out.println("<th>"+projectAltRef.alternative.id+"</th>");
+        }
+    }
+    out.println("</tr>");
+    for (pkg: pkgSuite.clusteredPkgs) {
+        out.println("<tr>");
+        out.println("<td><b>pkg id: "+pkg.id+"</b></td>");
+        for (project: projectSuite.references) {
+            for (projectAltRef: project.altRefs) {
+                if (pkg.projAltRefs.contains(projectAltRef)) {
+                    out.println("<td>1</td>");
+                } else {
+                    out.println("<td>0</td>");
+                }
+            }
+        }
+        out.println("</tr>");
+    }
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("<h3>Candidate Package Matrix - Funding Srouces:</h3>");
+    out.println("<table border=\"1\" cellpadding=\"2\" cellspacing=\"0\">");
+    out.println("<tr>");
+    out.println("<th>&nbsp;</th>");
+    for (funding: fundingSuite.references) {
+        for (fundingAltRef: funding.altRefs) {
+            out.println("<th>"+fundingAltRef.alternative.id+"</th>");
+        }
+    }
+    out.println("</tr>");
+    for (pkg: pkgSuite.clusteredPkgs) {
+        out.println("<tr>");
+        out.println("<td><b>pkg id: "+pkg.id+"</b></td>");
+        for (funding: fundingSuite.references) {
+            for (fundingAltRef: funding.altRefs) {
+                if (pkg.fundAltRefs.contains(fundingAltRef)) {
+                    out.println("<td>1</td>");
+                } else {
+                    out.println("<td>0</td>");
+                }
+            }
+        }
+        out.println("</tr>");
+    }
+    out.println("</table>");
+    
+    out.println();
+    out.println("<br>");
+    
+    out.println("</body>");
+    out.println("</html>");
+    
+    //now we can close the output
+    out.close();
+}
+
+
+return;
+
+hql = "from PackageSuite";
+query = session.createQuery(hql);
+pkgSuites = query.list();
+
+for (pkgSuite : pkgSuites) {
+    hql = "from UserPackage where suite.id=?";
+    query = session.createQuery(hql);
+    query.setLong(0, pkgSuite.getId());
+    upkgs = query.list();
+    
+    hql = "from ProjectSuite where id=?";
+    query = session.createQuery(hql);
+    query.setLong(0, projectSuiteId);
+    projects = query.uniqueResult().references;
+    
+    hql = "from FundingSourceSuite where id=?";
+    query = session.createQuery(hql);
+    query.setLong(0, fundingSuiteId);
+    fundings = query.uniqueResult().references;
+    
+    print("user-project matrix in user package: ");
+    out.println("user-project matrix in user package: ");
+    
+    for (upkg: upkgs) {
+        for (project: projects) {
+            for (projectAltRef: project.altRefs) {
+                if (upkg.projAltRefs.contains(projectAltRef)) {
+                    System.out.println("1 ");
+                    out.println("1 ");
+                } else {
+                    System.out.println("0 ");
+                    out.println("0 ");
+                }
+            }
+        }
+        System.out.println();
+        out.println();
+    }
+    
+    System.out.println();
+    out.println();
+    
+    print("user-funding matrix in user package: ");
+    out.println("user-funding matrix in user package: ");
+    
+    for (upkg: upkgs) {
+        for (funding: fundings) {
+            for (fundingAltRef: funding.altRefs) {
+                if (upkg.fundAltRefs.contains(fundingAltRef)) {
+                    System.out.println("1 ");
+                    out.println("1 ");
+                } else {
+                    System.out.println("0 ");
+                    out.println("0 ");
+                }
+            }
+        }
+        System.out.println();
+        out.println();
+    }
 }
 

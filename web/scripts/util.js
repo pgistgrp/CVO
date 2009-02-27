@@ -1,186 +1,78 @@
+Util = new Object;
 
-var util = {
-
-  shouldDebug: false,
-
-  // Note: Will fail in pathological cases (where the members contain
-  // strings similar to describe() result).
-  membersEqual: function(array1, array2) {
-    return util.describe(array1)==util.describe(array2);
-  },
-
-  describe: function(obj) {
-    if (obj==null) { return null; }
-    switch(typeof(obj)) {
-      case 'object': {
-        var message = "";
-        for (key in obj) {
-          message += ", [" + key + "]: [" + obj[key] + "]";
-        }
-        if (message.length > 0) {
-          message = message.substring(2); // chomp initial ', '
-        }
-        return message;
-      }
-      default: return "" + obj;
-    }
-  },
-
-  debug: function(message) {
-      if (this.shouldDebug) {
-        alert("AjaxJS Message:\n\n" + message);
-      }
-  },
-
-  error: function(message) {
-      if (this.shouldDebug) {
-        alert("AjaxJS ERROR:\n\n" + message);
-      }
-  },
-
-  // trim() From Shawn Milo
-  // https://lists.latech.edu/pipermail/javascript/2004-May/007567.html
-  trim: function(str) {
-    return str.replace(/^(\s+)?(.*\S)(\s+)?$/, '$2');
-  },
-
-  strip: function(str) {
-    return str.replace(/\s+/, "");
-  }
-
+Util.loading = function(show, message){
+	i = $('loading-indicator');
+	el = document.body;
+	mg = (message) ? message : "Loading";
+	html = "<img src='/images/indicator_arrows.gif' alt='please wait...'/>"+mg+"..."
+	if(show){
+		if(i){
+			i.show();
+			i.innerHTML=html;
+		}else{
+			new Insertion.Top(el,"<div id='loading-indicator'>"+html+"</div>")
+		}
+	}else{
+		if(i){
+			setTimeout(function() {Element.hide(i)}, 200);
+		}
+	}
 }
 
-function $() {
+//Toggling functions use naming conventions.  The toggling row must have the id 'rowXX' and the icon must be 'iconXX'
+//If there is a hidden label that appears, give it the class 'hiddenLabel' or whatever is specified in Util.hiddenLabel
+Util.plusIcon = "/images/plus.gif";
+Util.minusIcon = "/images/minus.gif";
+Util.hiddenLabelClassName = "hiddenLabel";
 
-    var elements = new Array();
-
-    for (var i = 0; i < arguments.length; i++) {
-
-      var element = arguments[i];
-
-      if (typeof element == 'string') {
-        if (document.getElementById) {
-          element = document.getElementById(element);
-        } else if (document.all) {
-          element = document.all[element];
-        }
-      }
-
-      elements.push(element);
-
-    }
-
-    if (arguments.length == 1 && elements.length > 0) {
-      return elements[0];
-    } else {
-      return elements;
-    }
+Util.hiddenLabels = function(show){
+	hiddenLabels = document.getElementsByClassName(this.hiddenLabelClassName);
+	for(i=0;i<hiddenLabels.length;i++){
+		(show) ? hiddenLabels[i].show() : hiddenLabels[i].hide();
+	}
 }
 
-function $C(elType) {
-  return document.createElement(elType);
+Util.toggleRow = function(index){
+	row = 'row' + index;
+	icon =  'icon' + index;
+	Effect.toggle(row, 'blind', {duration:.1, afterFinish:
+		function(){
+			($(row).visible()) ? Util.hiddenLabels(true) : Util.testOpenRows(row);
+			$(icon).src = ($(row).visible()) ?  Util.minusIcon :  Util.plusIcon;;
+		}
+	});
 }
 
-// From prototype library. Try.these(f1, f2, f3);
-var Try = {
-  these: function() {
-    var returnValue;
-    for (var i = 0; i<arguments.length; i++) {
-      var lambda = arguments[i];
-      try {
-        returnValue = lambda();
-        break;
-      } catch (e) {}
-    }
-    return returnValue;
-  }
+Util.testOpenRows = function(row){
+	rows = document.getElementsByClassName($(row).className);
+
+	show = false;
+	for (var i=0;i<rows.length; i++){
+		show = (rows[i].visible()) ? true : false;
+		if(show){break;}
+	}
+	(show) ?  Util.hiddenLabels(true) : Util.hiddenLabels(false);
 }
 
-function getElementsByClassName(classname) {
-    var a = [];
-    var re = new RegExp('\\b' + classname + '\\b');
-    var els = document.getElementsByTagName("*");
-    for(var i=0,j=els.length; i<j; i++)
-        if(re.test(els[i].className))a.push(els[i]);
-    return a;
+Util.expandAll = function(rowClass){
+	var rows = document.getElementsByClassName(rowClass);
+	Util.hiddenLabels(true);
+	for (var i=0;i<rows.length; i++){
+		var row = 'row' + i;
+		var icon = 'icon' + i;
+		Effect.BlindDown(row, {duration:.1});
+		$(icon).src = Util.minusIcon;
+	}
 }
 
-function extractIFrameBody(iFrameEl) {
-
-  var doc = null;
-  if (iFrameEl.contentDocument) { // For NS6
-    doc = iFrameEl.contentDocument; 
-  } else if (iFrameEl.contentWindow) { // For IE5.5 and IE6
-    doc = iFrameEl.contentWindow.document;
-  } else if (iFrameEl.document) { // For IE5
-    doc = iFrameEl.document;
-  } else {
-    alert("Error: could not find sumiFrame document");
-    return null;
-  }
-  return doc.body;
-
+Util.collapseAll = function(rowClass){
+	var rows = document.getElementsByClassName(rowClass);
+	Util.hiddenLabels(false);
+	for (var i = 0;i < rows.length; i++){
+		var row = 'row' + i;
+		var icon = 'icon' + i;
+		Effect.BlindUp(row, {duration:.1});
+		$(icon).src = Util.plusIcon;
+	}
 }
 
-
-
-/* function getElementsByClassName(needle) {
-
-
-
-  var xpathResult = document.evaluate('//*[@class = needle]', document, null, 0, null);
-  var outArray = new Array();
-  while ((outArray[outArray.length] = xpathResult.iterateNext())) {
-  }
-  return outArray;
-}
-*/
-
-/*
-  function acceptNode(node) {
-    if (node.hasAttribute("class")) {
-      var c = " " + node.className + " ";
-       if (c.indexOf(" " + needle + " ") != -1)
-         return NodeFilter.FILTER_ACCEPT;
-    }
-    return NodeFilter.FILTER_SKIP;
-  }
-
-  var treeWalker = document.createTreeWalker(document.documentElement,
-                                             NodeFilter.SHOW_ELEMENT,
-                                             acceptNode,
-                                             true);
-  var outArray = new Array();
-  if (treeWalker) {
-    var node = treeWalker.nextNode();
-    while (node) {
-      outArray.push(node);
-      node = treeWalker.nextNode();
-    }
-  }
-  return outArray;
-}
-
-*/
-///////////////////////////////////////////////////////////////////////////////
-// Used for pattern-specific demos.
-///////////////////////////////////////////////////////////////////////////////
-
-var DELAY = 1000;
-var steps = 0;
-function andThen(action) {
-  var delayTime = (++steps * DELAY);
-  setTimeout(action, delayTime);
-}
-
-function log(message) {
-  $("log").innerHTML += message + "<br/>";
-}
-
-function createXMLHttpRequest() {
-  try { return new ActiveXObject("Msxml2.XMLHTTP");    } catch(e) {}
-  try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {}
-  try { return new XMLHttpRequest();                   } catch(e) {}
-  alert("XMLHttpRequest not supported");
-  return null;
-}

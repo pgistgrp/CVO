@@ -1,0 +1,1452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+
+    <!-- PGames -->
+    
+    <pgames>
+    
+        <pgame name="pgame-sarp.drt.clear.vote" title="Clear Vote" auto="true">
+            <description>
+              <![CDATA[Clear DRT Vote.]]>
+            </description>
+            <taskName>task-sarp.drt.clear.vote</taskName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.toggle.drt" title="Toggle DRT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a DRT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.drt</taskName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.create.bct" title="Create BCT." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of BCT</small>]]>
+            </description>
+            <taskName>task-sarp.create.bct</taskName>
+            <declaration>
+                <outs>
+                    <var name="bct_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="BCT" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.publish.bct" title="Publish BCT." auto="true">
+            <description>
+              <![CDATA[<small>Publish a BCT discussion.</small>]]>
+            </description>
+            <taskName>task-sarp.publish.bct</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                    <var name="oid"/>
+                </ins>
+                <outs>
+                    <var name="oid"/>
+                </outs>
+                <props>
+                    <property name="title" value="Review and Comment for BCT" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.bct" title="Brainstorm concern tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Brainstorm climate concerns and keywords|phrases</small>]]>
+            </description>
+            <actionName>action-sarp.bct</actionName>
+            <declaration>
+                <ins>
+                    <var name="bctId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.drt.bct" title="Review and comment tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
+            </description>
+            <actionName>action-sarp.drt</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/bct/drt.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
+                    <property name="overview">
+                        <![CDATA[
+                            <h3 class="headerColor">Overview and instructions</h3>
+                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
+                            <p>Your <strong>first task</strong> in the &quot;Review and comment tool&quot; is to review the overall progress and comment whether you are prepared to move forward.  If you are prepared to move forward your <strong>second task</strong> is to vote your consent about moving on to Step 2.</p>
+			    <p>Please click &quot;<strong>Read More</strong>&quot; below to see how you can make at least two types of comments.</p>
+                            <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read more</a>
+                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on outcomes of Step 1 (Suggested time to complete: 10 minutes).</i> Try to make at least one comment about whether the most popular concern keywords/phrases are the best. You can review the outcomes of Step 1 by sorting concern keywords/phrases using two different tools. You can use the &quot;Sort concerns by:&quot; tool to sort by date added (newest to oldest, oldest to newest); by vote (most agreement, least agreement, most votes); and by comments (most comments, most views). Under the label &quot;Keywords&quot; you can use the tool to sort concern keywords/phrases by ascending order (a-z), descending order (z-a), and frequency.
+			    <br><br><i>Task two: Moving forward to Step 2 (Suggested time to complete: <5 minutes).</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                        ]]>
+                    </property>
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.toggle.bct" title="Toggle BCT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a BCT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.bct</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.create.cst" title="Create CST." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of CST</small>]]>
+            </description>
+            <taskName>task-sarp.create.cst</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                </ins>
+                <outs>
+                    <var name="cst_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="CST" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cst" title="Concern category tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Create climate concern categories by clustering keywords|phrases</small>]]>
+            </description>
+            <actionName>action-sarp.cst</actionName>
+            <declaration>
+                <ins>
+                    <var name="cstId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.publish.cst" title="Publish CST." auto="true">
+            <description>
+              <![CDATA[Publish cst.]]>
+            </description>
+            <taskName>task-sarp.publish.cst</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                    <var name="oid"/>
+                </ins>
+                <outs>
+                    <var name="oid"/>
+                </outs>
+                <props>
+                    <property name="title" value="Review and Comment for CST" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cluster.categories" title="Cluster categories" auto="true">
+            <description>
+              <![CDATA[Cluster categories]]>
+            </description>
+            <taskName>task-sarp.cluster.categories</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.drt.cst" title="Review and comment tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
+            </description>
+            <actionName>action-sarp.drt</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CSTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/cst/drt.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/cst/info-object.jsp" />
+                    <property name="showLoopChoice" value="true" />
+                    <property name="overview">
+                        <![CDATA[
+                            <h3 class="headerColor">Overview and instructions</h3>
+                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
+                            <p>Your <strong>first task</strong> in the &quot;Review and comment tool&quot; is to try to make at least two comments. Make an overall comment about progress with synthesizing keyword/phrases into categories and vote on the categories you would like to see moving forward to the next step.  Whenever you are done commenting and voting on other&apos;s comments, your <strong>second task</strong> is to vote your approval about moving on to Step 3.</p>
+			    <p>Please click &quot;<strong>Read More</strong>&quot; below to see how you can make at least two types of comments.</p>
+                            <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read More</a>
+                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on Step 2 (Suggested time to complete: 10 minutes).</i> You can make at least two types of comments in the &quot;Review and comment&quot; section. Try to make at least one comment about your three tasks in Step 2. For instance, did you find it hard to put your favorite keyword/phrases into categories of three words or less? What made you vote on someone else&apos;s concern categories? Did you get as many votes or comments about your concern categories than others did, and did other people help you change your mind? Next, try to make at least one comment about what you think the most popular concern categories are, whether they are the best, and how they compared with your own concern categories. You can compare your own or your favorite concern categories against the more popular concern categories using the &quot;<u>compare</u>&quot; tool. First, select and highlight your concern category from the list of categories in the left column. Your category will appear in the middle column. Then find a favorite or popular category from the list of categories in the left column and hit the &quot;<u>compare</u>&quot; button. The comparison category will appear in the right column.
+			    <br><br><i>Task two: Moving forward to Step 3 (Suggested time to complete: <5 minutes).</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                        ]]>
+                    </property>
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.cstmod" title="CST Mod Tool" auto="false" access="moderator" revisitable="false">
+            <description>
+              <![CDATA[<small>CST Mod Tool</small>]]>
+            </description>
+            <actionName>action-sarp.cst</actionName>
+            <declaration>
+                <ins>
+                    <var name="cstId"/>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
+                        ]]>
+                    </property>
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.wait.cst" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Wait Screen</small>]]>
+            </description>
+            <actionName>action-sarp.drtwait</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="announcement" value="Moderator is working on suggested changes, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.toggle.cst" title="Toggle CST." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a CST.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.cst</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cst.clear.winner" title="Clear CST Winner." auto="true">
+            <description>
+              <![CDATA[<small>Clear CST Winner.</small>]]>
+            </description>
+            <taskName>task-sarp.cst.clear.winner</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.create.cht" title="Create CHT." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of CHT</small>]]>
+            </description>
+            <taskName>task-sarp.create.cht</taskName>
+            <declaration>
+                <ins>
+                    <var name="cst_id"/>
+                </ins>
+                <outs>
+                    <var name="cht_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="CHT" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cht" title="Category hierarchy tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Create hierarchies of climate concern categories</small>]]>
+            </description>
+            <actionName>action-sarp.cht</actionName>
+            <declaration>
+                <ins>
+                    <var name="chtId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.publish.cht" title="Publish CHT." auto="true">
+            <description>
+              <![CDATA[Publish cht.]]>
+            </description>
+            <taskName>task-sarp.publish.cht</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                    <var name="oid"/>
+                </ins>
+                <outs>
+                    <var name="oid"/>
+                </outs>
+                <props>
+                    <property name="title" value="Review and Comment for CHT" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cluster.cht.categories" title="Cluster CHT categories" auto="true">
+            <description>
+              <![CDATA[Cluster CHT categories]]>
+            </description>
+            <taskName>task-sarp.cluster.cht.categories</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.drt.cht" title="Review and comment tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
+            </description>
+            <actionName>action-sarp.drt</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/cht/drt.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/cht/info-object.jsp" />
+                    <property name="showLoopChoice" value="true" />
+                    <property name="overview">
+                        <![CDATA[
+			    <h3 class="headerColor">Overview and instructions</h3>
+                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
+                            <p>Your <strong>first task</strong> in the &quot;Review and comment tool&quot; is to vote on hierarchies and then make a comment about whether you think the most popular categories are the best and the most specific ones. Whenever you are done commenting and voting on other&apos;s comments, your <strong>second task</strong> is to vote your consent about moving on to Step 4.</p>
+			    <p>Please click &quot;<strong>Read More</strong>&quot; below to see how you can vote and make comments.</p>
+                            <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read More</a>
+                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on Step 3 (Suggested time to complete: 10 minutes).</i> Vote on either your favorite hierarchies or those you think are the best and most specific. Then make comments in the &quot;Review and comment&quot; section about overall progress. For instance, Did you find it difficult to make your favorite concern categories more specific? What made you vote on someone else&apos;s hierarchies? Did you get as many votes or comments on your hierarchies than others did?
+			    <br><br><i>Task two: Moving forward to Step 4 (Suggested time to complete: <5 minutes).</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                        ]]>
+                    </property>
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.chtmod" title="CHT Mod Tool" auto="false" access="moderator" revisitable="false">
+            <description>
+              <![CDATA[<small>CHT Mod Tool</small>]]>
+            </description>
+            <actionName>action-sarp.drtmod</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/cht/chtMod.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/cht/chtMod.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.wait.cht" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Wait Screen</small>]]>
+            </description>
+            <actionName>action-sarp.drtwait</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="announcement" value="Moderator is modifying CHT, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.toggle.cht" title="Toggle CHT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a CHT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.cht</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cht.clear.winner" title="Clear CHT Winner." auto="true">
+            <description>
+              <![CDATA[<small>Clear CHT Winner.</small>]]>
+            </description>
+            <taskName>task-sarp.cht.clear.winner</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.create.vtt" title="Create VTT." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of VTT</small>]]>
+            </description>
+            <taskName>task-sarp.create.vtt</taskName>
+            <declaration>
+                <ins>
+                    <var name="cht_id"/>
+                </ins>
+                <outs>
+                    <var name="vtt_id"/>
+                </outs>
+                <props>
+                    <property name="name" value="VTT" />
+                    <property name="purpose" value="In order to determine what needs to be improved about our transportation system, we first need to know what the problems are. Therefore, the first task is brainstorming concerns." />
+                    <property name="instruction" value="For this task, we are asking you to add concerns to your profile. These concerns will be visible to other participants, and will be used in later sessions to determine how to turn our concerns into suggestions for decision makers. Below, you’ll find a box in which to type your concern. You will be asked to ‘tag’ your concerns, so that others may find your concern more easily. The sidebar to the right of your concerns is your way of seeing what others are writing about. You may navigate by either tags or concerns." />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.vtt" title="Concern indicator tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Create climate concern indicators</small>]]>
+            </description>
+            <actionName>action-sarp.vtt</actionName>
+            <declaration>
+                <ins>
+                    <var name="vttId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.publish.vtt" title="Publish VTT." auto="true">
+            <description>
+              <![CDATA[Publish vtt.]]>
+            </description>
+            <taskName>task-sarp.publish.vtt</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                    <var name="oid"/>
+                </ins>
+                <outs>
+                    <var name="oid"/>
+                </outs>
+                <props>
+                    <property name="title" value="Review and Comment for CIT" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cluster.vtt.categories" title="Cluster CIT categories" auto="true">
+            <description>
+              <![CDATA[Cluster VTT categories]]>
+            </description>
+            <taskName>task-sarp.cluster.vtt.categories</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.cluster.vtt.experts" title="Cluster CIT experts selections" auto="true">
+            <description>
+              <![CDATA[Cluster VTT experts selections]]>
+            </description>
+            <taskName>task-sarp.cluster.vtt.experts</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.drt.vtt" title="Review and comment tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
+            </description>
+            <actionName>action-sarp.drt</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/vtt/drt.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/vtt/info-object.jsp" />
+                    <property name="showLoopChoice" value="true" />
+                    <property name="overview">
+                        <![CDATA[
+			    <h3 class="headerColor">Overview and instructions</h3>
+                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
+                            <p>Your <strong>first task</strong> is to review the technical specialists&apos; recommendations and then select which indicators you think are best. Comment about whether you think the most popular categories are the best and the most specific ones. Your <strong>second task</strong> is to vote your consent about moving on to Step 5.</p>
+			    <p>Please click &quot;<strong>Read More</strong>&quot; below to see how you can vote and make comments.</p>
+                            <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Read More</a>
+                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on Step 4.</i> Simply vote on either your favorite indicators or those you think are the best and most measurable. Then make comments on the overall result.  You can suggest if changes to indicators are needed.
+			    <br><br><i>Task two: Moving forward to Step 5 (Suggested time to complete: <5 minutes).</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                        ]]>
+                    </property>
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.vttmod" title="CIT Mod Tool" auto="false" access="moderator" revisitable="false">
+            <description>
+              <![CDATA[<small>VTT Mod Tool</small>]]>
+            </description>
+            <actionName>action-sarp.drtmod</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/vtt/vttMod.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/vtt/vttMod.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.wait.vtt" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Status</small>]]>
+            </description>
+            <actionName>action-sarp.drtwait</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="announcement" value="Moderator is modifying in CIT, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.vtt.wait" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Status of offline work</small>]]>
+            </description>
+            <actionName>action-sarp.vttwait</actionName>
+            <declaration>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="announcement" value="Specialists are preparing measurement unit recommendations, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.vtt.experttool" title="Specialist tool" auto="false" access="expert" revisitable="false">
+            <description>
+              <![CDATA[<small>Specialists recommend measurement units</small>]]>
+            </description>
+            <actionName>action-sarp.vtt.experttool</actionName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.toggle.vtt" title="Toggle VTT." auto="true">
+            <description>
+              <![CDATA[<small>Toggle a VTT.</small>]]>
+            </description>
+            <taskName>task-sarp.toggle.vtt</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.vtt.clear.winner" title="Clear CIT Winner." auto="true">
+            <description>
+              <![CDATA[<small>Clear VTT Winner.</small>]]>
+            </description>
+            <taskName>task-sarp.vtt.clear.winner</taskName>
+            <declaration>
+                <ins>
+                    <var name="vtt_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.create.report" title="Create Report." auto="true">
+            <description>
+              <![CDATA[<small>Create Report</small>]]>
+            </description>
+            <taskName>task-sarp.create.report</taskName>
+            <declaration>
+                <ins>
+                    <var name="bct_id"/>
+                    <var name="bct_oid"/>
+                    <var name="cst_id"/>
+                    <var name="cst_oid"/>
+                    <var name="cht_id"/>
+                    <var name="cht_oid"/>
+                    <var name="vtt_id"/>
+                    <var name="vtt_oid"/>
+                </ins>
+                <outs>
+                    <var name="report_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.report" title="Report" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Report</small>]]>
+            </description>
+            <actionName>action-sarp.report</actionName>
+            <declaration>
+            </declaration>
+        </pgame>
+    
+    </pgames>
+    
+    <!-- PMethods -->
+    
+    <pmethods>
+    
+        <pmethod name="pmethod-sarp.bct" description="Step 1: Brainstorm Concerns and Keywords">
+            <declaration>
+                <outs>
+                    <var name="pmethod.bct_id"/>
+                    <var name="pmethod.bct_oid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.bct">
+                    <declaration>
+                        <outs>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.bct">
+                    <declaration>
+                        <ins>
+                            <var name="oid" ref="pmethod.bct_oid"/>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.bct_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sarp.bct">
+                            <declaration>
+                                <ins>
+                                    <var name="bctId" ref="pmethod.bct_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.bct">
+                            <declaration>
+                                <ins>
+                                    <var name="bct_id" ref="pmethod.bct_id"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sarp.drt.bct">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.bct_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.bct_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.cst" description="Step 2: Create Climate Concern Categories">
+            <declaration>
+                <ins>
+                    <var name="pmethod.bct_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.cst_id"/>
+                    <var name="pmethod.cst_oid"/>
+                    <var name="pmethod.cstExitCondition"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.cst">
+                    <declaration>
+                        <ins>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cst.clear.winner">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="open" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cstId" ref="pmethod.cst_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="close" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.cst">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                            <var name="oid" ref="pmethod.cst_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.cst_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cluster.categories">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <repeat exitCondition="pmethod.cstExitCondition">
+                    <sequence>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.clear.vote">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
+                                    <var name="exitCondition" ref="pmethod.cstExitCondition"/>
+                                </ins>
+                                <outs>
+                                    <var name="exitCondition" ref="pmethod.cstExitCondition" />
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cst_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <flowback>
+                        <branch>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.wait.cst">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.cst_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.cstmod">
+                                    <declaration>
+                                        <ins>
+                                            <var name="cstId" ref="pmethod.cst_id"/>
+                                            <var name="oid" ref="pmethod.cst_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                        </branch>
+                    </flowback>
+                </repeat>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.cht" description="Step 3: Create Hierarches of Climate Concern Categories">
+            <declaration>
+                <ins>
+                    <var name="pmethod.cst_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.cht_id"/>
+                    <var name="pmethod.cht_oid"/>
+                    <var name="pmethod.chtExitCondition"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                        </ins>
+                        <outs>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cht.clear.winner">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="open" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cht">
+                    <declaration>
+                        <ins>
+                            <var name="chtId" ref="pmethod.cht_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="close" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.cht">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                            <var name="oid" ref="pmethod.cht_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.cht_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cluster.cht.categories">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <repeat exitCondition="pmethod.chtExitCondition">
+                    <sequence>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.clear.vote">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.cht">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                    <var name="exitCondition" ref="pmethod.chtExitCondition"/>
+                                </ins>
+                                <outs>
+                                    <var name="exitCondition" ref="pmethod.chtExitCondition" />
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.cht_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <flowback>
+                        <branch>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.wait.cht">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.cht_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.chtmod">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.cht_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                        </branch>
+                    </flowback>
+                </repeat>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.vtt" description="Step 4: Create Climate Concern Indicators">
+            <declaration>
+                <ins>
+                    <var name="pmethod.cht_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.vtt_id"/>
+                    <var name="pmethod.vtt_oid"/>
+                    <var name="pmethod.vttExitCondition"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                        </ins>
+                        <outs>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.vtt.clear.winner">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="open" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vttId" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.toggle.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                        <props>
+                            <property name="action" value="close" />
+                        </props>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.publish.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                            <var name="oid" ref="pmethod.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.vtt_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sarp.cluster.vtt.categories">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sarp.vtt.experttool">
+                            <declaration>
+                                <ins>
+                                    <var name="vttId" ref="pmethod.vtt_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sarp.vtt.wait" />
+                    </sequence>
+                </branch>
+                <pgame name="pgame-sarp.cluster.vtt.experts">
+                    <declaration>
+                        <ins>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <repeat exitCondition="pmethod.vttExitCondition">
+                    <sequence>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.clear.vote">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.vtt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                    <var name="exitCondition" ref="pmethod.vttExitCondition"/>
+                                </ins>
+                                <outs>
+                                    <var name="exitCondition" ref="pmethod.vttExitCondition" />
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.vtt_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <flowback>
+                        <branch>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.wait.vtt">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.vtt_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.vttmod">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.vtt_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                        </branch>
+                    </flowback>
+                </repeat>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-sarp.report" description="Step 5: Report">
+            <declaration>
+                <ins>
+                    <var name="pmethod.bct_id"/>
+                    <var name="pmethod.bct_oid"/>
+                    <var name="pmethod.cst_id"/>
+                    <var name="pmethod.cst_oid"/>
+                    <var name="pmethod.cht_id"/>
+                    <var name="pmethod.cht_oid"/>
+                    <var name="pmethod.vtt_id"/>
+                    <var name="pmethod.vtt_oid"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.report_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-sarp.create.report">
+                    <declaration>
+                        <ins>
+                            <var name="bct_id" ref="pmethod.bct_id"/>
+                            <var name="bct_oid" ref="pmethod.bct_oid"/>
+                            <var name="cst_id" ref="pmethod.cst_id"/>
+                            <var name="cst_oid" ref="pmethod.cst_oid"/>
+                            <var name="cht_id" ref="pmethod.cht_id"/>
+                            <var name="cht_oid" ref="pmethod.cht_oid"/>
+                            <var name="vtt_id" ref="pmethod.vtt_id"/>
+                            <var name="vtt_oid" ref="pmethod.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="report_id" ref="pmethod.report_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sarp.report">
+                            <declaration>
+                                <ins>
+                                    <var name="report_id" ref="pmethod.report_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+            </sequence>
+        </pmethod>
+        
+    </pmethods>
+    
+    <!-- PMeetings -->
+    
+    <meetings>
+    
+        <meeting name="meeting-sarp.bct" description="Step 1: Brainstorm Concerns and Keywords">
+            <declaration>
+                <outs>
+                    <var name="meeting.bct_id"/>
+                    <var name="meeting.bct_oid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.bct">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                            <var name="pmethod.bct_oid" ref="meeting.bct_oid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-sarp.cst" description="Step 2: Create Climate Concern Categories">
+            <declaration>
+                <ins>
+                    <var name="meeting.bct_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.cst_id"/>
+                    <var name="meeting.cst_oid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.cst">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.cst_id" ref="meeting.cst_id"/>
+                            <var name="pmethod.cst_oid" ref="meeting.cst_oid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-sarp.cht" description="Step 3: Create Hierarchies of Climate Concern Categories">
+            <declaration>
+                <ins>
+                    <var name="meeting.cst_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.cht_id"/>
+                    <var name="meeting.cht_oid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.cht">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cst_id" ref="meeting.cst_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.cht_id" ref="meeting.cht_id"/>
+                            <var name="pmethod.cht_oid" ref="meeting.cht_oid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-sarp.vtt" description="Step 4: Create Climate Concern Indicators">
+            <declaration>
+                <ins>
+                    <var name="meeting.cht_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.vtt_id"/>
+                    <var name="meeting.vtt_oid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.cht_id" ref="meeting.cht_id"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.vtt_id" ref="meeting.vtt_id"/>
+                            <var name="pmethod.vtt_oid" ref="meeting.vtt_oid"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+        <meeting name="meeting-sarp.report" description="Step 5: Report">
+            <declaration>
+                <ins>
+                    <var name="meeting.bct_id"/>
+                    <var name="meeting.bct_oid"/>
+                    <var name="meeting.cst_id"/>
+                    <var name="meeting.cst_oid"/>
+                    <var name="meeting.cht_id"/>
+                    <var name="meeting.cht_oid"/>
+                    <var name="meeting.vtt_id"/>
+                    <var name="meeting.vtt_oid"/>
+                </ins>
+                <outs>
+                    <var name="meeting.report_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-sarp.report">
+                    <declaration>
+                        <ins>
+                            <var name="pmethod.bct_id" ref="meeting.bct_id"/>
+                            <var name="pmethod.bct_oid" ref="meeting.bct_oid"/>
+                            <var name="pmethod.cst_id" ref="meeting.cst_id"/>
+                            <var name="pmethod.cst_oid" ref="meeting.cst_oid"/>
+                            <var name="pmethod.cht_id" ref="meeting.cht_id"/>
+                            <var name="pmethod.cht_oid" ref="meeting.cht_oid"/>
+                            <var name="pmethod.vtt_id" ref="meeting.vtt_id"/>
+                            <var name="pmethod.vtt_oid" ref="meeting.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="pmethod.report_id" ref="meeting.report_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+    </meetings>
+    
+    <!-- Situations -->
+    
+    <situations>
+    
+        <situation name="SARP" description="SARP">
+            <sequence>
+                <meeting name="meeting-sarp.bct">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.bct_id" ref="situation.bct_id"/>
+                            <var name="meeting.bct_oid" ref="situation.bct_oid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.cst">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.bct_id" ref="situation.bct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.cst_id" ref="situation.cst_id"/>
+                            <var name="meeting.cst_oid" ref="situation.cst_oid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.cht">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cst_id" ref="situation.cst_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.cht_id" ref="situation.cht_id"/>
+                            <var name="meeting.cht_oid" ref="situation.cht_oid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.vtt">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cht_id" ref="situation.cht_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.vtt_id" ref="situation.vtt_id"/>
+                            <var name="meeting.vtt_oid" ref="situation.vtt_oid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-sarp.report">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.bct_id" ref="situation.bct_id"/>
+                            <var name="meeting.bct_oid" ref="situation.bct_oid"/>
+                            <var name="meeting.cst_id" ref="situation.cst_id"/>
+                            <var name="meeting.cst_oid" ref="situation.cst_oid"/>
+                            <var name="meeting.cht_id" ref="situation.cht_id"/>
+                            <var name="meeting.cht_oid" ref="situation.cht_oid"/>
+                            <var name="meeting.vtt_id" ref="situation.vtt_id"/>
+                            <var name="meeting.vtt_oid" ref="situation.vtt_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.report_id" ref="situation.report_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+            </sequence>
+        </situation>
+        
+    </situations>
+    
+    
+</templates>
+

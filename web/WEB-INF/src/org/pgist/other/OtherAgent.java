@@ -64,8 +64,12 @@ public class OtherAgent {
                 workflowId, contextId, activityId,
                 new EnvironmentHandler() {
                     public void handleEnvVars(EnvironmentInOuts inouts) throws Exception {
-                        Integer templateId = new Integer((String) params.get("templateId"));
-                        inouts.setIntValue("template_id", templateId);
+                        try {
+                            Integer templateId = new Integer((String) params.get("templateId"));
+                            inouts.setIntValue("template_id", templateId);
+                        } catch(Exception e) {
+                            inouts.setIntValue("template_id", -1);
+                        }
                     }//handleEnvVars()
                 }
             );

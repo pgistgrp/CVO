@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.pgist.users.User;
@@ -11,7 +12,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_feedbacks" lazy="true"
  */
-public class Feedback {
+public class Feedback implements Serializable {
     
     
     private Long id;
@@ -23,6 +24,8 @@ public class Feedback {
     private String action;
     
     private String content;
+    
+    private String email;
     
     
     /**
@@ -87,7 +90,7 @@ public class Feedback {
     /**
      * @return
      * 
-     * @hibernate.property not-null="true"
+     * @hibernate.property not-null="true" type="text"
      */
     public String getContent() {
         return content;
@@ -98,5 +101,9 @@ public class Feedback {
         this.content = content;
     }
 
-
+    public void setEmail(String email) {
+    	this.email = email;
+    }
+    
+    
 }//class Feedback

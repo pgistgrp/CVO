@@ -1,7 +1,10 @@
 package org.pgist.funding;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.pgist.users.User;
@@ -17,7 +20,7 @@ public class UserTaxInfoDTO implements Serializable {
 
     private Long userId;
 	
-    private Set<Vehicle> vehicles = new HashSet<Vehicle>();
+    private List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>();
 	
     protected int familyCount = 1;
     
@@ -38,10 +41,17 @@ public class UserTaxInfoDTO implements Serializable {
     protected String zipcode = "";
     
     protected String workZipcode = "";
+            
+    private float annualConsume;
     
-    protected UserTolls userTolls = new UserTolls();
+    private float costPerGallon;
+    
+    private List<PersonalFundingCostDTO> costs = new ArrayList<PersonalFundingCostDTO>();
+    
+    private List<UserFundingSourceTollDTO> tolls = new ArrayList<UserFundingSourceTollDTO>();     
+    
 
-    /**
+	/**
      * Loads the provided User Object with all the information contained in this tax DTO
      */
     public void loadUserWithData(User user) {
@@ -56,9 +66,9 @@ public class UserTaxInfoDTO implements Serializable {
     	user.setCarpoolPeople(this.getCarpoolPeople());
     	user.setBusDays(this.getBusDays());
     	user.setWalkDays(this.getWalkDays());
-    	user.setBikeDays(this.getBikeDays());
+    	user.setBikeDays(this.getBikeDays());    	
     }
-    
+        
     /**
      * Loads this DTO with the information from the provided User
      * 
@@ -79,11 +89,82 @@ public class UserTaxInfoDTO implements Serializable {
     	this.setWalkDays(user.getWalkDays());
     	this.setBikeDays(user.getBikeDays());
     	
-    	this.setVehicles(user.getVehicles());
+    	this.loadVehicles(user.getVehicles());   
+    	this.loadWithCommuteInfo(user.getUserCommute());
+    }
+    
+    
+    /**
+     * Loads the commute with data
+     * 
+     * @param	commute	The commute class to load
+     */
+    public void loadCommuteWithData(UserCommute userCommute) {
+    	userCommute.setAnnualConsume(this.getAnnualConsume());
+    	userCommute.setCostPerGallon(this.getCostPerGallon());
+    	
+    	//Tolls are copied across to the user commute inside of the FundingServiceImpl
+    }
+    
+    /**
+     * Loads the vehicles from the provided set
+     */
+    public void loadVehicles(Set<Vehicle> vehicles) {
+    	this.vehicles.clear();
+    	Iterator<Vehicle> i = vehicles.iterator();
+    	Vehicle temp;
+    	VehicleDTO tempDTO;
+    	while(i.hasNext()) {
+    		temp = i.next();
+    		tempDTO = new VehicleDTO();
+    		tempDTO.loadFromVehicle(temp);
+    		this.vehicles.add(tempDTO);    
+    	}
+    	Collections.sort(this.vehicles);
+    }
+    
+    /**
+     * Loads this object with the provided commute data
+     * 
+     * @param	commute	The commute class to get the data from
+     */
+    public void loadWithCommuteInfo(UserCommute userCommute) {
+    	this.setAnnualConsume(userCommute.getAnnualConsume());
+    	this.setCostPerGallon(userCommute.getCostPerGallon());
+    	
+    	//Copy over the info from the tolls
+    	this.getTolls().clear();
+    	Iterator<UserFundingSourceToll> i = userCommute.getTolls().iterator();
+    	UserFundingSourceToll tempToll;
+    	UserFundingSourceTollDTO tempTollDTO;
+    	while(i.hasNext()) {
+    		tempToll = i.next();
+    		
+    		//Notice we do not copy across the funding source because it won't fit through DWR
+    		tempTollDTO = new UserFundingSourceTollDTO();
+    		tempTollDTO.loadFromToll(tempToll);
+    		this.getTolls().add(tempTollDTO);
+    	}    	
+    	Collections.sort(this.tolls);
     }
     
     //---------------------Getters and Setters-----------------------------
+       
+    /**
+	 * @return the costs
+	 */
+	public List<PersonalFundingCostDTO> getCosts() {
+		return costs;
+	}
+
 	/**
+	 * @param costs the costs to set
+	 */
+	public void setCosts(List<PersonalFundingCostDTO> costs) {
+		this.costs = costs;
+	}	
+    
+    /**
 	 * @return the bikeDays
 	 */
 	public int getBikeDays() {
@@ -196,30 +277,16 @@ public class UserTaxInfoDTO implements Serializable {
 	}
 
 	/**
-	 * @return the userTolls
-	 */
-	public UserTolls getUserTolls() {
-		return userTolls;
-	}
-
-	/**
-	 * @param userTolls the userTolls to set
-	 */
-	public void setUserTolls(UserTolls userTolls) {
-		this.userTolls = userTolls;
-	}
-
-	/**
 	 * @return the vehicles
 	 */
-	public Set<Vehicle> getVehicles() {
+	public List<VehicleDTO> getVehicles() {
 		return vehicles;
 	}
 
 	/**
 	 * @param vehicles the vehicles to set
 	 */
-	public void setVehicles(Set<Vehicle> vehicles) {
+	public void setVehicles(List<VehicleDTO> vehicles) {
 		this.vehicles = vehicles;
 	}
 
@@ -264,5 +331,46 @@ public class UserTaxInfoDTO implements Serializable {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-    
+
+	/**
+	 * @return the annualConsume
+	 */
+	public float getAnnualConsume() {
+		return annualConsume;
+	}
+
+	/**
+	 * @param annualConsume the annualConsume to set
+	 */
+	public void setAnnualConsume(float annualConsume) {
+		this.annualConsume = annualConsume;
+	}
+
+	/**
+	 * @return the costPerGallon
+	 */
+	public float getCostPerGallon() {
+		return costPerGallon;
+	}
+
+	/**
+	 * @param costPerGallon the costPerGallon to set
+	 */
+	public void setCostPerGallon(float costPerGallon) {
+		this.costPerGallon = costPerGallon;
+	}
+
+	/**
+	 * @return the tolls
+	 */
+	public List<UserFundingSourceTollDTO> getTolls() {
+		return tolls;
+	}
+
+	/**
+	 * @param tolls the tolls to set
+	 */
+	public void setTolls(List<UserFundingSourceTollDTO> tolls) {
+		this.tolls = tolls;
+	}    
 }

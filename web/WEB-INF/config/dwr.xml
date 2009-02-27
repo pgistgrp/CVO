@@ -1,18 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
 
 <dwr>
 
+
   <allow>
 
-    <!--convert converter="bean" match="org.pgist.glossary.Term"/-->
 
-    <create creator="spring" javascript="CVOAgent">
-      <param name="beanName" value="cvoAgent"/>
-      <include method="createCVO"/>
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
+    <convert converter="bean" match="org.pgist.users.User">
+        <param name="include" value="id, loginname"/>
+    </convert>
+    
+    <convert converter="bean" match="org.pgist.users.Role">
+        <param name="include" value="id, name, description, deleted, internal"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.util.PageSource"/>
+    
+    <convert converter="bean" match="org.pgist.system.Feedback"/>
+    
+    <convert converter="bean" match="org.pgist.system.County"/>
+    
+    <convert converter="bean" match="org.pgist.system.Announcement"/>
+    
+    <convert converter="bean" match="org.pgist.system.YesNoVoting">
+        <param name="include" value="id, targetType, targetId, voting, owner"/>
+    </convert>
+    
+    <convert converter="bean" match="org.pgist.users.TravelMarker">
+        <param name="include" value="id, type, index, name, data1, data2, lat, lng"/>
+    </convert>
+    <convert converter="bean" match="org.pgist.users.TravelTrip">
+        <param name="include" value="id, mode, frequency, markers, coords"/>
+    </convert>
+    <convert converter="bean" match="org.pgist.system.SystemLog">
+        <param name="include" value="id, userId, time, url, query, method, postData, referer"/>
+    </convert>
+
+    <create creator="spring" javascript="SystemAgent">
+        <param name="beanName" value="systemAgent"/>
+        <include method="createFeedback"/>
+        <include method="getFeedbacks"/>
+        <include method="disableUsers"/>
+        <include method="editUser"/>
+        <include method="enableUsers"/>
+        <include method="getAllUsers"/>
+        <include method="getEnabledUsers"/>
+        <include method="getDisabledUsers"/>
+        <include method="getUserById"/>
+        <include method="getEmailList"/>
+        <include method="setUnloading"/>
+        <include method="logMapEvent"/>   
+        <include method="resetPassword"/>   
+        <include method="setQuota"/>
+        <include method="setQuotaLimit"/>
+        <include method="addCounty"/>
+        <include method="createQuotaStats"/>
+        <include method="addZipCodes"/>
+        <include method="addRemoveZipCodes"/>
+        <include method="getAllCounties"/>
+        <include method="deleteZipCodes"/>
+        <include method="deleteCounty"/>
+        <include method="editCountyName"/>
+        <include method="addAnnouncement"/>
+        <include method="getAnnouncements"/>
+        <include method="editAnnouncement"/>
+        <include method="deleteAnnouncement"/>
+	<include method="deleteUser"/>
     </create>
 
+	
+    <create creator="spring" javascript="RegisterAgent">
+        <param name="beanName" value="registerAgent"/>
+        <include method="addSarpUser"/>
+        <include method="deleteUser"/>
+        <include method="checkUsername"/>
+        <include method="checkEmail"/>
+        <include method="createRegisterObjects"/>
+        <include method="createCancel"/>
+    </create>
+    
+    <create creator="spring" javascript="ProfileAgent">
+        <param name="beanName" value="profileAgent"/>
+        <include method="getUserInfo"/>
+        <include method="setUserInfo"/>
+        <include method="getUserStats"/>
+        <include method="getUserConcerns"/>
+        <include method="getUserDiscussion"/>
+    </create>
+
+    <create creator="spring" javascript="PESAgent">
+        <param name="beanName" value="pesAgent"/>
+        <include method="saveAct"/>
+        <include method="getLogs"/>
+        <include method="getUsers"/>
+    </create>
+    
   </allow>
+
 
 </dwr>
 

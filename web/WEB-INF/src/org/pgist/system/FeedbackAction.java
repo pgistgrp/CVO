@@ -33,7 +33,6 @@ public class FeedbackAction extends Action {
     private SystemService systemService;
     
     
-    
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
     }
@@ -59,6 +58,8 @@ public class FeedbackAction extends Action {
         
         request.setAttribute("setting", setting);
         request.setAttribute("feedbacks", feedbacks);
+        
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("main");
     }//execute()

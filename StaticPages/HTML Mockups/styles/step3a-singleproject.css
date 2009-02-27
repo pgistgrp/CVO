@@ -9,29 +9,6 @@ padding:0px;
 text-align:left;
 }
 
-
-/* grade colors */
-
-.gradeA, .gradeAMinus, .gradeBPlus, .gradeB, .gradeBMinus, .gradeCPlus, .gradeC, .gradeCMinus, .gradeDPlus, .gradeD, .gradeDMinus,.gradeFPlus,.gradeF 
-{
-font-weight:bold;
-text-align:center;
-}
-
-.gradeA {background:#53BE2F}
-.gradeAMinus {background:#6AC330}
-.gradeBPlus {background:#84C931}
-.gradeB {background:#9ECE32}
-.gradeBMinus {background:#D1D835}
-.gradeCPlus {background:#EFDE36}
-.gradeC {background:#F4DC26}
-.gradeCMinus {background:#E6BD33}
-.gradeDPlus {background:#DE9F30}
-.gradeD {background:#D5802D}
-.gradeDMinus {background:#CB5C29}
-.gradeFPlus {background:#C33D27}
-.gradeF {background:#BB1C25}
-
 /* Table styles for this page */
 
 #newTable td.fundingSourceItem {width:60%;}

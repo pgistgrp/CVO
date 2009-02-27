@@ -12,15 +12,23 @@
 	Description: This is a partial page that is included via getObjectives in criteriaMgr.
 				 This page will loop through all of the objectives in a given workflow instance.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
+	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
 	     Back End: Zhong Wang, John Le
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] Test if page is pulled by getObjectives (Jordan)
+		[x] Test if page is pulled by getObjectives (Jordan)
 
 #### -->
-
-<c:forEach var="objectives" items="${objectives}" varStatus="loop">
-	<option value="objective-${objective.id}">${objective.name}</option>
-</c:forEach>
+<c:choose>
+	<c:when test="${fn:length(objectives) == 0}">
+		No objectives could be found!
+	</c:when>
+	<c:otherwise>
+		<ul id="objectivesList" style="float:left;" class="assocList">
+			<c:forEach var="objective" items="${objectives}" varStatus="loop">
+				<li id="objectiveCont-${objective.id}"class="assocList"><input type="checkbox" name="objectivesGroup" id="objective-${objective.id}" /> ${objective.description} [ <a href="javascript:deleteObjective(${objective.id})">delete</a> ]</li>
+			</c:forEach>
+		</ul>
+	</c:otherwise>
+</c:choose>
 

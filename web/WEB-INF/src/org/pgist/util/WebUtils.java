@@ -1,11 +1,8 @@
 package org.pgist.util;
 
-import java.io.StringWriter;
+import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import uk.ltd.getahead.dwr.util.SwallowingHttpServletResponse;
+import org.pgist.users.UserInfo;
 
 
 /**
@@ -16,22 +13,77 @@ import uk.ltd.getahead.dwr.util.SwallowingHttpServletResponse;
 public class WebUtils {
     
     
-    /**
-     * 
-     * @param url
-     * @return
-     * @throws Exception
-     */
-    public static String forwardToString(HttpServletRequest request, HttpServletResponse response, String url) throws Exception {
-        StringWriter sout = new StringWriter();
-        StringBuffer buffer = sout.getBuffer();
+    private static String contextPath;
+    
+    private static ThreadLocal<UserInfo> threadLocalCurrentUser = new ThreadLocal<UserInfo>();
+    
+    private static ThreadLocal<Date> threadLocalDate = new ThreadLocal<Date>();
+    
+    
+    public static String getContextPath() {
+        return contextPath;
+    }
+
+
+    public static void setContextPath(String contextPath) {
+        WebUtils.contextPath = contextPath;
+    }
+
+
+    public static UserInfo currentUser() {
+        return threadLocalCurrentUser.get();
+    }//currentUser()
+    
+    
+    public static Long currentUserId() {
+        UserInfo userInfo = threadLocalCurrentUser.get();
+        if (userInfo==null) return null;
+        else return userInfo.getId();
+    }//currentUserId()
+    
+    
+    public static void setCurrentUser(UserInfo userInfo) {
+        if (userInfo==null) {
+            threadLocalCurrentUser.remove();
+        } else {
+            threadLocalCurrentUser.set(userInfo);
+        }
+    }//setCurrentUser()
+    
+    
+    public static boolean checkRole(String roleName) {
+        UserInfo info = threadLocalCurrentUser.get();
         
-        HttpServletResponse fakeResponse = new SwallowingHttpServletResponse(response, sout);
+        if (info!=null && info.checkRole(roleName)) return true;
         
-        request.getSession().getServletContext().getRequestDispatcher(url).forward(request, fakeResponse);
+        return false;
+    }//checkRole()
+    
+    
+    public static boolean checkUser(Long userId) {
+        UserInfo info = threadLocalCurrentUser.get();
         
-        return buffer.toString();
-    }//forwardToString()
+        if (info!=null && info.getId()!=null && info.getId().equals(userId)) return true;
+        
+        return false;
+    }//checkUser()
+    
+    
+    public static Date getDate() {
+        Date date = threadLocalDate.get();
+        
+        if (date==null) {
+            date = new Date();
+            threadLocalDate.set(date);
+        }
+        
+        return date;
+    }//getDate()
+    
+    
+    public static void clearDate() {
+        threadLocalDate.remove();
+    }//clearDate()
     
     
 }//class WebUtils

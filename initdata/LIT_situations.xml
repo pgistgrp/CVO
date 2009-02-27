@@ -3,48 +3,106 @@
 
 
     <situations>
+    
         <situation name="LIT" description="Let's Improve Transportation">
             <sequence>
                 <meeting name="meeting-init.situation">
                     <declaration>
                         <outs>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
                             <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
                             <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <var name="meeting.proj_isid" ref="situation.proj_isid"/>
+                            <var name="meeting.fund_isid" ref="situation.fund_isid"/>
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
+                            <var name="meeting.repo_suite_id" ref="situation.repo_suite_id"/>
+                            <var name="meeting.pkg_suite_id" ref="situation.pkg_suite_id"/>
+                            <var name="meeting.experiment_id" ref="situation.experiment_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-global">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
+                            <var name="meeting.proj_isid" ref="situation.proj_isid"/>
+                            <var name="meeting.fund_isid" ref="situation.fund_isid"/>
+                        </ins>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-cvo">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.is_id" ref="situation.theme_isid"/>
                         </outs>
                     </declaration>
                 </meeting>
                 <meeting name="meeting-criteria">
                     <declaration>
-                        <outs>
+                        <ins>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
                             <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
-                            <var name="meeting.crit_isid" ref="situation.crit_isid"/>
-                            <var name="meeting.cct_id" ref="situation.cct_id"/>
-                        </outs>
-                    </declaration>
-                </meeting>
-                <meeting name="meeting-cvo">
-                    <declaration>
-                        <outs>
-                            <var name="meeting.cct_id" ref="situation.cct_id"/>
                             <var name="meeting.is_id" ref="situation.theme_isid"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.crit_isid" ref="situation.crit_isid"/>
                         </outs>
                     </declaration>
                 </meeting>
-                <meeting name="meeting-projects-fundings">
+                <meeting name="meeting-create-package">
                     <declaration>
                         <ins>
                             <var name="meeting.cct_id" ref="situation.cct_id"/>
                             <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
                             <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
-                        </ins>
-                        <outs>
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
                             <var name="meeting.proj_isid" ref="situation.proj_isid"/>
                             <var name="meeting.fund_isid" ref="situation.fund_isid"/>
+                            <var name="meeting.pkg_suite_id" ref="situation.pkg_suite_id"/>
+                            <var name="meeting.is_id" ref="situation.theme_isid"/>
+                        </ins>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-packages">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
+                            <var name="meeting.pkg_suite_id" ref="situation.pkg_suite_id"/>
+                        </ins>
+                        <outs> 
+                            <var name="meeting.vote_suite_id" ref="situation.vote_suite_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+               <meeting name="meeting-report">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                            <!--<var name="meeting.proj_isid" ref="situation.proj_isid"/>
+                            <var name="meeting.fund_isid" ref="situation.fund_isid"/>-->
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
+                            <var name="meeting.repo_suite_id" ref="situation.repo_suite_id"/>
+                            <var name="meeting.pkg_suite_id" ref="situation.pkg_suite_id"/>      
+                            <var name="meeting.vote_suite_id" ref="situation.vote_suite_id"/>     
+                        </ins>
+                        <outs>
+                            <var name="meeting.repo_isid" ref="situation.repo_isid"/>
                         </outs>
                     </declaration>
                 </meeting>
             </sequence>
         </situation>
+        
     </situations>
     
     

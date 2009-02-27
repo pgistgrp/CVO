@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 
 <!--####
@@ -13,11 +14,14 @@
 	Description: Allow users to vote on packages.
 	Author(s): 
 	     Front End: Jordan Isip, Adam Hindman
-	     Back End: Zhong Wang
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
+		[x] Spec (Zhong) 
 		[x] Initial Skeleton Code (Jordan)
 		[x] Create Layout (Adam)
-		[ ] JavaScript/JSTL (Jordan)
+		[x] JavaScript/JSTL/Integrate Layout (Jordan)
+		[ ] Add phase param from referring package- packageVote.jsp?phase=1 (Jordan)
+		[ ] Backend form processing (Matt Paulin)
 		[ ] Test and Refine (Jordan)
 #### -->
 <html:html> 
@@ -26,12 +30,19 @@
 <!-- Site Wide JavaScript -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+<script src="scripts/search.js" type="text/javascript"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script src="scripts/prototype.js" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
 
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
+
+<script type='text/javascript' src='/dwr/interface/PackageAgent.js'></script>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 		@import "styles/lit.css";
@@ -44,6 +55,7 @@
 width:100%;
 border: 1px solid #ADCFDE;
 margin-bottom:1.5em;
+padding:5px;
 }
 
 #voteBox p {margin:1em .5em;}
@@ -58,15 +70,15 @@ padding:.3em 0em;
 
 .voteCol1
 {
-width:10%;
+width:16%;
 margin-right:.5em;
-padding-left:2em;
+padding-left:10px;
 font-size:1.1em;
 }
 
 .voteCol2,.voteCol3,.voteCol4
 {
-width:28%;
+width:26%;
 text-align:center;
 }
 
@@ -81,74 +93,96 @@ margin:0em auto;
 background:#FFF1DC;
 }
 
+.voteHeader{background:#ADCFDE;font-size:12pt;}
+
+
 </style>
+
+<script type="text/javascript" charset="utf-8">
+	var pkgSuiteId = "${pkgSuiteId}";
+	var projSuiteId = "${projSuiteId}";
+	var fundSuiteId = "${fundSuiteId}";
+	var critSuiteId = "${critSuiteId}";
+	var voteSuiteId = "${voteSuite.id}";
+	
+	/* *************** Grab a Voting Object *************** */
+	function setVoting(){	
+		var choices = {};
+		inputs = document.vote.elements;
+		for (var i=0; i < inputs.length; i++) {
+			if (inputs[i].type == "radio" && inputs[i].checked){
+				var name = inputs[i].name.substring(3,inputs[i].name.length); //remove 'pkg'
+				var strName = parseInt(name);
+				var voteValue = parseInt(inputs[i].value)
+				choices[strName] = voteValue;
+			}
+		}
+		PackageAgent.setVoting(voteSuiteId, choices, {
+			callback:function(data){
+				if (data.successful){
+					location.reload();
+				}else{
+					alert("setVoting Failed.  Reason: " +data.reason);
+				}
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("PackageAgent.setVoting( error:" + errorString + exception);
+			}
+		});
+	}
+
+</script>
+<event:pageunload />
 </head>
 <body>
-<!-- Begin the header - loaded from a separate file -->
-<div id="header">
-  <!-- Begin header -->
-  <jsp:include page="/header.jsp" />
-  <p>[Load header from separate file]</p>
-  <!-- End header -->
-</div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-  <div id="headerContainer">
-    <div id="headerTitle" class="floatLeft">
-      <h3 class="headerColor">Step 4b: Evaluate Candidate Packages</h3>
-    </div>
-    <div class="headerButton floatLeft  currentBox"> <a href="step4.html">4a: Review packages</a></div>
-    <div class="headerButton floatLeft"> <a href="step4b.html">4b: Vote</a></div>
-    <div id="headerNext" class="floatRight box5"> <a href="step4b.html">Next Step</a></div>
-  </div>
-</div>
-<!-- End header menu -->
-
+<!-- Start Global Headers  -->
+<wf:nav />
+<wf:subNav />
+<!-- End Global Headers -->
 <!-- #container is the container that wraps around all the main page content -->
 <div id="container">
   <!-- begin "overview and instructions" area -->
   <div id="overview" class="box2">
-    <h3>Overview and Instructions</h3>
-    <p>During this step, the moderator asks participants to determine
-      which packages have the greatest level of collective support.
-      This polling information will help us to decide which package
-      to collectively recommend. The final vote will be held
-      on Thursday Oct. 19.</p>
+    <h3>Overview and instructions</h3>
+    <p>It is now time to vote for the package (or packages) you are willing to recommend to decision makers. You can only vote once, and you cannot change your vote. The results of this vote will be included in a report to decision makers which you can review in Step 5.</p>
+    <a href="#" onClick="Effect.toggle('hiddenRM','blind'); return false;adjustMapPosition();">Read more about this step</a>
+		<p id="hiddenRM" style="display:none">The purpose of this vote is to determine which package can get the greatest degree of collective support by <em>LIT Challenge</em> participants. Feel free to refer to the package poll or discussion in Step 4a before casting your vote. Keep in mind that a recommendation that is supported by a strong majority of participants is likely to carry more weight. In the event that strong majority consensus does not emerge, the moderator will identify a minority endorsement package based on an analysis of final vote results.</p>
   </div>
 
   <!-- end overview -->
   <!-- begin Object -->
 	<div id="object">
       <!-- begin one voting box -->
-		<h3 class="headerColor">Packages Poll</h3>
 		<div id="voteBox" class="floatLeft clearBoth">
-		<p>Please respond to this poll by <strong>midnight <!--workflow date--></strong>.</p>
-
 		<!-- begin voting headers -->
-		<p>Please indicate your current willingness to endorse each of the following package to decision makers.</p>
-        <div class="VoteListRow row">
+		<p>Please indicate your current willingness to recommend each of the following packages to decision makers.</p>
+        <div class="VoteListRow row voteHeader">
           <div class="voteCol1 floatLeft">&nbsp;</div>
-          <div class="voteCol2 floatLeft">I would <strong>enthusiastically endorse</strong> this package</div>
-          <div class="voteCol3 floatLeft">I am <strong>willing to endorse</strong> this package if it receives greatest participant support</div>
-          <div class="voteCol4 floatLeft">I would <strong>not endorse</strong> this package, regardless of its support among other participants</div>
+          <div class="voteCol2 floatLeft">I would <strong>enthusiastically recommend</strong> this package</div>
+          <div class="voteCol3 floatLeft">I am <strong>willing to recommend</strong> this package if it receives greatest participant support</div>
+          <div class="voteCol4 floatLeft">I would <strong>not recommend</strong> this package, regardless of its support among other participants</div>
           <div class="clearBoth"></div>
         </div>
 		<!-- end voting headers -->
-		<form action="packageVote.do?activity=vote" method="POST">
-			<c:forEach var="package" items="${clusteredPackages}" varStatus="loop">
+		<form name="vote" action="javascript:setVoting();">
+			<c:forEach var="clusteredPkg" items="${voteSuite.pkgSuite.clusteredPkgs}" varStatus="loop">
 			       <div class="VoteListRow row ${((loop.index % 2) == 0) ? 'even' : 'odd'}">
 			         <div class="voteCol1 floatLeft">
-			           <div class="floatLeft"><a href="package.do?id=${package.id}">Package ${package.id}</a></div>
+			           <div class="floatLeft">
+			               <pg:url target="blank" page="/package.do" params="pkgId=${clusteredPkg.id}&pkgSuiteId=${pkgSuiteId}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}">${clusteredPkg.description}</pg:url>
+			           </div>
 			         </div>
-			         <div class="voteCol2 floatLeft"><input name="enthusiastic" value="${package.id}" type="radio" /></div>
-			         <div class="voteCol3 floatLeft"><input name="willing" value="${package.id}" type="radio"></div>
-			         <div class="voteCol4 floatLeft"><input name="not" value="${package.id}" type="radio"></div>
+			         <div class="voteCol2 floatLeft"><input name="pkg${clusteredPkg.id}" value="1" type="radio" /></div>
+			         <div class="voteCol3 floatLeft"><input name="pkg${clusteredPkg.id}" value="2" type="radio" /></div>
+			         <div class="voteCol4 floatLeft"><input name="pkg${clusteredPkg.id}" value="3" type="radio" /></div>
 			         <div class="clearBoth"></div>
 			       </div>
 			</c:forEach>
+                        <c:if test="voteSuite.closed==false">
+			  <p class="floatRight"><input type="reset" class="padding5" value="Reset form and start over" /> <input type="submit" class="padding5" value="Submit Vote" /></p>
+                        </c:if>
 		</form>
-		<p class="floatRight"><input type="button" value="Reset form and start over" /> <input type="button" value="Submit answers" /></p>
+		
 	</div><!-- end one voting box -->
 	<div class="clearBoth"></div>	
     <!-- end obj-left -->
@@ -165,22 +199,9 @@ background:#FFF1DC;
 <!-- start feedback form -->
 <pg:feedback id="feedbackDiv" action="cctView.do"/>
 <!-- end feedback form -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-  <div id="headerContainer">
-    <div id="headerTitle" class="floatLeft">
-      <h3 class="headerColor">Step 4b: Evaluate Candidate Packages</h3>
-    </div>
-    <div class="headerButton floatLeft  currentBox"> <a href="step4.html">4a:
-        Review packages</a> </div>
-
-    <div class="headerButton floatLeft"> <a href="step4b.html">4b:
-        Vote</a> </div>
-    <div id="headerNext" class="floatRight box5"> <a href="step4b.html">Next
-        Step</a> </div>
-  </div>
-</div>
-<!-- End header menu -->
+<!-- Start Global Headers  --> 
+<wf:subNav />
+<!-- End Global Headers -->
 <!-- Begin footer -->
 <div id="footer">
   <jsp:include page="/footer.jsp" />

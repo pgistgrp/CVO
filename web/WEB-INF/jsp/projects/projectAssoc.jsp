@@ -12,12 +12,17 @@
 	Page: Define Projects
 	Description: Form to associate selected projects to a workflow instance.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Zhong Wang, John Le
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Matt Paulin, Zhong Wang
 	Todo Items:
 		[x] Initial Skeleton Code (Jordan)
-		[ ] BareBones JavaScript (Isaac)
-		[ ] Test form actions (Isaac)
+		[x] BareBones JavaScript (Jordan)
+		[x] Add JS to set alts (Jordan)
+		[x] Load Projects into Action (Matt)
+		[x] Order Alts A-Z (Matt)
+		[x] test setProjectDefine (Matt)
+		[x] How do I check if the alternative is defined or not onLoad? pg:contains (Jordan)
+		[x] Loading indicator (Jordan & Adam)
 		
 #### -->
 <html:html> 
@@ -35,40 +40,103 @@
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
-<!--Criteria Specific  Libraries-->
+<!--Project Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
-
+<script type="text/javascript" charset="utf-8"></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <script>
-// Global Variables
+	var suiteId = ${suite.id};
 
+	function checkAltsInProject(projId,checked){
+		var alts = document.getElementsByName("projectAlts" + projId);
+		for(i=0;i<alts.length;i++){
+			alts[i].checked = checked;
+			
+			//Get the AltID
+			start = alts[i].id.indexOf('-') + 1;
+			end = alts[i].id.length
+			altId = alts[i].id.substring(start,end)
+			
+			//Inoke AJAX to set the project Alt operation
+			setProjectDefine(altId, checked)
+		}
+	}
 
-// END Global Variables
+	function setProjectDefine(altId,checked){
+		operation = (checked) ? "add" : "remove";
+		
+		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation);
+		Util.loading(true,"Saving project set"); 
+		ProjectAgent.setProjectDefine({suiteId:suiteId,altId:altId,operation:operation}, {
+			callback:function(data){
+				if (data.successful){
+					//alert("alternative operation saved!");
+					//add loading indicator if time permits
+				
+				}else{
+					alert(data.reason);
+				}
+				Util.loading(false);
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("ProjectAgent.setProjectDefine( error:" + errorString + exception);
+			}
+		});
+	}
+
+	
 </script>
 <style type="text/css">
-
+	@import "styles/loading-indicator.css";
+		
+	body{font-size:11pt;font-family:arial,sans-serif;width:800px;}
+	li{margin: 10px 0; list-style: none;}
+	.project{font-size: 1.3em;}
+	li ul li:hover {background:#E4F1F5;}
+	li ul li{width:600px;padding:5px;}
+	span#projRow:hover{background:#BDE2F1;}
+	span#projRow{padding:3px;}
 </style>
+<event:pageunload />
 </head>
 
 
 <body>
-	<h3>Moderator Tools &raquo; Define Projects</h3> 
+	<p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+	<h1>Define Projects for this Experiment</h1>
+	<p>Which projects are available for the "Let's Improve Transportation Challenge" experiment? Go to <a href="projectManage.do">manage projects</a> to add/remove projects.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">
 		<input type="hidden" name="cctId" value="${cct.id}" /
 		<input type="hidden" name="activity" value="save" />
-		<h4>All Projects</h4>
+		<h3>All Projects</h3>
 		<ul id="projectsList">
 			<c:forEach var="project" items="${projects}">
-				<li><input type="checkbox" name="projectId" value="${project.id}"/>${project.name}
+				<li><span id="projRow"><label><span class="project">${project.name}</span></label> 
+					<!--
+					<small>
+						<a href="javascript:checkAltsInProject(${project.id}, true)">check all</a> | 
+						<a href="javascript:checkAltsInProject(${project.id}, false)">uncheck all</a>
+					</small>
+				-->
+					</span>
 					<ul>
-						<c:forEach var="alternative" items="${project.alternatives}">
-							<li>${alternative.name}</li>
+						<c:forEach var="alt" items="${project.alternatives}">
+							<li>
+								<label><input type="checkbox" name="projectAlts${project.id}" id="projectAlt-${alt.id}" 
+								<c:if test="${pg:containsRef(suite,project,alt)}">CHECKED</c:if> value="${alt.id}" onClick="setProjectDefine(this.value, this.checked);"/>
+								${alt.name}</label>
+							</li>
 						</c:forEach>
 					</ul>
 				</li>
 			</c:forEach>
 		</ul>
-		<input type="submit" value="submit">
+
 	</form>
+	<div style="width:700px">
+	<h3 align="right">Finished selecting project alternatives?</h3>
+	<!-- this button just redirects - saves are occuring on check. -->
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p></div>
 </body>
 </html:html>
 

@@ -4,7 +4,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.exceptions.UserExistException;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
 
@@ -12,7 +11,7 @@ import org.pgist.util.WebUtils;
 /**
  * Register Questionnaire Action.
  * 
- * @author kenny
+ * @author John
  *
  */
 public class Register2bAction extends Action {
@@ -50,6 +49,12 @@ public class Register2bAction extends Action {
     	
     	try {
     		Long id = WebUtils.currentUserId();
+    		User user = systemService.getUserById(id);
+
+    		if(user.getRegComplete()){
+    			return mapping.findForward("main");
+    		}
+    		
         } catch (Exception e) {
             return mapping.findForward("register");
         }

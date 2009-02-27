@@ -12,7 +12,7 @@
             </declaration>
         </pgame>
         <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="all">
-            <actionName>task-define.projects</actionName>
+            <actionName>action-define.projects</actionName>
             <declaration>
                 <ins>
                     <var name="suite_id"/>

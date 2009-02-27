@@ -1,3 +1,8 @@
+.moneyInput{
+	background-image:url('../images/dollarsign.gif');
+	background-repeat:no-repeat;
+	padding-left:20px;
+}
 
 body{font-size:12pt;}
 
@@ -10,7 +15,7 @@ border:1px solid #89A3AF;
 
 #myIncome
 {
-background:#E6EDEF;
+background:#D6E7EF;
 }
 
 #myIncome span {margin-right:2em;}
@@ -19,7 +24,7 @@ background:#E6EDEF;
 #myVehicles
 {
 border-top:0px;
-background:#D6E7EF;
+background:#F6F7F7;
 }
 
 #myVehicles input {width:5em;}
@@ -28,7 +33,7 @@ background:#D6E7EF;
 #myCommute
 {
 border-top:0px;
-background:#E6EDEF;
+background:#D6E7EF;
 }
 
 #myCommute-left,#myCommute-center,#myCommute-right{margin-right:1em;}

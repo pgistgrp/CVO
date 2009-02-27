@@ -1,17 +1,15 @@
 package org.pgist.ddl;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.cvo.CCT;
 import org.pgist.cvo.Concern;
-import org.pgist.cvo.Tag;
 import org.pgist.cvo.TagReference;
+import org.pgist.tagging.Tag;
 import org.pgist.users.User;
 
 
@@ -20,10 +18,7 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public class ConcernHandler extends Handler {
-    
-    
-    private Random random = new Random();
+public class ConcernHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {
@@ -33,6 +28,7 @@ public class ConcernHandler extends Handler {
             
             Concern concern = new Concern();
             concern.setCreateTime(new Date());
+            concern.setReplyTime(concern.getCreateTime());
             concern.setDeleted(false);
             
             String randomStr = element.elementTextTrim("sortOrder");
@@ -64,7 +60,7 @@ public class ConcernHandler extends Handler {
             if (createTimeStr==null || "".equals(createTimeStr)) {
                 concern.setCreateTime(new Date());
             } else {
-                Date createTime = DateFormat.getInstance().parse(createTimeStr);
+                Date createTime = format.parse(createTimeStr);
                 concern.setCreateTime(createTime);
             }
             
@@ -81,11 +77,13 @@ public class ConcernHandler extends Handler {
                         tag = new Tag();
                         tag.setName(tagName);
                         tag.setStatus(parseTagStatus(element.attributeValue("status")));
-                        tag.setDescription(tagName);
+                        tag.setType(Tag.TYPE_INCLUDED);
                         saveTag(tag);
                     }
                     
                     TagReference tagRef = ensureTagReference(cct, tag);
+                    saveTagReference(tagRef);
+                    
                     concern.getTags().add(tagRef);
                 }//for j
             }
@@ -113,6 +111,8 @@ public class ConcernHandler extends Handler {
             Element content = one.addElement("content");
             content.setText(concern.getContent());
             
+            Element createTime = one.addElement("createTime");
+            createTime.setText(format.format(concern.getCreateTime()));
             Element tags = one.addElement("tags");
             
             for (Iterator iter=concern.getTags().iterator(); iter.hasNext(); ) {

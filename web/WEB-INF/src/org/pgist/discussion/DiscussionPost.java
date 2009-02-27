@@ -1,108 +1,75 @@
 package org.pgist.discussion;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
-
-import org.pgist.users.User;
 
 
 /**
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_dicussion_post" lazy="true"
+ * @hibernate.class table="pgist_discussion_post" lazy="true"
  */
-public class DiscussionPost {
+public class DiscussionPost extends GenericPost {
     
     
-    public static final int CATEGORY_CONCERN = 1;
+    protected Discussion discussion;
     
-    public static final int CATEGORY_COMMENT = 2;
+    protected DiscussionReply lastReply;
     
+    protected int views = 0;
     
-    protected Long id;
+    protected int replies = 0;
     
-    protected DiscussionPost parent;
+    protected Date replyTime;
     
-    protected Set children = new HashSet();
-    
-    protected String content = "";
-    
-    protected User owner;
-    
-    protected Date time;
+    /**
+     * value is a transient variable which can hold any object temporarilly
+     */
+    private Object value;
     
     
     /**
      * @return
-     * @hibernate.id generator-class="native"
+     * 
+     * @hibernate.many-to-one column="discussion_id"
      */
-    public Long getId() {
-        return id;
+    public Discussion getDiscussion() {
+        return discussion;
     }
     
     
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.many-to-one column="parent_id" lazy="true"
-     */
-    public DiscussionPost getParent() {
-        return parent;
-    }
-    
-    
-    public void setParent(DiscussionPost parent) {
-        this.parent = parent;
+    public void setDiscussion(Discussion discussion) {
+        this.discussion = discussion;
     }
     
     
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_discourse_post" order-by="id" cascade="all"
-     * @hibernate.collection-key column="parent_id"
-     * @hibernate.collection-one-to-many class="org.pgist.model.Post"
+     * 
+     * @hibernate.many-to-one column="last_reply"
      */
-    public Set getChildren() {
-        return children;
+    public DiscussionReply getLastReply() {
+        return lastReply;
     }
     
     
-    public void setChildren(Set children) {
-        this.children = children;
+    public void setLastReply(DiscussionReply lastReply) {
+        this.lastReply = lastReply;
     }
-
+    
     
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property not-null="true"
      */
-    public String getContent() {
-        return content;
-    }
-
-    
-    public void setContent(String content) {
-        this.content = content;
+    public int getViews() {
+        return views;
     }
 
 
-    /**
-     * @return
-     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User"
-     */
-    public User getOwner() {
-        return owner;
-    }
-
-
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setViews(int views) {
+        this.views = views;
     }
 
 
@@ -110,32 +77,55 @@ public class DiscussionPost {
      * @return
      * @hibernate.property not-null="true"
      */
-    public Date getTime() {
-        return time;
+    public int getReplies() {
+        return replies;
     }
 
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setReplies(int replies) {
+        this.replies = replies;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public Date getReplyTime() {
+        return replyTime;
+    }
+
+
+    public void setReplyTime(Date replyTime) {
+        this.replyTime = replyTime;
+    }
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" table="pgist_dpost_tag_link" order-by="tag_id"
+     * @hibernate.collection-key column="dpost_id"
+     * @hibernate.collection-many-to-many column="tag_id" class="org.pgist.tagging.Tag"
+     */
+    public Set getTags() {
+        return tags;
     }
 
 
     /*
      * ------------------------------------------------------------------------
      */
-    
 
-    public DiscussionPost addChild(String content, User owner) {
-        DiscussionPost post = new DiscussionPost();
-        
-        post.setParent(this);
-        this.getChildren().add(post);
-        post.setContent(content);
-        post.setOwner(owner);
-        post.setTime(new Date());
-        
-        return post;
-    }//addChild()
-    
-    
+
+    public Object getValue() {
+        return value;
+    }
+
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+
 }//class DiscussionPost

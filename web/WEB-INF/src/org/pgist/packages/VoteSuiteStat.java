@@ -1,20 +1,40 @@
 package org.pgist.packages;
+
+import java.util.Comparator;
+
 /**
  * Represents a vote for one clustered package
  * 
  * @author Matt Paulin
  * @hibernate.class table="pgist_pkg_vote_suite_stats" lazy="true"
  */
-public class VoteSuiteStat {
+public class VoteSuiteStat implements Comparator {
 
 	private Long id;
-	private Integer totalVotes;
+	private Integer totalVotes = 0;
 	private ClusteredPackage clusteredPackage;
-	private Integer highVotePercent;
-	private Integer mediumVotePercent;
-	private Integer lowVotePercent;
+	private Integer highVotes = 0;
+	private Integer mediumVotes = 0;
+	private Integer lowVotes = 0;
+	private PackageVoteSuite packageVoteSuite;
 	
-    /**
+	
+	
+	/**
+	 * @return the packageVoteSuite
+     * @hibernate.many-to-one column="votesuite_id" cascade="all" class="org.pgist.packages.PackageVoteSuite"
+	 */
+    public PackageVoteSuite getPackageVoteSuite() {
+		return packageVoteSuite;
+	}
+
+
+	public void setPackageVoteSuite(PackageVoteSuite packageVoteSuite) {
+		this.packageVoteSuite = packageVoteSuite;
+	}
+
+
+	/**
      * @return
      * 
      * @hibernate.id generator-class="native"
@@ -31,7 +51,7 @@ public class VoteSuiteStat {
 
 	/**
 	 * @return the clusteredPackage
-     * @hibernate.many-to-one column="clustered_pkg_id" cascade="none" class="org.pgist.packages.ClusteredPackage"
+     * @hibernate.many-to-one column="clustered_pkg_id" cascade="all" class="org.pgist.packages.ClusteredPackage"
 	 */
 	public ClusteredPackage getClusteredPackage() {
 		return clusteredPackage;
@@ -43,57 +63,6 @@ public class VoteSuiteStat {
 	 */
 	public void setClusteredPackage(ClusteredPackage clusteredPackage) {
 		this.clusteredPackage = clusteredPackage;
-	}
-
-
-	/**
-	 * @return the highVotePercent
-     * @hibernate.property not-null="true"
-	 */
-	public Integer getHighVotePercent() {
-		return highVotePercent;
-	}
-
-
-	/**
-	 * @param highVotePercent the highVotePercent to set
-	 */
-	public void setHighVotePercent(Integer highNum) {
-		this.highVotePercent = highNum;
-	}
-
-
-	/**
-	 * @return the lowVotePercent
-     * @hibernate.property not-null="true"
-	 */
-	public Integer getLowVotePercent() {
-		return lowVotePercent;
-	}
-
-
-	/**
-	 * @param lowVotePercent the lowVotePercent to set
-	 */
-	public void setLowVotePercent(Integer lowNum) {
-		this.lowVotePercent = lowNum;
-	}
-
-
-	/**
-	 * @return the mediumVotePercent
-     * @hibernate.property not-null="true"
-	 */
-	public Integer getMediumVotePercent() {
-		return mediumVotePercent;
-	}
-
-
-	/**
-	 * @param mediumVotePercent the mediumVotePercent to set
-	 */
-	public void setMediumVotePercent(Integer mediumNum) {
-		this.mediumVotePercent = mediumNum;
 	}
 
 
@@ -111,5 +80,72 @@ public class VoteSuiteStat {
 	 */
 	public void setTotalVotes(Integer totalVotes) {
 		this.totalVotes = totalVotes;
+	}
+
+	/**
+	 * @return the highVotePercent
+     * @hibernate.property not-null="true"
+	 */
+	public Integer getHighVotes() {
+		return highVotes;
+	}
+
+
+	public void setHighVotes(Integer highVotes) {
+		this.highVotes = highVotes;
+	}
+
+	/**
+	 * @param lowVotePercent the lowVotePercent to set
+	 * @hibernate.property not-null="true"
+	 */
+	public Integer getLowVotes() {
+		return lowVotes;
+	}
+
+
+	public void setLowVotes(Integer lowVotes) {
+		this.lowVotes = lowVotes;
+	}
+
+	/**
+	 * @return the mediumVotePercent
+     * @hibernate.property not-null="true"
+	 */
+	public Integer getMediumVotes() {
+		return mediumVotes;
+	}
+
+
+	public void setMediumVotes(Integer mediumVotes) {
+		this.mediumVotes = mediumVotes;
 	}	    
+	
+	
+	
+	public int compare(Object obj1, Object obj2) {
+		VoteSuiteStat o1 = (VoteSuiteStat) obj1;
+    	VoteSuiteStat o2 = (VoteSuiteStat) obj2;
+        
+    	int o1Pos = o1.getHighVotes() + o1.getMediumVotes();
+    	int o2Pos = o2.getHighVotes() + o2.getMediumVotes();
+    	
+    	int result = 0;
+    	
+    	if(o1Pos > o2Pos ) {
+    		result = 1;
+    	} else if(o1Pos == o2Pos){
+    		if(o1.getHighVotes() > o2.getHighVotes()) {
+				result = 1;
+    		} else {
+    		result = -1;
+    		}
+		} else {
+			result = -1;
+		}		
+    	
+    	//-1 less, 0 same, 1 greater
+        
+    	return result*-1; //I want to reverse it
+	}
 }

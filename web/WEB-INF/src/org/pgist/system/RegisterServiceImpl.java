@@ -1,36 +1,25 @@
 package org.pgist.system;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.pgist.exceptions.UserExistException;
-import org.pgist.users.BaseUser;
-import org.pgist.users.Role;
+import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
-import org.pgist.users.Vehicle;
-import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
-import org.pgist.web.DelegatingHttpServletRequestWrapper;
-import org.pgist.system.SystemService;
-import org.pgist.funding.FundingDAO;
-import org.pgist.funding.UserTaxInfoDTO;
+
 
 /**
  * 
- * @author kenny
+ * @author John
  *
  */
 public class RegisterServiceImpl implements RegisterService {
 
 	private RegisterDAO registerDAO;
-    
-    private UserDAO userDAO;
     
     private SystemService systemService;
 
@@ -43,11 +32,6 @@ public class RegisterServiceImpl implements RegisterService {
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
 	}
-
-
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
     
     
     public Long addUser(String firstname, String lastname, String email1,  String address1, String address2, String city, String state, String zipcode, String username, String password1) throws Exception {
@@ -69,6 +53,17 @@ public class RegisterServiceImpl implements RegisterService {
         WebUtils.setCurrentUser(userInfo);
     }
     
+    
+    public void logout(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        
+        if (session!=null) {
+            session.setAttribute("user", null);
+            session.invalidate();
+        }
+    }
+    
+    
     public void addQuotaInfo(String user_interview, String user_observation) throws Exception {
     	Long id = WebUtils.currentUserId();
     	registerDAO.addQuotaInfo(user_interview, user_observation, id);
@@ -86,5 +81,109 @@ public class RegisterServiceImpl implements RegisterService {
     	registerDAO.deleteUser(id);
     }
     
+    
+    public Collection getTolls() throws Exception {
+    	return registerDAO.getTolls();
+    }
+    
+    
+    public void addQuestionnaire(String incomeRange, int householdsize, int drive, int carpool, int carpoolpeople, int bus, int bike,  int walk) throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	registerDAO.addQuestionnaire(id, incomeRange, householdsize, drive, carpool, carpoolpeople, bus, bike, walk);  	
+    }
+    
+    
+    public void setToll(Long myTollId, boolean boolchecked) throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	registerDAO.setToll(id, myTollId, boolchecked);
+    }
+    
+    
+    public boolean checkUsername(String username) throws Exception {
+    	
+    	return registerDAO.checkUsername(username);
+    }
+    
+    public User getCurrentUser() throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	return registerDAO.getCurrentUser(id);
+    }
+    
+    
+	public boolean createPasswordRecovery(String email) throws Exception {
+		return registerDAO.createPasswordRecovery(email);
+	}
+	
+	
+	public boolean checkEmail(String email) throws Exception {
+		return registerDAO.checkEmail(email);
+	}
+	
+	
+	public boolean validatePasswordRecoveryCode(String code) throws Exception {
+		return registerDAO.validatePasswordRecoveryCode(code);
+	}
+	
+	
+	public boolean createChangePassword(String code, String password)throws Exception {
+		return registerDAO.createChangePassword(code, password);
+	}
+	
+	
+	public void deleteRecoverPassword(String code) throws Exception {
+		registerDAO.deleteRecoverPassword(code);
+	}
+	
+	
+	public void deleteAllExpired() throws Exception {
+		registerDAO.deleteAllExpired();
+	}
+	
+    public Long saveUserTravelTrip(Long uid, TravelTrip trip) throws Exception{
+       if(uid == null || uid == -1){
+           uid = WebUtils.currentUserId();
+       }
+       System.out.println("save trip for user: " + uid);
+    	User user = registerDAO.getCurrentUser(uid);
+    	return registerDAO.saveUserTravelTrip(user, trip);
+    }
+    
+    public ArrayList<TravelTrip> getUserTravelTrips (Long uid) throws Exception{
+        if(uid == null || uid == -1){
+            uid = WebUtils.currentUserId();
+        }
+        System.out.println("get trips for user: " + uid);
+    	return registerDAO.getUserTravelTrips(uid);
+    }
+    
+    public void deleteTravelTrip(long tripId) throws Exception{
+    	registerDAO.deleteTravelTrip(tripId);
+    }
+
+    public Collection getRegisterObjectByType(String type) throws Exception {
+    	return registerDAO.getRegisterObjectByType(type);
+    }
+    
+    public void createRegisterObjects(String type, String[] valuelist) throws Exception {
+    	registerDAO.createRegisterObjects(type, valuelist);
+    }
+    
+    public Collection getTransTypes() throws Exception {
+    	return registerDAO.getTransTypes();
+    }
+    
+    public void createCancel(HttpServletRequest request) throws Exception {
+    	Long id = WebUtils.currentUserId();
+    	registerDAO.createCancel(id);
+    	logout(request);
+    }
+
+
+    @Override
+    public Long addSarpUser(String firstname, String lastname, String email1,
+            String age, String gender, String income, String education,
+            String zipcode, String username, String password1) throws Exception {
+        return registerDAO.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1); 
+    } //addSarpUser()
     
 }

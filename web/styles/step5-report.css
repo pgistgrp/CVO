@@ -73,20 +73,10 @@ text-align:left;
 
 #planningFactors .weighCriteriaCol1
 {
-width:200px;
+width:900px;
 margin:auto .5em;
 }
 
-#planningFactors .weighCriteriaCol2
-{
-width:315px;
-}
-
-#planningFactors .weighCriteriaCol3
-{
-margin-left:.5em;
-width:395px;
-}	
 
 #planningFactors h4
 {
@@ -122,7 +112,7 @@ width:35%;
 #projects .col4{text-align:center;width:20%;}
 #projects .col5{text-align:center;width:20%;}
 
-#projects .project{font-weight:bold;height:30px;font-size:1.1em;}
+#projects .project{font-weight:bold;height:30px;}
 
 /* -------- */
 /* Packages */
@@ -132,12 +122,12 @@ width:35%;
 .obj-left, .obj-right {margin:0em;}
 
 .obj-left{
-width:54%;
+width:50%;
 border-right:1px solid #ADCFDE;
 }
 
 .obj-right{
-width:45.85%;
+width:49.85%;
 }
 
 .obj-left .listRow, .obj-right .listRow{
@@ -154,7 +144,6 @@ h4.subHeading {padding-left:5px}
 
 .obj-left .projCol1{
 width:325px;
-font-size:1.1em; 
 margin-left:10px;
 }
 
@@ -163,16 +152,9 @@ width:100px;
 text-align:center;
 }
 
-.obj-left .projCol3{
-width:60px;
-text-align:center;
-}
-
-
 .obj-right .fundingCol1{
-width:300px;
-margin-left:15px;
-font-size:1.1em;
+width:350px;
+margin-left:5px;
 }
 
 .obj-right .fundingCol2{

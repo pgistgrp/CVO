@@ -30,6 +30,15 @@ public class Category implements Node {
     protected boolean deleted = false;
     
     
+    public Category() {
+    }
+    
+    
+    public Category(String name) {
+        this.name = name;
+    }
+    
+    
     /**
      * @return
      * 

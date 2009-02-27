@@ -4,10 +4,13 @@
 <html:html>
 <head>
 <title>PGIST Search</title>
+<event:pageunload />
 </head>
-<body bgcolor="white">
+<body>
 
 <html:form action="/search.do" method="post">
+
+<html:hidden property="workflowId" name="searchForm" value="${param['workflowId']}"/>
 
 <table width="100%">
   <tr>

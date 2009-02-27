@@ -9,17 +9,22 @@
             <ref bean="sessionFactory" />
         </property>
     </bean>
-
-
+    
+    
     <bean id="packageService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.packages.PackageServiceImpl">
                 <property name="packageDAO" ref="packageDAO"/>
-            </bean>
+                <property name="projectDAO" ref="projectDAO"/>   
+                <property name="fundingDAO" ref="fundingDAO"/>    
+                <property name="criteriaDAO" ref="criteriaDAO"/>                                         
+                <property name="discussionDAO" ref="discussionDAO"/>                                         
+                <property name="cctDAO" ref="cctDAO"/>                                         
+             </bean>
         </property>
     </bean>
 
-
+    
     <bean id="packageAgent" class="org.pgist.packages.PackageAgent">
         <property name="packageService" ref="packageService"/>
     </bean>

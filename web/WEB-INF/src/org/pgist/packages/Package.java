@@ -2,51 +2,68 @@ package org.pgist.packages;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.pgist.funding.FundingSource;
-import org.pgist.projects.Project;
+import java.util.HashMap;
 
 
 /**
+ * The base class for packages: UserPackage and ClusteredPackage.<br>
+ * A package contains a set of project alternative references and a set of funding source alternative references.
+ * 
  * @author Guirong
  * 
- * @hibernate.class table="pgist_packages" lazy="true"
  */
-public class Package implements Serializable {
+public abstract class Package implements Serializable {
     
     
-    public static int PGIST_PACKAGE_TYPE_PPP = 0;//preliminary personal package
+    protected Long id;
     
-    public static int PGIST_PACKAGE_TYPE_SPP = 1;//submitted personal package
+    protected PackageSuite suite;
     
-    public static int PGIST_PACKAGE_TYPE_CPP = 2;//clustered personal package
+    protected String description;
+    
+    protected Date createDate;
+
+    protected float totalCost;
+    
+    protected float totalFunding;
+    
+    /**
+     * Non persisted values that represent the users cost in regards to a funding source alternative
+     */
+    protected HashMap<Long, Float> personalCost = new HashMap<Long, Float>();
     
     
-    private Set<Project> projects = new HashSet<Project>();
-    
-    private String name;
-    
-    private String author;
-    
-    private Date createDate;
-    
-    private double year1Cost;
-    
-    private double year2Cost;
-    
-    private double year3Cost;
-    
-    private double year4Cost;
-    
-    private double year5Cost;
-    
-    private Long id;
-    
-    private int type;
-    
-    private Set<FundingSource> fundingSources = new HashSet<FundingSource>();
+    /**
+     * Returns a map of the personal cost for a person in relation to a FundingSourceAlternative.
+     * The key is the FundingSourceAlternative ID and the value is a float describing how much 
+     * it would cost this user.
+     * 
+	 * @return the personalCost
+	 */
+	public HashMap<Long, Float> getPersonalCost() {
+		return personalCost;
+	}
+
+	/**
+	 * @param personalCost the personalCost to set
+	 */
+	public void setPersonalCost(HashMap<Long, Float> personalCost) {
+		this.personalCost = personalCost;
+	}
+	
+	/**
+	 * Utility method that retrieves the value and deals with any situation where the 
+	 * alternative ID provided doesn't exist
+	 * 
+	 * @param	fundingSourceAlternativeID	The id of the alternative
+	 * @return	The personal cost	
+	 */
+	public float getPersonalCost(Long fundingSourceAlternativeID) {
+		if(this.personalCost.containsKey(fundingSourceAlternativeID)) {
+			return this.personalCost.get(fundingSourceAlternativeID).floatValue();
+		}
+		return 0;
+	}
     
     
     /**
@@ -63,48 +80,34 @@ public class Package implements Serializable {
     
     
     /**
-     * @hibernate.set lazy="true" table="pgist_pack_proj_link" cascade="none"
-     * @hibernate.collection-key column="package_id"
-     * @hibernate.collection-many-to-many  column="proj_id" class="org.pgist.projects.Project"
-     */
-    public Set<Project> getProjects(){
-        return projects;
-	}
-    
-    
-    public void setProjects(Set<Project> projects){
-        this.projects = projects;
-    }
-    
-    
-    /**
      * @return
-     * @hibernate.property not-null="true"
+     * 
+     * @hibernate.many-to-one column="suite_id" cascade="all" lazy="true"
      */
-    public String getName() {
-        return name;
+    public PackageSuite getSuite() {
+        return suite;
     }
-    
-    
-    public void setName(String name) {
-        this.name = name;
+
+
+    public void setSuite(PackageSuite suite) {
+        this.suite = suite;
     }
-    
-    
+
+
     /**
      * @return
      * @hibernate.property
      */
-    public String getAuthor() {
-        return author;
+    public String getDescription() {
+        return description;
     }
-    
-    
-    public void setAuthor(String author) {
-        this.author = author;
+
+
+    public void setDescription(String description) {
+        this.description = description;
     }
-    
-    
+
+
     /**
      * @return
      * @hibernate.property
@@ -120,113 +123,39 @@ public class Package implements Serializable {
     
     
     /**
-     * @return
      * @hibernate.property
      */
-    public double getYear1Cost() {
-        //TODO: this shall not be persisted. it should come out from adding year 1 cost for all the projects
-        return year1Cost;
+    public float getTotalCost() {
+        return totalCost;
     }
-    
-    
-    public void setYear1Cost(double year1Cost) {
-        this.year1Cost = year1Cost;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public double getYear2Cost() {
-        return year2Cost;
-    }
-    
-    
-    public void setYear2Cost(double year2Cost) {
-        this.year2Cost = year2Cost;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public double getYear3Cost() {
 
-        return year3Cost;
-    }
-    
-    
-    public void setYear3Cost(double year3Cost) {
-        this.year3Cost = year3Cost;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public double getYear4Cost() {
-        return year4Cost;
-    }
-    
-    
-    public void setYear4Cost(double year4Cost) {
-        this.year4Cost = year4Cost;
-    }
-    
-    
-    /**
-     * @return
-     * @hibernate.property
-     */
-    public double getYear5Cost() {
-        return year5Cost;
-    }
-    
-    
-    public void setYear5Cost(double year5Cost) {
-        this.year5Cost = year5Cost;
-    }
-    
-    
-    /**
-     * @hibernate.property
-     */
-    public int getType() {
-        return type;
-    }
-    
-    
-    public void setType(int type) {
-        this.type = type;
-    }
-    
-    
-    /**
-     * @hibernate.set lazy="true" table="pgist_ag_pack_fund" cascade="none"
-     * @hibernate.collection-key column="package_id"
-     * @hibernate.collection-many-to-many  column="fund_id" class="org.pgist.funding.FundingSource"
-     */
-    public Set<FundingSource> getFundingSources() {
-        return fundingSources;
-    }
-    
-    
-    public void setFundingSources(Set<FundingSource> fundingSources) {
-        this.fundingSources = fundingSources;
-    }
-    
 
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
+    }
+
+
+    /**
+     * @hibernate.property
+     */
+    public float getTotalFunding() {
+        return totalFunding;
+    }
+
+
+    public void setTotalFunding(float totalFunding) {
+        this.totalFunding = totalFunding;
+    }
+    
+    
     /*
      * ------------------------------------------------------------------------
      */
+
+
+    public float getBalance() {
+        return totalFunding - totalCost;
+    }//getBalance()
     
-    
-    public double getTotalCost() {
-        return (year1Cost + year2Cost + year3Cost + year4Cost + year5Cost);
-    }//getTotalCost()
-    
-    
+
 }//class Package

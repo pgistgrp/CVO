@@ -1,39 +1,34 @@
 package org.pgist.packages;
 
-import java.util.Collection;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.funding.FundingService;
+import org.pgist.projects.Project;
+import org.pgist.projects.ProjectService;
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 
 /**
- * Participants use this action to create/modify their packages.<br>
+ * Shows the details of a specified package to participant.<br>
  * 
  * The action accepts two parameters:
  * <ul>
- *   <li>cctId - int, an id of a CCT object</li>
- *   <li>action - string, valid values are
- *     <ul>
- *       <li>'' - show up the page</li>
- *       <li>'save' - user submit his choices</li>
- *     </ul>
- *   </li>
+ *   <li>pkgId - int, an id of a ClusteredPackage object</li>
+ *   <li>pkgSuiteId - the id of a specified PackageSuite object</li>
+ *   <li>projSuiteId - the id of a specified PackageSuite object</li>
+ *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
+ *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>
  * </ul>
  * 
  * The action will always forward to the jsp page specified in struts-config.xml
- * with the forward name as "success".
+ * with the forward name as "view".
  * In that jsp page, the following request attributes are available:
  * <ul>
- *   <li>projects - a collection of Project objects</li>
- *   <li>sources - a collection of FundingSource objects</li>
- *   <li>package - a UserPackage object of the current user</li>
+ *   <li>package - a ClusteredPackage object</li>
  * </ul>
- * 
- * When user submits his choices ("save".equals(action)), the choices will be submitted in form parameters,
- * "proj-0000" and "fund-0000", where "0000" should be the id of one project instance. The action should parse
- * out that id, and populate to the user package.
  * 
  * @author kenny
  */
@@ -47,7 +42,18 @@ public class PackageAction extends Action {
         this.packageService = packageService;
     }
 
+    private ProjectService projectService;
+    
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
+    private FundingService fundingService;
+    
+    public void setFundingService(FundingService fundingService) {
+        this.fundingService = fundingService;
+    }
+    
     /*
      * ------------------------------------------------------------------------
      */
@@ -59,22 +65,32 @@ public class PackageAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws Exception {
-        
-        Long cctId = new Long(request.getParameter("cctId"));
-        String action = request.getParameter("action");
-        
-        if ("save".equalsIgnoreCase(action)) {
-            //TODO: save the current users package
-            //Note: the program should clear the alternatives in the user package,
-            //      and then set the value again.
-        }
-        
-        //show up the "Create/Modify Package" page
-        //TODO: extract projects/sources/package and put to the request attributes
-        
+    	String tempPkgId = request.getParameter("pkgId");
+    	String tempPackageSuiteId = request.getParameter("pkgSuiteId");
+    	String tempProjSuiteId = request.getParameter("projSuiteId");
+    	String tempFundSuiteId = request.getParameter("fundSuiteId");
+    	String tempCritSuiteId = request.getParameter("critSuiteId");
+    	
+    	Long pkgId = new Long(tempPkgId);
+		Long packSuite = new Long(tempPackageSuiteId);
+		Long projSuite = new Long(tempProjSuiteId);
+		Long fundSuite = new Long(tempFundSuiteId);
+		Long critSuite = new Long(tempCritSuiteId);    	
+
+		ClusteredPackage uPack = this.packageService.getClusteredPackage(pkgId);   
+		//Grade it
+    	User user = this.packageService.getUser(WebUtils.currentUser());		
+		
+		request.setAttribute("package", uPack);    		
+		request.setAttribute("packageRoadProjects", this.packageService.createPackageProjectDTOs(uPack, critSuite, projSuite, user, Project.TRANSMODE_ROAD));
+		request.setAttribute("packageTransitProjects", this.packageService.createPackageProjectDTOs(uPack, critSuite, projSuite, user, Project.TRANSMODE_TRANSIT));
+		request.setAttribute("packageFunding", this.packageService.createPackageFundingDTOs(uPack, user, fundSuite));
+		
+    	System.out.println("***uPackid" + uPack.getId() + " crit " + critSuite + " proj " + projSuite + " user " + user.getLoginname() + "crap " + this.packageService.createPackageProjectDTOs(uPack, critSuite, projSuite, user, Project.TRANSMODE_ROAD));
+    	
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
-        return mapping.findForward("success");
+        return mapping.findForward("view");
     }//execute()
     
     

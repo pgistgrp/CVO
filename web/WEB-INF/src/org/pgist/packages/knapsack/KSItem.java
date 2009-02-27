@@ -5,27 +5,29 @@ package org.pgist.packages.knapsack;
  * 
  * @author Matt Paulin
  */
-public abstract class KSItem implements Comparable<KSItem>{
-
-	private float cost;
-	private float profit;
-	private float ratio;
+public abstract class KSItem {
+    
+    
+    private KSChoices choices;
+    
+	private double cost;
 	
-	/**
-	 * @param cost the cost to set
-	 */
-	public final void setCost(float cost) {
-		this.cost = cost;
-		calcRatio();
+	private double profit;
+	
+	
+	public KSItem(KSChoices choices, double cost, double profit) {
+	    this.choices = choices;
+	    this.cost = cost;
+	    this.profit = profit;
+	    
+	    choices.getChoices().add(this);
 	}
+	
+	
+	public KSChoices getChoices() {
+        return choices;
+    }
 
-	/**
-	 * @param profit the profit to set
-	 */
-	public final void setProfit(float profit) {
-		this.profit = profit;
-		calcRatio();
-	}
 
 	/**
 	 * Returns the cost of the item.  In the temps of the knapsack problem this is the amount of resources
@@ -34,9 +36,10 @@ public abstract class KSItem implements Comparable<KSItem>{
 	 * 
 	 * @return	The cost for the item
 	 */
-	public float getCost() {
+	public double getCost() {
 		return cost;
 	}
+	
 	
 	/**
 	 * Returns the profit of the item.  In the temps of the knapsack problem this is the benifit of having
@@ -44,37 +47,21 @@ public abstract class KSItem implements Comparable<KSItem>{
 	 * 
 	 * @return	The cost for the item
 	 */
-	public float getProfit() {
+	public double getProfit() {
 		return profit;
 	}
-
-	/**
-	 * Calculates the ratio of profit to cost
-	 */
-	public void calcRatio() {
-		//Deal with divide by zero errors
-		if(cost == 0) {
-			ratio = 0;
-		} else {
-			ratio = (profit/cost);					
-		}
+	
+	
+	public boolean isZeroed() {
+		if(this.getCost() == 0 && this.getProfit() == 0) return true;
+		return false;
 	}
 	
-	/**
-	 * Returns the ratio of profit to cost
-	 * 
-	 * @return	The profit divided by the cost
-	 */
-	public float getRatio() {
-		return ratio;
+	
+	public boolean dominates(KSItem nextItem) {
+		if(this.getCost() >= nextItem.getCost() && this.getProfit() <= nextItem.getProfit()) return true;
+		return false;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	public int compareTo(KSItem o) {
-		if(this.getRatio() > o.getRatio()) return 1;
-		if(this.getRatio() < o.getRatio()) return -1;		
-		return 0;
-	}	
-}
+	
+}//class KSItem

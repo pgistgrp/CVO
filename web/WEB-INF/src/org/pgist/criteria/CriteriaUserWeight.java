@@ -56,7 +56,7 @@ public class CriteriaUserWeight {
     /**
      * @return
      * 
-     * @hibernate.map table="pgist_crit_user_weight_map"
+     * @hibernate.map table="pgist_crit_user_weight_map" cascade="all"
      * @hibernate.collection-key column="userweight_id"
      * @hibernate.index-many-to-many column="user_id" class="org.pgist.users.User"
      * @hibernate.collection-element type="integer" column="weight"
@@ -71,4 +71,19 @@ public class CriteriaUserWeight {
     }
     
     
-}//class CriteriaUserWeight
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    /**
+     * Put to weight map
+     * @param User user, Integer weight
+     */
+    public void addWeight(User user, Integer weight) {	
+    	weights.put(user, weight); 	
+    } //addWeight();
+    
+    
+    
+} //class CriteriaUserWeight

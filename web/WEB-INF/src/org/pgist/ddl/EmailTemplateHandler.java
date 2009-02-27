@@ -5,7 +5,6 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.system.EmailTemplate;
-import org.pgist.users.Role;
 
 
 /**
@@ -13,7 +12,7 @@ import org.pgist.users.Role;
  * @author kenny
  *
  */
-public class EmailTemplateHandler extends Handler {
+public class EmailTemplateHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {

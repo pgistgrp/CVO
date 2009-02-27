@@ -9,16 +9,11 @@
 
 <!--####
 	Project: Let's Improve Transportation!
-	Page: Define Projects
-	Description: Form to define which projects should be in the given decsision situation.
+	Page: Define Funding Sources
+	Description: Form to associate selected funding sources to a workflow instance.
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Issac Yang
-	     Back End: Zhong Wang, John Le
-	Todo Items:
-		[x] Initial Skeleton Code (Jordan)
-		[ ] BareBones JavaScript (Isaac)
-		[ ] Test form actions (Isaac)
-		
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Matt Paulin, Zhong Wang
 #### -->
 <html:html> 
 <head>
@@ -33,42 +28,130 @@
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
 
-<!--Criteria Specific  Libraries-->
-<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<!--Funding Specific  Libraries-->
+<script type='text/javascript' src='/dwr/interface/FundingAgent.js'></script>
+<script type="text/javascript" charset="utf-8">
+	var suiteId = ${suite.id}; //hardcoded until workflow manager is available
 
-<script>
-// Global Variables
+	function checkAltsInSource(sourceId,checked){
+		var alts = document.getElementsByName("sourceAlts" + sourceId);
+		for(i=0;i<alts.length;i++){
+			alts[i].checked = checked;
+			
+			//Get the AltID
+			start = alts[i].id.indexOf('-') + 1;
+			end = alts[i].id.length
+			altId = alts[i].id.substring(start,end)
+			
+			//Inoke AJAX to set the soure Alt operation
+			setSourceDef(altId, checked)
+		}
+	}
 
-
-// END Global Variables
+	function setSourceDef(altId,checked){
+		Util.loading(true,"Saving funding sources..");
+		operation = (checked) ? "add" : "remove";
+		
+		//alert("suiteId: " + suiteId + " altId: " + altId + " operation: " + operation); 
+		FundingAgent.setFundingDef({suiteId:suiteId,altId:altId,operation:operation}, {
+			callback:function(data){
+				if (data.successful){
+					//alert("alternative operation saved!");
+					//updateXML();
+				}else{
+					alert(data.reason);
+				}
+			Util.loading(false);
+			},
+			errorHandler:function(errorString, exception){ 
+			alert("FundingAgent.setFundingDef( error:" + errorString + exception);
+			}
+		});
+	}
+	
+	function updateXML(){
+        FundingAgent.getFundingSuiteById({id:suiteId}, {
+            callback:function(data){
+                if (data.successful){
+                    xml=data.fundSuite.references
+                    /*
+xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
+<template>\r\n\
+    <fundings>\r\n'
+    data.fundSuite.references.each(function(fRef){
+    xml += '\t<funding name="'+fRef.project.name +'">\r\n'; 
+    fRef.altRefs.each(function(aRef){
+        xml += '\t\t<alternative name="'+aRef.alternative.name+'"></alternative>\r\n'
+    })
+    xml += '\t</funding>\r\n'
+    });
+    xml+='\
+    </fundings>\r\n\
+</template>';
+*/
+                    $('xmlDataTemplate').value = xml;
+                }else{
+                    alert(data.reason);
+                }
+            },
+            errorHandler:function(errorString, exception){ 
+            alert("FundingAgent.getFundingSuiteById( error:" + errorString + exception);
+            }
+        });
+    }
 </script>
 <style type="text/css">
-
+	@import "styles/loading-indicator.css";
+	body{font-size:11 pt;font-family:arial;width:800px;}
+	li{margin: 10px 0; list-style: none;}
+	.source{font-size: 1.3em;}
+	li ul li:hover {background:#D5EAEF;}
 </style>
+<event:pageunload />
 </head>
 
 
 <body>
-	<h3>Moderator Tools &raquo; Define Funding Sources</h3> 
-	<form method="POST" name="publishFunding" action="fundingDefine.do">
-		<input type="hidden" name="cctId" value="${cct.id}" /
-		<input type="hidden" name="activity" value="save" />
-		<h4>All Projects</h4>
-		<ul id="projectsList">
-			<c:forEach var="source" items="${sources}">
-				<li><input type="checkbox" name="sourceId" value="${source.id}"/>${project.name}
-					<ul>
-						<c:forEach var="alternative" items="${source.alternatives}">
-							<li>${alternative.name}</li>
-						</c:forEach>
-					</ul>
-				</li>
-			</c:forEach>
-		</ul>
-		<input type="submit" value="submit">
-	</form>
+	<p><a href="userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}">Back to Moderator Control Panel</a></p>
+	<h1>Define Funding Source Alternatives</h1>
+	<p>Select all funding source alternatives that you would like to include for this expiriment.</p>
+
+	<h3>All Funding Sources</h3>
+	<ul id="sourcesList">
+		<c:forEach var="source" items="${sources}">
+			<li><span class="source">${source.name}</span> 
+				<!--
+				<small>
+					<a href="javascript:checkAltsInSource(${source.id}, true)">check all</a> | 
+					<a href="javascript:checkAltsInSource(${source.id}, false)">uncheck all</a>
+				</small>-->
+				<ul>
+					<c:forEach var="alt" items="${source.alternatives}">
+						<li>
+							<label><input type="checkbox" name="sourceAlts${source.id}" id="sourceAlt-${alt.id}" 
+							<c:if test="${pg:containsFundingRef(suite,source,alt)}">CHECKED</c:if> value="${alt.id}" onClick="setSourceDef(this.value, this.checked);"/>
+							${alt.name}</label>
+						</li>
+					</c:forEach>
+				</ul>
+			</li>
+		</c:forEach>
+	</ul>
+
+	<h3 align="right">Finished selecting funding source alternatives?</h3>
+	
+	<p>TEMP (For Developers) - <a href="javascript:Element.toggle('XMLwrapper');updateXML();">View XML for Data Template</a></p>
+	
+	<div id="XMLwrapper" style="display:none">
+		<textarea id="xmlDataTemplate" style="width:100%; height: 500px">
+            <!--update via DWR-->
+	    </textarea>
+    </div>
+	
+	<p align="right"><input type="button" style="padding:5px;" onClick="location.href='userhome.do?workflowId=${requestScope['org.pgist.wfengine.WORKFLOW_ID']}'" value="Finished!"/></p>
 </body>
 </html:html>
 

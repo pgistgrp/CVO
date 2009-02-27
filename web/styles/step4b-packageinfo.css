@@ -1,3 +1,6 @@
+#gmap{width:500px;background:#C5D78B}
+#gmap.box11{padding:0px}
+
 #newTable table {width:100%}
 #top, #bottom{margin-bottom:2em;}
 
@@ -37,14 +40,15 @@
 #bottom .objectives .col5 {width:15%;text-align:center;}
 
 /* summary */
-.summary table {width:100%;}
-.summary table td {font-size:.9em;}
-.summary table td + td {text-align:right;font-size:.9em;}
+.summary{width:410px;}
+.summary table {width:100%}
+.summary table td {font-size:10pt;}
+.summary table td + td {text-align:right;font-size:10pt;}
 
 /* .balance and .exceed are classes for the revenue summary.
    Balance is green and exceed is red. */
 	
-.balance, .exceed {padding:5px;text-align:center;margin:5px;}
+.balance, .exceed {padding:5px;text-align:center;}
 
 .balance 
 {
@@ -55,4 +59,6 @@ background:#C9E1BD;
 {
 background:#E5A9A6;
 }
+
+th{font-weight:normal !important;font-size:11pt !important;}
 

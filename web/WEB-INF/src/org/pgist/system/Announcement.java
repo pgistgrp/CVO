@@ -1,8 +1,6 @@
 package org.pgist.system;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Date;
 
 /**
@@ -70,7 +68,8 @@ public class Announcement implements Serializable{
     
     
     /**
-     * @hibernate.property not-null="true"
+     * @return
+     * @hibernate.property type="text" not-null="true"
      */
     public String getMessage() {
         return message;

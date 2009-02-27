@@ -24,19 +24,36 @@ reader.close();
 */
 
 
-queryStr = "reduce";
+queryStr = "cars";
+
+String[] words = queryStr.split(" ");
+StringBuilder sb = new StringBuilder("(");
+
+for (String s : words) {
+    if (s!=null && s.length()>0) {
+        if (sb.length()>1) sb.append(" OR ");
+        sb.append(s).append("*");
+    }
+}
+sb.append(")");
+
+queryStr = sb.toString();
+
+String luceneQuery = "cars*";
 
 searcher = searchHelper.getIndexSearcher();
 try {
-  query = searchHelper.getParser().parse(queryStr);
+  query = searchHelper.getParser().parse(luceneQuery);
   
   hits = searcher.search(query);
+  
+  print("Totally found "+hits.length()+" documents.");
   
   for (i=0; i<hits.length(); i++) {
       doc = hits.doc(i);
       print("Found one document:");
       for (one : doc.getFields()) {
-          print("    "+one+" : "+doc.get(one.name()));
+          print("    "+one);
       }
   }//for
 } finally {

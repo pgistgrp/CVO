@@ -1,9 +1,9 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html:html>
-  <head>
-  <title>Tax Calculator</title>
-  <!-- Site Wide CSS -->
-<style type="text/css" media="screen">
+	<head>
+	<title>Tax Calculator</title>
+	<!-- Site Wide CSS -->
+	<style type="text/css" media="screen">
 @import "styles/lit.css";
 
 #myIncome,#myVehicles,#myCommute,#estimates
@@ -81,11 +81,10 @@ table#tollRoads {font-size:.9em;width:90%;}
 #costReport table 
 {
 width:100%;
-margin-bottom:1.5em;
-border:1px solid #D6E7EF;
 padding:.2em;
 }
 
+#costreport {border:1px solid #ccc;margin-top:1em;}
 #costReport th{font-weight:bold;padding:.2em;background:inherit;width:200px;text-align:left;}
 #costReport th.fundingSourceItem{font-size:.8em;text-align:left;padding-left:.5em;}
 #costReport tr.fundingType{font-size:1.2em;text-align:left;}
@@ -99,293 +98,368 @@ font-weight:normal;
 
 #costReport tr{} 
 
-.odd {background:#D6E7EF;}
-.tableHeading {background:#ADCFDE;}
-</style>
-  <!-- End Site Wide CSS -->
-  <!-- Site Wide JS -->
-  <script src="scripts/prototype.js" type="text/javascript"></script>
-  <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-  <script src="scripts/search.js" type="text/javascript"></script>
-  <script type='text/javascript' src='/dwr/engine.js'></script>
-  <script type='text/javascript' src='/dwr/util.js'></script>
-  </head>
-  <body>
-  <!-- #container is the container that wraps around all the main page content -->
-  <div id="container">
-  	<h3 class="headerColor">Calculating the annual cost to you</h3>
-	  <p>Feel free to change the information you previously provided in the text boxes below</p>
-	  
-<!-- Begin calculator options -->
-	  <div id="myIncome">
-	  	<h3 cl ass="headerColor">My income</h3>
-			<span id="annualIncome">
-				Annual Income <input name="annual-income" type="text">
-			</span>
-	  </div>
-	  <div id="myVehicles">
-		<h3 class="headerColor">My Vehicle(s)</h3>
-			<div id="vehicle1" class="myVehiclesRow">
-				<strong>Vehicle 1: </strong>
-				Miles per gallon <input name="mpg" type="text" > 
-				Approximate value <input name="value" type="text"> 
-				Miles driven per year <input name="mpy" type="text"> 
-				<a href="#">Remove vehicle</a>
-			</div>
-			
-			<div id="vehicle2" class="myVehiclesRow">
-				<strong>Vehicle 2: </strong>
-				Miles per gallon <input name="mpg" type="text" > 
-				Approximate value <input name="value" type="text"> 
-				Miles driven per year <input name="mpy" type="text"> 
-				<a href="#">Remove vehicle</a>
-			</div>
-			
-			<p><a href="#">Add vehicle</a>
 
-	  </div>
-	  <div id="myCommute">
-	  	<h3 class="headerColor">My Commute</h3>
-		<div id="myCommute-left" class="floatLeft">
-			Home zip code <input name="zipCode" type="text" size="5" maxlength="5"> 
+.tableHeading {background:#ADCFDE;}
+
+tr.fundingType {background:#D6E7EF}
+
+/* This is for making the second "column" a fixed width */
+/* Also add some dummy "columns" to get everything lined up */
+/* A <td>&nbsp;</td> after the "=" sign for example */
+th.fundingSourceItem + td {width:100px;text-align:center;}
+th.fundingSourceItem + td + td {width:25px;text-align:center;}
+th.fundingSourceItem + td + td + td {width:25px;text-align:center;}
+th.fundingSourceItem + td + td + td + td{width:100px;text-align:center;}
+th.fundingSourceItem + td + td + td + td +td {width:25px;text-align:center;}
+
+</style>
+	<!-- End Site Wide CSS -->
+	<!-- Site Wide JS -->
+	<script src="scripts/prototype.js" type="text/javascript"></script>
+	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+	<script src="scripts/search.js" type="text/javascript"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type='text/javascript' src='/dwr/util.js'></script>
+	</head>
+	<body>
+	<!-- #container is the container that wraps around all the main page content -->
+	<div id="container">
+		<h3 class="headerColor">Calculating the annual cost to you</h3>
+		<p>Feel free to change the information you previously provided in the text boxes
+			below</p>
+		<!-- Begin calculator options -->
+		<div id="myIncome">
+			<h3 cl ass="headerColor">My income</h3>
+			<span id="annualIncome"> Annual Income
+			<input name="annual-income" type="text">
+			</span> </div>
+		<div id="myVehicles">
+			<h3 class="headerColor">My Vehicle(s)</h3>
+			<div id="vehicle1" class="myVehiclesRow"> <strong>Vehicle 1: </strong> Miles per
+				gallon
+				<input name="mpg" type="text" >
+				Approximate value
+				<input name="value" type="text">
+				Miles driven per year
+				<input name="mpy" type="text">
+				<a href="#">Remove vehicle</a> </div>
+			<div id="vehicle2" class="myVehiclesRow"> <strong>Vehicle 2: </strong> Miles per
+				gallon
+				<input name="mpg" type="text" >
+				Approximate value
+				<input name="value" type="text">
+				Miles driven per year
+				<input name="mpy" type="text">
+				<a href="#">Remove vehicle</a> </div>
+			<p><a href="#">Add vehicle</a> 
 		</div>
-		<div id="myCommute-center" class="floatLeft">
-			I drive alone <input size="1" maxlength="1" name="drive-alone" type="text" > days to work each week<br/>
-			I carpool <input size="1" maxlength="1"name="carpool" type="text" > days to work each week with 
-				<input size="1" maxlength="1"name="carpool-occupants" type="text" > people<br/>
-			I ride the bus <input size="1" maxlength="1" name="bus" type="text" > days to work each week<br/>
-         I bike <input size="1" maxlength="1" name="bike" type="text" > days to work each week<br/>
-		</div>
-		<div id="myCommute-right" class="floatLeft">
-			My daily commute includes:<br />
-			<input name="myCommute-check1" type="checkbox"> Alaskan Way Viaduct<br />
-			<input name="myCommute-check2" type="checkbox"> I-405<br />
-			<input name="myCommute-check3" type="checkbox"> SR 520 Bridge<br />
-			<input name="myCommute-check4" type="checkbox"> Parking downtown<br />
-			<input name="myCommute-check1" type="checkbox"> Alaskan Way Viaduct<br />
-			<input name="myCommute-check2" type="checkbox"> I-405<br />
-			<input name="myCommute-check3" type="checkbox"> SR 520 Bridge<br />
-			<input name="myCommute-check4" type="checkbox"> Parking downtown<br />
-		</div>
+		<div id="myCommute">
+			<h3 class="headerColor">My Commute</h3>
+			<div id="myCommute-left" class="floatLeft"> Home zip code
+				<input name="zipCode" type="text" size="5" maxlength="5">
+			</div>
+			<div id="myCommute-center" class="floatLeft"> I drive alone
+				<input size="1" maxlength="1" name="drive-alone" type="text" >
+				days to work each week<br/>
+				I carpool
+				<input size="1" maxlength="1"name="carpool" type="text" >
+				days to work each week with
+				<input size="1" maxlength="1"name="carpool-occupants" type="text" >
+				people<br/>
+				I ride the bus
+				<input size="1" maxlength="1" name="bus" type="text" >
+				days to work each week<br/>
+				I bike
+				<input size="1" maxlength="1" name="bike" type="text" >
+				days to work each week<br/>
+			</div>
+			<div id="myCommute-right" class="floatLeft"> My daily commute includes:<br />
+				<input name="myCommute-check1" type="checkbox">
+				Alaskan Way Viaduct<br />
+				<input name="myCommute-check2" type="checkbox">
+				I-405<br />
+				<input name="myCommute-check3" type="checkbox">
+				SR 520 Bridge<br />
+				<input name="myCommute-check4" type="checkbox">
+				Parking downtown<br />
+				<input name="myCommute-check1" type="checkbox">
+				Alaskan Way Viaduct<br />
+				<input name="myCommute-check2" type="checkbox">
+				I-405<br />
+				<input name="myCommute-check3" type="checkbox">
+				SR 520 Bridge<br />
+				<input name="myCommute-check4" type="checkbox">
+				Parking downtown<br />
+			</div>
 			<div class="clearboth">
 				<input type="button" name="calcEstimates" value="Calculate my estimates" 
 					style="clear:both;margin:1em;" class="floatRight">
 			</div>
-		<div class="clearBoth"></div>
-	  </div> 
-	  <div id="estimates">
-	  	<h3 class="headerColor peekaboobugfix">Estimated use of toll roads, taxed parking facilities, and annual taxable consumption</h3>
-		<p class="peekaboobugfix">Your estimates number of tolls has been estimated based on your home zip code, your usual commute mode of travel, and your commute route. You may change these estimates.</p>
-		<table id="tollRoads" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-				<td colspan="2" width="20%"><strong>Estimated number of trips on potential toll roads per year</strong></td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>Viaduct</td>
-				<td><input size="3" maxlength="3" name="Viaduct" type="text" ></td>
-				<td align="right">Parking downtown</td>
-				<td><input size="3" maxlength="3" name="parking-downtown" type="text" ></td>
-				<td align="right">Annual consumption (sales tax)</td>
-				<td><input style="width:4em;text-align:left;" name="annualConsumption" type="text" ></td>
-			</tr>
-			<tr>
-				<td>I-405</td>
-				<td colspan="5"><input size="3" maxlength="3" name="i-405" type="text" ></td>
-			</tr>
-			<tr>
-				<td>SR 520 Bridge</td>
-				<td colspan="5"><input size="3" maxlength="3" name="sr520" type="text" ></td>
-			</tr>
-		</table>
+			<div class="clearBoth"></div>
+		</div>
+		<div id="estimates">
+			<h3 class="headerColor peekaboobugfix">Estimated use of toll roads, taxed parking
+				facilities, and annual taxable consumption</h3>
+			<p class="peekaboobugfix">Your estimates number of tolls has been estimated based
+				on your home zip code, your usual commute mode of travel, and your commute route.
+				You may change these estimates.</p>
+			<table id="tollRoads" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td colspan="2" width="20%"><strong>Estimated number of trips on potential toll
+							roads per year</strong></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>Viaduct</td>
+					<td>
+						<input size="3" maxlength="3" name="Viaduct" type="text" >
+					</td>
+					<td align="right">Parking downtown</td>
+					<td>
+						<input size="3" maxlength="3" name="parking-downtown" type="text" >
+					</td>
+					<td align="right">Annual consumption (sales tax)</td>
+					<td>
+						<input style="width:4em;text-align:left;" name="annualConsumption" type="text" >
+					</td>
+				</tr>
+				<tr>
+					<td>I-405</td>
+					<td colspan="5">
+						<input size="3" maxlength="3" name="i-405" type="text" >
+					</td>
+				</tr>
+				<tr>
+					<td>SR 520 Bridge</td>
+					<td colspan="5">
+						<input size="3" maxlength="3" name="sr520" type="text" >
+					</td>
+				</tr>
+			</table>
 			<div class="clearboth">
 				<input type="button" name="calcEstimates" value="Update Annual Cost Report" 
 					style="clear:both;margin:1em;" class="floatRight">
 			</div>
-		<div class="clearBoth"></div>
-	  </div>
-<!-- End calculator options -->
-
-<!-- Note on zebra-striping by funding source: When creating rows of funding items (such as each alternative gas tax increase) wrap all rows in a TBODY tag, then do zebra-striping on those TBODYs, not on the individual TRs. -->
-
-	<div id="costReport">
-		<h4 class="headerColor">My annual costs report</h4>
-		<table border="0" cellpadding="0" cellspacing="0">
-		  <tr class="tableHeading">
-			 <th scope="col">Funding Source </th>
-			 <th scope="col">Annual cost to you </th>
-			 <th colspan="7" scope="col">&nbsp;</th>
-		  </tr>
-		  <tr class="fundingType">
-			 <th scope="row" class="fundingSourceItem">Gas tax increase </th>
-			 <td>Annual cost </td>
-			 <td>=</td>
-			 <td>&nbsp;</td>
-			 <td>Tax Rate </td>
-			 <td>&divide;</td>
-			 <td>Miles per gallon </td>
-			 <td>&times;</td>
-			 <td>Miles driven per year </td>
-		  </tr>
-		<tbody class="odd">
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">2.3 cents increase </th>
-			 <td>$25</td>
-			 <td>=</td>
-			 <td>&nbsp;</td>
-			 <td><p>2.3 cents/gal </p>      </td>
-			 <td>&divide;</td>
-			 <td>28 mpg</td>
-			 <td>&times;</td>
-			 <td>10,000 miles/yr </td>
-		  </tr>
-		  <tr class="odd">
-			 <th scope="row" class="fundingSourceItem">&nbsp;</th>
-			 <td>&nbsp;</td>
-			 <td>&nbsp;</td>
-			 <td>+</td>
-			 <td>2.3 cents/gal </td>
-			 <td>&divide;</td>
-			 <td>20 mpg </td>
-			 <td>&times;</td>
-			 <td>7,500 miles/yr </td>
-		  </tr>
-		</tbody>
-		<tbody class="even">
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">4 cents increase </th>
-			 <td>$50</td>
-			 <td>=</td>
-			 <td>&nbsp;</td>
-			 <td>4 cents/gal </td>
-			 <td>&divide;</td>
-			 <td>28 mpg </td>
-			 <td>&times;</td>
-			 <td>10,000 miles/yr </td>
-		  </tr>
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">&nbsp;</th>
-			 <td>&nbsp;</td>
-			 <td>&nbsp;</td>
-			 <td>+</td>
-			 <td>4 cents/gal </td>
-			 <td>&divide;</td>
-			 <td>20 mpg </td>
-			 <td>&times;</td>
-			 <td>7,500 miles/yr </td>
-		  </tr>
-		</tbody>
-		<tbody class="odd">
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">6.1 cents increase </th>
-			 <td>$75</td>
-			 <td>=</td>
-			 <td>&nbsp;</td>
-			 <td>6.1 cents/gal </td>
-			 <td>&divide;</td>
-			 <td>28 mpg </td>
-			 <td>&times;</td>
-			 <td>10,000 miles/yr </td>
-		  </tr>
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">&nbsp;</th>
-			 <td>&nbsp;</td>
-			 <td>&nbsp;</td>
-			 <td>+</td>
-			 <td>6.1 cents/gal</td>
-			 <td>&divide;</td>
-			 <td>20 mpg </td>
-			 <td>&times;</td>
-			 <td>7,500 miles/yr </td>
-		  </tr>
-		</tbody>
-		</table>
-		
-		<table border="0" cellpadding="0" cellspacing="0">
-		  <tr class="fundingType">
-			 <th scope="row" class="fundingSourceItem">Sales Tax Increase</th>
-			 <td>Annual cost </td>
-			 <td>=</td>
-			 <td>Tax Rate </td>
-			 <td>&times;</td>
-			 <td>Estimated Annual Consumption</td>
-		  </tr>
-
-		  <tr class="odd">
-			 <th scope="row" class="fundingSourceItem">0.04% increase</th>
-			 <td>$25</td>
-			 <td>=</td>
-			 <td>0.04%</td>
-			 <td>&times;</td>
-			 <td>$15,000/yr</td>
-		  </tr>
-
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">0.05% increase </th>
-			 <td>$50</td>
-			 <td>=</td>
-			 <td>0.05%</td>
-			 <td>&times;</td>
-			 <td>$15,000/yr</td>
-		  </tr>
-		  
-		  <tr class="odd">
-			 <th scope="row" class="fundingSourceItem">0.06% increase </th>
-			 <td>$75</td>
-			 <td>=</td>
-			 <td>0.06%</td>
-			 <td>&times;</td>
-			 <td>$15,000/yr</td>
-		  </tr>
-
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">0.08% increase </th>
-			 <td>$100</td>
-			 <td>=</td>
-			 <td>0.08%</td>
-			 <td>&times;</td>
-			 <td>$15,000/yr</td>
-		  </tr>
-		</table>
-		
-		<table border="0" cellpadding="0" cellspacing="0">
-		  <tr class="fundingType">
-			 <th scope="row" class="fundingSourceItem">Bridge Tolls </th>
-			 <td>Annual cost </td>
-			 <td>=</td>
-			 <td>Toll rate </td>
-			 <td>&times;</td>
-			 <td>Trips per year </td>
-		  </tr>
-
-		  <tr class="odd">
-			 <th scope="row" class="fundingSourceItem">$2 toll on SR 520
-			   bridge </th>
-			 <td>$1048</td>
-			 <td>=</td>
-			 <td>$2</td>
-			 <td>&times;</td>
-			 <td>524/yr</td>
-		  </tr>
-
-		  <tr>
-			 <th scope="row" class="fundingSourceItem">$1 toll on I-90
-			   bridge  </th>
-			 <td>$0</td>
-			 <td>=</td>
-			 <td>$1</td>
-			 <td>&times;</td>
-			 <td>0/yr</td>
-		  </tr>
-		</table>
+			<div class="clearBoth"></div>
+		</div>
+		<!-- End calculator options -->
+		<!-- Note on zebra-striping by funding source: When creating rows of funding items (such as each alternative gas tax increase) wrap all rows in a TBODY tag, then do zebra-striping on those TBODYs, not on the individual TRs. -->
+		<div id="costReport">
+			<h4 class="headerColor">My annual costs report</h4>
+			<table border="0" cellpadding="0" cellspacing="0">
+							<tr class="tableHeading">
+					<th scope="col">Funding Source </th>
+					<th scope="col">Annual cost to you </th>
+					<th colspan="7" scope="col">&nbsp;</th>
+				</tr>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr class="fundingType">
+					<th scope="row" class="fundingSourceItem">Gas tax increase </th>
+					<td>Annual cost </td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>Tax Rate </td>
+					<td>&divide;</td>
+					<td>Miles per gallon </td>
+					<td>&times;</td>
+					<td>Miles driven per year </td>
+				</tr>
+				<tbody class="odd">
+					<tr>
+						<th scope="row" class="fundingSourceItem">2.3 cents increase </th>
+						<td>$25</td>
+						<td>=</td>
+						<td>&nbsp;</td>
+						<td>
+							<p>2.3 cents/gal </p>
+						</td>
+						<td>&divide;</td>
+						<td>28 mpg</td>
+						<td>&times;</td>
+						<td>10,000 miles/yr </td>
+					</tr>
+					<tr class="odd">
+						<th scope="row" class="fundingSourceItem">&nbsp;</th>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>+</td>
+						<td>2.3 cents/gal </td>
+						<td>&divide;</td>
+						<td>20 mpg </td>
+						<td>&times;</td>
+						<td>7,500 miles/yr </td>
+					</tr>
+				</tbody>
+				<tbody class="even">
+					<tr>
+						<th scope="row" class="fundingSourceItem">4 cents increase </th>
+						<td>$50</td>
+						<td>=</td>
+						<td>&nbsp;</td>
+						<td>4 cents/gal </td>
+						<td>&divide;</td>
+						<td>28 mpg </td>
+						<td>&times;</td>
+						<td>10,000 miles/yr </td>
+					</tr>
+					<tr>
+						<th scope="row" class="fundingSourceItem">&nbsp;</th>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>+</td>
+						<td>4 cents/gal </td>
+						<td>&divide;</td>
+						<td>20 mpg </td>
+						<td>&times;</td>
+						<td>7,500 miles/yr </td>
+					</tr>
+				</tbody>
+				<tbody class="odd">
+					<tr>
+						<th scope="row" class="fundingSourceItem">6.1 cents increase </th>
+						<td>$75</td>
+						<td>=</td>
+						<td>&nbsp;</td>
+						<td>6.1 cents/gal </td>
+						<td>&divide;</td>
+						<td>28 mpg </td>
+						<td>&times;</td>
+						<td>10,000 miles/yr </td>
+					</tr>
+					<tr>
+						<th scope="row" class="fundingSourceItem">&nbsp;</th>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>+</td>
+						<td>6.1 cents/gal</td>
+						<td>&divide;</td>
+						<td>20 mpg </td>
+						<td>&times;</td>
+						<td>7,500 miles/yr </td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				
+				<tr class="fundingType">
+					<th scope="row" class="fundingSourceItem">Sales Tax Increase</th>
+					<td>Annual cost </td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>Tax Rate </td>
+					<td>&times;</td>
+					<td>Estimated Annual Consumption</td>
+				</tr>
+				<tr class="odd">
+					<th scope="row" class="fundingSourceItem">0.04% increase</th>
+					<td>$25</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>0.04%</td>
+					<td>&times;</td>
+					<td>$15,000/yr</td>
+				</tr>
+				<tr>
+					<th scope="row" class="fundingSourceItem">0.05% increase </th>
+					<td>$50</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>0.05%</td>
+					<td>&times;</td>
+					<td>$15,000/yr</td>
+				</tr>
+				<tr class="odd">
+					<th scope="row" class="fundingSourceItem">0.06% increase </th>
+					<td>$75</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>0.06%</td>
+					<td>&times;</td>
+					<td>$15,000/yr</td>
+				</tr>
+				<tr>
+					<th scope="row" class="fundingSourceItem">0.08% increase </th>
+					<td>$100</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>0.08%</td>
+					<td>&times;</td>
+					<td>$15,000/yr</td>
+				</tr>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				
+				<tr class="fundingType">
+					<th width="200" scope="row" class="fundingSourceItem">Bridge Tolls </th>
+					<td>Annual cost </td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>Toll rate </td>
+					<td>&times;</td>
+					<td>Trips per year </td>
+				</tr>
+				<tr class="odd">
+					<th scope="row" class="fundingSourceItem">$2 toll on SR 520 bridge </th>
+					<td>$1048</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>$2</td>
+					<td>&times;</td>
+					<td>524/yr</td>
+				</tr>
+				<tr>
+					<th scope="row" class="fundingSourceItem">$1 toll on I-90 bridge </th>
+					<td>$0</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>$1</td>
+					<td>&times;</td>
+					<td>0/yr</td>
+				</tr>
+			</table>
+			
+		<!-- Begin annual vehicle license fee -->
+			<table border="0" cellpadding="0" cellspacing="0">
+				
+				<tr class="fundingType">
+					<th width="200" scope="row" class="fundingSourceItem">Bridge Tolls </th>
+					<td>Annual cost </td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>Tax rate </td>
+					<td>&times;</td>
+					<td>Number of Vehicles </td>
+				</tr>
+				<tr class="odd">
+					<th scope="row" class="fundingSourceItem">$2 toll on SR 520 bridge </th>
+					<td>$1048</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>$2</td>
+					<td>&times;</td>
+					<td>524/yr</td>
+				</tr>
+				<tr>
+					<th scope="row" class="fundingSourceItem">$1 toll on I-90 bridge </th>
+					<td>$0</td>
+					<td>=</td>
+					<td>&nbsp;</td>
+					<td>$1</td>
+					<td>&times;</td>
+					<td>0/yr</td>
+				</tr>
+			</table>
+	<!-- End annual vehicle license fee -->
+			
+		</div>
 	</div>
-</div>
-  <!-- end container -->
-  <!-- start feedback form -->
-  <pg:feedback id="feedbackDiv" action="cctView.do"/>
-  <!-- end feedback form -->
-  </body>
+	<!-- end container -->
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="cctView.do"/>
+	<!-- end feedback form -->
+	</body>
 </html:html>

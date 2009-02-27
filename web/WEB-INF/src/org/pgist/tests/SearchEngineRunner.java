@@ -26,11 +26,49 @@ import bsh.Interpreter;
 public class SearchEngineRunner extends MatchingTask {
     
     
-    private String indexPath;
+    public static class Param {
+        private String value;
+        
+        public void setValue(String value) {
+            this.value = value;
+        }
+        
+        public String getValue() {
+            return value;
+        }
+    }
     
-    private String configPath;
+    public static class Config {
+        private Param indexPath;
+        private Param configPath;
+        private Param script;
+        
+        public void addIndexPath(Param indexPath) {
+            this.indexPath = indexPath;
+        }
+        
+        public void addConfigPath(Param configPath) {
+            this.configPath = configPath;
+        }
+        
+        public void addScript(Param script) {
+            this.script = script;
+        }
+        
+        public String getIndexPath() {
+            return indexPath.getValue();
+        }
+        
+        public String getConfigPath() {
+            return configPath.getValue();
+        }
+        
+        public String getScript() {
+            return script.getValue();
+        }
+    }//class config
     
-    private String script;
+    private Config config;
     
     private ApplicationContext appContext = null;
     
@@ -39,18 +77,8 @@ public class SearchEngineRunner extends MatchingTask {
     Session session = null;
     
     
-    public void setIndexPath(String indexPath) {
-        this.indexPath = indexPath;
-    }
-
-
-    public void setConfigPath(String configPath) {
-        this.configPath = configPath;
-    }
-
-
-    public void setScript(String script) {
-        this.script = script;
+    public void addConfig(Config config) {
+        this.config = config;
     }
 
 
@@ -66,7 +94,7 @@ public class SearchEngineRunner extends MatchingTask {
         
         appContext = new FileSystemXmlApplicationContext(
             new String[] {
-                configPath + "/context-database.xml",
+                config.getConfigPath() + "/context-database.xml",
             }
         );
         
@@ -106,7 +134,7 @@ public class SearchEngineRunner extends MatchingTask {
         
         SearchHelper searchHelper = new SearchHelper();
         searchHelper.setContextPath("");
-        searchHelper.setIndexPath(indexPath);
+        searchHelper.setIndexPath(config.getIndexPath());
         
         Interpreter interpreter = new Interpreter();
         interpreter.set("searchHelper", searchHelper);
@@ -115,14 +143,14 @@ public class SearchEngineRunner extends MatchingTask {
         while (true) {
             System.out.println();
             System.out.println();
-            System.out.print("Press Ctrl+C to exit; or press ENTER to execute script \""+script+"\"");
+            System.out.print("Press Ctrl+C to exit; or press ENTER to execute script \""+config.getScript()+"\"");
             
             String line = scanner.nextLine();
             
             try {
                 tx = session.beginTransaction();
                 
-                interpreter.source(script);
+                interpreter.source(config.getScript());
                 
                 tx.commit();
             } catch (Exception e) {

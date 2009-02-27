@@ -1,36 +1,30 @@
 package org.pgist.system;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.users.Role;
 import org.pgist.users.User;
+import org.pgist.users.UserInfo;
+import org.pgist.util.WebUtils;
 
 
+/**
+ * 
+ * @author kenny
+ *
+ */
 public class LoginAction extends Action {
 
     
-    private UserDAO userDAO;
+    private SystemService systemService;
     
     
-    public LoginAction() {
-    }
-    
-    
-    public UserDAO getUserDAO() {
-        return userDAO;
-    }
-
-
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public void setSystemService(SystemService systemService) {
+        this.systemService = systemService;
     }
 
     
@@ -42,39 +36,90 @@ public class LoginAction extends Action {
     ) throws java.lang.Exception {
         //Invalidate the Session
         HttpSession session = request.getSession(false);
-        if (session!=null) session.invalidate();
         
-        UserForm uform = (UserForm) form;
+        String loginname = request.getParameter("loginname");
+        String password = request.getParameter("password");
         
-        String loginname = uform.getUser().getLoginname();
+        if((loginname==null || "".equals(loginname)) && !(password==null || "".equals(password))){
+            request.setAttribute("reason", "Please Enter a User Name.");  
+        	return mapping.findForward("loginPage");
+        } else if(!(loginname==null || "".equals(loginname)) && (password==null || "".equals(password))){
+            request.setAttribute("reason", "Please Enter a Password.");
+        	return mapping.findForward("loginPage");
+        }
+        
         if (loginname==null || "".equals(loginname)) {
-            return mapping.findForward("login");
+            return mapping.findForward("loginPage");
         }
         
-        String password = uform.getUser().getPassword();
+        
         if (password==null || "".equals(password)) {
-            return mapping.findForward("login");
+            return mapping.findForward("loginPage");
         }
         
-        User user = userDAO.getUserByName(loginname, true, false);
-        if (user!=null && user.checkPassword(password)) {
+        User user = systemService.getUserByName(loginname, true, false);
+        if(user == null) {
+        	//check to see if the account is disabled
+        	User user2 = systemService.getUserByName(loginname, false, false);
+        	if(user2 != null) {
+        		request.setAttribute("reason", "You account has been disabled. Please contact us at <a href=\"mailto:moderator@letsimprovetransportation.org\">moderator@letsimprovetransportation.org</a> for assistance.");
+        	} else {
+        		request.setAttribute("reason", "Invalid User Name.");
+        	}
+        	return mapping.findForward("loginPage");
+        }
+        
+        if (user.checkPassword(password)) {
             session = request.getSession(true);
-            session.setAttribute("user", user);
-            session.setAttribute("userLoginname", user.getLoginname());
             
-            Map map = new HashMap();
-            for (Iterator iter=user.getRoles().iterator(); iter.hasNext(); ) {
-                Role role = (Role) iter.next();
-                map.put(role.getId(), role.getName());
-            }//for iter
+            UserInfo userInfo = new UserInfo(user);
+            request.setAttribute("baseuser", userInfo);
+            session.setAttribute("user", userInfo);
+            WebUtils.setCurrentUser(userInfo);
             
-            session.setAttribute("rolesMap", map);
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             
-            return mapping.findForward("main");
+            /*
+             * Now the user is authenticated and authorized
+             */
+            
+            /*
+             * Check if it's a intermediate login
+             */
+            for (Cookie cookie : request.getCookies()) {
+                if ("PG_INIT_URL".equals(cookie.getName())) {
+                    String initURL = cookie.getValue();
+                    
+                    /*
+                     * Remove the cookie
+                     */
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    
+                    if (initURL!=null && initURL.length()>0) {
+                        /*
+                         * redirect to the initial URL
+                         */
+                        return new ActionForward(initURL, true);
+                    }
+                }
+            }//for
+            
+            ActionForward af = new ActionForward(
+                request.getAttribute("httpPrefix")
+                + mapping.findForward("main").getPath()
+                + ";jsessionid="+session.getId(),
+                true
+            );
+            
+            return af;
+        } else if(!user.checkPassword(password)){
+            request.setAttribute("reason", "Your Password is Invalid. Please Try Again.");
+        	return mapping.findForward("loginPage");
         }
         
-        return mapping.findForward("login");
+        return mapping.findForward("loginPage");
     }//execute()
     
     
-}
+}//class LoginAction

@@ -1,150 +1,352 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5">
 
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-    version="2.4">
+    <display-name>CVO Test Application</display-name>
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/config/context-database.xml
+            classpath:/config/context-workflow.xml
+            /WEB-INF/config/context-system.xml
+            /WEB-INF/config/context-base.xml
+            /WEB-INF/config/context-sarp.xml
+            /WEB-INF/config/context-lm.xml
+            /WEB-INF/config/context-tasks.xml
+        </param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>org.pgist.CONFIG_DIR</param-name>
+        <param-value>/WEB-INF/config</param-value>
+    </context-param>
 
-
-  <display-name>CVO Test Application</display-name>
-
-
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-      /WEB-INF/config/dataAccessContext-local.xml
-      /WEB-INF/config/applicationContext.xml
-      /WEB-INF/config/action-servlet.xml
-		</param-value>
-	</context-param>
-
-  <context-param>
-      <param-name>org.pgist.CONFIG_DIR</param-name>
-      <param-value>/WEB-INF/config</param-value>
-  </context-param>
-  
-  
-  <filter>
-    	<filter-name>OpenSessionInViewFilter</filter-name>
-      <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-  </filter>
-  
-  
-  <filter>
-    <filter-name>pgist filter</filter-name>
-    <filter-class>org.pgist.filters.PgistFilter</filter-class>
-    <init-param>
-      <param-name>force-close-connection</param-name>
-      <param-value>false</param-value>
-    </init-param>
-    <init-param>
-      <param-name>login-url</param-name>
-      <param-value>/index.jsp</param-value>
-    </init-param>
-    <init-param>
-      <param-name>ignore-url</param-name>
-      <param-value>/login.do</param-value>
-    </init-param>
-  </filter>
-
-
-  <filter-mapping>
-      <filter-name>OpenSessionInViewFilter</filter-name>
-      <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter-mapping>
-      <filter-name>pgist filter</filter-name>
-      <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  
-  
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
-
-  <servlet>
-    <servlet-name>SystemInitServlet</servlet-name>
-    <servlet-class>org.pgist.servlets.SystemInitServlet</servlet-class>
-    <init-param>
-       <param-name>org.pgist.CONFIG_PATH</param-name>
-       <param-value>/WEB-INF/config</param-value>
-    </init-param>
-    <init-param>
-       <param-name>org.pgist.EMAIL_CONFIG</param-name>
-       <param-value>email-config.xml</param-value>
-    </init-param>
-    <init-param>
-       <param-name>org.pgist.MANAGED_FILE_PATH</param-name>
-       <param-value>/tmp/upload_files</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-
-
-  <servlet>
-    <servlet-name>action</servlet-name>
-    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
-    <init-param>
-      <param-name>config</param-name>
-      <param-value>/WEB-INF/config/struts-config.xml</param-value>
-    </init-param>
-    <init-param>
-      <param-name>debug</param-name>
-      <param-value>2</param-value>
-    </init-param>
-    <init-param>
-      <param-name>detail</param-name>
-      <param-value>2</param-value>
-    </init-param>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
-
-
-  <servlet>
-    <servlet-name>dwr-invoker</servlet-name>
-    <display-name>DWR Servlet</display-name>
-    <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
-    <init-param>
-      <param-name>config</param-name>
-      <param-value>WEB-INF/config/dwr.xml</param-value>
-    </init-param>
-    <init-param>
-       <param-name>debug</param-name>
-       <param-value>true</param-value>
-    </init-param>
-  </servlet>
-  
-  
-  <servlet-mapping>
-    <servlet-name>action</servlet-name>
-    <url-pattern>*.do</url-pattern>
-  </servlet-mapping>
-
-
-  <servlet-mapping>
-    <servlet-name>dwr-invoker</servlet-name>
-    <url-pattern>/dwr/*</url-pattern>
-  </servlet-mapping>
-
-
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-
-
-  <error-page>
-		<error-code>400</error-code>
-		<location>/PathNotFound.jsf</location>
-  </error-page>
-
-  <error-page>
-		<error-code>404</error-code>
-		<location>/PageNotFound.jsf</location>
-  </error-page>
-
-
+    <context-param>
+        <param-name>org.pgist.GMAP_KEY</param-name>
+        <param-value>@google.mapKey@</param-value>
+    </context-param>
+    
+    
+    <filter>
+        <filter-name>StaticPageFilter</filter-name>
+        <filter-class>org.pgist.web.StaticPageFilter</filter-class>
+        <init-param>
+            <param-name>page</param-name>
+            <param-value>/index-static.html</param-value>
+        </init-param>
+    </filter>
+    
+    
+    <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    
+    <filter>
+        <filter-name>security filter</filter-name>
+        <filter-class>org.pgist.web.SecurityFilter</filter-class>
+        <init-param>
+            <param-name>http-port</param-name>
+            <param-value>@tomcat.port.http@</param-value>
+        </init-param>
+        <init-param>
+            <param-name>https-port</param-name>
+            <param-value>@tomcat.port.https@</param-value>
+        </init-param>
+        <init-param>
+            <param-name>https-url</param-name>
+            <param-value>/login.do, /index.jsp, /login.jsp, /register.do, /RegisterAgent.js, /dwr/call/plaincall/RegisterAgent.checkUsername.dwr, /dwr/call/plaincall/RegisterAgent.checkEmail.dwr, /dwr/call/plaincall/RegisterAgent.addSarpUser.dwr</param-value>
+        </init-param>
+    </filter>
+    
+    <filter>
+        <filter-name>pgist filter</filter-name>
+        <filter-class>org.pgist.web.PgistFilter</filter-class>
+        <init-param>
+            <param-name>force-close-connection</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>login-url</param-name>
+            <param-value>/index.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore-url</param-name>
+            <param-value>
+                /login.do,
+                /logout.do,
+                /register.do,
+                /forgotpassword.do,
+                /resetpassword.do,
+                /registercomplete.do,
+                /glossaryPublic.do,
+                /glossaryView.do,
+                /publicprofile.do,
+                /lmAbout.do,
+                /lmAlt.do,
+                /lmGallery.do,
+                /lmFaq.do,
+                /lmResources.do,
+                /lmMenu.do,
+                /lmTutorial1.do,
+                /lmTutorial2.do,
+                /dwr/interface/SystemAgent.js,
+                /dwr/interface/GlossaryPublicAgent.js,
+                /dwr/interface/GlossaryManageAgent.js,
+                /dwr/interface/RegisterAgent.js,
+                /dwr/interface/ProfileAgent.js,
+                /dwr/interface/ProjectAgent.js,
+                /dwr/interface/PESAgent.js,
+                /dwr/engine.js,
+                /dwr/util.js,
+                /dwr/call/plaincall/RegisterAgent.addSarpUser.dwr,
+                /dwr/call/plaincall/GlossaryPublicAgent.getTerms.dwr,
+                /dwr/call/plaincall/GlossaryPublicAgent.getTermHTML.dwr,
+                /dwr/call/plaincall/GlossaryPublicAgent.getTermObject.dwr,
+                /dwr/call/plaincall/GlossaryPublicAgent.getComments.dwr,
+                /dwr/call/plaincall/RegisterAgent.createQuotaQualify.dwr,
+                /dwr/call/plaincall/RegisterAgent.checkUsername.dwr,
+                /dwr/call/plaincall/RegisterAgent.checkEmail.dwr,
+                /dwr/call/plaincall/ProfileAgent.getUserDiscussion.dwr,
+                /dwr/call/plaincall/PESAgent.saveAct.dwr
+            </param-value>
+        </init-param>
+    </filter>
+    
+    <filter>
+        <filter-name>CheckRoleFilter</filter-name>
+        <filter-class>org.pgist.web.CheckRoleFilter</filter-class>
+        <init-param>
+            <param-name>role</param-name>
+            <param-value>moderator</param-value>
+        </init-param>
+    </filter>
+    
+    <filter>
+        <filter-name>WorkflowFilter</filter-name>
+        <filter-class>org.pgist.wfengine.web.WorkflowFilter</filter-class>
+    </filter>
+    
+    <!--filter-mapping>
+        <filter-name>StaticPageFilter</filter-name>
+        <servlet-name>action</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping-->
+    
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <servlet-name>action</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+        <url-pattern>/agendaManager.do</url-pattern>
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/catsTree.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/glossaryManage.do</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>security filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>pgist filter</filter-name>
+        <servlet-name>action</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+        <url-pattern>/index.jsp</url-pattern>
+        <url-pattern>/main.jsp</url-pattern>
+        <url-pattern>/gaTesting.do</url-pattern>
+        <url-pattern>/agendaManager.do</url-pattern>
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/catsTree.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/feedback.do</url-pattern>
+        <url-pattern>/glossaryManage.do</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>CheckRoleFilter</filter-name>
+        <!-- Moderator tool (log data viewer) -->
+        <url-pattern>/dwr/call/plaincall/PESAgent.getLogs.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/PESAgent.getUsers.dwr</url-pattern>
+        <!-- Others -->
+        <url-pattern>/gaTesting.do</url-pattern>
+        <!-- Agenda -->
+        <url-pattern>/agendaManager.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.createInstance.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.nextStep.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.startWorkflow.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/WorkflowAgent.setOpenAccess.dwr</url-pattern>
+        <!-- Situation Templates -->
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/OtherAgent.setSituationTemplate.dwr</url-pattern>
+        <!-- Tag Management -->
+        <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.createStopWord.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.createTag.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteStopWord.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteTag.dwr</url-pattern>
+        <!-- Glossary Managemenet -->
+        <url-pattern>/glossaryManage.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.acceptTerm.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteComment.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteTerm.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.rejectTerm.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.saveTerm.dwr</url-pattern>
+        <!-- System -->
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/feedback.do</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getAllUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getUserById.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.editUser.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.disableUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteUser.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.enableUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getEnabledUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getDisabledUsers.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getEmailList.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.resetPassword.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.setQuota.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.setQuotaLimit.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.createQuotaStats.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.addCounty.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.addZipCodes.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.editCountyName.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteZipCodes.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.getAllCounties.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteCounty.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.addAnnouncement.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.editAnnouncement.dwr</url-pattern>
+        <url-pattern>/dwr/call/plaincall/SystemAgent.deleteAnnouncement.dwr</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>WorkflowFilter</filter-name>
+        <url-pattern>/concern.do</url-pattern>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/projectDefine.do</url-pattern>
+        <url-pattern>/fundingDefine.do</url-pattern>
+        <url-pattern>/projectGrading.do</url-pattern>
+        <url-pattern>/cctview.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/criteriaMgr.do</url-pattern>
+        <url-pattern>/criteriaDefine.do</url-pattern>
+        <url-pattern>/sd.do</url-pattern>
+        <url-pattern>/sdRoom.do</url-pattern>
+        <url-pattern>/sdThread.do</url-pattern>
+        <url-pattern>/reportsummary.do</url-pattern>
+        <url-pattern>/report.do</url-pattern>
+        <url-pattern>/criteriaWeigh.do</url-pattern>
+        <url-pattern>/createPackage.do</url-pattern>
+        <url-pattern>/packageMgr.do</url-pattern>
+        <url-pattern>/packageVote.do</url-pattern>
+    </filter-mapping>
+    
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>org.pgist.wfengine.web.WorkflowListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>org.pgist.web.PgistListener</listener-class>
+    </listener>
+    
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/config/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <display-name>DWR Servlet</display-name>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/config/dwr.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-cvo</param-name>
+            <param-value>/WEB-INF/config/dwr-sarp.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-lm</param-name>
+            <param-value>/WEB-INF/config/dwr-lm.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config-workflow</param-name>
+            <param-value>/WEB-INF/config/dwr-workflow.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>scriptSessionTimeout</param-name>
+            <param-value>@tomcat.session.timeout@</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>dwr-invoker</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+    
+    
+    <session-config>
+        <!-- Session timeout is in minutes -->
+        <session-timeout>@tomcat.session.timeout@</session-timeout>
+    </session-config>
+    
+    
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    
+    <error-page>
+        <error-code>400</error-code>
+        <location>/PathNotFound.jsf</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/PageNotFound.jsf</location>
+    </error-page>
+    
 </web-app>
 

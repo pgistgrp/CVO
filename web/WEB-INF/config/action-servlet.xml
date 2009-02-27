@@ -3,8 +3,226 @@
 <beans>
 
 
-    <bean name="/login" class="org.pgist.action.LoginAction">
-        <property name="userDAO" ref="userDAO"/>
+    <bean name="/workflow" class="org.pgist.wfengine.web.WorkflowAction">
+        <property name="workflowUtils" ref="workflowUtils"/>
+    </bean>
+    
+    
+    <bean name="/agendaManager" class="org.pgist.wfengine.web.AgendaManagerAction">
+        <property name="engine" ref="txEngine"/>
+    </bean>
+    
+    
+    <bean name="/login" class="org.pgist.system.LoginAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/logout" class="org.pgist.system.LogoutAction" />
+    
+    
+    <bean name="/main" class="org.pgist.system.MainAction" />
+    
+    
+    <bean name="/userhome" class="org.pgist.system.UserHomeAction" >
+    	<property name="systemService" ref="systemService"/>
+    </bean>
+    
+    <bean name="/usercp" class="org.pgist.system.UsercpAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/profileedit" class="org.pgist.system.ProfileAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+ 
+    
+    <bean name="/usermgr" class="org.pgist.system.UsermgrAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/register" class="org.pgist.system.RegisterAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/registerq" class="org.pgist.system.RegisterQuestionAction">
+        <property name="systemService" ref="systemService"/>
+	<property name="registerService" ref="registerService"/>
+    </bean>
+    
+    
+    <bean name="/register2a" class="org.pgist.system.Register2aAction">
+        <property name="systemService" ref="systemService"/>
+        <property name="registerService" ref="registerService"/>
+    </bean>
+    
+    
+    <bean name="/register2b" class="org.pgist.system.Register2bAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    <bean name="/registercomplete" class="org.pgist.system.RegisterCompletionAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/confirmation" class="org.pgist.system.ConfirmationAction" />
+    
+    
+    <bean name="/feedback" class="org.pgist.system.FeedbackAction">
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/search" class="org.pgist.search.SearchAction">
+        <property name="searchHelper" ref="searchHelper"/>
+    </bean>
+    
+    
+    <bean name="/lmAbout" class="org.pgist.lm.LmAboutAction" />
+    
+    
+    <bean name="/lmFaq" class="org.pgist.lm.LmFaqAction" />
+    
+    
+    <bean name="/lmAlt" class="org.pgist.lm.LmAltAction">
+        <property name="lmService" ref="lmService"/>
+    </bean>
+    
+    
+    <bean name="/lmGallery" class="org.pgist.lm.LmGalleryAction">
+        <property name="lmService" ref="lmService"/>
+    </bean>
+    
+    
+    <bean name="/lmMenu" class="org.pgist.lm.LmMenuAction" />
+    
+    
+    <bean name="/lmResources" class="org.pgist.lm.LmResourcesAction" />
+    
+    
+    <bean name="/lmTutorial1" class="org.pgist.lm.LmTutorial1Action" />
+    
+    
+    <bean name="/lmTutorial2" class="org.pgist.lm.LmTutorial2Action" />
+    
+    
+    <bean name="/publicprofile" class="org.pgist.system.UserProfileAction">
+        <property name="systemService" ref="systemService"/>
+        <property name="profileService" ref="profileService"/>
+    </bean>
+    
+    
+    <bean name="/forgotpassword" class="org.pgist.system.RecoverPasswordAction">
+        <property name="registerService" ref="registerService"/>
+    </bean>
+    
+    
+    <bean name="/resetpassword" class="org.pgist.system.RecoverPasswordResetAction">
+        <property name="registerService" ref="registerService"/>
+    </bean>
+    
+    
+    <bean name="/bctview" class="org.pgist.sarp.bct.BCTViewAction">
+        <property name="bctService" ref="bctService"/>
+    </bean>
+    
+    
+    <bean name="/concern" class="org.pgist.sarp.bct.ConcernViewAction">
+        <property name="bctService" ref="bctService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/tagging" class="org.pgist.tagging.TaggingAction">
+        <property name="taggingService" ref="taggingService"/>
+    </bean>
+    
+    
+    <bean name="/cstview" class="org.pgist.sarp.cst.CSTViewAction">
+        <property name="drtService" ref="drtService"/>
+        <property name="cstService" ref="cstService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/catsTree" class="org.pgist.sarp.cst.CatsTreeAction">
+        <property name="cstService" ref="cstService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/tctTree" class="org.pgist.sarp.drt.TctTreeAction">
+        <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/chtview" class="org.pgist.sarp.cht.CHTViewAction">
+        <property name="chtService" ref="chtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/chtTree" class="org.pgist.sarp.cht.CHTTreeAction">
+        <property name="chtService" ref="chtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/vttview" class="org.pgist.sarp.vtt.VTTViewAction">
+        <property name="vttService" ref="vttService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/drt" class="org.pgist.sarp.drt.DRTAction">
+        <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/drtmod" class="org.pgist.sarp.drt.DRTModAction">
+        <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/drtwait" class="org.pgist.sarp.drt.DRTWaitScreenAction">
+        <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/vttwait" class="org.pgist.sarp.vtt.VTTWaitScreenAction">
+    </bean>
+    
+    
+    <bean name="/expertTool" class="org.pgist.sarp.vtt.VTTExpertToolAction">
+        <property name="vttService" ref="vttService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean name="/glossaryManage" class="org.pgist.glossary.GlossaryManageAction">
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+    
+    
+    <bean name="/glossaryPublic" class="org.pgist.glossary.GlossaryPublicAction">
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+    
+    
+    <bean name="/glossaryView" class="org.pgist.glossary.GlossaryViewAction">
+        <property name="glossaryService" ref="glossaryService"/>
+    </bean>
+    
+    
+    <bean name="/report" class="org.pgist.sarp.report.ReportAction">
     </bean>
     
     

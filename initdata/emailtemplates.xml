@@ -3,10 +3,161 @@
 
 
     <template name="term_rejected">
-        <description>Send an email to participant to inform him that the term he proposed is rejectd.</description>
-        <subject>The glossary term you proposed at PGIST is rejected.</subject>
+        <description>Send an email to participant to inform him that the term he proposed is rejected.</description>
+        <subject>Voicing Climate Concerns: your glossary submission has been rejected.</subject>
         <notes>Variable: ${term}, ${user}, ${reason}</notes>
-        <content>Dear participant of PGIST,\n\nThe glossary term "${term.name}" you proposed at PGIST is rejected. The moderator of PGIST gives the following reason:\n\n${reason}\n\nThank you for your participation.\n\nPGIST group.</content>
+        <content><![CDATA[{user.loginname},<br />
+    
+    You recently submitted the term "${term.name}" to the Voicing Climate Concerns glossary. After reviewing your submission, the moderator has decided not to include it in the public glossary, for the following reason:<br />
+    
+    "${reason}"<br />
+    
+    Thank you for your participation,<br />
+    
+    Voicing Climate Concerns]]>
+        </content>
+    </template>
+    
+    
+    <template name="post_reply">
+        <description>Send an email notification to participants whose post are replied.</description>
+        <subject>New discussion activity</subject>
+        <notes>Variable: ${reply}, ${user},${reply.title}</notes>
+        <content><![CDATA[${user.loginname},<br />
+    
+    Somebody has contributed a new comment to the following discussion:<br />
+    
+    ${reply.title}<br />
+    
+    Follow this link to view the discussion:<br />
+    
+    ${url}<br />
+    
+                 Thanks for your participation,<br />
+    
+    Voicing Climate Concerns]]>
+        </content>
+    </template>
+    
+    
+    <template name="feedback">
+        <description>Send an email notification to moderator that participant commits a feedback.</description>
+        <subject>VCC: New feedback item submitted</subject>
+        <notes>Variable: ${feedback}</notes>
+        <content><![CDATA[
+        A user has just submitted the following feedback:<br />
+        
+        ${feedback.content}]]><br />
+        </content>
+    </template>
+    
+    
+    <template name="registration">
+            <description>Send an email notification to user that their account has been created.</description>
+            <subject>Welcome to Voicing Climate Concerns</subject>
+            <notes>Variable: ${loginname}, ${webqid}</notes>
+            <content><![CDATA[
+    <p>Welcome to Voicing Climate Concerns,</p>
+    <p>Your user account has been successfully created. Your Login Name is ${loginname}. Your participant id number is ${webqid}. (You will need this number to access surveys.)
+    Thanks for becoming the newest participant in the LIT Challenge. You will receive an email soon when the website is ready for your participation.
+    <p>See you online soon!<br/>
+    VCC moderators</p>
+            ]]>
+            </content>
+            <!--
+                <p>Welcome to Voicing Climate Concerns, or LIT.</p>
+                <p>Your user account has been successfully created. Your Login Name is ${loginname}. Your participant id number is ${webqid}. (You will need this number to access surveys.)
+                Thanks for becoming the newest participant in the LIT Challenge. To login and get started simply go to:
+                <a href="http://www.climateconcerns.org">www.climateconcerns.org</a> </p>
+                <p>See you online soon!<br/>
+                Matt and Kevin, the LIT moderators</p>
+            -->
+    </template>
+    
+    
+    <template name="announcement">
+        <description>Send an email to notify participants of announcements.</description>
+        <subject>VCC: New Moderator Announcement</subject>
+        <notes>Variable: ${announcement}</notes>
+        <content><![CDATA[
+        <h3>The VCC Moderator has posted a new system announcement:</h3>
+
+        ${announcement}]]>
+        </content>
+    </template>
+    
+    
+    <template name="modpasswordreset">
+            <description>Send an email to user that their password was reset by the moderator</description>
+            <subject>VCC: Password Reset</subject>
+            <notes>Variable: ${newpassword}</notes>
+            <content><![CDATA[
+            <p>The VCC Moderator has reset your password to:
+            <strong>${newpassword}</strong></p>
+            
+            <p>You can change your password by clicking on the User Settings button in the LIT system</p>
+            ]]>
+            </content>
+    </template>
+    
+    
+    <template name="recoverpassword">
+        <description>Send a password recovery to the user, allows them to reset their password</description>
+        <subject>VCC: Password Recovery</subject>
+        <notes>Variable: ${code}</notes>
+        <content><![CDATA[
+        <p>Your password recovery code is: <strong>${code}</strong><br/>
+        This code is used to reset your password and will expire in 30 minutes.
+        </p>
+        <p>Please follow the link below to reset your password:
+        <a href="http://www.climateconcerns.org/resetpassword.do?code=${code}">Password Recovery</a></p>
+
+        <p>If the link above does not work copy and paste the following URL into your browsers location bar:<br>
+        <strong>http://www.climateconcerns.org/resetpassword.do?code=${code}</strong>
+        </p>
+        ]]>
+        </content>
+    </template>
+    
+    
+    <template name="concern_comment">
+        <description>Send an email notification to participants whose concern comment is replied.</description>
+        <subject>New Comment on concern</subject>
+        <notes>Variable: ${concern}, ${recipient}, ${url}</notes>
+        <content><![CDATA[${recipient.loginname},<br /><br />
+    
+    Somebody has contributed a new comment to the following discussion:<br /><br />
+    
+    <span style="padding-left:4em;">"${concern.content}"</span><br /><br />
+    
+    Follow this link to view the discussion:<br /><br />
+    
+    <span style="padding-left:4em;"><a href="http://www.climateconcerns.org/${url}">http://www.climateconcerns.org/${url}</a></span><br /><br />
+    
+    Thanks for your participation,<br /><br />
+    
+    Voicing Climate Concerns (www.climateconcerns.org)]]>
+        </content>
+    </template>
+    
+    
+    <template name="generic_comment">
+        <description>Send an email notification to participants whose comment is replied.</description>
+        <subject>New Comment(s) on discussion</subject>
+        <notes>Variable: ${recipient}, ${urls}</notes>
+        <content><![CDATA[${recipient.loginname},<br /><br />
+    
+    Discussion was updated after your last post, please follow the link(s) below to view the discussion:
+    <br /><br />
+    <ul>
+      ${urls}
+    </ul>
+    <br /><br />
+    
+    Thanks for your participation,<br /><br />
+    
+    Voicing Climate Concerns (www.climateconcerns.org)]]>
+        </content>
     </template>
     
     

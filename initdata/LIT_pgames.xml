@@ -4,7 +4,37 @@
 
     <pgames>
     
-        <pgame name="pgame-create.project.suite" description="Create a project suite." auto="true">
+        <pgame name="pgame-select.template" title="Select a situation template." auto="false" access="moderator" revisitable="false">
+            <description>
+              <![CDATA[<small>Moderator tool for loading a template</small>]]>
+            </description>
+            <actionName>action-select.template</actionName>
+            <declaration>
+                <outs>
+                    <var name="template_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-import.template" title="Import a situation template." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-import.template</taskName>
+            <declaration>
+                <ins>
+                    <var name="template_id"/>
+                    <var name="proj_suite_id"/>
+                    <var name="fund_suite_id"/>
+                    <var name="crit_suite_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-create.project.suite" title="Create a project suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.project.suite</taskName>
             <declaration>
                 <outs>
@@ -13,17 +43,34 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="moderator">
+        <pgame name="pgame-define.projects" title="Define projects in a project suite." auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[<small>Select which pre-defined projects will be included in this experiment</small>]]>
+            </description>
             <actionName>action-define.projects</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
         </pgame>
         
-        <pgame name="pgame-create.funding.suite" description="Create a funding source suite." auto="true">
+        <pgame name="pgame-index.project.suite" title="Index the project suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-index.project.suite</taskName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-create.funding.suite" title="Create a funding source suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.funding.suite</taskName>
             <declaration>
                 <outs>
@@ -32,27 +79,55 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.fundings" description="Define funding sources in a funding source suite." auto="false" access="moderator">
+        <pgame name="pgame-create.experiment" title="Create an experiment." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-create.experiment</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="project_suite_id"/>
+                    <var name="funding_suite_id"/>
+                    <var name="package_suite_id"/>
+                    <var name="crit_suite_id"/>
+                    <var name="report_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="experiment_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-define.fundings" title="Define funding sources in a funding source suite." auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[<small>Select which pre-defined funding sources will be included in this experiment</small>]]>
+            </description>
             <actionName>action-define.fundings</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
         </pgame>
         
-        <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
+        <pgame name="pgame-grade.projects" title="Moderator: Grade projects." auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[<small>Input grades for projects</small>]]>
+            </description>
             <actionName>action-grade.projects</actionName>
             <declaration>
                 <ins>
-                    <var name="suiteId"/>
+                    <var name="projsuiteId"/>
+                    <var name="critsuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
         </pgame>
         
-        <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
+        <pgame name="pgame-create.cct" title="Create a CCT instance." auto="true">
+            <description>
+              <![CDATA[<small>Start a new instance of CCT</small>]]>
+            </description>
             <taskName>task-create.cct</taskName>
             <declaration>
                 <outs>
@@ -66,27 +141,43 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-cvo.cct" description="Brainstorm." auto="false" access="all">
+        <pgame name="pgame-define.travelPath" title="1a: Map your daily travel" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Make a map of how you use the transportation system on an average day.</small>]]>
+            </description>
+            <actionName>action-define.travelPath</actionName>
+            <declaration>>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-cvo.cct" title="1b: Brainstorm concerns" auto="false" access="all">
+            <description>
+              <![CDATA[<small>Brainstorm transportation concerns with other participants.</small>]]>
+            </description>
             <actionName>action-cvo.cct</actionName>
             <declaration>
                 <ins>
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="10000"/>
         </pgame>
         
-        <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
+        <pgame name="pgame-cvo.cst" title="Moderator: Concerns synthesis tool" auto="false" access="moderator" revisitable="true">
+            <description>
+              <![CDATA[<small>Write summaries by categorizing concerns and tags into themes</small>]]>
+            </description>
             <actionName>action-cvo.cst</actionName>
             <declaration>
                 <ins>
                     <var name="cctId"/>
                 </ins>
             </declaration>
-            <timer extension="10000"/>
         </pgame>
         
-        <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
+        <pgame name="pgame-publish.theme" title="Publish Themes." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.theme</taskName>
             <declaration>
                 <ins>
@@ -96,22 +187,27 @@
                     <var name="is_id"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 1b: Review Summaries" />
+                    <property name="title" value="Step 1: Discuss Concerns" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.concerns" description="Review Summaries." auto="false" access="all">
+        <pgame name="pgame-sd.concerns" title="1c: Review summaries" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate summaries of all participant concerns.</small>]]>
+            </description>
             <actionName>action-sd.concerns</actionName>
             <declaration>
                 <ins>
                     <var name="isid"/>
                 </ins>
             </declaration>
-            <timer extension="10000"/>
         </pgame>
-        
-        <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
+    
+        <pgame name="pgame-create.criteria.suite" title="Create a criteria suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.criteria.suite</taskName>
             <declaration>
                 <outs>
@@ -120,17 +216,24 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-define.criteria" description="Define Criteria." auto="false" access="moderator">
+        <pgame name="pgame-define.criteria" title="Moderator: Define improvement factors" auto="false" access="moderator">
+            <description>
+              <![CDATA[Create improvement factors, associate them with themes, and add objectives]]>
+            </description>
             <actionName>action-define.criteria</actionName>
             <declaration>
                 <ins>
+                    <var name="cctId"/>
                     <var name="suiteId"/>
+                    <var name="theme_isid"/>
                 </ins>
             </declaration>
-            <timer extension="30000"/>
         </pgame>
         
-        <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
+        <pgame name="pgame-publish.criteria" title="Publish Criteria." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.criteria</taskName>
             <declaration>
                 <ins>
@@ -141,32 +244,41 @@
                     <var name="is_id"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 2a: Review Criteria" />
+                    <property name="title" value="Step 2: Assess Transportation Improvement Factors" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.criteria" description="SD critieria." auto="false" access="all">
+        <pgame name="pgame-sd.criteria" title="2a: Review factors" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss different factors used to evaluate transportation improvements</small>]]>
+            </description>
             <actionName>action-sd.criteria</actionName>
             <declaration>
             <ins>
                 <var name="isid"/>
+                <var name="critSuiteId"/>
+                <var name="themeIsid"/>
             </ins>
             </declaration>
-            <timer extension="300000"/>
         </pgame>
         
-        <pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
+        <pgame name="pgame-weigh.criteria" title="2b: Weigh factors" auto="false" access="all">
+            <description>
+              <![CDATA[<small>Decide which factors are most important to you</small>]]>
+            </description>
             <actionName>action-weigh.criteria</actionName>
             <declaration>
             <ins>
                 <var name="suiteId"/>
             </ins>
             </declaration>
-            <timer extension="300000"/>
         </pgame>
         
-        <pgame name="pgame-publish.projects" description="Publish Projects." auto="true">
+        <pgame name="pgame-publish.projects" title="Publish Projects." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.projects</taskName>
             <declaration>
                 <ins>
@@ -177,22 +289,41 @@
                     <var name="is_id"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 1b: Review Projects" />
+                    <property name="title" value="Step 3: Create Transportation Packages" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.projects" description="Review Projects." auto="false" access="all">
+        <pgame name="pgame-sd.projects" title="3a: Discuss projects" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate proposed transportation improvement projects.</small>]]>
+            </description>
             <actionName>action-sd.projects</actionName>
             <declaration>
                 <ins>
                     <var name="isid"/>
+                    <var name="critSuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
+        </pgame>
+    
+        <pgame name="pgame-sda.projects" title="Review projects" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review proposed transportation improvement projects.</small>]]>
+            </description>
+            <actionName>action-sd.projects</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
         </pgame>
         
-        <pgame name="pgame-publish.fundings" description="Publish Fundings." auto="true">
+        <pgame name="pgame-publish.fundings" title="Publish Fundings." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.fundings</taskName>
             <declaration>
                 <ins>
@@ -203,22 +334,41 @@
                     <var name="is_id"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 1b: Review Funding Sources" />
+                    <property name="title" value="Step 3: Create Transportation Packages (Funding)" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.fundings" description="Review Fundings." auto="false" access="all">
+        <pgame name="pgame-sd.fundings" title="3b: Discuss funding options" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss and evaluate ways to pay for transportation improvements.</small>]]>
+            </description>
             <actionName>action-sd.fundings</actionName>
             <declaration>
                 <ins>
                     <var name="isid"/>
+                    <var name="fundSuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
-        <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
+        <pgame name="pgame-sda.fundings" title="Review funding options" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review options to pay for transportation improvements.</small>]]>
+            </description>
+            <actionName>action-sd.fundings</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                    <var name="fundSuiteId"/>
+                </ins>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-create.package.suite" title="Create a package suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-create.package.suite</taskName>
             <declaration>
                 <outs>
@@ -227,7 +377,94 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-publish.packages" description="Publish Packages." auto="true">
+        <pgame name="pgame-planning.factor.reweigh" title="Improvement Factor Reweigh." auto="false" access="all">
+            <description>
+              <![CDATA[<small>Reweigh improvement factors</small>]]>
+            </description>
+            <actionName>action-planning.factor.reweigh</actionName>
+            <declaration>
+                <ins>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-create.user.package" title="3c: Create your own package" auto="false" access="all">
+            <description>
+              <![CDATA[<small>Suggest your own package of projects and funding options.</small>]]>
+            </description>
+            <actionName>action-create.user.package</actionName>
+            <declaration>
+                <ins>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-group.packages" title="Group candidate packages." auto="true">
+            <description>
+              <![CDATA[<small>Sort candidate packages into groups</small>]]>
+            </description>
+            <taskName>task-group.packages</taskName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-tally.packages" title="Find Preferred Package." auto="true">
+            <description>
+              <![CDATA[<small>Determine the Preferred Package</small>]]>
+            </description>
+            <taskName>task-create.packages.preferredpackage</taskName>
+            <declaration>
+                <ins>
+                    <var name="pkg_suite_id"/>
+                    <var name="vote_suite_id"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.packages" title="Review funding options" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review options to pay for transportation improvements.</small>]]>
+            </description>
+            <actionName>action-sd.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+            <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+    
+        <pgame name="pgame-manage.packages" title="Moderator: Manage packages." auto="false" access="moderator">
+            <description>
+              <![CDATA[<small>Create and manage packages</small>]]>
+            </description>
+            <actionName>action-manage.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.packages" title="Publish Packages." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
             <taskName>task-publish.packages</taskName>
             <declaration>
                 <ins>
@@ -238,21 +475,157 @@
                     <var name="is_id"/>
                 </outs>
                 <props>
-                    <property name="title" value="Step 4b: Review Packages" />
+                    <property name="title" value="Step 4: Select a Package for Recommendation" />
                 </props>
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all">
+        <pgame name="pgame-sd.packages" title="4a: Discuss candidate packages" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Compare, and discuss six candidate packages.</small>]]>
+            </description>
             <actionName>action-sd.packages</actionName>
             <declaration>
                 <ins>
                     <var name="isid"/>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                    <var name="voteSuiteId"/>
                 </ins>
             </declaration>
-            <timer extension="60000"/>
         </pgame>
         
+        <pgame name="pgame-vote.packages" title="4b: Vote on package recommendation" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Declare your willingness to support the candidate for recommendation to decision maker.</small>]]>
+            </description>
+            <actionName>action-vote.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="pkgSuiteId"/>
+                    <var name="projSuiteId"/>
+                    <var name="fundSuiteId"/>
+                    <var name="critSuiteId"/>
+                    <var name="voteSuiteId"/>  
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-create.vote.suite" title="Create a vote suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-create.vote.suite</taskName>
+            <declaration>
+                <ins>
+                    <var name="pkg_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="poll_suite_id"/>
+                    <var name="vote_suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-create.report.suite" title="Create a report suite." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-create.report.suite</taskName>
+            <declaration>
+            <outs>
+                <var name="suite_id"/>
+            </outs>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-create.report.stats" title="Create report statistics." auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-create.report.stats</taskName>
+            <declaration>
+            <ins>
+                <var name="cct_id"/>           
+                <var name="repo_suite_id"/>
+                <var name="pkg_suite_id"/>
+                <var name="crit_suite_id"/>
+                <var name="proj_suite_id"/>
+                <var name="fund_suite_id"/>
+            </ins>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-define.report" title="Moderator: Define report" access="moderator" auto="false">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <actionName>action-define.report</actionName>
+            <declaration>
+            <ins>
+                <var name="suite_id"/>
+            </ins>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-publish.report" title="Publish Report" auto="true">
+            <description>
+              <![CDATA[Here is the description.]]>
+            </description>
+            <taskName>task-publish.report</taskName>
+            <declaration>
+            <ins>
+                <var name="suite_id"/>
+                <var name="cct_id"/>
+            </ins>
+            <outs>
+                <var name="is_id"/>
+            </outs>
+            <props>
+                <property name="title" value="Step 5: Prepare Group Report" />
+            </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sd.report" title="5a: Review draft report" access="all" auto="false" revisitable="true">
+            <description>
+              <![CDATA[<small>Discuss a draft report of the results of the LIT Challenge and suggest revisions.</small>]]>
+            </description>
+            <actionName>action-sd.report</actionName>
+            <declaration>
+            <ins>
+                <var name="isid"/>
+                <var name="cct_id"/>
+                <var name="critSuiteId"/>
+                <var name="pkgSuiteId"/>
+                <var name="repoSuiteId"/>
+                <var name="fundSuiteId"/>
+                <var name="projSuiteId"/>
+                <var name="voteSuiteId"/>
+            </ins>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-vote.report" title="5b: Vote on report endorsement" access="all" auto="false" revisitable="true">
+            <description>
+              <![CDATA[<small>Vote to endorse (or reject) the final report.</small>]]>
+            </description>
+            <actionName>action-view.report</actionName>
+            <declaration>
+            <ins>
+                <var name="cct_id"/>
+                <var name="critSuiteId"/>
+                <var name="pkgSuiteId"/>
+                <var name="repoSuiteId"/>
+                <var name="fundSuiteId"/>
+                <var name="projSuiteId"/>
+                <var name="voteSuiteId"/>
+            </ins>
+            </declaration>
+        </pgame>
+    
     </pgames>
     
     

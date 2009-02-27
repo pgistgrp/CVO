@@ -17,7 +17,9 @@
                 <property name="cctDAO" ref="cctDAO"/>
                 <property name="criteriaDAO" ref="criteriaDAO"/>
                 <property name="projectDAO" ref="projectDAO"/>
+                <property name="fundingDAO" ref="fundingDAO"/>
                 <property name="packageDAO" ref="packageDAO"/>
+                <property name="reportDAO" ref="reportDAO"/>
                 <property name="importDAO" ref="importDAO"/>
             </bean>
         </property>

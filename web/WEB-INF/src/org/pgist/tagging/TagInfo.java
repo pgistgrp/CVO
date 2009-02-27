@@ -47,4 +47,21 @@ public class TagInfo {
     }
 
 
+    public int getFontSize() {
+        int myTimes = getTimes();
+        if (myTimes>=1 && myTimes<=2) {
+            return 1;
+        } else if (myTimes>=3 && myTimes <=5) {
+            return 2;
+        } else if (myTimes>=7 && myTimes <=10) {
+            return 3;
+        } else if (myTimes>10) {
+            return 4;
+        } else {
+            //invalid state
+            return 0;
+        }
+    }
+
+
 }//class TagInfo

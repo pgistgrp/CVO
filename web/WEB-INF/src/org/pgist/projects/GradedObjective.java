@@ -11,15 +11,18 @@ import org.pgist.criteria.Objective;
  */
 public class GradedObjective {
 	
+    
 	private Objective objective;
+	
 	private Long id;
 	
 	/**
 	 * The grade assigned to the objective, should be between -3 and 3
 	 */
-	private int grade;
-
-    /**
+	private Float grade;
+	
+	
+    /** 
      * @hibernate.id generator-class="native"
      */
     public Long getId(){
@@ -31,17 +34,23 @@ public class GradedObjective {
         this.id = id;
     }	
 	
+    
 	/**
-     * @hibernate.id generator-class="native"
+     * @hibernate.property
      */    
-	public int getGrade() {
+	public Float getGrade() {
 		return grade;
 	}
-
-	public void setGrade(int grade) {
+	
+	
+	/**
+	 * The grade for the objective, null means that no grade has been set
+	 */
+	public void setGrade(Float grade) {
 		this.grade = grade;
 	}
-
+	
+	
     /**
      * @return
      * 
@@ -50,8 +59,11 @@ public class GradedObjective {
 	public Objective getObjective() {
 		return objective;
 	}
-
+	
+	
 	public void setObjective(Objective objective) {
 		this.objective = objective;
-	}		
+	}
+	
+	
 }

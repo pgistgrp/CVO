@@ -22,6 +22,20 @@ public class TagDAOImpl extends BaseDAOImpl implements TagDAO {
     }//getTagById()
 
 
+    private static final String hql_getTagByName = "from Tag t where t.type=? and t.name=?";
+    
+    
+    public Tag getTagByName(String name) throws Exception {
+        List tags = getHibernateTemplate().find(hql_getTagByName, new Object[] {
+                Tag.TYPE_INCLUDED,
+                name.toLowerCase(),
+        });
+        
+        if (tags.size()>0) return (Tag) tags.get(0);
+        else return null;
+    }//getTagByName()
+
+
     private static final String hql_addTag = "from Tag t where t.status!=? and lower(t.name)=?";
     
     
@@ -81,7 +95,7 @@ public class TagDAOImpl extends BaseDAOImpl implements TagDAO {
         
         if (list == null || list.size() == 0) return result;
 
-        int total = ((Integer) list.get(0)).intValue();
+        int total = ((Number) list.get(0)).intValue();
         if (setting.getRowOfPage() == -1) setting.setRowOfPage(total);
         setting.setRowSize(total);
 

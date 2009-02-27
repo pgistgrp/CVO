@@ -2,8 +2,9 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
-<p align="right">[ <a href="javascript:$('myTab').tabber.tabShow(0); void(0);">Back to all tags</a> ]</p>
-<br><span class="title_section">Viewing Tag:</span>
+<p align="right">[ <a href="javascript:$('myTab').tabber.tabShow(0); void(0);">Back to all keywords</a> ]</p>
+<br>
+<span class="title_section">Viewing Keyword/phrase:</span>
 <logic:iterate id="concern" name="concerns">
 			<div id="concernId${concern.id}" class="theConcern">
 						<logic:notEqual name="type" value="0">
@@ -24,7 +25,7 @@
 							</span>
 						</logic:iterate>
 						<logic:equal name="type" value="0">
-						<div id=actionMenu class="actionMenu">Actions: <a href="javascript:editConcernPopup(${concern.id});">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTagsPopup('${concern.id}');">edit tags</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
+						<div id=actionMenu class="actionMenu">Actions: <a href="javascript:editConcernPopup(${concern.id});">edit concern</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:editTagsPopup('${concern.id}');">edit keywords/phrases </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:delConcern(${concern.id});">delete entire concern</a></div>
 						<br>
 						</logic:equal>
 			</div>

@@ -6,11 +6,12 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 	<head>
-	<title>Let's Improve Transportation - Registration</title>
+	<title>Voicing Climate Concerns - Registration</title>
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
 @import "styles/registration-1.css";
+@import "styles/recover-password.css";
 </style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
@@ -40,16 +41,22 @@
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-	${sysmsg}
-	<div id="password"">
-	<html:form action="/resetpassword.do" method="POST">
-		 <html:hidden property="editPassword" value="true"/>
-		 <html:hidden property="code" value="<%= request.getParameter("rc") %>"/>
-		 <p>Please Enter your new password <html:password property="password1" value=""/></p>
-		 <p>Confirm your new password <html:password property="password2" value=""/></p>
-		 <html:submit styleId="sub" property="submit" value="Submit"/>
-	</html:form>
-	</div>
+		<div id="password">
+		<h2>Reset Your Password</h2>
+		<html:form action="/resetpassword.do" method="POST">
+			 <html:hidden property="editPassword" value="true"/>
+			 
+			 	<p id="errors">${sysmsg}</p>
+			 	<div class="plabel">Recovery Code:</div>
+			 	<div class="pvalue"><html:text property="code" value="<%= request.getParameter("code") %>"/></div>
+				<div class="plabel">Enter your new password</div>
+			 	<div class="pvalue"><html:password property="password1" value=""/></div>
+				<div class="plabel">Confirm your new password</div>
+				<div class="pvalue"><html:password property="password2" value=""/></div>
+				<div class="clearBoth"></div>
+			 <html:submit styleId="sub" property="submit" value="Submit"/>
+		</html:form>
+		</div>
 	
 	</div>
 	<!-- end container -->

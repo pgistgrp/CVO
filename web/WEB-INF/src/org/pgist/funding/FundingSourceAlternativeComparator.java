@@ -8,7 +8,15 @@ public class FundingSourceAlternativeComparator implements Comparator {
         FundingSourceAlternative ref1 = (FundingSourceAlternative) obj1;
         FundingSourceAlternative ref2 = (FundingSourceAlternative) obj2;
         
-        if (caseSensitive) return ref1.getName().compareTo(ref2.getName());
-        else return ref1.getName().compareToIgnoreCase(ref2.getName());
+        int result;
+        if (caseSensitive) {
+        	result = ref1.getName().compareTo(ref2.getName());
+        } else {
+        	result = ref1.getName().compareToIgnoreCase(ref2.getName());
+        }
+        if(result == 0) {
+        	result = ref1.getId().compareTo(ref2.getId());        	
+        }
+        return result;        
 	}
 }

@@ -2,7 +2,6 @@ package org.pgist.web;
 
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
-import org.htmlparser.nodes.RemarkNode;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.nodes.TextNode;
 import org.htmlparser.tags.BodyTag;

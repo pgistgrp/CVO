@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <pages>
-    <page url="/lmAbout.do">lmAbout.jsp</page>
-    <page url="/lmAlt.do">lmAlt.jsp</page>
-    <page url="/lmFaq.do">lmFaq.jsp</page>
-    <page url="/lmGallery.do">lmGallery.jsp</page>
-    <page url="/lmMenu.do">lmMenu.jsp</page>
-    <page url="/lmResources.do">lmResources.jsp</page>
-    <page url="/lmTutorial1.do">lmTutorial1.jsp</page>
-    <page url="/lmTutorial2.do">lmTutorial2.jsp</page>
+    <page>
+        <title>About Let's Improve Transportation</title>
+        <url>/lmAbout.do</url>
+        <path>lmAbout.jsp</path>
+    </page>
+    <page>
+        <title>Project Map - Alternative</title>
+        <url>/lmAlt.do</url>
+        <path>lmAlt.jsp</path>
+    </page>
+    <page>
+        <title>Frequently Asked Questions</title>
+        <url>/lmFaq.do</url>
+        <path>lmFaq.jsp</path>
+    </page>
+    <page>
+        <title>Project Map</title>
+        <url>/lmGallery.do</url>
+        <path>lmGallery.jsp</path>
+    </page>
+    <page>
+        <title>Learn More</title>
+        <url>/lmMenu.do</url>
+        <path>lmMenu.jsp</path>
+    </page>
+    <page>
+        <title>Resources</title>
+        <url>/lmResources.do</url>
+        <path>lmResources.jsp</path>
+    </page>
+    <page>
+        <title>Tutorial</title>
+        <url>/lmTutorial1.do</url>
+        <path>lmTutorial1.jsp</path>
+    </page>
+    <page>
+        <title>Tutorial</title>
+        <url>/lmTutorial2.do</url>
+        <path>lmTutorial2.jsp</path>
+    </page>
 </pages>
 

@@ -14,69 +14,70 @@
 	Description: This is a partial page that defines the view of a single criteria in criteriaMgr.jsp.
 				 This is also used on sdcritStructureTarget.jsp
 	Author(s): 
-	     Front End: Jordan Isip, Adam Hindman, Isaac Yang
-	     Back End: Zhong Wang, John Le
-	Todo Items:
-		[x] Initial Skeleton Code (Jordan)
-		[x] Ensure connection with criteriaMgr.jsp (Jordan)
-		[x] Loop through ${criteria} (Jordan)
-		[ ] Add conditional statements to allow sdcritStructureTarget.jsp to use the same partial.
+	     Front End: Jordan Isip, Adam Hindman
+	     Back End: Zhong Wang, John Le	
 #### -->
-<!-- begin criteria headers -->
 
-<div class="criteriaListHeader">
-  <div class="criteriaCol1 floatLeft">
-    <h4 class="headerColor">Planning factor</h4>
-  </div>
-  <div class="criteriaCol2 floatLeft">
-    <h4 class="headerColor">Description</h4>
-  </div>
-  <div class="criteriaCol3 floatLeft">
-    <h4 class="headerColor">Related concern theme</h4>
-  </div>
-  <div class="clearBoth"></div>
-</div>
-<!-- end criteria headers -->
 <c:if test="${fn:length(criteria) == 0}">
   <p>You have not created any planning factors yet! Use the form
     below to add a new planning factor.</p>
 </c:if>
 <c:forEach var="criterion" items="${criteria}" varStatus="loop">
   <div id="criteria-${criterion.id}" class="criteriaListRow row ${((loop.index % 2) == 0) ? 'even' : ''}">
-    <div class="criteriaCol1 floatLeft"><a href="#">
-      <div class="floatLeft"><a href="javascript:io.expandList('objectives${criterion.id}','icon${criterion.id}');"> <img src="/images/plus.gif" id="icon${criterion.id}"></a></div>
-      <div class="floatLeft"> ${criterion.name}
 
-          <!-- needs another variable to differentiate -->
-            <!-- show editing only to moderator -->
-            <small><br />[ <a href="javascript:editCriterionPopup(${criterion.id});">edit</a> ]
-            [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small>
- 
-      </div>
-    </div>
-    <div class="criteriaCol2 floatLeft">${criterion.na}</div>
-    <div class="criteriaCol3 floatLeft">
-      <!--themes-->
-      <c:if test="${fn:length(criterion.themes) == 0}"> None
-        Selected </c:if>
-      <c:forEach var="theme" items="${criterion.themes}" varStatus="loop">
-        ${theme.title}<br />
-      </c:forEach>
-    </div>
-    <div class="clearBoth"></div>
-    <div class="objectives" id="criteriaEdit${criterion.id}">
-      <!--javascript will load edit form here -->
-    </div>
-    <div class="objectives" id="objectives${criterion.id}" style="display:none;"><br /><strong>Objectives:</strong>
-      <ul class="smallText">
-        <c:if test="${fn:length(criterion.objectives) == 0}">
-          <li>None Selected</li>
-        </c:if>
-        <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
-          <li>${objective.description}</li>
-        </c:forEach>
-      </ul>
-    </div>
+		<div id="criterion${criterion.id}">
+			${criterion.name}
+	        <small>[ <a href="javascript:toggleEditField('criterion',${criterion.id});">edit</a> ]
+	        [ <a href="javascript:deleteCriterion(${criterion.id});">delete</a> ]</small> 
+		</div>
+		
+		<div id="criterionEdit${criterion.id}" style="display: none;"> 
+			<form id="editCriterion" action="javascript:editCriterion(${criterion.id});">
+				<input name="name" id="criterionName${criterion.id}" type="text" value="${criterion.name}" />
+				<input type="submit" value="Update" /><small> <a href="javascript:toggleEditField('criterion',${criterion.id});">Cancel</a></small>
+			</form>
+		</div>
+		
+		<ul id="${criterion.id}themes"}>
+			<li class="liHeader">Which concern themes are related to this planning factor?</li>
+			<c:if test="${fn:length(infoObjects) == 0}">
+				<li class="mleft15">Concern themes have not been created yet.  Please use the <a href="cstview.do?cctId=${cctId}">Concern Synthesis Tool</a> to create concern themes after participants have expressed their concerns.</li>
+			</c:if>
+			<c:forEach var="infoObject" items="${infoObjects}" varStatus="loop">
+				<li class="mleft15">
+					<label><input type="checkbox" id="theme${infoObject.id}" ${(pg:containsInfoObject(criterion,infoObject)) ? "checked='CHECKED'" : ""} name="${criterion.id}checkboxes" onClick="setThemes('${criterion.id}checkboxes', ${criterion.id});"/>
+					${infoObject.object}</label>
+				</li>
+			</c:forEach>
+
+			<li class="liHeader">What are the objectives for this planning factor?</li>
+			<c:if test="${fn:length(criterion.objectives) == 0}">
+				<li class="mleft15">No objectives have been created for this planning factor yet</li>
+			</c:if>
+			<c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+				<li class="mleft15">
+					<div id="objective${objective.id}">
+						${objective.description}
+						<small>[ <a href="javascript:toggleEditField('objective',${objective.id});">edit</a> ]
+				        [ <a href="javascript:deleteObjective(${objective.id});">delete</a> ]</small>
+					</div>
+					<div id="objectiveEdit${objective.id}" style="display: none;"> 
+						<form id="editObjective" action="javascript:editObjective(${objective.id});">
+							<input name="description" id="objDesc${objective.id}" type="text" value="${objective.description}" />
+							<input type="submit" value="Update" /><small> <a href="javascript:toggleEditField('objective',${objective.id});">Cancel</a></small>
+						</form>
+					</div>
+				</li>
+			</c:forEach>
+			<li class="mleft30"><a href="javascript:Element.toggle('addObjective${criterion.id}');void(0);">Add an Objective</a>
+				<div id="addObjective${criterion.id}" style="display:none;">
+					<form action="javascript:addObjective(${criterion.id});">
+						Objective Description: <input type="text" id="objDesc${criterion.id}" size="30"/><input type="submit" value="Add">
+					</form>
+				</div>
+				
+			</li>
+		</ul>
+
   </div>
 </c:forEach>
-<div class="clearBoth"></div>

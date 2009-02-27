@@ -1,15 +1,9 @@
 package org.pgist.system;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspWriter;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.users.User;
-import org.pgist.users.UserInfo;
-import org.pgist.util.WebUtils;
 
 
 /**
@@ -26,6 +20,8 @@ public class MainAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
+        
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("main");
     }//execute()

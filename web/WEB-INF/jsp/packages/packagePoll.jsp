@@ -26,7 +26,7 @@
 #### -->
 <html:html> 
 <head>
-<title>Package Vote</title>
+<title>Package Poll</title>
 <!-- Site Wide JavaScript -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
@@ -50,10 +50,12 @@
 <!-- End Site Wide CSS -->
 <style type="text/css">
 
+@import "styles/lit.css";
+
 #voteBox
 {
 width:100%;
-border: 1px solid #ADCFDE;
+border: 1px solid #D6E7EF;
 margin-bottom:1.5em;
 padding:5px;
 }
@@ -93,7 +95,8 @@ margin:0em auto;
 background:#FFF1DC;
 }
 
-.voteHeader{background:#ADCFDE;font-size:12pt;}
+.voteHeader{background:#D6E7EF;font-size:10pt;}
+
 
 
 </style>
@@ -135,14 +138,15 @@ background:#FFF1DC;
 <event:pageunload />
 </head>
 <body>
+<div id="container">
 <!-- #container is the container that wraps around all the main page content -->
   <!-- begin Object -->
 	<div id="object">
       <!-- begin one voting box -->
       <h3 class="headerColor">Package Poll</h3>
+      		<p>Please indicate your willingness to recommend the following packages to decision makers.</p>
 		<div id="voteBox" class="floatLeft clearBoth">
 		<!-- begin voting headers -->
-		<p>Please indicate your willingness to recommend the following packages to decision makers.</p>
         <div class="VoteListRow row voteHeader">
           <div class="voteCol1 floatLeft">&nbsp;</div>
           <div class="voteCol2 floatLeft">I would <strong>enthusiastically recommend</strong> this package</div>
@@ -165,7 +169,9 @@ background:#FFF1DC;
 			         <div class="clearBoth"></div>
 			       </div>
 			</c:forEach>
-			<p class="floatRight"><input type="reset" class="padding5" value="Reset form and start over" /> <input type="submit" class="padding5" value="Submit Vote" /></p>
+                        <c:if test="voteSuite.closed==false">
+			  <p class="floatRight"><input type="reset" class="padding5" value="Reset form and start over" /> <input type="submit" class="padding5" value="Submit Vote" /></p>
+                        </c:if>
 		</form>
 		
 	</div><!-- end one voting box -->

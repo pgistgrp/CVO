@@ -1,7 +1,6 @@
 package org.pgist.tests;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 import org.apache.tools.ant.AntClassLoader;
@@ -105,11 +104,8 @@ public class TestMatrix extends MatchingTask {
         
         Scanner scanner = new Scanner(System.in);
         
-        PrintWriter writer = new PrintWriter(new File(output));
-        
         Interpreter interpreter = new Interpreter();
         interpreter.set("session", session);
-        interpreter.set("out", writer);
         
         while (true) {
             System.out.println();
@@ -121,6 +117,7 @@ public class TestMatrix extends MatchingTask {
             try {
                 tx = session.beginTransaction();
                 
+                interpreter.set("outputPath", new File(output));
                 interpreter.source(script);
                 
                 tx.commit();

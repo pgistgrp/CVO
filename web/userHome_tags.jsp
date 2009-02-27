@@ -49,7 +49,7 @@
 <div id="keywords" class="clearfix">
 	<ul>
 		<c:forEach var="tag" items="${user.tags}" varStatus="loop">
-			<li class="tagSize${tag.fontSize}">${tag.tag}</li>
+			<li class="tagSize${tag.fontSize}"><a href="search.do?q=${tag.tag}">${tag.tag}</a></li>
 		</c:forEach>
 	</ul>
 </div>

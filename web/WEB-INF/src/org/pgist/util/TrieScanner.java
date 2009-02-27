@@ -6,47 +6,17 @@ package org.pgist.util;
  * @author kenny
  *
  */
-public abstract class TrieScanner {
-    
-    
-    protected String para;
-    
-    protected char ch;
-    
-    protected int index;
-    
-    protected int point = 0;
-    
-    protected int length;
+public interface TrieScanner {
     
     
     /**
-     * skip to the next beginning
+     * Check if the current scanner already scanned to the end of paragraph
+     * @return
      */
-    protected void skip() {
-        if (ch>='a' && ch<='z') {
-            while (index<length-1) {
-                index++;
-                ch = para.charAt(index);
-                if (ch<'a' || ch>'z') break;
-            }//while
-            if (index==length) return;
-        }
-        
-        while (index<length-1) {
-            index++;
-            ch = para.charAt(index);
-            if (ch>='a' || ch<='z') break;
-        }//while
-    }//skip()
+    public boolean eop();
     
     
-    public boolean eop() {
-        return index>=length-1;
-    }//eop()
-    
-    
-    abstract public ScanResult scan();
+    public ScanResult scan();
     
     
 }//interface TrieScanner

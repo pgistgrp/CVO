@@ -82,6 +82,77 @@ public class FundingSourceRef {
     public void setAltRefs(Set<FundingSourceAltRef> altRefs) {
         this.altRefs = altRefs;
     }
-
-
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+    
+    /**
+     * Removes the funding alternative reference from this funding reference
+     * 
+     * @param altRef	The reference to remove
+     */
+	public void removeAltRef(FundingSourceAltRef altRef) {
+		//NOTE We do this manually because hibernate requires a specialized equals so to make sure
+		//this is accessed by ID alone we first search for the altRef with this id, then remove that
+		//alt ref
+		FundingSourceAltRef foundRef = null;
+		for(FundingSourceAltRef tempAltRef : getAltRefs()) {
+			//If it has a null ID then use the ID of the alternative
+			if(tempAltRef.getId() == null || altRef.getId() == null) {
+				if(tempAltRef.getAlternative().getId().equals(altRef.getAlternative().getId())) {
+					foundRef = tempAltRef;
+					break;					
+				}
+			} else {
+				if(tempAltRef.getId().equals(altRef.getId())) {
+					foundRef = tempAltRef;
+					break;
+				}
+			}
+		}
+		if(foundRef != null) {
+		    getAltRefs().remove(foundRef);
+		}
+	}
+	
+	/**
+	 * Returns the number of alternative reference in this funding referece
+	 * 
+	 * @return	The number of alternative references in this funding reference
+	 */
+	public int getNumAltRefs() {
+		return getAltRefs().size();
+	}
+    
+	/**
+	 * Returns true if the specified alternative is inside this funding ref
+	 * 
+	 * @param	alt		The alternative to search for
+	 */
+	public boolean containsAlternative(FundingSourceAlternative alt) {
+    	for (FundingSourceAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(alt.getId())) {
+				return true;
+			}
+    	}
+    	return false;
+	}
+	
+	/**
+	 * Returns the funding alt ref that has this fundingAlt in it
+	 * 
+	 * @param fundingAlt	The funding alternative to look for
+	 * @return	The funding alt ref with the funding alternative in it, null if nothing found
+	 */
+	public FundingSourceAltRef getFundingSourceAltRef(FundingSourceAlternative fundingAlt) {
+    	for (FundingSourceAltRef altRef : getAltRefs()) {
+			if(altRef.getAlternative().getId().equals(fundingAlt.getId())) {
+				return altRef;
+			}
+    	}
+    	return null;
+	}	
 }//class FundingSourceRef

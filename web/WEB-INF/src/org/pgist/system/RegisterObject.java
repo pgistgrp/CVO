@@ -16,10 +16,10 @@ public class RegisterObject implements Serializable {
 
 	private Long id;
 	
-	private String type;
+	private String type = "";
 	
-	private String value;
-
+	private String value = "";
+	
 	private boolean used = false;
 	
 	
@@ -38,7 +38,7 @@ public class RegisterObject implements Serializable {
 	}
 
 	/**
-     * @hibernate.property not-null="false"
+     * @hibernate.property not-null="true"
      */
 	public String getType() {
 		return type;
@@ -48,8 +48,10 @@ public class RegisterObject implements Serializable {
 		this.type = type;
 	}
 
-	/**
-     * @hibernate.property not-null="false"
+
+    /**
+     * @return
+     * @hibernate.property unique="true" not-null="true"
      */
 	public String getValue() {
 		return value;
@@ -69,5 +71,6 @@ public class RegisterObject implements Serializable {
 	public void setUsed(boolean used) {
 		this.used = used;
 	}
+
 
 }

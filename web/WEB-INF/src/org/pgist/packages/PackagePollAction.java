@@ -1,5 +1,6 @@
 package org.pgist.packages;
 
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -8,8 +9,10 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.pgist.system.SystemService;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
+
 
 /**
  * Participants use this action to vote on the clustered packages.<br>
@@ -21,6 +24,7 @@ import org.pgist.util.WebUtils;
  *   <li>projSuiteId - the id of a specified PackageSuite object</li>
  *   <li>fundSuiteId - the id of a specified FundingSuite object</li>
  *   <li>critSuiteId - the id of a specified CriteriaSuite object</li>   
+ *   <li>voteSuiteId - the id of a specified voteSuite object</li>   
  * </ul>
  * 
  * <p>According to whether the current user voted or not in the current phase, the action forwards to different page.
@@ -52,11 +56,15 @@ public class PackagePollAction extends Action {
 	 
     private PackageService packageService;
     
+    private SystemService systemService;
     
     public void setPackageService(PackageService packageService) {
         this.packageService = packageService;
     }
 
+	public void setSystemService(SystemService systemService) {
+		this.systemService = systemService;
+	}
 
     /*
      * ------------------------------------------------------------------------
@@ -73,6 +81,7 @@ public class PackagePollAction extends Action {
     	String tempProjSuiteId = request.getParameter("projSuiteId");
     	String tempFundSuiteId = request.getParameter("fundSuiteId");
     	String tempCritSuiteId = request.getParameter("critSuiteId");
+    	
 		Long packSuite = new Long(tempPackageSuiteId);
 		Long projSuite = new Long(tempProjSuiteId);
 		Long fundSuite = new Long(tempFundSuiteId);
@@ -83,23 +92,25 @@ public class PackagePollAction extends Action {
     	PackageVoteSuite vSuite = packageService.getPackageVoteSuite(voteSuiteId);
 
 		//Grade it
-    	User user = packageService.getUser(WebUtils.currentUser());    	
-		request.setAttribute("voteSuite", vSuite);    		
+    	User user = packageService.getUser(WebUtils.currentUser());
+		request.setAttribute("voteSuite", vSuite);
 		request.setAttribute("pkgSuiteId", packSuite);
 		request.setAttribute("projSuiteId", projSuite);
 		request.setAttribute("fundSuiteId", fundSuite);
 		request.setAttribute("critSuiteId", critSuite); 
+		request.setAttribute("totalUsers", systemService.getAllUsers().size()); 
+
+		System.out.println("***vsuiteId Poll:" + vSuite.getId());
 		
-        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         if(vSuite.userVoted(user)) {
         	PackageSuite pkgSuite = packageService.getPackageSuite(packSuite);
+        	
         	Set<PackageVoteSuite> voteSuites = pkgSuite.getVoteSuites();
-        	System.out.println("MATT1: *(&(*&(* " + voteSuites.size());
-        	
         	Set<PackageVoteSuite> pVoteSuites = new HashSet<PackageVoteSuite>();
-        	
         	Iterator<PackageVoteSuite> iVS = voteSuites.iterator();
+        	
         	PackageVoteSuite tempVS;
+        	
         	while(iVS.hasNext()) {
         		tempVS = iVS.next();
         		if(tempVS.getId() != vSuite.getId()) {
@@ -107,11 +118,15 @@ public class PackagePollAction extends Action {
         		}
         	}
         	
-        	System.out.println("MATT1: *(&(*&(* " + pVoteSuites.size());
     		request.setAttribute("pVoteSuites", pVoteSuites);
+
         	
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+
             return mapping.findForward("results");        	
         } else {
+            request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
             return mapping.findForward("view");        	
         }
         //return mapping.findForward("results");

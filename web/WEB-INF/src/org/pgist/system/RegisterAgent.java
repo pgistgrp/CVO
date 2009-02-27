@@ -3,21 +3,16 @@ package org.pgist.system;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.criteria.Criteria;
-import org.pgist.criteria.CriteriaService;
-import org.pgist.cvo.CCTService;
 import org.pgist.funding.FundingService;
 import org.pgist.funding.UserTaxInfoDTO;
+import org.pgist.users.TravelMarker;
+import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
-import org.pgist.users.Vehicle;
-import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
 
@@ -37,6 +32,13 @@ public class RegisterAgent {
 	
 	private FundingService fundingService;
 	
+	private EmailSender emailSender;
+	
+	
+	public void setEmailSender(EmailSender emailSender) {
+		this.emailSender = emailSender;
+	}
+
 	public void setRegisterService(RegisterService registerService) {
         this.registerService = registerService;
     }
@@ -137,9 +139,15 @@ public class RegisterAgent {
     	}
     	
         try {
-        	Long id = registerService.addUser(firstname, lastname, email1, address1, address2, city, state, zipcode, username, password1);
-        	registerService.login(request, id);
-        	map.put("id", id);
+        	
+        	if(registerService.checkEmail(email1) && registerService.checkUsername(username)) {
+        		Long id = registerService.addUser(firstname, lastname, email1, address1, address2, city, state, zipcode, username, password1);
+        		registerService.login(request, id);
+            	map.put("id", id);
+            	boolean qualify = registerService.createQuotaQualify(id);
+            	map.put("q", qualify);
+        	}
+        	
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,8 +155,106 @@ public class RegisterAgent {
         }
         
         return map;
-    }//addCriterion()
+    }//addUser()
 	
+    
+	/**
+     * Add user stage one, basic registration information
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>income - string id, user's income</li>
+     *     <li>householdsize - string, user's household size</li>
+     *     <li>drive - string, user's drive days</li>
+     *     <li>carpool - string, user's carpool days</li>
+     *     <li>carpoolpeople - string, user's carpool people</li>
+     *     <li>bus - string, user's bus days</li>
+     *     <li>bike - string, user's bike days</li>
+     *     <li>walk - string, user's walk days</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map addQuestionnaire(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String income = (String) params.get("income");
+        String householdsize = (String) params.get("householdsize");
+        String drive = (String) params.get("drive");
+        String carpool = (String) params.get("carpool");
+        String carpoolpeople = (String) params.get("carpoolpeople");
+        String bus = (String) params.get("bus");
+        String bike = (String) params.get("bike");
+        String walk = (String) params.get("walk");
+    	
+    	if(income==null || "".equals(income.trim())){
+    		map.put("reason", "income cannot be blank.");
+    		return map;
+    	}
+    	if(householdsize==null || "".equals(householdsize.trim())){
+    		map.put("reason", "householdsize cannot be blank.");
+    		return map;
+    	}
+    	if(drive==null || "".equals(drive.trim())){
+    		map.put("reason", "drive cannot be blank.");
+    		return map;
+    	}
+    	if(carpool==null || "".equals(carpool.trim())){
+    		map.put("reason", "carpool cannot be blank.");
+    		return map;
+    	}
+    	if(carpoolpeople==null || "".equals(carpoolpeople.trim())){
+    		map.put("reason", "carpoolpeople cannot be blank.");
+    		return map;
+    	}
+    	if(bus==null || "".equals(bus.trim())){
+    		map.put("reason", "bus cannot be blank.");
+    		return map;
+    	} 
+    	if(bike==null || "".equals(bike.trim())){
+    		map.put("reason", "bike cannot be blank.");
+    		return map;
+    	}
+    	if(walk==null || "".equals(walk.trim())){
+    		map.put("reason", "walk cannot be blank.");
+    		return map;
+    	}
+    	
+        try {
+        	
+        	int myHouseholdsize = Integer.parseInt(householdsize);
+        	int myDrive = Integer.parseInt(drive);
+        	int myCarpool = Integer.parseInt(carpool);
+        	int myCarpoolpeople = Integer.parseInt(carpoolpeople);
+        	int myBus = Integer.parseInt(bus);
+        	int myBike = Integer.parseInt(bike);
+        	int myWalk = Integer.parseInt(walk);
+        	
+        	registerService.addQuestionnaire(income, myHouseholdsize, myDrive, myCarpool, myCarpoolpeople, myBus, myBike, myWalk);
+        	
+        	User user = registerService.getCurrentUser();
+        	
+        	Map values = new HashMap();
+        	String loginname = user.getLoginname();
+            values.put("loginname", loginname);
+            values.put("participant", user);
+            values.put("webqid", user.getWebQ().getValue());
+        	emailSender.send(user, "registration", values);
+        	
+        	registerService.logout(request);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//addQuestionnaire()
+    
     
 	/**
      * Determine if the user qualifies for quota
@@ -204,11 +310,12 @@ public class RegisterAgent {
      *   </ul>
      */
     public Map addQuotaInfo(Map params) {
+    	System.out.println("***registerAgent addQuotaInfo start");
     	Map map = new HashMap();
         map.put("successful", false);
         
-        String user_interview = "non-eligible";
-        String user_observation = "non-eligible";
+        String user_interview = "Non-eligible";
+        String user_observation = "Non-eligible";
         
         String interview = (String) params.get("interview");
         String observation = (String) params.get("observation");
@@ -231,6 +338,7 @@ public class RegisterAgent {
         
         try {
         	registerService.addQuotaInfo(user_interview, user_observation);
+        	System.out.println("***registerAgent" + user_interview + " " + user_observation);
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -264,6 +372,31 @@ public class RegisterAgent {
         return map;
     }
     
+    
+	/**
+     * cancel button deletes current user
+     * 
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map createCancel(HttpServletRequest request, Map params) {
+    	Map map = new HashMap();
+        map.put("successful", false);
+        
+        
+        try {
+        	registerService.createCancel(request);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        return map;
+    }
+    
 
 	/**
      * Delete the current user from the system
@@ -277,7 +410,6 @@ public class RegisterAgent {
     public Map deleteUser(Map params) {
     	Map map = new HashMap();
         map.put("successful", false);
-        
         
         try {
         	registerService.deleteUser();
@@ -348,7 +480,7 @@ public class RegisterAgent {
         	UserTaxInfoDTO taxinfo = fundingService.createUserTaxInfoDTO(user.getId());
             
             request.setAttribute("vehicles", taxinfo.getVehicles());
-            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/register_vehicles.jsp"));            
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/register_vehicles.jsp"));              
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -394,6 +526,454 @@ public class RegisterAgent {
         
         return map;
     }//removeVehicle()
+    
+    
+    /**
+     * Updates information about the vehicle
+     * 
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>vehicleId - int, id of the vehicle to update</li>
+     *     <li>milesPerGallon - float, The miles per gallon for the new vehicle</li>
+     *     <li>value - float, The approximate value of the vehicle</li>
+     *     <li>milesPerYear - float, The miles per year used with this vehicle</li>
+     *   </ul>
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map updateVehicle(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Long vehicleId = new Long((String) params.get("vehicleId"));
+
+            float mpg = new Float((String) params.get("milesPerGallon"));
+            float value = new Float((String) params.get("value"));
+            float mpy = new Float((String) params.get("milesPerYear"));
+            
+            this.fundingService.updateVehicle(vehicleId, mpg, value, mpy);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//updateVehicle()    
+    
+    
+    /**
+     * Get tolls
+     * 
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getTolls(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+           
+        	Collection fs = registerService.getTolls();
+        	
+        	request.setAttribute("tolls", fs);;
+        	map.put("tolls", fs);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//getTolls()   
+    
+    
+    /**
+     * set tolls
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>tollid - int, id of the toll</li>
+     *     <li>boolvalue - boolean, check or unchecked</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map setToll(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        boolean boolchecked = false;
+        
+        String tollId = (String) params.get("tollid");
+        String boolvalue = (String) params.get("boolvalue");
+    	
+    	if(tollId==null || "".equals(tollId.trim())){
+    		map.put("reason", "tollId cannot be blank.");
+    		return map;
+    	}
+    	if(boolvalue==null || "".equals(boolvalue.trim())){
+    		map.put("reason", "boolvalue cannot be blank.");
+    		return map;
+    	}
+        
+    	if(boolvalue.equals("true")) {
+    		boolchecked = true;
+    	}
+        
+        try {
+        	Long myTollId = Long.parseLong(tollId);
+        	
+        	registerService.setToll(myTollId, boolchecked);
+        	
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setToll()
+    
+    
+    /**
+     * check if the username is okay to use, (not taken)
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>username - string, desired username</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>available - a boolean value, the user name is available, true or false</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map checkUsername(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+       
+        String username = (String) params.get("username");
+       
+    	if(username==null || "".equals(username.trim())){
+    		map.put("reason", "username cannot be blank.");
+    		return map;
+    	}
+  
+        try {
+        	
+        	boolean available = registerService.checkUsername(username);
+        	
+        	map.put("available", available);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+
+        return map;
+    }//checkUsername()
+    
+    
+    /**
+     * check if the email address is okay to use, (not taken)
+     * @param params a Map contains:<br>
+     *   <ul>
+     *     <li>email - string, desired email</li>
+     *   </ul>
+     *   
+     * @return a Map contains:<br>
+     *   <ul>
+     *     <li>available - a boolean value, the user name is available, true or false</li>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map checkEmail(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+       
+        String email = (String) params.get("email");
+       
+    	if(email==null || "".equals(email.trim())){
+    		map.put("reason", "email cannot be blank.");
+    		return map;
+    	}
+  
+        try {
+        	
+        	boolean available = registerService.checkEmail(email);
+        	
+        	map.put("available", available);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+
+        return map;
+    }//checkEmail()
+    
+	 /**
+     * Save a trip information of a given user Id
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>uid - string, id of the user</li>
+     *     <li>markers[] - an array of marker objects</li>
+     *     <li>trip - trip information</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>trip id - the id of the newly created trip object</li>
+     *   </ul>
+     */
+	public Map saveUserTrip(long uid, TravelMarker[][] markers, TravelTrip[] trips) {
+		Map map = new HashMap();
+        map.put("successful", false);
+		
+        try {
+        	ArrayList tripids = new ArrayList();
+        	for(int i=0; i<trips.length; i++){
+        		for(int j=0; j<markers[i].length; j++){
+        			trips[i].getMarkers().add(markers[i][j]);
+        		}
+        		Long tid = registerService.saveUserTravelTrip(uid, trips[i]);
+        		tripids.add(tid);
+        	}
+        	
+        	
+        	map.put("tripIds", tripids);
+        	      	
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+	} //getUserById()
+
+	 /**
+     * Save a trip information of a given user Id
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>uid - string, id of the user</li>
+     *     <li>markers[] - an array of marker objects</li>
+     *     <li>trip - trip information</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>trips - an array of trips, each contains markers and polyline</li>
+     *   </ul>
+     */
+	public Map getUserTrips(long uid) {
+		Map map = new HashMap();
+        map.put("successful", false);
+        try {
+        	ArrayList<TravelTrip> trips = registerService.getUserTravelTrips(uid);
+        	map.put("trips", trips);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;		
+	}
+	
+	public Map removeTravelTrip(long tripId) {
+		Map map = new HashMap();
+        map.put("successful", false);
+        try {
+        	registerService.deleteTravelTrip(tripId);
+        	map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;		
+	}
+	
+	
+	/**
+    * Add RegisterObjects
+    * 
+    * @param params a Map contains:
+    *   <ul>
+    *     <li>type - string type</li>
+    *     <li>values - coma separated values</li>
+    *   </ul>
+    * @return a Map contains:
+    *   <ul>
+    *     <li>successful - a boolean value denoting if the operation succeeds</li>
+    *     <li>reason - reason why operation failed (valid when successful==false)</li>
+    *   </ul>
+    */
+	public Map createRegisterObjects(Map params) {
+		Map map = new HashMap();
+		map.put("successful", false);
+		
+        String type = (String) params.get("type");
+        String values = (String) params.get("values");
+        
+    	if(type==null || "".equals(type.trim())){
+    		map.put("reason", "type cannot be blank.");
+    		return map;
+    	}
+    	if(values==null || "".equals(values.trim())){
+    		map.put("reason", "values cannot be blank.");
+    		return map;
+    	}
+    	
+		try {
+       	
+		String[] valuelist = values.split(", ");
+		
+    	registerService.createRegisterObjects(type, valuelist);
+    	
+       	map.put("successful", true);
+       } catch (Exception e) {
+           e.printStackTrace();
+           map.put("reason", e.getMessage());
+       }
+       
+       return map;		
+	}
+	
+
+    /**
+     * Add user stage one, basic registration information
+     * 
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>firstname - string, user's first name</li>
+     *     <li>lastname - string, user's last name</li>
+     *     <li>email1 - string, user's email address</li>
+     *     <li>email2 - string, user's email address to confirm</li>
+     *     <li>address1 - string, user's home address line 1</li>
+     *     <li>address2 - string, user's home address line 2 (optional)</li>
+     *     <li>city - string, user's city</li>
+     *     <li>state - string, user's state</li>
+     *     <li>zipcode - String, user's zipcode</li>
+     *     <li>username - String, user's desired username</li>
+     *     <li>password1 - string, password</li>
+     *     <li>password2 - string, confirm password</li>
+     *   </ul>
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>id - int, the id for the new user object</li>
+     *   </ul>
+     */
+    public Map addSarpUser(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        String firstname = (String) params.get("firstname");
+        String lastname = (String) params.get("lastname");
+        String email1 = (String) params.get("email1");
+        String email2 = (String) params.get("email2");
+        String zipcode = (String) params.get("zipcode");
+        String income = (String) params.get("income");
+        String age = (String) params.get("age");
+        String gender = (String) params.get("gender");
+        String education = (String) params.get("education");
+        String username = (String) params.get("username");
+        String password1 = (String) params.get("password1");
+        String password2 = (String) params.get("password2");
+        
+        if(firstname==null || "".equals(firstname.trim())){
+            map.put("reason", "first name cannot be blank.");
+            return map;
+        }
+        if(lastname==null || "".equals(lastname.trim())){
+            map.put("reason", "last name cannot be blank.");
+            return map;
+        }
+        if((email1==null || email2==null)|| ("".equals(email1.trim()) || "".equals(email2.trim()) )){
+            map.put("reason", "email fields cannot be blank.");
+            return map;
+        }
+        if(!email1.equals(email2)) {
+            map.put("reason", "email addresses must match.");
+            return map;
+        }
+        if(income==null || "".equals(income.trim())){
+            map.put("reason", "please select income.");
+            return map;
+        }
+        if(age==null || "".equals(age.trim())){
+            map.put("reason", "please select age.");
+            return map;
+        }
+        if(gender==null || "".equals(gender.trim())){
+            map.put("reason", "please select gender.");
+            return map;
+        }
+        if(education==null || "".equals(education.trim())){
+            map.put("reason", "please select education.");
+            return map;
+        } 
+        if(username==null || "".equals(username.trim())){
+            map.put("reason", "username cannot be blank.");
+            return map;
+        }
+        if((password1==null || password2==null)|| ("".equals(password1.trim()) || "".equals(password2.trim()) )){
+            map.put("reason", "password fields cannot be blank.");
+            return map;
+        }
+        if(!password1.equals(password2)) {
+            map.put("reason", "passwords must match.");
+            return map;
+        }
+        if(password1.length()<6) {
+            map.put("reason", "password must be at least six characters long.");
+            return map;
+        }
+        
+        try {
+            
+            if(registerService.checkEmail(email1) && registerService.checkUsername(username)) {
+                Long id = registerService.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1);
+                registerService.login(request, id);
+                map.put("id", id);
+                boolean qualify = registerService.createQuotaQualify(id);
+                map.put("q", qualify);
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//addSarpUser()
     
     
 } //RegisterAgent()

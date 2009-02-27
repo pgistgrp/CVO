@@ -6,8 +6,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.discussion.InfoStructure;
-import org.pgist.discussion.SDService;
 
 
 /**
@@ -20,16 +18,9 @@ public class CriteriaWeighAction extends Action {
     
     private CriteriaService criteriaService = null;
     
-    private SDService sdService;
-    
     
     public void setCriteriaService(CriteriaService criteriaService) {
         this.criteriaService = criteriaService;
-    }
-
-
-    public void setSdService(SDService sdService) {
-        this.sdService = sdService;
     }
 
 
@@ -44,13 +35,30 @@ public class CriteriaWeighAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-        String isid = request.getParameter("isid");
+    	 String strSuiteId = request.getParameter("suiteId");
+    	 Long suiteId = new Long(strSuiteId);
+
         
-        InfoStructure structure = sdService.getInfoStructureById(new Long(isid));
-        
-        request.setAttribute("structure", structure);
-        
-        return mapping.findForward("main");
+         if (suiteId==null) {
+            //retrieve the criteriaSuites
+             Collection cs = criteriaService.getCriteriaSuites();
+             request.setAttribute("cs", cs);
+             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
+             return mapping.findForward("list");
+         } else {
+            //retrieve the criteria list
+            
+             Collection criteria = criteriaService.getCriterias();
+            
+             CriteriaSuite cs = criteriaService.getCriteriaSuiteById(suiteId);
+            
+             request.setAttribute("criteriasuite", cs);
+             request.setAttribute("criteria", criteria);
+             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+            
+             return mapping.findForward("view");
+         }
     }//execute()
 
 

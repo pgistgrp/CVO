@@ -1,7 +1,6 @@
 package org.pgist.report;
 
 import org.apache.struts.action.ActionForm;
-import org.pgist.users.User;
 
 
 public class ReportForm extends ActionForm {
@@ -9,39 +8,27 @@ public class ReportForm extends ActionForm {
     
 	private String executiveSummary;
 	
-	private String participantsSummary;
+	private String part1a;
 	
-	private String concernSummary;
+	private String part1b;
 	
-	private String criteriaSummary;
+	private String part2a;
 	
-	private String projectSummary;
+	private String part3a;
 	
-	private String packageSummary;
+	private String part4a;
 	
 	private String reason;
 
     private boolean save;
+    
+    private boolean finalized;
  
+    private String finalVoteDate;
 
-	public String getConcernSummary() {
-		return concernSummary;
-	}
+    private String finalReportDate;
 
-	
-	public void setConcernSummary(String concernSummary) {
-		this.concernSummary = concernSummary;
-	}
 
-	
-	public String getCriteriaSummary() {
-		return criteriaSummary;
-	}
-
-	
-	public void setCriteriaSummary(String criteriaSummary) {
-		this.criteriaSummary = criteriaSummary;
-	}
 
 	public String getExecutiveSummary() {
 		return executiveSummary;
@@ -52,36 +39,56 @@ public class ReportForm extends ActionForm {
 		this.executiveSummary = executiveSummary;
 	}
 
-	
-	public String getPackageSummary() {
-		return packageSummary;
+
+	public String getPart1a() {
+		return part1a;
 	}
 
-	
-	public void setPackageSummary(String packageSummary) {
-		this.packageSummary = packageSummary;
+
+	public void setPart1a(String part1a) {
+		this.part1a = part1a;
 	}
 
-	
-	public String getParticipantsSummary() {
-		return participantsSummary;
+
+	public String getPart1b() {
+		return part1b;
 	}
 
-	
-	public void setParticipantsSummary(String participantsSummary) {
-		this.participantsSummary = participantsSummary;
+
+	public void setPart1b(String part1b) {
+		this.part1b = part1b;
 	}
 
-	
-	public String getProjectSummary() {
-		return projectSummary;
+
+	public String getPart2a() {
+		return part2a;
 	}
 
-	
-	public void setProjectSummary(String projectSummary) {
-		this.projectSummary = projectSummary;
+
+	public void setPart2a(String part2a) {
+		this.part2a = part2a;
 	}
-    
+
+
+	public String getPart3a() {
+		return part3a;
+	}
+
+
+	public void setPart3a(String part3a) {
+		this.part3a = part3a;
+	}
+
+
+	public String getPart4a() {
+		return part4a;
+	}
+
+
+	public void setPart4a(String part4a) {
+		this.part4a = part4a;
+	}
+
 
 	public boolean isSave() {
 		return save;
@@ -101,6 +108,38 @@ public class ReportForm extends ActionForm {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	
+
+
+	public boolean isFinalized() {
+		return finalized;
+	}
+
+
+	public void setFinalized(boolean finalized) {
+		this.finalized = finalized;
+	}
+
+
+	public String getFinalReportDate() {
+		return finalReportDate;
+	}
+
+
+	public void setFinalReportDate(String finalReportDate) {
+		this.finalReportDate = finalReportDate;
+	}
+
+
+	public String getFinalVoteDate() {
+		return finalVoteDate;
+	}
+
+
+	public void setFinalVoteDate(String finalVoteDate) {
+		this.finalVoteDate = finalVoteDate;
+	}
+
+
+
 	
 }//class UserForm

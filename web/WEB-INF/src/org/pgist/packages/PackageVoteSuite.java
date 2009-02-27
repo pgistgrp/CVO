@@ -1,7 +1,12 @@
 package org.pgist.packages;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import org.pgist.users.User;
 
 
 /**
@@ -24,17 +29,17 @@ public class PackageVoteSuite {
     private PackageSuite pkgSuite;
     
     private Map<ClusteredPackage, PackageUserVote> userVotes = new HashMap<ClusteredPackage, PackageUserVote>();
+
+    private SortedSet<VoteSuiteStat> stats = new TreeSet<VoteSuiteStat>(new VoteSuiteStatComparator());
     
-    private Map<ClusteredPackage, Integer> voters = new HashMap<ClusteredPackage, Integer>();
+    private int numVoters;
     
-    private Map<ClusteredPackage, Integer> highs = new HashMap<ClusteredPackage, Integer>();
+    private boolean finalVote = false;
+
+    private boolean closed = false;
     
-    private Map<ClusteredPackage, Integer> mediums = new HashMap<ClusteredPackage, Integer>();
-    
-    private Map<ClusteredPackage, Integer> lows = new HashMap<ClusteredPackage, Integer>();
-    
-    
-    /**
+
+	/**
      * @return
      * 
      * @hibernate.id generator-class="native"
@@ -48,11 +53,50 @@ public class PackageVoteSuite {
         this.id = id;
     }
 
+    
+    /**
+     * @hibernate.property not-null="true"
+     */
+    public boolean isFinalVote() {
+        return finalVote;
+    }
 
+
+    public void setFinalVote(boolean finalVote) {
+        this.finalVote = finalVote;
+    }
+	
+
+    /**
+     * @hibernate.property not-null="true"
+     */
+    public boolean isClosed() {
+        return closed;
+    }
+
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+
+    /**
+     * @hibernate.property not-null="false"
+     */
+    public int getNumVoters() {
+		return numVoters;
+	}
+
+
+	public void setNumVoters(int numVoters) {
+		this.numVoters = numVoters;
+	}
+	
+	
     /**
      * @return
      * 
-     * @hibernate.many-to-one column="pkgsuite_id" cascade="none"
+     * @hibernate.many-to-one column="suite_id" cascade="all"
      */
     public PackageSuite getPkgSuite() {
         return pkgSuite;
@@ -81,77 +125,66 @@ public class PackageVoteSuite {
         this.userVotes = userVotes;
     }
 
-
+    
+    
+    /*
+     * ------------------------------------------------------------------------
+     */
+    
+   
     /**
      * @return
      * 
-     * @hibernate.map table="pgist_pkg_vote_suite_stat_map"
+     * @hibernate.set inverse="true" lazy="true" cascade="all" sort="org.pgist.packages.VoteSuiteStatComparator"
      * @hibernate.collection-key column="votesuite_id"
-     * @hibernate.index-many-to-many column="pkg_id" class="org.pgist.packages.ClusteredPackage"
-     * @hibernate.collection-element type="integer" column="voters_num"
+     * @hibernate.collection-one-to-many class="org.pgist.packages.VoteSuiteStat"
      */
-    public Map<ClusteredPackage, Integer> getVoters() {
-        return voters;
-    }
+    public SortedSet<VoteSuiteStat> getStats() {
+		return stats;
+	}
 
 
-    public void setVoters(Map<ClusteredPackage, Integer> voters) {
-        this.voters = voters;
-    }
+	public void setStats(SortedSet<VoteSuiteStat> stats) {
+		this.stats = stats;
+	}
 
 
-    /**
-     * @return
-     * 
-     * @hibernate.map table="pgist_pkg_vote_suite_stat_map"
-     * @hibernate.collection-key column="votesuite_id"
-     * @hibernate.index-many-to-many column="pkg_id" class="org.pgist.packages.ClusteredPackage"
-     * @hibernate.collection-element type="integer" column="high_num"
+	/**
+     * Returns true if the user has voted on all of the clustered packages
      */
-    public Map<ClusteredPackage, Integer> getHighs() {
-        return highs;
-    }
+    public boolean userVoted(User user) {
+        boolean voted = false;
+        
+        Iterator itKeys = userVotes.keySet().iterator();
+        
+        while(itKeys.hasNext()) {
+        	PackageUserVote puv= userVotes.get(itKeys.next());
+        	if(puv.getVotes().keySet().contains(user)) {
+        		return true;
+        	}
+        }
+        return false;
 
-
-    public void setHighs(Map<ClusteredPackage, Integer> high) {
-        this.highs = high;
-    }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.map table="pgist_pkg_vote_suite_stat_map"
-     * @hibernate.collection-key column="votesuite_id"
-     * @hibernate.index-many-to-many column="pkg_id" class="org.pgist.packages.ClusteredPackage"
-     * @hibernate.collection-element type="integer" column="medium_num"
-     */
-    public Map<ClusteredPackage, Integer> getMediums() {
-        return mediums;
-    }
-
-
-    public void setMediums(Map<ClusteredPackage, Integer> medium) {
-        this.mediums = medium;
+        /*
+        Iterator<ClusteredPackage> iCPackage = pkgSuite.getClusteredPkgs().iterator();
+        ClusteredPackage tempCPackage;
+        PackageUserVote puv;
+        //Check that the user has voted on each clustered package
+        while(iCPackage.hasNext()) {
+            tempCPackage = iCPackage.next();
+            puv = userVotes.get(tempCPackage);
+            if(puv != null) {
+                if(!puv.getVotes().containsKey(user)) {
+                    return false;               
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
+        */
     }
     
     
-    /**
-     * @return
-     * 
-     * @hibernate.map table="pgist_pkg_vote_suite_stat_map"
-     * @hibernate.collection-key column="votesuite_id"
-     * @hibernate.index-many-to-many column="pkg_id" class="org.pgist.packages.ClusteredPackage"
-     * @hibernate.collection-element type="integer" column="low_num"
-     */
-    public Map<ClusteredPackage, Integer> getLows() {
-        return lows;
-    }
-
-
-    public void setLows(Map<ClusteredPackage, Integer> low) {
-        this.lows = low;
-    }
-
-
+    
 }//class PackageVoteSuite

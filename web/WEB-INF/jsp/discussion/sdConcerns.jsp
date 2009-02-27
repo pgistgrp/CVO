@@ -5,7 +5,9 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Step 1a: Brainstorm Concerns</title>
 <!-- Site Wide CSS -->
@@ -25,24 +27,34 @@
 <!-- End DWR JavaScript Libraries -->
 <!--CCT Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
 <!--End CCT Specific  Libraries-->
 <script type="text/javascript">
 
 //GLOBAL Vars
 	var sd = new Object;
-	sd.isid = "<%= request.getParameter('isid') %>";
-	sd.ioid = "<%= request.getParameter('isid') %>";
+	sd.isid = "${isid}";
+	sd.ioid = "${ioid}";
+	sd.concernCount = 8;
 	sd.filterAnchor = "#filterJump";
+	sd.currentFilter = '';
+	sd.currentPage = 1;
+	sd.divFilteredBy = 'filteredBy';
+	sd.divDiscussion = 'discussion-cont';
+	sd.divSearchResults = 'searchResults';
 
-	function getConcerns(tags, page, jump){
+
+	function getConcerns(tagId, page, jump){
+		sd.currentPage = page;
 		if(jump){
 			location.href = sd.filterAnchor;
 		}
-		alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tags: " + tags + " page: " + page); 
-		SDAgent.getConcerns({isid:sd.isid, ioid: sd.ioid, tags: tags, page: page}, {
+		//alert("isid: " + sd.isid + " ioid: " + sd.ioid + " tagId: " + tagId +" page: " + page + " count: " + sd.concernCount);
+    var params = {isid:sd.isid, ioid: sd.ioid, tags: tagId, type:"tag", page: page, count: sd.concernCount};
+		SDAgent.getConcerns(params, <pg:wfinfo/>, {
 			callback:function(data){
 					if (data.successful){
-					   	alert(data.source.html);
+					   	$(sd.divDiscussion).innerHTML = (data.source.html);
 					}else{
 						alert(data.reason);
 					}
@@ -50,86 +62,137 @@
 			errorHandler:function(errorString, exception){ 
 					alert("delete post error:" + errorString + exception);
 			}
+		});
+	}
+	
+	function goToPage(page){
+		getConcerns(sd.currentFilter, page, true)
+	}
+	
+	function setVote(id, agree){
+			BCTAgent.setVoting({id: id, agree:agree}, {
+			callback:function(data){
+					if (data.successful){ 
+						//effect not working right now...might be a timing issue.
+						//if($('concernVote'+id) != undefined){
+            			//	 new Effect.Fade('concernVote'+id, {afterFinish: function(){getConcerns(sd.currentFilter, sd.currentPage, false);new Effect.Appear('concernVote'+id);}});
+            			//}else{ //newly created concern
+            				getConcerns(sd.currentFilter, sd.currentPage, false);	
+            			//}
+					}else{
+						alert(data.reason);
+					}
+				},
+			errorHandler:function(errorString, exception){ 
+					alert("setVote error:" + errorString + exception);
+			}
 			});
+	};
+	
+	//convert tagRefId to tagId prior to getting concerns
+	function changeCurrentFilter(tagId, type){
+		sd.currentFilter = tagId;
+		if (tagId != ''){
+				if(type == 'tagRef'){
+						BCTAgent.getTagByTagRefId(sd.currentFilter, {
+						callback:function(data){
+						if (data.successful){
+							//alert(data.tag.id);
+				          			var tagName = data.tag.name;
+									$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+									
+									getConcerns(data.tag.id, 0, true)
+								}else{
+									alert(data.reason);
+								}
+						},
+						errorHandler:function(errorString, exception){ 
+								alert("get getTagByTagRefId error:" + errorString + exception);
+						}
+						});
+				}else{ //tagId
+						//already in tagId format
+						getConcerns(tagId, 0, true);
+						SDAgent.getTagById(sd.currentFilter, {
+						callback:function(data){
+						if (data.successful){
+				          			var tagName = data.tag.name;
+									$(sd.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+								}else{
+									alert(data.reason);
+								}
+						},
+						errorHandler:function(errorString, exception){ 
+								alert("get getTagById error:" + errorString + exception);
+						}
+						});
+				}
+		}else{
+			sd.currentFilter = '';	
+			$(sd.divFilteredBy).innerHTML = '';
+			getConcerns(sd.currentFilter, 0, true);
+		}
 	}
 		
+/*
+	function customFilter(query, key){
+		if (key.keyCode == 8 && query.length < 1){
+			return false;	
+		}
+		if(query.length > 3){
+			customFilterAction(query);	
+		}
+	}
+	
+	function customFilterAction(query){
+			BCTAgent.searchTags({cctId:cct.cctId,tag:query},{
+				callback:function(data){
+						if (data.successful){
+							if($(sd.divSearchResults).style.display == 'none'){
+								new Effect.Appear(sd.divSearchResults, {duration: 0.5});		
+							}		
+							
+							$(cct.divSearchResults).innerHTML = $(sd.divSearchResults).innerHTML = data.html;
+							if (data.count == 0){
+								$(sd.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+sd.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+							}
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
+*/
+  function pageLoaded() {
+    var defaultTagId = "${param.tag}";
+		changeCurrentFilter(defaultTagId, 'tag');
+  }
 </script>
-
-  </head><body>
+<event:pageunload />
+  </head><body style="margin-top:50px;" onLoad="pageLoaded();">
 
   <!-- #container is the container that wraps around all the main page content -->
-  <div id="container">
+  <div id="containerPopUp">
 
     <a name="filterJump"></a>
-    <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
+    <div id="discussion" style="width: 700px;">
       <div id="discussionHeader">
         <div class="sectionTitle">
-          <h3 id="discussionTitle">All Participants' Concerns</h3>
+          <h3 class="headerColor" id="discussionTitle">Concerns within Theme: ${infoObject.object}</h3>
           <div id="filteredBy"></div>
-          <input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>
-          Show only my concerns </div>
-        
-		
-		<!-- Begin sorting menu -->
-        <div id="sortingMenu" class="box4"> sort discussion by:
-          <select>
-            <option>Option</option>
-            <option>Option Option Option Option Option</option>
-            <option>Option</option>
-            <option>Option</option>
-            <option>Option</option>
-          </select>
-          <br />
-          <div class="floatLeft">filter discussion by:</div>
-          <form action="javascript: customFilterAction($('txtCustomFilter').value);" class="floatLeft">
-            <input type="text" id="txtCustomFilter" value="Add a filter" onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
-            or <a href="#">Browse All Tags</a>
-          </form>
-          <div id="searchResults" style="display: none;"></div>
-        </div>
-		<!-- End sorting menu -->
-		
-		
+		</div>		
       </div>
       <div id="discussion-cont" class="floatLeft">
         <!-- left col -->
       </div>
       <!-- end left col -->
-      <div id="colRight" class="floatLeft box6 colRight">
-        <!-- right col -->
-        <h3>Add your own Concern</h3>
-        <fieldset>
-        <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type your concern here.</textarea>
-        </fieldset>
-        <div id="tagNewConcern" class="box6 padding5" style="display:none;">
-          <h3>Tag your concern</h3>
-          <p>Suggested tags:</p>
-          <ul id="addConcernTagsList" class="tagsList">
-            <!-- render suggested tags here -->
-          </ul>
-          <form action="javascript: addManualTag();">
-            <input id="manualTag" type="text" value="Add your own tag!" onClick="if(this.value==this.defaultValue){this.value = ''}"/>
-            <input type="button" value="Add" onClick="addManualTag();" />
-          </form>
-          <p><small>You must have at least 2 or more tags to continue.</small></p>
-        </div>
-        <div id="btnContinueCont">
-          <input id="btnContinue" type="button" value="continue" onClick="prepareConcern();" />
-        </div>
-      </div>
-      <!-- end right col -->
+ 
       <div class="clearBoth"></div>
     </div>
     <!-- end discussion -->
   </div>
   <!-- end container -->
-  
-
-  
-   
-  <script type="text/javascript">
-		//getContextConcerns('', 1, false, cct.showOnlyMyConcerns);
-		getConcerns('', 1, false);
-</script>
   </body>
-</html:html>
+</html>

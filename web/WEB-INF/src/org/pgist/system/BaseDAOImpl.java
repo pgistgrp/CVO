@@ -9,7 +9,22 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author kenny
  *
  */
-public class BaseDAOImpl extends HibernateDaoSupport {
+public class BaseDAOImpl extends HibernateDaoSupport implements BaseDAO {
+    
+    
+    public Object load(Class klass, Long id) throws Exception {
+        return getHibernateTemplate().load(klass, id);
+    }//load()
+    
+    
+    public void save(Object object) throws Exception {
+        getHibernateTemplate().saveOrUpdate(object);
+    }//save()
+
+    
+    public void update(Object object) throws Exception {
+        getSession().update(object);
+    }//update()
     
     
     /**
@@ -23,5 +38,11 @@ public class BaseDAOImpl extends HibernateDaoSupport {
         return (User) getHibernateTemplate().load(User.class, id);
     }//getUserById()
 
-    
+
+    @Override
+    public void flush() throws Exception {
+        getSession().flush();
+    }
+
+
 }//class BaseDAOImpl

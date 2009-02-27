@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,7 +10,6 @@ import org.pgist.exceptions.UserExistException;
 import org.pgist.users.Role;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
 /**
@@ -17,11 +17,11 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author kenny
  *
  */
-public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
+public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
     
-    public void saveUser(User user) {
-        getSession().save(user);
+    public void saveUser(User user) throws Exception {
+        getSession().saveOrUpdate(user);
     }//saveUser()
 
 
@@ -45,8 +45,34 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
     }//getRoleByName()
     
     
+    private final static String hql_getUserById = "from User where id=:id and enabled=:enabled and deleted=:deleted";
     
-    private final static String hql_getUserByName = "from User where loginname=:loginname and enabled=:enabled and deleted=:deleted";
+    
+    /**
+     * 
+     * @param id
+     * @param enabled
+     * @param deleted
+     * @return
+     * @throws Exception
+     */
+    public User getUserById(Long id, boolean enabled, boolean deleted) throws Exception {
+        User user = null;
+        
+        Query query = getSession().createQuery(hql_getUserById);
+        query.setLong("id", id.longValue());
+        query.setBoolean("enabled", true);
+        query.setBoolean("deleted", false);
+        List list = query.list();
+        if (list.size()>0) {
+            user = (User) list.get(0);
+        }
+        
+        return user;
+    }//getUserById()
+
+
+    private final static String hql_getUserByName_A = "from User where lower(loginname)=:loginname and enabled=:enabled and deleted=:deleted";
     
     
     /**
@@ -59,10 +85,35 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
     public User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception {
         User user = null;
         
-        Query query = getSession().createQuery(hql_getUserByName);
-        query.setString("loginname", loginname);
-        query.setBoolean("enabled", true);
-        query.setBoolean("deleted", false);
+        Query query = getSession().createQuery(hql_getUserByName_A);
+        query.setString("loginname", loginname.toLowerCase());
+        query.setBoolean("enabled", enabled);
+        query.setBoolean("deleted", deleted);
+        List list = query.list();
+        if (list.size()>0) {
+            user = (User) list.get(0);
+        }
+        
+        return user;
+    }//getUserByName()
+    
+    
+    private final static String hql_getUserByName_B = "from User where lower(loginname)=:loginname and deleted=:deleted";
+    
+    
+    /**
+     * Get User object by the given name and query conditions
+     * @param loginname
+     * @param enabled
+     * @param deleted
+     * @return
+     */
+    public User getUserByName(String loginname, boolean deleted) throws Exception {
+        User user = null;
+        
+        Query query = getSession().createQuery(hql_getUserByName_B);
+        query.setString("loginname", loginname.toLowerCase());
+        query.setBoolean("deleted", deleted);
         List list = query.list();
         if (list.size()>0) {
             user = (User) list.get(0);
@@ -93,7 +144,7 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
         list = query.list();
         
         if (list.size()>0) {
-            setting.setRowSize(((Integer)list.get(0)).intValue());
+            setting.setRowSize(((Number)list.get(0)).intValue());
             
             hql.append(" order by user.id");
             query = session.createQuery(hql.toString());
@@ -103,7 +154,7 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
             query.setMaxResults(setting.getRowOfPage());
             list = query.list();
         }
-
+        
         return list;
     }//getUserList()
     
@@ -130,7 +181,7 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
         list = query.list();
         
         if (list.size()>0) {
-            setting.setRowSize(((Integer)list.get(0)).intValue());
+            setting.setRowSize(((Number)list.get(0)).intValue());
             
             query = session.createQuery(hql.toString());
             query.setBoolean("enabled", enabled);
@@ -298,7 +349,7 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
         list = query.list();
         
         if (list.size()>0) {
-            setting.setRowSize(((Integer)list.get(0)).intValue());
+            setting.setRowSize(((Number)list.get(0)).intValue());
             
             query = session.createQuery(hql.toString());
             query.setBoolean("deleted", false);
@@ -409,6 +460,14 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO {
         if (user.getPassword().length()<=31) user.encodePassword();
         session.update(user);
     }//updateProfile()
+
+
+    private static final String hql_getUsersByRole = "select u from User u inner join u.roles r where r.name=?";
+    
+    
+    public Collection getUsersByRole(String role) throws Exception {
+        return getHibernateTemplate().find(hql_getUsersByRole, role.toLowerCase());
+    }//getUsersByRole()
 
 
 }//class UserDAO

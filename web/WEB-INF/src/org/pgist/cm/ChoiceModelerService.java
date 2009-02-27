@@ -1,5 +1,7 @@
 package org.pgist.cm;
 
+import java.util.List;
+
 
 /**
  * 
@@ -9,7 +11,13 @@ package org.pgist.cm;
 public interface ChoiceModelerService {
     
     
+    String echo(String name) throws Exception;
     
+    List getList() throws Exception;
+
+    int[] getArray(int[] x) throws Exception;
+
+    void test() throws Exception;
     
     
 }//interface ChoiceModelerService

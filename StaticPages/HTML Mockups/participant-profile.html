@@ -3,56 +3,157 @@
 <head>
 <title>Let's Improve Transportation: Eros Profile</title>
 <style type="text/css" media="screen">
-        @import "styles/lit.css";
-	
-h3
-{
-display:inline;
-margin-right:1em;
-}
+@import "styles/lit.css";
 
-.profile-label,.profile-value 
-{
-float:left;
-margin-top:.5em;
-font-size:.9em;
-}
+/* HTML */
+/* ---- */
 
-.profile-label
-{
+body{font-size:12pt;}
 
-width:12em;
-font-weight:bold;
-clear:left;
-}
+div.heading h4 {margin:0em;}
 
-.profile-value
-{
-clear:right;
-width:50em;
-}
+.heading {margin:.5em 0em;}
 
-.profile-value li
-{
-display:inline;
-border:1px solid;
-padding:.1em; 
-margin:.2em;
-list-style:none;
-vertical-align:text-bottom;
-line-height:2em;
+/* CONTAINER */
+/* --------- */
 
-}
+#container h3.headerColor {margin-right:1em}
 
+#container {margin-bottom:2em}
+
+/* PROFILE-FIELDS */
+/* -------------- */
 
 #profile-fields
 {
-margin:1em auto;
+float:left;
 }
-</style>
 
+.label 
+{
+float:left;
+font-size:.9em;
+font-weight:bold;
+width:150px;
+margin-right:2em;
+}
+
+#profile-fields p {padding-bottom:0px;}
+
+span.value span {margin-right:4em;}
+
+.value {float:left;}
+
+
+.profile-col1
+{
+width:490px;
+margin-left:1em;
+}
+
+.profile-col2
+{
+width:100px;
+text-align:center;
+}
+
+/* STATISTICS */
+/* ---------- */
+
+#statistics
+{
+width:400px;
+float:right;
+padding:.5em;
+}
+
+#statistics .label{width:200px;}
+
+#statistics .value{}
+
+#statistics p {margin:0px;padding:0px;}
+
+#statistics h4{text-align:center;margin:.5em 0em 1em 0em;}
+
+/* CONCERNS */
+/* -------- */
+
+#concerns-keywords {font-size:.9em}
+
+.tagSize1{font-size:.9em;}
+.tagSize2{font-size:1.1em;}
+.tagSize3{font-size:1.3em;}
+.tagSize4{font-size:1.5em;}
+.tagSize5{fontis-ze:1.6em;}
+
+#concerns-keywords span 
+{
+float:left;
+font-weight:bold;
+margin:10px 0px;
+}
+
+.concern 
+{
+width:600px;
+padding:.5em;
+font-size:.9em;
+margin-bottom:.5em;
+}
+
+/* WEIGHTS */
+/* ------- */
+
+
+#weights 
+{
+width:400px;
+float:left;
+}
+
+#weights .label {width:150px;}
+
+.weights-col1
+{
+width:290px;
+margin-left:1em;
+}
+
+.weights-col2
+{
+width:100px;
+text-align:center;
+}
+
+
+/* KEYWORDS */
+/* -------- */
+
+#keywords ul, #concerns-keywords ul
+{
+margin:10px 0px;
+padding:0px;
+}
+
+#keywords li, #concerns-keywords li
+{
+list-style-type:none;
+display:inline;
+padding:.2em;
+margin:.2em;
+line-height:2em;
+border:1px solid #FFE3B9;
+background:#FFF1DC;
+}
+
+</style>
 </head>
 <body>
+	<!--[if IE]>
+		<style type="text/css">
+			fieldset p {padding-bottom:1px;}
+		</style>
+	<![endif]-->
 <!-- Begin header -->
 <div id="header"> [Load from separate file] </div>
 <!-- End header -->
@@ -63,86 +164,319 @@ margin:1em auto;
 			<h3 class="headerColor">Learn More</h3>
 		</div>
 		<div class="headerButton floatLeft currentBox"> <a href="#">About LIT</a> </div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">FAQ</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Tutorial</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Proposed Projects</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Glossary</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Additional Resources</div>
-		<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+		<div class="headerButton floatLeft"> <a href="#">FAQ</a></div>
+		<a href="#"> </a>
+		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Tutorial</a></div>
+		<a href="#"> </a>
+		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Proposed
+				Projects</a></div>
+		<a href="#"> </a>
+		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Glossary</a></div>
+		<a href="#"> </a>
+		<div class="headerButton floatLeft"><a href="#"> </a><a href="#">Additional
+				Resources</a></div>
+		<a href="#"> </a>
+		<div id="headerNext" class="floatRight box5"><a href="#"> </a><a href="#">Next
+				Step</a> </div>
 	</div>
 </div>
 <!-- End header menu -->
 <!-- Begin container - Main page content begins here -->
-<div id="container">
-	<h3 class="headerColor">LIT Participant Profile</h3>
-	<a href="#">Edit my profile and settings</a>
-	<div id="profile-fields"> 
-		
-		<div class="profile-label">Username:</div>
-		<div class="profile-value">Eros</div>
-		
-		<div class="profile-label">Home location:</div>
-		<div class="profile-value">Seattle, 98103 [<a href="#">map</a>]</div>
-		
-		<div class="profile-label">Work location:</div>
-		<div class="profile-value">Seattle, 98105 [<a href="#">map</a>]</div>
-		
-		<div class="profile-label">Vocation:</div>
-		<div class="profile-value">Graduate student</div>
-
-		<div class="profile-label">Primary methods of transportation</div>
-		<div class="profile-value">Dodging cars with my little 10-speed (i.e., Bike).</div>
-
-		<div class="profile-label">Why I’m here:</div>
-		<div class="profile-value">I feel like the politicians just
-		aren’t paying attention to how difficult they are making it forpeople to do the
-		right thing when it comes to transportation. I ride my bike to work each daybecause
-		I don’t want to contribute to our dependency on oil. But it is dangerous! If politiciansreally
-		want us to start getting out of our cars, they have to start prioritizing non-road
-		relatedprojects. Anyway, I’m here to represent all the bikers out there who are
-		risking their lives to do the right thing.</div>
-
-		<div class="profile-label">My tags: </div>
-		<div class="profile-value">
-			<li style="font-size:.8em">Accidents</li>
-			<li style="font-size:1.1em">Assurance</li>
-			<li style="font-size:.9em">engineering</li>
-			<li style="font-size:1em">Fatalities</li>
-			<li style="font-size:.9em">Highway</li>
-			<li style="font-size:.9em">Injuries</li>
-			<li style="font-size:.8em">Insurance</li>
-			<li style="font-size:1em">investigation</li>
-			<li style="font-size:.9em">records</li>
-			<li style="font-size:1.1em">statistics</li>
-			<li style="font-size:1.1em">systems</li>
-			<li style="font-size:.8em">Traffic</li>
-			<li style="font-size:1em">Fatalities</li>
-			<li style="font-size:.9em">Highway</li>
-			<li style="font-size:.9em">Injuries</li>
-			<li style="font-size:.8em">Insurance</li>
-			<li style="font-size:1em">investigation</li>
-			<li style="font-size:.9em">records</li>
-			<li style="font-size:1.1em">statistics</li>
-			<li style="font-size:1.1em">systems</li>
-			<li style="font-size:.8em">Traffic</li>
+<div id="container" class="clearfix">
+	<p><h3 class="headerColor" style="display:inline">LIT Participant Profile</h3>
+	<a href="#">Edit my profile and settings</a></p>
+	<!-- start PROFILE-FIELDS section -->
+	<div id="profile-fields">
+		<div id="statistics" class="box9">
+			<h4 class="headerColor">My statistics</h4>
+			<p>
+				<span class="label">Last visit to LIT website:</span>
+				<span class="value">10/24/06, 3:45pm</span>
+			</p><br />
+			<p>
+				<span class="label">Total Visits to LIT website:</span>
+				<span class="value">22</span>
+			</p><br />
+			<p>
+				<span class="label"># of discussion posts:</span>
+				<span class="value">3</span>
+			</p><br />
 		</div>
-		
-		<div class="profile-label">Vocation:</div>
-		<div class="profile-value">Graduate student</div>
+		<p>
+			<span class="label">Username</span>
+			<span class="value">Eros</span>
+		</p><br />
+		<p>
+			<span class="label">Home location</span>
+			<span class="value">Seattle, 98103 [map]</span>
+		</p><br />
+		<p>
+			<span class="label">Work Location</span>
+			<span class="value">Seattle, 98103 [map]</span>
+		</p><br />
+		<p>
+			<span class="label">Vocation</span>
+			<span class="value">Graduate Student</span>
+		</p><br />
+		<p>
+			<span class="label">Methods of transportation</span>
+			<span class="value"><span>Primary: Bike</span>Secondary: Bus</span>
+		</p><br />
+		<div class="clearBoth"></div>
+		<p>
+			<span class="label">Why I'm here</span> 
+			<span class="value" style="width:700px;">I feel like the politicians
+			just aren’t paying attention to how difficult they are making it for people to
+			do the right thing when it comes to transportation. I ride my bike to work each
+			day because I don’t want to contribute to our dependency on oil. But it is dangerous!
+			If politicians really want us to start getting out of our cars, they have to start
+			prioritizing non-road related projects. Anyway, I’m here to represent all the
+			bikers out there who are risking their lives to do the right thing.</span> 
+		</p><br />
+	
+		<div class="clearBoth"></div>
+
+		<p>
+			<span class="label">My tags</span>
+			<span class="value" id="keywords" style="width:600px;">
+				<ul>
+					<li class="tagSize5">Accidents</li>
+					<li class="tagSize3">Assurance</li>
+					<li class="tagSize3">engineering</li>
+					<li class="tagSize3">Fatalities</li>
+					<li class="tagSize2">Highway</li>
+					<li class="tagSize3">Injuries</li>
+					<li class="tagSize5">Insurance</li>
+					<li class="tagSize2">investigation</li>
+					<li class="tagSize3">records</li>
+					<li class="tagSize5">statistics</li>
+					<li class="tagSize3">systems</li>
+					<li class="tagSize3">Traffic</li>
+				</ul>
+			</span>
+		</p><br />
 		
 		<div class="clearBoth"></div>
+		<p>
+			<span class="label">My concerns</span> 
+			<span class="value">
+				<div id="concerns">
+					<div class="concern box7">
+						There are no bike lanes in any of the "regionally significant" projects. 
+						This is absurd.  When are we going to consider bikes a viable means of 
+						daily transportation?
+						<br />
+						<div id="concerns-keywords">
+							<span>Keywords:</span>
+							<ul>
+								<li>Amet</li>
+								<li>Dolor</li>
+								<li>Ipsum</li>
+								<li>Lorem</li>
+								<li>Sit</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="concern box7">
+						There are no bike lanes in any of the "regionally significant" projects. 
+						This is absurd.  When are we going to consider bikes a viable means of 
+						daily transportation?
+						<br />
+						<div id="concerns-keywords">
+							<span>Keywords:</span>
+							<ul>
+								<li>Amet</li>
+								<li>Dolor</li>
+								<li>Ipsum</li>
+								<li>Lorem</li>
+								<li>Sit</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="concern box7">
+						There are no bike lanes in any of the "regionally significant" projects. 
+						This is absurd.  When are we going to consider bikes a viable means of 
+						daily transportation?
+						<br />
+						<div id="concerns-keywords">
+							<span>Keywords:</span>
+							<ul>
+								<li>Amet</li>
+								<li>Dolor</li>
+								<li>Ipsum</li>
+								<li>Lorem</li>
+								<li>Sit</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</span> 
+		</p><br />
 		
+		<div class="clearBoth"></div>
+		<p>
+			<span class="label">My recent discussion activity</span>
+			<span class="value">
+				<div id="profile-recent" style="width:600px;">
+	
+					<!-- begin RECENT DISCUSSIONS HEADER -->
+					<div>
+						<div class="floatLeft clearfix"><a href="#">Prev</a></div>
+						<div class="floatRight clearfix"><a href="#">Next</a></div>
+					</div>
+					
+					<div class="clearBoth"></div>
+				
+					<div class="listRow headingColor heading clearfix">
+						<div class="profile-col1 floatLeft" style="margin-left:.2em">
+							<div class="floatLeft">
+								<h4>Topic</h4>
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">
+							<h4>Last Post</h4>
+	
+						</div>
+					</div>
+					<!-- end RECENT DISCUSSIONS HEADER -->
+					<!-- begin A RECENT DISCUSSION -->
+					<div class="listRow clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								<a href="#">Rebuild the viaduct!</a><br />
+	
+								<span>Step 3a: Review Projects</span>
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">1/31</div>
+					</div>
+					<!-- end A RECENT DISCUSSION -->
+					<div class="listRow odd clearfix">
+						<div class="profile-col1 floatLeft">
+	
+							<div class="floatLeft">
+								<a href="#">Rebuild the viaduct but don't spend any more money</a><br />
+								<span>Step 3a: Review Projects</span>
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">1/31</div>
+					</div>
+	
+					<div class="listRow  clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								<a href="#">Rebuild the viaduct!</a><br />
+								<span>Step 3a: Review Projects</span>
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">1/31</div>
+	
+					</div>
+					<div class="listRow odd clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								<a href="#">Rebuild the viaduct!</a><br />
+								<span>Step 3a: Review Projects</span>
+							</div>
+						</div>
+	
+						<div class="profile-col2 floatRight">1/31</div>
+					</div>
+					<div class="listRow  clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								<a href="#">Rebuild the viaduct!</a><br />
+								<span>Step 3a: Review Projects</span>
+	
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">1/31</div>
+					</div>
+				</div>
+				<!-- end RECENT DISCUSSIONS -->
+	
+				</div>
+			</span>
+		</p><br />				
+		<div class="clearBoth"></div>
+		
+		<p>
+			<span class="label">My planning factor weights</span>
+			<span class="value">
+				<div id="weights" style="width:600px;">
+
+					<!-- begin RECENT DISCUSSIONS HEADER -->				
+					<div class="listRow headingColor heading clearfix">
+						<div class="profile-col1 floatLeft" style="margin-left:.2em">
+							<div class="floatLeft">
+								<h4>Planning Factor</h4>
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">
+							<h4>Weights</h4>
+						</div>
+					</div>
+					<!-- end RECENT DISCUSSIONS HEADER -->
+					<!-- begin A RECENT DISCUSSION -->
+					<div class="listRow clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								Economic Vitality
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">10</div>
+					</div>
+					<!-- end A RECENT DISCUSSION -->
+					<div class="listRow odd clearfix">
+						<div class="profile-col1 floatLeft">
+	
+							<div class="floatLeft">
+								Security
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">13</div>
+					</div>
+	
+					<div class="listRow  clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								Accessibility and Mobility
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">23</div>
+	
+					</div>
+					<div class="listRow odd clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								Environmental / Energy / QOL
+							</div>
+						</div>
+	
+						<div class="profile-col2 floatRight">3</div>
+					</div>
+					<div class="listRow  clearfix">
+						<div class="profile-col1 floatLeft">
+							<div class="floatLeft">
+								Integration and Connectivity
+							</div>
+						</div>
+						<div class="profile-col2 floatRight">8</div>
+					</div>
+				</div>
+				<!-- end RECENT DISCUSSIONS -->
+
+				</div>
+			</span>
 	</div>
+	</p><br />
+	<div class="clearBoth"></div>
+	<!-- end PROFILE-FIELDS section -->
 </div>
-<!-- Run javascript function after most of the page is loaded, 
-work around for onLoad functions quirks with tabs.js -->
-<script type="text/javascript">
-                        io.getPosts('', 1, false, io.currentSort);
-                        //infoObject.assignTargetHeaders();
-                        io.getTargets();
-                        
-                  </script>
-<!-- start the bottom header menu -->
+<!-- End Container -->
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="headerMenu">
 	<div id="headerContainer">
@@ -150,12 +484,20 @@ work around for onLoad functions quirks with tabs.js -->
 			<h3 class="headerColor">Learn More</h3>
 		</div>
 		<div class="headerButton floatLeft currentBox"> <a href="#">About LIT</a> </div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">FAQ</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Tutorial</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Proposed Projects</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Glossary</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Additional Resources</div>
-		<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+		<div class="headerButtonCurrent floatLeft"> <a href="#">FAQ</a></div>
+		<a href="#"> </a>
+		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Tutorial</a></div>
+		<a href="#"> </a>
+		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Proposed
+				Projects</a></div>
+		<a href="#"> </a>
+		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Glossary</a></div>
+		<a href="#"> </a>
+		<div class="headerButtonCurrent floatLeft"><a href="#"> </a><a href="#">Additional
+				Resources</a></div>
+		<a href="#"> </a>
+		<div id="headerNext" class="floatRight box5"><a href="#"> </a><a href="#">Next
+				Step</a> </div>
 	</div>
 </div>
 <!-- End header menu -->

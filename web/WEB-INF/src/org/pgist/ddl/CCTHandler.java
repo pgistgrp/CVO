@@ -1,12 +1,12 @@
 package org.pgist.ddl;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.cvo.CCT;
+import org.pgist.cvo.CategoryReference;
 import org.pgist.users.User;
 
 
@@ -15,24 +15,33 @@ import org.pgist.users.User;
  * @author kenny
  *
  */
-public class CCTHandler extends Handler {
+public class CCTHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {
         List ccts = root.elements("cct");
         
-        DateFormat format = DateFormat.getInstance();
-        
         for (int i=0,n=ccts.size(); i<n; i++) {
             Element element = (Element) ccts.get(i);
             
-            CCT cct = new CCT();
-            cct.setDeleted(false);
+            
+            String name = element.elementTextTrim("name");
+            if (name==null || "".equals(name)) throw new Exception("name is required for cct");
+            
+            CCT cct = getCCTByName(name);
+            if (cct==null) {
+                cct = new CCT();
+                /*
+                 * FIXME: workflowId
+                 */
+                cct.setWorkflowId(1L);
+                cct.setName(name);
+                cct.setDeleted(false);
+            }
             
             String loginname = element.elementTextTrim("creator");
             User creator = getUserByLoginName(loginname);
             if (creator==null) throw new Exception("creator is not found: "+loginname);
-            cct.setCreator(creator);
             
             String createTimeStr = element.elementTextTrim("createTime");
             if (createTimeStr==null || "".equals(createTimeStr)) {
@@ -42,18 +51,19 @@ public class CCTHandler extends Handler {
                 cct.setCreateTime(createTime);
             }
             
-            String name = element.elementTextTrim("name");
-            if (name==null || "".equals(name)) throw new Exception("name is required for cct");
-            
             String purpose = element.elementTextTrim("purpose");
             if (purpose==null || "".equals(purpose)) throw new Exception("purpose is required for cct");
             
             String instruction = element.elementTextTrim("instruction");
             if (instruction==null || "".equals(instruction)) throw new Exception("instruction is required for cct");
             
-            cct.setName(name);
             cct.setPurpose(purpose);
             cct.setInstruction(instruction);
+            
+            CategoryReference catRef = new CategoryReference();
+            catRef.setCct(cct);
+            
+            cct.setRootCategory(catRef);
             
             saveCCT(cct);
         }//for i
@@ -68,10 +78,6 @@ public class CCTHandler extends Handler {
         for (CCT cct : ccts) {
             Element one = root.addElement("cct");
             
-            Element creator = one.addElement("creator");
-            creator.addAttribute("type", "loginname");
-            creator.setText(cct.getCreator().getLoginname());
-            
             Element name = one.addElement("name");
             name.setText(cct.getName());
             
@@ -82,7 +88,7 @@ public class CCTHandler extends Handler {
             instruction.setText(cct.getInstruction());
             
             Element createTime = one.addElement("createTime");
-            createTime.setText(cct.getCreateTime().toString());
+            createTime.setText(format.format(cct.getCreateTime()));
         }//for
     }//doExports()
     

@@ -14,7 +14,7 @@
         </pgame>
         
         <pgame name="pgame-define.projects" description="Define projects in a project suite." auto="false" access="moderator">
-            <actionName>task-define.projects</actionName>
+            <actionName>action-define.projects</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
@@ -32,7 +32,7 @@
         </pgame>
         
         <pgame name="pgame-define.fundings" description="Define funding sources in a funding source suite." auto="false" access="moderator">
-            <actionName>task-define.fundings</actionName>
+            <actionName>action-define.fundings</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
@@ -41,7 +41,7 @@
         </pgame>
         
         <pgame name="pgame-grade.projects" description="Grade Projects." auto="false" access="moderator">
-            <actionName>task-grade.projects</actionName>
+            <actionName>action-grade.projects</actionName>
             <declaration>
                 <ins>
                     <var name="suiteId"/>
@@ -63,53 +63,562 @@
             </declaration>
         </pgame>
         
+        <pgame name="pgame-cvo.cct" description="Brainstorm." auto="false" access="all">
+            <actionName>action-cvo.cct</actionName>
+            <declaration>
+                <ins>
+                    <var name="cctId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-cvo.cst" description="Concerns Synthesis Tool" auto="false" access="all">
+            <actionName>action-cvo.cst</actionName>
+            <declaration>
+                <ins>
+                    <var name="cctId"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.theme" description="Publish Themes." auto="true">
+            <taskName>task-publish.theme</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Summaries" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.concerns" description="Review Summaries." auto="false" access="all">
+            <actionName>action-sd.concerns</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+        </pgame>
+
+	 <pgame name="pgame-create.criteria.suite" description="Create a criteria suite." auto="true">
+            <taskName>task-create.criteria.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-define.criteria" description="Define Criteria." auto="false" access="moderator">
+	    <actionName>action-define.criteria</actionName>
+	    <declaration>
+		<ins>
+		    <var name="suiteId"/>
+		    <var name="cctId"/>
+		</ins>
+	    </declaration>
+        </pgame>
+        
+         
+        <pgame name="pgame-create.cct" description="Create a CCT instance." auto="true">
+	    <taskName>task-create.cct</taskName>
+	    <declaration>
+		<outs>
+		    <var name="cct_id"/>
+		</outs>
+		<props>
+		    <property name="name" value="CCT" />
+		    <property name="purpose" value="My Purpose" />
+		    <property name="instruction" value="My Instructions" />
+		</props>
+	    </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.criteria" description="Publish Criteria." auto="true">
+            <taskName>task-publish.criteria</taskName>
+            <declaration>
+                <ins>
+                    <var name="suite_id"/>
+         	    <var name="cct_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 2a: Review Criteria" />
+                </props>
+            </declaration>
+        </pgame>
+        
+	<pgame name="pgame-sd.criteria" description="SD critieria." auto="false" access="all">
+	    <actionName>action-sd.criteria</actionName>
+	    <declaration>
+		<ins>
+		    <var name="isid"/>
+		</ins>
+	    </declaration>
+	</pgame>
+
+	<pgame name="pgame-weigh.criteria" description="Weight critieria" auto="false" access="all">
+	    <actionName>action-weigh.criteria</actionName>
+	    <declaration>
+		<ins>
+		    <var name="suiteId"/>
+		</ins>
+	    </declaration>
+	</pgame>
+        
+        <pgame name="pgame-publish.projects" description="Publish Projects." auto="true">
+            <taskName>task-publish.projects</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Projects" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.projects" description="Review Projects." auto="false" access="all">
+            <actionName>action-sd.projects</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.fundings" description="Publish Fundings." auto="true">
+            <taskName>task-publish.fundings</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 1b: Review Funding Sources" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.fundings" description="Review Fundings." auto="false" access="all">
+            <actionName>action-sd.fundings</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-create.package.suite" description="Create a package suite." auto="true">
+            <taskName>task-create.package.suite</taskName>
+            <declaration>
+                <outs>
+                    <var name="suite_id"/>
+                </outs>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-publish.packages" description="Publish Packages." auto="true">
+            <taskName>task-publish.packages</taskName>
+            <declaration>
+                <ins>
+                    <var name="cct_id"/>
+                    <var name="suite_id"/>
+                </ins>
+                <outs>
+                    <var name="is_id"/>
+                </outs>
+                <props>
+                    <property name="title" value="Step 4b: Review Packages" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sd.packages" description="Review Fundings." auto="false" access="all">
+            <actionName>action-sd.packages</actionName>
+            <declaration>
+                <ins>
+                    <var name="isid"/>
+                </ins>
+            </declaration>
+        </pgame>
+        
     </pgames>
     
     
     <pmethods>
-        <pmethod name="pmethod-init.projects" description="Initialize Projects">
+    
+        <pmethod name="pmethod-init.situation" description="Initialize Projects">
             <declaration>
                 <outs>
-                    <var name="pmethod.suite_id"/>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-create.project.suite">
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-create.project.suite">
+                            <declaration>
+                                <outs>
+                                    <var name="suite_id" ref="pmethod.proj_suite_id"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-define.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="suiteId" ref="pmethod.proj_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-grade.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="suiteId" ref="pmethod.proj_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-create.funding.suite">
+                            <declaration>
+                                <outs>
+                                    <var name="suite_id" ref="pmethod.fund_suite_id"/>
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-define.fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="suiteId" ref="pmethod.fund_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-cvo" description="Concern Value Object">
+            <declaration>
+                <outs>
+                    <var name="pmethod.cct_id"/>
+                    <var name="pmethod.theme_isid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-create.cct">
                     <declaration>
                         <outs>
-                            <var name="suiteId" ref="pmethod.suite_id"/>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
                         </outs>
                     </declaration>
-	              </pgame>
-                <pgame name="pgame-define.projects">
+                </pgame>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-cvo.cct">
+                            <declaration>
+                                <ins>
+                                    <var name="cctId" ref="pmethod.cct_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-cvo.cst">
+                            <declaration>
+                                <ins>
+                                    <var name="cctId" ref="pmethod.cct_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+                <pgame name="pgame-publish.theme">
                     <declaration>
                         <ins>
-                            <var name="suiteId" ref="pmethod.suite_id"/>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.theme_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sd.concerns">
+                    <declaration>
+                        <ins>
+                            <var name="isid" ref="pmethod.theme_isid"/>
                         </ins>
                     </declaration>
                 </pgame>
             </sequence>
         </pmethod>
+        
+		<pmethod name="pmethod-init.criteria" description="Initialize Criteria">
+            <declaration>
+            	<ins>
+            	    <var name="pmethod.cct_id"/>
+            	</ins>
+                <outs>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.crit_isid"/>
+                </outs>
+            </declaration>
+            	<sequence>                                    
+                    	<pgame name="pgame-create.criteria.suite">
+			    <declaration>
+				<outs>
+				    <var name="suite_id" ref="pmethod.crit_suite_id"/>
+				</outs>
+			    </declaration>
+			</pgame>
+			<branch>
+                      	<sequence>
+				<pgame name="pgame-create.cct">
+				    <declaration>
+					<outs>
+					    <var name="cct_id" ref="pmethod.cct_id"/>
+					</outs>
+				    </declaration>
+				</pgame>
+				
+
+				<pgame name="pgame-define.criteria">
+				    <declaration>
+					<ins>
+					    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+					    <var name="cctId" ref="pmethod.cct_id"/>
+					</ins>
+				    </declaration>
+				</pgame>
+
+				
+				<pgame name="pgame-publish.criteria">
+				    <declaration>
+					<ins>
+					    <var name="suite_id" ref="pmethod.crit_suite_id"/>
+					    <var name="cct_id" ref="pmethod.cct_id"/>
+					</ins>
+					<outs>
+					    <var name="is_id" ref="pmethod.crit_isid"/>
+					</outs>
+				    </declaration>
+				</pgame>
+				<branch>
+					<sequence>
+					<pgame name="pgame-sd.criteria">
+					    <declaration>
+						<ins>
+						    <var name="isid" ref="pmethod.crit_isid"/>
+						</ins>
+					    </declaration>
+					</pgame>
+					</sequence>
+					
+					<sequence>
+					<pgame name="pgame-weigh.criteria">
+					    <declaration>
+						<ins>
+						    <var name="suiteId" ref="pmethod.crit_suite_id"/>
+						</ins>
+					    </declaration>
+					</pgame>
+					</sequence>
+				</branch>
+                      	</sequence>
+
+                      	
+                        </branch>
+            </sequence>
+        </pmethod>
+	
+        <pmethod name="pmethod-projects" description="Review Projects">
+            <declaration>
+                <ins>
+                    <var name="pmethod.cct_id"/>
+                    <var name="pmethod.suite_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.is_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-publish.projects">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="suite_id" ref="pmethod.suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.is_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sd.projects">
+                    <declaration>
+                        <ins>
+                            <var name="isid" ref="pmethod.is_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-fundings" description="Review Funding Sources">
+            <declaration>
+                <ins>
+                    <var name="pmethod.cct_id"/>
+                    <var name="pmethod.suite_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.is_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pgame name="pgame-publish.fundings">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="suite_id" ref="pmethod.suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.is_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sd.fundings">
+                    <declaration>
+                        <ins>
+                            <var name="isid" ref="pmethod.is_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+            </sequence>
+        </pmethod>
+	
     </pmethods>
     
     
     <meetings>
+    
         <meeting name="meeting-init.situation" description="Initialize Decision Situation">
             <declaration>
                 <outs>
-                    <var name="meeting.suite_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
                 </outs>
             </declaration>
             <sequence>
-                <pmethod name="pmethod-init.projects">
+                <pmethod name="pmethod-init.situation">
                     <declaration>
                         <outs>
-                            <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.proj_suite_id" ref="meeting.proj_suite_id"/>
+                            <var name="pmethod.fund_suite_id" ref="meeting.fund_suite_id"/>
                         </outs>
                     </declaration>
                 </pmethod>
             </sequence>
         </meeting>
+        
+        <meeting name="meeting-cvo" description="Concern Value Object">
+            <declaration>
+                <outs>
+                    <var name="meeting.cct_id"/>
+                    <var name="meeting.is_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-cvo">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                            <var name="pmethod.theme_isid" ref="meeting.is_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+        
+	<meeting name="meeting-init.criteria" description="Initialize Criteria">
+            <declaration>
+                <outs>
+                    <var name="meeting.crit_suite_id"/>
+                    <var name="meeting.crit_isid"/>
+                    <var name="meeting.cct_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <pmethod name="pmethod-init.criteria">
+                    <declaration>
+                        <outs>
+                            <var name="pmethod.crit_suite_id" ref="meeting.crit_suite_id"/>
+                            <var name="pmethod.crit_isid" ref="meeting.crit_isid"/>
+                            <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                        </outs>
+                    </declaration>
+                </pmethod>
+            </sequence>
+        </meeting>
+	
+        <meeting name="meeting-projects-fundings" description="Review Projects and Fundings">
+            <declaration>
+                <ins>
+                    <var name="meeting.cct_id"/>
+                    <var name="meeting.proj_suite_id"/>
+                    <var name="meeting.fund_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="meeting.proj_isid"/>
+                    <var name="meeting.fund_isid"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <branch>
+                    <sequence>
+                        <pmethod name="pmethod-projects">
+                            <declaration>
+                                <ins>
+                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                                    <var name="pmethod.suite_id" ref="meeting.proj_suite_id"/>
+                                </ins>
+                                <outs>
+                                    <var name="pmethod.is_id" ref="meeting.proj_isid"/>
+                                </outs>
+                            </declaration>
+                        </pmethod>
+                    </sequence>
+                    <sequence>
+                        <pmethod name="pmethod-fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="pmethod.cct_id" ref="meeting.cct_id"/>
+                                    <var name="pmethod.suite_id" ref="meeting.fund_suite_id"/>
+                                </ins>
+                                <outs>
+                                    <var name="pmethod.is_id" ref="meeting.fund_isid"/>
+                                </outs>
+                            </declaration>
+                        </pmethod>
+                    </sequence>
+                </branch>
+            </sequence>
+        </meeting>
+        
     </meetings>
     
     
@@ -119,7 +628,40 @@
                 <meeting name="meeting-init.situation">
                     <declaration>
                         <outs>
-                            <var name="meeting.suite_id" ref="situation.suite_id"/>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+                <meeting name="meeting-cvo">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                            <var name="meeting.is_id" ref="situation.theme_isid"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+
+                <meeting name="meeting-init.criteria">
+                    <declaration>
+                        <outs>
+                            <var name="meeting.crit_suite_id" ref="situation.crit_suite_id"/>
+                            <var name="meeting.crit_isid" ref="situation.crit_isid"/>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                        </outs>
+                    </declaration>
+                </meeting>
+
+                <meeting name="meeting-projects-fundings">
+                    <declaration>
+                        <ins>
+                            <var name="meeting.cct_id" ref="situation.cct_id"/>
+                            <var name="meeting.proj_suite_id" ref="situation.proj_suite_id"/>
+                            <var name="meeting.fund_suite_id" ref="situation.fund_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="meeting.proj_isid" ref="situation.proj_isid"/>
+                            <var name="meeting.fund_isid" ref="situation.fund_isid"/>
                         </outs>
                     </declaration>
                 </meeting>

@@ -9,9 +9,15 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.pgist.system.SystemService;
+import org.pgist.users.UserInfo;
+import org.pgist.util.WebUtils;
+import org.springframework.web.context.WebApplicationContext;
 
 
 /**
@@ -24,30 +30,26 @@ import javax.servlet.http.HttpSession;
  */
 public class PgistFilter implements Filter {
 
+    private SystemService systemService;
     
     protected FilterConfig filterConfig = null;
     
     /*
-     * If forceCloseConnection is true, each request will cause the system to try to close
-     * any database connection involved in this request.
-     */
-    protected boolean forceCloseConnection = true;
-    
-    /*
      * The login URL.
      */
-    protected String loginURL = null;
+    protected String loginURL;
     
     /*
-     * All request urls in the ignoreURLs will not be checked if the user has logged in.
+     * All requested urls in the ignoreURLs will not be checked if the user has logged in.
      */
-    protected HashSet ignoreURLs = new HashSet();
-
+    protected HashSet<String> ignoreURLs = new HashSet<String>();
+    
     
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
         
-        forceCloseConnection = "true".equals(filterConfig.getInitParameter("force-close-connection"));
+        WebApplicationContext context = (WebApplicationContext) filterConfig.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        systemService = (SystemService) context.getBean("systemService");
         
         /*
          * loginURL should be in the ignoreURLs.
@@ -60,35 +62,100 @@ public class PgistFilter implements Filter {
         for (int i=0; i<array.length; i++) {
             ignoreURLs.add(array[i].trim());
         }
-    }
+    }//init()
 
     
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         //check if the user logged in
         HttpServletRequest req = (HttpServletRequest) request;
-        String path = req.getRequestURI();
+        HttpServletResponse res = (HttpServletResponse) response;
+        
         String ctxPath = req.getContextPath();
-        path = path.substring(ctxPath.length());
+        String path = req.getRequestURI().substring(ctxPath.length());
         
-        System.out.println("PgistFilter: "+path);
+        //System.out.println("URI: "+req.getRequestURI());
+        //System.out.println("URL: "+req.getRequestURL());
+        //System.out.println("PgistFilter: "+path);
         
+        UserInfo userInfo = null;
+        
+        /*
+         * check if the requested url is in ignore urls.
+         */
         if (!ignoreURLs.contains(path)) {
             HttpSession session = req.getSession();
-            if (session.getAttribute("user")==null) {
+            userInfo = (UserInfo) session.getAttribute("user");
+            
+            if (userInfo==null) {
                 //user has not logged on
-                HttpServletResponse res = (HttpServletResponse) response;
-                res.sendRedirect( req.getContextPath() + loginURL );
+                
+                /*
+                 * save the original requested URL for later user
+                 */
+                StringBuffer initURL = req.getRequestURL();
+                if (req.getQueryString()!=null) {
+                    initURL.append('?').append(req.getQueryString());
+                }
+                
+                if (!"/".equalsIgnoreCase(req.getRequestURI())) {
+                    String savedURL = res.encodeRedirectURL(initURL.toString());
+                    
+                    if ("/index.jsp".equalsIgnoreCase(req.getRequestURI())) savedURL = "/main.jsp";
+                    
+                    /*
+                     * Save the original requested URL in cookie
+                     */
+                    Cookie cookie = new Cookie("PG_INIT_URL", savedURL);
+                    cookie.setMaxAge(-1);
+                    res.addCookie(cookie);
+                }
+                
+                /*
+                 * redirect to login page
+                 */
+                res.sendRedirect( loginURL );
+                
                 return;
+            } else {
+                if (req.isRequestedSessionIdFromURL()) {
+                    /*
+                     * The current session is maintained with URL rewriting,
+                     * now we change it to Cookie.
+                     */
+                    Cookie cookie = new Cookie("JSESSIONID", session.getId());
+                    cookie.setMaxAge(-1);
+                    res.addCookie(cookie);
+                }
             }
+            
+            //You can use the variable "baseuser" on any jsp page.
+            request.setAttribute("baseuser", userInfo);
         }
         
-        chain.doFilter(request, response);
-    }
+        DelegatingHttpServletRequestWrapper wrapper = new DelegatingHttpServletRequestWrapper((HttpServletRequest) request);
+        
+        try {
+            //hold userInfo for later use
+            WebUtils.setCurrentUser(userInfo);
+            chain.doFilter(wrapper, response);
+        } finally {
+            //log request
+            if (!path.endsWith(".js")) {
+                try {
+                    systemService.logRequest(wrapper);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            //release userInfo
+            if (userInfo!=null) WebUtils.setCurrentUser(null);
+            WebUtils.clearDate();
+        }
+    }//doFilter()
     
 
     public void destroy() {
-    }
+    }//destroy()
     
 
 }//class PgistFilter
-

@@ -1,7 +1,5 @@
 package org.pgist.glossary;
 
-import java.util.Collection;
-
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -38,8 +36,11 @@ public class GlossaryViewAction extends Action {
         Long id = new Long(request.getParameter("id"));
         
         Term term = glossaryService.getTermById(id);
+        glossaryService.increaseViewCount(term);
         
         request.setAttribute("term", term);
+        
+        request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
         
         return mapping.findForward("view");
     }//execute()

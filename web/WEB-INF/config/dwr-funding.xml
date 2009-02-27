@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
 
 <dwr>
 
@@ -7,22 +7,43 @@
   <allow>
 
 
+      <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
       <!-- Beans Convertor -->
-
-
-      <convert converter="bean" match="org.pgist.funding.FundingSource"/>
-      
-      <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
-
+      <convert converter="bean" match="org.pgist.funding.UserTaxInfoDTO"/>
+      <convert converter="bean" match="org.pgist.funding.UserFundingSourceTollDTO"/>
+      <convert converter="bean" match="org.pgist.funding.PersonalFundingCost"/>
+      <convert converter="bean" match="org.pgist.funding.PersonalFundingCostAlternative"/>
+      <convert converter="bean" match="org.pgist.funding.VehicleDTO"/>
+      <convert converter="bean" match="org.pgist.funding.FundingSourceSuite"/>
 
       <!-- DWR Agents -->
 
 
       <create creator="spring" javascript="FundingAgent">
-          <param name="beanName" value="projectAgent"/>
-          <include method="getProject"/>
+          <param name="beanName" value="fundingAgent"/>
+          <include method="updateUser"/>
+          <include method="addVehicle"/>
+          <include method="getVehicles"/>
+          <include method="updateVehicle"/>
+          <include method="deleteVehicle"/>          
+          <include method="calcCommute"/>          
+          <include method="calcCostReport"/> 
+          <include method="createFundingSource"/>
+          <include method="editFundingSource"/>
+          <include method="deleteFundingSource"/>
+          <include method="createFundingSourceAlt"/>
+          <include method="editFundingSourceAlt"/>
+          <include method="deleteFundingSourceAlt"/>
+          <include method="getFundingSources"/>
+          <include method="getFundingSourceById"/>
+          <include method="getFundingSourceAltById"/>
+          <include method="setFundingDef"/>          
+          <include method="lookupUserById"/>      
+          <include method="createFundingSourceSuite"/> 
+          <include method="getFundingSuite"/> 
       </create>
-
 
   </allow>
 

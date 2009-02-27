@@ -18,9 +18,29 @@ public class YesNoVoting implements Serializable {
     
     public static final int TYPE_INFO_OBJECT = 1;
     
-    public static final int TYPE_Discussion_POST = 2;
+    public static final int TYPE_DISCUSSION_POST = 2;
     
-    public static final int TYPE_Discussion_REPLY = 3;
+    public static final int TYPE_DISCUSSION_REPLY = 3;
+    
+    public static final int TYPE_CONCERN = 4;
+    
+    public static final int TYPE_COMMENT = 5;
+
+	public static final int TYPE_SARP_DRT_COMMENT = 6;
+
+	public static final int TYPE_SARP_DRT_INFOOBJ = 7;
+    
+    public static final int TYPE_SARP_CST_COMMENT = 8;
+
+    public static final int TYPE_SARP_CHT_COMMENT = 9;
+
+    public static final int TYPE_SARP_VTT_COMMENT = 10;
+
+    public static final int TYPE_SARP_DRT_ANNOUNCEMENT = 11;
+
+    public static final int TYPE_SARP_CHT_PATH = 12;
+
+    public static final int TYPE_SARP_VTT_SPEC_COMMENT = 13;
     
     
     private Long id;

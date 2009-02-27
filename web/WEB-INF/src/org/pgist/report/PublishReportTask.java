@@ -34,16 +34,19 @@ public class PublishReportTask implements WorkflowTask {
     
 
 	public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
-        System.out.println("@ PublishCriteriaTask.execute()");
+        System.out.println("@ PublishReportTask.execute()");
         
         Long suiteId = new Long(inouts.getIntValue(IN_SUITE_ID));
         
         Long cctId = new Long(inouts.getIntValue(IN_CCT_ID));
         
+        System.out.println("***SuiteId" + suiteId);
+        System.out.println("***CCTID" + cctId);
+        
         String title = inouts.getProperty("title");
-        
+        System.out.println("***Publish report got variables");
         InfoStructure structure = reportService.publish(info.getWorkflow().getId(), cctId, suiteId, title);
-        
+        System.out.println("***executed publish report" + structure.getId().intValue());
         inouts.setIntValue(OUT_ISID, structure.getId().intValue());
     }//execute()
     

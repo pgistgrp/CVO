@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+
+    <!-- DRT : Discuss and Review Tool -->
+    
+    <bean id="drtDAO" class="org.pgist.sarp.drt.DRTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="drtService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.drt.DRTServiceImpl">
+                <property name="drtDAO" ref="drtDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="drtAgent" class="org.pgist.sarp.drt.DRTAgent">
+        <property name="cstService" ref="cstService"/>
+        <property name="drtService" ref="drtService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+        <property name="engine" ref="engine"/>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+
+
+    <!-- BCT : Brainstorming Concerns Tool -->
+    
+    <bean id="bctDAO" class="org.pgist.sarp.bct.BCTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="bctService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.bct.BCTServiceImpl">
+                <property name="userDAO" ref="userDAO"/>
+                <property name="bctDAO" ref="bctDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="analyzer" ref="tagAnalyzer"/>
+                <property name="systemDAO" ref="systemDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="bctAgent" class="org.pgist.sarp.bct.BCTAgent">
+        <property name="bctService" ref="bctService"/>
+        <property name="userDAO" ref="userDAO"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+
+
+    <!-- CST : Concern Synthesis Tool -->
+    
+    <bean id="cstDAO" class="org.pgist.sarp.cst.CSTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="cstService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.cst.CSTServiceImpl">
+                <property name="bctDAO" ref="bctDAO"/>
+                <property name="cstDAO" ref="cstDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
+                <property name="jythonAPI" ref="jythonAPI"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="cstAgent" class="org.pgist.sarp.cst.CSTAgent">
+        <property name="cstService" ref="cstService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+
+    <!-- CHT : Concern Hierarchy Tool -->
+    
+    <bean id="chtDAO" class="org.pgist.sarp.cht.CHTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="chtService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.cht.CHTServiceImpl">
+                <property name="cstDAO" ref="cstDAO"/>
+                <property name="chtDAO" ref="chtDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
+                <property name="jythonAPI" ref="jythonAPI"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="chtAgent" class="org.pgist.sarp.cht.CHTAgent">
+        <property name="cstService" ref="cstService"/>
+        <property name="chtService" ref="chtService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+    
+    <!-- VTT : Value Tree Tool -->
+    
+    <bean id="vttDAO" class="org.pgist.sarp.vtt.VTTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="vttService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.sarp.vtt.VTTServiceImpl">
+                <property name="cstDAO" ref="cstDAO"/>
+                <property name="chtDAO" ref="chtDAO"/>
+                <property name="vttDAO" ref="vttDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="systemDAO" ref="systemDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="vttAgent" class="org.pgist.sarp.vtt.VTTAgent">
+        <property name="chtService" ref="chtService"/>
+        <property name="vttService" ref="vttService"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+    
+
+</beans>
+

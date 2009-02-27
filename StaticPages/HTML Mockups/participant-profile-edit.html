@@ -1,167 +1,329 @@
-<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
-<html>
-<head>
-<title>Let's Improve Transportation: Eros Profile</title>
-<style type="text/css" media="screen">
-        @import "styles/lit.css";
-	
-h3
-{
-display:inline;
-margin-right:1em;
-}
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html:html>
+	<head>
+	<title>Let's Improve Transportation - Edit your Profile</title>
+	<!-- Site Wide CSS -->
+	<style type="text/css" media="screen">
+@import "styles/lit.css";
+/* Note:  Move this to user-home.css */
 
-.profile-label,.profile-value 
-{
-float:left;
-margin-top:.5em;
-font-size:.9em;
-}
+body {font-size:12pt;}
 
-.profile-label
-{
+.settings-col1, .settings-col2 {float:left;padding-bottom:3px;_padding-bottom:0px;}
 
-width:12em;
-font-weight:bold;
+.settings-col1
+{
+width:200px;
 clear:left;
+font-weight:bold;
+margin-right:2em;
 }
 
-.profile-value
+.settings-col1 span {font-weight:normal;font-size:.9em;}
+
+.settings-col2{clear:right;}
+
+img {vertical-align:middle;}
+
+.settings-col2 input, .settings-col2 select {margin-right:1em;}
+
+.heading {margin-bottom:.5em;}
+
+#edit-profile, #edit-settings {margin:1em 0em 1em 1em;}
+.email-col1,.email-col2,.email-col3 {float:left;}
+
+.email-col1{width:20%;clear:left;}
+.email-col2{width:10%;margin-left:1em;}
+.email-col3{width:65%;clear:right;}
+
+small {font-size:.75em;font-style:italic;}
+.short {margin-bottom:5px;}
+
+fieldset
 {
-clear:right;
-width:50em;
-}
-
-.profile-value li
-{
-display:inline;
-border:1px solid;
-padding:.1em; 
-margin:.2em;
-list-style:none;
-vertical-align:text-bottom;
-line-height:2em;
-
-}
-
-
-#profile-fields
-{
+border:2px solid #ADCFDE;
+padding:20px 10px;
 margin:1em auto;
 }
+
+legend
+{
+font-size:1.15em;
+margin:px;
+padding:5px;
+font-weight:bold;
+color:#31496B;
+}
+
+#commute #left .settings-col1 {text-align:right;}
+#commute #left .settings-col2 {}
+
+#commute #right {width:450px;padding-left:20px;border-left:1px solid #ADCFDE;}
+
+#errors {
+border:1px solid #FFE3B9;
+padding:10px;
+color:D85703;
+font-weight:bold;
+width:420px;
+}
+
+#password #errors {width:550px;}
+button {margin-bottom:1em;font-size:1.1em;}
+
 </style>
-
-</head>
-<body>
-<!-- Begin header -->
-<div id="header"> [Load from separate file] </div>
-<!-- End header -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Learn More</h3>
-		</div>
-		<div class="headerButton floatLeft currentBox"> <a href="#">About LIT</a> </div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">FAQ</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Tutorial</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Proposed Projects</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Glossary</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Additional Resources</div>
-		<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+	<!-- End Site Wide CSS -->
+	<!-- Site Wide JS -->
+	<script src="scripts/prototype.js" type="text/javascript"></script>
+	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
+	<script src="scripts/search.js" type="text/javascript"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type='text/javascript' src='/dwr/util.js'></script>
+	</head>
+	<body>
+	<!-- Hack to make col1 & 2 margin heights the same -->
+	<!--[if IE]>
+		<style type="text/css">
+			.settings-col1, .settings-col2 {margin-bottom:0em;margin-top:0em;}
+		</style>
+	<![endif]-->
+	<!-- Begin the header - loaded from a separate file -->
+	<div id="header">
+		<!-- Begin header -->
+		<jsp:include page="/header.jsp" />
+		<!-- End header -->
 	</div>
-</div>
-<!-- End header menu -->
-<!-- Begin container - Main page content begins here -->
-<div id="container">
-	<h3 class="headerColor">LIT Participant Profile</h3>
-	<a href="#">Edit my profile and settings</a>
-	<div id="profile-fields"> 
-		
-		<div class="profile-label">Username:</div>
-		<div class="profile-value">Eros</div>
-		
-		<div class="profile-label">Home location:</div>
-		<div class="profile-value">Seattle, 98103 [<a href="#">map</a>]</div>
-		
-		<div class="profile-label">Work location:</div>
-		<div class="profile-value">Seattle, 98105 [<a href="#">map</a>]</div>
-		
-		<div class="profile-label">Vocation:</div>
-		<div class="profile-value">Graduate student</div>
-
-		<div class="profile-label">Primary methods of transportation</div>
-		<div class="profile-value">Dodging cars with my little 10-speed (i.e., Bike).</div>
-
-		<div class="profile-label">Why I’m here:</div>
-		<div class="profile-value">I feel like the politicians just
-		aren’t paying attention to how difficult they are making it forpeople to do the
-		right thing when it comes to transportation. I ride my bike to work each daybecause
-		I don’t want to contribute to our dependency on oil. But it is dangerous! If politiciansreally
-		want us to start getting out of our cars, they have to start prioritizing non-road
-		relatedprojects. Anyway, I’m here to represent all the bikers out there who are
-		risking their lives to do the right thing.</div>
-
-		<div class="profile-label">My tags: </div>
-		<div class="profile-value">
-			<li style="font-size:.8em">Accidents</li>
-			<li style="font-size:1.1em">Assurance</li>
-			<li style="font-size:.9em">engineering</li>
-			<li style="font-size:1em">Fatalities</li>
-			<li style="font-size:.9em">Highway</li>
-			<li style="font-size:.9em">Injuries</li>
-			<li style="font-size:.8em">Insurance</li>
-			<li style="font-size:1em">investigation</li>
-			<li style="font-size:.9em">records</li>
-			<li style="font-size:1.1em">statistics</li>
-			<li style="font-size:1.1em">systems</li>
-			<li style="font-size:.8em">Traffic</li>
-			<li style="font-size:1em">Fatalities</li>
-			<li style="font-size:.9em">Highway</li>
-			<li style="font-size:.9em">Injuries</li>
-			<li style="font-size:.8em">Insurance</li>
-			<li style="font-size:1em">investigation</li>
-			<li style="font-size:.9em">records</li>
-			<li style="font-size:1.1em">statistics</li>
-			<li style="font-size:1.1em">systems</li>
-			<li style="font-size:.8em">Traffic</li>
+	<!-- End header -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu"> </div>
+	<!-- End header menu -->
+	<!-- #container is the container that wraps around all the main page content -->
+	<div id="container" class="clearfix">
+		<h3 class="headerColor">Edit your participant profile information</h3>
+		<p>Here you can edit your Let’s Improve Transportation user profile. Some information
+			in your user profile will appear to all other participants in the LIT challenge,
+			but if a field is marked by this icon ( <img src="images/icon_private.png" /> )
+			it will be kept private. You can return to this page to edit your profile at any
+			time. Simply click “user settings” at the top of any page.</p>
+		<!-- begin EDIT-PROFILE -->
+		<div id="edit-profile" >
+			<fieldset>
+			<legend>About Me</legend>
+			<div class="settings-col1">Username</div>
+			<div class="settings-col2">Eros</div>
+			<div class="clearBoth"></div>
+			</p>
+			<div class="settings-col1">Vocation<br />
+				<span>What do you do?</span></div>
+			<div class="settings-col2">
+				<input type="text" size="30">
+			</div>
+			<div class="clearBoth"></div>
+			<div class="settings-col1">Why I'm Here<br />
+				<span> Tell us about your interest in transportation and why you've chosen to
+				take on the LIT challenge.</span> </div>
+			<div class="settings-col2">
+				<textarea cols="60" rows="6"></textarea>
+			</div>
+			<div class="clearBoth"></div>
+			</fieldset>
+			<fieldset id="commute">
+			<legend>My Commute</legend>
+			<div id="left" class="floatLeft">
+				<h3>Home Location</h3>
+				<br />
+				<div class="settings-col1"><small>Address Line 1</small></div>
+				<div class="settings-col2">
+					<input type="text" />
+					<img title="This will not be shown to other participants" src="images/icon_private.png" /> </div>
+				<div class="clearBoth"></div>
+				<div class="settings-col1"><small>Address Line 2</small></div>
+				<div class="settings-col2">
+					<input type="text" />
+					<img title="This will not be shown to other participants" src="images/icon_private.png" /> </div>
+				<div class="clearBoth"></div>
+				<div class="settings-col1"><small>City</small></div>
+				<div class="settings-col2">
+					<input type="text" />
+				</div>
+				<div class="clearBoth"></div>
+				<div class="settings-col1"><small>State</small></div>
+				<div class="settings-col2">
+					<select name="Target" id="list">
+						<option value="Washington" selected="selected">Washington</option>
+						<option value="Alabama">Alabama</option>
+						<option value="Alaska">Alaska</option>
+						<option value="Arizona">Arizona</option>
+						<option value="Arkansas">Arkansas</option>
+						<option value="California">California</option>
+						<option value="Colorado">Colorado</option>
+						<option value="Connecticut">Connecticut</option>
+						<option value="Delaware">Delaware</option>
+						<option value="District of Columbia">District of Columbia</option>
+						<option value="Florida">Florida</option>
+						<option value="Georgia">Georgia</option>
+						<option value="Guam">Guam</option>
+						<option value="Hawaii">Hawaii</option>
+						<option value="Idaho">Idaho</option>
+						<option value="Illinois">Illinois</option>
+						<option value="Indiana">Indiana</option>
+						<option value="Iowa">Iowa</option>
+						<option value="Kansas">Kansas</option>
+						<option value="Kentucky">Kentucky</option>
+						<option value="Louisiana">Louisiana</option>
+						<option value="Maine">Maine</option>
+						<option value="Maryland">Maryland</option>
+						<option value="Massachusetts">Massachusetts</option>
+						<option value="Michigan">Michigan</option>
+						<option value="Minnesota">Minnesota</option>
+						<option value="Mississippi">Mississippi</option>
+						<option value="Missouri">Missouri</option>
+						<option value="Montana">Montana</option>
+						<option value="Nebraska">Nebraska</option>
+						<option value="Nevada">Nevada</option>
+						<option value="New Hampshire">New Hampshire</option>
+						<option value="New Jersey">New Jersey</option>
+						<option value="New Mexico">New Mexico</option>
+						<option value="New York">New York</option>
+						<option value="North Carolina">North Carolina</option>
+						<option value="North Dakota">North Dakota</option>
+						<option value="Ohio">Ohio</option>
+						<option value="Oklahoma">Oklahoma</option>
+						<option value="Oregon">Oregon</option>
+						<option value="Pennsylvania">Pennsylvania</option>
+						<option value="Rhode Island">Rhode Island</option>
+						<option value="South Carolina">South Carolina</option>
+						<option value="South Dakota">South Dakota</option>
+						<option value="Tennessee">Tennessee</option>
+						<option value="Texas">Texas</option>
+						<option value="Utah">Utah</option>
+						<option value="Vermont">Vermont</option>
+						<option value="Virginia">Virginia</option>
+						<option value="West Virginia">West Virginia</option>
+						<option value="Wisconsin">Wisconsin</option>
+						<option value="Wyoming">Wyoming</option>
+					</select>
+				</div>
+				<div class="clearBoth"></div>
+				<div class="settings-col1"><small>ZIP Code</small></div>
+				<div class="settings-col2">
+					<input type="text" size="5" maxlength="5">
+				</div>
+				<div class="clearBoth"></div>
+				<h3>Work Location</h3>
+				<div class="settings-col1"><small>City</small></div>
+				<div class="settings-col2">
+					<input type="text" />
+				</div>
+				<div class="clearBoth"></div>
+				<div class="settings-col1"><small>ZIP Code</small></div>
+				<div class="settings-col2">
+					<input type="text" size="5" maxlength="5">
+				</div>
+				<div class="clearBoth"></div>
+			</div>
+			<div id="right" class="floatRight">
+				<h3>Method of Transportation</h3>
+				<br />
+				<span>How do you usually travel from your home to work and other regular errands?</span>
+				<p>
+					<input type="text" size="60" />
+				</p>
+				<div id="errors" class="floatLeft" style="display:none"> Errors will go here. </div>
+				<div class="clearBoth"></div>
+			</div>
+			</fieldset>
+			<button class="floatRight padding5">Update my Profile</button>
+			<br class="clearBoth" />
 		</div>
-		
-		<div class="profile-label">Vocation:</div>
-		<div class="profile-value">Graduate student</div>
-		
-		<div class="clearBoth"></div>
-		
-	</div>
-</div>
-<!-- Run javascript function after most of the page is loaded, 
-work around for onLoad functions quirks with tabs.js -->
-<script type="text/javascript">
-                        io.getPosts('', 1, false, io.currentSort);
-                        //infoObject.assignTargetHeaders();
-                        io.getTargets();
-                        
-                  </script>
-<!-- start the bottom header menu -->
-<!-- Begin header menu - The wide ribbon underneath the logo -->
-<div id="headerMenu">
-	<div id="headerContainer">
-		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Learn More</h3>
+		<!-- end EDIT-PROFILE -->
+		<h3 class="headerColor">View and Edit your private user settings</h3>
+		<p>This information is private, and not shared with other participants in the LIT
+			challenge. You can always return to this page to edit it in the future. </p>
+		<!-- begin EDIT-SETTINGS -->
+		<div id="edit-settings">
+			<fieldset id="email">
+			<legend>My E-mail Settings</legend>
+			<div class="settings-col1">E-mail address</div>
+			<div class="settings-col2">
+				<input type="text">
+			</div>
+			<div class="clearBoth"></div>
+			<br />
+			<div class="email-col1"> Do you wish to receive e-mails notifying you of new activity
+				in your discussions? </div>
+			<div class="email-col2">
+				<label>
+				<input type="radio" name="group1" value="Yes">
+				Yes</label>
+				<br />
+				<label>
+				<input type="radio" name="group1" value="No">
+				No</label>
+			</div>
+			<div class="email-col3"> <strong>About e-mail notification for discussions:</strong><br />
+				When you post a new comment in a LIT discussion you always have the option
+					of selecting to receive e-mail notifications when there is new activity in that
+					discussion. Select no here if you wish to stop receiving any e-mails notifying
+					about discussion activity. </div>
+			<div class="clearBoth"></div>
+			<br />
+			<div class="email-col1">Do you wish to receive e-mails from the moderator announcing
+				progress in the LIT challenge?</div>
+			<div class="email-col2">
+				<label>
+				<input type="radio" name="group1" value="Yes">
+				Yes</label>
+				<br />
+				<label>
+				<input type="radio" name="group1" value="No">
+				No</label>
+			</div>
+			<div class="email-col3"> <strong>Note to paid research study participants:</strong><br />
+				We highly recommend that all paid research study participants select to receive
+					e-mails from the moderator. Not receiving these e-mails may result in missing
+					important steps in the LIT challenge, and thus impact your qualification for
+					payment. </div>
+			<div class="clearBoth"></div>
+			<br />
+			</fieldset>
+			<fieldset id="password">
+			<legend>Change my Password</legend>
+			<div class="floatLeft">
+				<div class="settings-col1"></div>
+				<div class="clearBoth"></div>
+				<div class="settings-col1">Current Password</div>
+				<div class="settings-col2">
+					<input type="password" size="10">
+				</div>
+				<div class="clearBoth"></div>
+				<div class="settings-col1">New Password</div>
+				<div class="settings-col2">
+					<input type="password" size="10">
+				</div>
+			</div>
+			<div id="errors" class="floatLeft" style="display:none"> Errors will go here. </div>
+			<div class="clearBoth"></div>
+			</fieldset>
+			<button class="floatRight padding5">Update My Settings</button>
 		</div>
-		<div class="headerButton floatLeft currentBox"> <a href="#">About LIT</a> </div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">FAQ</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Tutorial</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Proposed Projects</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Glossary</div>
-		<div class="headerButtonCurrent floatLeft "> <a href="#">Additional Resources</div>
-		<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+		<!-- end EDIT-SETTINGS -->
 	</div>
-</div>
-<!-- End header menu -->
-<!-- end the bottom header menu -->
-<!-- Begin footer -->
-<div id="footer"> </div>
-<!-- End footer -->
-</body>
-</html>
+	<!-- end container -->
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="cctView.do"/>
+	<!-- end feedback form -->
+	<!-- Begin header menu - The wide ribbon underneath the logo -->
+	<div id="headerMenu"> </div>
+	<!-- Begin footer -->
+	<div id="footer">
+		<jsp:include page="/footer.jsp" />
+	</div>
+	<!-- End footer -->
+	</body>
+</html:html>

@@ -1,13 +1,15 @@
-<?xml version='1.0' encoding='iso-8859-1'?>
-<tree id="0">
-	<item text="Books" id="books" open="1" call="1" select="1">
-		<item text="China" id="china"></item>
-		<item text="Lawrence Block" open="1" id="lb">
-			<item text="Around the World" open="1" id="atw">
-				<item text="China" id="china"></item>
-			</item>
-		</item>
-	</item>
-	<item text="Sport" id="mag_sp">
-	</item>
-</tree> 
+<?xml version='1.0' encoding='UTF-8'?>
+
+
+<tree id="845">
+<item text="ttt" id="1849" open="1">
+</item>
+<item text="vvv" id="1851" open="1">
+</item>
+<item text="xxx" id="1853" open="1">
+</item>
+<item text="zzz" id="1855" open="1">
+</item>
+</tree>
+
+

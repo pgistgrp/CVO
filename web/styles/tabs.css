@@ -1,193 +1,145 @@
-#tabContainer {
+/* $Id$ */
+
+/*--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------*/
+.tabberlive .tabbertabhide{
+ display:none;
+}
+
+/*--------------------------------------------------
+  .tabber = before the tabber interface is set up
+  .tabberlive = after the tabber interface is set up
+  --------------------------------------------------*/
+.tabber {
+	height: 100%;
+	overflow: auto;
+}
+
+
+.tabberlive {
+	margin-top:1em;
+}
+
+/*--------------------------------------------------
+  ul.tabbernav = the tab navigation list
+  li.tabberactive = the active tab
+  --------------------------------------------------*/
+ 
+
+ul.tabbernav
+{
+ margin:0;
+ padding: 3px 0;
+ border-bottom: 1px solid #F2E3EB;
+ font-size: 10pt;
+}
+
+ul.tabbernav li
+{
+ list-style: none;
+ margin: 0;
+ display: inline;
+}
+
+ul.tabbernav li a
+{
 	
-	width: 34%;
-	float: right;
+ padding: 3px 0.5em;
+ margin-left: 3px;
+ border: 1px solid #C6D78C;
+ border-bottom: none;
+ background: auto;
+ color:#000;
+ text-decoration: none;
+ padding-bottom: 5px;
 }
 
-#tabs {
-	float:left;
-	width:100%;
-	background:#FFFFFF;
-	line-height:normal;
+ul.tabbernav li a:link { color: #000; }
+ul.tabbernav li a:visited { color: #000; }
+
+ul.tabbernav li a:hover
+{
+ color: #000;
+ background-color: #E1F1C5;
+ border-color: #C6D78C;
+ border-top: 3px solid #5F6F40;
 }
 
-#tabs ul {
-	margin:0;
-	padding:14px 10px 0;
-	list-style:none;
+ul.tabbernav li.tabberactive a
+{
+ font-weight: bold;
+ background-color: #E1F1C5;
+ margin-bottom:-1px;
+ border-top: 3px solid #5F6F40;
+ color: #000;
+ /*cool pink color color: #FF67B3; */
 }
 
-#tabs li {
-	float:left;
-	background:url("left.gif") no-repeat left top;
-	margin:0;
-	padding:0 0 0 9px;
+ul.tabbernav li.tabberactive a:hover
+{
+
+	 background-color: #E1F1C5;
 }
 
-#tabs span {
-	float:left;
-	display:block;
-	background:url("right.gif") no-repeat right top;
-	padding:5px 15px 4px 6px;
-	text-decoration:none;
-	color:#321;
-}
-
-#tabs li.blue {
-	background:url("leftBlue.gif") no-repeat left top;
-}
-
-#tabs span.blue {
-	background:url("rightBlue.gif") no-repeat right top;
-}
+/*--------------------------------------------------
+  .tabbertab = the tab content
+  Add style only after the tabber interface is set up (.tabberlive)
+  --------------------------------------------------*/
 
 
-#tabs li.red {
-	background:url("leftRed.gif") no-repeat left top;
-}
+.tabberlive .tabbertab{
+ padding: 5px;
+ border: 1px solid #C0D7F6;
+ border-top:0;
 
-#tabs span.red {
-	background:url("rightRed.gif") no-repeat right top;
-}
+ background-color: #FFF;
+ 
 
-
-#tabs li.green {
-	background:url("leftGreen.gif") no-repeat left top;
-}
-
-#tabs span.green {
-	background:url("rightGreen.gif") no-repeat right top;
-}
+ /* If you don't want the tab size changing whenever a tab is changed
+    you can set a fixed height */
 
 
-#tabs li.darkgreen {
-	background:url("leftDarkGreen.gif") no-repeat left top;
-}
+ /* If you set a fix height set overflow to auto and you will get a
+    scrollbar when necessary */
 
-#tabs span.darkgreen {
-	background:url("rightDarkGreen.gif") no-repeat right top;
+ /* 100% */
+ 	overflow: auto;
+	position: relative;
+	height: 90%;	
 }
 
 
-#tabs li.orange {
-	background:url("leftOrange.gif") no-repeat left top;
+/* If desired, hide the heading since a heading is provided by the tab */
+.tabberlive .tabbertab h2 {
+ display:none;
+}
+.tabberlive .tabbertab h3 {
+ display:none;
 }
 
-#tabs span.orange {
-	background:url("rightOrange.gif") no-repeat right top;
+/* Example of using an ID to set different styles for the tabs on the page */
+.tabberlive#tab1 {
+}
+.tabberlive#tab2 {
+}
+.tabberlive#tab2 .tabbertab {
+ height:200px;
+ overflow:auto;
 }
 
-
-#tabs .current {
-	/* background-image:url("left_on.gif"); */
-	background-image:url("leftBlue.gif");
+#bar {
+	padding: 0em;
+	height: 100%;
+}
+#myTab {
+	/*border: 1px solid #00FF00;*/
+	height: 90%;
+	margin-top: 0px;
 }
 
-#tabs .current span {
-	/* background-image:url("right_on.gif"); */
-	background-image:url("rightBlue.gif");
-	color:#333333;
-	padding-bottom:5px;
-	font-weight: bold;
-	font-size: 14px;
-}
-
-#tabs .bluecurrent {
-	background-image:url("leftBlue.gif");
-}
-
-#tabs .bluecurrent span {
-	background-image:url("rightBlue.gif");
-	color:black;
-	padding-bottom:5px;
-	font-weight: bold;
-}
-
-#tabs .redcurrent {
-	background-image:url("leftRed.gif");
-}
-
-#tabs .redcurrent span {
-	background-image:url("rightRed.gif");
-	padding-bottom:5px;
-	font-weight: bold;
-}
-
-#tabs .greencurrent {
-	background-image:url("leftGreen.gif");
-}
-
-#tabs .greencurrent span {
-	background-image:url("rightGreen.gif");
-	color:black;
-	padding-bottom:5px;
-	font-weight: bold;
-}
-
-#tabs .darkgreencurrent {
-	background-image:url("leftDarkGreen.gif");
-}
-
-#tabs .darkgreencurrent span {
-	background-image:url("rightDarkGreen.gif");
-	color:black;
-	padding-bottom:5px;
-	font-weight: bold;
-}
-
-#tabs .orangecurrent {
-	background-image:url("leftOrange.gif");
-}
-
-#tabs .orangecurrent span {
-	background-image:url("rightOrange.gif");
-	color:black;
-	padding-bottom:5px;
-	font-weight: bold;
-}
-
-.tabHandle {
-	border: 0px;
-	display: inline;
-	/* cursor: move; */
-}
-
-#tabPanels {
-}
-
-.Panel {
-	background: #EEEEEE;
-	padding: 5px;
-	border: 1px solid #CCCCCC;
-	
-}
-
-.bluePanel {
-	background: #acc6d5;
-	padding: 5px;
-	border: 1px solid #CCCCCC;
-}
-
-.redPanel {
-	background: #e6d2cd;
-	padding: 5px;
-	border: 1px solid #CCCCCC;
-}
-
-.greenPanel {
-	background: #94ee83;
-	padding: 5px;
-	border: 1px solid #CCCCCC;
-}
-
-.darkgreenPanel {
-	background: #08ea08;
-	padding: 5px;
-	border: 1px solid #CCCCCC
-
-.orangePanel {
-	background: #ee8d10;
-	padding: 5px;
-	border: 1px solid #CCCCCC;
-	color: white;
+#myHeader {
+	height: 90%;
+	margin-top: 0px;
 }

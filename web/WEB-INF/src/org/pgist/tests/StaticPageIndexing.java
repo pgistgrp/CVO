@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
-import javax.swing.text.html.HTMLDocument;
-
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
@@ -93,9 +91,9 @@ public class StaticPageIndexing extends MatchingTask {
             Element root = doc.getRootElement();
             
             for (Element one : (List<Element>) root.elements("page")) {
-                String url = one.attributeValue("url");
-                String path = one.getTextTrim();
-                System.out.println(url+" ----> "+path);
+                String url = one.elementTextTrim("url");
+                String path = one.elementTextTrim("path");
+                String title = one.elementTextTrim("title");
                 
                 File file = new File(sourcePath, path);
                 
@@ -112,8 +110,10 @@ public class StaticPageIndexing extends MatchingTask {
                 document.add(new Field("url", url, Field.Store.YES, Field.Index.UN_TOKENIZED));
                 document.add(new Field("contents", parser.getReader()));
                 document.add(new Field("body", parser.getSummary(), Field.Store.YES, Field.Index.NO));
-                document.add(new Field("title", parser.getTitle(), Field.Store.YES, Field.Index.TOKENIZED));
+                document.add(new Field("title", title, Field.Store.YES, Field.Index.TOKENIZED));
                 writer.addDocument(document);
+                
+                System.out.println("Index one: "+ title + ", " + file.toString());
             }
             
             writer.optimize();

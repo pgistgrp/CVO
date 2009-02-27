@@ -2,20 +2,21 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
-	<head>
-	<title>Let's Improve Transportation - Learn More Home</title>
+<head>
+	<title>Learn More About</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
-@import "styles/lit.css";
-#container {font-size:12pt;}
-#container h3 {font-size:1.2em;margin-top:20px;}
-p {margin-left:10px;margin-top:5px;}
-p.nomargin {margin-left:0px;}
-
-</style>
+		@import "styles/lit.css";
+		#container {font-size:12pt;}
+		#container h3 {font-size:1.2em;margin:30px auto;}
+		p {margin-left:10px;margin-top:5px;}
+		p.nomargin {margin-left:0px;}
+	</style>
 	<!-- End Site Wide CSS -->
 	<!-- Site Wide JS -->
 	<script src="scripts/prototype.js" type="text/javascript"></script>
@@ -23,77 +24,92 @@ p.nomargin {margin-left:0px;}
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-	</head>
-	<body>
+</head>
+<body>
 	<!-- Begin the header - loaded from a separate file -->
-	<div id="header">
-		<!-- Begin header -->
-		[Load header from separate file]
-		<!-- End header -->
-	</div>
+    <wf:nav />
 	<!-- End header -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Learn More</h3>
-			</div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">Home</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton"> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Learn More About</h3>
 		</div>
+		<div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+        <!--
+		<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+        -->
 	</div>
+</div>
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
-	<div id="container">
-		<h2 class="headerColor">Learn More</h2>
-		<p class="nomargin">This is a small part of the larger Let’s Improve Transportation site. Most of
-			Learn More is open to the public, and contains information about transportation
-			decision making and transportation projects in our region. Here, you can… </p>
-		<h3 class="headerColor"><a href="#">Read More</a> about Let's Improve Transportation</h3>
-		<p>Information about this site and what we’re trying to accomplish</p>
-		<h3 class="headerColor">Read our <a href="#">Frequently Asked Questions</a></h3>
-		<p>Answers to specific questions about different steps in the process</p>
-		<h3 class="headerColor">View a <a href="#">Tutorial</a> about the more advanced
-			features of this site</h3>
-		<p>If you’re not clear about keywords, maps, or other tools, this tutorial may
-			be useful.</p>
-		<h3 class="headerColor">Research proposed projects in the <a href="#">Project Gallery</a></h3>
-		<p>View a list of every proposed transportation project, read detailed information
-			on them, and view them on a dynamic map.</p>
-		<h3 class="headerColor">Browse articles and other <a href="#">Resources</a> about
-			transportation planning</h3>
-		<p>Don’t know much about transportation planning? That’s okay, we’ve collected
-			some useful articles and links from around the Web that may be helpful.</p>
-		<h3 class="headerColor">Look up a word in our interactive transportation <a href="#">Glossary</a>
-		</h3>
-		<p>If you run into a word you’re not familiar with, you can look it up here.</p>
-		<br />
-	</div>
+<div id="container">
+	<h2 class="headerColor">Learn More</h2> 
+	<p>In this section of the website any interested user can link to the <a href="http://www.coastalatlas.net"title="Oregon Coastal Atlas">Oregon Coastal Atlas</a> or learn more about the Voicing Climate Concerns experiment in participatory decision making. The entire website will be available to registered participants. <a href="register.do">Register now</a>.</p>
+		<!-- Begin explanation -->
+
+	<h2 class="headerColor">About</h2>
+		
+    <p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about 
+    climate change and variability along the Oregon Coast and analysts produce maps depicting those 
+    concerns contingent on availabity of data.</p>
+    
+    <p>
+    There are 4 steps to complete this experiment.  Following the execution of each step, participants
+    have the opportunity to review and comment about the group process.  As part of the review and 
+    comment process, participants vote on whether the group is ready to proceed to the next step
+    </p>
+    
+    <p>
+    In Step 1, participants voice their concerns about climate change and attach key words or phrases
+    of their choosing to each of their concerns
+    </p>
+    
+    <p>
+    In Step 2, participants create categories by clustering the keywords and phrases they and the other
+    participants articulated in Step 1.
+    </p>
+    
+    <p>
+    In Step 3, participants create hierarchies out of the climate concern categories they and other 
+    participants created in Step 2.
+    </p>
+    
+    <p>
+    In Step 4, participants develop indicators to address the concerns organized in the 
+    previous step.  Participants will choose an indicator name and a unit of measurement appropriate
+    to address each concern.  Technical specialists with knowledge about the data holdings of the Oregon Coastal
+    Atlas will then provide feedback on the indicators developed by the participants.  Finally, in the 
+    review and comment phase of Step 4, participants will prioritise the indicators generated.  
+    After the completion of all four steps of the experiment, a report on the outcome of the experiment 
+    will be generated, and participants will have the opportunity to review and comment on the report.
+    </p>
+		
+	<br />
+</div>
 	<!-- end container -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu">
-		<div id="headerContainer">
-			<div id="headerTitle" class="floatLeft">
-				<h3 class="headerColor">Learn More</h3>
-			</div>
-			<div class="floatLeft headerButton currentBox"> <a href="#">Home</a> </div>
-			<div class="headerButton floatLeft"> <a href="#">About LIT</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">FAQ</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Tutorial</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Project Gallery</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">Glossary</a> </div>
-			<div class="floatLeft headerButton "> <a href="#">More Resources</a> </div>
-			<div id="headerNext" class="floatRight box5"> <a href="#">Next Step</a> </div>
+<div id="headerMenu">
+	<div id="headerContainer">
+		<div id="headerTitle" class="floatLeft">
+			<h3 class="headerColor">Learn More About</h3>
 		</div>
+		<div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
+        <!--
+		<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
+		<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+        -->
 	</div>
+</div>
 	<!-- End header menu -->
-	<!-- Begin footer -->
-	<!-- End footer -->
-	</body>
+</body>
 </html:html>

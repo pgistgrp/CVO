@@ -2,12 +2,13 @@ package org.pgist.report;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import org.pgist.criteria.Objective;
+import org.pgist.packages.ClusteredPackage;
 import org.pgist.system.County;
+import org.pgist.system.RegisterObject;
 import org.pgist.users.User;
 
 /**
@@ -24,24 +25,146 @@ public class ReportStats implements Serializable{
 
 	private Long id;
 	
-	private Long workflowId;
+	private Long workflowId; //not used, delete later
 	
 	private int totalUsers;
 	
 	private int males;
 	
 	private int females;
+	
+	private Set<County> counties = new HashSet<County>();
+	
+	private Set<RegisterObject> incomeRanges = new HashSet<RegisterObject>();
+	
+	private Set<RegisterObject> transTypes = new HashSet<RegisterObject>();
 	 
 	private Map<County, Integer> countyStats = new HashMap<County, Integer>();
 	
-	private Map<String, Integer> incomeStats = new HashMap<String, Integer>();
+	private Map<RegisterObject, Integer> incomeStats = new HashMap<RegisterObject, Integer>();
 	
-	private Map<String, Integer> transportStats = new HashMap<String, Integer>();
+	private Map<RegisterObject, Integer> transportStats = new HashMap<RegisterObject, Integer>();
 	
 	private Set<User> users = new HashSet<User>();
 	
+	private Set<ReportThemeStat> reportThemeStats = new HashSet<ReportThemeStat>();
 	
-    /**
+	private int totalPackages;
+	
+	private int userCompleted;
+	
+	private int quanity;
+	
+	private ClusteredPackage preferredPackage;
+
+	private int totalVotes;
+	
+	private int numEndorsed;
+	
+	private int totalCost;
+	
+	private String strTotalCost;
+	
+	
+	
+	//# of projects inside the preferred package
+	private int totalProjects; 
+	
+	
+	
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getTotalProjects() {
+		return totalProjects;
+	}
+
+
+	public void setTotalProjects(int totalProjects) {
+		this.totalProjects = totalProjects;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getNumEndorsed() {
+		return numEndorsed;
+	}
+
+
+	public void setNumEndorsed(int numEndorsed) {
+		this.numEndorsed = numEndorsed;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getTotalCost() {
+		return totalCost;
+	}
+
+
+	public void setTotalCost(int totalCost) {
+		this.totalCost = totalCost;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getTotalVotes() {
+		return totalVotes;
+	}
+
+
+	public void setTotalVotes(int totalVotes) {
+		this.totalVotes = totalVotes;
+	}
+
+
+	/**
+	 * @return the clusteredPackage
+     * @hibernate.many-to-one column="clustered_pkg_id" cascade="all" class="org.pgist.packages.ClusteredPackage"
+	 */
+	public ClusteredPackage getPreferredPackage() {
+		return preferredPackage;
+	}
+
+
+	public void setPreferredPackage(ClusteredPackage preferredPackage) {
+		this.preferredPackage = preferredPackage;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getQuanity() {
+		return quanity;
+	}
+
+
+	public void setQuanity(int quanity) {
+		this.quanity = quanity;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public int getUserCompleted() {
+		return userCompleted;
+	}
+
+
+	public void setUserCompleted(int userCompleted) {
+		this.userCompleted = userCompleted;
+	}
+
+
+	/**
      * @return
      * 
      * @hibernate.set lazy="true" cascade="all" order-by="id"
@@ -116,39 +239,39 @@ public class ReportStats implements Serializable{
 		this.males = males;
 	}
 
-
+	
     /**
      * @return
      * 
      * @hibernate.map table="pgist_report_stats_income_num_map" cascade="all"
      * @hibernate.collection-key column="reportstats_id"
-     * @hibernate.index-many-to-many column="incomeRange" class="org.pgist.users.BaseUser"
+     * @hibernate.index-many-to-many column="incomeRange" class="org.pgist.system.RegisterObject"
      * @hibernate.collection-element type="integer" column="num"
      */
-	public Map<String, Integer> getIncomeStats() {
+	public Map<RegisterObject, Integer> getIncomeStats() {
 		return incomeStats;
 	}
 
 
-	public void setIncomeStats(Map<String, Integer> incomeStats) {
+	public void setIncomeStats(Map<RegisterObject, Integer> incomeStats) {
 		this.incomeStats = incomeStats;
 	}
 
-
+	
     /**
      * @return
      * 
      * @hibernate.map table="pgist_report_stats_transport_num_map" cascade="all"
      * @hibernate.collection-key column="reportstats_id"
-     * @hibernate.index-many-to-many column="primaryTransport" class="org.pgist.users.User"
+     * @hibernate.index-many-to-many column="reg_obj_id" class="org.pgist.system.RegisterObject"
      * @hibernate.collection-element type="integer" column="num"
      */
-	public Map<String, Integer> getTransportStats() {
+	public Map<RegisterObject, Integer> getTransportStats() {
 		return transportStats;
 	}
 
 
-	public void setTransportStats(Map<String, Integer> transportStats) {
+	public void setTransportStats(Map<RegisterObject, Integer> transportStats) {
 		this.transportStats = transportStats;
 	}
 
@@ -177,7 +300,101 @@ public class ReportStats implements Serializable{
 	public void setWorkflowId(Long workflowId) {
 		this.workflowId = workflowId;
 	}
+
+
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="reportstats_id"
+     * @hibernate.collection-one-to-many class="org.pgist.system.County"
+     */
+	public Set<County> getCounties() {
+		return counties;
+	}
+
+
+	public void setCounties(Set<County> counties) {
+		this.counties = counties;
+	}
+
 	
-	
+	/**
+     * @return
+     * 
+     * @hibernate.set table="pgist_report_stats_income_range"  lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="register_object_income_id"
+     * @hibernate.collection-many-to-many class="org.pgist.system.RegisterObject" column="id"
+     */
+	public Set getIncomeRanges() {
+		return incomeRanges;
+	}
+
+
+	public void setIncomeRanges(Set<RegisterObject> incomeRanges) {
+		this.incomeRanges = incomeRanges;
+	}
+
+
+	/**
+     * @return
+     * 
+     * @hibernate.set table="pgist_report_stats_trans_type" lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="register_object_trans_id"
+     * @hibernate.collection-many-to-many class="org.pgist.system.RegisterObject" column="id"
+     */
+	public Set<RegisterObject> getTransTypes() {
+		return transTypes;
+	}
+
+
+	public void setTransTypes(Set<RegisterObject> transTypes) {
+		this.transTypes = transTypes;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+    public int getTotalPackages() {
+		return totalPackages;
+	}
+
+
+	public void setTotalPackages(int totalPackages) {
+		this.totalPackages = totalPackages;
+	}
+
+
+	/**
+     * @hibernate.property not-null="false"
+     */
+	public String getStrTotalCost() {
+		return strTotalCost;
+	}
+
+
+	public void setStrTotalCost(String strTotalCost) {
+		this.strTotalCost = strTotalCost;
+	}
+
+
+	/**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" order-by="id"
+     * @hibernate.collection-key column="report_theme_stat_id"
+     * @hibernate.collection-one-to-many class="org.pgist.report.ReportThemeStat"
+     */
+	public Set<ReportThemeStat> getReportThemeStats() {
+		return reportThemeStats;
+	}
+
+
+	public void setReportThemeStats(Set<ReportThemeStat> reportThemeStats) {
+		this.reportThemeStats = reportThemeStats;
+	}
+
+
 
 }

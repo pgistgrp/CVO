@@ -15,5 +15,154 @@
     </bean>
     
     
+    <bean id="emailDAO" class="org.pgist.system.EmailDAOImpl">
+        <property name="sessionFactory">
+           <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    
+    <bean id="emailService" parent="baseTransactionProxy">
+      <property name="target">
+        <bean class="org.pgist.system.EmailServiceImpl">
+          <property name="emailDAO" ref="emailDAO"/>
+        </bean>
+      </property>
+    </bean>
+    
+    
+    <bean id="emailSender" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.EmailSender">
+                <property name="emailDAO" ref="emailDAO"/>
+                <property name="props">
+                    <props>
+                        <prop key="mail.smtp.host">smtp.gmail.com</prop>
+                        <prop key="mail.transport.protocol">smtp</prop>
+                        <prop key="mail.smtp.auth">true</prop>
+                        <prop key="mail.smtp.starttls.enable">true</prop>
+                        <prop key="mail.smtp.port">587</prop>
+                    </props>
+                </property>
+                <property name="contentType"><value>text/html; charset=UTF-8</value></property>
+                <property name="from"><value>@emailFrom@</value></property>
+                <property name="fromThrough"><value>@emailFromThrough@</value></property>
+                <property name="username"><value>@emailUserName@</value></property>
+                <property name="password"><value>@emailPassword@</value></property>
+            </bean>
+        </property>
+    </bean>
+    
+    <!--
+    <bean id="emailSender" class="org.pgist.system.EmailSender">
+        <property name="emailDAO">
+            <ref bean="emailDAO" />
+        </property>
+        <property name="props">
+            <props>
+                <prop key="mail.smtp.host">smtp.gmail.com</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.port">587</prop>
+            </props>
+        </property>
+        <property name="contentType"><value>text/html; charset=UTF-8</value></property>
+        <property name="from"><value>@emailFrom@</value></property>
+        <property name="fromThrough"><value>@emailFromThrough@</value></property>
+        <property name="username"><value>@emailUserName@</value></property>
+        <property name="password"><value>@emailPassword@</value></property>
+    </bean>
+    -->
+    
+    <bean id="systemDAO" class="org.pgist.system.SystemDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+
+
+    <bean id="systemService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.SystemServiceImpl">
+                <property name="systemDAO" ref="systemDAO"/>
+                <property name="userDAO" ref="userDAO"/>
+                <property name="searchHelper" ref="searchHelper"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="systemAgent" class="org.pgist.system.SystemAgent">
+        <property name="systemService" ref="systemService"/>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+
+
+    <bean id="registerDAO" class="org.pgist.system.RegisterDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+
+
+    <bean id="registerService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.RegisterServiceImpl">
+                <property name="registerDAO" ref="registerDAO"/>
+                <property name="systemService" ref="systemService"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="registerAgent" class="org.pgist.system.RegisterAgent">
+        <property name="registerService" ref="registerService"/>
+        <property name="emailSender" ref="emailSender"/>
+    </bean>
+
+
+    <bean id="profileDAO" class="org.pgist.system.ProfileDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <bean id="profileService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.ProfileServiceImpl">
+                <property name="profileDAO" ref="profileDAO"/>
+                <property name="systemService" ref="systemService"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="profileAgent" class="org.pgist.system.ProfileAgent">
+        <property name="profileService" ref="profileService"/>
+    </bean>
+    
+    <bean id="logDAO" class="org.pgist.pes.LogDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    <bean id="logService" class="org.pgist.pes.LogServiceImpl">
+        <property name="logDAO" ref="logDAO"/>
+    </bean>
+    
+    <bean id="pesAgent" class="org.pgist.pes.SimpleLogger">
+        <property name="logService" ref="logService"/>
+        <property name="systemService" ref="systemService"/>
+    </bean>
+    
+    
+    <bean id="jythonAPI" class="org.pgist.util.JythonAPI" />
+    
+    
 </beans>
 

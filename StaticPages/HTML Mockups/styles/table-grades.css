@@ -5,18 +5,19 @@
 font-weight:bold;
 height:2em;
 padding:5px;
+text-align:center;
 }
 
 .gradeA {background:#53BE2F}
-.gradeAMinus {background:#6AC330}
-.gradeBPlus {background:#84C931}
-.gradeB {background:#9ECE32}
-.gradeBMinus {background:#D1D835}
-.gradeCPlus {background:#EFDE36}
-.gradeC {background:#F4DC26}
-.gradeCMinus {background:#E6BD33}
-.gradeDPlus {background:#DE9F30}
-.gradeD {background:#D5802D}
-.gradeDMinus {background:#CB5C29}
-.gradeFPlus {background:#C33D27}
-.gradeF {background:#BB1C25}
+.gradeAMinus {background:#67C551}
+.gradeBPlus {background:#86D276}
+.gradeB {background:#A2DD96}
+.gradeBMinus {background:#C2E9B9}
+.gradeCPlus {background:#E1F5DD}
+.gradeC {background:#FFFFFF}
+.gradeCMinus {background:#F0D5D7}
+.gradeDPlus {background:#E3AFB3}
+.gradeD {background:#D78C93}
+.gradeDMinus {background:#C9636D}
+.gradeFPlus {background:#BC3D4A;color:#fff;}
+.gradeF {background:#B2172D;color:#fff;}

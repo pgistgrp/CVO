@@ -4,8 +4,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.exceptions.UserExistException;
-import org.pgist.users.User;
 
 
 /**
@@ -55,10 +53,9 @@ public class RecoverPasswordResetAction extends Action {
     		if(password1.equals(password2) && password1.length() > 5) {
     			boolean valid = registerService.validatePasswordRecoveryCode(code);
     			if(valid) {
-	    			boolean changed = registerService.changePassword(code, password1);
+	    			boolean changed = registerService.createChangePassword(code, password1);
+	    			registerService.deleteAllExpired(); //keep the database clean
 	    			request.setAttribute("passwordupdated", changed);
-	    			
-	    			//email them here?
 	    			
 	    			if(changed){
 	    				registerService.deleteRecoverPassword(code);
@@ -67,10 +64,12 @@ public class RecoverPasswordResetAction extends Action {
 	    			} else {
 	    				request.setAttribute("sysmsg", "Password update failed.");
 	    				request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);	    				
-	    			}
-	    			
+	    			}	    			
 	    			return mapping.findForward("resetpassword");
     			}
+    			request.setAttribute("sysmsg", "Your password recovery code is incorrect or has reached its 30 minute time limit. Please <a href=\"recoverpassword.do\">Try Again.</a>");
+        		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+        		return mapping.findForward("resetpassword"); 
     		}
     		request.setAttribute("sysmsg", "passwords do not match or the password is not at least six characters long");
     		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);

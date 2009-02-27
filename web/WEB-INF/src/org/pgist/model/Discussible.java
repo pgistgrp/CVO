@@ -1,5 +1,7 @@
 package org.pgist.model;
 
+import java.io.Serializable;
+
 import org.pgist.users.User;
 
 
@@ -9,7 +11,7 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_discussible"
  */
-public abstract class Discussible {
+public abstract class Discussible implements Serializable {
     
     
     protected Long id;
@@ -17,6 +19,8 @@ public abstract class Discussible {
     protected DiscourseObject discourseObject;
     
     protected User owner;
+    
+    private boolean deleted;
     
     
     /**
@@ -35,7 +39,7 @@ public abstract class Discussible {
     
     /**
      * @return
-     * @hibernate.many-to-one column="do_id" class="org.pgist.model.DiscourseObject" casecad="all"
+     * @hibernate.many-to-one column="do_id" lazy="true" class="org.pgist.model.DiscourseObject" cascade="all"
      */
     public DiscourseObject getDiscourseObject() {
         return discourseObject;
@@ -49,7 +53,7 @@ public abstract class Discussible {
     
     /**
      * @return
-     * @hibernate.many-to-one column="owner_id" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="owner_id" lazy="true" class="org.pgist.users.User" cascade="all"
      */
     public User getOwner() {
         return owner;
@@ -58,6 +62,20 @@ public abstract class Discussible {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+    
+    
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isDeleted() {
+        return deleted;
+    }
+    
+    
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
     
     

@@ -4,23 +4,82 @@
 
     <pmethods>
     
-        <pmethod name="pmethod-init.situation" description="Initialize Projects">
+        <pmethod name="pmethod-init.situation" access="moderator">
             <declaration>
                 <outs>
+                    <var name="pmethod.cct_id"/>
                     <var name="pmethod.proj_suite_id"/>
                     <var name="pmethod.fund_suite_id"/>
+                    <var name="pmethod.proj_isid"/>
+                    <var name="pmethod.fund_isid"/>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.repo_suite_id"/>
+                    <var name="pmethod.pkg_suite_id"/>
+                    <var name="pmethod.experiment_id"/>
                 </outs>
             </declaration>
             <sequence>
+                <pgame name="pgame-create.project.suite">
+                    <declaration>
+                        <outs>
+                            <var name="suite_id" ref="pmethod.proj_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-create.funding.suite">
+                    <declaration>
+                        <outs>
+                            <var name="suite_id" ref="pmethod.fund_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-create.cct">
+                    <declaration>
+                        <outs>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-create.criteria.suite">
+                    <declaration>
+                        <outs>
+                            <var name="suite_id" ref="pmethod.crit_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-create.package.suite">
+                    <declaration>
+                        <outs>
+                            <var name="suite_id" ref="pmethod.pkg_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                 <pgame name="pgame-create.report.suite">
+                    <declaration>
+                        <outs>
+                            <var name="suite_id" ref="pmethod.repo_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-select.template">
+                    <declaration>
+                        <outs>
+                            <var name="template_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-import.template">
+                    <declaration>
+                        <ins>
+                            <var name="proj_suite_id" ref="pmethod.proj_suite_id"/>
+                            <var name="fund_suite_id" ref="pmethod.fund_suite_id"/>
+                            <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
+                            <var name="template_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
                 <branch>
                     <sequence>
-                        <pgame name="pgame-create.project.suite">
-                            <declaration>
-                                <outs>
-                                    <var name="suite_id" ref="pmethod.proj_suite_id"/>
-                                </outs>
-                            </declaration>
-                        </pgame>
                         <pgame name="pgame-define.projects">
                             <declaration>
                                 <ins>
@@ -28,15 +87,15 @@
                                 </ins>
                             </declaration>
                         </pgame>
-                    </sequence>
-                    <sequence>
-                        <pgame name="pgame-create.funding.suite">
+                        <pgame name="pgame-index.project.suite">
                             <declaration>
-                                <outs>
-                                    <var name="suite_id" ref="pmethod.fund_suite_id"/>
-                                </outs>
+                                <ins>
+                                    <var name="suite_id" ref="pmethod.proj_suite_id"/>
+                                </ins>
                             </declaration>
                         </pgame>
+                    </sequence>
+                    <sequence>
                         <pgame name="pgame-define.fundings">
                             <declaration>
                                 <ins>
@@ -46,22 +105,94 @@
                         </pgame>
                     </sequence>
                 </branch>
+                <pgame name="pgame-publish.projects">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="suite_id" ref="pmethod.proj_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.proj_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-publish.fundings">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="suite_id" ref="pmethod.fund_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="is_id" ref="pmethod.fund_isid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-create.experiment">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="project_suite_id" ref="pmethod.proj_suite_id"/>
+                            <var name="funding_suite_id" ref="pmethod.fund_suite_id"/>
+                            <var name="package_suite_id" ref="pmethod.pkg_suite_id"/>
+                            <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
+                            <var name="report_suite_id" ref="pmethod.repo_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="experiment_id" ref="pmethod.experiment_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-cvo" description="Concern Value Object">
+        <pmethod name="pmethod-global">
             <declaration>
-                <outs>
+                <ins>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.proj_isid"/>
+                    <var name="pmethod.fund_isid"/>
+                </ins>
+            </declaration>
+            <sequence>
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sda.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.proj_isid"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sda.fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.fund_isid"/>
+                                    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-cvo" description="Step 1: Discuss Concerns">
+            <declaration>
+                <ins>
                     <var name="pmethod.cct_id"/>
+                </ins>
+                <outs>
                     <var name="pmethod.theme_isid"/>
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-create.cct">
+                <pgame name="pgame-define.travelPath">
                     <declaration>
-                        <outs>
-                            <var name="cct_id" ref="pmethod.cct_id"/>
-                        </outs>
                     </declaration>
                 </pgame>
                 <branch>
@@ -104,29 +235,24 @@
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-criteria" description="Criteria and Objectives">
+        <pmethod name="pmethod-criteria" description="Step 2: Assess Transportation Improvement Factors">
             <declaration>
                 <ins>
                     <var name="pmethod.cct_id"/>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.theme_isid"/>
                 </ins>
                 <outs>
-                    <var name="pmethod.crit_suite_id"/>
                     <var name="pmethod.crit_isid"/>
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-create.criteria.suite">
-                    <declaration>
-                        <outs>
-                            <var name="suite_id" ref="pmethod.crit_suite_id"/>
-                        </outs>
-                    </declaration>
-                </pgame>
                 <pgame name="pgame-define.criteria">
                     <declaration>
                         <ins>
                             <var name="suiteId" ref="pmethod.crit_suite_id"/>
                             <var name="cctId" ref="pmethod.cct_id"/>
+                            <var name="theme_isid" ref="pmethod.theme_isid"/>
                         </ins>
                     </declaration>
                 </pgame>
@@ -147,6 +273,8 @@
                             <declaration>
                                 <ins>
                                     <var name="isid" ref="pmethod.crit_isid"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                                    <var name="themeIsid" ref="pmethod.theme_isid"/>
                                 </ins>
                             </declaration>
                         </pgame>
@@ -164,71 +292,230 @@
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-projects" description="Review Projects">
+        <pmethod name="pmethod-projects" description="Step 3: Create Transportation Packages">
             <declaration>
                 <ins>
                     <var name="pmethod.cct_id"/>
-                    <var name="pmethod.suite_id"/>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
+                    <var name="pmethod.proj_is_id"/>
+                    <var name="pmethod.fund_is_id"/>
+                    <var name="pmethod.pkg_suite_id"/>
                 </ins>
-                <outs>
-                    <var name="pmethod.is_id"/>
-                </outs>
             </declaration>
             <sequence>
                 <pgame name="pgame-grade.projects">
                     <declaration>
                         <ins>
-                            <var name="suiteId" ref="pmethod.suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
-                <pgame name="pgame-publish.projects">
+                <branch>
+                    <sequence>
+                        <pgame name="pgame-sd.projects">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.proj_is_id"/>
+                                    <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                    <sequence>
+                        <pgame name="pgame-sd.fundings">
+                            <declaration>
+                                <ins>
+                                    <var name="isid" ref="pmethod.fund_is_id"/>
+                                    <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                                </ins>
+                            </declaration>
+                        </pgame>
+                    </sequence>
+                </branch>
+                 <pgame name="pgame-create.user.package">
+                    <declaration>
+                        <ins>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                
+            </sequence>
+        </pmethod>
+        
+        <pmethod name="pmethod-packages" description="Step 4: Select a Package for Recommendation">
+            <declaration>
+                <ins>
+                    <var name="pmethod.cct_id"/>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.pkg_suite_id"/>
+                </ins>
+                <outs>
+                    <var name="pmethod.vote_suite_id"/>
+                </outs>
+            </declaration>
+            <sequence>
+                <!--pgame name="pgame-planning.factor.reweigh">
+                    <declaration>
+                        <outs>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame-->
+                <pgame name="pgame-group.packages">
+                    <declaration>
+                        <ins>
+                            <var name="suite_id" ref="pmethod.pkg_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-manage.packages">
+                    <declaration>
+                        <ins>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-publish.packages">
                     <declaration>
                         <ins>
                             <var name="cct_id" ref="pmethod.cct_id"/>
-                            <var name="suite_id" ref="pmethod.suite_id"/>
+                            <var name="suite_id" ref="pmethod.pkg_suite_id"/>
                         </ins>
                         <outs>
                             <var name="is_id" ref="pmethod.is_id"/>
                         </outs>
                     </declaration>
                 </pgame>
-                <pgame name="pgame-sd.projects">
+                <pgame name="pgame-create.vote.suite">
+                    <declaration>
+                        <ins>
+                            <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
+                        </ins>
+                        <outs>
+                            <var name="poll_suite_id" ref="pmethod.poll_suite_id"/>
+                            <var name="vote_suite_id" ref="pmethod.vote_suite_id"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-sd.packages">
                     <declaration>
                         <ins>
                             <var name="isid" ref="pmethod.is_id"/>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.poll_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-vote.packages">
+                    <declaration>
+                        <ins>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-tally.packages">
+                    <declaration>
+                        <ins>
+                            <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
+                            <var name="vote_suite_id" ref="pmethod.vote_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-fundings" description="Review Funding Sources">
+        
+        <pmethod name="pmethod-report" description="Step 5: Prepare Group Report">
             <declaration>
                 <ins>
-                    <var name="pmethod.cct_id"/>
-                    <var name="pmethod.suite_id"/>
+                    <var name="pmethod.fund_suite_id"/>
+                    <!-- <var name="pmethod.proj_isid"/>
+                    <var name="pmethod.fund_isid"/>-->
+                    <var name="pmethod.pkg_suite_id"/>
+                    <var name="pmethod.proj_suite_id"/>
+                    <var name="pmethod.crit_suite_id"/>
+                    <var name="pmethod.cct_id"/>                     
+                    <var name="pmethod.repo_suite_id"/>
+                    <var name="pmethod.vote_suite_id"/>
                 </ins>
                 <outs>
-                    <var name="pmethod.is_id"/>
+                    <var name="pmethod.repo_isid"/>
                 </outs>
             </declaration>
             <sequence>
-                <pgame name="pgame-publish.fundings">
+                <pgame name="pgame-create.report.stats">
                     <declaration>
                         <ins>
+                            <var name="proj_suite_id" ref="pmethod.proj_suite_id"/>
+                            <var name="fund_suite_id" ref="pmethod.fund_suite_id"/>
+                            <var name="crit_suite_id" ref="pmethod.crit_suite_id"/>
+                            <var name="pkg_suite_id" ref="pmethod.pkg_suite_id"/>
+                            <var name="repo_suite_id" ref="pmethod.repo_suite_id"/>
+                            <var name="cct_id" ref="pmethod.cct_id"/>   
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-define.report">
+                    <declaration>
+                        <ins>
+                            <var name="suite_id" ref="pmethod.repo_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-publish.report">
+                    <declaration>
+                        <ins>
+                            <var name="suite_id" ref="pmethod.repo_suite_id"/>
                             <var name="cct_id" ref="pmethod.cct_id"/>
-                            <var name="suite_id" ref="pmethod.suite_id"/>
                         </ins>
                         <outs>
-                            <var name="is_id" ref="pmethod.is_id"/>
+                            <var name="is_id" ref="pmethod.repo_isid"/>
                         </outs>
                     </declaration>
                 </pgame>
-                <pgame name="pgame-sd.fundings">
+                <pgame name="pgame-sd.report">
                     <declaration>
                         <ins>
-                            <var name="isid" ref="pmethod.is_id"/>
+                            <var name="isid" ref="pmethod.repo_isid"/>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
+                        </ins>
+                    </declaration>
+                </pgame>
+                <pgame name="pgame-vote.report">
+                    <declaration>
+                        <ins>
+                            <var name="cct_id" ref="pmethod.cct_id"/>
+                            <var name="critSuiteId" ref="pmethod.crit_suite_id"/>
+                            <var name="pkgSuiteId" ref="pmethod.pkg_suite_id"/>
+                            <var name="repoSuiteId" ref="pmethod.repo_suite_id"/>
+                            <var name="projSuiteId" ref="pmethod.proj_suite_id"/>
+                            <var name="fundSuiteId" ref="pmethod.fund_suite_id"/>
+                            <var name="voteSuiteId" ref="pmethod.vote_suite_id"/>
                         </ins>
                     </declaration>
                 </pgame>

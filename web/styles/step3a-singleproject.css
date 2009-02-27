@@ -1,12 +1,23 @@
-#container {padding:1em;font-size:10pt;}
+#container {padding:1em;font-size:11pt;}
+#object{padding:5px;border:1px solid #ADCFDE}
 
-#obj-right img {margin:0px 0px 20px 20px;}
+#obj-right {margin:0px 0px 20px 20px;background-color:#C4D88C;}
+
+h3{
+font-size:16pt;
+background:#ADCFDE;
+color:#31496B;
+padding:5px;
+margin-bottom:10px;
+}
+
 h4
 {
-font-size:1em;
+font-size:12pt;
 margin:5px 0px;
 padding:0px;
 text-align:left;
+color:#31496B;
 }
 
 /* Table styles for this page */
@@ -31,3 +42,12 @@ background:#ccc;
 .value {float:right;width:200px;}
 
 li span {font-weight:bold;}
+
+#project-moneyNeeded {
+display:block;
+font-size:13pt;
+margin-top:20px;
+}
+
+#feedbackForm h3 {background:none;}
+.rating{float:right;margin-right:150px;_margin-right:80px;font-weight:bold;}

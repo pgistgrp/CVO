@@ -4,6 +4,7 @@
 <head>
 <title>Choice Modeler</title>
 <link rel="stylesheet" type="text/css" href="/styles/default.css">
+<event:pageunload />
 </head>
 
 <body>

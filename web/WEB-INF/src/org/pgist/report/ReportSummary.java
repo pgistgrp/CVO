@@ -22,18 +22,37 @@ public class ReportSummary implements Serializable {
 
 	private String executiveSummary;
 	
-	private String participantsSummary; 
+	private String part1a; 
 	
-	private String concernSummary;
+	private String part1b;
 	
-	private String criteriaSummary;
+	private String part2a;
 	
-	private String projectSummary;
+	private String part3a;
+
+	private String part4a;
 	
-	private String packageSummary;
+	private boolean finalized = false;
 	
+    private String finalVoteDate;
+
+    private String finalReportDate;
 	
+    
     /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public boolean isFinalized() {
+		return finalized;
+	}
+
+	public void setFinalized(boolean finalized) {
+		this.finalized = finalized;
+	}
+
+	
+	/**
      * @hibernate.id generator-class="native"
      */
 	public Long getId() {
@@ -44,33 +63,10 @@ public class ReportSummary implements Serializable {
 		this.id = id;
 	}
 
-    /**
-     * @return
-     * @hibernate.property type="text" not-null="true"
-     */
-	public String getConcernSummary() {
-		return concernSummary;
-	}
-
-	public void setConcernSummary(String concernSummary) {
-		this.concernSummary = concernSummary;
-	}
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
-     */
-	public String getCriteriaSummary() {
-		return criteriaSummary;
-	}
-
-	public void setCriteriaSummary(String criteriaSummary) {
-		this.criteriaSummary = criteriaSummary;
-	}
-
-    /**
-     * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
 	public String getExecutiveSummary() {
 		return executiveSummary;
@@ -80,41 +76,97 @@ public class ReportSummary implements Serializable {
 		this.executiveSummary = executiveSummary;
 	}
 
+	
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
-	public String getPackageSummary() {
-		return packageSummary;
+	public String getPart1a() {
+		return part1a;
 	}
 
-	public void setPackageSummary(String packageSummary) {
-		this.packageSummary = packageSummary;
+	public void setPart1a(String part1a) {
+		this.part1a = part1a;
 	}
+
+	
+    /**
+     * @return
+     * @hibernate.property type="text" not-null="false"
+     */
+	public String getPart1b() {
+		return part1b;
+	}
+
+	public void setPart1b(String part1b) {
+		this.part1b = part1b;
+	}
+
+	
+    /**
+     * @return
+     * @hibernate.property type="text" not-null="false"
+     */
+	public String getPart2a() {
+		return part2a;
+	}
+
+	public void setPart2a(String part2a) {
+		this.part2a = part2a;
+	}
+
+	
+    /**
+     * @return
+     * @hibernate.property type="text" not-null="false"
+     */
+	public String getPart3a() {
+		return part3a;
+	}
+
+	public void setPart3a(String part3a) {
+		this.part3a = part3a;
+	}
+
+	
+    /**
+     * @return
+     * @hibernate.property type="text" not-null="false"
+     */
+	public String getPart4a() {
+		return part4a;
+	}
+
+	public void setPart4a(String part4a) {
+		this.part4a = part4a;
+	}
+
 
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
-	public String getParticipantsSummary() {
-		return participantsSummary;
+	public String getFinalVoteDate() {
+		return finalVoteDate;
 	}
 
-	public void setParticipantsSummary(String participantsSummary) {
-		this.participantsSummary = participantsSummary;
+	public void setFinalVoteDate(String finalVoteDate) {
+		this.finalVoteDate = finalVoteDate;
 	}
 
+	
     /**
      * @return
-     * @hibernate.property type="text" not-null="true"
+     * @hibernate.property type="text" not-null="false"
      */
-	public String getProjectSummary() {
-		return projectSummary;
+	public String getFinalReportDate() {
+		return finalReportDate;
 	}
 
-	public void setProjectSummary(String projectSummary) {
-		this.projectSummary = projectSummary;
+	public void setFinalReportDate(String finalReportDate) {
+		this.finalReportDate = finalReportDate;
 	}
+
 	
 	
 } //class ReportSummary

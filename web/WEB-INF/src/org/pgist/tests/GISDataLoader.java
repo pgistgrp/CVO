@@ -2,6 +2,10 @@ package org.pgist.tests;
 
 import java.io.File;
 
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
@@ -15,10 +19,6 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
 
 /**
  * Ant task to load projects, alternatives, and project foorprints 
@@ -72,7 +72,14 @@ public class GISDataLoader extends MatchingTask {
         			if(current == null || current.getName().compareToIgnoreCase(content) != 0){
         				current = new Project();
         				current.setName(content);
-	        			
+        				
+        				//John's addition for testing only
+        				if(sht.getCell(5,i).getContents().equals("transit")) {
+        					current.setTransMode(2);
+        				} else if(sht.getCell(5,i).getContents().equals("road")) {
+        					current.setTransMode(1);
+        				}
+        				
 	        			System.out.println(">>inserted project: " + content);     			
         			}
         			
@@ -114,12 +121,18 @@ public class GISDataLoader extends MatchingTask {
     	
         appContext = new FileSystemXmlApplicationContext(
                 new String[] {
-                    configPath + "/context-database.xml",
-                    configPath + "/context-system.xml",
-                    configPath + "/context-base.xml",
-                    configPath + "/context-cvo.xml",
-                    configPath + "/context-projects.xml",
-                    configPath + "/context-funding.xml",
+                        configPath + "/context-database.xml",
+                        configPath + "/context-system.xml",
+                        configPath + "/context-tasks.xml",
+                        configPath + "/context-other.xml",
+                        "classpath:/config/context-workflow.xml",
+                        configPath + "/context-base.xml",
+                        configPath + "/context-cvo.xml",
+                        configPath + "/context-criteria.xml",
+                        configPath + "/context-projects.xml",
+                        configPath + "/context-funding.xml",
+                        configPath + "/context-report.xml",
+                        configPath + "/context-packages.xml",
                 }
             );    	
     	

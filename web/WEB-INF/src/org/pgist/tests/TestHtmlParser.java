@@ -6,7 +6,6 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import org.hibernate.Transaction;
 import org.htmlparser.Parser;
-import org.pgist.search.SearchHelper;
 import org.pgist.web.HtmlTitleFilter;
 
 import bsh.Interpreter;

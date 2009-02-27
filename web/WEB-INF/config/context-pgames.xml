@@ -23,7 +23,7 @@
         <bean class="org.pgist.workflow.pgame.brainstorming.BrainStormingAgent">
           <property name="userDAO" ref="userDAO"/>
           <property name="brainStormingDAO" ref="brainStormingDAO"/>
-          <property name="searchHelper" ref="searchHelper"/>
+          <!--property name="searchHelper" ref="searchHelper"/-->
         </bean>
       </property>
     </bean>

@@ -4,6 +4,7 @@
 
 
   <pact refid="100" name="Concern Collection" description="Concern Collection">
+    <action>/concernCollection.do</action>
     <class>org.pgist.cvo.ConcernCollection</class>
     <environment>
       <var name="totalCount" value="1"/>
@@ -12,6 +13,7 @@
   
   
   <pact refid="200" name="Voting" description="Voting">
+    <action>/voting.do</action>
     <class>org.pgist.voting.BrainStorming</class>
     <environment>
       <var name="totalCount" value="1"/>

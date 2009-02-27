@@ -2,6 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -37,19 +38,16 @@
 	<![endif]-->
 	
 	<div id="header">
-		<!-- Begin header -->
-		<jsp:include page="/header.jsp" />
-		<!-- End header -->
+  <!-- Start Global Headers  -->
+	  <wf:nav />
+	  <wf:subNav />
+  <!-- End Global Headers -->
 	</div>
-	<!-- End header -->
-	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu"> </div>
-	<!-- End header menu -->
 	
 	<!-- #container is the container that wraps around all the main page content -->
 
   <div id="container">
-	  <h2 align="center" class="headerColor">Your Registration is Complete</h2>
+	  <h3 align="center" class="headerColor">Your Registration is Complete</h3>
 		
 		<div align="center"><a href="login.do" class="style1">Please click here to login</a></div>
 	<p>&nbsp;</p>
@@ -61,7 +59,9 @@
 	<pg:feedback id="feedbackDiv" action="cctView.do"/>
 	<!-- end feedback form -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
-	<div id="headerMenu"> </div>
+  <!-- Start Global Headers  -->
+	  <wf:subNav />
+  <!-- End Global Headers -->
 	<!-- End header menu -->
 </body>
 </html:html>

@@ -3,121 +3,238 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html:html>
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
-<title>Structured Discussion Main</title>
+<title>Let's Improve Transportation - Discuss</title>
 <!-- Site Wide CSS -->
-<style type="text/css" media="screen">@import "styles/position.css";</style>
-<style type="text/css" media="screen">@import "styles/styles.css";</style>
+<style type="text/css" media="screen">
+	@import "styles/lit.css";	
+</style>
+<style type="text/css"> v\:* {behavior:url(#default#VML);}</style>
 <!-- Temporary Borders used for testing <style type="text/css" media="screen">@import "styles/tempborders.css";</style>-->
 <!-- End Site Wide CSS -->
-
-
+<script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script language="JavaScript" src="scripts/qtip.js" type="text/JavaScript"></script>
 <!-- Site Wide JavaScript -->
+<script src="scripts/globalSnippits.js" type="text/javascript"></script>
 <script src="scripts/tags.js" type="text/javascript"></script>
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
-<script src="scripts/search.js" type="text/javascript"></script>
 <!-- End Site Wide JavaScript -->
-
 <!-- DWR JavaScript Libraries -->
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>
 <!-- End DWR JavaScript Libraries -->
-
 <!--SDX Specific  Libraries-->
 <script type='text/javascript' src='/dwr/interface/SDAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/BCTAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/CriteriaAgent.js'></script>
+<script type='text/javascript' src='/scripts/util.js'></script>
 <!--End SDX Specific  Libraries-->
 
+<!--Mapping  Libraries-->
+<wf:gmapjs />
+<script type='text/javascript' src='/dwr/interface/ProjectAgent.js'></script>
+<script type='text/javascript' src='/dwr/interface/PESAgent.js'></script>
+<script type='text/javascript' src='scripts/pgistmap2.js'></script>
+<script type='text/javascript' src='/dwr/interface/RegisterAgent.js'></script>
+<script language="javascript" type="text/javascript" src="scripts/pdmarker.js"></script>
+<link rel="stylesheet" href="styles/travelpath.css" type="text/css" />
+<!--END Mapping  Libraries-->
 
 <script type="text/javascript">
-	//Start Global Variables
+	<!--
+		tinyMCE.init({
+			mode : "exact",
+			elements: "txtNewPost",
+			theme : "advanced",
+			theme_advanced_buttons1 : "bold, italic, bullist, numlist,undo, redo,link",
+			theme_advanced_buttons2 : "",
+			theme_advanced_buttons3 : "",
+			content_css : "/scripts/tinymce/jscripts/tiny_mce/themes/simple/css/bigmce.css"
+		});
 
-	 function InfoObject(){
-	 	 this.objectDiv =  'object-content';
-	 	 this.discussionDiv = 'discussion';
-	 	 this.sidebarDiv = 'sidebar_object';
-	 	 this.roomsTitle = "All Concern Themes"; //used to display the room selector title (for link back to all rooms)
-
-	 	this.assignTargetHeaders = function(){
-	 			var targetTitle = "${object.object}";
-				$('targetTitle').innerHTML = '<html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">'+ this.roomsTitle +'</html:link>  &raquo; ' + targetTitle; //object title div id
-				$('targetDiscussionTitle').innerHTML = "${object.numDiscussion} Discussion(s) about " + targetTitle;//discussion title div id
-				$('targetSideBarTitle').innerHTML = 'filtered by: ' + targetTitle;//sidebar title div id
-				this.getTargets();
-		};
-	 	this.getTargets = function(){
-	 		if (${object.id} != null){
-	 		SDAgent.getSummary({ioid: ${object.id}}, {
-					callback:function(data){
-							if (data.successful){
-	              				 //displayIndicator(false);
-	              				 $(infoObject.objectDiv).innerHTML = data.source.html; 
-	              				
-	              			  if(data.voting == null || data.voting == undefined){
-						           $('structure_question').innerHTML = '<span class="smalltext">Does this summary adequately reflect concerns expressed by participants? <a href="javascript:infoObject.setVote(true);"><img src="images/btn_yes_s.gif" alt="YES" border="0"><a href="javascript:infoObject.setVote(false);"><img src="images/btn_no_s.gif" alt="NO" border="0"></a></span>';
-					          }else{
-						           $('structure_question').innerHTML = '<span class="smalltext">Your vote has been recorded. Thank you for your participation.</span>';
-						      }
-							}else{
-								alert(data.reason);
-								 //displayIndicator(false);
-							}
-						},
-					errorHandler:function(errorString, exception){ 
-							alert("get targets error:" + errorString + exception);
+		///////////////////////////////////////// START INFO OBJECT //////////////////////////////////////
+		
+		var io = new Object();
+		//Global Var Settings
+		io.sdcStructureId = "${themeIsid}";
+		io.structureId = "${structure.id}";
+		io.objectId = "${object.id}";
+		io.projSuiteId = "${projSuiteId}";
+		io.critSuiteId = "${critSuiteId}";
+		io.pkgSuiteId = "${pkgSuiteId}";
+		io.fundSuiteId = "${fundSuiteId}";
+		io.repoSuiteId = "${repoSuiteId}";
+		io.voteSuiteId = "${voteSuiteId}";
+		io.cctId = "${structure.cctId}";
+		io.workflowId = "${param.workflowId}";
+		io.contextId = "${param.contextId}";
+		io.activityId = "${param.activityId}";
+		io.wfInfo = "workflowId="+io.workflowId+"&contextId="+io.contextId+"&activityId="+io.activityId;
+		io.currentFilter = '';
+		io.currentPage = ("${param.page}" != "") ? "${param.page}" : 1;
+		io.currentSort = ("${param.sort}" != "") ? "${param.sort}" : 1;
+		io.postCount = 5;
+		io.tagCloudCount = 20;
+		io.currentTagCloudPage = 1;
+		
+		/*----Input ID's - these id's of input elements have changing content or gets read by the javascript ---- */
+	 	 io.newPostTitleInput = "txtNewPostTitle";   //new post title input box
+	 	 io.newPostTagsInput = "txtNewPostTags"; //new post tags input box
+		 io.newPostNotifier = "ckboxPostNotifier"; //checkbox to determine if user gets email notifications
+	 	 
+	 	 /*----Divs - these divs have changing content or gets read by the javascript ---- */
+	 	 io.sidebarDiv = 'sidebar_object'; //div that contains the sidebar
+	 	 io.objectDiv =  'object-content'; //div that contains the object
+	 	 io.discussionDiv = 'discussion'; //div that contains the discussion
+	 	 io.votingQuestionDiv = 'structure_question' //div that contains the voting question
+	 	 io.newDiscussionDiv = 'newDiscussion'; //the new discussion pull down
+	 	 io.divSearchResults = 'searchResults';
+	 	 io.filterAnchor = '#filterJump';
+	 	 io.divFilteredBy = 'filteredBy';
+	 	 io.divTagCloud = 'tagCloud';
+		
+		/*************** Get Targets - If IOID is ommitted, return sdcSummary.jsp::else, returns sdcStructureSummary.jsp************** */
+		io.getTargets = function(){
+			SDAgent.getTarget({isid:io.structureId, ioid:io.objectId}, <pg:wfinfo/>,{
+				callback:function(data){
+					if (data.successful){
+						$(io.objectDiv).innerHTML = data.source.html;
+						eval(data.source.script);
+					}else{
+						alert("GET TARGETS FAILED.  REASON: "+data.reason);
 					}
-					});
-	 			}else{
-	 				$(infoObject.objectDiv).innerHTML ="list of concern themes";
-	 			}
+				},
+				errorHandler:function(errorString, exception){ 
+				alert("SDAgent.getTarget( error:" + errorString + "exception " +exception);
+				}
+			});		
+			
+		};
 
-	 	};
-	 
-
-	 	 this.setVote = function(agree){
-	 	 		displayIndicator(true);
-
-					SDAgent.setVoting({ioid: ${object.id}, agree:agree}, {
+		/*************** Set Vote************** */
+	 	 io.setVote = function(target, id, agree){
+					//alert("structure" + infoObject.structureId + "object " + infoObject.objectId + "vote " + agree);
+					SDAgent.setVoting({target: target, id: id, agree:agree}, {
 					callback:function(data){
 							if (data.successful){ 
-	              				 alert("thank you for your vote");
-	              				 infoObject.getTargets();
-	              				 displayIndicator(false);
+								var votingDiv = 'voting-'+target+id;
+								if($(votingDiv) != undefined){
+	              				 	new Effect.Fade(votingDiv, {afterFinish:function(){io.getPosts(io.currentFilter, io.currentPage, false, io.currentSort); io.getTargets(); new Effect.Appear(votingDiv);}});
+	              				 	
+	              				}else{
+	              					io.getPosts(io.currentFilter, io.currentPage, false, io.currentSort);	
+	              					io.getTargets();
+	              				}
 							}else{
 								alert(data.reason);
-								 displayIndicator(false);
 							}
 						},
 					errorHandler:function(errorString, exception){ 
-							alert("get targets error:" + errorString + exception);
+							alert("setVote error:" + errorString + exception);
 					}
 					});
-			};
-	 	 this.createPost = function(){
-	 	 		var newPostTitle = $('txtNewPostTitle').value;
-	 	 		var newPost = $('txtNewPost').value;
-	 	 		var newPostTags = $('txtNewPostTags').value;
-	 	 		//validation
-	 	 		if(newPostTitle == '' || newPost == ''){
-	 	 			alert("Either your title or post was left blank.  Please fill it in.");
-	 	 			return
-	 	 		}//end validation
 
-
-				SDAgent.createPost({isid:${structure.id}, ioid: ${object.id}, title: newPostTitle, content: newPost, tags:newPostTags}, {
+		};
+		/*************** Get Posts: posts.jsp************** */
+		
+		io.getPosts = function(tag, page, jump, sorting){
+    			if(jump || "${param.page}" != ""){
+      				setTimeout(function() {Element.scrollTo("discussionHeader");}, 300);
+    			}
+				displayIndicator(true);
+				io.currentPage = page;
+				io.currentSort = sorting;
+				io.currentFilter = tag;
+				//alert("structure: " + io.structureId + " tag filter: " + tag + " page: " + io.currentPage + " count:" + io.postCount + " sorting:" + io.currentSort);
+				//SDAgent.getContextPosts({isid:io.structureId, tag: tag,  type:"tagRef", page: page, count: io.postCount}, {
+			    SDAgent.getPosts({isid:io.structureId,ioid:io.objectId, sorting: io.currentSort, filter: tag, page: io.currentPage, count: io.postCount}, <pg:wfinfo/>,{
+			      callback:function(data){
+			          if (data.successful){
+			          	displayIndicator(false);
+			          $(io.discussionDiv).innerHTML = data.html;
+			          }else{
+			          	displayIndicator(false);
+			            alert(data.reason);
+			          }
+			      },
+			      errorHandler:function(errorString, exception){
+			          alert("get posts error:" + errorString + exception);
+			      }
+			    });
+			  };
+	
+	/*************** Go to page via AJAX ************** */
+	io.goToPage = function(page, component){
+		switch (component){
+			case "tagCloud":
+				io.getTagCloud(page);
+				break;	
+			case "posts":
+				io.getPosts(io.currentFilter,page,false, io.currentSort); 
+				break;
+			}
+	}
+	
+	/*************** Go to page via location.href - handles sort and page number ************** */
+	io.switchPage = function(page){
+	    location.href='sdRoom.do?isid='+ io.structureId +'&ioid='+ io.objectId +'&page='+page+'&sort='+ io.currentSort;
+	}
+	
+	
+	 	 
+	/*************** Set Email Notificaiton************** */
+ 	 io.setupEmailNotify = function(id, type, status){
+				//alert("id" + id + "type " + type + "turnon " + status);
+				SDAgent.setupEmailNotify({id: id, type: type, turnon: status}, {
 				callback:function(data){
 						if (data.successful){
-							 infoObject.getPosts();
-							 //clear new discussion textfields
-							 $('txtNewPostTitle').value = '';
-							 $('txtNewPost').value = '';
-							 $('txtNewPostTags').value = '';
-							 toggleNewDiscussion();
+							if (status){
+								alert("Email notification has been turned on!")
+							}else{
+								alert("Email notification has been turned off!")
+							}
 						}else{
 							alert(data.reason);
-							 toggleNewDiscussion();
+						}
+					},
+				errorHandler:function(errorString, exception){ 
+						alert("setVote error:" + errorString + exception);
+				}
+				});
+	};
+			
+		/*************** New Discussion Post: if successful, reload discussion posts************** */
+	 	 io.createPost = function(){
+	 	 		displayIndicator(true);
+	 	 		var newPostTitle = $(io.newPostTitleInput).value;
+				var newPost= tinyMCE.getContent();
+	 	 		var newPostTags = $(io.newPostTagsInput).value;
+	 	 		var notify = $(io.newPostNotifier).checked;
+				var emailNotify = notify.toString();
+	 	 		//alert("ISID: " + this.structureId + "IOID: " + this.objectId + "Title: " + newPostTitle + "Content: " + newPost + "Tags: " + newPostTags + " Email Notification: " + emailNotify);
+				SDAgent.createPost({isid:io.structureId, ioid: io.objectId, title: newPostTitle, content: newPost, tags:newPostTags, emailNotify: "true"},<pg:wfinfo/>,{
+				callback:function(data){
+						if (data.successful){
+							 displayIndicator(false);
+						     //io.setVote("post", data.id, "true"); //set initial vote
+							 io.clearNewDiscussionInputs();
+							 io.toggleNewDiscussion();
+							 if(io.currentDiscPage != 1){
+							 	io.currentDiscPage = 1
+							 }
+							 io.getPosts('',1,true, 1); 
+							 $('selectsort').value = 1;
+							 window.setTimeout('new Effect.Highlight("discussionText'+ data.id +'", {duration: 4.0});',500);
+						}else{
+							alert(data.reason);
+							displayIndicator(false);
 						}
 					},
 				errorHandler:function(errorString, exception){ 
@@ -126,290 +243,289 @@
 				});
 			};
 			
-		this.getPosts = function(){
-		    //alert(${object.id});
-		    displayIndicator(true);
-	    	var page = 1;
-	 		if (<%= request.getParameter("page") %> != null){
-	 			page = <%= request.getParameter("page") %>;	
-	 		}
-		    SDAgent.getPosts({isid:${structure.id}, ioid:${object.id}, page: page, count: 10}, {
-		      callback:function(data){
-		          if (data.successful){
-		          $(infoObject.discussionDiv).innerHTML = data.html;
-		           displayIndicator(false);
-		          }else{
-		          	 displayIndicator(false);
-		            alert(data.reason);
-		          }
-		      },
-		      errorHandler:function(errorString, exception){
-		          alert("get posts error:" + errorString + exception);
-		      }
-		    });
-		  };
-	};
-	
-	function Discussion(){
-		this.discussionDivSort = "header_cat";
-		
-		this.deletePost = function(postId){
-		var destroy = confirm ("Are you sure you want to delete this post? Note: there is no undo.")
-		if (destroy){
-			    SDAgent.deletePost({pid: postId}, {
-			      callback:function(data){
-			          if (data.successful){
-								displayIndicator(true);
-			          			$('discussion-post'+postId).innerHTML = "deleting...";
-			          			setTimeout("new Effect.DropOut('discussion-post-cont"+postId+"', {afterFinish: function(){infoObject.getPosts(infoObject.targetId)}});", 1000);
-			          			displayIndicator(false);
-								
-			          }else{
-			           	 alert(data.reason);
-			          }
-			      },
-			      errorHandler:function(errorString, exception){
-			          alert("delete post error:" + errorString + exception);
-			      }
-			    });
-	  	}
-		}
-		/*
-		this.getPost = function(postId){
-		if(objExpanded){
-				moreDiscussion();
-		}
-		displayIndicator(true);
-	    SDAgent.getPostById({id: postId}, {
-	      callback:function(data){
-	          if (data.successful){
-	          		new Effect.BlindUp(discussion.discussionDivSort, {duration: 0.3});
-	          		var tags = '';
-	          		for(i=0; i<data.post.tags.length; i++){
-	          			tags += '<li class="tagsList">' +data.post.tags[i].name+ '</li>';	
-	          		}
-	          		
-	          		$(infoObject.discussionDiv).innerHTML = '<div id="discussion-post-cont'+data.post.id+'"><p><a href="javascript:infoObject.getPosts('+infoObject.targetId+')">Back to list of discussions</a></p><div id="discussion-post'+data.post.id+'" class="whiteBlueBB"><h5>'+data.post.title+'</h5><p>Posted by: '+data.post.owner.loginname+' on '+data.post.createTime+' <br /><strong>Author Actions: </strong> <a href="javascript:discussion.deletePost('+data.post.id+')">delete discussion</a> | edit discussion (actions available until commented on)</p><p>'+data.post.content+'</p><p><strong>Tags:</strong> <ul class="tagsList">'+tags+'</ul></p></div><p><a href="javascript:infoObject.getPosts('+infoObject.targetId+')">Back to list of discussions</a></p></div>';
-	          		//$(infoObject.discussionDiv).innerHTML += '
-	          		displayIndicator(false);
-	          }else{
-	           	 alert(data.reason);
-	           	 displayIndicator(false);
-	          }
-	      },
-	      errorHandler:function(errorString, exception){
-	          alert("get post error:" + errorString + exception);
-	          displayIndicator(false);
-	      }
-	    });
-		}*/
-	};
-	
-	//End Global Variables
-	
-	function displayIndicator(show){
-		if (show){
-			$('loading-indicator').style.display = "inline";	
-		}else{
-			$('loading-indicator').style.display = "none";	
-		}
-	}
-	/*
-	function closeAllContentsExcept(id, className){
-		var activeRecord = className + id;
-		var allRecords = document.getElementsByClassName(className);
-		
-		for(i = 0; i < allRecords.length; i++){
-			if(allRecords[i].id == activeRecord){
-				new Effect.toggle(allRecords[i].id,'blind', {duration: 0.4});
-			}else{
-				if(allRecords[i].style.display != 'none'){
-				new Effect.BlindUp(allRecords[i].id, {duration: 0.4});
+		io.deletePost =  function(pid){
+			var destroy = confirm ("Are you sure you want to delete this post? Note: there is no undo.")
+			if (destroy){
+					SDAgent.deletePost({pid:pid}, {
+						callback:function(data){
+								if (data.successful){
+								   		 new Effect.Puff('discussion' + pid, {afterFinish: function(){io.getPosts(io.currentFilter,io.currentPage,true, io.currentSort);}});
+										
+								}else{
+									alert(data.reason);
+								}
+							},
+						errorHandler:function(errorString, exception){ 
+								alert("delete post error:" + errorString + exception);
+						}
+						});
 				}
-			}
+		};	
+		
+		io.getSummaryConcerns =  function(){
+					SDAgent.getConcerns({isid:io.structureId, ioid: io.objectId}, {
+						callback:function(data){
+								if (data.successful){
+								   		 alert(data.source.html);										
+								}else{
+									alert(data.reason);
+								}
+							},
+						errorHandler:function(errorString, exception){ 
+								alert("delete post error:" + errorString + exception);
+						}
+						});
+		};	
+			
+		/*************** Clear all discussion input boxes - triggered after a new post is created ************** */
+		io.clearNewDiscussionInputs =  function(){
+	 	 		$(io.newPostTitleInput).value = "";
+	 	 		tinyMCE.setContent('');
+	 	 		$(io.newPostTagsInput).value = "";
+		};
+			
+		io.toggleNewDiscussion = function(){
+			new Effect.toggle(io.newDiscussionDiv, 'blind', {duration: 0.5});	
 		}
-		//new Effect.toggle('quickPostContents${post.id}', 'blind', {duration: 0.3}); void(0);"	
-	}
-	*/
-	function toggleNewDiscussion(){
-		if ($('newDiscussion').style.display == 'none'){
-			new Effect.toggle('newDiscussion', 'blind', {duration: 0.5});
-			$('sidebarbottom_disc').style.display = 'none';	
-			$('sidebarbottom_newdisc').style.display = 'block';	
+			
+
+	//START Filters and tags
+	io.changeCurrentFilter = function(tagId){
+		io.currentFilter = tagId;
+		if (tagId != ''){
+				SDAgent.getTagById(tagId, {
+				callback:function(data){
+				if (data.successful){
+		          			var tagName = data.tag.name;
+		          			io.getPosts(tagName, 0, true, io.currentSort);
+							$(io.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: io.changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
+						}else{
+							alert(data.reason);
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+						alert("get tagbytagref error:" + errorString + exception);
+				}
+				});
 		}else{
-			new Effect.toggle('newDiscussion', 'blind', {duration: 0.5, afterFinish: function(){
-			$('sidebarbottom_disc').style.display = 'block';	
-			$('sidebarbottom_newdisc').style.display = 'none';		
-			}});		
+			io.currentFilter = '';	
+			$(io.divFilteredBy).innerHTML = '';
+			io.getPosts('', 1, true, io.currentSort);
 		}
 	}
- 
-</script>
+	
+	io.customFilter = function(query, key){
+		if (key.keyCode == 8 && query.length < 1){
+			return false;
+		}
+		if(query.length > 3){
+			io.customFilterAction(query);	
+		}
+	}
+	
+	io.customFilterAction = function(query){
+			SDAgent.search({isid:io.structureId,queryStr:query},{
+				callback:function(data){
+						if (data.successful){
+                            //io.getPosts(query, 1, true, io.currentSort);
+                        }
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
+
+		io.getTagCloud = function(page){
+			displayIndicator(true);
+			io.currentTagCloudPage = page;
+			SDAgent.getTagCloud({isid:io.structureId,count:io.tagCloudCount, page: io.currentTagCloudPage},{
+				callback:function(data){
+						if (data.successful){			
+							displayIndicator(false);
+							$(io.divTagCloud).innerHTML = data.html;
+							if (data.count == 0){
+								$(io.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+io.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+							}
+							if($(io.divTagCloud).style.display == 'none'){
+							    new Effect.toggle(io.divTagCloud,'blind',{duration: 0.5});		
+					        }
+									
+						}
+				},
+				errorHandler:function(errorString, exception){ 
+							alert("sidebarSearchTagsAction: "+errorString+" "+exception);
+							//showTheError();
+				}		
+			});	
+	};
+	
+	//io.changeSort = function (sorting){
+		//io.getPosts(io.currentFilter, io.currentPage, false, sorting);	
+		//alert("currentFilter: " + io.currentFilter + " currentPage:" + io.currentPage + " sorting: " + sorting);
+	//}
+			//-->
+		</script>
+		<event:pageunload />
 </head>
-
-
 <body>
 
+<!-- Start Global Headers  -->
+<wf:nav />
+<wf:subNav />
+<!-- End Global Headers -->
+
+<div style="display: none;" id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
 <div id="container">
-	<jsp:include page="/header.jsp" />
-	<!-- START LIGHTBOX -->
-		<div id="overlay" style="display: none;"></div>
-		<div id="lightbox" style="display: none;" class="blueBB"></div>
-	<!-- END LIGHTBOX -->
-   <div id="loading-indicator">Loading... <img src="/images/indicator_arrows.gif"></div>
+
+	<div id="object">
+		<h5 id = "targetTitle"></h5>
+		<div id="object-content">
+			<!-- load object here -->
+		</div>
+		<!--end object content -->
+	</div>
+	<!-- end object -->
 	
-	<!-- Sub Title -->
-	<div id="subheader">
-	<h1>Step 1:</h1> <h2>Brainstorm Concerns</h2>
-	</div>
-	<div id="footprints">
-	<p>LIT Process >> Step 1: Brainstorm >> Concerns</p>
-	</div>
-	<!-- End Sub Title -->
 	
-	<div id="container">
-
-<!-- Overview SpiffyBox -->
-<div class="cssbox">
-	<div class="cssbox_head">
-		<h3>Overview and Instructions</h3>
-	</div>
-	<div class="cssbox_body">
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam interdum. Donec accumsan, purus ut viverra pharetra, augue tellus vehicula orci, eget consectetuer neque tortor id
-		ante. Proin vehicula imperdiet ante. Mauris vehicula velit sed arcu. Ut aliquam pede ac arcu. Phasellus dictum condimentum nisl. Quisque elementum dictum nibh. Curabitur
-		auctor faucibus libero. Suspendisse eu dui ut sem nonummy egestas. Praesent luctus lorem a magna.</p>
-	</div>
-</div>
-<!-- End Overview -->
-
-<div id="cont-main">
-
-<div id="backToDiscussion">
-			<form id="Tselector" name="ThemeSelector" method="post" action="">
-			  <html:link action="/sd.do" paramId="isid" paramName="structure" paramProperty="id">Back to Discussion Room List</html:link>
-			  <label>
-			  Jump To:
-			  <select name="selecttheme" id="selecttheme" onChange="javascript: location.href='sdRoom.do?isid=${structure.id}&ioid=' + this.value;">		  
-			    <option value = "${object.id}">Select a Theme</option>
-			   <c:forEach var="infoObject" items="${structure.infoObjects}">
-			       <option value="${infoObject.id}">${infoObject.object}</option>
-			    </c:forEach>	
-		      </select>
-			  </label>
-			  </form>
-</div>
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-<tr>
-<td id="maintop"><img src="" alt="" height="1" width="1"/></td>
-<td><img src="images/sidebar_top.gif" alt="sidebartop" /></td>
-</tr>
-<tr>
-<td valign="top" id="maincontent">
-<!-- Main Content starts Here-->
-<h4>Step 1. Summary of Participant Concerns </h4>
-<div id="object">
-<div class="padding">
-<h5 id = "targetTitle"></h5>
-	<div id="object-content">
-		<!-- load object here -->
-	</div>
-
-	</div>
-</div>
-<!-- End Object -->
-<p class="textalignright">&nbsp;</p>
-		</td>
-
-<td width="280" valign="top" id="sidebarmiddle"><!-- This is the Right Col -->
-  <div id="sidebar_content">
-    <h4>Other Discussions filtered by: </h4>
-<h5 id="targetSideBarTitle"></h5>
-<div id="sidebar_object">
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-<div class="sidebardisc">
-<a href="#">What I am Concerned With</a><br /><span class="smalltext">What I am mainly concerned with is something that I have been [more...]</span><br /><span class="smalltext">[Tags] [Tags] [Tags]</span>
-</div>
-</div>
-<!-- End sidebarcontents-->
-</td>
-<!-- End Right Col -->
-</tr>
-
-</table>
-<div id="sidebarbottom_disc" style="text-align:right; display: block;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
-<div id="sidebarbottom_newdisc" style="text-align:right; display: none;"><img src="/images/sidebar_bottom.gif" alt="sidebarbottom" /></div>
-
-
-</div>
-<!-- End cont-main -->
-<div id="newDiscussion" style="display: none">
-<div id="newdisc_title" >
-	New Discussion
-	<span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">Close</a></span>
-</div> <!-- End newdisc_title -->
-<div id="newdisc_content" class="greenBB">
-	<p>SDC New Discussion Paragraph</p>
-	<form>
-		<p><label>Post Title</label><br><input style="width:100%" type="text" id="txtNewPostTitle"/></p>
-		<p><label>Your Thoughts</label><br><textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea></p>
-		<p><label>Tag your post (comma separated)</label><br><input style="width:100%" id="txtNewPostTags" type="text" /></p>
-		<input type="button" onClick="infoObject.createPost();" value="Create Discussion">
-	</form>
-</div>
-</div>
-
-
-<div id="discussion-cont">
-	<span class="padding"><h4 id="targetDiscussionTitle"></h4></span><span id="closeNewDiscussion" class="closeBox"><a href="javascript:toggleNewDiscussion();">New Discussion</a></span>
-	  <div id="discussion">
-			<!-- load discussion posts -->
-	  </div>
-</div>
-
-
-<div class="pages">
-	<span class="pages_prev">&#171; PREV</span>
-	<span class="pages_current">1</span>
-	<a href="#" title="Page 2">2</a> 
-	<a href="#" title="Page 3">3</a> 
-	<a href="#" title="Page 4">4</a>
-	<a href="#" title="Page 5">5</a>  
-	...
-	<a href="#" title="Page 99">99</a>
-	<a href="#" title="Page 100">100</a>
-	<a href="#" class="pages_nextprev" title="Next Page">NEXT &#187;</a>
-</div>
+	<div class="clearBoth"></div>
+	<a name="filterJump"></a>
 	
-<div id="finished" class="borderblue">
-	<h4>Step 4. Finished?</h4><br />
-	Go back or continue... [add buttons] [Cancel]
+	
+	<!-- The discussionHeader sits on top of the discussion and contains the title of the
+			discussion area, and the sorting menu -->
+
+	<div id="discussionHeader">
+		<div class="sectionTitle">
+			<div class="floatLeft"><h3 class="headerColor">
+				<!--${object.discussion.numPosts} -->
+				Discussion</h3></div>
+			<div id="filteredBy" class="floatLeft"></div>
+			<div class="padding5 box5 floatRight" style="margin-bottom:2px;"> 
+			<a class="orangeButton" href="javascript:Effect.toggle('newDiscussion','blind',{duration:0.5});">Start a New Topic</a>
+			</div>
+		</div>
+		<div id="sortingMenu" class="box4 clearBoth">
+			<span id="sm-left">
+				Search for discussions about:
+				<form action="/sdSearch.do" method="GET">
+				    <input type="hidden" name="workflowId" value="${param.workflowId}" />
+                    <input type="hidden" name="contextId" value="${param.contextId}" />
+                    <input type="hidden" name="activityId" value="${param.activityId}" />
+                    <input type="hidden" name="isid" value="${param.isid}" />
+                    <input type="hidden" name="ioid" value="${param.ioid}" />
+                    <input type="hidden" name="count" value="${param.count}" />
+                    <input type="hidden" name="page" value="${param.page}" />
+                    <input type="text" name="queryStr" value="Search for Discussions" onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
+        		</form>
+			</span>
+			<span id="sm-middle">
+				<a href="javascript:io.getTagCloud();">Browse all keywords</a>
+				<a href="javascript:io.getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a>
+			</span>
+			<span id="sm-right"> Sort concerns by:
+				<select name="selectsort" id="selectsort" 
+					onChange="javascript:io.getPosts(io.currentFilter, 1, true, this.value);	">
+					<option value="1">Newest to oldest</option>
+					<option value="2">Oldest to newest</option>
+					<option value="3">Most agreement</option>
+					<option value="4">Least agreement</option>
+					<option value="5">Most replies</option>
+					<option value="6">Most views</option>
+					<option value="7">Most votes</option>
+				</select>
+			</span>
+			<div id="searchResults" style="display: none;"></div>
+			<div class="clearBoth"></div>
+		</div>
+	</div>
+	<div class="clearBoth"></div>
+	<!-- end discussion header-->
+	
+	<!-- Begin Discussion Area -->
+	<!-- Begin hidden "New topic" DIV -->
+	<div style="width:680px;">
+		<div id="newDiscussion" style="display: none">
+			<div id="newdisc_title" >
+				<div class="textright"> </div>
+				<h3 style="display: inline">New Topic</h3>
+			</div>
+			<!-- End newdisc_title -->
+			<div id="newdisc_content" class="greenBB">
+				<div id="newdisc_inner">
+					<form>
+						<p>
+							<label>Post title</label>
+							<br>
+							<input maxlength=100 size=100 type="text" id="txtNewPostTitle"/>
+						</p>
+						<p>
+							<label>Your thoughts</label>
+							<br>
+							<textarea style="width:100%; height: 200px;" id="txtNewPost"></textarea>
+						</p>
+						<p>
+							<label>Keyword your post (comma separated)</label>
+							<br>
+							<input style="width:100%" id="txtNewPostTags" type="text" />
+						</p>
+						<input type="button" onClick="io.createPost();" value="Create Discussion">
+						<input type="button" 
+						onClick="javascript:io.clearNewDiscussionInputs();
+						Effect.toggle('newDiscussion','blind',{duration:0.5});" 
+						value="Cancel">
+						<input type="checkbox" id="ckboxPostNotifier">
+						E-mail me when someone responds to my post
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End hidden "new topic" DIV -->
+	<!-- start tag cloud -->
+	<div id="tagCloud" class="discussion-left box2" style="display: none;">
+		<!-- load "browse all tags" tag cloud -->
+	</div>
+	<!-- end tag cloud -->
+	<div id="discussion">
+		<!-- load discussion posts -->
+	</div>
+	<!-- start feedback form -->
+	<pg:feedback id="feedbackDiv" action="sdRoom.do" />
+	<!-- end feedback form -->
+	<!-- end container -->
+	<!-- Start Footer -->
+	<!-- End Footer -->
+	<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
+	<script type="text/javascript">
+			//io.getPosts('', 1, false, io.currentSort);
+			//infoObject.assignTargetHeaders();
+		    //checkForPage(${param.lp});
+			io.goToPage(io.currentPage,'posts');
+			//location.href="sdRoom.do?isid="+io.structureId+"&ioid="+ io.objectId +"&page=" + page;
+			io.getTargets();
+			
+			
+			/*checks if the url parameter lp exists, else displays page 1
+			function checkForPage(page){
+			    if(page){
+    			    io.currentPage=page;
+    			}
+			}
+			*/
+
+	</script>
 </div>
-
-</div> <!-- End container -->
-<!-- Start Footer -->
-<jsp:include page="/footer.jsp" />
-
-<!-- End Footer -->
-<!-- Run javascript function after most of the page is loaded, work around for onLoad functions quirks with tabs.js -->
-<script type="text/javascript">
-	var infoObject = new InfoObject(); 
-	var discussion = new Discussion();
-
-	infoObject.getPosts();
-	infoObject.assignTargetHeaders();
-
-</script>
-
+<!-- start the bottom header menu -->
+<!-- Begin header menu - The wide ribbon underneath the logo -->
+<wf:subNav />
+<!-- End header menu -->
+<!-- end the bottom header menu -->
+<!-- Begin footer -->
+<div id="footer">
+	<jsp:include page="/footer.jsp" />
+</div>
+<!-- End footer -->
 </body>
-
-</html:html>
-
+</html>

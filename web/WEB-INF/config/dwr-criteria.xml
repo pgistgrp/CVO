@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
 
 <dwr>
 
@@ -7,27 +7,42 @@
   <allow>
 
 
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
     <!-- Beans Convertor -->
 
 
-    <convert converter="bean" match="org.pgist.criteria.MOE"/>
+    
     
     <convert converter="bean" match="org.pgist.criteria.Criteria"/>
-
-
+    <convert converter="bean" match="org.pgist.criteria.CriteriaSuite"/>
+    <convert converter="bean" match="org.pgist.criteria.Objective"/>
+   
+    
     <!-- DWR Agents -->
 
 
     <create creator="spring" javascript="CriteriaAgent">
         <param name="beanName" value="criteriaAgent"/>
         <include method="addCriterion"/>
+        <include method="addAssocCriterion"/>
         <include method="deleteCriterion"/>
         <include method="editCriterion"/>
-        <include method="relateCriteria"/>
-        <include method="derelateCriteria"/>
+        <include method="editObjective"/>
         <include method="getCriteria"/>
         <include method="getCriterionById"/>
-        <include method="publish"/>
+        <include method="getInfoObjects"/>
+        <include method="getAllCriterion"/>
+        <include method="getAllCriterionForMgr"/>
+        <include method="addObjective"/>
+        <include method="getObjectives"/>
+        <include method="deleteObjective"/>
+        <include method="setCriteriaWeight"/>
+        <include method="getWeight"/>
+        <include method="getCriteriaSuiteById"/>
+        <include method="getContainsCriteria"/>
+        <include method="getOrphanInfoObjects"/>
     </create>
 
 

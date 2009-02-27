@@ -1,18 +1,18 @@
 package org.pgist.system;
 
+import java.util.Collection;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.exceptions.UserExistException;
 import org.pgist.users.User;
 import org.pgist.util.WebUtils;
-
 
 /**
  * Register Questionnaire Action.
  * 
- * @author kenny
+ * @author John
  *
  */
 public class RegisterQuestionAction extends Action {
@@ -20,6 +20,7 @@ public class RegisterQuestionAction extends Action {
     
     private SystemService systemService;
     
+    private RegisterService registerService;
     
     public RegisterQuestionAction() {
     }
@@ -28,7 +29,10 @@ public class RegisterQuestionAction extends Action {
     public void setSystemService(SystemService systemService) {
         this.systemService = systemService;
     }
-    
+
+    public void setRegisterService(RegisterService registerService) {
+        this.registerService = registerService;
+    }
     
     /*
      * ------------------------------------------------------------------------
@@ -50,9 +54,22 @@ public class RegisterQuestionAction extends Action {
     	
     	try {
     		Long id = WebUtils.currentUserId();
+    		User user = systemService.getUserById(id);
+    		
+    		if(user.getRegComplete()){
+    			return mapping.findForward("main");
+    		}
+    		
+    		
+    		Collection annualIncome = registerService.getRegisterObjectByType("income");
+    		
+    		request.setAttribute("annualIncome", annualIncome);
+    		request.setAttribute("user", user);
+    		
         } catch (Exception e) {
             return mapping.findForward("register");
         }
+       
         return mapping.findForward("registerq");
     }//execute()
     

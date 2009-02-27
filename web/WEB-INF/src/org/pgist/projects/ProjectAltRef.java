@@ -1,9 +1,7 @@
 package org.pgist.projects;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.pgist.criteria.CriteriaRef;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 
 /**
@@ -13,7 +11,7 @@ import org.pgist.criteria.CriteriaRef;
  *
  * @hibernate.class table="pgist_project_alt_ref" lazy="true"
  */
-public class ProjectAltRef {
+public class ProjectAltRef implements Comparable<ProjectAltRef> {
     
     
     private Long id;
@@ -22,10 +20,9 @@ public class ProjectAltRef {
     
     private ProjectAlternative alternative;
     
-    private Map<CriteriaRef, Integer> grades = new HashMap<CriteriaRef, Integer>();
-    
-    
-    /**
+	private SortedSet<GradedCriteria> gradedCriteria = new TreeSet<GradedCriteria>(new GradedCriteriaComparator());
+
+	/**
      * @return
      * 
      * @hibernate.id generator-class="native"
@@ -69,25 +66,42 @@ public class ProjectAltRef {
         this.alternative = alternative;
     }
     
-    
     /**
-     * The Criteria-Grade map for one project alternative
      * 
-     * @return
+     * @return	A set of all the criteria associated with this alt ref
      * 
-     * @hibernate.map table="pgist_projalt_grade_map"
-     * @hibernate.collection-key column="pac_id"
-     * @hibernate.index-many-to-many column="critref_id" class="org.pgist.criteria.CriteriaRef"
-     * @hibernate.collection-element type="integer" column="grade"
+     * @hibernate.set lazy="false" cascade="all-delete-orphan" sort="org.pgist.projects.GradedCriteriaComparator"
+     * @hibernate.collection-key column="project_alt_ref_id"
+     * @hibernate.collection-one-to-many class="org.pgist.projects.GradedCriteria"
      */
-    public Map<CriteriaRef, Integer> getGrades() {
-        return grades;
-    }
-
-
-    public void setGrades(Map<CriteriaRef, Integer> grades) {
-        this.grades = grades;
-    }
+    public SortedSet<GradedCriteria> getGradedCriteria() {
+		return gradedCriteria;
+	}
     
     
+	public void setGradedCriteria(SortedSet<GradedCriteria> criteria) {
+		this.gradedCriteria = criteria;
+	}
+	
+
+	
+	/*
+	 * ------------------------------------------------------------------------
+	 */
+	
+	
+	public boolean equals(Object obj) {
+		if(obj != null && obj instanceof ProjectAltRef) {
+		    ProjectAltRef temp = (ProjectAltRef) obj;
+			if (getId().equals(temp.getId())) return true;
+		}
+		return false;
+	}
+	
+	
+	public int compareTo(ProjectAltRef o) {
+		return ((ProjectAltRef)o).getAlternative().getName().compareToIgnoreCase(getAlternative().getName());
+	}
+	
+	
 }//class ProjectAltRef

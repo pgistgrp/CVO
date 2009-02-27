@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title></title>
+		<title>Help Me</title>
 				
 		<!-- Site Wide JavaScript -->
 		
@@ -308,7 +308,7 @@
 	z-index: 500;
 }
 		</style>
-		
+		<event:pageunload />
 	</head>
 	<body>
 		<div>

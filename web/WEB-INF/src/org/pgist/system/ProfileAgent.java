@@ -1,24 +1,14 @@
 package org.pgist.system;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
-import org.pgist.criteria.Criteria;
-import org.pgist.criteria.CriteriaService;
-import org.pgist.cvo.CCTService;
-import org.pgist.funding.FundingService;
-import org.pgist.funding.UserTaxInfoDTO;
 import org.pgist.users.User;
-import org.pgist.users.Vehicle;
-import org.pgist.util.PageSetting;
-import org.pgist.util.WebUtils;
+
 
 
 /**
@@ -39,45 +29,6 @@ public class ProfileAgent {
         this.profileService = profileService;
     }
 	
-	/**
-     * Get Public User Information
-     * 
-     * @param params a Map contains:
-     *   <ul>
-     *     <li>username - string, user's login name</li>
-     *   </ul>
-     * @return a Map contains:
-     *   <ul>
-     *     <li>user - user object containing only public information</li>
-     *     <li>successful - a boolean value denoting if the operation succeeds</li>
-     *     <li>reason - reason why operation failed (valid when successful==false)</li>
-     *   </ul>
-     */
-    public Map getUserInfo(HttpServletRequest request, Map params) {
-        Map map = new HashMap();
-        map.put("successful", false);
-        
-        String username = (String) params.get("username");
-    	
-    	if(username==null || "".equals(username.trim())){
-    		map.put("reason", "username cannot be blank.");
-    		return map;
-    	}
-    	
-        try {
-        	
-        	User user = profileService.getUserInfo(username);
-            request.setAttribute("user", user);
-            map.put("user", user);
-            map.put("successful", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
-        
-        return map;
-    }//getUserInfo()
-    
     
 	/**
      * Verify the current user
@@ -192,28 +143,60 @@ public class ProfileAgent {
     
     
 	/**
-     * Get discussion post
-     * 
+     * Get users discussions
+     * @param params a Map contains:
+     *   <ul>
+     *     <li>username - string, user's login name</li>
+     *     <li>start - int, start index, ie start 0, end 5, returns first 6 discussions</li>
+     *     <li>end - int, stop index, ie start 0, end 5, returns first 6 discussions</li>
+     *   </ul>
      * @return a Map contains:
      *   <ul>
      *     <li>successful - a boolean value denoting if the operation succeeds</li>
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>html - html page profile_discussion.jsp</li>
      *   </ul>
      */
-    public Map getDiscussionPost(HttpServletRequest request, Map params) {
+    public Map getUserDiscussion(HttpServletRequest request, Map params) {
         Map map = new HashMap();
         map.put("successful", false);
         
-       
+        String username = (String) params.get("username");
+        String strStart = (String) params.get("start");
+        String strEnd = (String) params.get("end");
+        
+        if(strStart==null || "".equals(strStart.trim())){
+    		map.put("reason", "start cannot be blank.");
+    		return map;
+    	}
+        
+        if(strEnd==null || "".equals(strEnd.trim())){
+    		map.put("reason", "end cannot be blank.");
+    		return map;
+    	}
+        
+        if(username==null || "".equals(username.trim())){
+    		map.put("reason", "username cannot be blank.");
+    		return map;
+    	}
+        
         try {
-        	profileService.getDiscussionPost();
+        	int start = Integer.parseInt(strStart);
+        	int end = Integer.parseInt(strEnd);
         	
+        	Collection discussions = profileService.getUserDiscussion(username, start, end);
+        		
+        	map.put("discussions", discussions);
+            
+        	request.setAttribute("discussions", discussions);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/profile_discussion.jsp"));       
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
-        
         return map;
-    }
+    } //getUserDiscussion();
+    
+    
 } //ProfileAgent()

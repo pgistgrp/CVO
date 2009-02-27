@@ -1,13 +1,10 @@
 package org.pgist.ddl;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.funding.FundingSource;
-import org.pgist.users.Role;
-import org.pgist.users.User;
 
 
 /**
@@ -19,14 +16,18 @@ public class DefaultFundingSourceHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {
-        List sources = root.elements("fundingSources");
+        List sources = root.elements("source");
+        System.out.println("MATT sources = " + sources.size());
         for (int i=0,n=sources.size(); i<n; i++) {
             Element element = (Element) sources.get(i);
-            
+
             String name = element.elementTextTrim("name");
             if (name==null || "".equals(name)) throw new Exception("name is required for Funding Source");
-System.out.println("MATT: adding funding source " + name );            
             FundingSource source = getFundingSourceByName(name);
+            if(source == null) {
+            	source = new FundingSource();
+            	source.setName(name);
+            }	
             source.setType(FundingSource.TYPE_TOLLS);
             
             saveFundingSource(source);

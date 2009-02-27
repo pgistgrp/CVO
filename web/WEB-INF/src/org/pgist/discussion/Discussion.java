@@ -1,25 +1,28 @@
 package org.pgist.discussion;
 
+import java.io.Serializable;
+
 
 /**
  * 
  * @author kenny
  *
- * @hibernate.class table="pgist_dicussion" lazy="true"
+ * @hibernate.class table="pgist_discussion" lazy="true"
  */
-public class Discussion {
-
-    
-    public static enum TargetType { term, tag, concern };
+public class Discussion implements Serializable {
     
     
     protected Long id;
     
-    protected Long targetId;
+    protected DiscussionPost lastPost;
     
-    protected int targetType;
+    protected Long workflowId;
     
-    protected DiscussionPost root;
+    protected int numPosts = 0;
+    
+    protected boolean closed;
+    
+    protected boolean deleted;
     
     
     /**
@@ -34,48 +37,82 @@ public class Discussion {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.many-to-one column="last_post"
+     */
+    public DiscussionPost getLastPost() {
+        return lastPost;
+    }
+    
+    
+    public void setLastPost(DiscussionPost lastPost) {
+        this.lastPost = lastPost;
+    }
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="false"
+     */
+    public Long getWorkflowId() {
+        return workflowId;
+    }
+
+
+    public void setWorkflowId(Long workflowId) {
+        this.workflowId = workflowId;
+    }
 
 
     /**
      * @return
      * @hibernate.property not-null="true"
      */
-    public Long getTargetId() {
-        return targetId;
+    public int getNumPosts() {
+        return numPosts;
     }
-
-
-    public void setTargetId(Long targetId) {
-        this.targetId = targetId;
+    
+    
+    public void setNumPosts(int numPosts) {
+        this.numPosts = numPosts;
     }
-
-
-    /**
+    
+    
+	/**
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getTargetType() {
-        return targetType;
-    }
+    public boolean isClosed() {
+		return closed;
+	}
+    
+    
 
 
-    public void setTargetType(int targetType) {
-        this.targetType = targetType;
-    }
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+	
+	
 
 
-    /**
+	/**
      * @return
-     * @hibernate.many-to-one column="root_id" lazy="true" class="org.pgist.discussion.DiscussionPost"
+     * @hibernate.property not-null="true"
      */
-    public DiscussionPost getRoot() {
-        return root;
+    public boolean isDeleted() {
+        return deleted;
     }
 
 
-    public void setRoot(DiscussionPost root) {
-        this.root = root;
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
-    
-    
+
+
 }//class Discussion

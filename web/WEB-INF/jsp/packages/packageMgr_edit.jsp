@@ -44,9 +44,7 @@
 //ADD 3C JavaScript
 
 </script>
-<style type="text/css">
-
-</style>
+<event:pageunload />
 </head>
 
 

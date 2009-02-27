@@ -1,6 +1,7 @@
 package org.pgist.cvo;
 
 import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.WorkflowInfo;
 import org.pgist.wfengine.WorkflowTask;
 
 
@@ -18,7 +19,7 @@ public class CreateCCTTask implements WorkflowTask {
     private CCTService cctService;
     
     
-    public void setCCTService(CCTService cctService) {
+    public void setCctService(CCTService cctService) {
         this.cctService = cctService;
     }
     
@@ -28,14 +29,14 @@ public class CreateCCTTask implements WorkflowTask {
      */
     
     
-    public void execute(EnvironmentInOuts inouts) throws Exception {
+    public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
         System.out.println("@ CreateCCTTask.execute()");
         
         String name = inouts.getProperty("name");
         String purpose = inouts.getProperty("purpose");
         String instruction = inouts.getProperty("instruction");
         
-        CCT cct = cctService.createCCT(name, purpose, instruction);
+        CCT cct = cctService.createCCT(info.getWorkflow().getId(), name, purpose, instruction);
         
         inouts.setIntValue(OUT_CCT_ID, cct.getId().intValue());
     }//execute()

@@ -3,28 +3,59 @@
 
 <beans>
 
-    
+
     <bean id="cctDAO" class="org.pgist.cvo.CCTDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
-    
-    
+
+
+    <bean id="cstDAO" class="org.pgist.cvo.CSTDAOImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
     <bean id="cctService" parent="baseTransactionProxy">
         <property name="target">
             <bean class="org.pgist.cvo.CCTServiceImpl">
                 <property name="userDAO" ref="userDAO"/>
                 <property name="cctDAO" ref="cctDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="analyzer" ref="tagAnalyzer"/>
+                <property name="systemDAO" ref="systemDAO"/>
             </bean>
         </property>
     </bean>
-    
-    
+
+
     <bean id="cctAgent" class="org.pgist.cvo.CCTAgent">
         <property name="cctService" ref="cctService"/>
+        <property name="userDAO" ref="userDAO"/>
+        <property name="systemService" ref="systemService"/>
+        <property name="searchHelper" ref="searchHelper"/>
     </bean>
-    
-    
+
+
+    <bean id="cstService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.cvo.CSTServiceImpl">
+                <property name="cctDAO" ref="cctDAO"/>
+                <property name="cstDAO" ref="cstDAO"/>
+                <property name="tagDAO" ref="tagDAO"/>
+                <property name="discussionDAO" ref="discussionDAO"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="cstAgent" class="org.pgist.cvo.CSTAgent">
+        <property name="cctService" ref="cctService"/>
+        <property name="cstService" ref="cstService"/>
+    </bean>
+
+
 </beans>
 

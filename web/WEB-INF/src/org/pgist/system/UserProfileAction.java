@@ -1,18 +1,21 @@
 package org.pgist.system;
 
+import java.text.DateFormat;
+import java.util.Collection;
+import java.util.Date;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.exceptions.UserExistException;
 import org.pgist.users.User;
-import org.pgist.util.WebUtils;
+import org.pgist.users.UserInfo;
 
 
 /**
- * Register Action.
+ * Public profile
  * 
- * @author kenny
+ * @author John
  *
  */
 public class UserProfileAction extends Action {
@@ -42,8 +45,7 @@ public class UserProfileAction extends Action {
     /**
      * When call this action, the following parameters are required:<br>
      * <ul>
-     *   <li>save           - string, the only valid value is "true". It means to save the given information to a new User object. Any other value will turn the page to register.jsp again.</li>
-
+     *   <li>userId - integer</li>
      * </ul>
      */
     public ActionForward execute(
@@ -52,25 +54,40 @@ public class UserProfileAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-
-    	
-    		String username = request.getParameter("user");
-    		
+    		Long userId = new Long((String) request.getParameter("userId"));
+			
     		try {
+    	        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user");
+    	        request.setAttribute("baseuser", userInfo);
         		
-    			User u = profileService.getUserInfo(username);
-
-        		request.setAttribute("user", u);
+    			User u = profileService.getUserInfo(userId);
+    			Date date = profileService.getLastLogin(u.getId());
+    			Collection concerns = profileService.getUserConcerns(userId);
+    			String strDate = "";
+    			if(date != null) {
+    				strDate = "" + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
+    			}
+    			int post = profileService.getPostCount(userId);
+    			int visits = profileService.getTotalVisits(u.getId());
+    			//Collection discussions = profileService.getUserDiscussion(userId);
+    			String[] tags = profileService.getAllTags(userId);
+    			
+    			request.setAttribute("user", u);
+    			request.setAttribute("tags", tags);
+    			request.setAttribute("concerns", concerns);
+    			//request.setAttribute("discussions", discussions);
+    			request.setAttribute("lastlogin", strDate);
+    			request.setAttribute("post", post);
+        		request.setAttribute("visits", visits);
         		return mapping.findForward("publicprofile");
         		
             } catch (Exception e) {
+                e.printStackTrace();
             	User user = new User();
             	user.setLoginname("Unkown User");
             	request.setAttribute("username", user);
                 return mapping.findForward("publicprofile");
             }
-    		
-
     }//execute()
     
     

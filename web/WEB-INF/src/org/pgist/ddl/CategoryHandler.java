@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.pgist.cvo.Category;
-import org.pgist.cvo.Tag;
+import org.pgist.tagging.Category;
+import org.pgist.tagging.Tag;
 
 
 /**
@@ -14,7 +14,7 @@ import org.pgist.cvo.Tag;
  * @author kenny
  *
  */
-public class CategoryHandler extends Handler {
+public class CategoryHandler extends XMLHandler {
     
     
     public void doImports(Element root) throws Exception {
@@ -28,14 +28,21 @@ public class CategoryHandler extends Handler {
         for (int i=0,n=categories.size(); i<n; i++) {
             Element element = (Element) categories.get(i);
             
-            Category category = new Category();
-            
             String name = element.attributeValue("name");
             if (name==null || "".equals(name)) throw new Exception("name is required for category");
-            category.setName(name);
-            category.setDeleted(false);
+            
+            Category category = getCategoryByName(name);
+            
+            if (category==null) {
+                category = new Category();
+                category.setName(name);
+                category.setDeleted(false);
+            } else {
+                category.getChildren().clear();
+            }
             
             Category parent = rootCategory;
+            
             String parentName = element.attributeValue("parent");
             if (parentName!=null && !"".equals(parentName)) {
                 parent = getCategoryByName(parentName);
@@ -50,7 +57,6 @@ public class CategoryHandler extends Handler {
                 if (tag==null) {
                     tag = new Tag();
                     tag.setName(tagName);
-                    tag.setDescription(tagName);
                     tag.setCount(0);
                     tag.setStatus(Tag.STATUS_OFFICIAL);
                     saveTag(tag);

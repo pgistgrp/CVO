@@ -1,5 +1,18 @@
 package org.pgist.util;
 
+
+/**
+ * The scan result for Trie.<br>
+ * 
+ * The boolean field "matched" indicates if the scan matched a phrase or not.<br>
+ * 
+ * If one phrase is matched, the field "object" will be a valid domain object.<br>
+ * 
+ * If not matched, the field "object" will be null. In this situation, the unmatched word can be
+ * extracted by using field "from" and "tail".<br>
+ * 
+ * @author kenny
+ */
 public class ScanResult {
 
         
@@ -7,9 +20,9 @@ public class ScanResult {
     
     private int tail;
     
-    private int length;
-    
     private Object object;
+    
+    private boolean matched = true;
     
     
     public ScanResult(int from) {
@@ -34,17 +47,16 @@ public class ScanResult {
     
     public void setTail(int tail) {
         this.tail = tail;
-        length = tail - from + 1;
     }
     
     
-    public int getLength() {
-        return length;
+    public boolean isMatched() {
+        return matched;
     }
 
 
-    public int length() {
-        return length;
+    public void setMatched(boolean matched) {
+        this.matched = matched;
     }
 
 

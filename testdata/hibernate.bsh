@@ -1,9 +1,22 @@
-import org.hibernate.Query;
+/*
+ * Bean Shell Script.
+ * Testing script for hibernate execution.
+ */
 
-Query query = session.createQuery("from Tag tag where tag in (select cr.tags from CategoryReference cr where cr.id=?)");
-query.setLong(0, 4290);
-List test = query.list();
-for (Object o : test) {
-    System.out.println("-----> "+o);
-}//for
+query = session.createQuery("select indices(cht.categories) from CHT cht where cht.id=?");
+query.setLong(0, 1690);
+//query.setLong(1, 5);
+list = query.list();
+for (Object one : list) {
+    print(one);
+}
 
+/*
+query = session.createQuery("from User u where u.id in (select indices(cht.categories) from CHT cht where cht.id=?) and u.id<>? order by u.loginname");
+query.setLong(0, 1690);
+query.setLong(1, 5);
+list = query.list();
+for (Object one : list) {
+    print(one.id);
+}
+*/

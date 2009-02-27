@@ -12,21 +12,40 @@
     
     <!-- Beans Convertor -->
 
-
-	  <convert converter="bean" match="org.pgist.projects.Project"/>
-
-	  <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
-
-      <convert converter="bean" match="org.pgist.projects.Package"/>
+    <convert converter="bean" match="org.pgist.packages.TunerConfig"/>
+    <convert converter="bean" match="org.pgist.projects.Project"/>
+    <convert converter="bean" match="org.pgist.projects.ProjectAlternative"/>
+    <convert converter="bean" match="org.pgist.packages.Package"/>
+    <convert converter="bean" match="org.pgist.packages.UserPackage"/>
+    <convert converter="bean" match="org.pgist.packages.ClusteredPackage"/>
+    <convert converter="bean" match="org.pgist.funding.FundingSource"/>      
+    <convert converter="bean" match="org.pgist.funding.FundingSourceAlternative"/>
+    <convert converter="bean" match="org.pgist.packages.FundingSourceDTO"/>
+    <convert converter="bean" match="org.pgist.packages.FundingSourceAlternativeDTO"/>
+    <convert converter="bean" match="org.pgist.packages.ProjectDTO"/>
+    <convert converter="bean" match="org.pgist.packages.ProjectAlternativeDTO"/>
+    <convert converter="bean" match="org.pgist.packages.VoteSubmitDTO"/>
 
 
     <!-- DWR Agents -->
 
-
     <create creator="spring" javascript="PackageAgent">
         <param name="beanName" value="packageAgent"/>
-        <include method="setProjectToUserPkg"/>
-        <include method="setFundingToUserPkg"/>
+        <include method="getTunerConfig"/>
+        <include method="createMyConfiguredPackage"/>
+        <include method="createMyPackage"/>
+        <include method="createClusteredPackages"/>
+        <include method="getClusteredPackages"/>
+        <include method="getAutocreatedClusteredPackages"/>
+        <include method="setProjectToPkg"/>
+        <include method="setFundingToPkg"/>
+        <include method="createClusteredPackage"/>
+        <include method="deleteClusteredPackage"/>
+        <include method="getManualPackages"/>
+        <include method="setVoting"/> 
+        <include method="getSummary"/>        
+        <include method="setManualPkgDesc"/>        
+        <include method="getClusteredSummary"/>   
     </create>
 
 
@@ -35,6 +54,11 @@
 
   <signatures>
     <![CDATA[
+	    import java.util.HashMap;
+	    import org.pgist.packages.PackageAgent;
+	    import org.pgist.packages.TunerConfig;
+  		PackageAgent.setVoting(Long, HashMap<Long, Integer>);		
+  		PackageAgent.createMyConfiguredPackage(TunerConfig, HashMap<Long, Integer>, HashMap<Long, Integer>, Float, Float, Long);		
     ]]>
   </signatures>
 

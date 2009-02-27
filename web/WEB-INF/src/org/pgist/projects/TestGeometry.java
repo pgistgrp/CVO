@@ -2,11 +2,10 @@ package org.pgist.projects;
 
 import org.postgis.Geometry;
 import org.postgis.PGgeometry;
-import org.postgresql.util.PGobject;
 
 
 /*
- *  javac -classpath /home/guirong/PGIST/CVO/web/WEB-INF/lib/postgis_1_0_0.jar:/home/guirong/PGIST/CVO/web/WEB-INF/lib/postgresql-8.1-405.jdbc3.jar org/pgist/projects/TestGeometry.java
+ *  java -classpath .:../lib/postgis.jar:../lib/postgresql-8.1-405.jdbc3.jar org.pgist.projects.TestGeometry
  * */
 public class TestGeometry {
 

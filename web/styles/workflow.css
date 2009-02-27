@@ -1,33 +1,96 @@
-#left-col #newTable {font-size:10pt;width:100%;margin-top:10px;}
+#lastCol{width:250px;}
+
+#workflows #newTable {
+font-size:10pt;
+width:100%;
+margin-top:2px;
+padding:5px;
+border:1px solid #C6D78C;
+}
 
 #workflows th {background:#E1F1C5}
-#workflows td {background:#FDFFF7;border-bottom:1px solid #DAEABE;}
-#templates th {background:#ADCFDE}
-#templates td {background:#EEF4F7;border-bottom:1px solid #ADCFDE;}
+#workflows th.last {text-align:right}
 
-#left-col #newTable th, #left-col #newTable td {text-align:center;padding:5px;}
+#workflows td {
+background:#FDFFF7;
+border-bottom:1px solid #DAEABE;
+padding:5px;
+}
+
+#newTable th, #left-col #newTable td {
+padding:5px;
+}
 
 #newTable input {float:right;}
 
-#running {
+.noActive{
+text-align:center;
+}
+
+.running td {padding:5px;}
+.running ul li {list-style:none;}
+.running ul {padding-left:12px;}
+.running h4 {}
+
+#workflows h3 {margin-top:10px;}
+#workflows .noActive h3 {margin-top:0px;}
+
+#newExpiriment{
+background:#FDFFF7;
+margin:10px auto;
 padding:5px;
-padding-right:0px;
-margin-top:10px;
-border-top:1px solid #B4D579;
-border-bottom:1px solid #B4D579;
+}
+
+#newExpiriment h4{
+background:#E1F1C5;
+padding:5px;
+margin-top:0px;
+}
+
+#workflows button {margin-top:10px;}
+#workflows button img {vertical-align:bottom;}
+
+#newExp p label, #newExp p input {
+display:block;
+float:left;
+margin-top:5px;
+}
+
+#newExp p label {width:100px;}
+#newExp p {clear:both;}
+
+#newExpiriment ul  {margin-top:-10px;padding-top:0px;}
+#newExpiriment ul li {list-style:none}
+
+#expDesc {width:350px;}
+
+#global-components{text-align:left;}
+
+#global-components ul {
+list-style:none;
+padding:0px;
+margin:0px;
+}
+
+#global-components li {
+margin:0px 5px 5px 0px;
+width:118px;
+padding:5px;
+border:1px solid #C6D78C;
+float:left;
+}
+
+#global-components a {
+padding:5px;
 background:#EEF7DD;
+text-align:center;
+color:#000;
+display:block;
+text-decoration:none;
 }
 
-#running ul li {list-style:none;}
-#running ul {padding-left:12px;}
-#running h4 {margin:10px 0px -10px 0px;}
-
-.wfblue {background:#ADCFDE;margin-right:5px;}
-.wfgreen {background:#E1F1C5;}
-
-.wfblue,.wfgreen {
-padding:5px 10px 11px 10px;
-font-size:10pt;
-font-weight:bold;
--moz-border-radius:6px 6px 0px 0px;
+#global-components a:hover{
+background:#E1F1C5;
 }
+
+#global-components li a img {margin-right:5px;}

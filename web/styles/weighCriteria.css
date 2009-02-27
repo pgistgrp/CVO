@@ -12,7 +12,7 @@ background: transparent url(/images/slider-track-left.png) no-repeat top left;
 
 /* put the track and the right rounded edge on the track */
 .track {
-background: transparent url(/images/slider-track-right.png) no-repeat top right;
+background: transparent url(/images/slider-track-right.png) repeat-x top right;
 }
 
 /*end scriptaculous slider css*/
@@ -27,10 +27,11 @@ padding:.3em 0em;
 {
 background:#ADCFDE;
 padding:5px 0px;
+margin-top:10px;
 }
 
 
-.criteriaListHeader .weighCriteriaCol1 {width:205px;padding-left:5px;}
+.criteriaListHeader .weighCriteriaCol1 {width:305px;padding-left:5px;}
 
 #allCriteriaList
 {
@@ -41,7 +42,7 @@ text-align:left;
 
 .weighCriteriaCol1
 {
-width:210px;
+width:310px;
 margin-right:.5em;
 }
 
@@ -52,15 +53,15 @@ vertical-align:top;
 border:0px;
 }
 
-.weighCriteriaCol2
+/*.weighCriteriaCol2
 {
 width:330px;
-}
+}*/
 
 .weighCriteriaCol3
 {
 margin-left:.5em;
-width:375px;
+width:605px; /*375*/
 }	
 
 h4
@@ -78,25 +79,33 @@ border-left:1px solid #ccc;
 }
 
 #saving-indicator{
-display: none;
-background-color: red;
-color: white;
-position:absolute;
-top: 0;
+background:#FFF3DE;
+border:2px solid #FFCB7B;
+padding:3px;
+color: #733C00;
+position:fixed;
+z-index: 100;
+_position:absolute;
+top:0;
+_top:expression(eval(document.body.scrollTop));
 left:0;
-padding: 3px;
-z-index: 500;
+margin:0;
+padding:5;
 }
 
 #loading-indicator{
-
-background-color: red;
-color: white;
-position:absolute;
-top: 0;
+background:#FFF3DE;
+border:2px solid #FFCB7B;
+padding:3px;
+color: #733C00;
+position:fixed;
+z-index: 100;
+_position:absolute;
+top:0;
+_top:expression(eval(document.body.scrollTop));
 left:0;
-padding: 3px;
-z-index: 500;		
+margin:0;
+padding:5;	
 }
 
 p#remainingWeightP, p#remainingWeightP2{
@@ -113,12 +122,10 @@ b#remainingWeight, b#remainingWeight2 {font-size:1.4em;}
 .objectives ul {margin-top:5px;}
 
 #critRowWrapper{border:1px solid #ADCFDE;padding:5px;}
-</style>
 
-<style type="text/css" media="screen">
 #left {margin:0px 15px;_margin:0px 10px;}
 #right {width:500px;}
-body {text-align:left;font-size:12pt;}
+body {text-align:left;font-size:11pt;}
 #top {padding:15px;}
 #goBtn {padding:10px;vertical-align:middle;}
 #finished {padding:10px;text-align:center;margin:10px 15px;}
@@ -126,3 +133,5 @@ body {text-align:left;font-size:12pt;}
 .dollarSign {display:inline;margin-right:20px;}
 .stripWS {margin:0px;padding:0px;}
 .right-col2 {width:15%;}
+
+.pfValue{width:280px;}

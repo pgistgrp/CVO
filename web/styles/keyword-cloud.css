@@ -16,3 +16,6 @@ margin:0em auto 2em auto;
 }
 
 a {color:#000;text-decoration:none;}
+
+.kwNav {text-align:right}
+.kwNav span {margin-right:10px;}

@@ -4,8 +4,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.exceptions.UserExistException;
-import org.pgist.users.User;
 
 
 /**
@@ -32,11 +30,6 @@ public class RecoverPasswordAction extends Action {
 
     
     /**
-     * When call this action, the following parameters are required:<br>
-     * <ul>
-     *   <li>rc - string, recovery code</li>
-
-     * </ul>
      */
     public ActionForward execute(
             ActionMapping mapping,
@@ -44,15 +37,29 @@ public class RecoverPasswordAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-    	String code = request.getParameter("rc");
-    	boolean valid = registerService.validatePasswordRecoveryCode(code);
-        
-    	if(valid) {
-    		
-    		return mapping.findForward("recoverpassword");
+    	
+    	UserForm uform = (UserForm) form;
+    	
+    	if (uform.isSave()){
+	    		String email = uform.getEmail();
+	    		if(email==null || "".equals(email.trim())) {	
+		    		request.setAttribute("sysmsg", "Email address cannot be empty.");
+		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+		    		return mapping.findForward("forgotpassword"); 
+	    		}
+	    		boolean emailsent = registerService.createPasswordRecovery(email);
+	    		if(emailsent) {
+		    		request.setAttribute("sysmsg", "<span style=\"color: green;\">A password recovery email has been sent to " + email + "</span>");	
+		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
+	    		} else {
+	    			request.setAttribute("sysmsg", "<span style=\"color: red;\">The email address you entered was not found in the system.</span>");	
+		    		request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+	    		}
+	    		return mapping.findForward("forgotpassword"); 
     	}
     	
-        return mapping.findForward("recoverpassword");
+    	request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
+        return mapping.findForward("forgotpassword");
     }//execute()
     
     

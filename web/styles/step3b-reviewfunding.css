@@ -21,3 +21,8 @@ width:35%;
 .objectives td + td {width:20%;text-align:center;}
 .objectives td + td + td {width:20%;text-align:center;}
 .objectives td + td + td + td {width:20%;text-align:center;}
+
+#newTable th{font-size:10pt;}
+
+#newTable td{border-bottom:1px solid #ADCFDE}
+#newTable .objectives td {border-bottom:0px;}

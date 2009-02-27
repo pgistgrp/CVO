@@ -27,6 +27,18 @@ input.menu_btns,select.menu_btns
 	border:1px solid;
 	border-color:#669966;
 	}
+	
+input.dis_menu_btns
+	{
+	width:55px;
+	height:19px;
+	font-size:10px;
+	color:#A0A0A0;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:#C0C0C0;
+	border:1px solid;
+	border-color:#669966;
+	}	
 
 input.updown_btns,select.updown_btns
 	{
@@ -55,15 +67,58 @@ input.show_btn,select.show_btn
 
 input.fill_btn,select.fill_btn
 	{
-	width:164px;
+	width:150px;
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
-	font-size:12px;
-	font-weight:bold;
-	/*background-color:#E6E6FA;*/
+	font-size:16px;
 	background-color:#87CEEB;
 	border:1px solid;
 	border-color:#669966;
+	}
+	
+input.red_fill_btn
+	{
+	width:150px;
+	color:red;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	font-size:16px;
+	background-color:#87CEEB;
+	border:1px solid;
+	border-color:red;
+	}
+	
+input.btnhov_rfbtn
+	{
+	width:150px;
+	color:red;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	font-size:16px;
+	background-color:#E6E6FA;
+	border:1px solid;
+	border-color:red;
+	}		
+	
+input.dis_fill_btn
+	{
+	width:150px;
+	color:#A0A0A0;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	font-size:16px;
+	background-color:#C0C0C0;
+	border:1px solid;
+	border-color:#669966;
+	}
+
+input.btnhov_fbtn
+	{
+	width:150px;
+	color:#050;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	font-size:16px;
+	/*background-color:#E6E6FA;*/
+	background-color:#E6E6FA;
+	border:1px solid;
+	border-color:#66ccff;
 	}
 
 input.midsize_btns,select.midsize_btns
@@ -124,10 +179,6 @@ input.btnhov
 	background-color:#E6E6FA;
 	border:1px solid;
 	border-color:#66ccff;
-	/*border-top-color:#6cf;
-	border-left-color:#6cf;
-	border-right-color:#3c3;
-	border-bottom-color:#3c3;*/
 	}
 
 input.btnhov_lb
@@ -157,19 +208,6 @@ input.btnhov_msb
 input.btnhov_sb
 	{
 	width:80px;
-	color:#050;
-	font-family:'trebuchet ms',helvetica,sans-serif;
-	font-size:12px;
-	font-weight:bold;
-	/*background-color:#E6E6FA;*/
-	background-color:#E6E6FA;
-	border:1px solid;
-	border-color:#66ccff;
-	}
-
-input.btnhov_fbtn
-	{
-	width:164px;
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	font-size:12px;
@@ -218,33 +256,56 @@ input.btnhov_hb2
 
 input.fields,select.fields
 	{
-	width:42ex;
 	font-size:11px;
+	width:250px;
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
-	background-color:#F5F5F5;
+	background-color:white;
 	border:1px solid;
 	border-color:#669966;
 	}
+	
+input.fieldsInitial
+	{
+	font-size:11px;
+	width:250px;
+	color:gray;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	font-style:italic;
+	background-color:white;
+	border:1px solid;
+	border-color:#669966;
+	}
+	
+input.dis_fields
+	{
+	font-size:11px;
+	width:250px;
+	color:#A0A0A0;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:#C0C0C0;
+	border:1px solid;
+	border-color:#669966;
+	}		
 
 input.lists,select.lists
 	{
-	width:33ex;
+	width:36ex;
 	font-size:11px;
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
-	background-color:#F5F5F5;
+	background-color:white;
 	border:1px solid;
 	border-color:#669966;
 	}
 
 input.tripList,select.tripList
 	{
-	width:42ex;
+	width:310px;
 	font-size:11px;
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
-	background-color:#F5F5F5;
+	background-color:white;
 	border:1px solid;
 	border-color:#669966;
 	}
@@ -258,22 +319,55 @@ input.dhtml_fields,select.dhtml_fields
 	background-color:#F5F5F5;
 	}
 
+.heading
+	{
+	margin-left:20px;
+	color:#050;
+	font-size:26px;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:white;
+	}	
+	
+.heading2
+	{
+	color:#3366FF;
+	font-size:22px;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:white;
+	}		
+
 .hd_labels
 	{
 	color:#050;
-	font-size:14px;
+	font-size:16px;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:white;
+	}
+
+.number_labels
+	{
+	color:#050;
+	font-size:20px;
+	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:#F5F5F5;
+	}	
+
+.std_labels
+	{
+	color:#050;
+	font-size:16px;
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	background-color:#F5F5F5;
 	}
-
-.std_labels
+	
+.description_labels
 	{
 	color:#050;
 	font-size:12px;
 	font-family:'trebuchet ms',helvetica,sans-serif;
 	background-color:#F5F5F5;
-	}
-
+	}	
+	
 .small_labels
 	{
 	color:#050;
@@ -287,6 +381,7 @@ input.dhtml_fields,select.dhtml_fields
 	font-size:14px;
 	color:#050;
 	font-family:'trebuchet ms',helvetica,sans-serif;
+	background-color:white;
 	}
 
 .hrline
@@ -305,24 +400,15 @@ input.dhtml_fields,select.dhtml_fields
 
 .helpme
 	{
-	color:red;
+	color:black;
+	height:90px;
 	font-size:12px;
-	font-weight:bold;
-	margin-left:auto;
-	margin-right:auto;
-	width:580px;
-	height:60px;
-	border:2px solid;
-	padding:5px;
-	vertical-align: middle;
-	}
-
-.td1
-	{
-	background-color:#99FFFF;
-	}
-
-.td2
-	{
-	background-color:#99CCFF;
+	border:1px solid;
+	border-color:#009999;
+	text-align:left;
+	font-family:sans-serif;
+	background-color:#F5F5F5;
+	padding:10px;
+	margin-top:10px;
+	font-weight:600;
 	}

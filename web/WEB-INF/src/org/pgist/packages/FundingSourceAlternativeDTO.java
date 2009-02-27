@@ -1,6 +1,8 @@
 package org.pgist.packages;
 
-public class FundingSourceAlternativeDTO {
+import org.pgist.funding.FundingSourceAlternative;
+
+public class FundingSourceAlternativeDTO implements Comparable<FundingSourceAlternativeDTO> {
 
 	private String name;
 	private Long fundingSourceAlternativeId;
@@ -9,6 +11,19 @@ public class FundingSourceAlternativeDTO {
 	private float avgCost;
 	private float yourCost;
 	
+	/**
+	 * Constructs the DTO
+	 * 
+	 * @param tempAlt
+	 */
+	public FundingSourceAlternativeDTO(FundingSourceAlternative tempAlt, float yourCost) {
+		super();
+		this.name = tempAlt.getName();
+		this.fundingSourceAlternativeId = tempAlt.getId();
+		this.estCost = tempAlt.getRevenue();
+		this.avgCost = tempAlt.getAvgCost();
+		this.yourCost = yourCost;
+	}
 	
 	/**
 	 * @return the fundingSourceAlternativeId
@@ -70,6 +85,10 @@ public class FundingSourceAlternativeDTO {
 	public void setYourCost(float yourCost) {
 		this.yourCost = yourCost;
 	}
-	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(FundingSourceAlternativeDTO o) {		
+		return this.getName().compareTo(o.getName());
+	}	
 }

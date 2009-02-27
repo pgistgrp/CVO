@@ -1,5 +1,6 @@
 package org.pgist.glossary;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,12 +15,19 @@ import org.pgist.users.User;
  *
  * @hibernate.class table="pgist_glossary_term"
  */
-public class Term {
+public class Term implements Serializable {
 
+    
+    public static final int STATUS_PENDING  = 0;
+    
+    public static final int STATUS_OFFICIAL = 1;
+    
     
     private Long id;
     
     private String name;
+    
+    private TermAcronym acronym;
     
     private String shortDefinition = "";
     
@@ -31,22 +39,53 @@ public class Term {
     
     private Set sources = new HashSet();
     
+    private Set variations = new HashSet();
+    
+    private int status;
+    
     private boolean deleted = false;
     
     private User creator;
     
     private Date createTime;
     
-    private int refCount;
+    private Date modifyTime;
     
-    private int hitCount;
+    /**
+     * times of the term being viewed by participant
+     */
+    private int viewCount;
     
+    /**
+     * times of the term being highlighted
+     */
+    private int highlightCount;
+    
+    /**
+     * times of the term being commented
+     */
     private int commentCount;
+    
+    /**
+     * count of participants who viewed the term
+     */
+    private int participantCount;
+    
+    /**
+     * average participant clicks per view - which is the viewCount divided by the participantCount
+     */
+    private int averageCount;
+    
+    private boolean flaged = false;
+    
+    private char initial;
     
     private Set categories = new HashSet();
     
+    private Set<TermComment> comments = new HashSet<TermComment>();
     
-    /**
+    
+	/**
      * @return
      * @hibernate.id generator-class="native"
      */
@@ -76,7 +115,21 @@ public class Term {
     
     /**
      * @return
-     * @hibernate.property not-null="true"
+     * @hibernate.many-to-one column="acronym_id" casecad="all" lazy="true"
+     */
+    public TermAcronym getAcronym() {
+        return acronym;
+    }
+
+
+    public void setAcronym(TermAcronym acronym) {
+        this.acronym = acronym;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property type="text" not-null="true"
      */
     public String getShortDefinition() {
         return shortDefinition;
@@ -104,7 +157,7 @@ public class Term {
     
     /**
      * @return
-     * @hibernate.set lazy="false" table="pgist_glossary_term_link_link" cascade="all" order-by="link_id"
+     * @hibernate.set lazy="true" table="pgist_glossary_term_link_link" cascade="all" lazy="true" order-by="link_id"
      * @hibernate.collection-key column="term_id"
      * @hibernate.collection-many-to-many column="link_id" class="org.pgist.glossary.TermLink"
      */
@@ -120,7 +173,7 @@ public class Term {
 
     /**
      * @return
-     * @hibernate.set lazy="false" table="pgist_glossary_term_term_link" cascade="all" order-by="term_id"
+     * @hibernate.set lazy="true" table="pgist_glossary_term_term_link" cascade="all" lazy="true" order-by="term_id"
      * @hibernate.collection-key column="related_term_id"
      * @hibernate.collection-many-to-many column="term_id" class="org.pgist.glossary.Term"
      */
@@ -136,7 +189,7 @@ public class Term {
 
     /**
      * @return
-     * @hibernate.set lazy="false" table="pgist_glossary_term_source_link" cascade="all" order-by="source_id"
+     * @hibernate.set lazy="true" table="pgist_glossary_term_source_link" cascade="all" lazy="true" order-by="source_id"
      * @hibernate.collection-key column="term_id"
      * @hibernate.collection-many-to-many column="source_id" class="org.pgist.glossary.TermSource"
      */
@@ -147,6 +200,36 @@ public class Term {
 
     public void setSources(Set sources) {
         this.sources = sources;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.set lazy="true" order-by="id" cascade="all"
+     * @hibernate.collection-key column="term_id"
+     * @hibernate.collection-one-to-many class="org.pgist.glossary.TermVariation"
+     */
+    public Set getVariations() {
+        return variations;
+    }
+
+
+    public void setVariations(Set variations) {
+        this.variations = variations;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 
@@ -166,7 +249,7 @@ public class Term {
 
     /**
      * @return
-     * @hibernate.many-to-one column="creator_id" class="org.pgist.users.User" casecad="all"
+     * @hibernate.many-to-one column="creator_id" lazy="true" casecad="all"
      */
     public User getCreator() {
         return creator;
@@ -194,6 +277,20 @@ public class Term {
 
     /**
      * @return
+     * @hibernate.property
+     */
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+
+    /**
+     * @return
      * @hibernate.property not-null="true"
      */
     public int getCommentCount() {
@@ -210,13 +307,13 @@ public class Term {
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getHitCount() {
-        return hitCount;
+    public boolean isFlaged() {
+        return flaged;
     }
 
 
-    public void setHitCount(int hitCount) {
-        this.hitCount = hitCount;
+    public void setFlaged(boolean flaged) {
+        this.flaged = flaged;
     }
 
 
@@ -224,19 +321,47 @@ public class Term {
      * @return
      * @hibernate.property not-null="true"
      */
-    public int getRefCount() {
-        return refCount;
+    public int getHighlightCount() {
+        return highlightCount;
     }
 
 
-    public void setRefCount(int refCount) {
-        this.refCount = refCount;
+    public void setHighlightCount(int hitCount) {
+        this.highlightCount = hitCount;
     }
 
 
     /**
      * @return
-     * @hibernate.set lazy="true" table="pgist_glossary_term_categ_link" cascade="none" order-by="category_id"
+     * @hibernate.property not-null="true"
+     */
+    public char getInitial() {
+        return initial;
+    }
+
+
+    public void setInitial(char initial) {
+        this.initial = initial;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getViewCount() {
+        return viewCount;
+    }
+
+
+    public void setViewCount(int refCount) {
+        this.viewCount = refCount;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.set lazy="true" table="pgist_glossary_term_categ_link" cascade="all" order-by="category_id"
      * @hibernate.collection-key column="term_id"
      * @hibernate.collection-many-to-many column="category_id" class="org.pgist.glossary.TermCategory"
      */
@@ -250,9 +375,59 @@ public class Term {
     }
     
     
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getParticipantCount() {
+        return participantCount;
+    }
+
+
+    public void setParticipantCount(int participantCount) {
+        this.participantCount = participantCount;
+    }
+
+
+    /**
+     * @return
+     * @hibernate.property not-null="true"
+     */
+    public int getAverageCount() {
+        return averageCount;
+    }
+
+
+    public void setAverageCount(int averageCount) {
+        this.averageCount = averageCount;
+    }
+    
+    
+    /**
+     * @return
+     * 
+     * @hibernate.set lazy="true" cascade="all" table="pgist_glossary_term_comment_link" order-by="id"
+     * @hibernate.collection-key column="term_id"
+     * @hibernate.collection-one-to-many class="org.pgist.glossary.TermComment"
+     */
+    public Set<TermComment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(Set<TermComment> comments) {
+		this.comments = comments;
+	}
+
+
     /*
      * ------------------------------------------------------------------------
      */
+    
+    
+    public String toString() {
+        return this.name;
+    }//toString()
     
     
     public String getCategoryList() {
@@ -267,7 +442,7 @@ public class Term {
         }
         
         return sb.toString();
-    }
-    
-    
+    }//getCategoryList()
+
+
 }//class Term

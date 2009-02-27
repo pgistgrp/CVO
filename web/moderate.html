@@ -64,12 +64,18 @@
                        match = f.exec(info);
                        if(match) info=match[1];
                    }
-                   html +=  info + "<br>";
+                   html +=   formatDate(user.events[k].time) + "  " + info + "<br>";
                 }
                 html += '</div><hr>';
             }
+	    if(html == '')
+	    	html += 'no events logged during this period, widen the time interval to see more events.';
             document.getElementById('logentries').innerHTML = html;
             
+       }
+       
+       function formatDate(d){
+           return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+" " + d.getHours() + ":" +d.getMinutes()+":"+d.getSeconds();
        }
         
         log_order = [1];
@@ -128,11 +134,12 @@
     
 		<div class="">
 			Start:&nbsp;<input type="text" value="2007-09-01" id='startdate'>&nbsp;&nbsp;
-            End:&nbsp;<input type="text" value="2007-09-25" id='enddate'>&nbsp;&nbsp;
-            <input type="button" style="width:80px" value="Go" onclick="loadLogs()">&nbsp;&nbsp;
-            &nbsp;&nbsp;<br><input type="text" value="scriptName" id='regex_filter'>&nbsp;&nbsp;
-            <input type="button" style="width:80px" value="Apply filter" onclick="filter('')">&nbsp;(eg, page, httpSessionId, scriptName, methodName, and so on.)
-            <input type="button" style="width:80px" value="Clear filter" onclick=" tuneLogInfo();">
+            End:&nbsp;<input type="text" value="2007-10-25" id='enddate'>&nbsp;&nbsp;
+            <input type="button" style="width:80px" value="Get logs!" onclick="loadLogs()">&nbsp;&nbsp;
+            &nbsp;&nbsp;<br>
+            Variable&nbsp;<input type="text" value="scriptName" id='regex_filter'>&nbsp;&nbsp;
+            <input type="button" style="width:80px" value="Only" onclick="filter('')">&nbsp;(eg, page, httpSessionId, scriptName, methodName, and so on.)
+            <input type="button" style="width:90px" value="Clear variable" onclick="document.getElementById('regex_filter').value=''; tuneLogInfo();">
             <hr />
 		</div>
         <div id="logentries">

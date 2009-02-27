@@ -3,24 +3,139 @@
 <beans>
 
 
-    <bean id="task-create.project.suite" class="org.pgist.projects.CreateProjectSuiteTask">
-        <property name="projectService" ref="projectService"/>
+    <bean id="task-sarp.create.bct" class="org.pgist.sarp.bct.CreateBCTTask">
+        <property name="bctService" ref="bctService"/>
+    </bean>
+    
+    <bean id="task-sarp.publish.bct" class="org.pgist.sarp.bct.PublishBCTTask">
+        <property name="bctService" ref="bctService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.bct" class="org.pgist.sarp.bct.ToggleBCTTask">
+        <property name="bctService" ref="bctService"/>
+    </bean>
+    
+    <bean id="task-sarp.create.cst" class="org.pgist.sarp.cst.CreateCSTTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.publish.cst" class="org.pgist.sarp.cst.PublishCSTTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.cst" class="org.pgist.sarp.cst.ToggleCSTTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.cluster.categories" class="org.pgist.sarp.cst.CateogryClusterTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.cst.clear.winner" class="org.pgist.sarp.cst.ClearCSTWinnerTask">
+        <property name="cstService" ref="cstService"/>
+    </bean>
+    
+    <bean id="task-sarp.create.cht" class="org.pgist.sarp.cht.CreateCHTTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.publish.cht" class="org.pgist.sarp.cht.PublishCHTTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.cht" class="org.pgist.sarp.cht.ToggleCHTTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.cluster.cht.categories" class="org.pgist.sarp.cht.CHTCateogryClusterTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.cht.clear.winner" class="org.pgist.sarp.cht.ClearCHTWinnerTask">
+        <property name="chtService" ref="chtService"/>
+    </bean>
+    
+    <bean id="task-sarp.create.vtt" class="org.pgist.sarp.vtt.CreateVTTTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.publish.vtt" class="org.pgist.sarp.vtt.PublishVTTTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.vtt" class="org.pgist.sarp.vtt.ToggleVTTTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.cluster.vtt.categories" class="org.pgist.sarp.vtt.VTTCateogryClusterTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.cluster.vtt.experts" class="org.pgist.sarp.vtt.VTTExpertsClusterTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.vtt.clear.winner" class="org.pgist.sarp.vtt.ClearVTTWinnerTask">
+        <property name="vttService" ref="vttService"/>
+    </bean>
+    
+    <bean id="task-sarp.drt.clear.vote" class="org.pgist.sarp.drt.ClearVoteTask">
+        <property name="drtService" ref="drtService"/>
+    </bean>
+    
+    <bean id="task-sarp.toggle.drt" class="org.pgist.sarp.drt.ToggleDRTTask">
+        <property name="drtService" ref="drtService"/>
+    </bean>
+    
+    <bean id="task-sarp.create.report" class="org.pgist.sarp.report.CreateReportTask">
+        <property name="jythonAPI" ref="jythonAPI"/>
+        <property name="bctService" ref="bctService"/>
+        <property name="cstService" ref="cstService"/>
+        <property name="chtService" ref="chtService"/>
+        <property name="vttService" ref="vttService"/>
+        <property name="drtService" ref="drtService"/>
     </bean>
     
     
     <bean id="workflow.registry" class="org.pgist.wfengine.WorkflowTaskRegistry">
         <property name="tasks">
             <map>
-              <entry>
-                <key><value>task-create.project.suite</value></key><ref bean="task-create.project.suite" />
-              </entry>
+              <entry><key><value>task-sarp.create.bct</value></key><ref bean="task-sarp.create.bct" /></entry>
+              <entry><key><value>task-sarp.publish.bct</value></key><ref bean="task-sarp.publish.bct" /></entry>
+              <entry><key><value>task-sarp.toggle.bct</value></key><ref bean="task-sarp.toggle.bct" /></entry>
+              <entry><key><value>task-sarp.create.cst</value></key><ref bean="task-sarp.create.cst" /></entry>
+              <entry><key><value>task-sarp.publish.cst</value></key><ref bean="task-sarp.publish.cst" /></entry>
+              <entry><key><value>task-sarp.toggle.cst</value></key><ref bean="task-sarp.toggle.cst" /></entry>
+              <entry><key><value>task-sarp.cluster.categories</value></key><ref bean="task-sarp.cluster.categories" /></entry>
+              <entry><key><value>task-sarp.cst.clear.winner</value></key><ref bean="task-sarp.cst.clear.winner" /></entry>
+              <entry><key><value>task-sarp.create.cht</value></key><ref bean="task-sarp.create.cht" /></entry>
+              <entry><key><value>task-sarp.publish.cht</value></key><ref bean="task-sarp.publish.cht" /></entry>
+              <entry><key><value>task-sarp.toggle.cht</value></key><ref bean="task-sarp.toggle.cht" /></entry>
+              <entry><key><value>task-sarp.cluster.cht.categories</value></key><ref bean="task-sarp.cluster.cht.categories" /></entry>
+              <entry><key><value>task-sarp.cht.clear.winner</value></key><ref bean="task-sarp.cht.clear.winner" /></entry>
+              <entry><key><value>task-sarp.create.vtt</value></key><ref bean="task-sarp.create.vtt" /></entry>
+              <entry><key><value>task-sarp.publish.vtt</value></key><ref bean="task-sarp.publish.vtt" /></entry>
+              <entry><key><value>task-sarp.toggle.vtt</value></key><ref bean="task-sarp.toggle.vtt" /></entry>
+              <entry><key><value>task-sarp.cluster.vtt.categories</value></key><ref bean="task-sarp.cluster.vtt.categories" /></entry>
+              <entry><key><value>task-sarp.cluster.vtt.experts</value></key><ref bean="task-sarp.cluster.vtt.experts" /></entry>
+              <entry><key><value>task-sarp.vtt.clear.winner</value></key><ref bean="task-sarp.vtt.clear.winner" /></entry>
+              <entry><key><value>task-sarp.drt.clear.vote</value></key><ref bean="task-sarp.drt.clear.vote" /></entry>
+              <entry><key><value>task-sarp.toggle.drt</value></key><ref bean="task-sarp.toggle.drt" /></entry>
+              <entry><key><value>task-sarp.create.report</value></key><ref bean="task-sarp.create.report" /></entry>
             </map>
         </property>
         <property name="actions">
             <map>
-              <entry>
-                <key><value>task-define.projects</value></key><value>/projectDefine.do</value>
-              </entry>
+              <entry><key><value>action-sarp.bct</value></key><value>/bctview.do</value></entry>
+              <entry><key><value>action-sarp.cst</value></key><value>/cstview.do</value></entry>
+              <entry><key><value>action-sarp.cht</value></key><value>/chtview.do</value></entry>
+              <entry><key><value>action-sarp.vtt</value></key><value>/vttview.do</value></entry>
+              <entry><key><value>action-sarp.drt</value></key><value>/drt.do</value></entry>
+              <entry><key><value>action-sarp.drtmod</value></key><value>/drtmod.do</value></entry>
+              <entry><key><value>action-sarp.drtwait</value></key><value>/drtwait.do</value></entry>
+              <entry><key><value>action-sarp.vtt.experttool</value></key><value>/expertTool.do</value></entry>
+              <entry><key><value>action-sarp.vttwait</value></key><value>/vttwait.do</value></entry>
+              <entry><key><value>action-sarp.report</value></key><value>/report.do</value></entry>
             </map>
         </property>
     </bean>

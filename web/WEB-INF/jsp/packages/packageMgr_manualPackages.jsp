@@ -1,7 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -15,10 +15,11 @@
 	</tr>
 	<c:forEach var="package" items="${packages}" varStatus="loop">
 		<tr>
-			<td class="col1"><a href="package.do?id=${package.id}">${loop.index +1}</a></td>
-			<td>$${package.totalCost} Billion</td>
-			<td>$${package.totalCostForAvgResident}/year</td>
-			<td><small><a href="javascript:editClusteredPackage(${package.id});">Edit</a> | <a href="javascript:deleteClusteredPackage(${package.id});">Delete</a></small></td>
+			<td class="col1"><a target="_blank" href="package.do?pkgId=${package.id}&fundSuiteId=${fundSuiteId}&projSuiteId=${projSuiteId}&critSuiteId=${critSuiteId}&pkgSuiteId=${pkgSuiteId}">${package.description}</a></td>
+			<td>
+			$<fmt:formatNumber maxFractionDigits="1" value="${package.totalCost/1000000000}" /> billion</td>
+			<td>$${package.avgResidentCost}/year</td>
+			<td><small><a href="editClusteredPackage.do?pkgSuiteId=${pkgSuiteId}&projSuiteId=${projSuiteId}&fundSuiteId=${fundSuiteId}&critSuiteId=${critSuiteId}&pkgId=${package.id}">Edit</a> | <a href="javascript:deleteClusteredPackage(${package.id});">Delete</a></small></td>
 		</tr>
 	</c:forEach>
 </table>	

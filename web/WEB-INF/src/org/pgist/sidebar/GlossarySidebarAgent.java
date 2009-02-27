@@ -6,11 +6,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.directwebremoting.WebContextFactory;
 import org.pgist.glossary.GlossaryService;
 import org.pgist.glossary.Term;
 import org.pgist.util.PageSetting;
-
-import uk.ltd.getahead.dwr.WebContextFactory;
 
 
 /**
@@ -72,7 +71,7 @@ public class GlossarySidebarAgent {
             setting.setRowOfPage((String) params.get("count"));
             setting.setPage((String) params.get("page"));
             
-            Collection terms = glossaryService.getTerms(setting);
+            Collection terms = glossaryService.getTerms(setting, true);
             
             request.setAttribute("setting", setting);
             request.setAttribute("terms", terms);

@@ -70,9 +70,7 @@ public class WorkflowImporter extends MatchingTask {
                 configPath + "/context-tasks.xml",
                 "classpath:/config/context-workflow.xml",
                 configPath + "/context-base.xml",
-                configPath + "/context-cvo.xml",
-                configPath + "/context-projects.xml",
-                configPath + "/context-funding.xml",
+                configPath + "/context-sarp.xml",
             }
         );
         
@@ -99,6 +97,7 @@ public class WorkflowImporter extends MatchingTask {
             setUp();
             initWorkflow();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BuildException(e);
         }
     }//execute()

@@ -10,6 +10,78 @@
   <uri>http://www.pgist.org/pgtaglib</uri>
   <description>PGIST tag library</description>
 
+  <function>
+    <name>verboseGradeSwitch</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>java.lang.String verboseGradeSwitch(java.lang.String)</function-signature>
+  </function>
+    
+  <function>
+    <name>gradeSwitch</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>java.lang.String gradeSwitch(java.lang.String)</function-signature>
+  </function>
+    
+  <function>
+    <name>containsProjAltRef</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean containsProjAltRef(java.util.Collection, java.lang.Long)</function-signature>
+  </function>
+  
+  <function>
+    <name>containsFundAltRef</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean containsFundAltRef(java.util.Collection, java.lang.Long)</function-signature>
+  </function>  
+  
+  <function>
+    <name>contains</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean contains(java.util.Collection, java.lang.Object)</function-signature>
+  </function>
+
+  <function>
+    <name>containsRef</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean containsRef(org.pgist.projects.ProjectSuite, org.pgist.projects.Project, org.pgist.projects.ProjectAlternative)</function-signature>
+  </function>
+
+  <function>
+    <name>containsFundingRef</name>
+    <function-class>org.pgist.tags.PgistELFunctions</function-class>
+    <function-signature>boolean containsRef(org.pgist.funding.FundingSourceSuite, org.pgist.funding.FundingSource, org.pgist.funding.FundingSourceAlternative)</function-signature>
+  </function>
+  
+  <function>
+      <name>containsCriteria</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>boolean containsCriteria(org.pgist.criteria.CriteriaSuite, org.pgist.criteria.Criteria)</function-signature>
+  </function>
+  
+  <function>
+      <name>containsInfoObject</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>boolean containsInfoObject(org.pgist.criteria.Criteria, org.pgist.discussion.InfoObject)</function-signature>
+  </function>
+  
+  <function>
+      <name>voted</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>boolean voted(javax.servlet.jsp.PageContext, java.lang.Object)</function-signature>
+  </function>
+  
+  <function>
+      <name>reverse</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>boolean reverse(java.util.List)</function-signature>
+  </function>
+  
+  <function>
+      <name>purify</name>
+      <function-class>org.pgist.tags.PgistELFunctions</function-class>
+      <function-signature>java.lang.String purify(java.lang.String)</function-signature>
+  </function>
+  
   <tag>
     <name>show</name>
     <tag-class>org.pgist.tags.ShowTag</tag-class>
@@ -36,6 +108,663 @@
       <rtexprvalue>false</rtexprvalue>
     </attribute>
   </tag>
+  
+  <tag>
+    <name>hide</name>
+    <tag-class>org.pgist.tags.HideTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Hide contents according to user name or role name</description>
+    <attribute>
+      <name>condition</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>owner</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>roles</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>users</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>dialog</name>
+    <tag-class>org.pgist.tags.DialogTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Div simulated dialog</description>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>width</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>height</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>discourse</name>
+    <tag-class>org.pgist.tags.DiscourseTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>Discourse Object Tag</description>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>post</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>depth</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>commentCallback</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>enterCallback</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>tree</name>
+    <tag-class>org.pgist.tags.TreeTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Tree Tag</description>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>node</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>imagePath</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>dragable</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>dragHandler</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>clickHandler</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>stdImage</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>list</name>
+    <tag-class>org.pgist.tags.ListTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>List Tag</description>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>list</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>identity</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>title</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>imagePath</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>dragable</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>dragHandler</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>stdImage</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>searchresult</name>
+    <tag-class>org.pgist.tags.SearchResultTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>SearchResult Tag</description>
+    <attribute>
+      <name>object</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>button</name>
+    <tag-class>org.pgist.tags.ButtonTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>Faked Button Tag</description>
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>onclick</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>modulo</name>
+    <tag-class>org.pgist.tags.ModuloTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Show contents according to modulo</description>
+    <attribute>
+      <name>parameter</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>folding</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>value</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>highlight</name>
+    <tagclass>org.pgist.tags.HighlightTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <info>Highlight text in any content with specified CSS styles.</info>
+    <attribute>
+      <name>text</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>threshold</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>termHighlight</name>
+    <tagclass>org.pgist.tags.TermHighlightTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <info>Highlight terms in any content with specified URL/CSS styles.</info>
+    <attribute>
+      <name>strategy</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>count</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>url</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>treeXML</name>
+    <tag-class>org.pgist.tags.TreeXMLTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Tree XML Tag</description>
+    <attribute>
+      <name>root</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>fragment</name>
+    <tag-class>org.pgist.tags.FragmentTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>render diffrent parts in jsp file</description>
+    <attribute>
+      <name>type</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>feedback</name>
+    <tag-class>org.pgist.tags.FeedbackTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>Feedback Tag</description>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>action</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>styleClass</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>narrow</name>
+    <tag-class>org.pgist.tags.HibernateNarrowTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>Hibernate Narrow Tag</description>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>sort</name>
+    <tag-class>org.pgist.tags.SortTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>Collection Sort Tag</description>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>items</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>key</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>type</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>url</name>
+    <tag-class>org.pgist.tags.URLTag</tag-class>
+    <body-content>scriptless</body-content>
+    <description>URL Tag which knows workflow information</description>
+    <attribute>
+      <name>page</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>params</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>anchor</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>target</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>wfinfo</name>
+    <tag-class>org.pgist.tags.WorkflowInfoTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which knows workflow information</description>
+  </tag>
+  
+
+  <tag>
+    <name>cost2u</name>
+    <tag-class>org.pgist.tags.CostToYouTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab the user tax info calculation</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>suiteId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>totalCost2u</name>
+    <tag-class>org.pgist.tags.TotalCostToYouTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab the total cost for the current user</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>pkg</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>grab</name>
+    <tag-class>org.pgist.tags.GrabTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab any persisted object by id</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>id</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>include</name>
+    <tag-class>org.pgist.tags.WorkflowIncludeTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which includes a page declared in workflow property</description>
+    <attribute>
+      <name>property</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>property</name>
+    <tag-class>org.pgist.tags.WorkflowPropertyTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which output a property declared in workflow property</description>
+    <attribute>
+      <name>activity</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>envVar</name>
+    <tag-class>org.pgist.tags.WorkflowEnvVarTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which output a Environment Variable</description>
+    <attribute>
+      <name>context</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>activity</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>declared</name>
+    <tag-class>org.pgist.tags.WorkflowDeclaredTag</tag-class>
+    <body-content>empty</body-content>
+    <description>If declared workflow environment</description>
+    <attribute>
+      <name>context</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>activity</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>var</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>dfIterator</name>
+    <tag-class>org.pgist.tags.DFIteratorTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Depth first iterator</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>level</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>root</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>pathValue</name>
+    <tag-class>org.pgist.tags.PathValueTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which grab Path Value</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>userId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>path</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>chtGetPaths</name>
+    <tag-class>org.pgist.tags.CHTGetPathsTag</tag-class>
+    <body-content>empty</body-content>
+    <description>Tag which get CHT paths</description>
+    <attribute>
+      <name>var</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>chtId</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>orderby</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+
+  <tag>
+    <name>msetSelection</name>
+    <tag-class>org.pgist.tags.MsetSelectionTag</tag-class>
+    <body-content>empty</body-content>
+    <description>msetSelection</description>
+    <attribute>
+      <name>mset</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>unit</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
 
 </taglib>
 

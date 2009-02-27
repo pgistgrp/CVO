@@ -1,12 +1,6 @@
 package org.pgist.funding;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.pgist.users.User;
 
 
 /**
@@ -24,9 +18,33 @@ public class Consumption implements Serializable {
 	private Float size3;
 	private Float size4;
 	private Float size5;
+	private Float size6;
 
     private Long id;
 	
+    /**
+     * Looks up the correct size based on the number of people in the family
+     * 
+     * @param	familySize	The size of the family
+     * @return	The consuption for that family
+     */
+    public Float getConsumption(int familySize) {
+    	if(familySize <= 1) {
+    		return this.getSize1();
+    	} else if (familySize == 2) {
+    		return this.getSize2();    		
+    	} else if (familySize == 3) {
+    		return this.getSize3();    		
+    	} else if (familySize == 4) {
+    		return this.getSize4();    		
+        } else if (familySize == 5) {
+            return this.getSize5();         
+    	} else {
+    		return this.getSize6();    		
+    	}
+    }
+    
+    
     /**
      * @return
      * 
@@ -123,6 +141,18 @@ public class Consumption implements Serializable {
 		this.size5 = size5;
 	}
 
-	
+
+    /**
+     * @return
+     * 
+     * @hibernate.property not-null="true"
+     */ 
+    public Float getSize6() {
+        return size6;
+    }
+    public void setSize6(Float size6) {
+        this.size6 = size6;
+    }
+
 	
 }//class UserCommute

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
+
+<dwr>
+
+
+  <allow>
+
+
+    <filter class="org.pgist.web.DWRLoggingFilter" />
+    
+    
+    <!-- Beans Convertor -->
+
+    <convert converter="bean" match="org.pgist.sarp.bct.BCT">
+      <param name="include" value="id, name, purpose, instruction, creator, createTime"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.sarp.bct.Concern">
+      <param name="include" value="id, content, author, createTime, deleted, tags"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.tagging.Tag">
+      <param name="include" value="id, name, status, type, count"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.sarp.bct.TagReference">
+      <param name="include" value="id, tag, times, bctId"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.tagging.Category">
+      <param name="include" value="id, name, deleted"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.sarp.cst.CategoryReference">
+      <param name="include" value="id, category, theme"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.sarp.cst.CategoryInfo">
+      <param name="include" value="id, catRef, users, alias, tagsDiff, jaccardScores, freqSet, freqName, freqNameAndSet"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.sarp.bct.Theme"/>
+
+    <convert converter="bean" match="org.pgist.glossary.Term">
+      <param name="exclude" value="relatedTerms"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.glossary.TermSource"/>
+
+    <convert converter="bean" match="org.pgist.glossary.TermLink"/>
+
+    <convert converter="bean" match="org.pgist.glossary.TermAcronym"/>
+
+    <convert converter="bean" match="org.pgist.glossary.TermVariation"/>
+
+    <convert converter="bean" match="org.pgist.discussion.InfoStructure">
+        <param name="include" value="id,type,infoObjects"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.discussion.InfoObject">
+        <param name="include" value="id,object"/>
+    </convert>
+
+    <convert converter="bean" match="org.pgist.discussion.Discussion"/>
+
+    <convert converter="bean" match="org.pgist.discussion.DiscussionPost"/>
+
+    <!-- DWR Agents -->
+
+    <create creator="spring" javascript="BCTAgent">
+      <param name="beanName" value="bctAgent"/>
+      <include method="getBCTs"/>
+      <include method="createBCT"/>
+      <include method="prepareConcern"/>
+      <include method="saveConcern"/>
+      <include method="getConciseConcerns"/>
+      <include method="getConciseTags"/>
+      <include method="getConcernById"/>
+      <include method="getConcernsByTag"/>
+      <include method="getTagByTagRefId"/>
+      <include method="getTagCloud"/>
+      <include method="editConcern"/>
+      <include method="editTags"/>
+      <include method="deleteConcern"/>
+      <include method="deleteTags"/>
+      <include method="getConcernsByTag"/>
+      <include method="searchTags"/>
+      <include method="getContextConcerns"/>
+      <include method="setVoting"/>
+      <include method="getConcernComments"/>
+      <include method="createConcernComment"/>
+      <include method="editConcernComment"/>
+      <include method="deleteConcernComment"/>
+      <include method="setConcernCommentVoting"/>
+      <include method="test"/>
+    </create>
+
+
+    <create creator="spring" javascript="CSTAgent">
+      <param name="beanName" value="cstAgent"/>
+      <include method="addCategory"/>
+      <include method="copyCategory"/>
+      <include method="duplicateCategory"/>
+      <include method="moveCategory"/>
+      <include method="deleteCategory"/>
+      <include method="derelateTag"/>
+      <include method="editCategory"/>
+      <include method="getConcerns"/>
+      <include method="getConcernsByTags"/>
+      <include method="getTags"/>
+      <include method="getRTags"/>
+      <include method="getOrphanTags"/>
+      <include method="relateTag"/>
+      <include method="getThemes"/>
+      <include method="getSummary"/>
+      <include method="saveSummary"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="deleteComment"/>
+      <include method="getVotingOnComment"/>
+      <include method="setVotingOnComment"/>
+      <include method="getWinner"/>
+      <include method="publish"/>
+    </create>
+
+
+    <create creator="spring" javascript="CHTAgent">
+      <param name="beanName" value="chtAgent"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="deleteComment"/>
+      <include method="setVotingOnComment"/>
+      <include method="setVotingOnPath"/>
+      <include method="getWinner"/>
+      <include method="publish"/>
+      <include method="getTags"/>
+      <include method="getRTags"/>
+      <include method="getNavigation"/>
+      <include method="moveCategoryReference"/>
+      <include method="addPath"/>
+      <include method="getPaths"/>
+      <include method="getDRTPaths"/>
+    </create>
+
+
+    <create creator="spring" javascript="VTTAgent">
+      <param name="beanName" value="vttAgent"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="deleteComment"/>
+      <include method="getVotingOnComment"/>
+      <include method="setVotingOnComment"/>
+      <include method="getCategoryPathValue"/>
+      <include method="saveCategoryPathValue"/>
+      <include method="getWinner"/>
+      <include method="publish"/>
+      <include method="getTags"/>
+      <include method="getSpecialistComments"/>
+      <include method="createSpecialistComment"/>
+      <include method="deleteSpecialistComment"/>
+      <include method="setVotingOnSpecialistComment"/>
+      <include method="getExpertUnitSet"/>
+      <include method="toggleSelection"/>
+      <include method="publishExpertUnits"/>
+      <include method="setUnitComment"/>
+      <include method="getPathStats"/>
+      <include method="saveSelection"/>
+      <include method="addPath"/>
+      <include method="getPaths"/>
+      <include method="getPathInfo"/>
+      <include method="deletePath"/>
+      <include method="addIndicator"/>
+      <include method="deleteIndicator"/>
+      <include method="addUnit"/>
+      <include method="deleteUnit"/>
+    </create>
+
+
+    <create creator="spring" javascript="TaggingAgent">
+      <param name="beanName" value="taggingAgent"/>
+      <include method="getStopWords"/>
+      <include method="createStopWord"/>
+      <include method="deleteStopWord"/>
+      <include method="searchStopWords"/>
+      <include method="getTags"/>
+      <include method="createTag"/>
+      <include method="deleteTag"/>
+      <include method="searchTags"/>
+    </create>
+
+
+    <create creator="spring" javascript="GlossaryManageAgent">
+      <param name="beanName" value="glossaryManageAgent"/>
+      <include method="getTerms"/>
+      <include method="getProposedTerms"/>
+      <include method="getTerm"/>
+      <include method="saveTerm"/>
+      <include method="deleteTerm"/>
+      <include method="acceptTerm"/>
+      <include method="rejectTerm"/>
+      <include method="searchTerm"/>
+    </create>
+
+
+    <create creator="spring" javascript="GlossaryPublicAgent">
+      <param name="beanName" value="glossaryPublicAgent"/>
+      <include method="getTerms"/>
+      <include method="getTermHTML"/>
+      <include method="getTermObject"/>
+      <include method="proposeTerm"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="setFlag"/>
+    </create>
+
+
+    <create creator="spring" javascript="DRTAgent">
+      <param name="beanName" value="drtAgent"/>
+      <include method="getComments"/>
+      <include method="createComment"/>
+      <include method="editComment"/>
+      <include method="deleteComment"/>
+      <include method="getVotingOnInfoObject"/>
+      <include method="setVotingOnInfoObject"/>
+      <include method="getVotingOnComment"/>
+      <include method="setVotingOnComment"/>
+      <include method="getAnnouncements"/>
+      <include method="createAnnouncement"/>
+      <include method="setVotingOnAnnouncement"/>
+      <include method="searchTags"/>
+      <include method="getTagCloud"/>
+      <include method="getTagById"/>
+      <include method="setupEmailNotify"/>
+      <include method="search"/>
+      <include method="setExitCondition"/>
+      <include method="getCategoryTags"/>
+      <include method="setAnnouncementDone"/>
+    </create>
+
+
+  </allow>
+
+
+  <signatures>
+    <![CDATA[
+    ]]>
+  </signatures>
+
+
+</dwr>
+
