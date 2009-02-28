@@ -647,7 +647,7 @@
       <br><br>If you had to put some of your favorite concern keywords/phrases into a category of three words or less, what would they be? Create at least three different categories and then put the keywords/phrases you are most interested in into those categories. You may want to go back to the “Brainstorm concerns tool” again to help you find your favorite keywords/keyphrases. You must hit “Publish” to save your categories. You can post a comment about your categories of keywords/phrases.
       <br><br>Please click “<strong>Read More</strong>” below to see more information about how to categorize concern keywords/phrases.</pg:termHighlight>
       <p>
-        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Read more</pg:termHighlight></a>
+        <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
       <p id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><i>Task one: Add and publish categories.</i> Remember that you can review results of the "Brainstorm concerns tool" anytime. Try to use not just your own keywords/keyphrases but others as well.
