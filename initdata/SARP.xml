@@ -65,10 +65,10 @@
                 </props>
             </declaration>
         </pgame>
-        
-        <pgame name="pgame-sarp.bct" title="Brainstorm concern tool" auto="false" access="all" revisitable="true">
-            <description>
-              <![CDATA[<small>Brainstorm climate concerns and keywords|phrases</small>]]>
+        <!-- edited here -->
+        <pgame name="pgame-sarp.bct" title="Brainstorm climate concerns and keywords|phrases" auto="false" access="all" revisitable="true">
+            <description><!-- take out? -->
+              <![CDATA[<small></small>]]>
             </description>
             <actionName>action-sarp.bct</actionName>
             <declaration>
@@ -77,10 +77,10 @@
                 </ins>
             </declaration>
         </pgame>
-        
-        <pgame name="pgame-sarp.drt.bct" title="Review and comment tool" auto="false" access="all" revisitable="true">
+        <!-- edited here -->
+        <pgame name="pgame-sarp.drt.bct" title="Review overall progress, then comment about moving forward" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
+              <![CDATA[<small></small>]]><!-- take out? -->
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -141,10 +141,10 @@
                 </props>
             </declaration>
         </pgame>
-        
-        <pgame name="pgame-sarp.cst" title="Concern category tool" auto="false" access="all" revisitable="true">
+        <!-- edited here -->
+        <pgame name="pgame-sarp.cst" title="Create climate concern categories by clustering keywords|phrases" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Create climate concern categories by clustering keywords|phrases</small>]]>
+              <![CDATA[<small></small>]]><!-- take out? -->
             </description>
             <actionName>action-sarp.cst</actionName>
             <declaration>
@@ -184,10 +184,10 @@
                 </ins>
             </declaration>
         </pgame>
-        
-        <pgame name="pgame-sarp.drt.cst" title="Review and comment tool" auto="false" access="all" revisitable="true">
+        <!-- edited here -->
+        <pgame name="pgame-sarp.drt.cst" title="Review overall progress, then comment about moving forward" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review overall progress, then comment about moving forward.</small>]]>
+              <![CDATA[<small></small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
