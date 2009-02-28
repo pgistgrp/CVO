@@ -213,7 +213,7 @@
   }
   
   function deleteCHTComment(cid) {
-    if (!confirm('Are you sure you want to delete this comment? No way to undo.')) return;
+    if (!confirm('Are you sure you want to delete this comment? There is no way to undo this action.')) return;
     displayIndicator(true);
     CHTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
@@ -259,7 +259,7 @@
   };
   
   function publish(){
-      if (!confirm('Sure you want to publish categories?')) return;
+      if (!confirm('Confirm?')) return;
           $('publishBtn').disabled=true;
       CHTAgent.publish({chtId:chtId}, {
       callback:function(data){

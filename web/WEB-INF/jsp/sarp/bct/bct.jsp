@@ -346,7 +346,7 @@ var allNewConcernTags = new Array;
   //END ADD Concern Functions
   
   function deleteConcern(concernId){
-    var destroy = confirm ("Are you sure you want to delete this concern? Note: there is no undo.")
+    var destroy = confirm ("Are you sure you want to delete this comment? There is no way to undo this action.")
     if (destroy){
         BCTAgent.deleteConcern({concernId:concernId}, {
         callback:function(data){  

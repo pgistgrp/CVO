@@ -451,7 +451,7 @@
   }
   
   function deleteCSTComment(cid) {
-    if (!confirm('Are you sure to delete this comment? There\'s no way to undo it.')) return;
+    if (!confirm('Are you sure you want to delete this comment? There is no way to undo this action.')) return;
     displayIndicator(true);
     CSTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
@@ -498,7 +498,7 @@
   
   <c:if test="${!published && !cst.closed}">
     function publish(){
-      if (!confirm('Sure you want to publish categories?')) return;
+      if (!confirm('Confirm?')) return;
       $('publishBtn').disabled=true;
       CSTAgent.publish({cstId:cstId}, {
       callback:function(data){

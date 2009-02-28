@@ -216,7 +216,7 @@
   }
   
   function deleteVTTComment(cid) {
-    if (!confirm('Delete this comment? No way to undo.')) return;
+    if (!confirm('Are you sure you want to delete this comment? There is no way to undo this action.')) return;
     displayIndicator(true);
     VTTAgent.deleteComment({cid:cid}, <pg:wfinfo/>,{
           callback:function(data){
@@ -262,7 +262,7 @@
   }
   
   function publish(){
-      if (!confirm('Publish concern-indicator paths?')) return;
+      if (!confirm('Confirm?')) return;
       $('publishBtn').disabled=true;
       VTTAgent.publish({vttId:vttId}, {
       callback:function(data){
