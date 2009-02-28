@@ -662,15 +662,93 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.report" title="Report" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.publish.report" title="Publish Report." auto="true">
             <description>
-              <![CDATA[<small>Report</small>]]>
+              <![CDATA[Publish report.]]>
             </description>
-            <actionName>action-sarp.report</actionName>
+            <taskName>task-sarp.publish.report</taskName>
             <declaration>
+                <ins>
+                    <var name="report_id"/>
+                    <var name="oid"/>
+                </ins>
+                <outs>
+                    <var name="oid"/>
+                </outs>
+                <props>
+                    <property name="title" value="Review and Comment for Report" />
+                </props>
+            </declaration>
+        </pgame>
+        
+        <pgame name="pgame-sarp.drt.report" title="Review and comment tool" auto="false" access="all" revisitable="true">
+            <description>
+              <![CDATA[<small>Review report, then comment about moving forward.</small>]]>
+            </description>
+            <actionName>action-sarp.drt</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/ReportAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/report/drt.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/report/info-object.jsp" />
+                    <property name="overview">
+                        <![CDATA[
+                            <h3 class="headerColor">Overview and instructions</h3>
+                            <p>put overview here!!!
+                        ]]>
+                    </property>
+                </props>
             </declaration>
         </pgame>
     
+        <pgame name="pgame-sarp.drt.reportmod" title="Report Mod Tool" auto="false" access="moderator" revisitable="false">
+            <description>
+              <![CDATA[<small>Report Mod Tool</small>]]>
+            </description>
+            <actionName>action-sarp.drtmod</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/ReportAgent.js'></script>
+                        <script type='text/javascript' src='/scripts/sarp/report/reportMod.js'></script>
+                        ]]>
+                    </property>
+                    <property name="page" value="/WEB-INF/jsp/sarp/report/reportMod.jsp" />
+                </props>
+            </declaration>
+        </pgame>
+    
+        <pgame name="pgame-sarp.drt.wait.report" title="Wait Screen" auto="false" access="all" revisitable="false">
+            <description>
+              <![CDATA[<small>Status</small>]]>
+            </description>
+            <actionName>action-sarp.drtwait</actionName>
+            <declaration>
+                <ins>
+                    <var name="oid"/>
+                </ins>
+                <props>
+                    <property name="javascript">
+                        <![CDATA[
+                        <script type='text/javascript' src='/dwr/interface/ReportAgent.js'></script>
+                        ]]>
+                    </property>
+                    <property name="announcement" value="Moderator is modifying report, please wait." />
+                </props>
+            </declaration>
+        </pgame>
+        
     </pgames>
     
     <!-- PMethods -->
@@ -1225,17 +1303,81 @@
                         </outs>
                     </declaration>
                 </pgame>
-                <branch>
+                <pgame name="pgame-sarp.publish.report">
+                    <declaration>
+                        <ins>
+                            <var name="report_id" ref="pmethod.report_id"/>
+                            <var name="oid" ref="pmethod.report_id_oid"/>
+                        </ins>
+                        <outs>
+                            <var name="oid" ref="pmethod.report_id_oid"/>
+                        </outs>
+                    </declaration>
+                </pgame>
+                <repeat exitCondition="pmethod.reportExitCondition">
                     <sequence>
-                        <pgame name="pgame-sarp.report">
+                        <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
-                                    <var name="report_id" ref="pmethod.report_id"/>
+                                    <var name="oid" ref="pmethod.report_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="open" />
+                                </props>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.drt.clear.vote">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.report_oid"/>
                                 </ins>
                             </declaration>
                         </pgame>
+                        <pgame name="pgame-sarp.drt.report">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.report_oid"/>
+                                    <var name="exitCondition" ref="pmethod.reportExitCondition"/>
+                                </ins>
+                                <outs>
+                                    <var name="exitCondition" ref="pmethod.reportExitCondition" />
+                                </outs>
+                            </declaration>
+                        </pgame>
+                        <pgame name="pgame-sarp.toggle.drt">
+                            <declaration>
+                                <ins>
+                                    <var name="oid" ref="pmethod.report_oid"/>
+                                </ins>
+                                <props>
+                                    <property name="action" value="close" />
+                                </props>
+                            </declaration>
+                        </pgame>
                     </sequence>
-                </branch>
+                    <flowback>
+                        <branch>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.wait.report">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.report_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                            <sequence>
+                                <pgame name="pgame-sarp.drt.reportmod">
+                                    <declaration>
+                                        <ins>
+                                            <var name="oid" ref="pmethod.report_oid"/>
+                                        </ins>
+                                    </declaration>
+                                </pgame>
+                            </sequence>
+                        </branch>
+                    </flowback>
+                </repeat>
             </sequence>
         </pmethod>
         

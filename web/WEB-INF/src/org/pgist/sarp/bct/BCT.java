@@ -53,7 +53,7 @@ public class BCT {
     /**
      * @return
      * 
-     * @hibernate.set lazy="true" cascade="all" order-by="createTime desc"
+     * @hibernate.set lazy="true" table="sarp_bct_concern_link" cascade="all" order-by="createTime desc"
      * @hibernate.collection-key column="bct_id"
      * @hibernate.collection-many-to-many class="org.pgist.sarp.bct.Concern"
      */

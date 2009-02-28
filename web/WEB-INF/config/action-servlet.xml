@@ -222,9 +222,5 @@
     </bean>
     
     
-    <bean name="/report" class="org.pgist.sarp.report.ReportAction">
-    </bean>
-    
-    
 </beans>
 
