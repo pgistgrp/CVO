@@ -238,9 +238,9 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.wait.cst" title="Wait Screen" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.wait.cst" title="Status" auto="false" access="all" revisitable="false">
             <description>
-              <![CDATA[<small>Wait Screen</small>]]>
+              <![CDATA[<small>Status</small>]]>
             </description>
             <actionName>action-sarp.drtwait</actionName>
             <declaration>
@@ -394,9 +394,9 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.wait.cht" title="Wait Screen" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.wait.cht" title="Status" auto="false" access="all" revisitable="false">
             <description>
-              <![CDATA[<small>Wait Screen</small>]]>
+              <![CDATA[<small>Status</small>]]>
             </description>
             <actionName>action-sarp.drtwait</actionName>
             <declaration>
@@ -567,7 +567,7 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.wait.vtt" title="Wait Screen" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.wait.vtt" title="Status" auto="false" access="all" revisitable="false">
             <description>
               <![CDATA[<small>Status</small>]]>
             </description>
@@ -587,7 +587,7 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.vtt.wait" title="Wait Screen" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.vtt.wait" title="Status" auto="false" access="all" revisitable="false">
             <description>
               <![CDATA[<small>Status of offline work</small>]]>
             </description>
