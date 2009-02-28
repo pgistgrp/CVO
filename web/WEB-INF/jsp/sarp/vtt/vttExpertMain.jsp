@@ -329,7 +329,7 @@
         <form>
           <p><label>Title</label><br><input maxlength="100" style="width:90%;" type="text" value="" id="txtNewCommentTitle"/></p>
           <p><label>Your Thoughts</label><br><textarea style="width:100%; height: 150px;" id="txtNewComment"></textarea></p>
-          <input type="button" onClick="createVTTComment();" value="Submit">
+          <input type="button" onClick="createVTTComment();" value="Submit comment">
           <input type="button" onClick="cancelVTTComment();" value="Cancel" />
         </form>
       </div>

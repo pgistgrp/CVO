@@ -95,7 +95,7 @@ Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
 <c:if test="${isOwner==true}">
 <center>
   <textarea id="unitComment" style="width:95%;height:100px;">${comment.content}</textarea>
-  <input type="button" value="Submit" onclick="saveUnitComment(${path.id});">
+  <input type="button" value="Submit comment" onclick="saveUnitComment(${path.id});">
 </center>
 </c:if>
 <c:if test="${isOwner!=true}">
