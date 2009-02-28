@@ -50,14 +50,14 @@
 							<p>${comment.content}</p>
 							<h3>- <pg:url page="/publicprofile.do" target="_blank" params="userId=${comment.author.id}">${comment.author.loginname}</pg:url> at ${comment.createTime}</h3>
 						</div>
-						<div class="discussionComments peekaboobugfix">
+<!--						<div class="discussionComments peekaboobugfix">
 				<c:choose>
 				  <c:when test="${fmtToday == fmtLastCommentDate || fmtToday == fmtLastReplyDate }">
 					<img src="/images/balloonactive2.gif" alt="Replies within the last 24 hours" /></c:when>
 				  <c:otherwise>
 					<img src="/images/ballooninactive2.gif" alt="No replies within the last 24 hours" /></c:otherwise>
 				  </c:choose>&nbsp;
-						</div>
+						</div>-->
 						<pg:show roles="moderator">
 						<div class="smallText" style="text-align:right;">	
 							Moderator options: <input type="button" onClick="deleteVTTComment(${comment.id});" value="Delete" />
