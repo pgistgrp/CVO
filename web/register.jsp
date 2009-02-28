@@ -322,7 +322,7 @@
 
 		</div>
 		<div class="form-right">
-			<p>You user name is how you will be identified by other participants on the Voicing Climate Concerns website. Feel free to choose a creative name. Your user name should not be the same as your real name. It may consist of a-z, 0-9, and underscores.</p>
+			<p>You user name is how you will be identified by other participants on the Voicing Climate Concerns website. It may consist of a-z, 0-9, and underscores.</p>
 		</div>
 	</fieldset>
 	<div id="step-bar" class="box5 padding5 clearfix" style="text-align:center;">
