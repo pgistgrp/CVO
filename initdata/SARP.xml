@@ -1283,6 +1283,7 @@
                 </ins>
                 <outs>
                     <var name="pmethod.report_id"/>
+                    <var name="pmethod.report_id_oid"/>
                 </outs>
             </declaration>
             <sequence>
@@ -1319,7 +1320,7 @@
                         <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
-                                    <var name="oid" ref="pmethod.report_oid"/>
+                                    <var name="oid" ref="pmethod.report_id_oid"/>
                                 </ins>
                                 <props>
                                     <property name="action" value="open" />
@@ -1329,14 +1330,14 @@
                         <pgame name="pgame-sarp.drt.clear.vote">
                             <declaration>
                                 <ins>
-                                    <var name="oid" ref="pmethod.report_oid"/>
+                                    <var name="oid" ref="pmethod.report_id_oid"/>
                                 </ins>
                             </declaration>
                         </pgame>
                         <pgame name="pgame-sarp.drt.report">
                             <declaration>
                                 <ins>
-                                    <var name="oid" ref="pmethod.report_oid"/>
+                                    <var name="oid" ref="pmethod.report_id_oid"/>
                                     <var name="exitCondition" ref="pmethod.reportExitCondition"/>
                                 </ins>
                                 <outs>
@@ -1347,7 +1348,7 @@
                         <pgame name="pgame-sarp.toggle.drt">
                             <declaration>
                                 <ins>
-                                    <var name="oid" ref="pmethod.report_oid"/>
+                                    <var name="oid" ref="pmethod.report_id_oid"/>
                                 </ins>
                                 <props>
                                     <property name="action" value="close" />
