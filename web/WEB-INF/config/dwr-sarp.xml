@@ -177,6 +177,11 @@
     </create>
 
 
+    <create creator="spring" javascript="ReportAgent">
+      <param name="beanName" value="reportAgent"/>
+    </create>
+
+
     <create creator="spring" javascript="TaggingAgent">
       <param name="beanName" value="taggingAgent"/>
       <include method="getStopWords"/>

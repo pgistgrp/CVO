@@ -698,6 +698,7 @@
                         ]]>
                     </property>
                     <property name="page" value="/WEB-INF/jsp/sarp/report/info-object.jsp" />
+                    <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Overview and instructions</h3>
@@ -729,7 +730,7 @@
             </declaration>
         </pgame>
     
-        <pgame name="pgame-sarp.drt.wait.report" title="Wait Screen" auto="false" access="all" revisitable="false">
+        <pgame name="pgame-sarp.drt.wait.report" title="Status" auto="false" access="all" revisitable="false">
             <description>
               <![CDATA[<small>Status</small>]]>
             </description>
@@ -1284,6 +1285,7 @@
                 <outs>
                     <var name="pmethod.report_id"/>
                     <var name="pmethod.report_id_oid"/>
+                    <var name="pmethod.reportExitCondition"/>
                 </outs>
             </declaration>
             <sequence>
@@ -1362,7 +1364,7 @@
                                 <pgame name="pgame-sarp.drt.wait.report">
                                     <declaration>
                                         <ins>
-                                            <var name="oid" ref="pmethod.report_oid"/>
+                                            <var name="oid" ref="pmethod.report_id_oid"/>
                                         </ins>
                                     </declaration>
                                 </pgame>
@@ -1371,7 +1373,7 @@
                                 <pgame name="pgame-sarp.drt.reportmod">
                                     <declaration>
                                         <ins>
-                                            <var name="oid" ref="pmethod.report_oid"/>
+                                            <var name="oid" ref="pmethod.report_id_oid"/>
                                         </ins>
                                     </declaration>
                                 </pgame>
@@ -1496,6 +1498,8 @@
                 </ins>
                 <outs>
                     <var name="meeting.report_id"/>
+                    <var name="meeting.report_id_oid"/>
+                    <var name="meeting.reportExitCondition"/>
                 </outs>
             </declaration>
             <sequence>
@@ -1513,6 +1517,8 @@
                         </ins>
                         <outs>
                             <var name="pmethod.report_id" ref="meeting.report_id"/>
+                            <var name="pmethod.report_id_oid" ref="meeting.report_id_oid"/>
+                            <var name="pmethod.reportExitCondition" ref="meeting.reportExitCondition"/>
                         </outs>
                     </declaration>
                 </pmethod>
@@ -1582,6 +1588,8 @@
                         </ins>
                         <outs>
                             <var name="meeting.report_id" ref="situation.report_id"/>
+                            <var name="meeting.report_id_oid" ref="situation.report_id_oid"/>
+                            <var name="meeting.reportExitCondition" ref="situation.reportExitCondition"/>
                         </outs>
                     </declaration>
                 </meeting>

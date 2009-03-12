@@ -116,7 +116,7 @@ public class CreateReportTask implements WorkflowTask {
         try {
             PythonInterpreter interpreter = jythonAPI.getInterpreter();
             interpreter.set("report", report);
-            interpreter.set("output", jythonAPI.getContextPath()+"/WEB-INF/jsp/report/report.html");
+            interpreter.set("output", jythonAPI.getContextPath()+"/WEB-INF/jsp/report/report_"+report.getId().intValue()+".html");
             jythonAPI.run(interpreter, "Report.py");
         } catch (Exception e) {
             e.printStackTrace();
