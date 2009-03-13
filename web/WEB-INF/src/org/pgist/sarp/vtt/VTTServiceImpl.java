@@ -269,6 +269,8 @@ public class VTTServiceImpl implements VTTService {
         
         //cluster paths
         for (CategoryPath path : vtt.getPaths()) {
+            sets.clear();
+            
             for (CategoryPathValue value : vttDAO.getCategoryPathValuesByPathId(path.getId())) {
                 String name = value.getName();
                 String unit = value.getCriterion();
@@ -290,10 +292,10 @@ public class VTTServiceImpl implements VTTService {
                     freqs.put(unit, freq + 1);
                 }
             }
-        }
-        
-        for (MUnitSet mUnitSet : sets.values()) {
-            vttDAO.save(mUnitSet);
+            
+            for (MUnitSet mUnitSet : sets.values()) {
+                vttDAO.save(mUnitSet);
+            }
         }
     } //setClusteredPaths()
     

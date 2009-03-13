@@ -104,11 +104,6 @@ public class MUnitSet implements Comparable<MUnitSet> {
     }
 
 
-    public Map<String, Integer> getApprFreqs() {
-        return apprFreqs;
-    }
-
-
     /**
      * @return
      * 
@@ -117,6 +112,11 @@ public class MUnitSet implements Comparable<MUnitSet> {
      * @hibernate.collection-index column="unit" type="string" length="32"
      * @hibernate.collection-element type="int" column="freq"
      */
+    public Map<String, Integer> getApprFreqs() {
+        return apprFreqs;
+    }
+
+
     public void setApprFreqs(Map<String, Integer> apprFreqs) {
         this.apprFreqs = apprFreqs;
     }
