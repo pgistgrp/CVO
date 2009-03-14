@@ -66,7 +66,7 @@
             </declaration>
         </pgame>
         <!-- edited here -->
-        <pgame name="pgame-sarp.bct" title="Brainstorm climate concerns and keywords|phrases" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.bct" title="Brainstorm Keyphrases" auto="false" access="all" revisitable="true">
             <description><!-- take out? -->
               <![CDATA[<small></small>]]>
             </description>
