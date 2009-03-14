@@ -122,6 +122,11 @@ public class CreateReportTask implements WorkflowTask {
             interpreter.set("drtService", drtService);
             interpreter.set("output", jythonAPI.getContextPath()+"/WEB-INF/jsp/sarp/report/report_"+report.getWorkflowId()+".html");
             jythonAPI.run(interpreter, "Report.py");
+            
+            /*
+             * Some calculation results may be save to report object, so we need to save it again.
+             */
+            drtService.save(report);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
