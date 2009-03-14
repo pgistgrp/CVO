@@ -115,7 +115,11 @@ public class CreateReportTask implements WorkflowTask {
         
         try {
             PythonInterpreter interpreter = jythonAPI.getInterpreter();
-            interpreter.set("report", report);
+            interpreter.set("bctService", bctService);
+            interpreter.set("cstService", cstService);
+            interpreter.set("chtService", chtService);
+            interpreter.set("vttService", vttService);
+            interpreter.set("drtService", drtService);
             interpreter.set("output", jythonAPI.getContextPath()+"/WEB-INF/jsp/sarp/report/report_"+report.getWorkflowId()+".html");
             jythonAPI.run(interpreter, "Report.py");
         } catch (Exception e) {
