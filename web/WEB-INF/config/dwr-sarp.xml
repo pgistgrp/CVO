@@ -179,6 +179,7 @@
 
     <create creator="spring" javascript="ReportAgent">
       <param name="beanName" value="reportAgent"/>
+      <include method="saveReport"/>
     </create>
 
 

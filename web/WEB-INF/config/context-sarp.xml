@@ -167,6 +167,7 @@
         <property name="target">
             <bean class="org.pgist.sarp.report.ReportServiceImpl">
                 <property name="reportDAO" ref="reportDAO"/>
+                <property name="jythonAPI" ref="jythonAPI"/>
             </bean>
         </property>
     </bean>

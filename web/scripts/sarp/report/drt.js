@@ -1,0 +1,3 @@
+infoObject.loadTarget = function() {
+};
+

@@ -19,6 +19,7 @@
 }
 </style>
 
+<script language="javascript" type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script src="/scripts/prototype.js" type="text/javascript"></script>
 <script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
 <pg:property name="javascript" />
