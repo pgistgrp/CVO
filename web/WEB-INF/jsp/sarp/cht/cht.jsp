@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Category Hierarchy Tool</title>
+<title>Build Hierarchies</title>
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <!--CSS Libraries -->
@@ -331,16 +331,18 @@
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This is the “Category hierarchy tool” section of the site. You have <strong>three</strong> tasks.</pg:termHighlight></p>
-      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Your <strong>first task</strong> is to organize concern categories into hierarchies.  You must hit "Publish" to save your hierarchies.  You will not be able to modify them after you publish. Your <strong>second task</strong> is to post a comment about the nature of hierarchy development. Your <strong>third task</strong> is to review how people voted or commented about your hierarchies.</pg:termHighlight></p>
-      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Please click “<strong>Read More</strong>” below to see how to use the “Category hierarchy tool” to create and publish hierarchies and comment and vote on other’s hierarchies.</pg:termHighlight></p>
+      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to build hierarchies, further refining relationships between group categories, from general to specific levels.</pg:termHighlight></p>
+      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">The hierarchies users create will be separated into paths (see diagram at right), contextualizing specific categories within general categories, to be used in the next step.</pg:termHighlight></p>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
-      <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><i>Task one: Add and publish your hierarchies.</i> To create a category hierarchy, first select and highlight a concern category label in the left column and add it by clicking the “+” button under the label “Create category hierarchies.” To remove a category click the “-“ button. To put a more specific concern category under a more general one, select and highlight your favorite specific concern category and use the little arrow button to position it underneath and to the right of a more general concern category. When finished to share with others, click the "Publish" button at the bottom of left column. You are still able to edit your hierarchies after you “Publish.”<br><br>
-	<i>Task two: Post a comment.</i> Your second task is to post a comment about how you made your hierarchies and then vote on other’s comments. Vote on whether you agree or not that someone else’s hierarchy of concern categories is specific enough. Vote as often as you can.</pg:termHighlight>
-      </p>
+      <ol id="hiddenRM" style="display:none">
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Choose categories to be included in your hierarchies by highlighting them and clicking the &quot;<b>+</b>&quot; button.</li>
+	<li>Using the arrow icons organize categories into hierarchies from general (at the left) to specific (at the right).  Any number of hierarchies is OK.  To remove a category, click the &quot;<b>-</b>&quot; button; all categories beneath and to the right will be removed.</li>
+	<li>Click &quot;<b>Publish</b>&quot; to share your hierarchies with other users.</li>
+	<li>Use the drop down menu to explore hierarchies created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
+	<li>Re-evaluate your own contributions and alter them if necessary.</li></pg:termHighlight>
+      </ol>
     </div>
 <!-- end of overview and instructions -->
 
