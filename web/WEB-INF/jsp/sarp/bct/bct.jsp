@@ -600,14 +600,14 @@ function editTags(concernId){
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
-      <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><ol>
+      <ol id="hiddenRM" style="display:none">
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
   <li>Write a concern in the box on the right and click &quot;<b>Continue</b>&quot;.</li>
   <li>Choose keywords extracted from your concern or enter your own in the space provided, and click submit.  (Users need at least 2 keyphrases per concern.)</li>
   <li>Explore concerns and associated keyphrases submitted by other users using the search, browse or sort functionality provided in the blue bar.  users can discuss concerns by submitting comments and indicate your agreement or disagreement by voting.</li>
   <li>Re-evaluate your own concerns and edit or create new ones  if necessary.</li>
-</ol></pg:termHighlight>
-      </p>
+</pg:termHighlight>
+      </ol>
     </div>
     <a name="filterJump"></a>
     <pg:show condition="${!bct.closed}">
