@@ -339,7 +339,7 @@
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to develop indicators and units of measurement for each hierarchy path
-      <br><br>The indicators users develop will be combined with those of other users, voted on, included in the final report, and mapped in a subsequent workshop.</pg:termHighlight>
+      <br>The indicators users develop will be combined with those of other users, voted on, included in the final report, and mapped in a subsequent workshop.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
