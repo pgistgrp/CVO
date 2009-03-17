@@ -594,7 +594,7 @@ function editTags(concernId){
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br><br>This sub-step allows users to specify concerns and associate them with meaningful keyphrases.<br><br>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to specify concerns and associate them with meaningful keyphrases.<br><br>
       The concerns and keyphrases users provide serve as the building blocks for the next sub-step, <i>assessing group keyphrases</i>, as well as for the entire process.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
