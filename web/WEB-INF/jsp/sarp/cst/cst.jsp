@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Concerns Category Tool</title>
+<title>Create Categories</title>
 
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <!--CSS Libraries -->
@@ -643,17 +643,19 @@
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This is the “Concern category tool” section of the site.
-      <br><br>If you had to put some of your favorite concern keywords/phrases into a category of three words or less, what would they be? Create at least three different categories and then put the keywords/phrases you are most interested in into those categories. You may want to go back to the “Brainstorm concerns tool” again to help you find your favorite keywords/keyphrases. You must hit “Publish” to save your categories. You can post a comment about your categories of keywords/phrases.
-      <br><br>Please click “<strong>Read More</strong>” below to see more information about how to categorize concern keywords/phrases.</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to organize the group's keyphrases into labeled categories, generalizing specific contributions by theme.
+      <br><br>The categories users create will be used in the next step as the building blocks for thematic relationships which will be specified in the form of indicators.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
-      <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><i>Task one: Add and publish categories.</i> Remember that you can review results of the "Brainstorm concerns tool" anytime. Try to use not just your own keywords/keyphrases but others as well.
-	<br><br>Come up with a name for a category of concern keywords/phrases in three words or less. For instance, you may want to put the keywords/phrases “paying more for my insurance because of risk of coastal erosion” and “making expensive repairs to my home because of coastal erosion” into one more general category called “Coastal erosion costs.” To create a concern category, type in a name into the textbox under the title “Categorize concern keywords/phrases” and hit “Add Category.” The category will appear in the left column. To add a description of your category, select and highlight a category and then type into the text box at the bottom of the left column. To save your description you must hit the “save description” button. To put your favorite concern keywords/phrases into a category, you must first select and highlight the category in the far left column. Then go to the “Keywords” tab in the far right column. To add a keyword/phrase, click the little arrow “&#8592” symbol and it will be added to the middle column under the title “Keywords within …” your category name. To take a keyword/keyphrase back out of a category, select and highlight a category in the far left column then click the little arrow symbol “&#8594” next to the keyword/keyphrase in the middle column. When you are ready to let others see your categories, and to save your categories, you must hit the “Publish” button.
-	<br><br><i>Task two: Post a comment about your categories for a vote by others.</i> Your second task is to post a comment about your categories and then vote on other’s comments. Vote on whether you agree or not with someone else’s categories of keywords/keyphrases. Vote as often as you can. Try to vote on at least three other comments, if not more.</pg:termHighlight>
-      </p>
+      <ol id="hiddenRM" style="display:none">
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Review the list of keyphrases in the right-hand panel.</li>
+  <li>Create and label categories.  Assign keyphrases into categories.</li>
+  <li>Click &quot;<b>Publish</b>&quot; to share your categories with other users.</li>
+  <li>Use the drop down menu to explore categories created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
+  <li>Re-evaluate your own categories and edit or create new ones if necessary.</li>
+</pg:termHighlight>
+      </ol>
     </div>
     
     <pg:show condition="${!modtool}">
