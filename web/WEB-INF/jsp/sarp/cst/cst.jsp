@@ -644,7 +644,7 @@
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to organize the group's keyphrases into labeled categories, generalizing specific contributions by theme.
-      <br><br>The categories users create will be used in the next step as the building blocks for thematic relationships which will be specified in the form of indicators.</pg:termHighlight>
+      <br>The categories users create will be used in the next step as the building blocks for thematic relationships which will be specified in the form of indicators.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
