@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Concern Indicator Tool</title>
+<title>Develop Indicators</title>
 
   <!--CSS Libraries -->
 
@@ -338,17 +338,18 @@
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This is the “Concern indicator tool” section of the site. Indicators will be used to create climate vulnerability maps using data as it becomes available from the Oregon Coastal Atlas data archive. You have <strong>three</strong> tasks.
-      <br><br>Your <strong>first task</strong> is to select your favorite hierarchies of concern categories, select the most specific keyword/phrase within them, and then suggest the best way to measure it. The result is an indicator. You must click “Publish” to save your indicators and let others see them. Your <strong>second task</strong> is to post comments. Your <strong>third task</strong> is to see how people voted or commented about your indicators, and then modify your indicators if you so choose.
-      <br><br>Please click “<strong>Read More</strong>” below to see more details about the “Concern indicator tool.”</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This sub-step allows users to develop indicators and units of measurement for each hierarchy path
+      <br><br>The indicators users develop will be combined with those of other users, voted on, included in the final report, and mapped in a subsequent workshop.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
-      <p id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><i>Task one: Add and publish your indicators.</i> To create an indicator, first select and highlight a hierarchy label in the left column. In the middle column, select the most specific keyword/phrase from the pull down box or even enter your own keyword/keyphrase. Then suggest how you would measure that specific keyword/keyphrase by entering a unit of measurement and creating a potential indicator. You can select, highlight and modify your indicators at any time. Indicators will be used to create climate vulnerability maps using data as it becomes available from the Oregon Coastal Atlas data archive. When finished to share with others, click the "Publish" button at the bottom of left column. Your indicators will be listed on the right column. You are still able to edit your hierarchies after you “Publish," but the button will disappear because each change is saved.
-	<br><br><i>Task two: Post a comment.</i> Post a comment about how you selected the most specific keywords/phrases and suggested the best way to measure it.
-	<br><br><i>Task three: Modify your indicators.</i> After looking at other’s comments about your concern, you have the option of modifying your indicators.</pg:termHighlight>
-      </p>
+      <ol id="hiddenRM" style="display:none">
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Click on a hierarchy path in the left column.  Choose a keyphrase to name the indicator for that path, or enter a name of your choice.  Enter a unit of measurement for your indicator.</li>
+	<li>Click &quot;<b>Save</b>&quot; after every indicator and unit of measurement users specify.  The indicator will appear in the right column.</li>
+	<li>Click &quot;<b>Publish</b>&quot; to share indicators and units of measurement with other users.</li>
+	<li>Use the drop down menu to explore indicators and units of measurement created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
+	<li>Re-evaluate your contributions and alter them if necessary.</li></pg:termHighlight>
+      </ol>
     </div>
 <!-- end of overview and instructions -->
 
