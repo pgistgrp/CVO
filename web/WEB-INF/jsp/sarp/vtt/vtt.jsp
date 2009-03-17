@@ -338,14 +338,14 @@
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This sub-step allows users to develop indicators and units of measurement for each hierarchy path
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to develop indicators and units of measurement for each hierarchy path
       <br><br>The indicators users develop will be combined with those of other users, voted on, included in the final report, and mapped in a subsequent workshop.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Click on a hierarchy path in the left column.  Choose a keyphrase to name the indicator for that path, or enter a name of your choice.  Enter a unit of measurement for your indicator.</li>
-	<li>Click &quot;<b>Save</b>&quot; after every indicator and unit of measurement users specify.  The indicator will appear in the right column.</li>
+	<li>Click &quot;<b>Save</b>&quot; after every indicator and unit of measurement you specify.  The indicator will appear in the right column.</li>
 	<li>Click &quot;<b>Publish</b>&quot; to share indicators and units of measurement with other users.</li>
 	<li>Use the drop down menu to explore indicators and units of measurement created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
 	<li>Re-evaluate your contributions and alter them if necessary.</li></pg:termHighlight>
