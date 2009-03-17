@@ -338,7 +338,7 @@
       </p>
       <ol id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Choose categories to be included in your hierarchies by highlighting them and clicking the &quot;<b>+</b>&quot; button.</li>
-	<li>Using the arrow icons organize categories into hierarchies from general (at the left) to specific (at the right).  Any number of hierarchies is OK.  To remove a category, click the &quot;<strong>-</strong>&quot; button; all categories beneath and to the right will be removed.</li>
+	<li>Using the arrow icons organize categories into hierarchies from general (at the left) to specific (at the right).  Any number of hierarchies is OK.  To remove a category, click the &quot;<h4><b>-</b></h4>&quot; button; all categories beneath and to the right will be removed.</li>
 	<li>Click &quot;<b>Publish</b>&quot; to share your hierarchies with other users.</li>
 	<li>Use the drop down menu to explore hierarchies created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
 	<li>Re-evaluate your own contributions and alter them if necessary.</li></pg:termHighlight>
