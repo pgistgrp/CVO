@@ -594,19 +594,18 @@ function editTags(concernId){
       <h3>Overview and instructions</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This is the “Brainstorm concern tool” section of the site. You have <strong>three</strong> tasks.<br><br>
-      If you had the chance to tell someone your personal concerns about the regional impacts of global climate change on the Oregon coast, in 10 words or less, what would you say?
-      <br><br>Please click “<strong>Read More</strong>” below to see how to use the “Brainstorm concern tool” to submit keywords/phrases, filter and deliberate about keywords/phrases, and modify your original concern keywords/phrases.</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This sub-step allows users to specify concerns and associate them with meaningful keyphrases.<br><br>
+      The concerns and keyphrases users provide the building blocks for the next sub-step, assessing group keyphrases, as well as for the entire process.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-  <li>Write a concern in the box on the right and click &quot;<b>Continue</b>&quot;.</li>
-  <li>Choose keywords extracted from your concern or enter your own in the space provided, and click submit.  (Users need at least 2 keyphrases per concern.)</li>
-  <li>Explore concerns and associated keyphrases submitted by other users using the search, browse or sort functionality provided in the blue bar.  users can discuss concerns by submitting comments and indicate your agreement or disagreement by voting.</li>
-  <li>Re-evaluate your own concerns and edit or create new ones  if necessary.</li>
-</pg:termHighlight>
+	<li>Write a concern in the box on the right and click &quot;<b>Continue</b>&quot;.</li>
+	<li>Choose keywords extracted from your concern or enter your own in the space provided, and click submit.  (Users need at least 2 keyphrases per concern.)</li>
+	<li>Explore concerns and associated keyphrases submitted by other users using the search, browse or sort functionality provided in the blue bar.  users can discuss concerns by submitting comments and indicate your agreement or disagreement by voting.</li>
+	<li>Re-evaluate your own concerns and edit or create new ones  if necessary.</li>
+	</pg:termHighlight>
       </ol>
     </div>
     <a name="filterJump"></a>
