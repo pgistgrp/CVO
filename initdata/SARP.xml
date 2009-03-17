@@ -96,9 +96,8 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Overview and instructions</h3>
-                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
-                            <p>Your <strong>first task</strong> in the &quot;Review and comment tool&quot; is to review the overall progress and comment whether you are prepared to move forward.  If you are prepared to move forward your <strong>second task</strong> is to vote your consent about moving on to Step 2.</p>
-			    <p>Please click &quot;<strong>Detailed instructions</strong>&quot; below to see how you can make at least two types of comments.</p>
+                            <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of keyphrases.</p>
+                            <p>When the group reaches agreement over the set of concerns and keyphrases, they become the building blocks for the next step, categorizing keyphrases.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on outcomes of Step 1.</i> Try to make at least one comment about whether the most popular concern keywords/phrases are the best. You can review the outcomes of Step 1 by sorting concern keywords/phrases using two different tools. You can use the &quot;Sort concerns by:&quot; tool to sort by date added (newest to oldest, oldest to newest); by vote (most agreement, least agreement, most votes); and by comments (most comments, most views). Under the label &quot;Keywords&quot; you can use the tool to sort concern keywords/phrases by ascending order (a-z), descending order (z-a), and frequency.
 			    <br><br><i>Task two: Moving forward to Step 2.</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
@@ -294,7 +293,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.cht" title="Build hierarchies" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.cht" title="Build Hierarchies" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Individuals build hierarchies using synthesized categories</small>]]>
             </description>
