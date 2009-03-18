@@ -538,7 +538,7 @@
                             <p>This sub-step presents the indicators contributed by all users as well as additional information provided by data specialists for discussion and agreement.</p>
                             <p>When the group reaches agreement over the appropriate indicator for each hierarchy path, they are included in the final report as the group's suggestion for a mapping and discussion activity in a subsequent workshop.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <ol id="hiddenRM" style="display:none">  <li>Click on each hierarchy path in the left column to explore the indicators specified for it and make your recommendation.  Click "Save" after each recommendation users make.</li>
+                            <ol id="hiddenRM" style="display:none">  <li>Click on each hierarchy path in the left column to explore the indicators specified for it and make your recommendation.  Click &quot;<b>Save</b>&quot; after each recommendation users make.</li>
 			    	<li>Read others' comments and submit your own to discuss the group's indicators.   The ratio in the 'selection' column displays the groups' yes votes on the given indicator in relation to all votes.</li>
 				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
 				<li>Vote to move forward when satisfied with the group's progress.</li></ol>
