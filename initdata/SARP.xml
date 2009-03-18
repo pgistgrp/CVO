@@ -205,12 +205,13 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Overview and instructions</h3>
-                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
-                            <p>Your <strong>first task</strong> in the &quot;Review and comment tool&quot; is to try to make at least two comments. Make an overall comment about progress with synthesizing keyword/phrases into categories and vote on the categories you would like to see moving forward to the next step.  Whenever you are done commenting and voting on other&apos;s comments, your <strong>second task</strong> is to vote your approval about moving on to Step 3.</p>
-			    <p>Please click &quot;<strong>Detailed instructions</strong>&quot; below to see how you can make at least two types of comments.</p>
+                            <p>This sub-step presents a set of 'group categories' synthesized from the contributions of all users for discussion and agreement.</p>
+                            <p>When the group reaches agreement over the set of group categories, they become the building blocks for the next step, building hierarchies using those categories.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on Step 2.</i> You can make at least two types of comments in the &quot;Review and comment&quot; section. Try to make at least one comment about your three tasks in Step 2. For instance, did you find it hard to put your favorite keyword/phrases into categories of three words or less? What made you vote on someone else&apos;s concern categories? Did you get as many votes or comments about your concern categories than others did, and did other people help you change your mind? Next, try to make at least one comment about what you think the most popular concern categories are, whether they are the best, and how they compared with your own concern categories. You can compare your own or your favorite concern categories against the more popular concern categories using the &quot;<u>compare</u>&quot; tool. First, select and highlight your concern category from the list of categories in the left column. Your category will appear in the middle column. Then find a favorite or popular category from the list of categories in the left column and hit the &quot;<u>compare</u>&quot; button. The comparison category will appear in the right column.
-			    <br><br><i>Task two: Moving forward to Step 3.</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                            <ol id="hiddenRM" style="display:none">  <li>Explore the group's group categories using the additional information provided.</li>
+			    	<li>Read others' comments and submit your own, to discuss the breadth and depth of the group categories.</li>
+				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
+				<li>Vote to move forward when satisfied with the group's progress.</li></ol>
                         ]]>
                     </property>
                 </props>
@@ -360,12 +361,13 @@
                     <property name="overview">
                         <![CDATA[
 			    <h3 class="headerColor">Overview and instructions</h3>
-                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
-                            <p>Your <strong>first task</strong> in the &quot;Review and comment tool&quot; is to vote on hierarchies and then make a comment about whether you think the most popular categories are the best and the most specific ones. Whenever you are done commenting and voting on other&apos;s comments, your <strong>second task</strong> is to vote your consent about moving on to Step 4.</p>
-			    <p>Please click &quot;<strong>Detailed instructions</strong>&quot; below to see how you can vote and make comments.</p>
+                            <p>This sub-step presents a set of hierarchy paths from the contributions of all users for discussion and agreement.</p>
+                            <p>When the group reaches agreement over the set of hierarchy paths, they become the building blocks for the next step, specifying indicators for hierarchy paths.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on Step 3.</i> Vote on either your favorite hierarchies or those you think are the best and most specific. Then make comments in the &quot;Review and comment&quot; section about overall progress. For instance, Did you find it difficult to make your favorite concern categories more specific? What made you vote on someone else&apos;s hierarchies? Did you get as many votes or comments on your hierarchies than others did?
-			    <br><br><i>Task two: Moving forward to Step 4.</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                            <ol id="hiddenRM" style="display:none">  <li>Explore and vote on the group's hierarchy paths, sorting them based on how many users built them (frequency), number of votes, or alphabetically.  Vote counts are updated when users refresh the page.</li>
+			    <li>Read others' comments and submit your own, to discuss the breadth and depth of the group's hierarchy paths.</li>
+			    <li>If the moderator provides announcements, vote your agreement or disagreement.</li>
+			    <li>Vote to move forward when satisfied with the group's progress.</li></ol>
                         ]]>
                     </property>
                 </props>
@@ -533,12 +535,13 @@
                     <property name="overview">
                         <![CDATA[
 			    <h3 class="headerColor">Overview and instructions</h3>
-                            <p>This is the &quot;Review and comment&quot; section of the site. You have <strong>two</strong> tasks.</p>
-                            <p>Your <strong>first task</strong> is to review the technical specialists&apos; recommendations and then select which indicators you think are best. Comment about whether you think the most popular categories are the best and the most specific ones. Your <strong>second task</strong> is to vote your consent about moving on to Step 5.</p>
-			    <p>Please click &quot;<strong>Detailed instructions</strong>&quot; below to see how you can vote and make comments.</p>
+                            <p>This sub-step presents the indicators contributed by all users as well as additional information provided by data specialists for discussion and agreement.</p>
+                            <p>When the group reaches agreement over the appropriate indicator for each hierarchy path, they are included in the final report as the group's suggestion for a mapping and discussion activity in a subsequent workshop.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on Step 4.</i> Simply vote on either your favorite indicators or those you think are the best and most measurable. Then make comments on the overall result.  You can suggest if changes to indicators are needed.
-			    <br><br><i>Task two: Moving forward to Step 5.</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                            <ol id="hiddenRM" style="display:none">  <li>Click on each hierarchy path in the left column to explore the indicators specified for it and make your recommendation.  Click "Save" after each recommendation users make.</li>
+			    	<li>Read others' comments and submit your own to discuss the group's indicators.   The ratio in the 'selection' column displays the groups' yes votes on the given indicator in relation to all votes.</li>
+				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
+				<li>Vote to move forward when satisfied with the group's progress.</li></ol>
                         ]]>
                     </property>
                 </props>
