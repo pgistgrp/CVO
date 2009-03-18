@@ -99,8 +99,11 @@
                             <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of keyphrases.</p>
                             <p>When the group reaches agreement over the set of concerns and keyphrases, they become the building blocks for the next step, categorizing keyphrases.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <p id="hiddenRM" style="display:none"><i>Task one: Review and comment on outcomes of Step 1.</i> Try to make at least one comment about whether the most popular concern keywords/phrases are the best. You can review the outcomes of Step 1 by sorting concern keywords/phrases using two different tools. You can use the &quot;Sort concerns by:&quot; tool to sort by date added (newest to oldest, oldest to newest); by vote (most agreement, least agreement, most votes); and by comments (most comments, most views). Under the label &quot;Keywords&quot; you can use the tool to sort concern keywords/phrases by ascending order (a-z), descending order (z-a), and frequency.
-			    <br><br><i>Task two: Moving forward to Step 2.</i> If many people vote no to &quot;Do you think we can move forward?&quot; the moderator may extend the originally scheduled time to complete the step. If you are comfortable with moving forward, vote yes. If you choose not to vote, the moderator will use the rule &quot;silence is consent&quot; and complete the step.</p>
+                            <ol id="hiddenRM" style="display:none">  <li>Explore the group's concerns and keyphrases using the tools provided (sort or filter).</li>
+			    	<li>Read others' comments and submit your own, to discuss the breadth and depth of the group's concerns and keyphrases.</li>
+				<li>Return to "Brainstorm Keyphrases" to edit or add concerns and keyphrases if necessary.</li>
+				<li>Vote to move forward when satisfied with the group's progress.</li>
+			    </ol>
                         ]]>
                     </property>
                 </props>
