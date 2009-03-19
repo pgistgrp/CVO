@@ -115,6 +115,7 @@ public class CreateReportTask implements WorkflowTask {
         
         try {
             PythonInterpreter interpreter = jythonAPI.getInterpreter();
+            interpreter.set("report", report);
             interpreter.set("bctService", bctService);
             interpreter.set("cstService", cstService);
             interpreter.set("chtService", chtService);
