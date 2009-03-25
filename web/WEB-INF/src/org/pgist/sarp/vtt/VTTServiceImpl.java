@@ -441,6 +441,14 @@ public class VTTServiceImpl implements VTTService {
         for (CategoryPath path : vtt.getPaths()) {
             List<MUnitSet> msets = vttDAO.getMUnitSetsByPathId(path.getId());
             
+            // the default selection
+            MUnitSet def = new MUnitSet();
+            def.setName("");
+            def.setPath(path);
+            vttDAO.save(def);
+            
+            msets.add(def);
+            
             for (MUnitSet mset : msets) {
                 Map<String, Integer> apprFreqs = mset.getApprFreqs();
                 Map<String, Integer> availFreqs = mset.getAvailFreqs();

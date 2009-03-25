@@ -1,9 +1,7 @@
 package org.pgist.sarp.vtt;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +9,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.search.Hits;
@@ -1227,6 +1224,19 @@ public class VTTAgent {
             
             boolean selected = false;
             List<MUnitSet> msets = vttService.getMUnitSetsByPathId(pathId);
+            
+            // default one
+            MUnitSet defUnitSet = null;
+            for (MUnitSet one : msets) {
+                if ("".equals(one.getName())) {
+                    defUnitSet = one;
+                    break;
+                }
+            }
+            
+            boolean found = false;
+            boolean none = true;
+            
             int totalSelection = 0;
             for (MUnitSet mUnitSet : msets) {
                 totalSelection += mUnitSet.getUserSelections().size();
@@ -1244,6 +1254,7 @@ public class VTTAgent {
                     row[0] = mUnitSet.getApprFreqs().get(unit);
                     if (unit.equals(myUnit)) {
                         row[4] = true;
+                        none = false;
                     }
                 }
                 
@@ -1256,6 +1267,7 @@ public class VTTAgent {
                     row[1] = mUnitSet.getAvailFreqs().get(unit);
                     if (unit.equals(myUnit)) {
                         row[4] = true;
+                        none = false;
                     }
                 }
                 
@@ -1268,6 +1280,7 @@ public class VTTAgent {
                     row[2] = mUnitSet.getDupFreqs().get(unit);
                     if (unit.equals(myUnit)) {
                         row[4] = true;
+                        none = false;
                     }
                 }
                 
@@ -1280,12 +1293,22 @@ public class VTTAgent {
                     row[3] = mUnitSet.getRecoFreqs().get(unit);
                     if (unit.equals(myUnit)) {
                         row[4] = true;
+                        none = false;
                     }
                 }
                 
                 for (Map.Entry<Long, String> entry : mUnitSet.getUserSelections().entrySet()) {
-                    Object[] row = block.get(entry.getValue());
+                    String unit = entry.getValue();
+                    Object[] row = block.get(unit);
+                    if (row==null) {
+                        row = new Object[] {0, 0, 0, 0, false, 0, 0};
+                        block.put(unit, row);
+                    }
                     row[5] = (Integer) row[5] + 1;
+                    if (unit.equals(myUnit)) {
+                        row[4] = true;
+                        found = true;
+                    }
                 }
             }
             
@@ -1297,6 +1320,9 @@ public class VTTAgent {
             }
             
             request.setAttribute("pathId", pathId);
+            request.setAttribute("defUnitSet", defUnitSet);
+            request.setAttribute("found", found);
+            request.setAttribute("none", none);
             request.setAttribute("grid", grid);
             request.setAttribute("selected", selected);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttPathStats.jsp"));
@@ -1350,7 +1376,8 @@ public class VTTAgent {
             String unit = (String) params.get("unit");
             if (unit!=null) {
                 unit = unit.trim();
-                if (unit.length()==0) unit = null;
+            } else {
+                unit = "";
             }
             vttService.saveSelection(pathId, musetId, WebUtils.currentUserId(), unit);
             map.put("successful", true);

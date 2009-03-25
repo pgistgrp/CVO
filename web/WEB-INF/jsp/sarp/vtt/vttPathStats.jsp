@@ -5,9 +5,21 @@
 </center>
 <form>
 <div style="clear:both; text-align:right; margin-right:30px;">
-  <label style="cursor:pointer;" for="rec-none">Recommend none of the following<label> <input id="rec-none" name="userSel" type="radio" value="" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);"></td>
+  <c:if test="${!found}">
+    <label style="cursor:pointer;" for="rec-none">Recommend none of the following</label> <input id="rec-none" name="userSel" type="radio" value="${defUnitSet.id}-" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);">  </c:if>
+  <c:if test="${found}">
+    <c:choose>
+      <c:when test="${none}">
+        <label style="cursor:pointer;" for="rec-none">Recommend none of the following</label> <input id="rec-none" name="userSel" type="radio" value="${defUnitSet.id}-" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);" checked>
+      </c:when>
+      <c:otherwise>
+        <label style="cursor:pointer;" for="rec-none">Recommend none of the following</label> <input id="rec-none" name="userSel" type="radio" value="${defUnitSet.id}-" onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);">
+      </c:otherwise>
+    </c:choose>
+  </c:if>
 </div>
 <c:forEach var="block" items="${grid}" varStatus="loop">
+<c:if test="${block.key.name!=''}">
 Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
 <table width="100%" width="1">
   <tr>
@@ -40,6 +52,7 @@ Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
   </c:forEach>
 </table>
 <br>
+</c:if>
 </c:forEach>
 <center>
 <input id="btnSave" type="button" value="Save" onclick="saveUnitSelection(${pathId});">
