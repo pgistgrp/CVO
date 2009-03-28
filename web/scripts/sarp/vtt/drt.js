@@ -65,3 +65,20 @@ function saveUnitSelection(pathId) {
     }
   });
 }
+
+function changeSorting(order) {
+  VTTAgent.getRawPaths({vttId:infoObject.targetId, sorting:order}, {
+  callback:function(data){
+    if (data.successful){
+      $('col-left').innerHTML = data.html;
+    }else{
+      alert(data.reason);
+      $('publishBtn').disabled=false;
+    }
+  },
+  errorHandler:function(errorString, exception){ 
+      alert("publish error:" + errorString + exception);
+  }
+  });
+}
+

@@ -383,6 +383,7 @@
       </select></h2>
     <div id="col-left" style="height:430px;overflow:auto;">
       <div id="cats">
+        <c:set var="sorting" value="a-z" scope="request" />
         <jsp:include page="vttCatsTable.jsp"/>
       </div>
     </div>

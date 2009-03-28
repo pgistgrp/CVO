@@ -14,6 +14,7 @@
 </style>
 <div id="col-left" style="float:left;width:35%;overflow:auto;height:350px;border-right:1px solid #B4D579;">
   <c:set var="vtt" scope="request" value="${infoObject.target}"/>
+  <c:set var="sorting" value="a-z" scope="request" />
   <jsp:include page="vttCatsTable.jsp" />
 </div>
 
