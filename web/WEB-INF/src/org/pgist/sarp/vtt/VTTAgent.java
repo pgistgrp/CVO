@@ -1601,6 +1601,50 @@ public class VTTAgent {
         
         return map;
     } //deleteUnit()
+
+
+    /**
+     * Add raw CategoryPath paths.
+     * 
+     * @param params A map contains:
+     *   <ul>
+     *     <li>vttId - int, id of the VTT object. Required.</li>
+     *   </ul>
+     *   
+     * @return A map contains:<br>
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *   </ul>
+     */
+    public Map getRawPaths(HttpServletRequest request, Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long vttId = new Long((String) params.get("vttId"));
+        
+        try {
+            VTT vtt = vttService.getVTTById(vttId);
+            
+            request.setAttribute("vtt", vtt);
+            request.setAttribute("paths", vtt.getPaths());
+            String sorting = (String) params.get("sorting");
+            if (!"z-a".equalsIgnoreCase(sorting) && !"0-9".equalsIgnoreCase(sorting)
+                    && !"9-0".equalsIgnoreCase(sorting)) {
+                sorting = "a-z";
+            }
+            request.setAttribute("sorting", sorting);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttCatsTable.jsp"));
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    } //getRawPaths()
     
     
 }//class VTTAgent

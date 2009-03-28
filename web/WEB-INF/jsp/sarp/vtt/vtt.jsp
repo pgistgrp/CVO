@@ -278,6 +278,22 @@
       }
       });
   }
+  
+  function changeSorting(order) {
+    VTTAgent.getRawPaths({vttId:vttId, sorting:order}, {
+    callback:function(data){
+      if (data.successful){
+        $('cats').innerHTML = data.html;
+      }else{
+        alert(data.reason);
+        $('publishBtn').disabled=false;
+      }
+    },
+    errorHandler:function(errorString, exception){ 
+        alert("publish error:" + errorString + exception);
+    }
+    });
+  }
   </script>
 
   <!-- Template 5 Specific -->

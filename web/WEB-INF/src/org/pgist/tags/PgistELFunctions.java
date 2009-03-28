@@ -2,6 +2,8 @@ package org.pgist.tags;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -228,4 +230,63 @@ public class PgistELFunctions extends SimpleTagSupport {
 	    return html;
 	}
 	
+	public static List<CategoryPath> sortPaths(List<CategoryPath> paths, String order) {
+	    if ("a-z".equalsIgnoreCase(order)) {
+	        Collections.sort(paths, new Comparator<CategoryPath>() {
+                @Override
+                public int compare(CategoryPath path1, CategoryPath path2) {
+                    return path1.getTitle().compareToIgnoreCase(path2.getTitle());
+                }
+	        });
+	    } else if ("z-a".equalsIgnoreCase(order)) {
+	        Collections.sort(paths, new Comparator<CategoryPath>() {
+                @Override
+                public int compare(CategoryPath path1, CategoryPath path2) {
+                    return path2.getTitle().compareToIgnoreCase(path1.getTitle());
+                }
+            });
+        } else if ("0-9".equalsIgnoreCase(order)) {
+            Collections.sort(paths, new Comparator<CategoryPath>() {
+                @Override
+                public int compare(CategoryPath path1, CategoryPath path2) {
+                    int v1 = path1.getNumVote();
+                    int v2 = path2.getNumVote();
+                    int a1 = path1.getNumAgree();
+                    int a2 = path2.getNumAgree();
+                    
+                    if (v1==v2) {
+                        if (a1==a2) {
+                            return path1.getTitle().compareToIgnoreCase(path2.getTitle());
+                        } else {
+                            return a1-a2;
+                        }
+                    } else {
+                        return v1-v2;
+                    }
+                }
+            });
+        } else if ("9-0".equalsIgnoreCase(order)) {
+            Collections.sort(paths, new Comparator<CategoryPath>() {
+                @Override
+                public int compare(CategoryPath path1, CategoryPath path2) {
+                    int v1 = path1.getNumVote();
+                    int v2 = path2.getNumVote();
+                    int a1 = path1.getNumAgree();
+                    int a2 = path2.getNumAgree();
+                    
+                    if (v1==v2) {
+                        if (a1==a2) {
+                            return path1.getTitle().compareToIgnoreCase(path2.getTitle());
+                        } else {
+                            return a2-a1;
+                        }
+                    } else {
+                        return v2-v1;
+                    }
+                }
+            });
+	    }
+	    
+	    return paths;
+	}
 }// class PgistELFunctions
