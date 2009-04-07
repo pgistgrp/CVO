@@ -102,6 +102,9 @@ public class CategoryPath {
         this.users = users;
     }
 
+    public void addUser(Long id) {
+        users.add(id);
+    }
     
     /**
      * @return

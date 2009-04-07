@@ -66,6 +66,8 @@ public interface CHTService {
     CategoryPath createPath(Long chtId, String pathIds) throws Exception;
 
     Set<User> getThreadUsers(Long catRefId) throws Exception;
+
+    List<User> getPathUsersByPathId(Long pathId) throws Exception;
     
     
 }//interface CHTService

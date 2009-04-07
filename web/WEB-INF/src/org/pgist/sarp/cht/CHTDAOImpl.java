@@ -166,4 +166,14 @@ public class CHTDAOImpl extends BaseDAOImpl implements CHTDAO {
     }
 
 
+    private static final String hql_getPathUsersByPathIds = "from User u where u.id in (##) order by u.loginname";
+
+
+    @Override
+    public List<User> getPathUsersByPathIds(String ids) throws Exception {
+        Query query = getSession().createQuery(hql_getPathUsersByPathIds.replace("##", ids));
+        return query.list();
+    }
+
+
 }//class CHTDAOImpl

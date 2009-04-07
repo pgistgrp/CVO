@@ -141,6 +141,7 @@
       <include method="addPath"/>
       <include method="getPaths"/>
       <include method="getDRTPaths"/>
+      <include method="getPathUsers"/>
     </create>
 
 

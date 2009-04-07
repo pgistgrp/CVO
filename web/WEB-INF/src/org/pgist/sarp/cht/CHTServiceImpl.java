@@ -507,4 +507,26 @@ public class CHTServiceImpl implements CHTService {
     }
 
 
+    @Override
+    public List<User> getPathUsersByPathId(Long pathId) throws Exception {
+        CategoryPath path = getPathById(pathId);
+        StringBuilder sb = new StringBuilder();
+        
+        for (Long id : path.getUsers()) {
+            if (sb.length()>0) sb.append(",");
+            sb.append(id);
+        }
+        
+        List<User> users = null;
+        
+        if (sb.length()>0) {
+            users = chtDAO.getPathUsersByPathIds(sb.toString());
+        } else {
+            users = new ArrayList<User>();
+        }
+        
+        return users;
+    }
+
+
 }//class CHTServiceImpl
