@@ -18,6 +18,8 @@ public class ExpertPathComment {
     
     private String content;
     
+    private String source;
+    
     
     /**
      * @return
@@ -71,4 +73,16 @@ public class ExpertPathComment {
     }
 
 
+    /**
+     * @return
+     * @hibernate.property type="text"
+     */
+    public String getSource() {
+        return source;
+    }
+    public void setSource(String source) {
+        this.source = source;
+    }
+    
+    
 }

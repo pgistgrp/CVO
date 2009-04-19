@@ -1174,7 +1174,7 @@ public class VTTAgent {
         }
         
         try {
-            vttService.setUnitComment(pathId, (String) params.get("content"));
+            vttService.setUnitComment(pathId, (String) params.get("content"), (String) params.get("source"));
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <p><b>Units of measurement for category path "${path.title}"</b>
-<div style="height:250px;overflow:auto;clear:both;">
+<div style="height:400px;overflow:auto;clear:both;">
 <form name="umForm" action="#">
 <div style="clear:both; text-align:right; margin-right:20px;">
   <label style="cursor:pointer;" for="rec-none">Recommend none of the above<label>
@@ -95,12 +95,20 @@ Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
 <c:if test="${isOwner==true}">
 <center>
   <textarea id="unitComment" style="width:95%;height:100px;">${comment.content}</textarea>
+</center>
+  <b>Data Source:</b><br>
+<center>
+  <input type="text" id="unitSource" style="width:95%;" value="${comment.source}">
   <input type="button" value="Submit comment" onclick="saveUnitComment(${path.id});">
 </center>
 </c:if>
 <c:if test="${isOwner!=true}">
 <center>
   <textarea id="unitComment" style="width:95%;height:100px;" readonly="true">${comment.content}</textarea>
+</center>
+  <b>Data Source:</b><br>
+<center>
+  <input type="text" id="unitSource" style="width:95%;" readonly="true" value="${comment.source}">
 </center>
 </c:if>
 </div>

@@ -18,8 +18,6 @@ public class VTTSpecialistComment extends GenericComment {
     
     protected User owner;
     
-    private String source;
-    
     private VTTSpecialistComment parent;
     
     
@@ -62,18 +60,6 @@ public class VTTSpecialistComment extends GenericComment {
     }
 
 
-    /**
-     * @return
-     * @hibernate.property type="text"
-     */
-    public String getSource() {
-        return source;
-    }
-    public void setSource(String source) {
-        this.source = source;
-    }
-    
-    
     /**
      * @return
      * @hibernate.many-to-one column="parent_id" lazy="true"

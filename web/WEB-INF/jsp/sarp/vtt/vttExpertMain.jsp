@@ -222,7 +222,7 @@
   }
   
   function saveUnitComment(pathId){
-      VTTAgent.setUnitComment({pathId:pathId, content:$('unitComment').value}, {
+      VTTAgent.setUnitComment({pathId:pathId, content:$('unitComment').value, source:$('unitSource').value}, {
       callback:function(data){
         if (data.successful){
           alert('saved');
@@ -231,7 +231,7 @@
         }
       },
       errorHandler:function(errorString, exception){ 
-          alert("publish error:" + errorString + exception);
+          alert("Save comment error:" + errorString + exception);
       }
       });
   }
@@ -318,14 +318,14 @@
       </logic:iterate>
     </select></h2>
     
-    <div id="col-left" style="height:450px;overflow:auto;">
+    <div id="col-left" style="height:650px;overflow:auto;">
       <div id="cats">
         <c:set var="sorting" value="a-z" scope="request" />
         <jsp:include page="vttCatsTable.jsp"/>
       </div>
     </div>
     
-    <div id="col-right" style="height:450px;overflow:none;"></div>
+    <div id="col-right" style="height:650px;overflow:none;"></div>
     
     <div style="clear:both">
       <c:if test="${isOwner && !published}">

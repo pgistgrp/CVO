@@ -419,7 +419,7 @@ public class VTTServiceImpl implements VTTService {
     @Override
     
     
-    public void setUnitComment(Long pathId, String content) throws Exception {
+    public void setUnitComment(Long pathId, String content, String source) throws Exception {
         ExpertPathComment comment = vttDAO.getExpertPathComment(pathId, WebUtils.currentUserId());
         if (comment==null) {
             comment = new ExpertPathComment();
@@ -427,6 +427,7 @@ public class VTTServiceImpl implements VTTService {
             comment.setPath(vttDAO.getCategoryPathById(pathId));
         }
         comment.setContent(content);
+        comment.setSource(source);
         
         vttDAO.save(comment);
     } //setUnitComment()
