@@ -204,6 +204,7 @@ public class PgistELFunctions extends SimpleTagSupport {
             
         	if (voting!=null) return true;
         } catch (Exception e) {
+            //e.printStackTrace();
 		}
         
 		return false;

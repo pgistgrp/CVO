@@ -1,6 +1,7 @@
 package org.pgist.tags;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +55,32 @@ public class CHTGetPathsTag extends SimpleTagSupport {
         CHTService chtService = (CHTService) appContext.getBean("chtService");
         
         try {
+            boolean myvote = false;
+            
+            if ("myvote".equalsIgnoreCase(orderby)) {
+                orderby = null;
+                myvote = true;
+            }
+            
             List<CategoryPath> list = chtService.getPathsByChtId(chtId, orderby);
+            
+            if (myvote) {
+                List<CategoryPath> list1 = new ArrayList<CategoryPath>();
+                List<CategoryPath> list2 = new ArrayList<CategoryPath>();
+                
+                for (CategoryPath cp : list) {
+                    if (PgistELFunctions.voted(context, cp)) {
+                        list2.add(cp);
+                    } else {
+                        list1.add(cp);
+                    }
+                }
+                
+                list.clear();
+                list.addAll(list1);
+                list.addAll(list2);
+            }
+            
             context.setAttribute(var, list);
         } catch (Exception e) {
             throw new JspException(e);

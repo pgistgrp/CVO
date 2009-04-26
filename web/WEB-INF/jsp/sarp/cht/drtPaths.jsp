@@ -7,7 +7,7 @@
     <td style="width:50%"><a href="javascript:infoObject.getPaths('title');">Label</a></td>
     <td style="width:16%;"><a href="javascript:infoObject.getPaths('freq');">Frequency</a></td>
     <td style="width:16%;"><a href="javascript:infoObject.getPaths('vote');"># of Votes</a></td>
-    <td style="width:20%;">Voting</td>
+    <td style="width:20%;"><a href="javascript:infoObject.getPaths('myvote');">Voting</a></td>
   </tr>
 <pg:chtGetPaths var="paths" chtId="${chtId}" orderby="${orderby}" />
 <c:forEach var="path" items="${paths}" varStatus="loop">
