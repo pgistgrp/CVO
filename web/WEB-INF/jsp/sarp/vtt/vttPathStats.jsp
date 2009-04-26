@@ -55,7 +55,9 @@ Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
 </c:if>
 </c:forEach>
 <center>
+<pg:show condition="${!infoObject.closed}">
 <input id="btnSave" type="button" value="Save" onclick="saveUnitSelection(${pathId});">
+</pg:show>
 </center>
 </form>
 

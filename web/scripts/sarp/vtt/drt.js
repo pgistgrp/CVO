@@ -3,7 +3,7 @@ var tree1 = {
   select : function(id) {
     displayIndicator(true);
     var current = this.selectedId;
-    VTTAgent.getPathStats({pathId:id}, {
+    VTTAgent.getPathStats({pathId:id,oid:infoObject.oid}, {
       callback:function(data){
           if (data.successful){
               $("col-right").innerHTML = data.html;

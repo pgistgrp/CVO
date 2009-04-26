@@ -18,6 +18,8 @@ import org.pgist.sarp.bct.TagReference;
 import org.pgist.sarp.cht.CHTService;
 import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.sarp.drt.DRTService;
+import org.pgist.sarp.drt.InfoObject;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
@@ -43,6 +45,8 @@ public class VTTAgent {
     private CHTService chtService = null;
     
     private VTTService vttService = null;
+    
+    private DRTService drtService = null;
     
     private SystemService systemService = null;
     
@@ -73,6 +77,11 @@ public class VTTAgent {
      */
     public void setChtService(org.pgist.sarp.cht.CHTService chtService) {
         this.chtService = chtService;
+    }
+
+
+    public void setDrtService(DRTService drtService) {
+        this.drtService = drtService;
     }
 
 
@@ -1191,6 +1200,7 @@ public class VTTAgent {
      * 
      * @param params A map contains:
      *   <ul>
+     *     <li>oid - int, id of the InfoObject object. Required.</li>
      *     <li>pathId - int, id of the CategoryPath object. Required.</li>
      *   </ul>
      *   
@@ -1211,6 +1221,14 @@ public class VTTAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
+        Long oid = null;
+        try {
+            oid = new Long((String) params.get("oid"));
+        } catch (Exception e) {
+            map.put("reason", "oid is required.");
+            return map;
+        }
+        
         Long pathId = null;
         try {
             pathId = new Long((String) params.get("pathId"));
@@ -1220,6 +1238,7 @@ public class VTTAgent {
         }
         
         try {
+            InfoObject infoObject = drtService.getInfoObjectById(oid);
             TreeMap<MUnitSet, TreeMap<String, Object[]>> grid = new TreeMap<MUnitSet, TreeMap<String, Object[]>>();
             
             boolean selected = false;
@@ -1325,6 +1344,7 @@ public class VTTAgent {
             request.setAttribute("none", none);
             request.setAttribute("grid", grid);
             request.setAttribute("selected", selected);
+            request.setAttribute("infoObject", infoObject);
             map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/sarp/vtt/vttPathStats.jsp"));
             map.put("successful", true);
         } catch (Exception e) {
