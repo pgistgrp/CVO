@@ -1,6 +1,5 @@
 package org.pgist.sarp.bct;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,17 +8,10 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.Hits;
-import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
-import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
+import org.pgist.system.TextIndexer;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
@@ -48,9 +40,9 @@ public class BCTAgent {
     
     private SystemService systemService;
     
-    private SearchHelper searchHelper;
-    
     private EmailSender emailSender;
+    
+    private TextIndexer textIndexer;
     
     
     /**
@@ -83,18 +75,13 @@ public class BCTAgent {
     }
 
 
-    /**
-     * This is not an AJAX service method.
-     *
-     * @param searchHelper
-     */
-    public void setSearchHelper(SearchHelper searchHelper) {
-        this.searchHelper = searchHelper;
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
     }
 
 
-    public void setEmailSender(EmailSender emailSender) {
-        this.emailSender = emailSender;
+    public void setTextIndexer(TextIndexer textIndexer) {
+        this.textIndexer = textIndexer;
     }
 
 
@@ -190,37 +177,15 @@ public class BCTAgent {
             e.printStackTrace();
             map.put("reason", e.getMessage());
         }
-
+        
         if (concern!=null) {
             /*
              * Indexing with Lucene.
              */
-            IndexWriter writer = null;
             try {
-                writer = searchHelper.getIndexWriter();
-                Document doc = new Document();
-                doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
-                doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("body", concern.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("tags", tags, Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("contents", tags+" "+concern.getContent(), Field.Store.YES, Field.Index.TOKENIZED) );
-                doc.add( new Field("workflowid", concern.getBct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("bctid", concern.getBct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                writer.addDocument(doc);
+                textIndexer.enqueue(wfinfo, "concern", concern.getId());
             } catch(Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (writer!=null) {
-                    try {
-                        writer.close();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
             }
         }
         
@@ -631,61 +596,13 @@ public class BCTAgent {
                 bctService.save(concern);
                 map.put("successful", true);
                 
-                IndexSearcher searcher = null;
-                IndexWriter writer = null;
+                /*
+                 * indexing with lucene
+                 */
                 try {
-                    searcher = searchHelper.getIndexSearcher();
-                    Hits hits = searcher.search(searchHelper.getParser().parse(
-                        "workflowid:"+concern.getBct().getWorkflowId()
-                       +" AND type:concern AND concernid:"+concernId
-                    ));
-                    
-                    String tags = "";
-                    
-                    if (hits.length()>0) {
-                        /*
-                         * delete from lucene
-                         */
-                        IndexReader reader = null;
-                        try {
-                            Document doc = hits.doc(0);
-                            
-                            tags = doc.get("tags");
-                            
-                            reader = searchHelper.getIndexReader();
-                            
-                            reader.deleteDocument(hits.id(0));
-                        } finally {
-                            if (reader!=null) reader.close();
-                        }
-                    }
-                    
-                    writer = searchHelper.getIndexWriter();
-                    
-                    Document doc = new Document();
-                    doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
-                    doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("body", concern.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("tags", tags, Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("contents", tags+" "+concern.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
-                    doc.add( new Field("workflowid", concern.getBct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("bctid", concern.getBct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    
-                    /*
-                     * reindexing in lucene
-                     */
-                    writer.addDocument(doc);
-                    
-                    writer.optimize();
-                } catch (Exception e) {
+                    textIndexer.enqueue(null, "concern", concern.getId());
+                } catch(Exception e) {
                     e.printStackTrace();
-                } finally {
-                    if (searcher!=null) searcher.close();
-                    if (writer!=null) writer.close();
                 }
             } else {
                 map.put("reason", "You have no right to edit this concern.");
@@ -731,28 +648,12 @@ public class BCTAgent {
             map.put("successful", new Boolean(true));
             
             /*
-             * delete from lucene
+             * indexing with lucene
              */
-            IndexSearcher searcher = null;
-            IndexReader reader = null;
             try {
-                searcher = searchHelper.getIndexSearcher();
-                
-                Hits hits = searcher.search(searchHelper.getParser().parse(
-                    "concernid:" + concernId
-                ));
-                
-                if (hits.length()>0) {
-                    reader = searchHelper.getIndexReader();
-                    for (int i=0; i<hits.length(); i++) {
-                        reader.deleteDocument(hits.id(i));
-                    }
-                }
-            } catch (Exception e) {
+                textIndexer.enqueue(null, "concern", concernId);
+            } catch(Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (searcher!=null) searcher.close();
-                if (reader!=null) reader.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -823,58 +724,6 @@ public class BCTAgent {
                 concern.setCreateTime(new Date());
                 bctService.editConcernTags(concern, tags);
                 map.put("successful", true);
-                
-                IndexSearcher searcher = null;
-                IndexWriter writer = null;
-                try {
-                    searcher = searchHelper.getIndexSearcher();
-                    Hits hits = searcher.search(searchHelper.getParser().parse(
-                        "workflowid:"+concern.getBct().getWorkflowId()
-                       +" AND type:concern AND concernid:"+concernId
-                    ));
-                    
-                    if (hits.length()>0) {
-                        /*
-                         * delete from lucene
-                         */
-                        IndexReader reader = null;
-                        try {
-                            Document document = hits.doc(0);
-                            
-                            reader = searchHelper.getIndexReader();
-                            
-                            reader.deleteDocument(hits.id(0));
-                        } finally {
-                            if (reader!=null) reader.close();
-                        }
-                    }
-                    
-                    writer = searchHelper.getIndexWriter();
-                    
-                    /*
-                     * reindexing in lucene
-                     */
-                    Document doc = new Document();
-                    
-                    doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("author", concern.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
-                    doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("body", concern.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("contents", tagStr+" "+concern.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
-                    doc.add( new Field("concernid", concern.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("bctid", concern.getBct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("workflowid", concern.getBct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                    
-                    writer.addDocument(doc);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (searcher!=null) searcher.close();
-                    if (writer!=null) writer.close();
-                }
             } else {
                 map.put("reason", "You have no right to edit this concern.");
                 return map;
@@ -1461,7 +1310,9 @@ public class BCTAgent {
         }
         
         if (comment!=null) {
-            // sending email
+            /*
+             * Sending email
+             */
             try {
                 Set<User> recipients = bctService.getThreadUsers(concernId);
                 recipients.add(comment.getConcern().getAuthor());
@@ -1475,34 +1326,17 @@ public class BCTAgent {
             /*
              * Indexing with Lucene.
              */
-            IndexWriter writer = null;
             try {
-                writer = searchHelper.getIndexWriter();
-                Document doc = new Document();
-                doc.add( new Field("type", "comment", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("author", comment.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
-                doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("title", comment.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("body", comment.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("contents", comment.getTitle()+" "+Arrays.toString(tags)+" "+comment.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
-                doc.add( new Field("commentid", comment.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("bctid", comment.getConcern().getBct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("concernid", comment.getConcern().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("workflowid", comment.getConcern().getBct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                writer.addDocument(doc);
+                String url = String.format(
+                    "workflow.do?workflowId=%s&contextId=%s&activityId=%s&id=%s",
+                    wfinfo.get("workflowId"),
+                    wfinfo.get("contextId"),
+                    wfinfo.get("activityId"),
+                    concernId
+                );
+                textIndexer.enqueue((String) wfinfo.get("workflowId"), "concern-comment", comment.getId(), url);
             } catch(Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (writer!=null) {
-                    try {
-                        writer.close();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
             }
         }
         
@@ -1571,39 +1405,13 @@ public class BCTAgent {
         try {
             comment = bctService.editConcernComment(commentId, title, content, tags);
             
-            IndexWriter writer = null;
+            /*
+             * indexing with lucene
+             */
             try {
-                writer = searchHelper.getIndexWriter();
-                
-                /*
-                 * delete from lucene
-                 */
-                
-                writer.deleteDocuments(new Term("commentid", commentId.toString()));
-                
-                Document doc = new Document();
-                doc.add( new Field("type", "post", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("author", comment.getAuthor().getLoginname(), Field.Store.YES, Field.Index.TOKENIZED) );
-                doc.add( new Field("date", comment.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("title", comment.getTitle(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("body", comment.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("tags", tagStr, Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("contents", comment.getTitle()+" "+Arrays.toString(tags)+" "+comment.getContent(), Field.Store.NO, Field.Index.TOKENIZED) );
-                doc.add( new Field("workflowid", comment.getConcern().getBct().getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("contextid", wfinfo.get("contextId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("activityid", wfinfo.get("activityId").toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("bctid", comment.getConcern().getBct().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("concernid", comment.getConcern().getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                doc.add( new Field("commentid", comment.getId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-                
-                /*
-                 * reindexing in lucene
-                 */
-                writer.addDocument(doc);
-            } catch (Exception e) {
+                textIndexer.enqueue(null, "concern-comment", commentId);
+            } catch(Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (writer!=null) writer.close();
             }
             
             map.put("successful", true);
@@ -1649,28 +1457,12 @@ public class BCTAgent {
             bctService.deleteConcernComment(commentId);
             
             /*
-             * delete from lucene
+             * indexing with lucene
              */
-            IndexSearcher searcher = null;
-            IndexReader reader = null;
             try {
-                searcher = searchHelper.getIndexSearcher();
-                
-                Hits hits = searcher.search(searchHelper.getParser().parse(
-                    "workflowid:" + comment.getConcern().getBct().getWorkflowId()
-                    + "AND concernid:" + comment.getConcern().getId()
-                    + "AND commentid:" + comment.getId()
-                ));
-                
-                if (hits.length()>0) {
-                    reader = searchHelper.getIndexReader();
-                    reader.deleteDocument(hits.id(0));
-                }
-            } catch (Exception e) {
+                textIndexer.enqueue(null, "concern-comment", commentId);
+            } catch(Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (searcher!=null) searcher.close();
-                if (reader!=null) reader.close();
             }
             
             map.put("successful", true);

@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
 import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
+import org.pgist.system.TextIndexer;
 import org.pgist.tagging.TagAnalyzer;
 import org.pgist.util.JythonAPI;
 import org.pgist.util.WebUtils;
@@ -62,7 +63,47 @@ public class PgistListener implements ServletContextListener {
     } //class EmailSendingThread
     
     
-    private EmailSendingThread daemon;
+    private class TextIndexingThread extends Thread {
+        
+        private boolean exit = false;
+        
+        private long sleeping = 1 * 60 * 1000;
+        
+        private TextIndexer textIndexer;
+        
+        public TextIndexingThread(TextIndexer textIndexer) {
+            this.textIndexer = textIndexer;
+        }
+        
+        public void run() {
+            while (!exit) {
+                // check and index texts
+                textIndexer.checkAndIndex();
+                
+                // now sleep
+                try {
+                    Thread.currentThread().sleep(sleeping);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } //run()
+        
+        public void exit() {
+            this.exit = true;
+            try {
+                interrupt();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+    } //class TextIndexingThread
+    
+    
+    private EmailSendingThread emailDaemon;
+    
+    private TextIndexingThread indexDaemon;
     
     
     public void contextInitialized(ServletContextEvent servletContextEvent) {
@@ -144,8 +185,16 @@ public class PgistListener implements ServletContextListener {
              */
             
             EmailSender emailSender = (EmailSender) context.getBean("emailSender");
-            daemon = new EmailSendingThread(emailSender);
-            daemon.start();
+            emailDaemon = new EmailSendingThread(emailSender);
+            emailDaemon.start();
+            
+            /*
+             * The text indexing daemon
+             */
+            
+            TextIndexer textIndexer = (TextIndexer) context.getBean("textIndexer");
+            indexDaemon = new TextIndexingThread(textIndexer);
+            indexDaemon.start();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,12 +205,12 @@ public class PgistListener implements ServletContextListener {
             TransactionSynchronizationManager.unbindResource(sf);
             SessionFactoryUtils.releaseSession(session, sf);
         }
-        
     }//contextInitialized()
     
     
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        daemon.exit();
+        emailDaemon.exit();
+        indexDaemon.exit();
     }//contextDestroyed()
     
     

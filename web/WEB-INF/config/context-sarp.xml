@@ -59,8 +59,8 @@
         <property name="bctService" ref="bctService"/>
         <property name="userDAO" ref="userDAO"/>
         <property name="systemService" ref="systemService"/>
-        <property name="searchHelper" ref="searchHelper"/>
         <property name="emailSender" ref="emailSender"/>
+        <property name="textIndexer" ref="textIndexer"/>
     </bean>
 
 

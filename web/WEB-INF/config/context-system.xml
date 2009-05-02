@@ -53,6 +53,23 @@
         </property>
     </bean>
     
+    
+    <bean id="textIndexerDAO" class="org.pgist.system.TextIndexerDAOImpl">
+        <property name="sessionFactory">
+           <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    
+    <bean id="textIndexer" parent="baseTransactionProxy">
+        <property name="target">
+            <bean class="org.pgist.system.TextIndexer">
+                <property name="textIndexerDAO" ref="textIndexerDAO"/>
+            </bean>
+        </property>
+    </bean>
+    
+    
     <!--
     <bean id="emailSender" class="org.pgist.system.EmailSender">
         <property name="emailDAO">
@@ -74,6 +91,7 @@
         <property name="password"><value>@emailPassword@</value></property>
     </bean>
     -->
+    
     
     <bean id="systemDAO" class="org.pgist.system.SystemDAOImpl">
         <property name="sessionFactory">
@@ -145,15 +163,18 @@
         <property name="profileService" ref="profileService"/>
     </bean>
     
+    
     <bean id="logDAO" class="org.pgist.pes.LogDAOImpl">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
     
+    
     <bean id="logService" class="org.pgist.pes.LogServiceImpl">
         <property name="logDAO" ref="logDAO"/>
     </bean>
+    
     
     <bean id="pesAgent" class="org.pgist.pes.SimpleLogger">
         <property name="logService" ref="logService"/>
