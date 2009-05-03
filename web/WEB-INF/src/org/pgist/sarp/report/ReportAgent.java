@@ -3,11 +3,9 @@ package org.pgist.sarp.report;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pgist.sarp.drt.Comment;
-import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
-import org.pgist.system.YesNoVoting;
+import org.pgist.system.TextIndexer;
 
 
 public class ReportAgent {
@@ -17,7 +15,7 @@ public class ReportAgent {
     
     private SystemService systemService = null;
     
-    private SearchHelper searchHelper;
+    private TextIndexer textIndexer;
     
     private EmailSender emailSender;
     
@@ -37,8 +35,8 @@ public class ReportAgent {
     }
 
 
-    public void setSearchHelper(SearchHelper searchHelper) {
-        this.searchHelper = searchHelper;
+    public void setTextIndexer(TextIndexer textIndexer) {
+        this.textIndexer = textIndexer;
     }
 
 

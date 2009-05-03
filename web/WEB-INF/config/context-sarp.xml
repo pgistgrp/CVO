@@ -27,7 +27,7 @@
         <property name="cstService" ref="cstService"/>
         <property name="drtService" ref="drtService"/>
         <property name="systemService" ref="systemService"/>
-        <property name="searchHelper" ref="searchHelper"/>
+        <property name="textIndexer" ref="textIndexer"/>
         <property name="engine" ref="engine"/>
         <property name="emailSender" ref="emailSender"/>
     </bean>
@@ -89,7 +89,7 @@
     <bean id="cstAgent" class="org.pgist.sarp.cst.CSTAgent">
         <property name="cstService" ref="cstService"/>
         <property name="systemService" ref="systemService"/>
-        <property name="searchHelper" ref="searchHelper"/>
+        <property name="textIndexer" ref="textIndexer"/>
         <property name="emailSender" ref="emailSender"/>
     </bean>
 
@@ -119,7 +119,7 @@
         <property name="cstService" ref="cstService"/>
         <property name="chtService" ref="chtService"/>
         <property name="systemService" ref="systemService"/>
-        <property name="searchHelper" ref="searchHelper"/>
+        <property name="textIndexer" ref="textIndexer"/>
         <property name="emailSender" ref="emailSender"/>
     </bean>
     
@@ -150,7 +150,7 @@
         <property name="vttService" ref="vttService"/>
         <property name="drtService" ref="drtService"/>
         <property name="systemService" ref="systemService"/>
-        <property name="searchHelper" ref="searchHelper"/>
+        <property name="textIndexer" ref="textIndexer"/>
         <property name="emailSender" ref="emailSender"/>
     </bean>
     
@@ -177,7 +177,7 @@
     <bean id="reportAgent" class="org.pgist.sarp.report.ReportAgent">
         <property name="reportService" ref="reportService"/>
         <property name="systemService" ref="systemService"/>
-        <property name="searchHelper" ref="searchHelper"/>
+        <property name="textIndexer" ref="textIndexer"/>
         <property name="emailSender" ref="emailSender"/>
     </bean>
     

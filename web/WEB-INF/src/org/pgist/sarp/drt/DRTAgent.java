@@ -7,15 +7,12 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.search.Hits;
-import org.apache.lucene.search.IndexSearcher;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
-import org.pgist.search.SearchHelper;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
+import org.pgist.system.TextIndexer;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -45,7 +42,7 @@ public class DRTAgent {
     
     private EmailSender emailSender;
     
-    private SearchHelper searchHelper;
+    private TextIndexer textIndexer;
     
     private WorkflowUtils workflowUtils;
     
@@ -72,8 +69,8 @@ public class DRTAgent {
     }
 
 
-    public void setSearchHelper(SearchHelper searchHelper) {
-        this.searchHelper = searchHelper;
+    public void setTextIndexer(TextIndexer textIndexer) {
+        this.textIndexer = textIndexer;
     }
 
 
@@ -283,6 +280,15 @@ public class DRTAgent {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                
+                /*
+                 * Indexing with Lucene.
+                 */
+                try {
+                    textIndexer.enqueue(wfinfo, "drt-comment", comment.getId());
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
             
             map.put("successful", true);
@@ -342,27 +348,12 @@ public class DRTAgent {
                 drtService.deleteComment(comment);
                 
                 /*
-                 * delete from lucene
+                 * indexing with lucene
                  */
-                IndexSearcher searcher = null;
-                IndexReader reader = null;
                 try {
-                    searcher = searchHelper.getIndexSearcher();
-                    
-                    Hits hits = searcher.search(searchHelper.getParser().parse(
-                        "workflowid:"+wfinfo.get("workflowId")
-                       +" AND type:infoobjcomment AND commentid:"+cid
-                    ));
-                    
-                    if (hits.length()>0) {
-                        reader = searchHelper.getIndexReader();
-                        reader.deleteDocument(hits.id(0));
-                    }
-                } catch (Exception e) {
+                    textIndexer.enqueue(null, "drt-comment", cid);
+                } catch(Exception e) {
                     e.printStackTrace();
-                } finally {
-                    if (searcher!=null) searcher.close();
-                    if (reader!=null) reader.close();
                 }
             } else {
                 map.put("reason", "You are not the owner of this comment");
