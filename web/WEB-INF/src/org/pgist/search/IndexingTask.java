@@ -1,4 +1,4 @@
-package org.pgist.system;
+package org.pgist.search;
 
 
 
@@ -18,8 +18,28 @@ public class IndexingTask {
     
     private String type;
     
+    /**
+     * Valid values: "indexing", "reindexing", "removing"
+     */
+    private String action;
+    
     private String link;
     
+    /**
+     * true - failed task
+     * false - waiting for process
+     */
+    private boolean markFailed;
+    
+    /**
+     * true - to be deleted
+     */
+    private boolean markDeleted;
+    
+    /**
+     * true - in process
+     * false - not in process
+     */
     private boolean flag;
     
     
@@ -78,6 +98,18 @@ public class IndexingTask {
 
     /**
      * @return
+     * @hibernate.property
+     */
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    /**
+     * @return
      * @hibernate.property length="1024"
      */
     public String getLink() {
@@ -88,6 +120,30 @@ public class IndexingTask {
         this.link = link;
     }
     
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isMarkFailed() {
+        return markFailed;
+    }
+
+    public void setMarkFailed(boolean markFailed) {
+        this.markFailed = markFailed;
+    }
+
+    /**
+     * @return
+     * @hibernate.property
+     */
+    public boolean isMarkDeleted() {
+        return markDeleted;
+    }
+
+    public void setMarkDeleted(boolean markDeleted) {
+        this.markDeleted = markDeleted;
+    }
 
     /**
      * @return

@@ -48,7 +48,7 @@
                <value>org/pgist/system/County.hbm.xml</value>
                <value>org/pgist/system/Announcement.hbm.xml</value>
                <value>org/pgist/system/RegisterObject.hbm.xml</value>
-               <value>org/pgist/system/IndexingTask.hbm.xml</value>
+               <value>org/pgist/search/IndexingTask.hbm.xml</value>
                <value>org/pgist/users/BaseUser.hbm.xml</value>
                <value>org/pgist/users/Role.hbm.xml</value>
                <value>org/pgist/users/Vehicle.hbm.xml</value>
@@ -92,7 +92,7 @@
         <property name="hibernateProperties">
            <props>
                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-               <prop key="hibernate.show_sql">false</prop>
+               <prop key="hibernate.show_sql">true</prop>
                <prop key="hibernate.format_sql">false</prop>
                <prop key="hibernate.use_sql_comments">false</prop>
                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
@@ -141,6 +141,7 @@
           <prop key="calcUserValues">PROPAGATION_REQUIRED</prop>
           <prop key="enqueue">PROPAGATION_REQUIRED</prop>
           <prop key="checkAndSend">PROPAGATION_REQUIRED</prop>
+          <prop key="checkAndIndex">PROPAGATION_REQUIRED</prop>
         </props>
       </property>
     </bean>

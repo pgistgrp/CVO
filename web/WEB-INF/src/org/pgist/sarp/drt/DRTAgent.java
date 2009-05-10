@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
-import org.pgist.system.TextIndexer;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -285,7 +285,7 @@ public class DRTAgent {
                  * Indexing with Lucene.
                  */
                 try {
-                    textIndexer.enqueue(wfinfo, "drt-comment", comment.getId());
+                    textIndexer.enqueue(wfinfo, "drt-comment", "indexing", comment.getId());
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -351,7 +351,7 @@ public class DRTAgent {
                  * indexing with lucene
                  */
                 try {
-                    textIndexer.enqueue(null, "drt-comment", cid);
+                    textIndexer.enqueue(null, "drt-comment", "removing", cid);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }

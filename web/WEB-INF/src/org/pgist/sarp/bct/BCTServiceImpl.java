@@ -247,10 +247,7 @@ public class BCTServiceImpl implements BCTService {
         } //for
         
         concern.setDeleted(true);
-        concern.setCreateTime(new Date());
-        
         bctDAO.deleteConcernComments(concern);
-        bct.getConcerns().remove(concern);
         
         bctDAO.save(concern);
         
@@ -489,7 +486,6 @@ public class BCTServiceImpl implements BCTService {
     public InfoObject publish(Long bctId, String title) throws Exception {
     	BCT bct = bctDAO.getBCTById(bctId);
     	bct.getId();
-    	bct.getConcerns();
     	bct.getCreateTime();
     	bct.getInstruction();
     	bct.getMaxConcernPerPerson();

@@ -54,17 +54,53 @@
     </bean>
     
     
-    <bean id="textIndexerDAO" class="org.pgist.system.TextIndexerDAOImpl">
+    <bean id="textIndexerDAO" class="org.pgist.search.TextIndexerDAOImpl">
         <property name="sessionFactory">
            <ref bean="sessionFactory" />
         </property>
     </bean>
     
     
+    <bean id="indexConcernHandler" class="org.pgist.search.IndexConcernHandler">
+        <property name="bctDAO" ref="bctDAO"/>
+    </bean>
+    
+    <bean id="indexConcernCommentHandler" class="org.pgist.search.IndexConcernCommentHandler">
+        <property name="bctDAO" ref="bctDAO"/>
+    </bean>
+    
+    <bean id="indexCSTCommentHandler" class="org.pgist.search.IndexCSTCommentHandler">
+        <property name="cstDAO" ref="cstDAO"/>
+    </bean>
+    
+    <bean id="indexCHTCommentHandler" class="org.pgist.search.IndexCHTCommentHandler">
+        <property name="chtDAO" ref="chtDAO"/>
+    </bean>
+    
+    <bean id="indexVTTCommentHandler" class="org.pgist.search.IndexVTTCommentHandler">
+        <property name="vttDAO" ref="vttDAO"/>
+    </bean>
+    
+    <bean id="indexDRTCommentHandler" class="org.pgist.search.IndexDRTCommentHandler">
+        <property name="drtDAO" ref="drtDAO"/>
+    </bean>
+        
+    
     <bean id="textIndexer" parent="baseTransactionProxy">
         <property name="target">
-            <bean class="org.pgist.system.TextIndexer">
+            <bean class="org.pgist.search.TextIndexer">
                 <property name="textIndexerDAO" ref="textIndexerDAO"/>
+                <property name="searchHelper" ref="searchHelper"/>
+                <property name="indexHandlers">
+                    <map>
+                        <entry><key><value>concern</value></key><ref bean="indexConcernHandler" /></entry>
+                        <entry><key><value>concern-comment</value></key><ref bean="indexConcernCommentHandler" /></entry>
+                        <entry><key><value>cst-comment</value></key><ref bean="indexCSTCommentHandler" /></entry>
+                        <entry><key><value>cht-comment</value></key><ref bean="indexCHTCommentHandler" /></entry>
+                        <entry><key><value>vtt-comment</value></key><ref bean="indexVTTCommentHandler" /></entry>
+                        <entry><key><value>drt-comment</value></key><ref bean="indexDRTCommentHandler" /></entry>
+                    </map>
+                </property>
             </bean>
         </property>
     </bean>

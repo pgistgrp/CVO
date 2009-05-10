@@ -17,9 +17,9 @@ import org.pgist.sarp.cht.CategoryPath;
 import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.sarp.drt.DRTService;
 import org.pgist.sarp.drt.InfoObject;
+import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
-import org.pgist.system.TextIndexer;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -270,7 +270,7 @@ public class VTTAgent {
                         wfinfo.get("activityId"),
                         comment.getOwner().getId()
                     );
-                    textIndexer.enqueue((String) wfinfo.get("workflowId"), "vtt-comment", comment.getId(), url);
+                    textIndexer.enqueue((String) wfinfo.get("workflowId"), "vtt-comment", "indexing", comment.getId(), url);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -337,7 +337,7 @@ public class VTTAgent {
                  * indexing with lucene
                  */
                 try {
-                    textIndexer.enqueue(null, "vtt-comment", cid);
+                    textIndexer.enqueue(null, "vtt-comment", "removing", cid);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }

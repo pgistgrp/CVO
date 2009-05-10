@@ -9,9 +9,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
-import org.pgist.system.TextIndexer;
 import org.pgist.system.UserDAO;
 import org.pgist.system.YesNoVoting;
 import org.pgist.tagging.Tag;
@@ -183,7 +183,7 @@ public class BCTAgent {
              * Indexing with Lucene.
              */
             try {
-                textIndexer.enqueue(wfinfo, "concern", concern.getId());
+                textIndexer.enqueue(wfinfo, "concern", "indexing", concern.getId());
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -600,7 +600,7 @@ public class BCTAgent {
                  * indexing with lucene
                  */
                 try {
-                    textIndexer.enqueue(null, "concern", concern.getId());
+                    textIndexer.enqueue(null, "concern", "reindexing", concern.getId());
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -651,7 +651,7 @@ public class BCTAgent {
              * indexing with lucene
              */
             try {
-                textIndexer.enqueue(null, "concern", concernId);
+                textIndexer.enqueue(null, "concern", "removing", concernId);
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -1334,7 +1334,7 @@ public class BCTAgent {
                     wfinfo.get("activityId"),
                     concernId
                 );
-                textIndexer.enqueue((String) wfinfo.get("workflowId"), "concern-comment", comment.getId(), url);
+                textIndexer.enqueue((String) wfinfo.get("workflowId"), "concern-comment", "indexing", comment.getId(), url);
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -1409,7 +1409,7 @@ public class BCTAgent {
              * indexing with lucene
              */
             try {
-                textIndexer.enqueue(null, "concern-comment", commentId);
+                textIndexer.enqueue(null, "concern-comment", "reindexing", commentId);
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -1460,7 +1460,7 @@ public class BCTAgent {
              * indexing with lucene
              */
             try {
-                textIndexer.enqueue(null, "concern-comment", commentId);
+                textIndexer.enqueue(null, "concern-comment", "removing", commentId);
             } catch(Exception e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,8 @@
-package org.pgist.system;
+package org.pgist.search;
 
 import java.util.List;
+
+import org.pgist.system.BaseDAO;
 
 
 /**
@@ -10,10 +12,10 @@ import java.util.List;
 public interface TextIndexerDAO extends BaseDAO {
     
     
-    List<IndexingTask> getIndexingTasks() throws Exception;
+    List<IndexingTask> markIndexingTasks() throws Exception;
 
 
     void clearIndexingTasks() throws Exception;
-    
-    
+
+
 }//interface EmailDAO

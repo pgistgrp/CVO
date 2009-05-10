@@ -3,9 +3,9 @@ package org.pgist.sarp.report;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
-import org.pgist.system.TextIndexer;
 
 
 public class ReportAgent {

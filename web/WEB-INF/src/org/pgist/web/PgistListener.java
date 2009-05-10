@@ -10,8 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.pgist.glossary.TermAnalyzer;
 import org.pgist.search.SearchHelper;
+import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
-import org.pgist.system.TextIndexer;
 import org.pgist.tagging.TagAnalyzer;
 import org.pgist.util.JythonAPI;
 import org.pgist.util.WebUtils;
@@ -78,7 +78,11 @@ public class PgistListener implements ServletContextListener {
         public void run() {
             while (!exit) {
                 // check and index texts
-                textIndexer.checkAndIndex();
+                try {
+                    textIndexer.checkAndIndex();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 
                 // now sleep
                 try {

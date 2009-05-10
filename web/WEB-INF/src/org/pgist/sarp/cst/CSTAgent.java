@@ -8,9 +8,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
-import org.pgist.system.TextIndexer;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -1108,7 +1108,7 @@ public class CSTAgent {
                         wfinfo.get("activityId"),
                         comment.getCatRef().getUser().getId()
                     );
-                    textIndexer.enqueue((String) wfinfo.get("workflowId"), "cst-comment", comment.getId(), url);
+                    textIndexer.enqueue((String) wfinfo.get("workflowId"), "cst-comment", "indexing", comment.getId(), url);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -1175,7 +1175,7 @@ public class CSTAgent {
                  * indexing with lucene
                  */
                 try {
-                    textIndexer.enqueue(null, "cst-comment", cid);
+                    textIndexer.enqueue(null, "cst-comment", "removing", cid);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }

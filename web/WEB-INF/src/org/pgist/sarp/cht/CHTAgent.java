@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.sarp.cst.CSTService;
 import org.pgist.sarp.cst.CategoryReference;
+import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
-import org.pgist.system.TextIndexer;
 import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -377,7 +377,7 @@ public class CHTAgent {
                         wfinfo.get("activityId"),
                         comment.getCatRef().getUser().getId()
                     );
-                    textIndexer.enqueue((String) wfinfo.get("workflowId"), "cht-comment", comment.getId(), url);
+                    textIndexer.enqueue((String) wfinfo.get("workflowId"), "cht-comment", "indexing", comment.getId(), url);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -444,7 +444,7 @@ public class CHTAgent {
                  * indexing with lucene
                  */
                 try {
-                    textIndexer.enqueue(null, "cht-comment", cid);
+                    textIndexer.enqueue(null, "cht-comment", "removing", cid);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }

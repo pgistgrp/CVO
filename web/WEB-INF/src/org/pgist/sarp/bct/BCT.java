@@ -28,8 +28,6 @@ public class BCT {
     
     private int maxConcernPerPerson = Integer.MAX_VALUE;
     
-    private Set concerns = new HashSet();
-    
     private Set tagRefs = new HashSet();
     
     private Long workflowId;
@@ -47,23 +45,6 @@ public class BCT {
     
     public void setMaxConcernPerPerson(int maxConcernPerPerson) {
         this.maxConcernPerPerson = maxConcernPerPerson;
-    }
-
-
-    /**
-     * @return
-     * 
-     * @hibernate.set lazy="true" table="sarp_bct_concern_link" cascade="all" order-by="createTime desc"
-     * @hibernate.collection-key column="bct_id"
-     * @hibernate.collection-many-to-many class="org.pgist.sarp.bct.Concern"
-     */
-    public Set getConcerns() {
-        return concerns;
-    }
-
-
-    public void setConcerns(Set concerns) {
-        this.concerns = concerns;
     }
 
 
