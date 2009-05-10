@@ -49,6 +49,11 @@ public class SearchHelper {
     }//getIndexSearcher()
 
 
+    public IndexSearcher getIndexSearcher(IndexReader reader) throws IOException {
+        return new IndexSearcher(reader);
+    }//getIndexSearcher()
+
+
     public IndexWriter getIndexWriter() throws IOException {
         return getIndexWriter(new StandardAnalyzer());
     }//getIndexWriter()

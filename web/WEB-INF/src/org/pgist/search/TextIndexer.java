@@ -3,7 +3,10 @@ package org.pgist.search;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
 
 
 /**
@@ -46,7 +49,7 @@ public class TextIndexer {
         task.setLink(url);
         task.setType(type);
         task.setAction(action);
-        task.setObjectId(objectId);
+        task.setObjectId(objectId.toString());
         
         textIndexerDAO.save(task);
     } //enqueue()
@@ -68,13 +71,16 @@ public class TextIndexer {
     public void checkAndIndex() throws Exception {
         List<IndexingTask> tasks = textIndexerDAO.markIndexingTasks();
         
+        IndexReader reader = searchHelper.getIndexReader();
         IndexWriter writer = searchHelper.getIndexWriter();
+        IndexSearcher searcher = searchHelper.getIndexSearcher(reader);
+        QueryParser parser = searchHelper.getParser();
         
         for (IndexingTask task : tasks) {
             try {
                 IndexHandler handler = indexHandlers.get(task.getType());
                 if (handler!=null) {
-                    handler.index(writer, task);
+                    handler.index(reader, writer, searcher, parser, task);
                     task.setMarkDeleted(true);
                 } else {
                     // unknow type

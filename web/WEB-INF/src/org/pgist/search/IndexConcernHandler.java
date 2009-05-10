@@ -1,12 +1,19 @@
 package org.pgist.search;
 
+import java.util.Date;
+
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
-import org.pgist.sarp.bct.Concern;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
 import org.pgist.sarp.bct.BCTDAO;
+import org.pgist.sarp.bct.Concern;
 
-public class IndexConcernHandler implements IndexHandler {
+public class IndexConcernHandler extends IndexHandler {
+    
     
     private BCTDAO bctDAO;
     
@@ -18,26 +25,45 @@ public class IndexConcernHandler implements IndexHandler {
      * ------------------------------------------------------------------------
      */
 
+    
+    private void doIndex(IndexWriter writer, Date date, String content, String objectId, String workflowId, String link) throws Exception {
+        Document doc = new Document();
+        doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("date", date.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("body", content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("contents", content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("objectId", objectId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("workflowId", workflowId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("link", link, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        writer.addDocument(doc);
+    }
+    
+    
     @Override
-    public void index(IndexWriter writer, IndexingTask task) throws Exception {
-        Concern concern = bctDAO.getConcernById(task.getObjectId());
+    public void index(IndexReader reader, IndexWriter writer, IndexSearcher searcher, QueryParser parser, IndexingTask task) throws Exception {
+        Concern concern = bctDAO.getConcernById(new Long(task.getObjectId()));
+        Query query = null;
         
         if ("indexing".equals(task.getAction())) {
-            Document doc = new Document();
-            doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.UN_TOKENIZED) );
-            doc.add( new Field("date", concern.getCreateTime().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-            doc.add( new Field("body", concern.getContent(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-            doc.add( new Field("contents", concern.getContent(), Field.Store.YES, Field.Index.TOKENIZED) );
-            doc.add( new Field("workflowId", task.getWorkflowId().toString(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-            doc.add( new Field("link", task.getLink(), Field.Store.YES, Field.Index.UN_TOKENIZED) );
-            writer.addDocument(doc);
+            doIndex(writer, concern.getCreateTime(), concern.getContent(), task.getObjectId(), task.getWorkflowId(), task.getLink());
             
             System.out.println("---- Done indexing concern "+task.getId());
         } else if ("removing".equals(task.getAction())) {
+            query = parser.parse("objectId:"+concern.getId() +" AND type:concern");
+            doRemove(writer, query);
+            query = parser.parse("concernId:"+concern.getId() +" AND type:concern-comment");
+            doRemove(writer, query);
             
+            System.out.println("---- Done removing concern "+task.getId());
         } else if ("reindexing".equals(task.getAction())) {
+            query = parser.parse("objectId:"+concern.getId() +" AND type:concern");
+            Document doc = getDocument(searcher, query);
+            doRemove(writer, query);
+            doIndex(writer, concern.getCreateTime(), concern.getContent(), doc.get("objectId"), doc.get("workflowId"), doc.get("link"));
             
+            System.out.println("---- Done reindexing concern "+task.getId());
         }
     } // indexConcern()
+    
     
 } //class IndexConcernHandler

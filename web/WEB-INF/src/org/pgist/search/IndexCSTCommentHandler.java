@@ -1,9 +1,12 @@
 package org.pgist.search;
 
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
 import org.pgist.sarp.cst.CSTDAO;
 
-public class IndexCSTCommentHandler implements IndexHandler {
+public class IndexCSTCommentHandler extends IndexHandler {
     
     private CSTDAO cstDAO;
     
@@ -17,7 +20,7 @@ public class IndexCSTCommentHandler implements IndexHandler {
      */
 
     @Override
-    public void index(IndexWriter writer, IndexingTask task) throws Exception {
+    public void index(IndexReader reader, IndexWriter writer, IndexSearcher searcher, QueryParser parser, IndexingTask task) throws Exception {
         
     } // indexConcern()
     

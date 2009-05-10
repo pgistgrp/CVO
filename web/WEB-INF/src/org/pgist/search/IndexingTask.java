@@ -14,7 +14,7 @@ public class IndexingTask {
     
     private String workflowId;
     
-    private Long objectId;
+    private String objectId;
     
     private String type;
     
@@ -74,11 +74,11 @@ public class IndexingTask {
      * @return
      * @hibernate.property
      */
-    public Long getObjectId() {
+    public String getObjectId() {
         return objectId;
     }
 
-    public void setObjectId(Long objectId) {
+    public void setObjectId(String objectId) {
         this.objectId = objectId;
     }
     
