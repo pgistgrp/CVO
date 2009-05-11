@@ -437,4 +437,10 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     }
 
 
+    @Override
+    public CSTComment getCommentById(Long commentId) throws Exception {
+        return (CSTComment) load(CSTComment.class, commentId);
+    }
+
+
 }//class CSTDAOImpl

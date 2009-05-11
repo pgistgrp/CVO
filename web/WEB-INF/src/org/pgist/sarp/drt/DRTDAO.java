@@ -34,5 +34,7 @@ public interface DRTDAO extends BaseDAO {
 
     InfoObject getInfoObjectByTargetId(Long oid) throws Exception;
 
+    Comment getCommentById(Long long1) throws Exception;
+
 	
 }//interface DRTDAO

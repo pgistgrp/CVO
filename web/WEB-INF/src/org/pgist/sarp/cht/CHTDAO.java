@@ -43,5 +43,7 @@ public interface CHTDAO extends BaseDAO {
 
     List<User> getPathUsersByPathIds(String string) throws Exception;
 
+    CHTComment getCommentById(Long commentId) throws Exception;
+
 
 }//interface CHTDAO

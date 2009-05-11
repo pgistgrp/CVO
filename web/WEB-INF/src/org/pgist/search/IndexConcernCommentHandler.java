@@ -64,7 +64,7 @@ public class IndexConcernCommentHandler extends IndexHandler {
             
             System.out.println("---- Done reindexing concern comment "+task.getId());
         }
-    } // indexConcern()
+    } // index()
     
     
 } //class IndexConcernCommentHandler

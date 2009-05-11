@@ -58,5 +58,7 @@ public interface CSTDAO extends BaseDAO {
 
     Set<User> getThreadUsers(Long catRefId) throws Exception;
 
+    CSTComment getCommentById(Long commentId) throws Exception;
+
 
 }//interface CSTDAO

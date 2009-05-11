@@ -139,4 +139,10 @@ public class DRTDAOImpl extends BaseDAOImpl implements DRTDAO {
     } //getInfoObjectByTargetId()
 
 
+    @Override
+    public Comment getCommentById(Long commentId) throws Exception {
+        return (Comment) load(Comment.class, commentId);
+    } //getCommentById()
+
+
 }//class DRTDAOImpl

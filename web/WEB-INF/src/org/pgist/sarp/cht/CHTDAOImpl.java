@@ -176,4 +176,10 @@ public class CHTDAOImpl extends BaseDAOImpl implements CHTDAO {
     }
 
 
+    @Override
+    public CHTComment getCommentById(Long commentId) throws Exception {
+        return (CHTComment) load(CHTComment.class, commentId);
+    }
+
+
 }//class CHTDAOImpl

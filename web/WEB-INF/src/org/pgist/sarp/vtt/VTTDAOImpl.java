@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.sarp.cht.CategoryPath;
+import org.pgist.sarp.drt.Comment;
 import org.pgist.system.BaseDAOImpl;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -213,6 +214,12 @@ public class VTTDAOImpl extends BaseDAOImpl implements VTTDAO {
         if (results.size()>0) return results.get(0);
         
         return null;
+    }
+
+
+    @Override
+    public VTTComment getCommentById(Long commentId) throws Exception {
+        return (VTTComment) load(Comment.class, commentId);
     }
 
     

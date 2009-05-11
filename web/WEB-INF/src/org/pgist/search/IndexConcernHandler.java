@@ -26,26 +26,13 @@ public class IndexConcernHandler extends IndexHandler {
      */
 
     
-    private void doIndex(IndexWriter writer, Date date, String content, String objectId, String workflowId, String link) throws Exception {
-        Document doc = new Document();
-        doc.add( new Field("type", "concern", Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        doc.add( new Field("date", date.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        doc.add( new Field("body", content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        doc.add( new Field("contents", content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        doc.add( new Field("objectId", objectId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        doc.add( new Field("workflowId", workflowId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        doc.add( new Field("link", link, Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        writer.addDocument(doc);
-    }
-    
-    
     @Override
     public void index(IndexReader reader, IndexWriter writer, IndexSearcher searcher, QueryParser parser, IndexingTask task) throws Exception {
         Concern concern = bctDAO.getConcernById(new Long(task.getObjectId()));
         Query query = null;
         
         if ("indexing".equals(task.getAction())) {
-            doIndex(writer, concern.getCreateTime(), concern.getContent(), task.getObjectId(), task.getWorkflowId(), task.getLink());
+            doIndex(writer, "concern", concern.getCreateTime(), "", concern.getContent(), task.getObjectId(), task.getWorkflowId(), task.getLink());
             
             System.out.println("---- Done indexing concern "+task.getId());
         } else if ("removing".equals(task.getAction())) {
@@ -59,11 +46,11 @@ public class IndexConcernHandler extends IndexHandler {
             query = parser.parse("objectId:"+concern.getId() +" AND type:concern");
             Document doc = getDocument(searcher, query);
             doRemove(writer, query);
-            doIndex(writer, concern.getCreateTime(), concern.getContent(), doc.get("objectId"), doc.get("workflowId"), doc.get("link"));
+            doIndex(writer, "concern", concern.getCreateTime(), "", concern.getContent(), doc.get("objectId"), doc.get("workflowId"), doc.get("link"));
             
             System.out.println("---- Done reindexing concern "+task.getId());
         }
-    } // indexConcern()
+    } // index()
     
     
 } //class IndexConcernHandler

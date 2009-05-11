@@ -1,6 +1,9 @@
 package org.pgist.search;
 
+import java.util.Date;
+
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.queryParser.QueryParser;
@@ -24,6 +27,20 @@ public abstract class IndexHandler {
         }
         
         return null;
+    }
+    
+    
+    protected void doIndex(IndexWriter writer, String type, Date date, String title, String content, String objectId, String workflowId, String link) throws Exception {
+        Document doc = new Document();
+        doc.add( new Field("type", type, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("date", date.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("title", title, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("body", content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("contents", title+" "+content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("objectId", objectId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("workflowId", workflowId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("link", link, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        writer.addDocument(doc);
     }
     
     

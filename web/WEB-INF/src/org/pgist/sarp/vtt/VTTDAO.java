@@ -47,4 +47,6 @@ public interface VTTDAO extends BaseDAO {
 
     ExpertPathComment getExpertPathComment(Long pathId, Long userId) throws Exception;
 
+    VTTComment getCommentById(Long commentId) throws Exception;
+
 } //interface VTTDAO

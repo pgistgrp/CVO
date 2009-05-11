@@ -662,6 +662,7 @@ public class CSTServiceImpl implements CSTService {
     public CategoryReference setRootCatReference(CST cst, User user) throws Exception {
         CategoryReference catref = new CategoryReference("root", cst.getId());
         catref.setCstId(cst.getId());
+        catref.setUser(user);
         cstDAO.save(catref);
         
         cst.getCats().put(user.getId(), catref);
