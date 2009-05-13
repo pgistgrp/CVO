@@ -4,18 +4,19 @@
  */
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.TopDocCollector;
 
-/*
 writer = searchHelper.getIndexWriter();
 try {
   doc = new Document();
-  doc.add( new Field("type", "This is a simple test!", Field.Store.YES, Field.Index.UN_TOKENIZED) );
+  doc.add( new Field("contents", "article atmosphere author simple test!", Field.Store.YES, Field.Index.TOKENIZED) );
   writer.addDocument(doc);
   writer.optimize();
 } finally {
   writer.close();
 }
-*/
 
 
 /*
@@ -24,7 +25,7 @@ reader.close();
 */
 
 
-queryStr = "cars";
+queryStr = "a";
 
 String[] words = queryStr.split(" ");
 StringBuilder sb = new StringBuilder("(");
@@ -43,10 +44,21 @@ String luceneQuery = "cars*";
 
 searcher = searchHelper.getIndexSearcher();
 try {
-  query = searchHelper.getParser().parse(luceneQuery);
+  parser = new QueryParser("contents", new StandardAnalyzer());
+  //query = searchHelper.getParser().parse(queryStr);
+  query = parser.parse(queryStr);
+  print(query);
+  collector = new TopDocCollector(5 * 20);
+  searcher.search(query, collector);
+  print(collector.getTotalHits());
+  hits = collector.topDocs().scoreDocs;
+  for (hit : hits) {
+    Document doc = searcher.doc(hit.doc);
+    print("---> "+doc.get("type")+" | "+doc.get("link")+" | "+doc.get("contents"));
+  }
   
-  hits = searcher.search(query);
-  
+  //hits = searcher.search(query);
+  /*
   print("Totally found "+hits.length()+" documents.");
   
   for (i=0; i<hits.length(); i++) {
@@ -56,6 +68,7 @@ try {
           print("    "+one);
       }
   }//for
+  */
 } finally {
   searcher.close();
 }

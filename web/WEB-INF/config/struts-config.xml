@@ -113,7 +113,7 @@
         </action>
 
         <action path="/search" scope="request" type="org.pgist.search.SearchAction">
-            <forward name="index" path="/WEB-INF/jsp/search/index.jsp" />
+            <forward name="index" path="/WEB-INF/jsp/search/results.jsp" />
             <forward name="results" path="/WEB-INF/jsp/search/results.jsp" />
         </action>
 

@@ -51,6 +51,7 @@
             <input type="submit" value="Search"> 
 		</form>
 		
+    <c:if test="${setting.rowSize>0}">
 		<c:choose>
             <c:when test="${param.page}">
                 <c:set var="page" value="param.page" />
@@ -109,29 +110,18 @@
     					           </c:otherwise>
     					        </c:choose>
     					        :</span>
-    					        <c:if test="${result.type=='post'}"><a href="/sdThread.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">${result.title}</a></c:if>
-    					        <c:if test="${result.type=='reply'}"><a href="/sdThread.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">${result.title}</a></c:if>
-    					        <c:if test="${result.type=='concern'}"><a href="/concern.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&id=${result.concernid}">${result.title}</a></c:if>
-    					        <c:if test="${result.type=='comment'}"><a href="/concern.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&id=${result.concernid}">id=${result.concernid}#commentAnchor${result.commentid}">${result.title}</a></c:if>
-    					        <c:if test="${result.type=='project'}"><a target="_blank" href="/projectAlt.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&altrefId=${result.projectaltid}&critSuiteId=${experiment.critSuite.id}">${result.projectaltname}</a></c:if>
-    					        <c:if test="${result.type=='userprofile'}"><a href="/publicprofile.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&userId=${result.loginname}">${result.loginname}</a></c:if>
-                      <c:if test="${result.type=='staticpage'}"><a href="${result.url}?workflowId=${param.workflowId}">${result.title}</a></c:if>
+    					        <c:if test="${result.type=='concern'}"><a href="/${link}">${result.title}</a></c:if>
+    					        <c:if test="${result.type=='concern-comment'}"><a href="/${link}">${result.title}</a></c:if>
     					    </h3> 
     					    <p>
     					        <c:if test="${result.type != 'staticpage'}">
            					        <c:out value="${fn:substring(result.body, 0, 500)}" escapeXml="false" />...<br />
     					        </c:if>
-    					        
-    					        <c:if test="${result.type=='post'}"><a href="/sdThread.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}">View this ${result.type}</a></c:if>
-    					        <c:if test="${result.type=='reply'}"><a href="/sdThread.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&isid=${result.isid}&ioid=${result.ioid}&pid=${result.postid}#replyAnchor${result.replyid}">View this ${result.type}</a></c:if>
-    					        <c:if test="${result.type=='concern'}"><a href="/concern.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&id=${result.concernid}">View this ${result.type}</a></c:if>
-    					        <c:if test="${result.type=='comment'}"><a href="/concern.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&id=${result.concernid}">id=${result.concernid}#commentAnchor${result.commentid}">View this ${result.type}</a></c:if>
-    					        <c:if test="${result.type=='project'}"><a target="_blank" href="/projectAlt.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&altrefId=${result.projectaltid}&critSuiteId=${experiment.critSuite.id}">View this ${result.type}</a></c:if>
-    					        <c:if test="${result.type=='userprofile'}"><a href="/publicprofile.do?workflowId=${result.workflowid}&activityId=${result.activityid}&contextId=${result.contextid}&userId=${result.loginname}">View ${result.loginname}'s Profile</a></c:if>
-                      <c:if test="${result.type=='staticpage'}"><a href="${result.url}?workflowId=${param.workflowId}">View ${result.title}</a></c:if>
+    					        <c:if test="${result.type=='concern'}"><a href="/${result.link}">View this ${result.type}</a></c:if>
+    					        <c:if test="${result.type=='concern-comment'}"><a href="/${result.link}">View this ${result.type}</a></c:if>
         					</p>
     					</li>
-		                </c:forEach>
+		              </c:forEach>
     				</ol>
 			</div>
 			 <div class="pagination box3 padding5">
@@ -157,6 +147,10 @@
 		      </div>
 
 		</div>
+    </c:if>
+     <c:if test="${fn:length(queryStr)>0 && setting.rowSize<=0}">
+       <div style="margin-top:5px;" class="container box3">No Results.</div>
+     </c:if>
 	</div>
 	<!-- end container -->
 		

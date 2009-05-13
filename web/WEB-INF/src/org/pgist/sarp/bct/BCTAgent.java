@@ -183,7 +183,14 @@ public class BCTAgent {
              * Indexing with Lucene.
              */
             try {
-                textIndexer.enqueue(wfinfo, "concern", "indexing", concern.getId());
+                String url = String.format(
+                    "concern.do?workflowId=%s&contextId=%s&activityId=%s&id=%s",
+                    wfinfo.get("workflowId"),
+                    wfinfo.get("contextId"),
+                    wfinfo.get("activityId"),
+                    concern.getId()
+                );
+                textIndexer.enqueue((String) wfinfo.get("workflowId"), "concern", "indexing", concern.getId(), url);
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -1328,7 +1335,7 @@ public class BCTAgent {
              */
             try {
                 String url = String.format(
-                    "workflow.do?workflowId=%s&contextId=%s&activityId=%s&id=%s",
+                    "concern.do?workflowId=%s&contextId=%s&activityId=%s&id=%s",
                     wfinfo.get("workflowId"),
                     wfinfo.get("contextId"),
                     wfinfo.get("activityId"),

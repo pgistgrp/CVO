@@ -8,17 +8,17 @@
 </head>
 <body>
 
-<html:form action="/search.do" method="post">
+<form action="/search.do" method="GET">
 
 <html:hidden property="workflowId" name="searchForm" value="${param['workflowId']}"/>
 
 <table width="100%">
   <tr>
-    <td><html:text property="queryStr" name="searchForm" maxlength="50" size="50"/><input type="submit" value="Search"></td>
+    <td><input type="text" property="queryStr" name="searchForm" maxlength="50" size="50"/><input type="submit" value="Search"></td>
   </tr>
 </table>
 
-</html:form>
+</form>
 
 </body>
 </html:html>

@@ -13,7 +13,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.other.Experiment;
 import org.pgist.other.ImportService;
 import org.pgist.util.PageSetting;
 
@@ -55,8 +54,8 @@ public class SearchAction extends Action {
         List list = new ArrayList();
         
         String queryStr = request.getParameter("queryStr");
-        
-        if (queryStr==null || "".equals(queryStr)) return mapping.findForward("index");
+        if (queryStr==null) queryStr = "";
+        else queryStr = queryStr.trim();
         
         /*
          * process the query string, add * to each word
@@ -64,29 +63,22 @@ public class SearchAction extends Action {
         
         queryStr = searchHelper.prefixString(queryStr);
         
+        PageSetting setting = new PageSetting(20);
+        request.setAttribute("setting", setting);
         if (queryStr==null || queryStr.length()==0) return mapping.findForward("index");
         
         String workflowId = request.getParameter("workflowId");
         
         IndexSearcher indexSearcher = null;
-        PageSetting setting = null;
         
         try {
             indexSearcher = searchHelper.getIndexSearcher();
             
-            String luceneQuery =
-                //discussion and concern and project
-                "(workflowid:"+workflowId+" AND ("+queryStr+"))"
-                //user profile
-                +" OR (type:userprofile AND ("+queryStr+"))"
-                //static pages
-                +" OR (type:staticpage AND ("+queryStr+"))";
-            
+            String luceneQuery = "(workflowId:"+workflowId+" AND ("+queryStr+"))";            
             Query query = searchHelper.getParser().parse(luceneQuery);
             
             Hits hits = indexSearcher.search(query);
             
-            setting = new PageSetting(20);
             setting.setPage(request.getParameter("page"));
             
             setting.setRowSize(hits.length());
@@ -101,47 +93,11 @@ public class SearchAction extends Action {
                 
                 Map map = new HashMap();
                 map.put("type", type);
+                map.put("title", doc.get("title"));
                 map.put("doc", doc);
                 map.put("body", doc.get("body"));
-                map.put("workflowid", doc.get("workflowid"));
-                map.put("contextid", doc.get("contextid"));
-                map.put("activityid", doc.get("activityid"));
-                
-                if ("post".equals(type)) {
-                    map.put("isid", doc.get("isid"));
-                    map.put("ioid", doc.get("ioid"));
-                    map.put("postid", doc.get("postid"));
-                    map.put("title", doc.get("title"));
-                    map.put("tags", doc.get("tags"));
-                } else if ("reply".equals(type)) {
-                    map.put("postid", doc.get("postid"));
-                    map.put("replyid", doc.get("replyid"));
-                    map.put("isid", doc.get("isid"));
-                    map.put("ioid", doc.get("ioid"));
-                    map.put("title", doc.get("title"));
-                    map.put("tags", doc.get("tags"));
-                } else if ("concern".equals(type)) {
-                    map.put("concernid", doc.get("concernid"));
-                    map.put("title", doc.get("body").substring(0, 50));
-                    map.put("tags", doc.get("tags"));
-                } else if ("comment".equals(type)) {
-                    map.put("concernid", doc.get("concernid"));
-                    map.put("commentid", doc.get("commentid"));
-                    map.put("title", doc.get("body").substring(0, 50));
-                    map.put("tags", doc.get("tags"));
-                } else if ("project".equals(type)) {
-                    map.put("suiteid", doc.get("suiteid"));
-                    map.put("projectid", doc.get("projectid"));
-                    map.put("projectaltid", doc.get("projectaltid"));
-                    map.put("projectaltname", doc.get("projectaltname"));
-                } else if ("userprofile".equals(type)) {
-                    map.put("userid", doc.get("userid"));
-                    map.put("loginname", doc.get("loginname"));
-                } else if ("staticpage".equals(type)) {
-                    map.put("path", doc.get("path"));
-                    map.put("url", doc.get("url"));
-                    map.put("title", doc.get("title"));
-                }
+                map.put("workflowId", doc.get("workflowId"));
+                map.put("link", doc.get("link"));
                 
                 list.add(map);
             }//for i
@@ -149,10 +105,7 @@ public class SearchAction extends Action {
             indexSearcher.close();
         }
         
-        Experiment experiment = importService.getExperimentByWorkflowId(new Long(workflowId));
-        
-        request.setAttribute("setting", setting);
-        request.setAttribute("experiment", experiment);
+        request.setAttribute("queryStr", queryStr);
         request.setAttribute("results", list);
         
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);

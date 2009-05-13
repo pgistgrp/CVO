@@ -36,7 +36,7 @@ public abstract class IndexHandler {
         doc.add( new Field("date", date.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED) );
         doc.add( new Field("title", title, Field.Store.YES, Field.Index.NOT_ANALYZED) );
         doc.add( new Field("body", content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
-        doc.add( new Field("contents", title+" "+content, Field.Store.YES, Field.Index.NOT_ANALYZED) );
+        doc.add( new Field("contents", title+" "+content, Field.Store.YES, Field.Index.ANALYZED) );
         doc.add( new Field("objectId", objectId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
         doc.add( new Field("workflowId", workflowId, Field.Store.YES, Field.Index.NOT_ANALYZED) );
         doc.add( new Field("link", link, Field.Store.YES, Field.Index.NOT_ANALYZED) );

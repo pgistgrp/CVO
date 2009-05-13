@@ -96,6 +96,7 @@ public class TextIndexer {
         }
         
         writer.optimize();
+        writer.commit();
         writer.close();
         
         textIndexerDAO.clearIndexingTasks();
