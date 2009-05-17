@@ -28,6 +28,8 @@ public class IndexConcernCommentHandler extends IndexHandler {
 
     
     protected void doIndex(IndexWriter writer, String title, Date date, String content, String objectId, String concernId, String workflowId, String link) throws Exception {
+        content = extractHTML(content);
+        
         Document doc = new Document();
         doc.add( new Field("type", "concern-comment", Field.Store.YES, Field.Index.NOT_ANALYZED) );
         doc.add( new Field("date", date.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED) );

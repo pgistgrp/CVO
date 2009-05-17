@@ -32,6 +32,10 @@
             .capitalize{
                 text-transform: capitalize;
             }
+            .bold {
+                font-weight: bolder;
+                font-size: large;
+            }
         </style>
     	<!-- End Site Wide CSS -->
 	</head>
@@ -100,25 +104,10 @@
 			        <ol>
         			    <c:forEach var="result" items="${results}">
     					<li>
-    					    <h3 class="headerColor"><span class="capitalize">
-    					        <c:choose>
-    					           <c:when test="${result.type == 'staticpage'}">
-    					               Learn More
-    					           </c:when>
-    					           <c:otherwise>
-    					               ${result.type}
-    					           </c:otherwise>
-    					        </c:choose>
-    					        :</span>
-    					        <c:if test="${result.type=='concern'}"><a href="/${link}">${result.title}</a></c:if>
-    					        <c:if test="${result.type=='concern-comment'}"><a href="/${link}">${result.title}</a></c:if>
-    					    </h3> 
+                  <span class="capitalize headerColor bold">${result.type}:</span> <a href="/${result.link}">${result.title}</a>
     					    <p>
-    					        <c:if test="${result.type != 'staticpage'}">
-           					        <c:out value="${fn:substring(result.body, 0, 500)}" escapeXml="false" />...<br />
-    					        </c:if>
-    					        <c:if test="${result.type=='concern'}"><a href="/${result.link}">View this ${result.type}</a></c:if>
-    					        <c:if test="${result.type=='concern-comment'}"><a href="/${result.link}">View this ${result.type}</a></c:if>
+                      <c:out value="${fn:substring(result.body, 0, 500)}" escapeXml="false" />
+                      <c:if test="${fn:length(result.body)>500}"> ...<br /></c:if>
         					</p>
     					</li>
 		              </c:forEach>
@@ -126,7 +115,6 @@
 			</div>
 			 <div class="pagination box3 padding5">
 			 	Viewing page: ${setting.page} of ${setting.pageSize} &nbsp;
-
 		 	    <c:choose>
 		 	       <c:when test="${setting.page == 1}">
 		 	           <img src="images/btn_prev_fade.gif" alt="No Previous Pages" />

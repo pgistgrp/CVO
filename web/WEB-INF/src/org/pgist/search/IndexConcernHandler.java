@@ -29,7 +29,11 @@ public class IndexConcernHandler extends IndexHandler {
         Query query = null;
         
         if ("indexing".equals(task.getAction())) {
-            doIndex(writer, "concern", concern.getCreateTime(), "", concern.getContent(), task.getObjectId(), task.getWorkflowId(), task.getLink());
+            String title = concern.getContent();
+            if (title.length()>85) {
+                title = title.substring(0, 81) + " ...";
+            }
+            doIndex(writer, "concern", concern.getCreateTime(), title, concern.getContent(), task.getObjectId(), task.getWorkflowId(), task.getLink());
             
             System.out.println("---- Done indexing concern "+task.getId());
         } else if ("removing".equals(task.getAction())) {
@@ -43,7 +47,11 @@ public class IndexConcernHandler extends IndexHandler {
             query = parser.parse("objectId:"+concern.getId() +" AND type:concern");
             Document doc = getDocument(searcher, query);
             doRemove(writer, query);
-            doIndex(writer, "concern", concern.getCreateTime(), "", concern.getContent(), doc.get("objectId"), doc.get("workflowId"), doc.get("link"));
+            String title = concern.getContent();
+            if (title.length()>85) {
+                title = title.substring(0, 81) + " ...";
+            }
+            doIndex(writer, "concern", concern.getCreateTime(), title, concern.getContent(), doc.get("objectId"), doc.get("workflowId"), doc.get("link"));
             
             System.out.println("---- Done reindexing concern "+task.getId());
         }

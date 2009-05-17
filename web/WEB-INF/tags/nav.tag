@@ -26,7 +26,6 @@
 
         <!-- Begin Search -->
         <div id="header-search">
-            <!--
             <form action="/search.do" id="mysearch" method="GET">
                 <div id="searchbox">
                     <input type="hidden" name="workflowId" value="${param.workflowId}"/>
@@ -35,7 +34,6 @@
                 </div>
                 <div id="submit" class="floatLeft"></div>
             </form>
-            -->
         </div>
         <!-- End Search -->
     </div>	

@@ -18,7 +18,8 @@ public class TextIndexerDAOImpl extends BaseDAOImpl implements TextIndexerDAO {
      */
     @Override
     public void clearIndexingTasks() throws Exception {
-        
+        Query query = getSession().createQuery("delete from IndexingTask i where i.markDeleted = true");
+        query.executeUpdate();
     } //clearIndexingTasks()
     
     

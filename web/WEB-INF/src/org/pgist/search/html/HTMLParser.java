@@ -10,7 +10,9 @@ import java.io.OutputStreamWriter;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
+import java.nio.CharBuffer;
 import java.util.Properties;
 
 public class HTMLParser implements HTMLParserConstants {
@@ -65,6 +67,10 @@ public class HTMLParser implements HTMLParserConstants {
         }
     }
 
+    public HTMLParser(String html) {
+        this(new StringReader(html));
+    }
+    
     /**
      * @deprecated Use HTMLParser(FileInputStream) instead
      */
@@ -849,4 +855,17 @@ public class HTMLParser implements HTMLParserConstants {
     // t = getNextToken();
     // } while (t.kind != TagEnd);
     // }
+    
+    
+    public static void main(String[] args) throws Exception {
+        File file = new File("/home/kenny/temp/aaa.html");
+        HTMLParser parser = new HTMLParser(file);
+        Reader reader = parser.getReader();
+        CharBuffer cb = CharBuffer.allocate(1024);
+        while (reader.read(cb)>-1) {
+            System.out.println("111");
+            System.out.println(cb.toString());
+            cb.clear();
+        }
+    }
 }

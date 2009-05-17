@@ -29,6 +29,18 @@ public class SearchAction extends Action {
     
     private ImportService importService;
     
+    private static final Map<String, String> TYPES = new HashMap<String, String>();
+    
+    
+    static {
+        TYPES.put("concern", "Concern");
+        TYPES.put("concern-comment", "Concern Comment");
+        TYPES.put("drt-comment", "DRT Comment");
+        TYPES.put("cst-comment", "CST Comment");
+        TYPES.put("cht-comment", "CHT Comment");
+        TYPES.put("vtt-comment", "ICT Comment");
+    } //static
+    
     
     public void setSearchHelper(SearchHelper searchHelper) {
         this.searchHelper = searchHelper;
@@ -89,7 +101,10 @@ public class SearchAction extends Action {
             for (int i=start; i<end; i++) {
                 Document doc = hits.doc(i);
                 
-                String type = doc.get("type");
+                String type = TYPES.get(doc.get("type"));
+                if (type==null) {
+                    type = "Unknown";
+                }
                 
                 Map map = new HashMap();
                 map.put("type", type);
