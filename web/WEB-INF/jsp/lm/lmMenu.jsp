@@ -8,7 +8,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 <head>
-	<title>Learn More About</title>
+	<title>Learn More</title>
 	<!-- Site Wide CSS -->
 	<style type="text/css" media="screen">
 		@import "styles/lit.css";
@@ -33,7 +33,7 @@
 <div id="headerMenu">
 	<div id="headerContainer">
 		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Learn More About</h3>
+			<h3 class="headerColor">Learn More</h3>
 		</div>
 		<div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
 		<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
@@ -97,7 +97,7 @@
 <div id="headerMenu">
 	<div id="headerContainer">
 		<div id="headerTitle" class="floatLeft">
-			<h3 class="headerColor">Learn More About</h3>
+			<h3 class="headerColor">Learn More</h3>
 		</div>
 		<div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
 		<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
