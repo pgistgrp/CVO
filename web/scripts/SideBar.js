@@ -276,7 +276,7 @@
 					
 					$(sideBar.divSearchResults).innerHTML = $(sideBar.divSearchResults).innerHTML = data.html;
 					if (data.count == 0){
-						$(sideBar.divSearchResults).innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade('+sideBar.divSearchResults+', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p> ';
+						$(sideBar.divSearchResults).innerHTML = '<span class="closeBox"><a href="javascript:Effect.Fade('+sideBar.divSearchResults+', {duration: 0.5}); void(0);">Close</a></span><p>No keyphrase matches found.</p> ';
 					}
 				};
 				/***************May be not neccessary************* 

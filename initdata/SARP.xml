@@ -95,7 +95,7 @@
                     <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
                     <property name="overview">
                         <![CDATA[
-                            <h3 class="headerColor">Overview and instructions</h3>
+                            <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of keyphrases.</p>
                             <p>When the group reaches agreement over the set of concerns and keyphrases, they become the building blocks for the next step, categorizing keyphrases.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
@@ -204,7 +204,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-                            <h3 class="headerColor">Overview and instructions</h3>
+                            <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents a set of 'group categories' synthesized from the contributions of all users for discussion and agreement.</p>
                             <p>When the group reaches agreement over the set of group categories, they become the building blocks for the next step, building hierarchies using those categories.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
@@ -360,7 +360,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-			    <h3 class="headerColor">Overview and instructions</h3>
+			    <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents a set of hierarchy paths from the contributions of all users for discussion and agreement.</p>
                             <p>When the group reaches agreement over the set of hierarchy paths, they become the building blocks for the next step, specifying indicators for hierarchy paths.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
@@ -534,11 +534,11 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-			    <h3 class="headerColor">Overview and instructions</h3>
+			    <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents the indicators contributed by all users as well as additional information provided by data specialists for discussion and agreement.</p>
                             <p>When the group reaches agreement over the appropriate indicator for each hierarchy path, they are included in the final report as the group's suggestion for a mapping and discussion activity in a subsequent workshop.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <ol id="hiddenRM" style="display:none">  <li>Click on each hierarchy path in the left column to explore the indicators specified for it and make your recommendation.  Click &quot;<b>Save</b>&quot; after each recommendation users make.</li>
+                            <ol id="hiddenRM" style="display:none">  <li>Click on each hierarchy path in the left column to explore the indicators specified for it and make your recommendation.  Click &quot;<b>Save</b>&quot; after each recommendation you make.</li>
 			    	<li>Read others' comments and submit your own to discuss the group's indicators.   The ratio in the 'selection' column displays the groups' yes votes on the given indicator in relation to all votes.</li>
 				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
 				<li>Vote to move forward when satisfied with the group's progress.</li></ol>
@@ -703,7 +703,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-                            <h3 class="headerColor">Overview and instructions</h3>
+                            <h3 class="headerColor">Instruction overview</h3>
                             <p>put overview here!!!
                         ]]>
                     </property>

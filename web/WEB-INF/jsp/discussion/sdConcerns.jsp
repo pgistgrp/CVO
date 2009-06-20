@@ -154,7 +154,7 @@
 							
 							$(cct.divSearchResults).innerHTML = $(sd.divSearchResults).innerHTML = data.html;
 							if (data.count == 0){
-								$(sd.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+sd.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+								$(sd.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+sd.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No keyphrase matches found.</p> ';
 							}
 						}
 				},

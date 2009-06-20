@@ -640,7 +640,7 @@
     
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
-      <h3>Overview and instructions</h3>
+      <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to organize the group's keyphrases into labeled categories, generalizing specific contributions by theme.

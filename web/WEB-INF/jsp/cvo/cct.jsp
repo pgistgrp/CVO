@@ -220,7 +220,7 @@ var allNewConcernTags = new Array;
 						if (data.successful){			
 							$(cct.divTagCloud).innerHTML = data.html;
 							if (data.count == 0){
-								$(cct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+								$(cct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No keyphrase matches found.</p> ';
 							}
 							if($(cct.divTagCloud).style.display == 'none'){
 								new Effect.BlindDown(cct.divTagCloud, {duration: 0.5});		
@@ -244,7 +244,7 @@ var allNewConcernTags = new Array;
 						if (data.successful){			
 							$(cct.divTagCloud).innerHTML = data.html;
 							if (data.count == 0){
-								$(cct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+								$(cct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No keyphrase matches found.</p> ';
 							}
 							
 						}else{
@@ -411,7 +411,7 @@ var allNewConcernTags = new Array;
 							
 							$(cct.divSearchResults).innerHTML = $(cct.divSearchResults).innerHTML = data.html;
 							if (data.count == 0){
-								$(cct.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+								$(cct.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+cct.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No keyphrase matches found.</p> ';
 							}
 						}
 				},

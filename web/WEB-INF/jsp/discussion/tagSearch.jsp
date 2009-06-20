@@ -10,6 +10,6 @@
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
-		<span class="closeBox"><a href="javascript:Effect.Fade('sidebarSearchResults', {duration: 0.5}); void(0);">Close</a></span><p>No tag matches found! Please try a different search.</p>
+		<span class="closeBox"><a href="javascript:Effect.Fade('sidebarSearchResults', {duration: 0.5}); void(0);">Close</a></span><p>No keyphrase matches found.</p>
 	</c:otherwise>
 </c:choose>

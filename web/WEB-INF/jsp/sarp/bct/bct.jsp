@@ -220,7 +220,7 @@ var allNewConcernTags = new Array;
             if (data.successful){      
               $(bct.divTagCloud).innerHTML = data.html;
               if (data.count == 0){
-                $(bct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+bct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+                $(bct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+bct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No keyphrase matches found.</p> ';
               }
               if($(bct.divTagCloud).style.display == 'none'){
                 new Effect.BlindDown(bct.divTagCloud, {duration: 0.5});    
@@ -244,7 +244,7 @@ var allNewConcernTags = new Array;
             if (data.successful){      
               $(bct.divTagCloud).innerHTML = data.html;
               if (data.count == 0){
-                $(bct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+bct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+                $(bct.divTagCloud).innerHTML = '<a href="javascript:Effect.Fade(\''+bct.divTagCloud+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No keyphrase matches found.</p> ';
               }
               
             }else{
@@ -411,7 +411,7 @@ var allNewConcernTags = new Array;
               
               $(bct.divSearchResults).innerHTML = $(bct.divSearchResults).innerHTML = data.html;
               if (data.count == 0){
-                $(bct.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+bct.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No tag matches found! Please try a different search.</p> ';
+                $(bct.divSearchResults).innerHTML = '<a href="javascript:Effect.Fade(\''+bct.divSearchResults+'\', {duration: 0.5}); void(0);"><img src="images/close1.gif" border=0 class="floatRight"></a><p>No keyphrase matches found.</p> ';
               }
             }
         },
@@ -591,7 +591,7 @@ function editTags(concernId){
   <div id="container">
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
-      <h3>Overview and instructions</h3>
+      <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to specify concerns and associate them with meaningful keyphrases.<br>
@@ -603,8 +603,8 @@ function editTags(concernId){
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
 	<li>Write a concern in the box on the right and click &quot;<b>Continue</b>&quot;.</li>
 	<li>Choose keywords extracted from your concern or enter your own in the space provided, and click submit.  (Users need at least 2 keyphrases per concern.)</li>
-	<li>Explore concerns and associated keyphrases submitted by other users using the search, browse or sort functionality provided in the blue bar.  users can discuss concerns by submitting comments and indicate your agreement or disagreement by voting.</li>
-	<li>Re-evaluate your own concerns and edit or create new ones  if necessary.</li>
+	<li>Explore concerns and associated keyphrases submitted by other users using the search, browse or sort functionality provided in the blue bar.  Users can discuss concerns by submitting comments and indicate their agreement or disagreement by voting.</li>
+	<li>Re-evaluate your own concerns and edit or create new ones if necessary.</li>
 	</pg:termHighlight>
       </ol>
     </div>
