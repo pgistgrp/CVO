@@ -65,9 +65,9 @@
                 </props>
             </declaration>
         </pgame>
-        <pgame name="pgame-sarp.bct" title="Brainstorm Keyphrases" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.bct" title="1a: Brainstorm Keyphrases" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Individuals brainstorm climate concern keyphrases</small>]]>
+              <![CDATA[<small>Individuals brainstorm concern keyphrases</small>]]>
             </description>
             <actionName>action-sarp.bct</actionName>
             <declaration>
@@ -76,7 +76,7 @@
                 </ins>
             </declaration>
         </pgame>
-        <pgame name="pgame-sarp.drt.bct" title="Assess Keyphrase Progress" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.bct" title="1b: Assess Keyphrases" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Review and comment on progress with group keyphrases</small>]]>
             </description>
@@ -141,9 +141,9 @@
                 </props>
             </declaration>
         </pgame>
-        <pgame name="pgame-sarp.cst" title="Create Categories" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.cst" title="2a: Create Categories" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Individuals create climate concern categories using keyphrases</small>]]>
+              <![CDATA[<small>Individuals create concern categories using keyphrases</small>]]>
             </description>
             <actionName>action-sarp.cst</actionName>
             <declaration>
@@ -184,7 +184,7 @@
             </declaration>
         </pgame>
         <!-- edited here -->
-        <pgame name="pgame-sarp.drt.cst" title="Assess Category Progress" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.cst" title="2b: Assess Categories" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Review and comment on progress with group categories</small>]]>
             </description>
@@ -248,7 +248,7 @@
                     <var name="oid"/>
                 </ins>
                 <props>
-                    <property name="announcement" value="Moderator is making suggested changes to categories" />
+                    <property name="announcement" value="Moderator at work" />
                 </props>
             </declaration>
         </pgame>
@@ -297,7 +297,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.cht" title="Build Hierarchies" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.cht" title="3a Build Hierarchies" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Individuals build hierarchies using synthesized categories</small>]]>
             </description>
@@ -340,7 +340,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.cht" title="Assess Hierarchy Progress" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.cht" title="3b: Assess Hierarchies" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Review and comment on progress with group hierarchy paths</small>]]>
             </description>
@@ -410,7 +410,7 @@
                         <script type='text/javascript' src='/dwr/interface/CHTAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="announcement" value="Moderator making suggested changes to group hierarchy paths" />
+                    <property name="announcement" value="Moderator at work" />
                 </props>
             </declaration>
         </pgame>
@@ -459,7 +459,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.vtt" title="Develop Indicators" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.vtt" title="4a Develop Indicators" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Individuals develop indicators using hierarchy paths</small>]]>
             </description>
@@ -514,7 +514,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.vtt" title="Assess Indicator Progress" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.vtt" title="4b: Assess Indicators" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Review and comment on progress with group indicators</small>]]>
             </description>
@@ -535,7 +535,7 @@
                     <property name="overview">
                         <![CDATA[
 			    <h3 class="headerColor">Instruction overview</h3>
-                            <p>This sub-step presents the indicators contributed by all users as well as additional information provided by data specialists for discussion and agreement.</p>
+                            <p>This sub-step presents the indicators contributed by all users as well as additional information provided by data analysts for discussion and agreement.</p>
                             <p>When the group reaches agreement over the appropriate indicator for each hierarchy path, they are included in the final report as the group's suggestion for a mapping and discussion activity in a subsequent workshop.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             <ol id="hiddenRM" style="display:none">  <li>Click on each hierarchy path in the left column to explore the indicators specified for it and make your recommendation.  Click &quot;<b>Save</b>&quot; after each recommendation you make.</li>
@@ -584,14 +584,14 @@
                         <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="announcement" value="Moderator making suggested changes to group indicators" />
+                    <property name="announcement" value="Moderator at work" />
                 </props>
             </declaration>
         </pgame>
     
         <pgame name="pgame-sarp.vtt.wait" title="Status" auto="false" access="all" revisitable="false">
             <description>
-              <![CDATA[<small>Check status of moderator work</small>]]>
+              <![CDATA[<small>Check status of analysts' work</small>]]>
             </description>
             <actionName>action-sarp.vttwait</actionName>
             <declaration>
@@ -601,7 +601,7 @@
                         <script type='text/javascript' src='/dwr/interface/VTTAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="announcement" value="Data analysts reviewing units of measurement for indicators" />
+                    <property name="announcement" value="Data analysts at work" />
                 </props>
             </declaration>
         </pgame>
@@ -683,7 +683,7 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.report" title="Finalize group report" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.report" title="5a Finalize group report" auto="false" access="all" revisitable="true">
             <description>
               <![CDATA[<small>Review and comment on the group report</small>]]>
             </description>
@@ -747,7 +747,7 @@
                         <script type='text/javascript' src='/dwr/interface/ReportAgent.js'></script>
                         ]]>
                     </property>
-                    <property name="announcement" value="Moderator making suggested changes to report" />
+                    <property name="announcement" value="Moderator at work" />
                 </props>
             </declaration>
         </pgame>
@@ -758,7 +758,7 @@
     
     <pmethods>
     
-        <pmethod name="pmethod-sarp.bct" description="Step 1: Brainstorm Concern Keyphrases and Assess Keyphrase Progress">
+        <pmethod name="pmethod-sarp.bct" description="Step 1: Brainstorm and Assess Keyphrases">
             <declaration>
                 <outs>
                     <var name="pmethod.bct_id"/>
@@ -1392,7 +1392,7 @@
     
     <meetings>
     
-        <meeting name="meeting-sarp.bct" description="Step 1: Brainstorm Concern Keyphrases and Assess Keyphrase Progress">
+        <meeting name="meeting-sarp.bct" description="Step 1: Brainstorm and Assess Keyphrases">
             <declaration>
                 <outs>
                     <var name="meeting.bct_id"/>

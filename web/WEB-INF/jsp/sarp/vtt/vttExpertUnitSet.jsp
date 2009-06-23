@@ -4,7 +4,7 @@
 <div style="height:400px;overflow:auto;clear:both;">
 <form name="umForm" action="#">
 <div style="clear:both; text-align:right; margin-right:20px;">
-  <label style="cursor:pointer;" for="rec-none">Recommend none of the above<label>
+  <label style="cursor:pointer;" for="rec-none">Recommend none of the following<label>
   <c:choose>
     <c:when test="${noneSelected}">
       <input id="rec-none" name="rec-${path.id}" type="radio" value="" CHECKED onclick="return toggleSelection(${path.id}, '${block.key.name}', 'rec','', this.checked);">

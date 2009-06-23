@@ -197,7 +197,7 @@
 	-->
 		<div id="left-col">
 			<h3 class="headerColor">Agenda</h3>
-			<div class="box12 clearfix"><h4 style="font-weight:normal">Current steps are highlighted</h4>
+			<div class="box12 clearfix"><h4 style="font-weight:normal">Current steps are highlighted with blue background<br>Completed steps are closed for work, but open for browsing.</h4>
 				<div id="workflow-panel"><img src="/images/indicator_arrows.gif" alt="Please wait..."/> Loading overview...</div>
 			</div>
 		</div>
