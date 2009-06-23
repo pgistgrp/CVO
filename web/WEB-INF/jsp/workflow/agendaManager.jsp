@@ -9,7 +9,7 @@
 
 <html:html>
 <head>
-<title>Voicing Climate Concerns - Agenda Manager</title>
+<title>VCC - Agenda Manager</title>
 
 <!-- Site Wide JS -->
 <script src="scripts/prototype.js" type="text/javascript"></script>
@@ -35,11 +35,11 @@
   <form action="/agendaManager.do" method="POST">
   <input type="hidden" name="workflowId" value="${param.workflowId}" />
   <input type="hidden" name="save" value="true" />
-  <h2>Initialize Data</h2><br />
+  <h2>Enter start and end dates for each substep</h2><br />
   <c:set var="stepCounter" value="1" />
   <c:forEach var="step" items="${activities}" varStatus="loop">
     <c:if test="${loop.index > 1}">
-        <h2>Step: ${stepCounter}</h2>
+<!--         <h2>Step: ${stepCounter}</h2> -->
         <c:set var="stepCounter" value="${stepCounter + 1}" />
     </c:if>
     <c:forEach var="activity" items="${step}" varStatus="loop2">
