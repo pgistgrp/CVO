@@ -39,7 +39,6 @@
   <c:set var="stepCounter" value="1" />
   <c:forEach var="step" items="${activities}" varStatus="loop">
     <c:if test="${loop.index > 1}">
-<!--         <h2>Step: ${stepCounter}</h2> -->
         <c:set var="stepCounter" value="${stepCounter + 1}" />
     </c:if>
     <c:forEach var="activity" items="${step}" varStatus="loop2">
