@@ -53,7 +53,7 @@
 	<p>In this section of the website any interested user can link to the <a href="http://www.coastalatlas.net"title="Oregon Coastal Atlas">Oregon Coastal Atlas</a> or learn more about the Voicing Climate Concerns experiment in participatory decision making. The entire website will be available to registered participants. <a href="register.do">Register now</a>.</p>
 		<!-- Begin explanation -->
 
-	<h2 class="headerColor">About</h2>
+	<h2 class="headerColor">Overview</h2>
 		
     <p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about 
     climate change and variability along the Oregon Coast and analysts produce maps depicting those 
