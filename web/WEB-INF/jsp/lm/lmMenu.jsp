@@ -81,13 +81,13 @@
     </p>
     
     <p>
-    In Step 4, participants develop indicators to address the concerns organized in the 
-    previous step.  Participants will choose an indicator name and a unit of measurement appropriate
-    to address each concern.  Technical specialists with knowledge about the data holdings of the Oregon Coastal
-    Atlas will then provide feedback on the indicators developed by the participants.  Finally, in the 
-    review and comment phase of Step 4, participants will prioritise the indicators generated.  
-    After the completion of all four steps of the experiment, a report on the outcome of the experiment 
-    will be generated, and participants will have the opportunity to review and comment on the report.
+    In Step 4, participants develop indicators to address the concerns organized in step 3, drawing on 
+    information provided by data analysts.
+    </p>
+    
+    <p>
+    In Step 5, a report on the outcome of the experiment will be generated, and participants will have 
+    the opportunity to review and comment on the report.
     </p>
 		
 	<br />
