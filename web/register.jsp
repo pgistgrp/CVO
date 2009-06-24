@@ -7,7 +7,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
 	<head>
-	<title>ClimateConcerns - Registration</title>
+	<title>VCC - Registration</title>
 	<!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -209,7 +209,9 @@
 	
 	<!-- begin OVERVIEW -->
 	<div id="overview" class="box2">
-		<p>Voicing Climate Concerns (VCC) is part of a research study at the University of Washington and Oregon State University. Before participating, please help us by filling in the information below. </p>
+		<p>Voicing Climate Concerns (VCC) is part of a research study at the University of Washington 
+		and Oregon State University. Before participating, please help us by filling in the information below.
+		To learn more about the study, click <a href="/lmMenu.do" target="_blank">here</a></p>
 	</div>
 	<!-- end OVERVIEW -->
 	
