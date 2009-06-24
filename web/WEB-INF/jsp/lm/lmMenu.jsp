@@ -58,7 +58,7 @@
     <p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about 
     climate change and variability along the Oregon Coast and analysts produce maps depicting those 
     concerns contingent on availabity of data. Voicing Climate Concerns facilitates citizen involvement, 
-    <a href="http://www.oregon.gov/LCD/docs/goals/goal1.pdf">Goal 1</a> of 
+    <a href="http://www.oregon.gov/LCD/docs/goals/goal1.pdf">goal 1</a> of 
     <a href="http://www.oregon.gov/LCD/goals.shtml">Oregon’s Statewide Planning Goals and Guidelines</a></p>
     
     <p>
