@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 
-<b>CHT Path Voting:</b>
+<b>Explore and vote on the group's hierarchy paths:</b>
 <table id="catTable" width="100%" cellpadding="2" cellspacing="0">
   <tr style="font-weight:bold;">
     <td style="width:50%"><a href="javascript:infoObject.getPaths('title');">Label</a></td>
