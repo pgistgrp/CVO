@@ -65,7 +65,7 @@ from org.pgist.sarp.cst import CategoryReference
 
 
 # constant
-separator = '||'
+separator = " | "
 
 # GENERAL CLASS DECLARATIONS
 # Category object from Zhong's code		
