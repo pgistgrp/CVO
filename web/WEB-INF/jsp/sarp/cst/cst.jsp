@@ -650,7 +650,7 @@
       </p>
       <ol id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Review the list of keyphrases in the right-hand panel.</li>
-  <li>Create and label categories.  Assign keyphrases into categories.</li>
+  <li>Create and label categories. (Numbers and punction in category names will be ignored.) Assign keyphrases into categories.</li>
   <li>Click &quot;<b>Publish</b>&quot; to share your categories with other users.</li>
   <li>Use the drop down menu to explore categories created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
   <li>Re-evaluate your own categories and edit or create new ones if necessary.</li>
