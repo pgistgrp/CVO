@@ -96,7 +96,7 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of keyphrases.</p>
+                            <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of concerns and keyphrases.</p>
                             <p>When the group reaches agreement over the set of concerns and keyphrases, they become the building blocks for the next step, categorizing keyphrases.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             <ol id="hiddenRM" style="display:none">  <li>Explore the group's concerns and keyphrases using the tools provided (sort or filter).</li>
