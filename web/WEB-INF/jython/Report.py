@@ -26,20 +26,6 @@ from types import *
 #import org.python.util.*
 #import org.python.core.*
 
-# Helpinig structures
-class toolReport:
-    name = None
-    ID = None
-    created = None
-    numContributions = None
-    numContributors = None
-    numComments = None
-    numCommenters = None
-    numVotes = None
-    numVotesAgree = None
-    numModChg = None
-
-
 #
 # Begin getting accesss data
 #
@@ -114,11 +100,15 @@ def getBCTInfo():
     bctInfo['numComments'] = sum(numOfComments)
     # Number of commentators is the length of the set of comment authors 
     bctInfo['numCommenters'] = len(set(commentAuthors))
+    # Get the info for the BCT DRT
+    bctDrt = report.getBctDrt()
+    print bctDrt
+    drtBctInfo = getDRTInfo(bctDrt)
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
-    bctInfo['numVotes'] = sum(concernVotes)
+    bctInfo['numVotes'] = drtBctInfo.get('numVotes')
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
-    bctInfo['numVotesAgree'] = sum(concernVotesAgree)
-    bctInfo['numModChg'] = None
+    bctInfo['numVotesAgree'] = drtBctInfo.get('numAgree')
+    bctInfo['numModChg'] = drtBctInfo.get('numModChg')
     # Return the bct information dictionary
     return bctInfo
 
@@ -159,13 +149,14 @@ def getCSTInfo():
     # Get the number of comments
     cstInfo['numComments'] = len(commentsList)
     # Get the number of commentators
-    cstInfo['numCommenters'] = None
-    # Get the number of votes
-    cstInfo['numVotes'] = None
-    # Get the number of votes that agree
-    cstInfo['numVotesAgree'] = None
-    # Get the number of moderator changes
-    cstInfo['numModChg'] = None
+    cstInfo['numCommenters'] = len(set(authorList))
+    # Get the info for the CST DRT
+    drtInfo = getDRTInfo(report.getCstDrt())
+    # Number of votes is the sum of the concernVotes[] (votes by each concern)
+    cstInfo['numVotes'] = drtInfo['numVotes']
+    # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
+    cstInfo['numVotesAgree'] = drtInfo['numAgree']
+    cstInfo['numModChg'] = drtInfo['numModChg']
     
     # Return the CST Information dictionary
     return cstInfo
@@ -208,12 +199,13 @@ def getCHTInfo():
     chtInfo['numComments'] = len(commentsList)
     # Number of commenters is the length of the set of comment authors
     chtInfo['numCommenters'] = len(set(authorsList))
-    # Get the number of votes
-    chtInfo['numVotes'] = None
-    # Get the number of votes that agree
-    chtInfo['numVotesAgree'] = None
-    # Get the number of moderator changes
-    chtInfo['numModChg'] = None
+    # Get the info for the CHT DRT
+    drtInfo = getDRTInfo(report.getChtDrt())
+    # Number of votes is the sum of the concernVotes[] (votes by each concern)
+    chtInfo['numVotes'] = drtInfo['numVotes']
+    # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
+    chtInfo['numVotesAgree'] = drtInfo['numAgree']
+    chtInfo['numModChg'] = drtInfo['numModChg']
     # Return
     return chtInfo
 
@@ -256,9 +248,32 @@ def getVTTInfo():
         #indics.extend(catInds) 
     vttInfo['numContributions'] = len(pathValues)
     """
+    # Get the info for the CST DRT
+    drtInfo = getDRTInfo(report.getVttDrt())
+    # Number of votes is the sum of the concernVotes[] (votes by each concern)
+    vttInfo['numVotes'] = drtInfo['numVotes']
+    # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
+    vttInfo['numVotesAgree'] = drtInfo['numAgree']
+    vttInfo['numModChg'] = drtInfo['numModChg']
     
     return vttInfo
 
+# Get the DRT Information - shared code
+def getDRTInfo(drtGiven):
+    drtInfo = dict()
+    # Retrieve the number of votes
+    drtInfo['numVotes'] = drtGiven.getNumVote()
+    # Retrieve number of votes that agree
+    drtInfo['numVotesAgree'] = drtGiven.getNumAgree()
+    # Set the number of closed announcements
+    drtInfo['numModChg'] = 0
+    # Get all the announcements
+    announcements = drtGiven.getAnnouncements().toArray()
+    for announcement in announcements:
+        # Check if the announcement is closed
+        if announcement.isDone():
+            drtInfo['numModChg'] += 1
+    return drtInfo
 
 
 bctInfo = getBCTInfo()
