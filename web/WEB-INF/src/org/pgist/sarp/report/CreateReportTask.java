@@ -106,10 +106,10 @@ public class CreateReportTask implements WorkflowTask {
         report.setCst(cstService.getCSTById(cstId));
         report.setCht(chtService.getCHTById(chtId));
         report.setVtt(vttService.getVTTById(vttId));
-        report.setBctDrt(drtService.getInfoObjectByTargetId(bctDrtId));
-        report.setCstDrt(drtService.getInfoObjectByTargetId(cstDrtId));
-        report.setChtDrt(drtService.getInfoObjectByTargetId(chtDrtId));
-        report.setVttDrt(drtService.getInfoObjectByTargetId(vttDrtId));
+        report.setBctDrt(drtService.getInfoObjectById(bctDrtId));
+        report.setCstDrt(drtService.getInfoObjectById(cstDrtId));
+        report.setChtDrt(drtService.getInfoObjectById(chtDrtId));
+        report.setVttDrt(drtService.getInfoObjectById(vttDrtId));
         
         drtService.save(report);
         
