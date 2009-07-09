@@ -31,7 +31,7 @@
             <div id="headerTitle" class="floatLeft">
                 <h3 class="headerColor">Learn More About</h3>
             </div>
-            <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
             <div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
             <!--
@@ -47,8 +47,146 @@
 	 <div id="container">
 
 	<h2 class="headerColor">What Am I Supposed To Be Concerned About?</h2>
-				
-	<p>You should be concerned that what you <b>value</b> about the Oregon coast is <b>vulnerable</b> to the <b>impacts of climate change and variability.</b></p>
+	<p>The Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development released a document in January 2009 entitled 
+	<i>CLIMATE READY COMMUNITIES: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</i>. This document includes the discussion of 
+	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES">here</a>.</p>
+	<p><em>"</em>
+	<b>Climate and the Oregon Coast</b></p>
+	<p>The likely effects of climate change on the Oregon
+coast may come as no surprise to Oregonians who are familiar
+with winter storms and the variability of the climate
+and ocean conditions on the Oregon coast. The El Niño
+climate events of 1982-83 and 1997-98 gave Oregonians a
+taste of higher sea level, stronger storms, warmer ocean
+temperatures, and altered marine ecosystem.</p>
+	<p>Oregon’s coastal communities have begun to experience
+the effects of climate change in the form of higher wave
+heights, more powerful winter storms, and major ocean
+shoreline erosion. Other phenomena are expected due to
+the Earth’s changing climate such as rising sea level and
+tidal height, hypoxic nearshore ocean waters, seasonal temperature
+changes, more acidic ocean waters, and changes in
+forest cover.</p>
+	<p>It is important that coastal communities understand the
+potential effects of climate change in order to take action to
+avoid risks, reduce damage and make choices that will
+maximize community resilience. This paper outlines some
+of the principal ways that the Oregon coast is likely to be
+affected.</p>
+	<br>
+	<p><b>Key Physical Changes in Oregon’s
+Coastal Climate and Weather</b></p>
+	<p>Changes in Earth’s climate, driven by atmospheric
+warming caused by greenhouse gases, will affect the climate
+and weather of the Oregon coast in a variety of ways, some
+familiar, others dramatically new. Exactly how these
+changes will affect any particular community or region of
+the coast cannot now be accurately predicted. However,
+scientific evidence strongly suggests that coastal climate and
+weather are likely to change in four principal ways.</p>
+	<p><i>Temperature</i><br>
+	The current best estimate for future warming is about 0.5° F per
+decade, at least in the next few decades. The Pacific Northwest is projected
+to have greater warming during summer than in the winter.
+The mean temperature may increase significantly beyond current
+ranges over the course of the next century.</p>
+	<p><i>Storms</i><br>
+	Data show that both the frequency and intensity of storms have
+increased in recent years, and individual storms are producing higher
+waves and storm surges. Projected changes suggest that future winter
+storms may be similar to recent strong El Niño-influenced storms
+that accelerated coastal erosion. More frequent, longer and more intense
+storms will cause greater damage.</p>
+	<p><i>Sea level</i><br>
+	Sea level is expected to rise significantly by 2100 but how much
+cannot now be predicted for any given location. Average sea level
+rose worldwide about 6.7 inches in the 20th century. A recent report
+concluded that sea level could rise on the Washington coast by 22
+inches by 2050 and by 50 inches by 2100. The most current projections
+do not include the effects of rapid ice melt being experienced in
+Greenland or Antarctica. Sea level rise will generate increased tidal
+heights in estuaries and coastal rivers that are affected by tides.</p>
+	<p><i>Precipitation</i><br>
+	Precipitation in the Pacific Northwest is expected to increase but
+to remain within historical ranges for rainfall. Winter precipitation is
+projected to increase, while summers will be longer and even drier
+than at present. For the Coast Range and lower elevations, precipitation will be mostly rain, as at present. Some research anticipates an
+increase in intense precipitation events.</p>
+	<b>Likely Effects on Oregon’s Coastal
+Communities</b></p>
+	<p>Climate shapes communities in many ways; some obvious,
+others subtle. The economy and culture of coastal
+communities, for instance, are tightly linked to climate. Historic
+precipitation patterns and generally mild temperature
+support the timber, agricultural, and recreational economic
+sectors. The effects of climate changes can be generally described,
+even though their magnitude, timing, and location
+cannot be known for certain. Anticipating both gradual
+change and episodic events is essential to enable communities
+to become resilient to effects from climate change.</p>
+	<p><b>Community Infrastructure</b><br>
+	Climate conditions are generally factored into the design of
+community infrastructure. As climate conditions change, some infrastructure
+systems may be less effective or may fail altogether, which
+could alter the function, value, or viability of improvements these
+systems protect or serve.</p>
+	<p><b><i>Transportation and navigation</i></b></p>
+<p><i>Coastal roads, highways, and rail lines</i> are at risk from the effects
+of increased winter precipitation, increased coastal erosion, and
+flooding. Over the long term, roads, highways, and railroads will be
+affected by sea level rise and increased tidal elevations along the
+ocean shore, estuaries, and coastal rivers.</p>
+<p><i>Airport runways</i> such as those in North Bend and Astoria are
+located on filled estuarine wetlands and may be at risk of inundation
+from storm surge and high tides and, over time by sea level and increased
+tidal heights.</p>
+<p><i>Port facilities, jetties and groins</i> will be subject to damage
+from larger storm waves. Watershed flooding may increase sediment
+loads into estuaries and thus increase the need for dredging of navigational
+channels. Increased tidal height will affect docks and bulkheads.</p>
+ 
+	<p><b><i>Shore Protection and Flood Control Structures</i></b></p>
+<p><i>Dikes and levees:</i> Extensive areas in Oregon’s estuaries are protected
+from tidal inundation by dikes and levees. Rising sea level and
+the increased likelihood of inundation from higher storm surge and
+tidal heights, especially in times of river flooding, may threaten the
+integrity of dikes and levees. Infrastructure and development on lands
+protected by dikes are at risk of damage and inundation as dikes fail.</p>
+<p><i>Shore protection improvements:</i> Some portions of Oregon’s
+ocean shorelines have been armored against erosion from ocean
+waves, primarily in front of properties developed before 1977. As
+shorelines erode landward in response to higher sea level and storms,
+armored properties are at risk of becoming peninsulas, then islands,
+and then overtopped. An increase in significant wave heights is likely
+to damage or cause failure of some hardened shorelines, potentially
+resulting in damage to nearby unprotected property and infrastructure.</p>
+ 
+	<p><b><i>Municipal Services</i></b></p>
+<p><i>Stormwater systems:</i> The capacity of local stormwater management
+systems may be exceeded as the magnitude or frequency of
+rainfall events increases, especially as tidal elevations rise leading to
+localized flooding, accelerated deterioration, and possible system failure.
+Systems at or near capacity today may be unable to handle future
+storm loads, which could have a significant effect on location of future
+development.</p>
+<p><i>Water supply and wastewater treatment:</i> Rainfall in winter is
+projected to increase. However, storing water across longer, drier
+summers may be a problem for some coastal communities where
+storage systems are already at or over capacity during summer. Reduced
+precipitation in summer months, especially in conjunction with
+warmer winter temperatures, may reduce the water available for municipal
+supply systems. In addition, wastewater treatment facilities are
+usually located at the lowest elevation in a watershed, which places
+those facilities at risk from rising sea level and tidal elevation.</p>
+<p><i>Recreational facilities:</i> Increased erosion along Oregon’s ocean
+shore from rising sea levels and coastal storms may seriously alter
+beaches, and in some cases, the infrastructure necessary for safe access
+to and from beaches and coastal parks. Coastal forest trails and
+campgrounds may experience frequent damage from high winds and
+flooding.</p>
+	
+	<!-- the section below was the content of this page before it was changed to the OCMP content -->
+	<!-- <p>You should be concerned that what you <b>value</b> about the Oregon coast is <b>vulnerable</b> to the <b>impacts of climate change and variability.</b></p>
 				
 	<p><i><b>How do I know what to value?</b></i> It is a good question that only you can answer. Value is defined as worth, desirability, or utility based on individual preferences. The total value of any resource is the sum of the values of the different individuals involved in the use of the resource (Intergovernmental Panel on Climate Change 2007). Start by thinking about things you know that you value about the Oregon coast. What you value could be based on a personal experience traveling to the coast, or it could be based on what you know about the economic livelihood of your entire community. Also, listen to what other people are saying.</p>
 				
@@ -62,7 +200,7 @@
 				
 	<p><i><b>By the way, am I supposed to know the difference between climate change and climate variability?</b></i>
 	It probably wouldn't hurt. See below.</p>
-				
+	
 	<h2 class="headerColor">Climate Change vs. Climate Variability</h2>
 				
 	<p>According to the Intergovernmental Panel on Climate Change (IPCC), climate <b>change</b> refers to a <b>statistically significant variation</b> in
@@ -236,7 +374,7 @@
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">... as measured by</b></div>	
 	<div><b style="display:inline;margin:0px;padding:0px;margin-left:120px">these sorts of indicators.</b></div>	
 	<div><p style="display:inline;margin:0px;padding:0px;margin-left:120px">How would you want to measure the expected impacts?</div>					
-
+-->
 	<!-- End explanation -->
     
   </div>
@@ -248,7 +386,7 @@
             <div id="headerTitle" class="floatLeft">
                 <h3 class="headerColor">Learn More About</h3>
             </div>
-            <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
+            <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
             <div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
             <!--
