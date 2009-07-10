@@ -85,6 +85,7 @@ public class SecurityFilter implements Filter {
             }
         } else {
             // bypass if it's /scripts or /images
+            System.out.println("-----------------------------> "+path);
             if (!path.startsWith("/scripts/") && !path.startsWith("/images/")) {
                 if (req.isSecure()) {
                     req.getSession(true);
