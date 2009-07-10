@@ -73,7 +73,6 @@ public class SecurityFilter implements Filter {
         /*
          * check if the requested url should use https protocol.
          */
-        System.out.println("=====================> "+path);
         if (httpsURLs.contains(path)) {
             if (!req.isSecure()) {
                 req.getSession(true);
