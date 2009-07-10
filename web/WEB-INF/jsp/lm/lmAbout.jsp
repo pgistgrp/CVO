@@ -111,8 +111,8 @@ heights in estuaries and coastal rivers that are affected by tides.</p>
 to remain within historical ranges for rainfall. Winter precipitation is
 projected to increase, while summers will be longer and even drier
 than at present. For the Coast Range and lower elevations, precipitation will be mostly rain, as at present. Some research anticipates an
-increase in intense precipitation events.</p>
-	<b>Likely Effects on Oregon’s Coastal
+increase in intense precipitation events.</p><br>
+	<p><b>Likely Effects on Oregon’s Coastal
 Communities</b></p>
 	<p>Climate shapes communities in many ways; some obvious,
 others subtle. The economy and culture of coastal
@@ -184,7 +184,232 @@ beaches, and in some cases, the infrastructure necessary for safe access
 to and from beaches and coastal parks. Coastal forest trails and
 campgrounds may experience frequent damage from high winds and
 flooding.</p>
-	
+	<p><b>Coastal Natural Systems</b></p>
+	<p>Many familiar coastal habitats, ecosystems, and natural resources
+will be affected by climate change. Low-lying habitats and ecosystems
+are especially vulnerable to floods, tides and ocean waves. Temperature
+and precipitation changes will affect the distribution and composition
+of forests, riparian areas, and other terrestrial habitats. Even
+rocky intertidal habitats are vulnerable to increased atmospheric and
+ocean temperatures.</p>
+	<p><b><i>Rivers and Streams</i></b></p>
+<p><i>Coastal rivers:</i> Streams that drain the Coast Range will carry increased
+runoff from greater winter rainfall but will become drier in
+summer due to decreased rainfall. More severe rainfall events in these
+streams may increase the frequency and severity of flooding episodes.
+Warmer summer temperatures and lower summer stream flows may
+raise water temperatures to the detriment of salmon and other coldwater
+species.</p>
+<p><i>Inland rivers:</i> Snow melt runoff is a factor in four rivers that are
+important to the Oregon coast and coastal fisheries: the Columbia,
+Umpqua, Rogue, and Klamath. For these rivers, less snow fall and
+more rain may alter seasonal flow regimes, resulting in lower stream
+flows in late spring through the summer and fall. Changes in flow
+regimes may affect salmonids that are adapted to these stream systems.
+For the Columbia River, the presence of dams and a highlyengineered
+hydrologic system complicate projections of impacts of
+climate change on the river’s natural resources and ecosystems.</p>
+	<p><b><i>Estuaries</i></b></p>
+<p>Estuaries are critical and unique habitats. Estuaries reflect a balance
+among competing natural forces. Sustained changes in sea level,
+tidal elevations, river flows, or sediment loads would necessarily alter
+the shape and productivity of Oregon’s estuaries.</p>
+<p><i>Estuarine wetlands</i> Snow melt runoff is a factor in four rivers that are
+important to the Oregon coast and coastal fisheries: the Columbia,
+Umpqua, Rogue, and Klamath. For these rivers, less snow fall and
+more rain may alter seasonal flow regimes, resulting in lower stream
+flows in late spring through the summer and fall. Changes in flow
+regimes may affect salmonids that are adapted to these stream systems.
+For the Columbia River, the presence of dams and a highlyengineered
+hydrologic system complicate projections of impacts of
+climate change on the river’s natural resources and ecosystems.</p>
+	<p><b>Coastal Natural Systems</b><br>
+	Many familiar coastal habitats, ecosystems, and natural resources
+will be affected by climate change. Low-lying habitats and ecosystems
+are especially vulnerable to floods, tides and ocean waves. Temperature
+and precipitation changes will affect the distribution and composition
+of forests, riparian areas, and other terrestrial habitats. Even
+rocky intertidal habitats are vulnerable to increased atmospheric and
+ocean temperatures.</p>
+	<p><b><i>Rivers and Streams</i></b></p>
+<p><i>Coastal rivers:</i> Streams that drain the Coast Range will carry increased
+runoff from greater winter rainfall but will become drier in
+summer due to decreased rainfall. More severe rainfall events in these
+streams may increase the frequency and severity of flooding episodes.
+Warmer summer temperatures and lower summer stream flows may
+raise water temperatures to the detriment of salmon and other coldwater
+species.</p>
+<p><i>Inland rivers:</i> Snow melt runoff is a factor in four rivers that are
+important to the Oregon coast and coastal fisheries: the Columbia,
+Umpqua, Rogue, and Klamath. For these rivers, less snow fall and
+more rain may alter seasonal flow regimes, resulting in lower stream
+flows in late spring through the summer and fall. Changes in flow
+regimes may affect salmonids that are adapted to these stream systems.
+For the Columbia River, the presence of dams and a highlyengineered
+hydrologic system complicate projections of impacts of
+climate change on the river’s natural resources and ecosystems.</p>
+	<p><b>Estuaries</b><br>
+	Estuaries are critical and unique habitats. Estuaries reflect a balance
+among competing natural forces. Sustained changes in sea level,
+tidal elevations, river flows, or sediment loads would necessarily alter
+the shape and productivity of Oregon’s estuaries.</p>
+<p><i>Estuarine wetlands</i> are vulnerable to rising sea level and tidal
+elevations, depending on rate of sediment deposition, the nature of
+the shoreline, and pace of sea level rise. Freshwater tidal wetlands
+may be inundated more frequently by saline waters, triggering
+changes in wetland communities. Because most Oregon estuaries are
+sharply bounded by steep hillsides or dikes and levees, fringe wetlands
+will be unable to migrate landward and will be inundated due to
+increased tidal elevation. An adequate supply of sediments to the estuary could enable tidal wetland elevations to keep pace with rising
+tidal elevation.</p>
+<p><i>Estuarine benthic ecosystems:</i>  Higher air temperatures can
+heat mudflats and raise estuarine water temperatures, especially upstream
+of ocean influence, thus affecting benthic communities and
+productivity. The loss of benthic habitat will directly affect the composition
+and productivity of estuarine ecosystems.</p>
+<p><i>Ocean spits:</i> Rising sea levels and increased storminess will likely
+result in the long-term movement of the sand spits that form the
+outer boundary of many Oregon’s estuaries. These forces could result
+in breaching of spits, as last occurred to the Tillamook spit in 1952,
+and which came close to occurring to the Netarts spit in 2007.</p>
+<p><i>Invasive species:</i> Estuaries in the Pacific Northwest have recently
+experienced biological invasions of non-native species that
+have had significant effects on estuarine communities. Such invasions
+may be related to climate factors.</p>
+<p><i>Acidification:</i> Oregon’s estuaries are dominated by ocean water
+due to high tidal flushing twice daily. As ocean waters become more
+acidic, estuaries will be subjected to these same acidic conditions. The
+effects of increased acidity on estuarine ecosystems are not yet
+known, but scientists are concerned about the potential effects on
+clams, crabs, oysters and other shellfish.</p>
+
+<p><b><i>The Pacific Ocean</i></b></p>
+<p><i>Ecosystem shifts: </i>Summer winds are critical to upwelling that
+drives productivity of marine ecosystems. Recent El Niño events
+demonstrated that warmer ocean temperatures and shifting wind patterns
+can, from just one season to the next, affect upwelling and the
+production of phytoplankton, zooplankton, and forage fish. Seabirds,
+marine mammals, salmon and other species were adversely affected
+by El Niño conditions and are expected to be affected by long term
+shifts in climate conditions.</p>
+<p><i>Distribution of species: </i>Long-term changes in ocean conditions
+are likely to result in a northward shift in the distribution of marine
+species, including sea birds and marine mammals. El Niño conditions
+have been cited as a factor in marine mammal mortality, evidence of
+warm water fish in waters off Washington, and lack of seabird reproductive
+success.</p>
+<p><i>Changes in upwelling:</i> Timing of the seasonal upwelling in the
+Pacific off Oregon, which provides the nutritional foundation for the
+marine food web, is changing. A long-term shift in the timing of up-
+welling would have long-lasting effects on Oregon’s commercial and
+recreational fisheries.</p>
+<p><i>Hypoxia: </i>While it is not clear that climate change is causing the
+hypoxic ‘dead zones’ in ocean waters off Oregon, the forces causing
+the hypoxia are all linked to, and affected by, climate change.</p>
+<p><i>Ocean acidification: </i>Increasing ocean acidification due to its
+absorption of CO2 has the potential to reduce the ability of marine
+species to form shells, which in turn would have a dramatic effect on
+the entire marine food web. Shellfish such as clams, oysters, and
+crabs will be particularly sensitive to an increasingly acid environment.</p>
+<p><b><i>Coastal shorelands</b></i></p>
+<p><i>Ocean shore:</i> The ocean shore will certainly be altered in many
+places due to higher sea level, higher waves, more frequent and
+stronger storms, and possible shifts in predominant wind directions.
+Beach and bluff erosion will result in shoreline retreat. Ocean shores
+armored with rip-rap and seawalls will be increasingly at risk over
+time.</p>
+<p><i>Estuarine shores:</i> The shorelines of estuaries will change over
+time as increasing tidal elevations push the “normal” shoreline farther
+inland. Habitats and human uses in low-lying areas adjacent to estuaries
+are at risk over time even if protected by bulkheads, dikes, or levees.
+Habitat restoration projects in coastal shorelands should consider
+effects of future climate change.</p>
+
+<p><b><i>Terrestrial and aquatic habitats</b></i></p>
+<p><i>Habitat distribution and composition: <i>Terrestrial and aquatic
+habitats, which reflect a balance of many factors, will be affected by
+changes in climate. As the suitability of habitats declines, the ranges
+of species will likewise shift. Salmon populations, especially, are vulnerable
+to increased water temperatures and other climate variables
+throughout their life histories.</p>
+<p><i>Non-native species: </i>Habitat changes in response to shifts in
+temperature, salinity, and precipitation will provide opportunities for
+invasion by non-native species that are adapted to the new habitat
+conditions or that out-compete native species weakened by habitat
+change.</p>
+<p><b>Coastal Economic Sectors<b><br>
+Most of the coast’s natural resource-based economic sectors are
+likely to be affected by changing conditions related to climate.</p>
+<p><b><i>Ocean Fisheries<p><b><i>
+<p><i>Salmonids:</i> Salmon, in particular, are highly vulnerable to
+changes in conditions throughout the many parts of coastal and
+ocean ecosystems that they occupy during their life. Expected climate-
+induced effects on watersheds, rivers, estuaries, and ocean ecosystems
+do not bode well for salmon, particularly in stream systems
+with already low populations.</p>
+<p><i>Harvest effects:<i> Some commercial ocean fish stock, already at
+low levels from overharvest, may be at risk over the long term as
+ocean conditions change. Changes in ocean ecosystem conditions are
+likely to fundamentally alter the historic fisheries of the Oregon
+coast.</p>
+<p><i>Ocean acidification: <i>Calcium-based plankton, which support
+the marine food web, are at risk from even minute changes in ocean
+acidity. Changes in plankton production will affect fisheries in ways
+that cannot now be predicted. It is not known how larger shellfish,
+such as clams, oysters, and crabs will fare in an increasingly acid environment.<p>
+<p><b><i>Agriculture</p></b></i>
+<p><i>Water supplies:</i> On the south coast, water supplies needed to
+harvest cranberry crops may be problematic. Overall, surface water
+supplies from rainfall are expected to increase due to winter rains.
+<p><i>Dikes, levees, and tidegates:<i> Dikes, levees, and other structures
+that create and protect agricultural lands around Coos Bay, Young’s
+River, Tillamook Bay, and other estuaries and tidally-influenced rivers
+will be subject to higher tidal elevations and riverine flooding as sea
+level rises. The condition of many of these structures is not known.</p>
+
+<p><b><i>Forestry</p></b></i>
+<p><i>Forest mix:</i> The mix of tree species in Oregon’s Coast Range
+Mountains and coastal lowlands is likely to change in response to
+changes in temperature and precipitation regimes. Broadleaf species
+are projected to increase in conifer forests. Forest managers may
+need to adjust the composition of species to be planted after harvest.
+Insects and disease that respond to various climate conditions will
+affect forest composition.</p>
+<p><i>Forest growth:</i> Warmer temperatures, increased precipitation in
+winter, and higher levels of CO2 in the atmosphere will likely stimulate
+forest growth.</p>
+<p><i>Forest resilience:</i> Forests in the Coast Range, unlike forests
+elsewhere in the U.S., are likely to be relatively resilient to the increased
+winter precipitation and longer, drier summers that are projected.</p>
+<p><i>Fires: </i>Despite hotter, drier, and longer summers and an increase
+in woody growth and insect outbreaks, the risk of forest fires in the
+Coast Range is projected to remain relatively stable because of increased
+wet conditions during winter.</p>
+
+<p><b>Travel and hospitality</b><br>
+The Oregon coast has long been an attractive destination for
+tourists and for those who enjoy its many outdoor recreational opportunities
+and resources. Businesses in these sectors may benefit
+from the effects of climate change on the Oregon coast.</p>
+<p><i>Recreation:</i> Longer, drier summers may benefit Oregon’s coastal
+recreation industries by extending the recreation season and expanding
+options. However, parks and recreational facilities along the
+ocean shore and around estuaries are likely to be affected from increased
+winter storms, ocean flooding, and over time, sea level rise.</p>
+<p><i>Tourism: </i>The Oregon coast may realize expanded tourist visitation
+because of a relatively mild and dry summer climate and extended
+travel season. Compared to other parts of the country, the
+Oregon coast may be seen as very comfortable, whether in summer
+or in winter, and therefore very desirable.</p>
+
+<p><i>Growth and development</b><br>
+Climate conditions, even though changed from historic patterns,
+may be relatively attractive compared to other parts of the country
+and therefore may attract “climate-refugees” seeking more optimum
+climate conditions. Coastal communities could thus experience increased
+in-migration, particularly retired persons, which would increase
+demand for residential and commercial development and
+demands on public facilities.</P>
 	<!-- the section below was the content of this page before it was changed to the OCMP content -->
 	<!-- <p>You should be concerned that what you <b>value</b> about the Oregon coast is <b>vulnerable</b> to the <b>impacts of climate change and variability.</b></p>
 				
