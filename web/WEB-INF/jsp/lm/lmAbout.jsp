@@ -47,11 +47,11 @@
 	 <div id="container">
 
 	<h2 class="headerColor">What Am I Supposed To Be Concerned About?</h2>
-	<p>In January 2009 the Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development, released a document entitled 
-	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br>This document includes a discussion of 
-	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  <br>Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
-	<h1 class="headerColor">"</h1>
-	<p><b><h2>Climate and the Oregon Coast</h2></b></p>
+	<p><br>In January 2009 the Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development, released a document entitled 
+	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br><br>This document includes a discussion of 
+	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  <br><br>Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
+	<h1 class="headerColor">"...</h1>
+	<p><b><h3>Climate and the Oregon Coast</h3></b></p>
 	<p>The likely effects of climate change on the Oregon
 coast may come as no surprise to Oregonians who are familiar
 with winter storms and the variability of the climate
@@ -74,8 +74,8 @@ maximize community resilience. This paper outlines some
 of the principal ways that the Oregon coast is likely to be
 affected.</p>
 
-	<p><b>Key Physical Changes in Oregon’s
-Coastal Climate and Weather</b></p>
+	<p><b><h4>Key Physical Changes in Oregon’s
+Coastal Climate and Weather</h4></b></p>
 	<p>Changes in Earth’s climate, driven by atmospheric
 warming caused by greenhouse gases, will affect the climate
 and weather of the Oregon coast in a variety of ways, some
@@ -112,8 +112,8 @@ to remain within historical ranges for rainfall. Winter precipitation is
 projected to increase, while summers will be longer and even drier
 than at present. For the Coast Range and lower elevations, precipitation will be mostly rain, as at present. Some research anticipates an
 increase in intense precipitation events.</p>
-	<p><b>Likely Effects on Oregon’s Coastal
-Communities</b></p>
+	<p><b><h4>Likely Effects on Oregon’s Coastal
+Communities</h4></b></p>
 	<p>Climate shapes communities in many ways; some obvious,
 others subtle. The economy and culture of coastal
 communities, for instance, are tightly linked to climate. Historic
@@ -341,7 +341,7 @@ change.</p>
 <p><b>Coastal Economic Sectors</b><br>
 Most of the coast’s natural resource-based economic sectors are
 likely to be affected by changing conditions related to climate.</p>
-<p><b><i>Ocean Fisheries</b><i><br>
+<p><b><i>Ocean Fisheries</b></i><br>
 <i>Salmonids:</i> Salmon, in particular, are highly vulnerable to
 changes in conditions throughout the many parts of coastal and
 ocean ecosystems that they occupy during their life. Expected climate-
@@ -410,7 +410,7 @@ and therefore may attract “climate-refugees” seeking more optimum
 climate conditions. Coastal communities could thus experience increased
 in-migration, particularly retired persons, which would increase
 demand for residential and commercial development and
-demands on public facilities.	<h1 class="headerColor">"</h1></p>
+demands on public facilities.	<h1 class="headerColor">..."</h1></p>
 	<!-- the section below was the content of this page before it was changed to the OCMP content -->
 	<!-- <p>You should be concerned that what you <b>value</b> about the Oregon coast is <b>vulnerable</b> to the <b>impacts of climate change and variability.</b></p>
 				
