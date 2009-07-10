@@ -49,9 +49,9 @@
 	<h2 class="headerColor">What Am I Supposed To Be Concerned About?</h2>
 	<p><br>In January 2009 the Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development, released a document entitled 
 	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br><br>This document includes a discussion of 
-	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  <br><br>Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
+	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below. Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
 	<h1 class="headerColor">"...</h1>
-	<p><b><h3>Climate and the Oregon Coast</h3></b></p>
+	<p><b><h3><br>Climate and the Oregon Coast</h3></b></p>
 	<p>The likely effects of climate change on the Oregon
 coast may come as no surprise to Oregonians who are familiar
 with winter storms and the variability of the climate
@@ -74,8 +74,8 @@ maximize community resilience. This paper outlines some
 of the principal ways that the Oregon coast is likely to be
 affected.</p>
 
-	<p><b><h4>Key Physical Changes in Oregon’s
-Coastal Climate and Weather</h4></b></p>
+	<p><b><h3>Key Physical Changes in Oregon’s
+Coastal Climate and Weather</h3></b></p>
 	<p>Changes in Earth’s climate, driven by atmospheric
 warming caused by greenhouse gases, will affect the climate
 and weather of the Oregon coast in a variety of ways, some
@@ -112,8 +112,8 @@ to remain within historical ranges for rainfall. Winter precipitation is
 projected to increase, while summers will be longer and even drier
 than at present. For the Coast Range and lower elevations, precipitation will be mostly rain, as at present. Some research anticipates an
 increase in intense precipitation events.</p>
-	<p><b><h4>Likely Effects on Oregon’s Coastal
-Communities</h4></b></p>
+	<p><b><h3>Likely Effects on Oregon’s Coastal
+Communities</h3></b></p>
 	<p>Climate shapes communities in many ways; some obvious,
 others subtle. The economy and culture of coastal
 communities, for instance, are tightly linked to climate. Historic
@@ -124,7 +124,7 @@ even though their magnitude, timing, and location
 cannot be known for certain. Anticipating both gradual
 change and episodic events is essential to enable communities
 to become resilient to effects from climate change.</p>
-	<p><b>Community Infrastructure</b><br>
+	<p><b><h4>Community Infrastructure</h4></b><br>
 	Climate conditions are generally factored into the design of
 community infrastructure. As climate conditions change, some infrastructure
 systems may be less effective or may fail altogether, which
@@ -184,46 +184,7 @@ beaches, and in some cases, the infrastructure necessary for safe access
 to and from beaches and coastal parks. Coastal forest trails and
 campgrounds may experience frequent damage from high winds and
 flooding.</p>
-	<p><b>Coastal Natural Systems</b></p>
-	<p>Many familiar coastal habitats, ecosystems, and natural resources
-will be affected by climate change. Low-lying habitats and ecosystems
-are especially vulnerable to floods, tides and ocean waves. Temperature
-and precipitation changes will affect the distribution and composition
-of forests, riparian areas, and other terrestrial habitats. Even
-rocky intertidal habitats are vulnerable to increased atmospheric and
-ocean temperatures.</p>
-	<p><b><i>Rivers and Streams</i></b></p>
-<p><i>Coastal rivers:</i> Streams that drain the Coast Range will carry increased
-runoff from greater winter rainfall but will become drier in
-summer due to decreased rainfall. More severe rainfall events in these
-streams may increase the frequency and severity of flooding episodes.
-Warmer summer temperatures and lower summer stream flows may
-raise water temperatures to the detriment of salmon and other coldwater
-species.</p>
-<p><i>Inland rivers:</i> Snow melt runoff is a factor in four rivers that are
-important to the Oregon coast and coastal fisheries: the Columbia,
-Umpqua, Rogue, and Klamath. For these rivers, less snow fall and
-more rain may alter seasonal flow regimes, resulting in lower stream
-flows in late spring through the summer and fall. Changes in flow
-regimes may affect salmonids that are adapted to these stream systems.
-For the Columbia River, the presence of dams and a highlyengineered
-hydrologic system complicate projections of impacts of
-climate change on the river’s natural resources and ecosystems.</p>
-	<p><b><i>Estuaries</i></b></p>
-<p>Estuaries are critical and unique habitats. Estuaries reflect a balance
-among competing natural forces. Sustained changes in sea level,
-tidal elevations, river flows, or sediment loads would necessarily alter
-the shape and productivity of Oregon’s estuaries.</p>
-<p><i>Estuarine wetlands</i> Snow melt runoff is a factor in four rivers that are
-important to the Oregon coast and coastal fisheries: the Columbia,
-Umpqua, Rogue, and Klamath. For these rivers, less snow fall and
-more rain may alter seasonal flow regimes, resulting in lower stream
-flows in late spring through the summer and fall. Changes in flow
-regimes may affect salmonids that are adapted to these stream systems.
-For the Columbia River, the presence of dams and a highlyengineered
-hydrologic system complicate projections of impacts of
-climate change on the river’s natural resources and ecosystems.</p>
-	<p><b>Coastal Natural Systems</b><br>
+	<p><b><h4>Coastal Natural Systems</h4></b><br>
 	Many familiar coastal habitats, ecosystems, and natural resources
 will be affected by climate change. Low-lying habitats and ecosystems
 are especially vulnerable to floods, tides and ocean waves. Temperature
@@ -338,7 +299,7 @@ invasion by non-native species that are adapted to the new habitat
 conditions or that out-compete native species weakened by habitat
 change.</p>
 
-<p><b>Coastal Economic Sectors</b><br>
+<p><b><h4>Coastal Economic Sectors</h4></b><br>
 Most of the coast’s natural resource-based economic sectors are
 likely to be affected by changing conditions related to climate.</p>
 <p><b><i>Ocean Fisheries</b></i><br>
