@@ -27,6 +27,8 @@ public interface VTTService {
 
     VTT createVTT(Long id, Long chtId, String name, String purpose, String instruction) throws Exception;
 
+    List<CategoryPathValue> getCategoryPathValuesByPathId(Long id) throws Exception;
+    
     Collection<VTTComment> getComments(Long userId, Long vttId, PageSetting setting) throws Exception;
 
     VTTComment createComment(Long workflowId, Long userId, Long vttId, String title, String content, boolean emailNotify) throws Exception;

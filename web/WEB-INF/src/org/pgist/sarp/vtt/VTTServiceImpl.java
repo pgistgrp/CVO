@@ -641,4 +641,10 @@ public class VTTServiceImpl implements VTTService {
     } //deleteUnit()
 
 
+    @Override
+    public List<CategoryPathValue> getCategoryPathValuesByPathId(Long id) throws Exception {
+        return vttDAO.getCategoryPathValuesByPathId(id);
+    }
+
+
 } //class VTTServiceImpl
