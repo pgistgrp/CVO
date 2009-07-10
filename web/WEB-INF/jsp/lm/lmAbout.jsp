@@ -51,7 +51,7 @@
 	<i>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</i>. This document includes a discussion of 
 	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
 	<h2 class="headerColor">"</h2>
-	<b>Climate and the Oregon Coast</b></p>
+	<p><b>Climate and the Oregon Coast</b></p>
 	<p>The likely effects of climate change on the Oregon
 coast may come as no surprise to Oregonians who are familiar
 with winter storms and the variability of the climate
@@ -326,7 +326,7 @@ Habitat restoration projects in coastal shorelands should consider
 effects of future climate change.</p>
 
 <p><b><i>Terrestrial and aquatic habitats</b></i></p>
-<p><i>Habitat distribution and composition: <i>Terrestrial and aquatic
+<p><i>Habitat distribution and composition: </i>Terrestrial and aquatic
 habitats, which reflect a balance of many factors, will be affected by
 changes in climate. As the suitability of habitats declines, the ranges
 of species will likewise shift. Salmon populations, especially, are vulnerable
@@ -402,14 +402,14 @@ travel season. Compared to other parts of the country, the
 Oregon coast may be seen as very comfortable, whether in summer
 or in winter, and therefore very desirable.</p>
 
-<p><i>Growth and development</b><br>
+<p><b>Growth and development</b><br>
 Climate conditions, even though changed from historic patterns,
 may be relatively attractive compared to other parts of the country
 and therefore may attract “climate-refugees” seeking more optimum
 climate conditions. Coastal communities could thus experience increased
 in-migration, particularly retired persons, which would increase
 demand for residential and commercial development and
-demands on public facilities.	<h2 class="headerColor">"</h2></P>
+demands on public facilities.	<h2 class="headerColor">"</h2></p>
 	<!-- the section below was the content of this page before it was changed to the OCMP content -->
 	<!-- <p>You should be concerned that what you <b>value</b> about the Oregon coast is <b>vulnerable</b> to the <b>impacts of climate change and variability.</b></p>
 				
