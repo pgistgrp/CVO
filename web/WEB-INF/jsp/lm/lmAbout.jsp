@@ -51,7 +51,7 @@
 	<i>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</i>. This document includes a discussion of 
 	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
 	<h1 class="headerColor">"</h1>
-	<p><b>Climate and the Oregon Coast</b></p>
+	<p><b><h3>Climate and the Oregon Coast</h3></b></p>
 	<p>The likely effects of climate change on the Oregon
 coast may come as no surprise to Oregonians who are familiar
 with winter storms and the variability of the climate
@@ -130,8 +130,8 @@ community infrastructure. As climate conditions change, some infrastructure
 systems may be less effective or may fail altogether, which
 could alter the function, value, or viability of improvements these
 systems protect or serve.</p>
-	<p><b><i>Transportation and navigation</i></b></p>
-<p><i>Coastal roads, highways, and rail lines</i> are at risk from the effects
+	<p><b><i>Transportation and navigation</i></b><br>
+<i>Coastal roads, highways, and rail lines</i> are at risk from the effects
 of increased winter precipitation, increased coastal erosion, and
 flooding. Over the long term, roads, highways, and railroads will be
 affected by sea level rise and increased tidal elevations along the
@@ -145,8 +145,8 @@ from larger storm waves. Watershed flooding may increase sediment
 loads into estuaries and thus increase the need for dredging of navigational
 channels. Increased tidal height will affect docks and bulkheads.</p>
  
-	<p><b><i>Shore Protection and Flood Control Structures</i></b></p>
-<p><i>Dikes and levees:</i> Extensive areas in Oregon’s estuaries are protected
+	<p><b><i>Shore Protection and Flood Control Structures</i></b><br>
+<i>Dikes and levees:</i> Extensive areas in Oregon’s estuaries are protected
 from tidal inundation by dikes and levees. Rising sea level and
 the increased likelihood of inundation from higher storm surge and
 tidal heights, especially in times of river flooding, may threaten the
@@ -161,8 +161,8 @@ and then overtopped. An increase in significant wave heights is likely
 to damage or cause failure of some hardened shorelines, potentially
 resulting in damage to nearby unprotected property and infrastructure.</p>
  
-	<p><b><i>Municipal Services</i></b></p>
-<p><i>Stormwater systems:</i> The capacity of local stormwater management
+	<p><b><i>Municipal Services</i></b><br>
+<i>Stormwater systems:</i> The capacity of local stormwater management
 systems may be exceeded as the magnitude or frequency of
 rainfall events increases, especially as tidal elevations rise leading to
 localized flooding, accelerated deterioration, and possible system failure.
