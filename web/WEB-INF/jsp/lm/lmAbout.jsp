@@ -340,7 +340,7 @@ change.</p>
 <p><b>Coastal Economic Sectors</b><br>
 Most of the coast’s natural resource-based economic sectors are
 likely to be affected by changing conditions related to climate.</p>
-<p><b><i>Ocean Fisheries<p><b><i>
+<p><b><i>Ocean Fisheries<p></b><i>
 <p><i>Salmonids:</i> Salmon, in particular, are highly vulnerable to
 changes in conditions throughout the many parts of coastal and
 ocean ecosystems that they occupy during their life. Expected climate-
