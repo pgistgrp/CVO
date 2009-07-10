@@ -84,14 +84,17 @@ public class SecurityFilter implements Filter {
                 return;
             }
         } else {
-            if (req.isSecure()) {
-                req.getSession(true);
-                if (req.getQueryString()!=null) {
-                    res.sendRedirect( httpPrefix + req.getRequestURI() + '?' + req.getQueryString() );
-                } else {
-                    res.sendRedirect( httpPrefix + req.getRequestURI() );
+            // bypass if it's /scripts or /images
+            if (!path.startsWith("/scripts/") && !path.startsWith("/images/")) {
+                if (req.isSecure()) {
+                    req.getSession(true);
+                    if (req.getQueryString()!=null) {
+                        res.sendRedirect( httpPrefix + req.getRequestURI() + '?' + req.getQueryString() );
+                    } else {
+                        res.sendRedirect( httpPrefix + req.getRequestURI() );
+                    }
+                    return;
                 }
-                return;
             }
         }
         
