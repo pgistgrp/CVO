@@ -48,10 +48,10 @@
 
 	<h2 class="headerColor">What Am I Supposed To Be Concerned About?</h2>
 	<p>In January 2009 the Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development, released a document entitled 
-	<i>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</i>. This document includes a discussion of 
-	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
+	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br>This document includes a discussion of 
+	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below.  <br>Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
 	<h1 class="headerColor">"</h1>
-	<p><b><h3>Climate and the Oregon Coast</h3></b></p>
+	<p><b><h2>Climate and the Oregon Coast</h2></b></p>
 	<p>The likely effects of climate change on the Oregon
 coast may come as no surprise to Oregonians who are familiar
 with winter storms and the variability of the climate
@@ -231,8 +231,8 @@ and precipitation changes will affect the distribution and composition
 of forests, riparian areas, and other terrestrial habitats. Even
 rocky intertidal habitats are vulnerable to increased atmospheric and
 ocean temperatures.</p>
-	<p><b><i>Rivers and Streams</i></b></p>
-<p><i>Coastal rivers:</i> Streams that drain the Coast Range will carry increased
+	<p><b><i>Rivers and Streams</i></b><br>
+<i>Coastal rivers:</i> Streams that drain the Coast Range will carry increased
 runoff from greater winter rainfall but will become drier in
 summer due to decreased rainfall. More severe rainfall events in these
 streams may increase the frequency and severity of flooding episodes.
@@ -248,7 +248,7 @@ regimes may affect salmonids that are adapted to these stream systems.
 For the Columbia River, the presence of dams and a highlyengineered
 hydrologic system complicate projections of impacts of
 climate change on the river’s natural resources and ecosystems.</p>
-	<p><b>Estuaries</b><br>
+	<p><b><i>Estuaries</i></b><br>
 	Estuaries are critical and unique habitats. Estuaries reflect a balance
 among competing natural forces. Sustained changes in sea level,
 tidal elevations, river flows, or sediment loads would necessarily alter
@@ -283,8 +283,8 @@ effects of increased acidity on estuarine ecosystems are not yet
 known, but scientists are concerned about the potential effects on
 clams, crabs, oysters and other shellfish.</p>
 
-<p><b><i>The Pacific Ocean</i></b></p>
-<p><i>Ecosystem shifts: </i>Summer winds are critical to upwelling that
+<p><b><i>The Pacific Ocean</i></b><br>
+<i>Ecosystem shifts: </i>Summer winds are critical to upwelling that
 drives productivity of marine ecosystems. Recent El Niño events
 demonstrated that warmer ocean temperatures and shifting wind patterns
 can, from just one season to the next, affect upwelling and the
@@ -311,8 +311,8 @@ absorption of CO2 has the potential to reduce the ability of marine
 species to form shells, which in turn would have a dramatic effect on
 the entire marine food web. Shellfish such as clams, oysters, and
 crabs will be particularly sensitive to an increasingly acid environment.</p>
-<p><b><i>Coastal shorelands</b></i></p>
-<p><i>Ocean shore:</i> The ocean shore will certainly be altered in many
+<p><b><i>Coastal shorelands</b></i><br>
+<i>Ocean shore:</i> The ocean shore will certainly be altered in many
 places due to higher sea level, higher waves, more frequent and
 stronger storms, and possible shifts in predominant wind directions.
 Beach and bluff erosion will result in shoreline retreat. Ocean shores
@@ -325,8 +325,8 @@ are at risk over time even if protected by bulkheads, dikes, or levees.
 Habitat restoration projects in coastal shorelands should consider
 effects of future climate change.</p>
 
-<p><b><i>Terrestrial and aquatic habitats</b></i></p>
-<p><i>Habitat distribution and composition: </i>Terrestrial and aquatic
+<p><b><i>Terrestrial and aquatic habitats</b></i><br>
+<i>Habitat distribution and composition: </i>Terrestrial and aquatic
 habitats, which reflect a balance of many factors, will be affected by
 changes in climate. As the suitability of habitats declines, the ranges
 of species will likewise shift. Salmon populations, especially, are vulnerable
@@ -337,11 +337,12 @@ temperature, salinity, and precipitation will provide opportunities for
 invasion by non-native species that are adapted to the new habitat
 conditions or that out-compete native species weakened by habitat
 change.</p>
+
 <p><b>Coastal Economic Sectors</b><br>
 Most of the coast’s natural resource-based economic sectors are
 likely to be affected by changing conditions related to climate.</p>
-<p><b><i>Ocean Fisheries<p></b><i>
-<p><i>Salmonids:</i> Salmon, in particular, are highly vulnerable to
+<p><b><i>Ocean Fisheries</b><i><br>
+<i>Salmonids:</i> Salmon, in particular, are highly vulnerable to
 changes in conditions throughout the many parts of coastal and
 ocean ecosystems that they occupy during their life. Expected climate-
 induced effects on watersheds, rivers, estuaries, and ocean ecosystems
@@ -357,8 +358,8 @@ the marine food web, are at risk from even minute changes in ocean
 acidity. Changes in plankton production will affect fisheries in ways
 that cannot now be predicted. It is not known how larger shellfish,
 such as clams, oysters, and crabs will fare in an increasingly acid environment.<p>
-<p><b><i>Agriculture</p></b></i>
-<p><i>Water supplies:</i> On the south coast, water supplies needed to
+<p><b><i>Agriculture</b></i><br>
+<i>Water supplies:</i> On the south coast, water supplies needed to
 harvest cranberry crops may be problematic. Overall, surface water
 supplies from rainfall are expected to increase due to winter rains.
 <p><i>Dikes, levees, and tidegates:<i> Dikes, levees, and other structures
@@ -367,8 +368,8 @@ River, Tillamook Bay, and other estuaries and tidally-influenced rivers
 will be subject to higher tidal elevations and riverine flooding as sea
 level rises. The condition of many of these structures is not known.</p>
 
-<p><b><i>Forestry</p></b></i>
-<p><i>Forest mix:</i> The mix of tree species in Oregon’s Coast Range
+<p><b><i>Forestry</b></i><br>
+<i>Forest mix:</i> The mix of tree species in Oregon’s Coast Range
 Mountains and coastal lowlands is likely to change in response to
 changes in temperature and precipitation regimes. Broadleaf species
 are projected to increase in conifer forests. Forest managers may
