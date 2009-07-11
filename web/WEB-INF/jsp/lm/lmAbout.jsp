@@ -125,8 +125,7 @@ even though their magnitude, timing, and location
 cannot be known for certain. Anticipating both gradual
 change and episodic events is essential to enable communities
 to become resilient to effects from climate change.</p>
-	<p><b><h3>Community Infrastructure</b></h3>
-Climate conditions are generally factored into the design of
+	<p><b><h3>Community Infrastructure</b></h3><br>Climate conditions are generally factored into the design of
 community infrastructure. As climate conditions change, some infrastructure
 systems may be less effective or may fail altogether, which
 could alter the function, value, or viability of improvements these
