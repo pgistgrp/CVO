@@ -324,7 +324,7 @@ such as clams, oysters, and crabs will fare in an increasingly acid environment.
 <i>Water supplies:</i> On the south coast, water supplies needed to
 harvest cranberry crops may be problematic. Overall, surface water
 supplies from rainfall are expected to increase due to winter rains.
-<p><i>Dikes, levees, and tidegates:<i> Dikes, levees, and other structures
+<p><i>Dikes, levees, and tidegates:</i> Dikes, levees, and other structures
 that create and protect agricultural lands around Coos Bay, Young’s
 River, Tillamook Bay, and other estuaries and tidally-influenced rivers
 will be subject to higher tidal elevations and riverine flooding as sea
