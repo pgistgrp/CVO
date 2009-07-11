@@ -49,8 +49,8 @@
 	<h2 class="headerColor">What Am I Supposed To Be Concerned About?</h2>
 	<p><br>In January 2009 the Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development, released a document entitled 
 	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br><br>This document includes a discussion of 
-	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below. Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
-	<h1 class="headerColor"><br><strong><em>"...</em></strong></h1>
+	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below. Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.<br></p>
+	<h1 class="headerColor"><strong><em>"...</em></strong></h1>
 	
 	<p><b><h2>Climate and the Oregon Coast</h2></b>
 <p>The likely effects of climate change on the Oregon
