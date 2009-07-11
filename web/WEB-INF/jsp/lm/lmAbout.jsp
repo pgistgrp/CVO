@@ -310,7 +310,7 @@ ocean ecosystems that they occupy during their life. Expected climate-
 induced effects on watersheds, rivers, estuaries, and ocean ecosystems
 do not bode well for salmon, particularly in stream systems
 with already low populations.</p>
-<p><i>Harvest effects:<i> Some commercial ocean fish stock, already at
+<p><i>Harvest effects:</i> Some commercial ocean fish stock, already at
 low levels from overharvest, may be at risk over the long term as
 ocean conditions change. Changes in ocean ecosystem conditions are
 likely to fundamentally alter the historic fisheries of the Oregon
