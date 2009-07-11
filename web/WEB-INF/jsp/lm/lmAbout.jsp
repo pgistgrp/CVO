@@ -125,7 +125,7 @@ even though their magnitude, timing, and location
 cannot be known for certain. Anticipating both gradual
 change and episodic events is essential to enable communities
 to become resilient to effects from climate change.</p>
-	<p><b>Community Infrastructure</b></p>
+	<p><b><br>Community Infrastructure</b></p>
 	<p>Climate conditions are generally factored into the design of
 community infrastructure. As climate conditions change, some infrastructure
 systems may be less effective or may fail altogether, which
@@ -185,7 +185,7 @@ beaches, and in some cases, the infrastructure necessary for safe access
 to and from beaches and coastal parks. Coastal forest trails and
 campgrounds may experience frequent damage from high winds and
 flooding.</p>
-	<p><b>Coastal Natural Systems</b></p>
+	<p><b><br>Coastal Natural Systems</b></p>
 	<p>Many familiar coastal habitats, ecosystems, and natural resources
 will be affected by climate change. Low-lying habitats and ecosystems
 are especially vulnerable to floods, tides and ocean waves. Temperature
@@ -300,7 +300,7 @@ invasion by non-native species that are adapted to the new habitat
 conditions or that out-compete native species weakened by habitat
 change.</p>
 
-<p><b>Coastal Economic Sectors</b></p>
+<p><b><br>Coastal Economic Sectors</b></p>
 <p>Most of the coast’s natural resource-based economic sectors are
 likely to be affected by changing conditions related to climate.</p>
 <p><b><i>Ocean Fisheries</b></i><br>
