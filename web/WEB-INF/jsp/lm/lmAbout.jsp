@@ -51,8 +51,9 @@
 	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br><br>This document includes a discussion of 
 	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below. Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
 	<h1 class="headerColor"><br>"...</h1>
-	<p><b><h3><Climate and the Oregon Coast</h3></b></p>
-	<p>The likely effects of climate change on the Oregon
+	
+	<p><b><h3>Climate and the Oregon Coast</h3></b>
+The likely effects of climate change on the Oregon
 coast may come as no surprise to Oregonians who are familiar
 with winter storms and the variability of the climate
 and ocean conditions on the Oregon coast. The El Niño
@@ -74,8 +75,8 @@ maximize community resilience. This paper outlines some
 of the principal ways that the Oregon coast is likely to be
 affected.</p>
 
-	<p><b><h3>Key Physical Changes in Oregon’s
-Coastal Climate and Weather</h3></b></p>
+	<p><b><h2>Key Physical Changes in Oregon’s
+Coastal Climate and Weather</h2></b></p>
 	<p>Changes in Earth’s climate, driven by atmospheric
 warming caused by greenhouse gases, will affect the climate
 and weather of the Oregon coast in a variety of ways, some
@@ -112,8 +113,8 @@ to remain within historical ranges for rainfall. Winter precipitation is
 projected to increase, while summers will be longer and even drier
 than at present. For the Coast Range and lower elevations, precipitation will be mostly rain, as at present. Some research anticipates an
 increase in intense precipitation events.</p>
-	<p><b><h3>Likely Effects on Oregon’s Coastal
-Communities</h3></b></p>
+	<p><b><h2>Likely Effects on Oregon’s Coastal
+Communities</h2></b></p>
 	<p>Climate shapes communities in many ways; some obvious,
 others subtle. The economy and culture of coastal
 communities, for instance, are tightly linked to climate. Historic
@@ -124,7 +125,7 @@ even though their magnitude, timing, and location
 cannot be known for certain. Anticipating both gradual
 change and episodic events is essential to enable communities
 to become resilient to effects from climate change.</p>
-	<p><b><h4>Community Infrastructure</h4></b>
+	<p><b><h3>Community Infrastructure</h3></b>
 	Climate conditions are generally factored into the design of
 community infrastructure. As climate conditions change, some infrastructure
 systems may be less effective or may fail altogether, which
@@ -184,7 +185,7 @@ beaches, and in some cases, the infrastructure necessary for safe access
 to and from beaches and coastal parks. Coastal forest trails and
 campgrounds may experience frequent damage from high winds and
 flooding.</p>
-	<p><b><h4>Coastal Natural Systems</h4></b>
+	<p><b><h3>Coastal Natural Systems</h3></b>
 	Many familiar coastal habitats, ecosystems, and natural resources
 will be affected by climate change. Low-lying habitats and ecosystems
 are especially vulnerable to floods, tides and ocean waves. Temperature
@@ -299,7 +300,7 @@ invasion by non-native species that are adapted to the new habitat
 conditions or that out-compete native species weakened by habitat
 change.</p>
 
-<p><b><h3>Coastal Economic Sectors</h3></b><br>
+<p><b><h3>Coastal Economic Sectors</h3></b>
 Most of the coast’s natural resource-based economic sectors are
 likely to be affected by changing conditions related to climate.</p>
 <p><b><i>Ocean Fisheries</b></i><br>
