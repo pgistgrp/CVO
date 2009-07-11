@@ -50,7 +50,7 @@
 	<p><br>In January 2009 the Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development, released a document entitled 
 	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br><br>This document includes a discussion of 
 	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below. Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
-	<h1 class="headerColor"><br><em>"...</em></h1>
+	<h1 class="headerColor"><br><strong><em>"...</em></strong></h1>
 	
 	<p><b><h2>Climate and the Oregon Coast</h2></b>
 <p>The likely effects of climate change on the Oregon
@@ -372,7 +372,7 @@ and therefore may attract “climate-refugees” seeking more optimum
 climate conditions. Coastal communities could thus experience increased
 in-migration, particularly retired persons, which would increase
 demand for residential and commercial development and
-demands on public facilities.	<h1 class="headerColor"><em>..."</em></h1></p>
+demands on public facilities.	<h1 class="headerColor"><strong><em>..."</em></strong></h1></p>
 	<!-- the section below was the content of this page before it was changed to the OCMP content -->
 	<!-- <p>You should be concerned that what you <b>value</b> about the Oregon coast is <b>vulnerable</b> to the <b>impacts of climate change and variability.</b></p>
 				
