@@ -50,10 +50,10 @@
 	<p><br>In January 2009 the Oregon Coastal Management Program, part of Oregon's Department of Land Conservation and Development, released a document entitled 
 	<i><b>Climate Ready Communities: A Strategy for Adapting to Impacts of Climate Change on the Oregon Coast</b></i>. <br><br>This document includes a discussion of 
 	"The Likely Effects of Climate Change on the Oregon Coast," which is excerpted below. Read the full document on the OCMP website <a href="http://www.oregon.gov/ENERGY/GBLWRM/docs/climate_ready_communities.pdf"title="CLIMATE READY COMMUNITIES"target="blank">here</a>.</p>
-	<h1 class="headerColor"><br>"...</h1>
+	<h1 class="headerColor"><br><em>"...</em></h1>
 	
 	<p><b><h2>Climate and the Oregon Coast</h2></b>
-The likely effects of climate change on the Oregon
+<p>The likely effects of climate change on the Oregon
 coast may come as no surprise to Oregonians who are familiar
 with winter storms and the variability of the climate
 and ocean conditions on the Oregon coast. The El Niño
@@ -125,7 +125,7 @@ even though their magnitude, timing, and location
 cannot be known for certain. Anticipating both gradual
 change and episodic events is essential to enable communities
 to become resilient to effects from climate change.</p>
-	<p><b><h3>Community Infrastructure</h3>
+	<p><b><h3>Community Infrastructure</b></h3>
 	Climate conditions are generally factored into the design of
 community infrastructure. As climate conditions change, some infrastructure
 systems may be less effective or may fail altogether, which
