@@ -75,8 +75,8 @@ maximize community resilience. This paper outlines some
 of the principal ways that the Oregon coast is likely to be
 affected.</p>
 
-	<p><b><h2>Key Physical Changes in Oregon’s
-Coastal Climate and Weather</h2></b></p>
+	<p><b><h3>Key Physical Changes in Oregon’s
+Coastal Climate and Weather</h3></b></p>
 	<p>Changes in Earth’s climate, driven by atmospheric
 warming caused by greenhouse gases, will affect the climate
 and weather of the Oregon coast in a variety of ways, some
@@ -113,8 +113,8 @@ to remain within historical ranges for rainfall. Winter precipitation is
 projected to increase, while summers will be longer and even drier
 than at present. For the Coast Range and lower elevations, precipitation will be mostly rain, as at present. Some research anticipates an
 increase in intense precipitation events.</p>
-	<p><b><h2>Likely Effects on Oregon’s Coastal
-Communities</h2></b></p>
+	<p><b><h3>Likely Effects on Oregon’s Coastal
+Communities</h3></b></p>
 	<p>Climate shapes communities in many ways; some obvious,
 others subtle. The economy and culture of coastal
 communities, for instance, are tightly linked to climate. Historic
