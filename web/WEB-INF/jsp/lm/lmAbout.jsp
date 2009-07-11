@@ -349,7 +349,7 @@ in woody growth and insect outbreaks, the risk of forest fires in the
 Coast Range is projected to remain relatively stable because of increased
 wet conditions during winter.</p>
 
-<p><b>Travel and hospitality</b><br>
+<p><b><i>Travel and hospitality</b></i><br>
 The Oregon coast has long been an attractive destination for
 tourists and for those who enjoy its many outdoor recreational opportunities
 and resources. Businesses in these sectors may benefit
@@ -365,7 +365,7 @@ travel season. Compared to other parts of the country, the
 Oregon coast may be seen as very comfortable, whether in summer
 or in winter, and therefore very desirable.</p>
 
-<p><b>Growth and development</b><br>
+<p><b><i>Growth and development</i></b><br>
 Climate conditions, even though changed from historic patterns,
 may be relatively attractive compared to other parts of the country
 and therefore may attract “climate-refugees” seeking more optimum
