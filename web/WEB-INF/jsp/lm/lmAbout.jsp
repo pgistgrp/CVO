@@ -315,7 +315,7 @@ low levels from overharvest, may be at risk over the long term as
 ocean conditions change. Changes in ocean ecosystem conditions are
 likely to fundamentally alter the historic fisheries of the Oregon
 coast.</p>
-<p><i>Ocean acidification: <i>Calcium-based plankton, which support
+<p><i>Ocean acidification: </i>Calcium-based plankton, which support
 the marine food web, are at risk from even minute changes in ocean
 acidity. Changes in plankton production will affect fisheries in ways
 that cannot now be predicted. It is not known how larger shellfish,
