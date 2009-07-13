@@ -592,6 +592,10 @@ function editTags(concernId){
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
       <h3>Instruction overview</h3>
+      <pg:show condition="${bct.closed}">
+      <h2 class="headerColor">This step is closed.</h2>
+      <p class="headerColor">You can still browse and comment, but you cannot contribute new concerns.</p>
+      </pg:show>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to specify concerns and associate them with meaningful keyphrases.<br>
