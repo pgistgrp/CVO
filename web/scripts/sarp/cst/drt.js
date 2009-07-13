@@ -71,14 +71,14 @@ var catTree = {
                 }
               }
               if (size>0) {
-                s += '<tr><td align="right" valign="top"><b>similar categories:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+                s += '<tr><td align="right" valign="top"><b>similar categories:</b></td><td align="left" valign="bottom">'+ss+'</td></tr>';
               } else {
-                s += '<tr><td align="right"><b>similar categories:</b></td><td align="left">none</td></tr>';
+                s += '<tr><td align="right"><b>similar categories:</b></td><td align="left" valign="bottom">none</td></tr>';
               }
               
-              s += '<tr><td align="right"><b># of similar categories:</b></td><td align="left">'+data.catRef.freqSet+'</td></tr>';
-              s += '<tr><td align="right"><b>categories with this name:</b></td><td align="left">'+data.catRef.freqName+'</td></tr>';
-              s += '<tr><td align="right"><b>identical categories (name and keyphrases):</b></td><td align="left">'+data.catRef.freqNameAndSet+'</td></tr>';
+              s += '<tr><td align="right"><b># of similar categories:</b></td><td align="left" valign="bottom">'+data.catRef.freqSet+'</td></tr>';
+              s += '<tr><td align="right"><b>categories with this name:</b></td><td align="left" valign="bottom">'+data.catRef.freqName+'</td></tr>';
+              s += '<tr><td align="right"><b>identical categories (name and keyphrases):</b></td><td align="left" valign="bottom">'+data.catRef.freqNameAndSet+'</td></tr>';
               
               //tags
               size = 0;
@@ -134,14 +134,14 @@ var catTree = {
                 }
               }
               if (size>0) {
-                s += '<tr><td align="right" valign="top"><b>similar categories:</b></td><td align="left" valign="top">'+ss+'</td></tr>';
+                s += '<tr><td align="right" valign="top"><b>similar categories:</b></td><td align="left" valign="bottom">'+ss+'</td></tr>';
               } else {
                 s += '<tr><td align="right"><b>similar categories:</b></td><td align="left">none</td></tr>';
               }
               
-              s += '<tr><td align="right"><b># of similar categories:</b></td><td align="left">'+data.catRef.freqSet+'</td></tr>';
-              s += '<tr><td align="right"><b>categories with this name:</b></td><td align="left">'+data.catRef.freqName+'</td></tr>';
-              s += '<tr><td align="right"><b>identical categories (name and keyphrases):</b></td><td align="left">'+data.catRef.freqNameAndSet+'</td></tr>';
+              s += '<tr><td align="right"><b># of similar categories:</b></td><td align="left" valign="bottom">'+data.catRef.freqSet+'</td></tr>';
+              s += '<tr><td align="right"><b>categories with this name:</b></td><td align="left" valign="bottom">'+data.catRef.freqName+'</td></tr>';
+              s += '<tr><td align="right"><b>identical categories (name and keyphrases):</b></td><td align="left" valign="bottom">'+data.catRef.freqNameAndSet+'</td></tr>';
               
               //tags
               size = 0;
