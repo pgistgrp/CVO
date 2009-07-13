@@ -351,7 +351,7 @@
   <div id="cont-resize">
       <!-- Instruction and overview -->
 	<div id="overview" class="box2">
-      <pg:show condition="${cst.closed}">  
+      <pg:show condition="${vtt.closed}">  
       <h1 class="headerColor"><strong>This step is closed.</strong></h1>
       <h3 class="headerColor">You can still browse, but you cannot create or edit indicators or comments.</h3>
       <p></p>
