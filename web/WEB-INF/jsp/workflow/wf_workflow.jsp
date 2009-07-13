@@ -133,10 +133,10 @@
                       <pg:envVar var="exitCondition" context="${mActive.context}" activity="${gActive}" name="exitCondition" />
                       <c:choose>
                         <c:when test="${declaredExitCondition && exitCondition == null}">
-                          <input type="button" name="completedButton" disabled="true" value="Completed"/>
+                          <input type="button" name="completedButton" disabled="true" value="Complete"/>
                         </c:when>
                         <c:otherwise>
-                          <input type="button" name="completedButton" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>
+                          <input type="button" name="completedButton" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Complete"/>
                         </c:otherwise>
                       </c:choose>
                     </pg:show>
@@ -157,10 +157,10 @@
                       <pg:envVar var="exitCondition" context="${mActive.context}" activity="${gActive}" name="exitCondition" />
                       <c:choose>
                         <c:when test="${declaredExitCondition && exitCondition == null}">
-                          <input type="button" name="completedButton" disabled="true" value="Completed"/>
+                          <input type="button" name="completedButton" disabled="true" value="Complete"/>
                         </c:when>
                         <c:otherwise>
-                          <input type="button" name="completedButton" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Completed"/>
+                          <input type="button" name="completedButton" onclick="if (window.confirm('This will publish any changes you have made with this tool.  There is no undo.')){workflow.nextStep(${workflow.id},${mActive.context.id},${gActive.id});}" value="Complete"/>
                         </c:otherwise>
                       </c:choose>
                     </pg:show>
