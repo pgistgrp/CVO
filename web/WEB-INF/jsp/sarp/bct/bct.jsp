@@ -593,7 +593,7 @@ function editTags(concernId){
     <div id="overview" class="box2">
       <pg:show condition="${bct.closed}">  
       <h2 class="headerColor">This step is closed.</h2>
-      <h3 class="headerColor">You can still browse and comment, but you cannot contribute new concerns.</h3>
+      <h3 class="headerColor">You can still browse and comment, but you cannot contribute new concerns.<br></h3>
       </pg:show>  
       <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
