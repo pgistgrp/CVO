@@ -592,7 +592,7 @@ function editTags(concernId){
     <!-- begin "overview and instructions" area -->
     <div id="overview" class="box2">
       <pg:show condition="${bct.closed}">  
-      <h1 class="headerColor">This step is closed.</h1>
+      <h1 class="headerColor"><strong>This step is closed.</strong></h1>
       <h3 class="headerColor">You can still browse and comment, but you cannot contribute new concerns.</h3>
       <p></p>
       </pg:show>  
