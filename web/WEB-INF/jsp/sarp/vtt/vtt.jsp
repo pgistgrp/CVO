@@ -351,7 +351,12 @@
   <div id="cont-resize">
       <!-- Instruction and overview -->
 	<div id="overview" class="box2">
-      <h3>Instruction overview</h3>
+      <pg:show condition="${cst.closed}">  
+      <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+      <h3 class="headerColor">You can still browse, but you cannot create or edit indicators or comments.</h3>
+      <p></p>
+      </pg:show>
+	<h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to develop indicators and units of measurement for each hierarchy path

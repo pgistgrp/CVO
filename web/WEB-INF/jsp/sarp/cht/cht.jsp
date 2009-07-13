@@ -328,6 +328,11 @@
   <div id="cont-resize">
     <!-- Instruction and overview -->
 	<div id="overview" class="box2">
+      <pg:show condition="${cht.closed}">  
+      <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+      <h3 class="headerColor">You can still browse, but you cannot create or edit category hierarchies or comments.</h3>
+      <p></p>
+      </pg:show>
       <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
