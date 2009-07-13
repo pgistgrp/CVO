@@ -101,6 +101,7 @@ def getBCTInfo():
     # Number of commentators is the length of the set of comment authors 
     bctInfo['numCommenters'] = len(set(commentAuthors))
     # Get the info for the BCT DRT
+    """
     bctDrt = report.getBctDrt()
     print bctDrt
     drtBctInfo = getDRTInfo(bctDrt)
@@ -109,6 +110,7 @@ def getBCTInfo():
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
     bctInfo['numVotesAgree'] = drtBctInfo.get('numAgree')
     bctInfo['numModChg'] = drtBctInfo.get('numModChg')
+    """
     # Return the bct information dictionary
     return bctInfo
 
@@ -150,6 +152,7 @@ def getCSTInfo():
     cstInfo['numComments'] = len(commentsList)
     # Get the number of commentators
     cstInfo['numCommenters'] = len(set(authorList))
+    """
     # Get the info for the CST DRT
     drtInfo = getDRTInfo(report.getCstDrt())
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
@@ -157,7 +160,7 @@ def getCSTInfo():
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
     cstInfo['numVotesAgree'] = drtInfo['numAgree']
     cstInfo['numModChg'] = drtInfo['numModChg']
-    
+    """
     # Return the CST Information dictionary
     return cstInfo
 
@@ -199,6 +202,7 @@ def getCHTInfo():
     chtInfo['numComments'] = len(commentsList)
     # Number of commenters is the length of the set of comment authors
     chtInfo['numCommenters'] = len(set(authorsList))
+    """
     # Get the info for the CHT DRT
     drtInfo = getDRTInfo(report.getChtDrt())
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
@@ -206,6 +210,7 @@ def getCHTInfo():
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
     chtInfo['numVotesAgree'] = drtInfo['numAgree']
     chtInfo['numModChg'] = drtInfo['numModChg']
+    """
     # Return
     return chtInfo
 
@@ -248,6 +253,7 @@ def getVTTInfo():
         #indics.extend(catInds) 
     vttInfo['numContributions'] = len(pathValues)
     """
+    """
     # Get the info for the CST DRT
     drtInfo = getDRTInfo(report.getVttDrt())
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
@@ -255,7 +261,7 @@ def getVTTInfo():
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
     vttInfo['numVotesAgree'] = drtInfo['numAgree']
     vttInfo['numModChg'] = drtInfo['numModChg']
-    
+    """
     return vttInfo
 
 # Get the DRT Information - shared code
@@ -294,12 +300,37 @@ def createHTMLTable(dataDict = None):
     htmlTable += '</table>\n'
     return htmlTable
 
+def getVccStats(bctInfo, cstInfo, chtInfo, vttInfo):
+    vccInfo = dict()
+    # Number of total contributions
+    vccInfo['numContributions'] = bctInfo['numContributions'] + cstInfo['numContributions'] + chtInfo['numContributions'] #+ vttInfo['numContributions']
+    # Find the maximum and minimum contributions by tool
+    contribs = [bctInfo['numContributors'], cstInfo['numContributors'], chtInfo['numContributors'], vttInfo['numContributors']]
+    # Sort the contribs
+    contribs.sort()
+    vccInfo['numContributorsMax'] = contribs.pop()
+    vccInfo['numContributorsMin'] = contribs.pop(0)
+    # Total number of comments
+    vccInfo['numComments'] = bctInfo['numComments'] + cstInfo['numComments'] + chtInfo['numComments'] #+ vttInfo['numComments']
+    # Find the maximum and minimum commenters for tools
+    comms = [bctInfo['numCommenters'], cstInfo['numCommenters'], chtInfo['numCommenters']]#, vttInfo['numCommenters']]
+    # Sort the commenters
+    comms.sort()
+    vccInfo['numCommentersMax'] = comms.pop()
+    vccInfo['numCommentersMin'] = comms.pop(0)
+    return vccInfo
+
+vccInfo = getVccStats(bctInfo, cstInfo, chtInfo, vttInfo)
+
 myfile = open(output,"w")
-myfile.write('<h3> Brainstorm Concerns Information</h1>\n')
+myfile.write('<h3> Voicing Climate Concerns Usage Overview</h3>\n')
+myfile.write(createHTMLTable(vccInfo))
+myfile.write('<img src="http://chart.apis.google.com/chart?chs=320x200&amp;cht=bvs&amp;chd=t:' + str(bctInfo['numContributors']) + ',' + str(cstInfo['numContributors']) + ',' + str(chtInfo['numContributors']) + ',' + str(vttInfo['numContributors']) + '&amp;chds=0,' + str(vccInfo['numContributorsMax']) + '">\n')
+myfile.write('<h3> Brainstorm Concerns Information</h3>\n')
 myfile.write(createHTMLTable(bctInfo))
-myfile.write('<h3> Categories Creation Information</h1>\n')
+myfile.write('<h3> Categories Creation Information</h3>\n')
 myfile.write(createHTMLTable(cstInfo))
-myfile.write('<h3> Create Hierarchies Information</h1>\n')
+myfile.write('<h3> Create Hierarchies Information</h3>\n')
 myfile.write(createHTMLTable(chtInfo))
 myfile.write('<h3> VTT Information</h1>\n')
 myfile.write(createHTMLTable(vttInfo))
