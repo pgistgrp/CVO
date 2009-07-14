@@ -95,7 +95,12 @@
                     <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
                     <property name="overview">
                         <![CDATA[
-                            <h3 class="headerColor">Instruction overview</h3>
+                            <pg:show condition="${drt.closed}">  
+			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+			    <h3 class="headerColor">You can still browse but you cannot vote or comment on concerns.</h3>
+			    <p></p>
+			    </pg:show>    
+			    <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of concerns and keyphrases.</p>
                             <p>When the group reaches agreement over the set of concerns and keyphrases, they become the building blocks for the next step, categorizing keyphrases.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
@@ -204,6 +209,11 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
+			    <pg:show condition="${drt.closed}">  
+			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+			    <h3 class="headerColor">You can still browse but you cannot vote or comment on categories.</h3>
+			    <p></p>
+			    </pg:show>    
                             <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents a set of 'group categories' synthesized from the contributions of all users for discussion and agreement.</p>
                             <p>When the group reaches agreement over the set of group categories, they become the building blocks for the next step, building hierarchies using those categories.</p>
@@ -360,6 +370,11 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
+			    <pg:show condition="${drt.closed}">  
+			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+			    <h3 class="headerColor">You can still browse but you cannot vote or comment on category hierarchies.</h3>
+			    <p></p>
+			    </pg:show>    
 			    <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents a set of hierarchy paths from the contributions of all users for discussion and agreement.</p>
                             <p>When the group reaches agreement over the set of hierarchy paths, they become the building blocks for the next step, specifying indicators for hierarchy paths.</p>
@@ -534,6 +549,11 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
+			    <pg:show condition="${drt.closed}">  
+			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+			    <h3 class="headerColor">You can still browse but you cannot vote or comment on indicators.</h3>
+			    <p></p>
+			    </pg:show>    
 			    <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents the indicators contributed by all users as well as additional information provided by data analysts for discussion and agreement.</p>
                             <p>When the group reaches agreement over the appropriate indicator for each hierarchy path, they are included in the final report as the group's suggestion for a mapping and discussion activity in a subsequent workshop.</p>
