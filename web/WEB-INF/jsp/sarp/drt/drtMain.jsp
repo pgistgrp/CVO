@@ -33,10 +33,6 @@
 <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
 
 <script type="text/javascript">
-    <pg:show condition="${infoObject.closed}">  
-			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
-			    <h3 class="headerColor">You can still browse but you cannot vote or comment on concerns.</h3>
-			    <p></p>    
     <pg:show condition="${!infoObject.closed}">
     tinyMCE.init({
         mode : "exact",
@@ -309,7 +305,12 @@
             <table width="100%"><tr><td width="650px;">
             <pg:property var="overview" name="overview"/>
             <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-                ${overview}
+                <pg:show condition="${infoObject.closed}">  
+			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+			    <h3 class="headerColor">You can still browse but you cannot vote or comment on concerns.</h3>
+			    <p></p>
+			    </pg:show>
+	    ${overview}
             </pg:termHighlight>
             </td>
             <td></td><td style="padding-left:10px;width:180px;">
