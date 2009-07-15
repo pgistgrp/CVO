@@ -95,7 +95,7 @@
                     <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
                     <property name="overview">
                         <![CDATA[
-                            <pg:show condition="${drt.closed}">  
+                            <pg:show condition="${infoObject.closed}">  
 			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
 			    <h3 class="headerColor">You can still browse but you cannot vote or comment on concerns.</h3>
 			    <p></p>
@@ -209,7 +209,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-			    <pg:show condition="${drt.closed}">  
+			    <pg:show condition="${infoObject.closed}">  
 			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
 			    <h3 class="headerColor">You can still browse but you cannot vote or comment on categories.</h3>
 			    <p></p>
@@ -370,7 +370,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-			    <pg:show condition="${drt.closed}">  
+			    <pg:show condition="${infoObject.closed}">  
 			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
 			    <h3 class="headerColor">You can still browse but you cannot vote or comment on category hierarchies.</h3>
 			    <p></p>
@@ -549,7 +549,7 @@
                     <property name="showLoopChoice" value="true" />
                     <property name="overview">
                         <![CDATA[
-			    <pg:show condition="${drt.closed}">  
+			    <pg:show condition="${infoObject.closed}">  
 			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
 			    <h3 class="headerColor">You can still browse but you cannot vote or comment on indicators.</h3>
 			    <p></p>
