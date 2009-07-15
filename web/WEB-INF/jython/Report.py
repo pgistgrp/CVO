@@ -90,8 +90,6 @@ def getBCTInfo():
 
     commentAuthors = []
     for comID in commentIDs:
-        print "================"
-        print comID
         commentAuthors.append(bctService.getConcernCommentById(comID).getAuthor())
 
     # Number of contributors is the length of the set of contribution authors
@@ -100,17 +98,27 @@ def getBCTInfo():
     bctInfo['numComments'] = sum(numOfComments)
     # Number of commentators is the length of the set of comment authors 
     bctInfo['numCommenters'] = len(set(commentAuthors))
+    if bctInfo['numContributors'] == 0:
+        bctInfo['avgContributions'] = 0
+    else:
+        bctInfo['avgContributions'] = bctInfo['numContributions'] / bctInfo['numContributors']
+    if bctInfo['numCommenters'] == 0:
+        bctInfo['avgComments'] = 0
+    else:
+        bctInfo['avgComments'] = bctInfo['numComments'] / bctInfo['numCommenters']
     # Get the info for the BCT DRT
-    """
     bctDrt = report.getBctDrt()
-    print bctDrt
     drtBctInfo = getDRTInfo(bctDrt)
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
     bctInfo['numVotes'] = drtBctInfo.get('numVotes')
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
-    bctInfo['numVotesAgree'] = drtBctInfo.get('numAgree')
+    bctInfo['numVotesAgree'] = drtBctInfo.get('numVotesAgree')
+    if bctInfo['numVotesAgree'] == 0:
+        bctInfo['pctVotesAgree'] = 0.0
+    else:
+        bctInfo['pctVotesAgree'] = float(bctInfo['numVotes']) / bctInfo['numVotesAgree'] * 100
     bctInfo['numModChg'] = drtBctInfo.get('numModChg')
-    """
+    
     # Return the bct information dictionary
     return bctInfo
 
@@ -124,7 +132,6 @@ def getCSTInfo():
     cstInfo['ID'] = cstID
     # Get the categories
     categories = report.getCst().getCategories()
-    print type(categories)
     # Get the number of categories
     cstInfo['numContributions'] = len(categories)
     # Get the number of contributors
@@ -152,15 +159,28 @@ def getCSTInfo():
     cstInfo['numComments'] = len(commentsList)
     # Get the number of commentators
     cstInfo['numCommenters'] = len(set(authorList))
-    """
+    
+    if cstInfo['numContributors'] == 0:
+        cstInfo['avgContributions'] = 0
+    else:
+        cstInfo['avgContributions'] = cstInfo['numContributions'] / cstInfo['numContributors']
+    if cstInfo['numCommenters'] == 0:
+        cstInfo['avgComments'] = 0
+    else:
+        cstInfo['avgComments'] = cstInfo['numComments'] / cstInfo['numCommenters']
+    
     # Get the info for the CST DRT
     drtInfo = getDRTInfo(report.getCstDrt())
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
     cstInfo['numVotes'] = drtInfo['numVotes']
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
-    cstInfo['numVotesAgree'] = drtInfo['numAgree']
+    cstInfo['numVotesAgree'] = drtInfo['numVotesAgree']
+    if cstInfo['numVotesAgree'] == 0:
+        cstInfo['pctVotesAgree'] = 0.0
+    else:
+        cstInfo['pctVotesAgree'] = float(cstInfo['numVotes']) / cstInfo['numVotesAgree'] * 100
     cstInfo['numModChg'] = drtInfo['numModChg']
-    """
+    
     # Return the CST Information dictionary
     return cstInfo
 
@@ -202,15 +222,30 @@ def getCHTInfo():
     chtInfo['numComments'] = len(commentsList)
     # Number of commenters is the length of the set of comment authors
     chtInfo['numCommenters'] = len(set(authorsList))
-    """
+    
+    if chtInfo['numContributors'] == 0:
+        chtInfo['avgContributions'] = 0
+    else:
+        chtInfo['avgContributions'] = chtInfo['numContributions'] / chtInfo['numContributors']
+    if chtInfo['numCommenters'] == 0:
+        chtInfo['avgComments'] = 0
+    else:
+        chtInfo['avgComments'] = chtInfo['numComments'] / chtInfo['numCommenters']
+    
     # Get the info for the CHT DRT
     drtInfo = getDRTInfo(report.getChtDrt())
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
     chtInfo['numVotes'] = drtInfo['numVotes']
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
-    chtInfo['numVotesAgree'] = drtInfo['numAgree']
+    chtInfo['numVotesAgree'] = drtInfo['numVotesAgree']
+    
+    if chtInfo['numVotesAgree'] == 0:
+        chtInfo['pctVotesAgree'] = 0.0
+    else:
+        chtInfo['pctVotesAgree'] = float(chtInfo['numVotes']) / chtInfo['numVotesAgree'] * 100
+    
     chtInfo['numModChg'] = drtInfo['numModChg']
-    """
+    
     # Return
     return chtInfo
 
@@ -230,38 +265,63 @@ def getVTTInfo():
     # Retrieve comments each user had
     # Grab the number of experts participating in VTT
     vttInfo['numExperts'] = len(report.getVtt().getExperts().toArray())
-    # We need to get the contributions - each path can have contributions
-    #
-    ########################################################################
-    #
-    ########################################################################
-    #
-    ########################################################################
-    #
-    ########################################################################
-    #
-    """
+    # We need to get the contributions - each path can have contributions    
     pathValues = []
-    indics = []
-    indicsNames = []
     for catPath in catPaths:
         # Each path has an ID to associate it with an indicator/unit pair
         # Use it to get a list of indicators
-        pathValues.extend(VTTDAOImpl.getCategoryPathValuesByPathId(catPath.getId()).toArray()) 
-        print pathValues
-        #catInds = vttService.getMUnitSetsByPathId(catPath.getId()).toArray()
-        #indics.extend(catInds) 
+        pathValues.extend(vttService.getCategoryPathValuesByPathId(catPath.getId()).toArray()) 
+    
+    # Find out the number of contributors
+    contribs = []
+    # Loop through each pathValue and find the user of it
+    for pathValue in pathValues:
+        contribs.append(pathValue.getUser().id)
+    
+    # Number of contributors is the length of the set of user IDs contributing
+    vttInfo['numContributors'] = len(set(contribs))
+    
+    # Number of contributions is the length of the list of path values
     vttInfo['numContributions'] = len(pathValues)
-    """
-    """
+    
+    pageSetting = PageSetting()
+    comments = []
+    # Get the comments, one at a time
+    for user in set(contribs):
+        comments.extend(vttService.getComments(user, vttID, pageSetting).toArray())
+    
+    vttInfo['numComments'] = len(comments)
+    
+    commAuthors = []
+    # Find the people that commented
+    for comm in comments:
+        commAuthors.append(comm.getAuthor())
+    
+    vttInfo['numCommenters'] = len(set(commAuthors))
+    
+    if vttInfo['numContributors'] == 0:
+        vttInfo['avgContributions'] = 0
+    else:
+        vttInfo['avgContributions'] = vttInfo['numContributions'] / vttInfo['numContributors']
+    if vttInfo['numCommenters'] == 0:
+        vttInfo['avgComments'] = 0
+    else:
+        vttInfo['avgComments'] = vttInfo['numComments'] / vttInfo['numCommenters']
+    
     # Get the info for the CST DRT
     drtInfo = getDRTInfo(report.getVttDrt())
     # Number of votes is the sum of the concernVotes[] (votes by each concern)
     vttInfo['numVotes'] = drtInfo['numVotes']
     # Number of votes that agree is the sum of concernVotesAgree[] (agreement by concern)
-    vttInfo['numVotesAgree'] = drtInfo['numAgree']
+    vttInfo['numVotesAgree'] = drtInfo['numVotesAgree']
+    
+    if vttInfo['numVotesAgree'] == 0:
+        vttInfo['pctVotesAgree'] = 0.0
+    else:
+        vttInfo['pctVotesAgree'] = float(vttInfo['numVotes']) / vttInfo['numVotesAgree'] * 100
+    
     vttInfo['numModChg'] = drtInfo['numModChg']
-    """
+    
     return vttInfo
 
 # Get the DRT Information - shared code
@@ -289,15 +349,32 @@ vttInfo = getVTTInfo()
 
 def createHTMLTable(dataDict = None):
     # Create a table
-    htmlTable = '<table align="center" border="1" cellspacing="1" cellpadding="3" width="80%">\n'
+    htmlTable = '<table align="center" border="0" cellspacing="1" cellpadding="3" width="100%">\n'
+    # The elements we need
+    neededList = ['numContributions', 'numContributors', 'avgContributions', 'numContributorsMax', 'numContributorsMin', 'numComments', 'numCommenters', 'avgComments', 'numCommentersMax', 'numCommentersMin', 'numModChg', 'numVotes', 'numVotesAgree', 'pctVotesAgree']
+    needed = {'numContributions': 'Number of total contributions in this experiment', 
+        'numContributors': 'Number of participants contributing',
+        'avgContributions': 'Average number of contributions per participant contributing',
+        'numComments': 'Number of total comments in this experiment',
+        'numCommenters': 'Number of participants commenting',
+        'avgComments': 'Average number of comments per participant commenting',
+        'numVotes': 'Number of participants voting',
+        'numVotesAgree': 'Number of votes agreeing with results of step',
+        'pctVotesAgree': 'Percentage of voters agreeing with results of step',
+        'numModChg': 'Number of modifications done by a moderator',
+        'numContributorsMax': 'Maximum number of participants contributing in a step',
+        'numContributorsMin': 'Minimum number of participants contributing in a step',
+        'numCommentersMax': 'Maximum number of participants commenting in a step', 
+        'numCommentersMin': 'Minimum number of participants commenting in a step'}
     # scroll through the keys and values
-    for key, value in dataDict.iteritems():
-        htmlTable += '\t<tr valing="top">\n'
-        htmlTable += '\t\t<td align="right" style="border: 1px solid #000000">' + str(key) + '</td>\n'
-        htmlTable += '\t\t<td align="left" style="border: 1px solid #000000">' + str(value) + '</td>\n'
-        htmlTable += '\t</tr>\n'
+    for item in neededList:
+        if item in dataDict:
+            htmlTable += '\t<tr valing="top">\n'
+            htmlTable += '\t\t<td align="right">' + str(needed[item]) + ':</td>\n'
+            htmlTable += '\t\t<td align="left">' + str(dataDict[item]) + '</td>\n'
+            htmlTable += '\t</tr>\n'
     # End the table
-    htmlTable += '</table>\n'
+    htmlTable += '</table>\n<p>\n&nbsp;\n</p>\n'
     return htmlTable
 
 def getVccStats(bctInfo, cstInfo, chtInfo, vttInfo):
@@ -323,15 +400,45 @@ def getVccStats(bctInfo, cstInfo, chtInfo, vttInfo):
 vccInfo = getVccStats(bctInfo, cstInfo, chtInfo, vttInfo)
 
 myfile = open(output,"w")
-myfile.write('<h3> Voicing Climate Concerns Usage Overview</h3>\n')
+myfile.write('<h4> Voicing Climate Concerns Usage Overview</h4>\n')
 myfile.write(createHTMLTable(vccInfo))
-myfile.write('<img src="http://chart.apis.google.com/chart?chs=320x200&amp;cht=bvs&amp;chd=t:' + str(bctInfo['numContributors']) + ',' + str(cstInfo['numContributors']) + ',' + str(chtInfo['numContributors']) + ',' + str(vttInfo['numContributors']) + '&amp;chds=0,' + str(vccInfo['numContributorsMax']) + '">\n')
-myfile.write('<h3> Brainstorm Concerns Information</h3>\n')
+# Graph of contibutors by step
+grScale = 100.0 / vccInfo['numContributorsMax']
+myfile.write('<img src="http://chart.apis.google.com/chart?chtt=Voicing+Climate+Concerns|Participants+Contributing+by+Step&amp;cht=bvs&amp;chd=t:' + str(bctInfo['numContributors'] * grScale) + ',' + str(cstInfo['numContributors'] * grScale) + ',' + str(chtInfo['numContributors'] * grScale) + ',' + str(vttInfo['numContributors'] * grScale) + '&amp;chdl=Step+1|Step+2|Step+3|Step+4&amp;chxt=x,y&amp;chxr=1,0,' + str(vccInfo['numContributorsMax']) + '&amp;chxl=0:|Step+1|Step+2|Step+3|Step+4|&amp;chxr=1,0,' + str(vccInfo['numContributorsMax']) + ',' + str(vccInfo['numContributorsMax'] / 4) + '&amp;chs=300x200&amp;chbh=a,20,10&amp;chf=bg,s,FFFFFF00">\n')
+# Graph of contributions by step
+grScale = 100.0 / vccInfo['numContributions']
+myfile.write('<img src="http://chart.apis.google.com/chart?chtt=Voicing+Climate+Concerns|Total+Contributions+by+Step&amp;cht=p3&amp;chd=t:' + str(bctInfo['numContributions'] * grScale) + ',' + str(cstInfo['numContributions'] * grScale) + ',' + str(chtInfo['numContributions'] * grScale) + ',' + str(vttInfo['numContributions'] * grScale) + '&amp;chl=' + str(bctInfo['numContributions']) + '|' + str(cstInfo['numContributions']) + '|' + str(chtInfo['numContributions']) + '|' + str(vttInfo['numContributions']) + '&amp;chdl=Step+1|Step+2|Step+3|Step+4&amp;chs=300x150&amp;chf=bg,s,FFFFFF00">\n')
+# Graph of coommenters by step
+if vccInfo['numCommentersMax'] == 0:
+    grScale = 100.0
+else:
+    grScale = 100.0 / vccInfo['numCommentersMax']
+myfile.write('<img src="http://chart.apis.google.com/chart?chtt=Voicing+Climate+Concerns|Participants+Commenting+by+Step&amp;cht=bvs&amp;chd=t:' + str(bctInfo['numCommenters'] * grScale) + ',' + str(cstInfo['numCommenters'] * grScale) + ',' + str(chtInfo['numCommenters'] * grScale) + ',' + str(vttInfo['numCommenters'] * grScale) + '&amp;chdl=Step+1|Step+2|Step+3|Step+4&amp;chxt=x,y&amp;chxr=1,0,' + str(vccInfo['numCommentersMax']) + '&amp;chxl=0:|Step+1|Step+2|Step+3|Step+4|&amp;chxr=1,0,' + str(vccInfo['numCommentersMax']) + ',' + str(vccInfo['numCommentersMax'] / 4) + '&amp;chs=300x200&amp;chbh=a,20,10&amp;chf=bg,s,FFFFFF00">\n')
+# Graph of contributions by step
+if vccInfo['numComments'] == 0:
+    grScale = 100.0
+else:
+    grScale = 100.0 / vccInfo['numComments']
+myfile.write('<img src="http://chart.apis.google.com/chart?chtt=Voicing+Climate+Concerns|Total+Comments+by+Step&amp;cht=p3&amp;chd=t:' + str(bctInfo['numComments'] * grScale) + ',' + str(cstInfo['numComments'] * grScale) + ',' + str(chtInfo['numComments'] * grScale) + ',' + str(vttInfo['numComments'] * grScale) + '&amp;chdl=' + str(bctInfo['numComments']) + '|' + str(cstInfo['numComments']) + '|' + str(chtInfo['numComments']) + '|' + str(vttInfo['numComments']) + '&amp;chdl=Step+1|Step+2|Step+3|Step+4&amp;chs=300x150&amp;chf=bg,s,FFFFFF00">\n')
+
+
+myfile.write('<p align="left">\n\t As can be seen from the graphs, participation in each step varied.\n</p>\n')
+myfile.write('<p align="left">\n\t The moderator will elaborate on this further with your input.\n</p>\n')
+
+
+myfile.write('<h4> Step 1 - Brainstorm Concern Keyphrases: Participation Information</h4>\n')
+myfile.write('<p> This step allows users to specify concerns and associate them with meaningful keyphrases. The concerns and keyphrases users provide serve as the building blocks for the next step, categorizing keyphrases, as well as for the entire process.</p>\n') 
 myfile.write(createHTMLTable(bctInfo))
-myfile.write('<h3> Categories Creation Information</h3>\n')
+
+myfile.write('<h4> Step 2 - Categorize Keyphrases: Participation Information</h4>\n')
+myfile.write('<p>This sub-step allows users to organize keyphrases into labeled categories, generalizing specific contributions by theme. The categories users create are used in the next step as the building blocks for thematic relationships.</p>\n')
 myfile.write(createHTMLTable(cstInfo))
-myfile.write('<h3> Create Hierarchies Information</h3>\n')
+
+myfile.write('<h4> Step 3 - Build Hierarchies: Participation Information</h4>\n')
+myfile.write('<p> This step allows users to build hierarchies, further refining relationships between group categories, from general to specific levels. The hierarchies users create are separated into paths, contextualizing specific categories within general categories, to be used in the next step.</p>\n')
 myfile.write(createHTMLTable(chtInfo))
-myfile.write('<h3> VTT Information</h1>\n')
+
+myfile.write('<h4> Step 4 - Develop Indicators: Participation Information</h4>\n')
+myfile.write('<p> This step allows users to develop indicators and units of measurement for each hierarchy path. The indicators users develop are combined with those of other users, voted on, and mapped in a subsequent workshop.</p>\n')
 myfile.write(createHTMLTable(vttInfo))
 myfile.close()
