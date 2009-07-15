@@ -95,12 +95,7 @@
                     <property name="page" value="/WEB-INF/jsp/sarp/bct/info-object.jsp" />
                     <property name="overview">
                         <![CDATA[
-                            <pg:show condition="${infoObject.closed}">  
-			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
-			    <h3 class="headerColor">You can still browse but you cannot vote or comment on concerns.</h3>
-			    <p></p>
-			    </pg:show>    
-			    <h3 class="headerColor">Instruction overview</h3>
+                            <h3 class="headerColor">Instruction overview</h3>
                             <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of concerns and keyphrases.</p>
                             <p>When the group reaches agreement over the set of concerns and keyphrases, they become the building blocks for the next step, categorizing keyphrases.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>

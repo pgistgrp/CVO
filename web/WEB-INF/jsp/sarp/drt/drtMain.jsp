@@ -33,6 +33,10 @@
 <script type='text/javascript' src='/dwr/interface/DRTAgent.js'></script>
 
 <script type="text/javascript">
+    <pg:show condition="${infoObject.closed}">  
+			    <h1 class="headerColor"><strong>This step is closed.</strong></h1>
+			    <h3 class="headerColor">You can still browse but you cannot vote or comment on concerns.</h3>
+			    <p></p>    
     <pg:show condition="${!infoObject.closed}">
     tinyMCE.init({
         mode : "exact",
