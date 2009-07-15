@@ -336,7 +336,7 @@
       <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This sub-step allows users to build hierarchies, further refining relationships between group categories, from general to specific levels.<br>
+      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This sub-step enables users to build hierarchies, further refining relationships between group categories, from general to specific levels.<br>
       The hierarchies users create will be separated into paths (see diagram at right), contextualizing specific categories within general categories, to be used in the next step.</pg:termHighlight></p>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>

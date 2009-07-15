@@ -648,14 +648,14 @@
       <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to organize the group's keyphrases into labeled categories, generalizing specific contributions by theme.
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step enables users to organize the group's keyphrases into labeled categories, generalizing specific contributions by theme.
       <br>The categories users create will be used in the next step as the building blocks for thematic relationships which will be specified in the form of indicators.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Review the list of keyphrases in the right-hand panel.</li>
-  <li>Create and label categories. (Numbers and punction in category names will be ignored.) Assign keyphrases into categories.</li>
+  <li>Type category label into box in left column. (Numbers and punction in category names will be ignored.) Assign a keyword from left column to category by clicking on the arrow pointing left.  Remove keyword from category by clicking on arrow in center column pointing right.</li>
   <li>Click &quot;<b>Publish</b>&quot; to share your categories with other users.</li>
   <li>Use the drop down menu to explore categories created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
   <li>Re-evaluate your own categories and edit or create new ones if necessary.</li>
