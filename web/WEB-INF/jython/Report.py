@@ -380,7 +380,7 @@ def createHTMLTable(dataDict = None):
 def getVccStats(bctInfo, cstInfo, chtInfo, vttInfo):
     vccInfo = dict()
     # Number of total contributions
-    vccInfo['numContributions'] = bctInfo['numContributions'] + cstInfo['numContributions'] + chtInfo['numContributions'] #+ vttInfo['numContributions']
+    vccInfo['numContributions'] = bctInfo['numContributions'] + cstInfo['numContributions'] + chtInfo['numContributions'] + vttInfo['numContributions']
     # Find the maximum and minimum contributions by tool
     contribs = [bctInfo['numContributors'], cstInfo['numContributors'], chtInfo['numContributors'], vttInfo['numContributors']]
     # Sort the contribs
@@ -388,9 +388,9 @@ def getVccStats(bctInfo, cstInfo, chtInfo, vttInfo):
     vccInfo['numContributorsMax'] = contribs.pop()
     vccInfo['numContributorsMin'] = contribs.pop(0)
     # Total number of comments
-    vccInfo['numComments'] = bctInfo['numComments'] + cstInfo['numComments'] + chtInfo['numComments'] #+ vttInfo['numComments']
+    vccInfo['numComments'] = bctInfo['numComments'] + cstInfo['numComments'] + chtInfo['numComments'] + vttInfo['numComments']
     # Find the maximum and minimum commenters for tools
-    comms = [bctInfo['numCommenters'], cstInfo['numCommenters'], chtInfo['numCommenters']]#, vttInfo['numCommenters']]
+    comms = [bctInfo['numCommenters'], cstInfo['numCommenters'], chtInfo['numCommenters'], vttInfo['numCommenters']]
     # Sort the commenters
     comms.sort()
     vccInfo['numCommentersMax'] = comms.pop()
