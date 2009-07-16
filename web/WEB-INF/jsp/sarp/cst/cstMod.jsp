@@ -19,7 +19,7 @@
         </a>
     </span>
   <strong>Editing Options: </strong>
-    <input type="button" onclick="deleteCategory();" value="Delete" />
+    <input type="button" onclick="deleteSelectedCategory();" value="Delete" />
     <input type="button" onclick="Element.toggle('col-option')" value="Rename"/>
 </div>
 <div id="col-option" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
