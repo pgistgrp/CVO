@@ -72,6 +72,7 @@ def getBCTInfo():
     authorsOfConcerns = []
     numOfComments = []
     commentIDs = []
+    concernComments = []
     concernVotes = []
     concernVotesAgree = []
     for concern in concerns:
@@ -82,15 +83,15 @@ def getBCTInfo():
         # Get the comment IDs for the concern
         pageSetting = PageSetting()
         
-        commentIDs.extend(bctService.getConcernComments(concern.getId(), pageSetting).toArray())
+        concernComments.extend(bctService.getConcernComments(concern.getId(), pageSetting).toArray())
         # Get the total number of voters for the concern
         concernVotes.append(concern.getNumVote())
         # Get the total number of positive votes for the concern
         concernVotesAgree.append(concern.getNumAgree())
 
     commentAuthors = []
-    for comID in commentIDs:
-        commentAuthors.append(bctService.getConcernCommentById(comID).getAuthor())
+    for com in concernComments:
+        commentAuthors.append(com.getAuthor())
 
     # Number of contributors is the length of the set of contribution authors
     bctInfo['numContributors'] = len(set(authorsOfConcerns))
@@ -140,10 +141,11 @@ def getCSTInfo():
     pageSetting = PageSetting()
     # Loop through all the categories
     for entry in categories.entrySet():
+        print entry, type(entry)
         catId = entry.key
         catRef = entry.value
-        #print catId
-        #print cat
+        print catId
+        print catRef
         # Append the user of each category reference built
         userList.append(catRef.getUser())
         # Get the comments for the category reference
@@ -151,7 +153,9 @@ def getCSTInfo():
     
     # Get the authors of comments
     authorList = []
+    print len(commentsList)
     for comment in commentsList:
+        print comment, type(comment)
         authorList.append(comment.getAuthor())
         
     cstInfo['numContributors'] = len(set(userList))
