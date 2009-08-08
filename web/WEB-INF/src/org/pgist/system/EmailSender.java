@@ -207,6 +207,8 @@ public class EmailSender {
     public void checkAndSend() {
         try {
             // get all email notifications and set their flags to true
+            // the emails are ordered by user id, so we can loop and group
+            // the same recipient's emails in one email.
             List<EmailNotification> ens = emailDAO.getEmailNotifications();
             
             User user = null;
@@ -219,6 +221,9 @@ public class EmailSender {
             for (int i=0; i<ens.size(); i++) {
                 try {
                     EmailNotification en = ens.get(i);
+                    
+                    // user doesn't want to receive email
+                    if (!en.getUser().isEmailNotify()) continue;
                     
                     if (i==ens.size()-1) {
                         //last one
@@ -244,8 +249,6 @@ public class EmailSender {
                             vars.put("urls", sb.toString());
                             send(en.getUser(), "generic_comment", vars);
                         }
-                        
-                        break;
                     } else if (user!=en.getUser()) {
                         if (user==null) {
                             //first one, continue
@@ -259,6 +262,9 @@ public class EmailSender {
                             vars.put("recipient", user);
                             vars.put("urls", sb.toString());
                             send(en.getUser(), "generic_comment", vars);
+                            
+                            // clear links to avoid sending duplicate emails.
+                            links.clear();
                         }
                     } else {
                         // in group, continue
