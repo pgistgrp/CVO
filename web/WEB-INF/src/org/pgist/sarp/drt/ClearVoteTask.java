@@ -30,7 +30,7 @@ public class ClearVoteTask implements WorkflowTask {
     
     
     public void execute(WorkflowInfo info, EnvironmentInOuts inouts) throws Exception {
-        System.out.println("\n@ PublishCSTTask.execute()\n");
+        System.out.println("\n@ ClearVoteTask.execute()\n");
         
         Long oid = new Long(inouts.getIntValue(IN_OID));
         

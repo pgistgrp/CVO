@@ -384,7 +384,7 @@ public class CSTDAOImpl extends BaseDAOImpl implements CSTDAO {
     }//getOtherUsers()
 
 
-    private static final String hql_getComments1 = "select count(id) from CSTComment c where c.deleted=false and c.catRef.id=?";
+    private static final String hql_getComments1 = "select count(c.id) from CSTComment c where c.deleted=false and c.catRef.id=?";
     private static final String hql_getComments2 = "from CSTComment c where c.deleted=false and c.catRef.id=? order by c.id desc";
     
     

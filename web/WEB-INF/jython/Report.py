@@ -138,18 +138,18 @@ def getCSTInfo():
     # Get the number of contributors
     userList = []
     commentsList = []
-    pageSetting = PageSetting()
     # Loop through all the categories
     for entry in categories.entrySet():
+        pageSetting = PageSetting(-1)
         print entry, type(entry)
         catId = entry.key
         catRef = entry.value
-        print catId
-        print catRef
+        print 'catId:', catId
+        print 'catRef:', catRef
         # Append the user of each category reference built
         userList.append(catRef.getUser())
         # Get the comments for the category reference
-        commentsList.extend(cstService.getComments(catId, pageSetting).toArray())
+        commentsList.extend(cstService.getComments(catRef.id, pageSetting).toArray())
     
     # Get the authors of comments
     authorList = []
