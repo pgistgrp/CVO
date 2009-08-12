@@ -215,7 +215,8 @@ def getCHTInfo():
     for entry in report.getCht().getCategories().entrySet():
         catRefId = entry.value.id
         pageSetting = PageSetting(-1)
-        comments = chtService.getComments(catRefId, pageSetting)
+        comments = chtService.getComments(catRefId, pageSetting).toArray()
+        commentsList.extend(comments)
         #commentsList.extend(chtService.getComments(catRefId, pageSetting))
 
     # Each comment has an author. Loop to get them
@@ -433,7 +434,7 @@ def getRankedIndicators():
 
 vccInfo = getVccStats(bctInfo, cstInfo, chtInfo, vttInfo)
 
-#getRankedIndicators()
+getRankedIndicators()
 
 myfile = open(output,"w")
 myfile.write('<h4> Voicing Climate Concerns Usage Overview</h4>\n')
