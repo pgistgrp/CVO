@@ -411,16 +411,22 @@ def getRankedIndicators():
     # Get the ranked indicators coming out of step 4
     catPaths = report.getVtt().getPaths().toArray()
     pathValues = []
+    mUnitSets = []
     for catPath in catPaths:
         pathValue = vttService.getCategoryPathValuesByPathId(catPath.getId()).toArray()
-        print type(pathValue), pathValue
+        #print type(pathValue), pathValue
         if len(pathValue) > 0:
             pathValues.extend(pathValue)
-    mUnitSets = []
-    for pathValue in pathValues:
-        mUnSet = vttService.getMUnitSetsByPathId(pathValue.getId()).toArray()
+        mUnSet = vttService.getMUnitSetsByPathId(catPath.getId()).toArray()
+        print mUnSet, type(mUnSet)
         if len(mUnSet) > 0 :
             mUnitSets.extend(mUnSet)
+        
+    #for pathValue in pathValues:
+        #mUnSet = vttService.getMUnitSetsByPathId(pathValue.getId()).toArray()
+        #print mUnSet, type(mUnSet)
+        
+    print "MMMMMMMMMMMMMMMM"
     print mUnitSets
     indicators = []
     for mUnit in mUnitSets:
