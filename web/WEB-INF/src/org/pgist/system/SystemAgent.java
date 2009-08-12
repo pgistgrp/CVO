@@ -901,7 +901,7 @@ public class SystemAgent {
         	Map values = new HashMap();
         	if(bool_email) {
 	        	Collection participants = systemService.getUsersByRole("participant");
-	            values.put("announcement", "test");
+	            values.put("announcement", message);
 	            for (User participant : (Collection<User>) participants) {
 	            	if(participant.isEmailNotify()) {
 		                values.put("participant", participant);

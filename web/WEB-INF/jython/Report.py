@@ -81,7 +81,7 @@ def getBCTInfo():
         # Get the number of comments of each concern
         numOfComments.append(concern.getReplies())
         # Get the comment IDs for the concern
-        pageSetting = PageSetting()
+        pageSetting = PageSetting(-1)
         
         concernComments.extend(bctService.getConcernComments(concern.getId(), pageSetting).toArray())
         # Get the total number of voters for the concern
@@ -141,11 +141,11 @@ def getCSTInfo():
     # Loop through all the categories
     for entry in categories.entrySet():
         pageSetting = PageSetting(-1)
-        print entry, type(entry)
+        #print entry, type(entry)
         catId = entry.key
         catRef = entry.value
-        print 'catId:', catId
-        print 'catRef:', catRef
+        #print 'catId:', catId
+        #print 'catRef:', catRef
         # Append the user of each category reference built
         userList.append(catRef.getUser())
         # Get the comments for the category reference
@@ -153,9 +153,9 @@ def getCSTInfo():
     
     # Get the authors of comments
     authorList = []
-    print len(commentsList)
+    #print len(commentsList)
     for comment in commentsList:
-        print comment, type(comment)
+        #print comment, type(comment)
         authorList.append(comment.getAuthor())
         
     cstInfo['numContributors'] = len(set(userList))
@@ -198,22 +198,26 @@ def getCHTInfo():
     chtInfo['ID'] = chtID
     # Get the paths created by users
     paths = chtService.getPathsByChtId(chtID, None).toArray()
+    #print "Number of paths:", len(paths)
     # Each path can have multiple users so get them all
     usersList = []
     commentsList = []
-    pageSetting = PageSetting()
     dupPaths = 0
     for path in paths:
+        #print path.getId(), path.getTitle()
         # If the path was contributed by multiple people it needs to count as multiple contributions
         if len(path.getUsers().toArray()) > 1:
             dupPaths = dupPaths + len(path.getUsers().toArray()) - 1
         # Add the users that have this path to the userlist
-        usersList.extend(path.getUsers().toArray())
-        # Grab the category references of this path
-        catRefList = path.getCategories().toArray()
-        for catRef in catRefList:
-            # Use the chtService to grab comments by catRef
-            commentsList.extend(chtService.getComments(catRef.getId(), pageSetting).toArray())
+        usersList.extend(path.getUsers().toArray())        
+
+    # Get the comments list, that is attached elsewhere apparently?
+    for entry in report.getCht().getCategories().entrySet():
+        catRefId = entry.value.id
+        pageSetting = PageSetting(-1)
+        comments = chtService.getComments(catRefId, pageSetting)
+        #commentsList.extend(chtService.getComments(catRefId, pageSetting))
+
     # Each comment has an author. Loop to get them
     authorsList = []
     for comment in commentsList:
@@ -288,10 +292,11 @@ def getVTTInfo():
     # Number of contributions is the length of the list of path values
     vttInfo['numContributions'] = len(pathValues)
     
-    pageSetting = PageSetting()
+    
     comments = []
     # Get the comments, one at a time
     for user in set(contribs):
+        pageSetting = PageSetting(-1)
         comments.extend(vttService.getComments(user, vttID, pageSetting).toArray())
     
     vttInfo['numComments'] = len(comments)
@@ -401,7 +406,34 @@ def getVccStats(bctInfo, cstInfo, chtInfo, vttInfo):
     vccInfo['numCommentersMin'] = comms.pop(0)
     return vccInfo
 
+def getRankedIndicators():
+    # Get the ranked indicators coming out of step 4
+    catPaths = report.getVtt().getPaths().toArray()
+    pathValues = []
+    for catPath in catPaths:
+        pathValue = vttService.getCategoryPathValuesByPathId(catPath.getId()).toArray()
+        print type(pathValue), pathValue
+        if len(pathValue) > 0:
+            pathValues.extend(pathValue)
+    mUnitSets = []
+    for pathValue in pathValues:
+        mUnSet = vttService.getMUnitSetsByPathId(pathValue.getId()).toArray()
+        if len(mUnSet) > 0 :
+            mUnitSets.extend(mUnSet)
+    print mUnitSets
+    indicators = []
+    for mUnit in mUnitSets:
+        indicatorDict = dict()
+        indicatorDict["name"] = mUnit.getName()
+        indicatorDict["freq"] = mUnit.getFreqs()
+        indicatorDict["recoFreq"] = mUnit.getRecoFreqs()
+        print indicatorDict
+        indicators.append(indicatorDict)
+    
+
 vccInfo = getVccStats(bctInfo, cstInfo, chtInfo, vttInfo)
+
+#getRankedIndicators()
 
 myfile = open(output,"w")
 myfile.write('<h4> Voicing Climate Concerns Usage Overview</h4>\n')
