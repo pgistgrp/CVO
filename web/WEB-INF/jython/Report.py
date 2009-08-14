@@ -410,47 +410,73 @@ def getVccStats(bctInfo, cstInfo, chtInfo, vttInfo):
 def getRankedIndicators():
     # Get the ranked indicators coming out of step 4
     catPaths = report.getVtt().getPaths().toArray()
-    pathValues = []
+    catPathValues = dict()
     mUnitSets = []
     for catPath in catPaths:
-        pathValue = vttService.getCategoryPathValuesByPathId(catPath.getId()).toArray()
-        #print type(pathValue), pathValue
-        if len(pathValue) > 0:
-            pathValues.extend(pathValue)
-        mUnSet = vttService.getMUnitSetsByPathId(catPath.getId()).toArray()
-        print mUnSet, type(mUnSet)
-        if len(mUnSet) > 0 :
-            mUnitSets.extend(mUnSet)
-        
-    #for pathValue in pathValues:
-        #mUnSet = vttService.getMUnitSetsByPathId(pathValue.getId()).toArray()
-        #print mUnSet, type(mUnSet)
-        
-    print "MMMMMMMMMMMMMMMM"
-    print mUnitSets
-    indicators = []
-    for mUnit in mUnitSets:
-        indicatorDict = dict()
-        indicatorDict["name"] = mUnit.getName()
-        indicatorDict["freq"] = mUnit.getFreqs()
-        indicatorDict["recoFreq"] = mUnit.getRecoFreqs()
-        print indicatorDict
-        indicators.append(indicatorDict)
+        pathValues = vttService.getCategoryPathValuesByPathId(catPath.getId()).toArray()
+        for pathValue in pathValues:
+            catPathIndic = pathValue.getName()
+            path = pathValue.getPath()
+            catPathName = path.getTitle()
+            if catPathName not in catPathValues:
+                catPathValues[catPathName] = dict()
+            catPathValues[catPathName]["path"] = path
+            if "indics" not in catPathValues[catPathName]:
+                catPathValues[catPathName]["indics"] = dict()
+            if catPathIndic not in catPathValues[catPathName]["indics"]:
+                catPathValues[catPathName]["indics"][catPathIndic] = dict()
+    for pathName, pathValues in catPathValues.iteritems():
+        path = pathValues["path"]
+        indics = pathValues["indics"]
+        mUnSet = vttService.getMUnitSetsByPathId(path.getId()).toArray()
+        for ind in mUnSet:
+            indName = ind.getName()
+            if len(indName) == 0:
+                indName = "No Indicator provided"
+            pathValues["indics"][indName] = dict()
+            pathValues["indics"][indName]["unit"] = ""
+            for unit in ind.getRecoFreqs().entrySet():
+                unitName = unit.key
+                if len(unitName) == 0:
+                    unitName = "No unit name provided"
+                pathValues["indics"][indName]["unit"] = unitName
+            pathValues["indics"][indName]["freq"] = 0
+            for userVote in ind.getUserSelections().entrySet():
+                pathValues["indics"][indName]["freq"] += 1
+        #for indic in indics.keys():
+            #print "\tIndicator:", indic
+            #mUnSet = vttService.getMUnitSetsByPathId(path.getId()).toArray()
+            ## Read each unit individually and find out info
+            #for unit in mUnSet:
+                #for actualUnit in unit.getRecoFreqs().entrySet():
+                    #if len(actualUnit.key) == 0:
+                        #unitName = "No unit selected"
+                    #unitName = actualUnit.key
+                    #unitFreq = 0
+                    #for userVote in unit.getUserSelections().entrySet():
+                        #unitFreq += 1
+                    #unitDict = dict()
+                    #unitDict["unitName"] = unitName
+                    #unitDict["unitFreq"] = unitFreq
+                    #pathValue["units"].append(unitDict)
+    return catPathValues
     
 
 vccInfo = getVccStats(bctInfo, cstInfo, chtInfo, vttInfo)
 
-getRankedIndicators()
+pathIndicUnits = getRankedIndicators()
 
 myfile = open(output,"w")
 myfile.write('<h4> Voicing Climate Concerns Usage Overview</h4>\n')
 myfile.write(createHTMLTable(vccInfo))
+myfile.write('<p>')
 # Graph of contibutors by step
 grScale = 100.0 / vccInfo['numContributorsMax']
 myfile.write('<img src="http://chart.apis.google.com/chart?chtt=Voicing+Climate+Concerns|Participants+Contributing+by+Step&amp;cht=bvs&amp;chd=t:' + str(bctInfo['numContributors'] * grScale) + ',' + str(cstInfo['numContributors'] * grScale) + ',' + str(chtInfo['numContributors'] * grScale) + ',' + str(vttInfo['numContributors'] * grScale) + '&amp;chdl=Step+1|Step+2|Step+3|Step+4&amp;chxt=x,y&amp;chxr=1,0,' + str(vccInfo['numContributorsMax']) + '&amp;chxl=0:|Step+1|Step+2|Step+3|Step+4|&amp;chxr=1,0,' + str(vccInfo['numContributorsMax']) + ',' + str(vccInfo['numContributorsMax'] / 4) + '&amp;chs=300x200&amp;chbh=a,20,10&amp;chf=bg,s,FFFFFF00">\n')
 # Graph of contributions by step
 grScale = 100.0 / vccInfo['numContributions']
 myfile.write('<img src="http://chart.apis.google.com/chart?chtt=Voicing+Climate+Concerns|Total+Contributions+by+Step&amp;cht=p3&amp;chd=t:' + str(bctInfo['numContributions'] * grScale) + ',' + str(cstInfo['numContributions'] * grScale) + ',' + str(chtInfo['numContributions'] * grScale) + ',' + str(vttInfo['numContributions'] * grScale) + '&amp;chl=' + str(bctInfo['numContributions']) + '|' + str(cstInfo['numContributions']) + '|' + str(chtInfo['numContributions']) + '|' + str(vttInfo['numContributions']) + '&amp;chdl=Step+1|Step+2|Step+3|Step+4&amp;chs=300x150&amp;chf=bg,s,FFFFFF00">\n')
+myfile.write('</p><p>')
 # Graph of coommenters by step
 if vccInfo['numCommentersMax'] == 0:
     grScale = 100.0
@@ -463,6 +489,7 @@ if vccInfo['numComments'] == 0:
 else:
     grScale = 100.0 / vccInfo['numComments']
 myfile.write('<img src="http://chart.apis.google.com/chart?chtt=Voicing+Climate+Concerns|Total+Comments+by+Step&amp;cht=p3&amp;chd=t:' + str(bctInfo['numComments'] * grScale) + ',' + str(cstInfo['numComments'] * grScale) + ',' + str(chtInfo['numComments'] * grScale) + ',' + str(vttInfo['numComments'] * grScale) + '&amp;chdl=' + str(bctInfo['numComments']) + '|' + str(cstInfo['numComments']) + '|' + str(chtInfo['numComments']) + '|' + str(vttInfo['numComments']) + '&amp;chdl=Step+1|Step+2|Step+3|Step+4&amp;chs=300x150&amp;chf=bg,s,FFFFFF00">\n')
+myfile.write('</p>')
 
 
 myfile.write('<p align="left">\n\t As can be seen from the graphs, participation in each step varied.\n</p>\n')
@@ -484,4 +511,43 @@ myfile.write(createHTMLTable(chtInfo))
 myfile.write('<h4> Step 4 - Develop Indicators: Participation Information</h4>\n')
 myfile.write('<p> This step allows users to develop indicators and units of measurement for each hierarchy path. The indicators users develop are combined with those of other users, voted on, and mapped in a subsequent workshop.</p>\n')
 myfile.write(createHTMLTable(vttInfo))
+
+myfile.write('<h4> Final Product: Ranked Indicators by theme</h4>\n')
+myfile.write('<p> This text needs to be generated.</p>\n')
+myfile.write('<table align="center" border="0" cellspacing="1" cellpadding="3" width="100%">\n')
+def compare_by (fieldname):
+    def compare_two_dicts (a, b):
+        return cmp(a[fieldname], b[fieldname])
+    return compare_two_dicts
+
+for path, pathIndics in pathIndicUnits.iteritems():
+    print "Path:", path
+    myfile.write('<tr><td colspan="3"><br>Path: <strong>' + path + '</strong></td></tr>')
+    indicNames = pathIndics["indics"].keys()
+    for indName in indicNames:
+        print "\t", indName
+        indicVote = pathIndics["indics"][indName]["freq"]
+        unit = pathIndics["indics"][indName]["unit"]
+        myfile.write('<tr><td>Indicator: ' + str(indName) + '</td><td>Unit: ' + str(unit) + '</td><td>Voted:' + str(indicVote) + '</td></tr>')
+        
+        
+        
+    #for iUn in indUnit:
+        #indicName = iUn["indic"]
+        #myfile.write('<tr><td>&nbsp;</td><td colspan="3">Indicator: ' + indicName + '</td></tr>')
+        #units = iUn["units"]
+        #units.sort(compare_by('unitFreq'))
+        #units.reverse()
+        #for unit in units:
+            #myfile.write('<tr><td>&nbsp;</td><td>&nbsp;</td><td>Unit: ' + unit["unitName"] + '</td><td>' + str(unit["unitFreq"]) + '</td></tr>')
+    #print
+    #print
+    #inds.sort(compare_by('freq'))
+    #inds.reverse()
+    #for ind in inds:
+        #myfile.write('<tr><td>' + ind["name"] + '</td><td>' + str(ind["freq"]) + '</td></tr>')
+myfile.write('</table>')
+
 myfile.close()
+
+#exit()
