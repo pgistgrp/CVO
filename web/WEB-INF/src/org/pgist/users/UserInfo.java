@@ -23,6 +23,7 @@ public class UserInfo {
     private boolean gender;
 
     private Set<String> roles = new HashSet<String>();
+    private Set<String> associations = new HashSet<String>();
     private Set<org.pgist.users.Vehicle> vehicles = new HashSet<org.pgist.users.Vehicle>();
 
 
@@ -35,6 +36,9 @@ public class UserInfo {
 
         for (Role role : user.getRoles()) {
             roles.add(role.getName());
+        }//for
+        for (Assoc association : user.getAssociations()) {
+            associations.add(association.getName());
         }//for
     }//UserInfo()
 
@@ -104,6 +108,10 @@ public class UserInfo {
 
     public boolean checkRole(String roleName) {
         return roles.contains(roleName);
+    }//checkRole()
+    
+    public boolean checkAssociation(String associationName) {
+        return associations.contains(associationName);
     }//checkRole()
 
 

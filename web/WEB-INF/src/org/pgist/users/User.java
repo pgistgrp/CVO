@@ -159,9 +159,15 @@ public class User extends BaseUser {
     
     /**
      * <span style="color:blue;">(One To Many Association.)</span>
-     * The Role of the user. A users role is there permissions level. IE: guest, participant, moderator, admin.
+     * The Role of the user. A users role is their permissions level. IE: guest, participant, moderator, admin.
      */
     protected Set<Role> roles = new HashSet<Role>();
+    
+    /**
+     * <span style="color:blue;">(One To Many Association.)</span>
+     * The association of the user. A users association. IE: political, geographic, etc.
+     */
+    protected Set<Assoc> associations = new HashSet<Assoc>();
     
     /**
      * <span style="color:blue;">(One To Many Association.)</span>
@@ -244,6 +250,21 @@ public class User extends BaseUser {
         this.roles = roles;
     }
     
+    
+    /**
+     * @return
+     * @hibernate.set lazy="true" table="pgist_user_assoc_link" cascade="all" order-by="assoc_id"
+     * @hibernate.collection-key column="user_id"
+     * @hibernate.collection-many-to-many column="assoc_id" class="org.pgist.users.Assoc"
+     */
+    public Set<Assoc> getAssociations() {
+        return associations;
+    }
+
+
+    public void setAssociations(Set<Assoc> associations) {
+        this.associations = associations;
+    }
     
     /**
      * @return
@@ -587,7 +608,10 @@ public class User extends BaseUser {
     public void addRole(Role role) {
         roles.add(role);
     }
-    
+
+    public void addAssociation(Assoc association) {
+        associations.add(association);
+    }
     
     public boolean checkPassword(String providedPWD) {
         return password.equals(MD5.getDigest(providedPWD));
@@ -606,6 +630,23 @@ public class User extends BaseUser {
                 sb.append(", ");
             }
             sb.append(role.getName());
+        }//for iter
+        
+        return sb.toString();
+    }//getRoleString()
+    
+    public String getAssociationString() {
+        StringBuffer sb = new StringBuffer();
+        
+        boolean first = true;
+        for (Iterator iter=associations.iterator(); iter.hasNext(); ) {
+            Assoc association = (Assoc) iter.next();
+            if (first) {
+                first = false;
+            } else {
+                sb.append(", ");
+            }
+            sb.append(association.getName());
         }//for iter
         
         return sb.toString();
