@@ -167,7 +167,7 @@ public class User extends BaseUser {
      * <span style="color:blue;">(Many To Many Association.)</span>
      * The association of the user. A users association. IE: political, geographic, etc.
      */
-    protected Set<Assoc> associations = new HashSet<Assoc>();
+    protected Set<Assoc> assocs = new HashSet<Assoc>();
     
     /**
      * <span style="color:blue;">(One To Many Association.)</span>
@@ -257,13 +257,13 @@ public class User extends BaseUser {
      * @hibernate.collection-key column="user_id"
      * @hibernate.collection-many-to-many column="assoc_id" class="org.pgist.users.Assoc"
      */
-    public Set<Assoc> getAssociations() {
-        return associations;
+    public Set<Assoc> getAssocs() {
+        return assocs;
     }
 
 
-    public void setAssociations(Set<Assoc> associations) {
-        this.associations = associations;
+    public void setAssocs(Set<Assoc> assocs) {
+        this.assocs = assocs;
     }
     
     /**
@@ -609,8 +609,8 @@ public class User extends BaseUser {
         roles.add(role);
     }
 
-    public void addAssoc(Assoc association) {
-        associations.add(association);
+    public void addAssoc(Assoc assoc) {
+        assocs.add(assoc);
     }
     
     public boolean checkPassword(String providedPWD) {
@@ -635,18 +635,18 @@ public class User extends BaseUser {
         return sb.toString();
     }//getRoleString()
     
-    public String getAssociationString() {
+    public String getAssocString() {
         StringBuffer sb = new StringBuffer();
         
         boolean first = true;
-        for (Iterator iter=associations.iterator(); iter.hasNext(); ) {
-            Assoc association = (Assoc) iter.next();
+        for (Iterator iter=assocs.iterator(); iter.hasNext(); ) {
+            Assoc assoc = (Assoc) iter.next();
             if (first) {
                 first = false;
             } else {
                 sb.append(", ");
             }
-            sb.append(association.getName());
+            sb.append(assoc.getName());
         }//for iter
         
         return sb.toString();

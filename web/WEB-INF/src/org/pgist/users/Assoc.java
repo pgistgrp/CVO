@@ -13,9 +13,9 @@ public class Assoc implements Serializable {
     
     private Long id;
     
-    private String assocName;
+    private String name;
     
-    private String assocDescription;
+    private String description;
     
     private boolean internal = false;
     
@@ -41,12 +41,12 @@ public class Assoc implements Serializable {
      * @hibernate.property not-null="true"
      */
     public String getName() {
-        return assocName;
+        return name;
     }
     
     
     public void setName(String name) {
-        this.assocName = name;
+        this.name = name;
     }
 
 
@@ -55,12 +55,12 @@ public class Assoc implements Serializable {
      * @hibernate.property
      */
     public String getDescription() {
-        return assocDescription;
+        return description;
     }
 
 
     public void setDescription(String description) {
-        this.assocDescription = description;
+        this.description = description;
     }
 
 

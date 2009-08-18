@@ -258,6 +258,17 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
             }//for i
         }
         
+        
+        user.getAssocs().clear();
+        
+        if (idList!=null) {
+            for (int i=0; i<idList.length; i++) {
+                Assoc assoc = (Assoc) session.load(Assoc.class, new Long(idList[i]));
+                user.addAssoc(assoc);
+            }//for i
+        }
+        
+        
         if (user.getPassword().length()<=31) user.encodePassword();
         
         session.save(user);
@@ -293,6 +304,17 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
                 user.addRole(role);
             }//for i
         }
+        
+        
+        user.getAssocs().clear();
+        
+        if (idList!=null) {
+            for (int i=0; i<idList.length; i++) {
+                Assoc assoc = (Assoc) session.load(Assoc.class, new Long(idList[i]));
+                user.addAssoc(assoc);
+            }//for i
+        }
+        
         
         if (user.getPassword().length()<=31) user.encodePassword();
         

@@ -4,10 +4,10 @@
 
     <user>
         <loginname>admin</loginname>
-        <lastname>admin</lastname>
-        <firstname>admin</firstname>
+        <lastname>Internal User</lastname>
+        <firstname>Internal User</firstname>
         <password encrypted="false">admin</password>
-        <email>admin@pgist.org</email>
+        <email>moderator@climateconcerns.org</email>
         <gender>Male</gender>
         <roles>
             <role>admin</role>
@@ -20,40 +20,14 @@
     
     <user>
         <loginname>moderator</loginname>
-        <lastname>moderator</lastname>
-        <firstname>moderator</firstname>
+        <lastname>Internal User</lastname>
+        <firstname>Internal User</firstname>
         <password encrypted="false">moderator</password>
         <email>moderator@climateconcerns.org</email>
         <gender>Male</gender>
         <roles>
             <role>moderator</role>
             <role>expert</role>
-            <role>participant</role>
-        </roles>
-    </user>
-    
-    
-    <user>
-        <loginname>robert</loginname>
-        <lastname>Robert</lastname>
-        <firstname>Robert</firstname>
-        <password encrypted="false">robert</password>
-        <email>robert@pgist.org</email>
-        <gender>Male</gender>
-        <roles>
-            <role>participant</role>
-        </roles>
-    </user>
-    
-    
-    <user>
-        <loginname>timothy</loginname>
-        <lastname>Nyerges</lastname>
-        <firstname>Timothy</firstname>
-        <password encrypted="false">timothy</password>
-        <email>timothy@pgist.org</email>
-        <gender>Male</gender>
-        <roles>
             <role>participant</role>
         </roles>
     </user>

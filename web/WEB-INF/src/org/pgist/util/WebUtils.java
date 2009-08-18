@@ -60,6 +60,16 @@ public class WebUtils {
     }//checkRole()
     
     
+    
+    public static boolean checkAssoc(String assocName) {
+        UserInfo info = threadLocalCurrentUser.get();
+        
+        if (info!=null && info.checkAssoc(assocName)) return true;
+        
+        return false;
+    }//checkAssoc()
+    
+    
     public static boolean checkUser(Long userId) {
         UserInfo info = threadLocalCurrentUser.get();
         

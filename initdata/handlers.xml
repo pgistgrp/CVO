@@ -6,6 +6,8 @@
     
     <handler name="roles">org.pgist.ddl.RoleHandler</handler>
     
+    <handler name="assocs">org.pgist.ddl.AssocHandler</handler>
+    
     <handler name="users">org.pgist.ddl.UserHandler</handler>
 
     <!--handler name="fundingSource">org.pgist.ddl.DefaultFundingSourceHandler</handler-->

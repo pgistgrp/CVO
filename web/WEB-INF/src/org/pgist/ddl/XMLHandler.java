@@ -27,6 +27,7 @@ import org.pgist.system.EmailTemplate;
 import org.pgist.tagging.Category;
 import org.pgist.tagging.Tag;
 import org.pgist.users.Role;
+import org.pgist.users.Assoc;
 import org.pgist.users.User;
 import org.springframework.context.ApplicationContext;
 
@@ -44,6 +45,8 @@ public abstract class XMLHandler implements Handler {
     protected static final DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.ENGLISH);
     
     protected static final Map<String, Role> roleMap = new HashMap<String, Role>();
+    
+    protected static final Map<String, Assoc> assocMap = new HashMap<String, Assoc>();
 
     protected static final Map<String, FundingSource> fsourceMap = new HashMap<String, FundingSource>();
     
@@ -119,6 +122,27 @@ public abstract class XMLHandler implements Handler {
         
         return role;
     }//getRoleByName()
+    
+    
+    
+    private static final String hql_getAssocByName = "from Assoc r where r.name=?";
+    
+    
+    protected Assoc getAssocByName(String assocName) throws Exception {
+        if (assocMap.containsKey(assocName)) return assocMap.get(assocName);
+        
+        Query query = session.createQuery(hql_getAssocByName);
+        query.setString(0, assocName);
+        List list = query.list();
+        if (list.size()==0) return null;
+        
+        Assoc assoc = (Assoc) list.get(0);
+        assocMap.put(assoc.getName(), assoc);
+        
+        return assoc;
+    }//getAssocByName()
+    
+    
     
     private static final String hql_getFundingSourceByName = "from FundingSource fs where lower(fs.name)=?";
     
@@ -218,6 +242,15 @@ public abstract class XMLHandler implements Handler {
         session.saveOrUpdate(role);
     }//saveRole()
     
+    
+    protected void saveAssoc(Assoc assoc) throws Exception {
+        if (!assocMap.containsValue(assoc)) {
+            assocMap.put(assoc.getName(), assoc);
+        }
+        session.saveOrUpdate(assoc);
+    }//saveRole()
+    
+    
     protected void saveFundingSource(FundingSource source) throws Exception {
         if (!fsourceMap.containsValue(source)) {
         	fsourceMap.put(source.getName(), source);
@@ -281,6 +314,18 @@ public abstract class XMLHandler implements Handler {
         Query query = session.createQuery(hql_getRoles);
         return (List<Role>) query.list();
     }//getRoles()
+    
+    
+    
+    private static final String hql_getAssocs = "from Assoc order by id";
+    
+    
+    @SuppressWarnings("unchecked")
+    protected List<Assoc> getAssocs() {
+        Query query = session.createQuery(hql_getAssocs);
+        return (List<Assoc>) query.list();
+    }//getAssocs()
+    
     
     
     private static final String hql_getUsers = "from User order by id";
