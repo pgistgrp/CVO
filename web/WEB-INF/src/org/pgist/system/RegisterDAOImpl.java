@@ -15,6 +15,7 @@ import org.hibernate.Query;
 import org.pgist.funding.UserCommute;
 import org.pgist.funding.UserFundingSourceToll;
 import org.pgist.users.Role;
+import org.pgist.users.Assoc;
 import org.pgist.users.TravelMarker;
 import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
@@ -40,6 +41,8 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
 	private static final String hql_addUser = "from County c where ?= some elements(c.zipCodes)";
 	
 	private static final String hql_addUser2 = "from Role r where r.name=?";
+    
+    private static final String hql_addUser3 = "from Assoc r where r.name=?";
 	
     public Long addUser(String firstname, String lastname, String email1,  String address1, String address2, String city, String state, String zipcode, String username, String password1) throws Exception {
     	User u = new User();
@@ -81,6 +84,18 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
     			u.addRole(role);
     		}
     	}
+        
+        Collection assocs = getHibernateTemplate().find(hql_addUser3, new Object[] {
+                "participant",
+        });
+        Iterator asRoles = assocs.iterator();
+        while(asRoles.hasNext()) {
+            Assoc assoc = (Assoc) asRoles.next();
+            String assocName = assoc.getName();
+            if(assocName.equals("participant")) {
+                u.addAssoc(assoc);
+            }
+        }
     	
     	save(u);
     	assignWebQId(u.getId());
@@ -506,6 +521,20 @@ public class RegisterDAOImpl extends BaseDAOImpl implements RegisterDAO {
                 u.addRole(role);
             }
         }
+        
+        
+        Collection assocs = getHibernateTemplate().find(hql_addUser3, new Object[] {
+                "participant",
+        });
+        Iterator itAssocs = assocs.iterator();
+        while(itAssocs.hasNext()) {
+            Assoc assoc = (Assoc) itAssocs.next();
+            String assocName = assoc.getName();
+            if(assocName.equals("participant")) {
+                u.addAssoc(assoc);
+            }
+        }
+        
         
         save(u);
         

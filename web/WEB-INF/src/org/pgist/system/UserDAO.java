@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.pgist.exceptions.RoleExistException;
 import org.pgist.exceptions.UserExistException;
+import org.pgist.exceptions.AssocExistsException;
 import org.pgist.users.Role;
+import org.pgist.users.Assoc;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
@@ -20,6 +22,9 @@ public interface UserDAO extends BaseDAO {
     
     Role getRoleByName(String roleName) throws Exception;
     
+
+    Assoc getAssocByName(String assocName) throws Exception;
+
     
     User getUserById(Long id, boolean enabled, boolean deleted) throws Exception;
     
@@ -56,20 +61,38 @@ public interface UserDAO extends BaseDAO {
     
     List getRoleList(PageSetting setting) throws Exception;
     
+
+    List getAssocList(PageSetting setting) throws Exception;
+
     
     List getRoleList() throws Exception;
+
+
+    List getAssocList() throws Exception;
     
     
     void addRole(Role role) throws RoleExistException, Exception;
     
+
+    void addAssoc(Assoc assoc) throws AssocExistsException, Exception;
+
     
     boolean delRoles(List idList) throws Exception;
+
+
+    boolean delAssocs(List idList) throws Exception;
     
     
     boolean delRole(Long id) throws Exception;
+
+
+    boolean delAssoc(Long id) throws Exception;
     
     
     void editRole(Role role) throws Exception;
+
+
+    void editAssoc(Assoc assoc) throws Exception;
 
 
     void updateProfile(User user) throws Exception;
@@ -79,6 +102,9 @@ public interface UserDAO extends BaseDAO {
 
 
     Collection getUsersByRole(String role) throws Exception;
+
+
+    Collection getUsersByAssoc(String assoc) throws Exception;
 
 
 }//class UserDAO

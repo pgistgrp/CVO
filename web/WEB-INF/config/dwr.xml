@@ -19,7 +19,7 @@
     </convert>
 
     <convert converter="bean" match="org.pgist.users.Assoc">
-        <param name="include" value="id, name, description, deleted, internal"/>
+        <param name="include" value="id, assocName, assocDescription, deleted"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.util.PageSource"/>

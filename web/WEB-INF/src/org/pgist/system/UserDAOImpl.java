@@ -6,8 +6,10 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.pgist.exceptions.RoleExistException;
+import org.pgist.exceptions.AssocExistsException;
 import org.pgist.exceptions.UserExistException;
 import org.pgist.users.Role;
+import org.pgist.users.Assoc;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
@@ -43,6 +45,27 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         
         return role;
     }//getRoleByName()
+    
+    
+    private final static String hql_getAssocByName = "from Assoc where name=:name and deleted=:deleted";
+    
+    
+    public Assoc getAssocByName(String assocName) throws Exception {
+        Assoc assoc = null;
+        
+        Session session = getSession();
+        
+        Query query = session.createQuery(hql_getRoleByName);
+        query.setString("name", assocName);
+        query.setBoolean("deleted", false);
+        List list = query.list();
+        if (list.size()>0) {
+            assoc = (Assoc) list.get(0);
+        }
+        
+        return assoc;
+    }//getAssocByName()
+    
     
     
     private final static String hql_getUserById = "from User where id=:id and enabled=:enabled and deleted=:deleted";
@@ -363,6 +386,44 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     }//getRoleList()
     
     
+    
+    
+    /**
+     * Get all associations
+     * @param setting
+     * @return
+     * @throws Exception
+     */
+    public List getAssocList(PageSetting setting) throws Exception {
+        List list = null;
+        
+        Session session = getSession();
+        
+        StringBuffer hql = new StringBuffer("from Assoc where deleted=:deleted");
+        String nameFilter = (String) setting.get("nameFilter");
+        if (nameFilter!=null && !"".equals(nameFilter)) hql.append(" and name like :nameFilter");
+        
+        Query query = session.createQuery("select count(id) "+hql.toString());
+        query.setBoolean("deleted", false);
+        if (nameFilter!=null && !"".equals(nameFilter)) query.setString("nameFilter", "%"+nameFilter+"%");
+        list = query.list();
+        
+        if (list.size()>0) {
+            setting.setRowSize(((Number)list.get(0)).intValue());
+            
+            query = session.createQuery(hql.toString());
+            query.setBoolean("deleted", false);
+            if (nameFilter!=null && !"".equals(nameFilter)) query.setString("nameFilter", "%"+nameFilter+"%");
+            query.setFirstResult(setting.getFirstRow());
+            query.setMaxResults(setting.getRowOfPage());
+            list = query.list();
+        }
+
+        return list;
+    }//getRoleList()
+    
+    
+    
     private static final String hql_getRoleList = "from Role where deleted=:deleted order by id";
 
     
@@ -381,6 +442,28 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
         return list;
     }//getRoleList()
+    
+    
+    
+    private static final String hql_getAssocList = "from Assoc where deleted=:deleted order by id";
+
+    
+    /**
+     * Get all roles
+     * @param setting
+     * @return
+     * @throws Exception
+     */
+    public List getAssocList() {
+        List list = null;
+        
+        Query query = getSession().createQuery(hql_getRoleList);
+        query.setBoolean("deleted", false);
+        list = query.list();
+
+        return list;
+    }//getAssocList()
+    
     
     
     /**
@@ -404,6 +487,29 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     
     
     /**
+     * Add a new role to system
+     * @param assoc
+     * @throws Exception
+     */
+    public void addAssoc(Assoc assoc) throws RoleExistException, Exception {
+        Session session = getSession();
+        
+        Query query = session.createQuery("from Assoc where name=:name and deleted=:deleted");
+        query.setString("name", assoc.getName());
+        query.setBoolean("deleted", false);
+        List list = query.list();
+        if (list.size()>0) {
+            throw new AssocExistsException("Association already exists!");
+        }
+        
+        session.save(assoc);
+    }//addAssoc()
+    
+    
+    
+    
+    
+    /**
      * Delete roles according to the idList. The deletion is a transaction
      * so that either all roles are deleted or none of them is deleted.
      * @param idList
@@ -421,7 +527,29 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         
         return true;
     }//delRoles()
-    
+
+
+
+    /**
+     * Delete assoc according to the idList. The deletion is a transaction
+     * so that either all roles are deleted or none of them is deleted.
+     * @param idList
+     * @return
+     */
+    public boolean delAssocs(List idList) throws Exception {
+        
+        Session session = getSession();
+        
+        for (int i=0, size=idList.size(); i<size; i++) {
+            Assoc assoc = (Assoc) session.load(Assoc.class, (Long)idList.get(i));
+            assoc.setDeleted(true);
+            session.update(assoc);
+        }//for i
+        
+        return true;
+    }//delAssocs()
+
+
     
     /**
      * Delete role according to the id.
@@ -438,7 +566,24 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         
         return true;
     }//delRole()
-    
+
+
+    /**
+     * Delete association according to the id.
+     * @param id
+     * @return
+     */
+    public boolean delAssoc(Long id) throws Exception {
+        
+        Session session = getSession();
+        
+        Assoc assoc = (Assoc) session.load(Assoc.class, id);
+        assoc.setDeleted(true);
+        session.update(assoc);
+        
+        return true;
+    }//delAssoc()
+
     
     /**
      * Edit the infomation of a role
@@ -448,6 +593,17 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     public void editRole(Role role) throws Exception {
         Session session = getSession();
         session.update(role);
+    }//editRole()
+    
+    
+    /**
+     * Edit the infomation of a role
+     * @param assoc
+     * @throws Exception
+     */
+    public void editAssoc(Assoc assoc) throws Exception {
+        Session session = getSession();
+        session.update(assoc);
     }//editRole()
 
 
@@ -468,6 +624,15 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     public Collection getUsersByRole(String role) throws Exception {
         return getHibernateTemplate().find(hql_getUsersByRole, role.toLowerCase());
     }//getUsersByRole()
+    
+    
+    
+    private static final String hql_getUsersByAssoc = "select u from User u inner join u.assoc r where r.name=?";
+    
+    
+    public Collection getUsersByAssoc(String assoc) throws Exception {
+        return getHibernateTemplate().find(hql_getUsersByAssoc, assoc.toLowerCase());
+    }//getUsersByAssoc()
 
 
 }//class UserDAO

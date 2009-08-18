@@ -609,7 +609,7 @@ public class User extends BaseUser {
         roles.add(role);
     }
 
-    public void addAssociation(Assoc association) {
+    public void addAssoc(Assoc association) {
         associations.add(association);
     }
     

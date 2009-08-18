@@ -13,6 +13,7 @@ import org.pgist.exceptions.UserExistException;
 import org.pgist.search.SearchHelper;
 import org.pgist.users.BaseUser;
 import org.pgist.users.Role;
+import org.pgist.users.Assoc;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
@@ -71,6 +72,11 @@ public class SystemServiceImpl implements SystemService {
     
     public Collection getUsersByRole(String role) throws Exception {
         return userDAO.getUsersByRole(role);
+    }//getUsersByRole()
+    
+    
+    public Collection getUsersByAssoc(String assoc) throws Exception {
+        return userDAO.getUsersByAssoc(assoc);
     }//getUsersByRole()
 
 
