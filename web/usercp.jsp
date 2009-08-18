@@ -251,10 +251,11 @@ function formOther(){
 			<div class="clearBoth"></div>
 			</p>
 			<fieldset id="commute">
-			<legend>My Commute</legend>
+			<legend>My Associations</legend>
 			<div id="left" class="floatLeft">
-				<h3>Home Location</h3>
+				<h3>Choose what best describes you, as a person:</h3>
 				<br />
+                
 				<div class="settings-col1"><small>Address line 1</small></div>
 				<div class="settings-col2">
 					<html:text property="address1" styleId="address1" value="${user.homeAddr}"/>
@@ -270,8 +271,65 @@ function formOther(){
 					<html:text property="city" styleId="hcity" value="${user.city}"/>
 				</div>
 				<div class="clearBoth"></div>
-				<div class="settings-col1"><small>State</small></div>
+                
+                <!---
+				<div class="settings-col1">
+                    <small>First</small>
+                </div>
 				<div class="settings-col2">
+                    <html:checkbox property="association1"/>
+                </div>
+                <div class="settings-col1">
+                    <small>Second</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="association2" />
+                </div>
+                <div class="settings-col1">
+                    <small>Third</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="association3" />
+                </div>
+                <div class="settings-col1">
+                    <small>Fourth</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="association4" />
+                </div>
+                <div class="settings-col1">
+                    <small>Fifth</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="association5" />
+                </div>
+                <div class="settings-col1">
+                    <small>Sixth</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="association6" />
+                </div>
+                <div class="settings-col1">
+                    <small>Seventh</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="association7" />
+                </div>
+                <div class="settings-col1">
+                    <small>Eighth</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="association8" />
+                </div>
+                <div class="settings-col1">
+                    <small>Other</small>
+                </div>
+                <div class="settings-col2">
+                    <html:checkbox property="associationO" />
+                    <html:text property="otherAssoc" value="${user.associations}"/>
+                </div>
+                -->
+                    
 					<html:select property="state">
 						<html:option value="WA">Washington</html:option>
 						<html:option value="AL">Alabama</html:option>
@@ -318,7 +376,7 @@ function formOther(){
 						<html:option value="SD">South Dakota</html:option>
 						<html:option value="TN">Tennessee</html:option>
 						<html:option value="TX">Texas</html:option>
-            <html:option value="UT">Utah</html:option>
+                        <html:option value="UT">Utah</html:option>
 						<html:option value="VT">Vermont</html:option>
 						<html:option value="VA">Virginia</html:option>
 						<html:option value="WA">Washington</html:option>
@@ -326,12 +384,13 @@ function formOther(){
 						<html:option value="WI">Wisconsin</html:option>
 						<html:option value="WY">Wyoming</html:option>
 					</html:select>
-				</div>
+                    -->
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP code</small></div>
 				<div class="settings-col2">
 					<html:text property="zipcode" styleId="hzip" value="${user.zipcode}"/>
 				</div>
+                
 				<div class="clearBoth"></div>
 				<h3>Work location</h3>
 				<div class="settings-col1"><small>City</small></div>
@@ -343,6 +402,7 @@ function formOther(){
 				<div class="settings-col2">
 					<html:text property="workZipcode" styleId="wzip" value="${user.workZipcode}"/>
 				</div>
+                
 				<div class="clearBoth"></div>
 			
 

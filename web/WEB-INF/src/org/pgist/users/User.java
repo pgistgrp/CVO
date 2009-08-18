@@ -164,7 +164,7 @@ public class User extends BaseUser {
     protected Set<Role> roles = new HashSet<Role>();
     
     /**
-     * <span style="color:blue;">(One To Many Association.)</span>
+     * <span style="color:blue;">(Many To Many Association.)</span>
      * The association of the user. A users association. IE: political, geographic, etc.
      */
     protected Set<Assoc> associations = new HashSet<Assoc>();

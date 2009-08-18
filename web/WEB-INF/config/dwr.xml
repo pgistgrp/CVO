@@ -18,6 +18,10 @@
         <param name="include" value="id, name, description, deleted, internal"/>
     </convert>
 
+    <convert converter="bean" match="org.pgist.users.Assoc">
+        <param name="include" value="id, name, description, deleted, internal"/>
+    </convert>
+
     <convert converter="bean" match="org.pgist.util.PageSource"/>
     
     <convert converter="bean" match="org.pgist.system.Feedback"/>
