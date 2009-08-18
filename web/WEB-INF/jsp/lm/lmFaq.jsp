@@ -53,12 +53,18 @@
     
     <!-- <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="> -->
 	
-    	<h2 class="headerColor">Can I participate in this experiment?</h2>
+    	<h2 class="headerColor">Frequently Asked Questions</h2>
 		<p>
-        Any Oregon Coastal community stakeholders can participate in the experiment.
+        <h3>Can I participate in this experiment?</h3>
         </p>
+        <p>Any Oregon Coastal community stakeholders can participate in the experiment.</p>
         
-        <h2 class="headerColor"></h2>
+	<h3>How much should I contribute?</h3>
+        </p>
+        <p>You may contribute as many concerns, indicators, etc. as you feel comfortable with. 
+	We want to hear about what is important to you.</p> 
+
+       <h2 class="headerColor"></h2>
         <p>
         </p>
         
