@@ -97,7 +97,7 @@
 	span#projRow:hover{background:#BDE2F1;}
 	span#projRow{padding:3px;}
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 

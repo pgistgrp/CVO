@@ -210,7 +210,7 @@ function formOther(){
 	} else {$('transOther').style.display = "none";} 
 }
 	</script>
-<event:pageunload />
+<wf:pageunload />
 	</head>
 	<body>
 	<!-- Hack to make col1 & 2 margin heights the same -->

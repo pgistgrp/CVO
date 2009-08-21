@@ -66,7 +66,7 @@
 	a shared understanding of their concerns about climate change and how to measure those concerns in terms of 
 	climate indicators and receptor indicators. 
 	Climate and receptor indicators provide the information, and basis for establishing priorities, 
-	about peoples’ concerns about climate change as input community vulnerability assessments and 
+	about peoples' concerns about climate change as input community vulnerability assessments and 
 	subsequently climate change adaptation planning. In addition, the indicators developed through 
 	the VCC process provide information to data analysts that direct the compilation of data for creating online map data layers 
 	that can be used by community participants for deliberating about priorities for vulnerability assessment and adaptation planning.</p>
@@ -100,7 +100,7 @@
 	Quantitative measurements of impacts are difficult to quantify without considering the functional relationship between each unit 
 	of climate change and a corresponding unit of receptor change. Nonetheless, the categorical relationship can be discussed, 
 	and that is the intention in the deliberative mapping tool used by participants.</p>
-	<p>Furthermore, clearly, some receptors might be more “sensitive” to climate change than others.  
+	<p>Furthermore, clearly, some receptors might be more "sensitive" to climate change than others.  
 	When we take into consideration sensitivity, then we speak of a level II vulnerability assessment.  
 	These can also be discussed in terms of categorical relationships rather than quantitative relationships. 
 	Discussing them categorically is the first step in a quantitative consideration.</p>
@@ -117,7 +117,7 @@
 	<p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about climate change and 
 	variability along the Oregon Coast and analysts produce maps depicting those concerns contingent on availabity of data. 
 	Voicing Climate Concerns facilitates citizen involvement, <a href="http://www.oregon.gov/LCD/docs/goals/goal1.pdf">goal 1</a> of 
-	<a href="http://www.oregon.gov/LCD/goals.shtml">Oregon’s Statewide Planning Goals and Guidelines</a></p>
+	<a href="http://www.oregon.gov/LCD/goals.shtml">Oregon's Statewide Planning Goals and Guidelines</a></p>
 	<p>
 	
     <p>

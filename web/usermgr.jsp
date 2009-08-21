@@ -230,7 +230,7 @@ function greyDisabled() {
 }
 
 </script>
-<event:pageunload />
+<wf:pageunload />
 		</head>
 		<body>
 		<!-- Begin the header - loaded from a separate file -->

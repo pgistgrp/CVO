@@ -348,7 +348,7 @@
 	z-index: 500;
 }
 		</style>
-		<event:pageunload />
+		<wf:pageunload />
 	</head>
 	<body>
 		<!-- Begin conditional styles for the benefit of IE -->

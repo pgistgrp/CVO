@@ -110,7 +110,7 @@ xml = '<?xml version="1.0" encoding="UTF-8"?>\r\n\
 	.source{font-size: 1.3em;}
 	li ul li:hover {background:#D5EAEF;}
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 

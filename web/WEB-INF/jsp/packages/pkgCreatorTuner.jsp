@@ -145,7 +145,7 @@
 	</script>
 	
 	<script type='text/javascript' src='/scripts/weighCriteria.js'></script>
-<event:pageunload />
+<wf:pageunload />
 </head>
 <body>
 	<div id="container">

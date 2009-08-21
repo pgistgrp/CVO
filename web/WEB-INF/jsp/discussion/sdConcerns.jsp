@@ -170,7 +170,7 @@
 		changeCurrentFilter(defaultTagId, 'tag');
   }
 </script>
-<event:pageunload />
+<wf:pageunload />
   </head><body style="margin-top:50px;" onLoad="pageLoaded();">
 
   <!-- #container is the container that wraps around all the main page content -->

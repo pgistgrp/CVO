@@ -4,7 +4,7 @@
 <html:html>
 <head>
 <title>PGIST Search</title>
-<event:pageunload />
+<wf:pageunload />
 </head>
 <body>
 

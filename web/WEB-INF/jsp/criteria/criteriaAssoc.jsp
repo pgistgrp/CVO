@@ -390,7 +390,7 @@
 	#descriptionWarning {text-align:center;}
 	#descriptionWarning span {font-size:1.2em;}
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 <body>

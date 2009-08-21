@@ -7,7 +7,7 @@
 <head>
 <title>Criteria List</title>
 <link rel="stylesheet" type="text/css" href="/styles/default.css'/>">
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 <body>

@@ -60,11 +60,11 @@ and ocean conditions on the Oregon coast. The El Niño
 climate events of 1982-83 and 1997-98 gave Oregonians a
 taste of higher sea level, stronger storms, warmer ocean
 temperatures, and altered marine ecosystem.</p>
-	<p>Oregon’s coastal communities have begun to experience
+	<p>Oregon's coastal communities have begun to experience
 the effects of climate change in the form of higher wave
 heights, more powerful winter storms, and major ocean
 shoreline erosion. Other phenomena are expected due to
-the Earth’s changing climate such as rising sea level and
+the Earth's changing climate such as rising sea level and
 tidal height, hypoxic nearshore ocean waters, seasonal temperature
 changes, more acidic ocean waters, and changes in
 forest cover.</p>
@@ -75,9 +75,9 @@ maximize community resilience. This paper outlines some
 of the principal ways that the Oregon coast is likely to be
 affected.</p>
 
-	<p><b><h3>Key Physical Changes in Oregon’s
+	<p><b><h3>Key Physical Changes in Oregon's
 Coastal Climate and Weather</h3></b></p>
-	<p>Changes in Earth’s climate, driven by atmospheric
+	<p>Changes in Earth's climate, driven by atmospheric
 warming caused by greenhouse gases, will affect the climate
 and weather of the Oregon coast in a variety of ways, some
 familiar, others dramatically new. Exactly how these
@@ -113,7 +113,7 @@ to remain within historical ranges for rainfall. Winter precipitation is
 projected to increase, while summers will be longer and even drier
 than at present. For the Coast Range and lower elevations, precipitation will be mostly rain, as at present. Some research anticipates an
 increase in intense precipitation events.</p>
-	<p><b><h3>Likely Effects on Oregon’s Coastal
+	<p><b><h3>Likely Effects on Oregon's Coastal
 Communities</h3></b></p>
 	<p>Climate shapes communities in many ways; some obvious,
 others subtle. The economy and culture of coastal
@@ -147,13 +147,13 @@ loads into estuaries and thus increase the need for dredging of navigational
 channels. Increased tidal height will affect docks and bulkheads.</p>
  
 	<p><b><i>Shore Protection and Flood Control Structures</i></b><br>
-<i>Dikes and levees:</i> Extensive areas in Oregon’s estuaries are protected
+<i>Dikes and levees:</i> Extensive areas in Oregon's estuaries are protected
 from tidal inundation by dikes and levees. Rising sea level and
 the increased likelihood of inundation from higher storm surge and
 tidal heights, especially in times of river flooding, may threaten the
 integrity of dikes and levees. Infrastructure and development on lands
 protected by dikes are at risk of damage and inundation as dikes fail.</p>
-<p><i>Shore protection improvements:</i> Some portions of Oregon’s
+<p><i>Shore protection improvements:</i> Some portions of Oregon's
 ocean shorelines have been armored against erosion from ocean
 waves, primarily in front of properties developed before 1977. As
 shorelines erode landward in response to higher sea level and storms,
@@ -179,7 +179,7 @@ warmer winter temperatures, may reduce the water available for municipal
 supply systems. In addition, wastewater treatment facilities are
 usually located at the lowest elevation in a watershed, which places
 those facilities at risk from rising sea level and tidal elevation.</p>
-<p><i>Recreational facilities:</i> Increased erosion along Oregon’s ocean
+<p><i>Recreational facilities:</i> Increased erosion along Oregon's ocean
 shore from rising sea levels and coastal storms may seriously alter
 beaches, and in some cases, the infrastructure necessary for safe access
 to and from beaches and coastal parks. Coastal forest trails and
@@ -209,12 +209,12 @@ flows in late spring through the summer and fall. Changes in flow
 regimes may affect salmonids that are adapted to these stream systems.
 For the Columbia River, the presence of dams and a highlyengineered
 hydrologic system complicate projections of impacts of
-climate change on the river’s natural resources and ecosystems.</p>
+climate change on the river's natural resources and ecosystems.</p>
 	<p><b><i>Estuaries</i></b><br>
 	Estuaries are critical and unique habitats. Estuaries reflect a balance
 among competing natural forces. Sustained changes in sea level,
 tidal elevations, river flows, or sediment loads would necessarily alter
-the shape and productivity of Oregon’s estuaries.</p>
+the shape and productivity of Oregon's estuaries.</p>
 <p><i>Estuarine wetlands</i> are vulnerable to rising sea level and tidal
 elevations, depending on rate of sediment deposition, the nature of
 the shoreline, and pace of sea level rise. Freshwater tidal wetlands
@@ -231,14 +231,14 @@ productivity. The loss of benthic habitat will directly affect the composition
 and productivity of estuarine ecosystems.</p>
 <p><i>Ocean spits:</i> Rising sea levels and increased storminess will likely
 result in the long-term movement of the sand spits that form the
-outer boundary of many Oregon’s estuaries. These forces could result
+outer boundary of many Oregon's estuaries. These forces could result
 in breaching of spits, as last occurred to the Tillamook spit in 1952,
 and which came close to occurring to the Netarts spit in 2007.</p>
 <p><i>Invasive species:</i> Estuaries in the Pacific Northwest have recently
 experienced biological invasions of non-native species that
 have had significant effects on estuarine communities. Such invasions
 may be related to climate factors.</p>
-<p><i>Acidification:</i> Oregon’s estuaries are dominated by ocean water
+<p><i>Acidification:</i> Oregon's estuaries are dominated by ocean water
 due to high tidal flushing twice daily. As ocean waters become more
 acidic, estuaries will be subjected to these same acidic conditions. The
 effects of increased acidity on estuarine ecosystems are not yet
@@ -263,10 +263,10 @@ success.</p>
 <p><i>Changes in upwelling:</i> Timing of the seasonal upwelling in the
 Pacific off Oregon, which provides the nutritional foundation for the
 marine food web, is changing. A long-term shift in the timing of up-
-welling would have long-lasting effects on Oregon’s commercial and
+welling would have long-lasting effects on Oregon's commercial and
 recreational fisheries.</p>
 <p><i>Hypoxia: </i>While it is not clear that climate change is causing the
-hypoxic ‘dead zones’ in ocean waters off Oregon, the forces causing
+hypoxic 'dead zones' in ocean waters off Oregon, the forces causing
 the hypoxia are all linked to, and affected by, climate change.</p>
 <p><i>Ocean acidification: </i>Increasing ocean acidification due to its
 absorption of CO2 has the potential to reduce the ability of marine
@@ -301,7 +301,7 @@ conditions or that out-compete native species weakened by habitat
 change.</p>
 
 <p><b><br>Coastal Economic Sectors</b></p>
-<p>Most of the coast’s natural resource-based economic sectors are
+<p>Most of the coast's natural resource-based economic sectors are
 likely to be affected by changing conditions related to climate.</p>
 <p><b><i>Ocean Fisheries</b></i><br>
 <i>Salmonids:</i> Salmon, in particular, are highly vulnerable to
@@ -325,13 +325,13 @@ such as clams, oysters, and crabs will fare in an increasingly acid environment.
 harvest cranberry crops may be problematic. Overall, surface water
 supplies from rainfall are expected to increase due to winter rains.
 <p><i>Dikes, levees, and tidegates:</i> Dikes, levees, and other structures
-that create and protect agricultural lands around Coos Bay, Young’s
+that create and protect agricultural lands around Coos Bay, Young's
 River, Tillamook Bay, and other estuaries and tidally-influenced rivers
 will be subject to higher tidal elevations and riverine flooding as sea
 level rises. The condition of many of these structures is not known.</p>
 
 <p><b><i>Forestry</b></i><br>
-<i>Forest mix:</i> The mix of tree species in Oregon’s Coast Range
+<i>Forest mix:</i> The mix of tree species in Oregon's Coast Range
 Mountains and coastal lowlands is likely to change in response to
 changes in temperature and precipitation regimes. Broadleaf species
 are projected to increase in conifer forests. Forest managers may
@@ -354,7 +354,7 @@ The Oregon coast has long been an attractive destination for
 tourists and for those who enjoy its many outdoor recreational opportunities
 and resources. Businesses in these sectors may benefit
 from the effects of climate change on the Oregon coast.</p>
-<p><i>Recreation:</i> Longer, drier summers may benefit Oregon’s coastal
+<p><i>Recreation:</i> Longer, drier summers may benefit Oregon's coastal
 recreation industries by extending the recreation season and expanding
 options. However, parks and recreational facilities along the
 ocean shore and around estuaries are likely to be affected from increased

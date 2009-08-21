@@ -617,7 +617,7 @@
     #col-right{width:37%;height:418px;}
 
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 <pg:show condition="${(user.id==baseuser.id && !cst.closed) || modtool}">

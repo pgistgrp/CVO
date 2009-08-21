@@ -325,7 +325,7 @@ xml+='\
             });
             Event.observe(window,'resize',function(){colsTofullScreen();});
 		</script>
-	<event:pageunload />
+	<wf:pageunload />
 	</head>
 	<body>
 	    

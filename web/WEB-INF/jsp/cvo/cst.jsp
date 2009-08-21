@@ -685,7 +685,7 @@ button#ss{font-size:12pt;padding:5px;}
 
 
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 <body onkeydown="globalKeyHandler(event);">

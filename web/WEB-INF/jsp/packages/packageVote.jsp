@@ -132,7 +132,7 @@ background:#FFF1DC;
 	}
 
 </script>
-<event:pageunload />
+<wf:pageunload />
 </head>
 <body>
 <!-- Start Global Headers  -->

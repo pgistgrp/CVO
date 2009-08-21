@@ -330,7 +330,7 @@ TaggingAgent.searchTags({name:tag},{
 
 
 </script>
-<event:pageunload />
+<wf:pageunload />
 </Head>
 <body>
 

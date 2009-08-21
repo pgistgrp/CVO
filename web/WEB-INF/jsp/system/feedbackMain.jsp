@@ -55,7 +55,7 @@
 		}
 	}
 		
-</script><event:pageunload />
+</script><wf:pageunload />
 </head><body onLoad="getFeedbacks();">
 
   <!-- Start Global Headers  -->

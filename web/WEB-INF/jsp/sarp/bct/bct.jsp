@@ -579,7 +579,7 @@ function editTags(concernId){
 
 </script>
 
-  <event:pageunload />
+  <wf:pageunload />
 </head>
   
 <body>

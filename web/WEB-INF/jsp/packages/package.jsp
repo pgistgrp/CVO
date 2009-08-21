@@ -89,7 +89,7 @@
         }
     </script>
     
-<event:pageunload />
+<wf:pageunload />
 	</head>
 	<body onload="loadFootprints()" onunload="GUnload()">
 	<!-- #container is the container that wraps around all the main page content -->

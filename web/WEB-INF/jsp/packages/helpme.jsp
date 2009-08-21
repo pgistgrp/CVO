@@ -118,7 +118,7 @@
 			});
 		};
 	</script>
-<event:pageunload />
+<wf:pageunload />
 </head>
 <body>
 	<h1>Help Me!</h1>

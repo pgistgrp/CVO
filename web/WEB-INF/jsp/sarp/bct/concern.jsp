@@ -422,7 +422,7 @@ function onPageLoaded() {
 }
 
 </script>
-<event:pageunload />
+<wf:pageunload />
 </head>
 <body onload="onPageLoaded();">
     <!-- Start Global Headers  -->

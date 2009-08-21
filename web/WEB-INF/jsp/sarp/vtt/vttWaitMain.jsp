@@ -19,7 +19,7 @@
 }
 </style>
 
-<event:pageunload />
+<wf:pageunload />
 
 </head>
 

@@ -28,7 +28,7 @@
 	<script>
 	  var workflow = new Workflow('workflow-panel', 'newExpiriment');
 	</script>
-	<event:pageunload />
+	<wf:pageunload />
 	</head>
 	<body>
         <!-- Start Global Headers  -->

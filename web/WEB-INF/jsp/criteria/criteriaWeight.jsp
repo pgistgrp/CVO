@@ -39,7 +39,7 @@
 			@import "styles/weighCriteria.css";
 		</style>
 
-	<event:pageunload />
+	<wf:pageunload />
 	</head>
 	<body>
 		<!-- Begin conditional styles for the benefit of IE -->

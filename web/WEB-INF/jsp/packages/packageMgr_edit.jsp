@@ -44,7 +44,7 @@
 //ADD 3C JavaScript
 
 </script>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 

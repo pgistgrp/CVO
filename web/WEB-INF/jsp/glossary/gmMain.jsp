@@ -524,7 +524,7 @@ getTerms(this.value, 'name');
 <style type="text/css">
 
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 <style>

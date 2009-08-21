@@ -34,7 +34,7 @@
 <style type="text/css" />
 
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 <body>

@@ -418,7 +418,7 @@ function changeCurrentFilter(tagRefId){
 }
 
 </script>
-<event:pageunload />
+<wf:pageunload />
 </head><body>
     <!-- Start Global Headers  -->
     <wf:nav />

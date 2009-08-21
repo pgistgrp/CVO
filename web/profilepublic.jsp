@@ -63,7 +63,7 @@ function getDiscussion(start, end) {
 }
 </script>
 
-<event:pageunload />
+<wf:pageunload />
 </head>
 <body>
 	<!--[if IE]>

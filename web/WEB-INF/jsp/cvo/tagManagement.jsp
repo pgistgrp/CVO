@@ -28,7 +28,7 @@ $('overview').style.display = 'none'; $('slate').style.display = 'none'; $('bar'
 }
 </script>
 </Head>
-<event:pageunload />
+<wf:pageunload />
 <body>
 <div id="decorBar">
 </div>

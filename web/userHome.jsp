@@ -177,7 +177,7 @@
 	//tinyMCE.execCommand('mceFocus',false,'content');
 	
 	</script>
-	<event:pageunload />
+	<wf:pageunload />
 	</head>
 	<body onload="workflow.getWorkflow(${param.workflowId});">
         <!-- Start Global Headers  -->

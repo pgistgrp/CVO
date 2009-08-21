@@ -176,7 +176,7 @@ the column labels. */
 	}
 	
 	</script>
-	<event:pageunload />
+	<wf:pageunload />
 	</head>
 	<body onLoad="load()" onUnload="pgistmap=null;GUnload();">
 	<!-- #container is the container that wraps around all the main page content -->

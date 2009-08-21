@@ -43,7 +43,7 @@
 
 // END Global Variables
 </script>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 

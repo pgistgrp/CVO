@@ -312,7 +312,7 @@
      font-weight:normal;
    }
 </style>
-<event:pageunload />
+<wf:pageunload />
 </head>
 
 <body onLoad="doOnLoad();">
