@@ -209,6 +209,13 @@ function formOther(){
 		$('transOther').style.display = "";	
 	} else {$('transOther').style.display = "none";} 
 }
+
+function formAssoc(){
+    if ($F('assoc') == "Other"){
+        $('assoc').style.display = ""; 
+    } else {$('assoc').style.display = "none";} 
+}
+
 	</script>
 <wf:pageunload />
 	</head>
@@ -271,65 +278,24 @@ function formOther(){
 					<html:text property="city" styleId="hcity" value="${user.city}"/>
 				</div>
 				<div class="clearBoth"></div>
+         
+         
+         
+                <%---
+                List assocs = getAssocs();
+                --%>
+                <div class="settings-col1"><small>Affiliations</small></div>
+                <div class="settings-col2">
+                    <c:forEach var="assoc" items="${assocs}" varStatus="loop">
+                        <input type="checkbox" id="${assoc.id}" value="true" />
+                    </c:forEach>
+                </div>
                 
-                <!---
-				<div class="settings-col1">
-                    <small>First</small>
-                </div>
-				<div class="settings-col2">
-                    <html:checkbox property="association1"/>
-                </div>
-                <div class="settings-col1">
-                    <small>Second</small>
-                </div>
+                
+				
+                
+                <div class="settings-col1"><small>State</small></div>
                 <div class="settings-col2">
-                    <html:checkbox property="association2" />
-                </div>
-                <div class="settings-col1">
-                    <small>Third</small>
-                </div>
-                <div class="settings-col2">
-                    <html:checkbox property="association3" />
-                </div>
-                <div class="settings-col1">
-                    <small>Fourth</small>
-                </div>
-                <div class="settings-col2">
-                    <html:checkbox property="association4" />
-                </div>
-                <div class="settings-col1">
-                    <small>Fifth</small>
-                </div>
-                <div class="settings-col2">
-                    <html:checkbox property="association5" />
-                </div>
-                <div class="settings-col1">
-                    <small>Sixth</small>
-                </div>
-                <div class="settings-col2">
-                    <html:checkbox property="association6" />
-                </div>
-                <div class="settings-col1">
-                    <small>Seventh</small>
-                </div>
-                <div class="settings-col2">
-                    <html:checkbox property="association7" />
-                </div>
-                <div class="settings-col1">
-                    <small>Eighth</small>
-                </div>
-                <div class="settings-col2">
-                    <html:checkbox property="association8" />
-                </div>
-                <div class="settings-col1">
-                    <small>Other</small>
-                </div>
-                <div class="settings-col2">
-                    <html:checkbox property="associationO" />
-                    <html:text property="otherAssoc" value="${user.associations}"/>
-                </div>
-                -->
-                    
 					<html:select property="state">
 						<html:option value="WA">Washington</html:option>
 						<html:option value="AL">Alabama</html:option>
@@ -384,7 +350,7 @@ function formOther(){
 						<html:option value="WI">Wisconsin</html:option>
 						<html:option value="WY">Wyoming</html:option>
 					</html:select>
-                    -->
+                    
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP code</small></div>
 				<div class="settings-col2">
