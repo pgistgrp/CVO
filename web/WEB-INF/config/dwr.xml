@@ -55,6 +55,7 @@
         <include method="getEnabledUsers"/>
         <include method="getDisabledUsers"/>
         <include method="getUserById"/>
+        <include method="getAssocs"/>
         <include method="getEmailList"/>
         <include method="setUnloading"/>
         <include method="logMapEvent"/>   

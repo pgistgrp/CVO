@@ -24,9 +24,10 @@ public interface SystemService {
     
     User getUserByName(String loginname, boolean enabled, boolean deleted) throws Exception;
     
-    
+  
     Collection getUsersByRole(String role) throws Exception;
     
+    Collection getUsersByAssoc(String assoc) throws Exception;
     
     void createUser(User user) throws Exception;
     

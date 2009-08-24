@@ -6,6 +6,7 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.pgist.users.Role;
+import org.pgist.users.Assoc;
 import org.pgist.users.User;
 
 
@@ -74,6 +75,15 @@ public class UserHandler extends XMLHandler {
                 user.getRoles().add(role);
             }//for j
             
+            List assocs = element.element("assocs").elements("assoc");
+            for (int j=0,m=assocs.size(); j<m; j++) {
+                Element one = (Element) assocs.get(j);
+                String assocName = one.getTextTrim();
+                Assoc assoc = getAssocByName(assocName);
+                if (assoc==null) throw new Exception("can't find affiliation with name: "+assocName);
+                user.getAssocs().add(assoc);
+            }//for j
+            
             saveUser(user);
         }//for i
         
@@ -112,6 +122,14 @@ public class UserHandler extends XMLHandler {
                 Element two = roles.addElement("role");
                 two.setText(role.getName());
             }//for iter
+            
+            Element assocs = one.addElement("assocs");
+            for (Iterator iter=user.getAssocs().iterator(); iter.hasNext(); ) {
+                Assoc assoc = (Assoc) iter.next();
+                Element two = assocs.addElement("assoc");
+                two.setText(assoc.getName());
+            }//for iter
+            
         }//for user
     }//doExports()
     
