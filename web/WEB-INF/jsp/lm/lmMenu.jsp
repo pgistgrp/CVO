@@ -64,7 +64,7 @@
 	<p>Voicing Climate Concerns (VCC) is a web site (<a href="www.climateconcerns.org">www.climateconcerns.org</a>) 
 	that helps people develop, through a structured participation process, 
 	a shared understanding of their concerns about climate change and how to measure those concerns in terms of 
-	climate indicators and receptor indicators. 
+	climate indicators and receptor indicators. Indicators are commonly defined as measurements that many people can understand. 
 	Climate and receptor indicators provide the information, and basis for establishing priorities, 
 	about peoples' concerns about climate change as input community vulnerability assessments and 
 	subsequently climate change adaptation planning. In addition, the indicators developed through 
