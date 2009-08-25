@@ -44,6 +44,12 @@ public class UsercpAction extends Action {
 		request.setAttribute("user", userInfo);
     	request.setAttribute("transtypes", systemService.getTransTypes());
     	
+        Collection allAssocs = systemService.getAllAssocs();
+        Collection customAssocs = systemService.getUserAssocs();
+        
+        request.setAttribute("allAssocs", allAssocs);
+        request.setAttribute("customAssocs", customAssocs);
+        
 		if (!uform.isSave()) return mapping.findForward("usercp");
 	
 		String email = uform.getEmail();
@@ -52,12 +58,6 @@ public class UsercpAction extends Action {
         String password1 = uform.getPassword1();
         String password2 = uform.getPassword2();
         String cpassword = uform.getCurrentpassword();
-        
-        Collection allAssocs = systemService.getAllAssocs();
-        Collection customAssocs = systemService.getUserAssocs();
-        
-        request.setAttribute("allAssocs", allAssocs);
-        request.setAttribute("customAssocs", customAssocs);
         
         System.out.println("UsercpAction: " + emailNotify + emailNotifyDisc);
         

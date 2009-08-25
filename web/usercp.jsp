@@ -278,21 +278,6 @@ function formAssoc(){
 					<html:text property="city" styleId="hcity" value="${user.city}"/>
 				</div>
 				<div class="clearBoth"></div>
-         
-         
-         
-                
-                <div class="settings-col1"><small>Affiliations</small></div>
-                <div class="settings-col2">
-                    Why is i not printing? ${allAssocs}
-                    <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
-                        Inside the loop now
-                        <input type="checkbox" id="${assoc.id}" value="true" /> ${assoc.name}
-                    </c:forEach>
-                </div>
-                
-                
-				
                 
                 <div class="settings-col1"><small>State</small></div>
                 <div class="settings-col2">
@@ -372,6 +357,23 @@ function formAssoc(){
                 
 				<div class="clearBoth"></div>
 			
+
+                <div class="settings-col1"><small>Affiliations</small></div>
+                <div class="settings-col2">
+                    <c:set var="userAssocs" value="${user.assocs}" />
+                    
+                    <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
+                        <pg:show condition="${fn:contains(userAssocs, assoc)}">
+                            <input type="checkbox" id="${assoc.id}" name="${assoc.name}" checked="true" value="true" /> <small>${assoc.name}</small> <br />
+                        </pg:show>
+                        <pg:show condition="${!fn:contains(userAssocs, assoc)}">
+                            <input type="checkbox" id="${assoc.id}" name="${assoc.name}" value="true" /> <small>${assoc.name}</small> <br />
+                        </pg:show>
+                    </c:forEach>
+                </div>
+                                
+                <%-- <!-- ${fn:contains(list, object)} --!> --%>
+
 
 				</p>
 				<div class="clearBoth"></div>
