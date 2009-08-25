@@ -61,15 +61,17 @@
 	<p>Vulnerability assessments are a key component of adaptation planning for climate change.  
 	Community vulnerability assessments provide an inventory the most salient concerns communities consider when undertaking 
 	adaptation planning about climate change.</p>
+	
 	<p>Voicing Climate Concerns (VCC) is a web site (<a href="www.climateconcerns.org">www.climateconcerns.org</a>) 
 	that helps people develop, through a structured participation process, 
 	a shared understanding of their concerns about climate change and how to measure those concerns in terms of 
 	climate indicators and receptor indicators. Indicators are commonly defined as measurements that many people can understand. 
 	Climate and receptor indicators provide the information, and basis for establishing priorities, 
-	about peoples' concerns about climate change as input community vulnerability assessments and 
-	subsequently climate change adaptation planning. In addition, the indicators developed through 
-	the VCC process provide information to data analysts that direct the compilation of data for creating online map data layers 
-	that can be used by community participants for deliberating about priorities for vulnerability assessment and adaptation planning.</p>
+	about peoples' concerns about climate change.  Indicators provide the input for community vulnerability assessments and 
+	subsequently climate change adaptation planning. In addition, the indicators developed through the VCC process provide information 
+	to data analysts that direct the compilation of data layers.  The data layers will be used for creating online maps to be
+	used by project participants for deliberating about priorities for vulnerability assessment.</p>
+	
 	<p>A Deliberative Mapping of Vulnerability (DMV) web tool is under development to support discussions about place-based climate 
 	and receptor indicators. The DMV is meant to support participatory deliberation about priorities for vulnerability assessment 
 	and adaptation planning. Use of this web site will form a follow-on participatory activity to the VCC activity.</p>
@@ -100,13 +102,16 @@
 	Quantitative measurements of impacts are difficult to quantify without considering the functional relationship between each unit 
 	of climate change and a corresponding unit of receptor change. Nonetheless, the categorical relationship can be discussed, 
 	and that is the intention in the deliberative mapping tool used by participants.</p>
+	
 	<p>Furthermore, clearly, some receptors might be more "sensitive" to climate change than others.  
 	When we take into consideration sensitivity, then we speak of a level II vulnerability assessment.  
 	These can also be discussed in terms of categorical relationships rather than quantitative relationships. 
 	Discussing them categorically is the first step in a quantitative consideration.</p>
+	
 	<p>It is also possible that some receptors have a better adaptive capacity than others to climate change.  
 	When we take into consideration adaptive capacity then we are performing a level III vulnerability assessment.</p>
-	<p>This project is funded to establish level I vulnerability concerns. 
+	
+	<p>This project is funded to explore level I vulnerability concerns. 
 	However, a deliberative mapping web site will support discussions about sensitivity and adaptive capacity, 
 	thereby providing feedback about the development of community vulnerability indicators at levels I, II, III 
 	(and perhaps combinations of indicators that we call indexes).  
@@ -121,19 +126,19 @@
 	<p>
 	
     <p>
-    There are 4 steps to complete this experiment.  Following the execution of each step, participants
+    There are 5 steps to complete this experiment.  Following the execution of each step, participants
     have the opportunity to review and comment about the group process.  As part of the review and 
     comment process, participants vote on whether the group is ready to proceed to the next step
     </p>
     
     <p>
-    In Step 1, participants voice their concerns about climate change and attach key words or phrases
+    In Step 1, participants brainstorm their concerns about climate change and attach key words or phrases
     of their choosing to each of their concerns.
     </p>
     
     <p>
     In Step 2, participants create categories by clustering the keywords and phrases they and the other
-    participants articulated in Step 1.
+    participants created in Step 1.
     </p>
     
     <p>
@@ -147,7 +152,7 @@
     </p>
     
     <p>
-    In Step 5, a report on the outcome of the experiment will be generated, and participants will have 
+    In Step 5, a report on the outcome of the experiment is generated, and participants will have 
     the opportunity to review and comment on the report.
     </p>
 		
