@@ -281,13 +281,13 @@ function formAssoc(){
          
          
          
-                <%---
-                List assocs = getAssocs();
-                --%>
+                
                 <div class="settings-col1"><small>Affiliations</small></div>
                 <div class="settings-col2">
-                    <c:forEach var="assoc" items="${assocs}" varStatus="loop">
-                        <input type="checkbox" id="${assoc.id}" value="true" />
+                    Why is i not printing? ${allAssocs}
+                    <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
+                        Inside the loop now
+                        <input type="checkbox" id="${assoc.id}" value="true" /> ${assoc.name}
                     </c:forEach>
                 </div>
                 
@@ -350,6 +350,7 @@ function formAssoc(){
 						<html:option value="WI">Wisconsin</html:option>
 						<html:option value="WY">Wyoming</html:option>
 					</html:select>
+                </div>
                     
 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP code</small></div>
