@@ -704,7 +704,15 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <p>put overview here!!!
+                            <p>This step provides a summary of the activity in Steps 1-4 for discussion and agreement.</p>
+                            <p>When the group reaches agreement over the report, this phase of the research comes to an end  
+			    and the group's chosen indicators are suggested for a mapping and discussion activity in a subsequent workshop.</p>
+                            <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
+                            <ol id="hiddenRM" style="display:none">  
+				<li>Read the report.</li>
+			    	<li>Comment on the report using the form at the bottom of the web page. Comments can be of any nature.</li>
+				<li>Vote (at the top of the page) whether you agree or disagree to move forward to
+				end the experiment.</li>
                         ]]>
                     </property>
                 </props>
