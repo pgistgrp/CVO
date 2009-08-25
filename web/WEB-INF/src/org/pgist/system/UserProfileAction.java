@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.text.DateFormat;
 import java.util.Collection;
+import java.util.List;
 import java.util.Date;
 
 import org.apache.struts.action.Action;
@@ -10,7 +11,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
-
 
 /**
  * Public profile
@@ -61,6 +61,10 @@ public class UserProfileAction extends Action {
     	        request.setAttribute("baseuser", userInfo);
         		
     			User u = profileService.getUserInfo(userId);
+                
+                Collection allAssocs = systemService.getAllAssocs();
+                Collection customAssocs = systemService.getUserAssocs();
+                
     			Date date = profileService.getLastLogin(u.getId());
     			Collection concerns = profileService.getUserConcerns(userId);
     			String strDate = "";
@@ -79,6 +83,8 @@ public class UserProfileAction extends Action {
     			request.setAttribute("lastlogin", strDate);
     			request.setAttribute("post", post);
         		request.setAttribute("visits", visits);
+                request.setAttribute("allAssocs", allAssocs);
+                request.setAttribute("customAssocs", customAssocs);
         		return mapping.findForward("publicprofile");
         		
             } catch (Exception e) {

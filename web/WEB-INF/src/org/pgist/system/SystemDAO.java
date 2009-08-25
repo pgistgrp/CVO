@@ -1,6 +1,7 @@
 package org.pgist.system;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
@@ -34,7 +35,10 @@ public interface SystemDAO extends BaseDAO {
     
     
     Collection getAllUsers() throws Exception;
+    
+    Collection getAllAssocs() throws Exception;
 
+    Collection getUserAssocs() throws Exception;
 
     User getUserById(Long id) throws Exception;
     

@@ -185,6 +185,40 @@ public class SystemAgent {
         return map;
 	} //getAllUsers()
 	
+    
+    
+    /**
+     * Get a list of all affiliations
+     * 
+     * @return a Map contains:
+     *   <ul>
+     *     <li>successful - a boolean value denoting if the operation succeeds</li>
+     *     <li>reason - reason why operation failed (valid when successful==false)</li>
+     *     <li>assocs - array, a list of assoc objects</li>
+     *     <li>html - system_users.jsp</li>
+     *   </ul>
+     */
+    public Map getAllAssocs(HttpServletRequest request, Map params) {        
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            Collection users = systemService.getAllUsers();
+            /*sort */
+ 
+            request.setAttribute("users", users);
+            map.put("html", WebContextFactory.get().forwardToString("/WEB-INF/jsp/system/system_allusers.jsp"));
+            map.put("users", users);
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    } //getAllUsers()
+    
+    
 	
 	 /**
      * Get a user object by giving user Id

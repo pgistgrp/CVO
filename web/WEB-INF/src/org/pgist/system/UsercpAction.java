@@ -1,5 +1,7 @@
 package org.pgist.system;
 
+import java.util.Collection;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -50,6 +52,12 @@ public class UsercpAction extends Action {
         String password1 = uform.getPassword1();
         String password2 = uform.getPassword2();
         String cpassword = uform.getCurrentpassword();
+        
+        Collection allAssocs = systemService.getAllAssocs();
+        Collection customAssocs = systemService.getUserAssocs();
+        
+        request.setAttribute("allAssocs", allAssocs);
+        request.setAttribute("customAssocs", customAssocs);
         
         System.out.println("UsercpAction: " + emailNotify + emailNotifyDisc);
         

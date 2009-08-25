@@ -317,7 +317,7 @@ public abstract class XMLHandler implements Handler {
     
     
     
-    private static final String hql_getAssocs = "from Assoc order by id";
+    private static final String hql_getAssocs = "from Assoc order by name";
     
     
     @SuppressWarnings("unchecked")

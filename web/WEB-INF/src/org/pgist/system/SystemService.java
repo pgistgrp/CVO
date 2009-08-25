@@ -1,6 +1,7 @@
 package org.pgist.system;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.pgist.sarp.vtt.VTT;
 import org.pgist.users.User;
@@ -54,6 +55,10 @@ public interface SystemService {
     
     
     Collection getAllUsers() throws Exception;
+    
+    Collection getAllAssocs() throws Exception;
+    
+    Collection getUserAssocs() throws Exception;
     
     
     User getUserById(Long id) throws Exception;

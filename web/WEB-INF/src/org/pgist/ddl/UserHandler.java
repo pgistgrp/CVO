@@ -35,6 +35,7 @@ public class UserHandler extends XMLHandler {
                 user.setEnabled(true);
             } else {
                 user.getRoles().clear();
+                user.getAssocs().clear();
             }
             
             String lastname = element.elementTextTrim("lastname");
@@ -76,13 +77,13 @@ public class UserHandler extends XMLHandler {
             }//for j
             
             List assocs = element.element("assocs").elements("assoc");
-            for (int j=0,m=assocs.size(); j<m; j++) {
-                Element one = (Element) assocs.get(j);
+            for (int k=0,l=assocs.size(); k<l; k++) {
+                Element one = (Element) assocs.get(k);
                 String assocName = one.getTextTrim();
                 Assoc assoc = getAssocByName(assocName);
                 if (assoc==null) throw new Exception("can't find affiliation with name: "+assocName);
                 user.getAssocs().add(assoc);
-            }//for j
+            }//for k
             
             saveUser(user);
         }//for i

@@ -1,6 +1,7 @@
 package org.pgist.system;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -254,6 +255,19 @@ public class SystemServiceImpl implements SystemService {
     	
     	return systemDAO.getAllUsers();
     } //getAllUsers();
+    
+    
+    public Collection getAllAssocs() throws Exception {      
+        
+        return systemDAO.getAllAssocs();
+    } //getAllAssocs();
+    
+    
+    public Collection getUserAssocs() throws Exception {      
+        
+        return systemDAO.getUserAssocs();
+    } //getUserAssocs();
+
 
     
     public User getUserById(Long id) throws Exception { 
