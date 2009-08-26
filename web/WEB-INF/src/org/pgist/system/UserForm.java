@@ -1,12 +1,16 @@
 package org.pgist.system;
 
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Arrays;
+
 import org.apache.struts.action.ActionForm;
 import org.pgist.users.User;
-
+import org.pgist.users.Assoc;
 
 public class UserForm extends ActionForm {
-
-    
+ 
     private static final long serialVersionUID = 5443268954560626922L;
     
     private User user = new User();
@@ -53,6 +57,8 @@ public class UserForm extends ActionForm {
     
     private boolean editPassword;
     
+    private Set<Long> assocs;
+     
     private String test;
     
     public User getUser() {
@@ -282,6 +288,15 @@ public class UserForm extends ActionForm {
 
     public void setEditPassword(boolean editPassword) {
         this.editPassword = editPassword;
+    }
+    
+    public Set<Long> getAssocs() {
+        return assocs;
+    }
+
+
+    public void setAssocs(Set<Long> assocs) {
+        this.assocs = assocs;
     }
 
 

@@ -1,13 +1,16 @@
 package org.pgist.system;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
-
+import org.pgist.users.Assoc;
 
 /**
  * 
@@ -58,6 +61,12 @@ public class UsercpAction extends Action {
         String password1 = uform.getPassword1();
         String password2 = uform.getPassword2();
         String cpassword = uform.getCurrentpassword();
+        Set<Long> assocIDs = uform.getAssocs();
+        Set<Assoc> assocs = new HashSet<Assoc> ();
+        for (Long assocId : assocIDs) {
+            Assoc assoc = systemService.getAssocById(assocId);
+            assocs.add(assoc);
+        }
         
         System.out.println("UsercpAction: " + emailNotify + emailNotifyDisc);
         

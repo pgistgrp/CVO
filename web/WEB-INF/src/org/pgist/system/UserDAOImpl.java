@@ -55,7 +55,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         
         Session session = getSession();
         
-        Query query = session.createQuery(hql_getRoleByName);
+        Query query = session.createQuery(hql_getAssocByName);
         query.setString("name", assocName);
         query.setBoolean("deleted", false);
         List list = query.list();
@@ -66,6 +66,26 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         return assoc;
     }//getAssocByName()
     
+    /**
+    private final static String hql_getAssocById = "from Assoc where id=:id and deleted=:deleted";
+    
+    
+    public Assoc getAssocById(Integer assocId) throws Exception {
+        Assoc assoc = null;
+        
+        Session session = getSession();
+        
+        Query query = session.createQuery(hql_getAssocById);
+        query.setInteger("id", assocId);
+        query.setBoolean("deleted", false);
+        List list = query.list();
+        if (list.size()>0) {
+            assoc = (Assoc) list.get(0);
+        }
+        
+        return assoc;
+    }//getAssocByName()
+    */
     
     
     private final static String hql_getUserById = "from User where id=:id and enabled=:enabled and deleted=:deleted";

@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -144,13 +145,14 @@ public class SystemServiceImpl implements SystemService {
     }//logRequest()
 
 
-    public void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc) throws Exception {
+    public void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc, Set<Assoc> assocs) throws Exception {
         User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
         user.setHomeAddr(address1);
         user.setState(state);
         user.setCity(homeCity);
         user.setZipcode(homeZipcode);
+        user.setAssocs(assocs);
 
         if(!("".equals(address2.trim()))) {
         	user.setHomeAddr(address2);
@@ -267,7 +269,10 @@ public class SystemServiceImpl implements SystemService {
         
         return systemDAO.getUserAssocs();
     } //getUserAssocs();
-
+    
+    public Assoc getAssocById(Long assocId) throws Exception {
+        return systemDAO.getAssocById(assocId);
+    } //getAssocById
 
     
     public User getUserById(Long id) throws Exception { 

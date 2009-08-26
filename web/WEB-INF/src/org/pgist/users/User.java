@@ -3,6 +3,8 @@ package org.pgist.users;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.List;
+import java.util.Arrays;
 
 import org.pgist.funding.UserCommute;
 import org.pgist.system.RegisterObject;

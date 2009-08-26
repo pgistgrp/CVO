@@ -1,10 +1,16 @@
 package org.pgist.system;
 
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
+import org.pgist.users.Assoc;
 
 
 /**
@@ -52,6 +58,14 @@ public class ProfileAction extends Action {
 		String vocation = uform.getVocation();
 		String primaryTransport = uform.getPrimaryTransport();
 		String profileDesc = uform.getProfileDesc();
+        Set<Long> assocIDs = uform.getAssocs();
+        Set<Assoc> assocs = new HashSet<Assoc> ();
+        for (Long assocId : assocIDs) {
+            Assoc assoc = systemService.getAssocById(assocId);
+            assocs.add(assoc);
+        }
+        
+       
 
         if (address1==null || "".equals(address1)) {
             uform.setReason("Address is Required");
@@ -104,7 +118,7 @@ public class ProfileAction extends Action {
         
         
         try {
-            systemService.editCurrentUser(address1, address2, state, homeCity, homeZipcode, workCity, workZipcode, vocation, primaryTransport, profileDesc);	            
+            systemService.editCurrentUser(address1, address2, state, homeCity, homeZipcode, workCity, workZipcode, vocation, primaryTransport, profileDesc, assocs);	            
             uform.setReason("Your Profile Information has been updated.");
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("usercp"); //Maybe redirect to different page  

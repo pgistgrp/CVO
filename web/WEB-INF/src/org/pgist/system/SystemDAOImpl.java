@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.users.User;
+import org.pgist.users.Assoc;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
@@ -151,10 +152,15 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     }//getAllAssocs()
     
     
-    private static final String hql_getUserAssocs = "from Assoc a where a.deleted=? and a.internal=false order by a.name";
+    private static final String hql_getUserAssocs = "from Assoc a where a.deleted=? and a.internal=? order by a.name";
     
     public Collection getUserAssocs() throws Exception {
-        return getHibernateTemplate().find(hql_getUserAssocs, false);
+        Query query = getSession().createQuery(hql_getUserAssocs);
+        
+        query.setBoolean(0, false);
+        query.setBoolean(1, false);
+        
+        return query.list();
     }//getAllAssocs()
     
     
@@ -162,6 +168,30 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     public User getUserById(Long id) throws Exception {
     	return (User) getHibernateTemplate().load(User.class, id);
     }//getUserById();
+    
+    
+    private static final String hql_getAssocById = "from Assoc a where a.id=? and a.deleted=?";
+    
+    public Assoc getAssocById(Long assocId) throws Exception {
+        
+        Query query = getSession().createQuery(hql_getAssocById);
+        
+        query.setLong(0, assocId);
+        query.setBoolean(1, false);
+        query.setMaxResults(1);
+        
+        return (Assoc) query.uniqueResult();
+        
+        
+        /**
+        List result = getHibernateTemplate().find(hql_getAssocById, assocId);
+        if (result.size() > 0) {
+            return (Assoc) result.get(0);
+        }
+        return (Assoc) result;
+        */
+    }
+
     
     
     public void disableUsers(String[] ids, boolean enable) throws Exception {

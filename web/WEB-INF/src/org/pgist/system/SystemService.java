@@ -2,9 +2,11 @@ package org.pgist.system;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.pgist.sarp.vtt.VTT;
 import org.pgist.users.User;
+import org.pgist.users.Assoc;
 import org.pgist.util.PageSetting;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
@@ -48,7 +50,7 @@ public interface SystemService {
     void logRequest(DelegatingHttpServletRequestWrapper request) throws Exception;
 
 
-    void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc) throws Exception;
+    void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc, Set<Assoc> assocs) throws Exception;
 
     
     boolean editUserSettings(String cpassword, String password1, String email, boolean emailNotify, boolean emailNotifyDisc) throws Exception;
@@ -59,6 +61,8 @@ public interface SystemService {
     Collection getAllAssocs() throws Exception;
     
     Collection getUserAssocs() throws Exception;
+    
+    Assoc getAssocById(Long assocId) throws Exception;
     
     
     User getUserById(Long id) throws Exception;

@@ -25,6 +25,9 @@ public interface UserDAO extends BaseDAO {
 
     Assoc getAssocByName(String assocName) throws Exception;
 
+    /**
+    Assoc getAssocById(Integer assocId) throws Exception;
+    */
     
     User getUserById(Long id, boolean enabled, boolean deleted) throws Exception;
     

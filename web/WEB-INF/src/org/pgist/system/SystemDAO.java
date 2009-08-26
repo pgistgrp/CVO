@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.pgist.users.User;
+import org.pgist.users.Assoc;
 import org.pgist.util.PageSetting;
 import org.pgist.web.DelegatingHttpServletRequestWrapper;
 
@@ -41,6 +42,8 @@ public interface SystemDAO extends BaseDAO {
     Collection getUserAssocs() throws Exception;
 
     User getUserById(Long id) throws Exception;
+    
+    Assoc getAssocById(Long assocId) throws Exception;
     
     
     void disableUsers(String[] ids, boolean enable) throws Exception;

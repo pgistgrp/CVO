@@ -356,21 +356,21 @@ function formAssoc(){
 				</div>
                 
 				<div class="clearBoth"></div>
-			
-
-                <div class="settings-col1"><small>Affiliations</small></div>
+                
+                <div class="settings-col1"><small>Affiliations HTML</small></div>
                 <div class="settings-col2">
                     <c:set var="userAssocs" value="${user.assocs}" />
                     
                     <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
                         <pg:show condition="${fn:contains(userAssocs, assoc)}">
-                            <input type="checkbox" id="${assoc.id}" name="${assoc.name}" checked="true" value="true" /> <small>${assoc.name}</small> <br />
+                            <input type="checkbox" name="assocs" checked="true" value="${assoc.id}" /> <small>${assoc.name}</small> <br />
                         </pg:show>
                         <pg:show condition="${!fn:contains(userAssocs, assoc)}">
-                            <input type="checkbox" id="${assoc.id}" name="${assoc.name}" value="true" /> <small>${assoc.name}</small> <br />
+                            <input type="checkbox" name="assocs" value="${assoc.id}" /> <small>${assoc.name}</small> <br />
                         </pg:show>
                     </c:forEach>
                 </div>
+                
                                 
                 <%-- <!-- ${fn:contains(list, object)} --!> --%>
 
