@@ -166,7 +166,7 @@
         <property name="target">
             <bean class="org.pgist.system.RegisterServiceImpl">
                 <property name="registerDAO" ref="registerDAO"/>
-                <property name="systemService" ref="systemService"/>
+                <property name="systemDAO" ref="systemDAO"/>
             </bean>
         </property>
     </bean>

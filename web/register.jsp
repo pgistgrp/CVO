@@ -3,6 +3,8 @@
 <%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib prefix="wf" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html>
@@ -54,6 +56,18 @@
 		var erroremaildiv = document.getElementById("erroremail");
 		var errormsg = "";
  
+    var assocs = [];
+    var newAssocs = {};
+    var elements = form.elements;
+    for (var i=0; i<elements.length; i++) {
+      ele = elements.item(i);
+      if (ele.name=="assocs" && ele.checked) {
+        assocs.push(ele.value);
+      } else if (ele.name=="newAssocs" && ele.checked) {
+        newAssocs[ele.value] = 'true';
+      }
+    }
+    
 		var firstname = form.fname.value;	
 		var lastname = form.lname.value;
 		var age = $('age').value;
@@ -125,6 +139,7 @@
 			errormsg = errormsg + "Invalid email address!<br />" + email1;
 		}
 		*/
+    
 		if(errormsg.length == 0) {
 			RegisterAgent.checkUsername({username:username}, {
 				callback:function(data){
@@ -135,10 +150,10 @@
 						callback:function(data){
 							if (data.available){
 						//if email is not used already
-							RegisterAgent.addSarpUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, age:age, income:income, gender:gender, education:education, zipcode:zip, username:username, password1:password1, password2:password2}, {
+							RegisterAgent.addSarpUser({firstname:firstname, lastname:lastname, email1:email1, email2:email2, age:age, income:income, gender:gender, education:education, zipcode:zip, username:username, password1:password1, password2:password2}, assocs.join(), newAssocs, {
 								callback:function(data){
 									if (data.successful){
-											window.location = "/";		
+											window.location = "/";
 									} else {
                       alert(data.reason);
                   }
@@ -175,6 +190,22 @@
 		}
 	}
 	
+  var count = 5;
+  function addNewAffiliation() {
+    var affiliation = $('newAffiliation').value.trim();
+    $('newAffiliation').value = affiliation;
+    if (affiliation.length==0) {
+      alert("affiliation can't be empty!");
+      return;
+    }
+    $('affiliationContainer').innerHTML += '<input type="checkbox" name="newAssocs" checked="true" value="'+affiliation+'" /> <small>'+affiliation.escapeHTML()+'</small> <br />';
+    $('newAffiliation').value = '';
+    count = count -1;
+    if (count<=0) {
+      $('aff_left').hide();
+      $('aff_right').hide();
+    }
+  }
 	
 	</script>
 	</head>
@@ -292,7 +323,20 @@
 				<span class="label">Re-type email address:</span>
 				<span class="value"><input id="email2" type="text" /></span>
 			</p><br />
-		</div>
+      <p>
+        <div class="label">Affiliations:</div>
+        <div class="value">
+          <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
+            <input type="checkbox" name="assocs" value="${assoc.id}" /> <small>${assoc.name}</small> <br />
+          </c:forEach>
+          <div id="affiliationContainer"></div>
+        </div>
+      </p><br />
+      <p id="newAffBox">
+        <div id="aff_left" class="label">Add an affiliation:</div>
+        <div id="aff_right" class="settings-col2"><input type="text" id="newAffiliation" value=""><input type="button" value="Add" maxLength="64" onclick="addNewAffiliation();"></div>
+      </p><br />
+    </div>
 		<div class="form-right">
 			<div id="errors" style="color:#D85703;font-weight:bold;"></div>
 			<p><strong>Privacy of your information:</strong>Your personal information is confidential. It will not be shared with anyone. Your email will be used to send you updates of the study progress. </p>
@@ -309,11 +353,7 @@
 			<p>
 				<span class="label">Password:</span>
 				<span class="value">
-					<input id="password1" type="password" />
-					<br />
-					<small style="display:block;margin:.5em 0em;color:#777;">
-						Six characters or more. Capitalization matters!
-					</small>
+					<input id="password1" type="password" /><br><small style="display:block;margin:.5em 0em;color:#777;">Six characters or more.<br> Capitalization matters!</small>
 				</span>
 			</p><br />
 			<p>

@@ -1119,6 +1119,10 @@ public class SystemAgent {
         result.put("successful", false);
 	    
         try {
+            if (affiliation==null) {
+                throw new Exception("Affiliation can't be empty.");
+            }
+            
             affiliation = affiliation.trim();
             if (affiliation.length()==0) {
                 result.put("reason", "Affiliation can't be empty.");

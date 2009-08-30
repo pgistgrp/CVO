@@ -2,10 +2,12 @@ package org.pgist.system;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.pgist.users.Assoc;
 import org.pgist.users.TravelTrip;
 import org.pgist.users.User;
 import org.pgist.users.UserInfo;
@@ -21,7 +23,7 @@ public class RegisterServiceImpl implements RegisterService {
 
 	private RegisterDAO registerDAO;
     
-    private SystemService systemService;
+    private SystemDAO systemDAO;
 
 
     public void setRegisterDAO(RegisterDAO registerDAO) {
@@ -29,8 +31,8 @@ public class RegisterServiceImpl implements RegisterService {
     }
     
     
-	public void setSystemService(SystemService systemService) {
-		this.systemService = systemService;
+	public void setSystemDAO(SystemDAO systemDAO) {
+		this.systemDAO = systemDAO;
 	}
     
     
@@ -40,14 +42,14 @@ public class RegisterServiceImpl implements RegisterService {
     
     
     public boolean createQuotaQualify(Long id) throws Exception {
-    	systemService.createQuotaStats();
+    	systemDAO.createQuotaStats();
     	return registerDAO.createQuotaQualify(id);
     }
     
     
     public void login(HttpServletRequest request, Long id) throws Exception {
     	HttpSession session = request.getSession(true);
-    	User user = systemService.getUserById(id);
+    	User user = systemDAO.getUserById(id);
     	UserInfo userInfo = new UserInfo(user);
     	session.setAttribute("user", userInfo);
         WebUtils.setCurrentUser(userInfo);
@@ -182,8 +184,40 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public Long addSarpUser(String firstname, String lastname, String email1,
             String age, String gender, String income, String education,
-            String zipcode, String username, String password1) throws Exception {
-        return registerDAO.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1); 
+            String zipcode, String username, String password1,
+            String idList, Set<String> newAssocs) throws Exception {
+        Long userId = registerDAO.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1);
+        
+        User user = systemDAO.getUserById(userId);
+        for (String id : idList.split(",")) {
+            if (id==null || id.trim().length()==0) continue;
+            
+            try {
+                Assoc assoc = systemDAO.getAssocById(new Long(id));
+                user.getAssocs().add(assoc);
+            } catch (Exception e) {
+                System.out.println("Ignored Error: ");
+                e.printStackTrace();
+            }
+        }
+        
+        for (String name : newAssocs) {
+            if (name==null || name.trim().length()==0) continue;
+            
+            Assoc assoc = new Assoc();
+            assoc.setDeleted(false);
+            assoc.setDescription(name);
+            assoc.setInternal(false);
+            assoc.setName(name);
+            assoc.setOwner(user);
+            systemDAO.save(assoc);
+            
+            user.getAssocs().add(assoc);
+        }
+        
+        systemDAO.save(user);
+        
+        return userId;
     } //addSarpUser()
     
 }

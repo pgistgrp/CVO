@@ -376,7 +376,7 @@ function addNewAffiliation() {
         
 				<div class="clearBoth"></div>
         
-        <div class="settings-col1"><small>Affiliations HTML</small></div>
+        <div class="settings-col1"><small>Affiliations:</small></div>
         <div class="settings-col2">
             <c:set var="userAssocs" value="${user.assocs}" />
             <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">

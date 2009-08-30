@@ -2,6 +2,7 @@ package org.pgist.system;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -69,6 +70,7 @@ public interface RegisterService {
 
     Long addSarpUser(String firstname, String lastname, String email1,
             String age, String gender, String income, String education,
-            String zipcode, String username, String password1) throws Exception;
+            String zipcode, String username, String password1,
+            String idList, Set<String> newAssocs) throws Exception;
 
 }

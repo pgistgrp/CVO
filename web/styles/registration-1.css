@@ -3,7 +3,7 @@ body{font-size:12pt;}
 fieldset
 {
 border:2px solid #ADCFDE;
-padding:5px 10px;
+padding:3px 3px;
 margin:1em auto;
 }
 
@@ -23,15 +23,14 @@ color:#31496B;
 .form-left
 {
 float:left;
-width:60%;
+width:70%;
 }
 
 
 .form-right
 {
 float:right;
-width:35%;
-margin:auto 1em;
+width:28%;
 }
 
 

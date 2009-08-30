@@ -1,5 +1,7 @@
 package org.pgist.system;
 
+import java.util.Collection;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -45,6 +47,9 @@ public class RegisterAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
+        Collection allAssocs = systemService.getAllAssocs();
+        request.setAttribute("allAssocs", allAssocs);
+        
         return mapping.findForward("register");
     }//execute()
     

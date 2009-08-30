@@ -890,7 +890,7 @@ public class RegisterAgent {
      *     <li>id - int, the id for the new user object</li>
      *   </ul>
      */
-    public Map addSarpUser(HttpServletRequest request, Map params) {
+    public Map addSarpUser(HttpServletRequest request, Map params, String idList, Map newAssocs) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -959,7 +959,7 @@ public class RegisterAgent {
         try {
             
             if(registerService.checkEmail(email1) && registerService.checkUsername(username)) {
-                Long id = registerService.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1);
+                Long id = registerService.addSarpUser(firstname, lastname, email1, age, gender, income, education, zipcode, username, password1, idList, newAssocs.keySet());
                 registerService.login(request, id);
                 map.put("id", id);
                 boolean qualify = registerService.createQuotaQualify(id);

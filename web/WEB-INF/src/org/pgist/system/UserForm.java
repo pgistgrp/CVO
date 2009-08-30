@@ -1,13 +1,8 @@
 package org.pgist.system;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Arrays;
-
 import org.apache.struts.action.ActionForm;
 import org.pgist.users.User;
-import org.pgist.users.Assoc;
+
 
 public class UserForm extends ActionForm {
  
@@ -58,7 +53,7 @@ public class UserForm extends ActionForm {
     private boolean editPassword;
     
     private long[] assocs;
-     
+    
     private String test;
     
     public User getUser() {
@@ -298,6 +293,6 @@ public class UserForm extends ActionForm {
     public void setAssocs(long[] assocs) {
         this.assocs = assocs;
     }
-
-
+    
+    
 }//class UserForm
