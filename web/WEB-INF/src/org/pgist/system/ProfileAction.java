@@ -1,5 +1,6 @@
 package org.pgist.system;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.pgist.users.User;
 import org.pgist.users.Assoc;
+import org.pgist.util.WebUtils;
 
 
 /**
@@ -38,14 +40,18 @@ public class ProfileAction extends Action {
             javax.servlet.http.HttpServletRequest request,
             javax.servlet.http.HttpServletResponse response
     ) throws java.lang.Exception {
-		
-		
 		UserForm uform = (UserForm) form;
 		User userInfo = systemService.getCurrentUser();
 		
     	request.setAttribute("user", userInfo);
     	request.setAttribute("transtypes", systemService.getTransTypes());
     	
+        Collection allAssocs = systemService.getAllAssocs();
+        Collection customAssocs = systemService.getUserAssocs(WebUtils.currentUserId());
+        
+        request.setAttribute("allAssocs", allAssocs);
+        request.setAttribute("customAssocs", customAssocs);
+        
 		if (!uform.isSave()) return mapping.findForward("usercp");
 		
 		String address1 = uform.getAddress1();
@@ -58,14 +64,7 @@ public class ProfileAction extends Action {
 		String vocation = uform.getVocation();
 		String primaryTransport = uform.getPrimaryTransport();
 		String profileDesc = uform.getProfileDesc();
-        Set<Long> assocIDs = uform.getAssocs();
-        Set<Assoc> assocs = new HashSet<Assoc> ();
-        for (Long assocId : assocIDs) {
-            Assoc assoc = systemService.getAssocById(assocId);
-            assocs.add(assoc);
-        }
-        
-       
+        long[] assocIDs = uform.getAssocs();
 
         if (address1==null || "".equals(address1)) {
             uform.setReason("Address is Required");
@@ -116,16 +115,17 @@ public class ProfileAction extends Action {
 			profileDesc = "";
         }
         
-        
         try {
-            systemService.editCurrentUser(address1, address2, state, homeCity, homeZipcode, workCity, workZipcode, vocation, primaryTransport, profileDesc, assocs);	            
+            System.out.println("===============> "+address2);
+            System.out.println("====================> "+assocIDs);
+            systemService.editCurrentUser(address1, address2, state, homeCity, homeZipcode, workCity, workZipcode, vocation, primaryTransport, profileDesc, assocIDs);	            
             uform.setReason("Your Profile Information has been updated.");
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("usercp"); //Maybe redirect to different page  
         } catch (Exception e) {
+            e.printStackTrace();
             uform.setReason("A system error occurred while editing the current user");
         }
-		
 		
         request.setAttribute("PGIST_SERVICE_SUCCESSFUL", false);
         

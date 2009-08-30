@@ -145,17 +145,24 @@ public class SystemServiceImpl implements SystemService {
     }//logRequest()
 
 
-    public void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc, Set<Assoc> assocs) throws Exception {
+    public void editCurrentUser(String address1, String address2, String state, String homeCity, String homeZipcode, String workCity, String workZipcode, String vocation, String primaryTransport, String profileDesc, long[] assocIDs) throws Exception {
         User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
         user.setHomeAddr(address1);
         user.setState(state);
         user.setCity(homeCity);
         user.setZipcode(homeZipcode);
-        user.setAssocs(assocs);
+        
+        user.getAssocs().clear();
+        if (assocIDs!=null) {
+            for (long id : assocIDs) {
+                Assoc assoc = systemDAO.getAssocById(id);
+                user.getAssocs().add(assoc);
+            }
+        }
 
         if(!("".equals(address2.trim()))) {
-        	user.setHomeAddr(address2);
+        	user.setHomeAddr2(address2);
         }
         if(!("".equals(workCity.trim()))) {
         	user.setWorkCity(workCity);
@@ -260,14 +267,12 @@ public class SystemServiceImpl implements SystemService {
     
     
     public Collection getAllAssocs() throws Exception {      
-        
         return systemDAO.getAllAssocs();
     } //getAllAssocs();
     
     
-    public Collection getUserAssocs() throws Exception {      
-        
-        return systemDAO.getUserAssocs();
+    public Collection getUserAssocs(Long ownerId) throws Exception {      
+        return systemDAO.getUserAssocs(ownerId);
     } //getUserAssocs();
     
     public Assoc getAssocById(Long assocId) throws Exception {
@@ -407,5 +412,39 @@ public class SystemServiceImpl implements SystemService {
     		systemDAO.deleteUser(id);
     	}
     }
+
+
+    @Override
+    public Long addNewAffiliation(String affiliation) throws Exception {
+        User user = userDAO.getUserById(WebUtils.currentUserId(), true, false);
+        
+        Collection<Assoc> allAssocs = systemDAO.getAllAssocs();
+        Collection<Assoc> userAssocs = systemDAO.getUserAssocs(WebUtils.currentUserId());
+        allAssocs.addAll(userAssocs);
+        
+        if (userAssocs.size()>=5) {
+            throw new Exception("You can add at most 5 affiliations.");
+        }
+        
+        String lower = affiliation.toLowerCase();
+        for (Assoc assoc : allAssocs) {
+            if (lower.equals(assoc.getName().trim().toLowerCase())) {
+                throw new Exception("Affiliation exists.");
+            }
+        }
+        
+        Assoc assoc = new Assoc();
+        assoc.setName(affiliation);
+        assoc.setDescription(affiliation);
+        assoc.setInternal(false);
+        assoc.setOwner(user);
+        user.getAssocs().add(assoc);
+        
+        systemDAO.save(assoc);
+        systemDAO.save(user);
+        
+        return assoc.getId();
+    }
+    
     
 }//class SystemServiceImpl

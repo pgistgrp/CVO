@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.directwebremoting.WebContextFactory;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
+import org.pgist.util.WebUtils;
 
 /**
  * DWR AJAX Agent class.<br>
@@ -1112,4 +1113,33 @@ public class SystemAgent {
 		return result;
 	} //logMapEvent();
 
+	
+	public Map addNewAffiliation(String affiliation) {
+        Map result = new HashMap();
+        result.put("successful", false);
+	    
+        try {
+            affiliation = affiliation.trim();
+            if (affiliation.length()==0) {
+                result.put("reason", "Affiliation can't be empty.");
+                return result;
+            } else if (affiliation.length()>64) {
+                affiliation = affiliation.substring(0, 65);
+            }
+            
+            Long id = systemService.addNewAffiliation(affiliation);
+            Collection userAssocs = systemService.getUserAssocs(WebUtils.currentUserId());
+            result.put("enough", userAssocs.size()>=5);
+            result.put("id", id);
+            result.put("successful", true);
+        } catch (Exception e) {
+            result.put("successful", false);
+            result.put("reason", e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return result;
+	}//addNewAffiliation()
+	
+	
 }//class SystemAgent

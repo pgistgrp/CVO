@@ -17,6 +17,8 @@ public class Assoc implements Serializable {
     
     private String description;
     
+    private User owner;
+    
     private boolean internal = false;
     
     private boolean deleted = false;
@@ -89,6 +91,22 @@ public class Assoc implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+    
+    
+
+
+    /**
+     * @return
+     * @hibernate.many-to-one column="user_id" lazy="true"
+     */
+    public User getOwner() {
+        return owner;
+    }
+
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
     
     

@@ -57,7 +57,7 @@ public class UserForm extends ActionForm {
     
     private boolean editPassword;
     
-    private Set<Long> assocs;
+    private long[] assocs;
      
     private String test;
     
@@ -290,12 +290,12 @@ public class UserForm extends ActionForm {
         this.editPassword = editPassword;
     }
     
-    public Set<Long> getAssocs() {
+    public long[] getAssocs() {
         return assocs;
     }
 
 
-    public void setAssocs(Set<Long> assocs) {
+    public void setAssocs(long[] assocs) {
         this.assocs = assocs;
     }
 

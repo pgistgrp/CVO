@@ -157,8 +157,7 @@ function validateForm(form,formId){
 			errordiv1.style.display = "";
 			errordiv1.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg1 + '</ul>';
 		}	else {
-		$('profileForm').submit();
-		$('settingsForm').submit();
+      $('profileForm').submit();
 		}
 
 		
@@ -200,7 +199,7 @@ function validateForm(form,formId){
 			errordiv2.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg2 + '</ul>';
 		}	else {$('settingsForm').submit();}
 	
-	} else {}
+	}
 	
 } 
 
@@ -214,6 +213,27 @@ function formAssoc(){
     if ($F('assoc') == "Other"){
         $('assoc').style.display = ""; 
     } else {$('assoc').style.display = "none";} 
+}
+
+function addNewAffiliation() {
+  var affiliation = $('newAffiliation').value;
+	SystemAgent.addNewAffiliation(affiliation, {
+		callback:function(data){
+			if (data.successful){
+				$('affiliationContainer').innerHTML += '<input type="checkbox" name="assocs" checked="true" value="'+data.id+'" /> <small>'+affiliation.escapeHTML()+'</small> <br />';
+        $('newAffiliation').value = '';
+        if (data.enough) {
+          $('aff_left').hide();
+          $('aff_right').hide();
+        }
+			}else{
+				alert(data.reason);
+			}
+		},
+		errorHandler:function(errorString, exception){ 
+		alert("SystemAgent.getAllUsers() error:" + errorString + exception);
+		}
+	});
 }
 
 	</script>
@@ -278,7 +298,6 @@ function formAssoc(){
 					<html:text property="city" styleId="hcity" value="${user.city}"/>
 				</div>
 				<div class="clearBoth"></div>
-                
                 <div class="settings-col1"><small>State</small></div>
                 <div class="settings-col2">
 					<html:select property="state">
@@ -327,7 +346,7 @@ function formAssoc(){
 						<html:option value="SD">South Dakota</html:option>
 						<html:option value="TN">Tennessee</html:option>
 						<html:option value="TX">Texas</html:option>
-                        <html:option value="UT">Utah</html:option>
+            <html:option value="UT">Utah</html:option>
 						<html:option value="VT">Vermont</html:option>
 						<html:option value="VA">Virginia</html:option>
 						<html:option value="WA">Washington</html:option>
@@ -354,33 +373,42 @@ function formAssoc(){
 				<div class="settings-col2">
 					<html:text property="workZipcode" styleId="wzip" value="${user.workZipcode}"/>
 				</div>
-                
+        
 				<div class="clearBoth"></div>
-                
-                <div class="settings-col1"><small>Affiliations HTML</small></div>
-                <div class="settings-col2">
-                    <c:set var="userAssocs" value="${user.assocs}" />
-                    
-                    <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
-                        <pg:show condition="${fn:contains(userAssocs, assoc)}">
-                            <input type="checkbox" name="assocs" checked="true" value="${assoc.id}" /> <small>${assoc.name}</small> <br />
-                        </pg:show>
-                        <pg:show condition="${!fn:contains(userAssocs, assoc)}">
-                            <input type="checkbox" name="assocs" value="${assoc.id}" /> <small>${assoc.name}</small> <br />
-                        </pg:show>
-                    </c:forEach>
-                </div>
-                
-                                
-                <%-- <!-- ${fn:contains(list, object)} --!> --%>
-
-
+        
+        <div class="settings-col1"><small>Affiliations HTML</small></div>
+        <div class="settings-col2">
+            <c:set var="userAssocs" value="${user.assocs}" />
+            <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
+                <pg:show condition="${fn:contains(userAssocs, assoc)}">
+                    <input type="checkbox" name="assocs" checked="true" value="${assoc.id}" /> <small>${assoc.name}</small> <br />
+                </pg:show>
+                <pg:show condition="${!fn:contains(userAssocs, assoc)}">
+                    <input type="checkbox" name="assocs" value="${assoc.id}" /> <small>${assoc.name}</small> <br />
+                </pg:show>
+            </c:forEach>
+            <c:forEach var="assoc" items="${customAssocs}" varStatus="loop">
+                <pg:show condition="${fn:contains(userAssocs, assoc)}">
+                    <input type="checkbox" name="assocs" checked="true" value="${assoc.id}" /> <small>${fn:escapeXml(assoc.name)}</small> <br />
+                </pg:show>
+                <pg:show condition="${!fn:contains(userAssocs, assoc)}">
+                    <input type="checkbox" name="assocs" value="${assoc.id}" /> <small>${fn:escapeXml(assoc.name)}</small> <br />
+                </pg:show>
+            </c:forEach>
+            <div id="affiliationContainer"></div>
+        </div>
+        
+        <c:if test="${fn:length(customAssocs)<5}">
+        <div id="aff_left" class="settings-col1"><small>Add an affiliation:</small></div>
+        <div id="aff_right" class="settings-col2"><input type="text" id="newAffiliation" value=""><input type="button" value="Add" maxLength="64" onclick="addNewAffiliation();"></div>
+        </c:if>
+        
 				</p>
 				<div class="clearBoth"></div>
 			</div>
 			</fieldset>
 			<div id="errors1" class="floatLeft" style="display:none"> Errors will go here. </div>
-			
+			<input type="button" class="floatRight padding5 submit" onclick="validateForm(this.form,1)" value="Update My Profile"/>			
 			<br class="clearBoth" />
 		</div>
 

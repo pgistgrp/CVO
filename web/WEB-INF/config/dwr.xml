@@ -74,6 +74,7 @@
         <include method="getAnnouncements"/>
         <include method="editAnnouncement"/>
         <include method="deleteAnnouncement"/>
+        <include method="addNewAffiliation"/>
 	<include method="deleteUser"/>
     </create>
 

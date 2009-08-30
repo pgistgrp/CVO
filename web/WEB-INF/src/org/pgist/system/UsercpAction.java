@@ -1,16 +1,16 @@
 package org.pgist.system;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.pgist.users.User;
 import org.pgist.users.Assoc;
+import org.pgist.users.User;
+import org.pgist.util.WebUtils;
 
 /**
  * 
@@ -48,25 +48,19 @@ public class UsercpAction extends Action {
     	request.setAttribute("transtypes", systemService.getTransTypes());
     	
         Collection allAssocs = systemService.getAllAssocs();
-        Collection customAssocs = systemService.getUserAssocs();
+        Collection customAssocs = systemService.getUserAssocs(WebUtils.currentUserId());
         
         request.setAttribute("allAssocs", allAssocs);
         request.setAttribute("customAssocs", customAssocs);
         
 		if (!uform.isSave()) return mapping.findForward("usercp");
-	
+		
 		String email = uform.getEmail();
 		boolean emailNotify = uform.isEmailNotify();
 		boolean emailNotifyDisc = uform.isEmailNotifyDisc();
         String password1 = uform.getPassword1();
         String password2 = uform.getPassword2();
         String cpassword = uform.getCurrentpassword();
-        Set<Long> assocIDs = uform.getAssocs();
-        Set<Assoc> assocs = new HashSet<Assoc> ();
-        for (Long assocId : assocIDs) {
-            Assoc assoc = systemService.getAssocById(assocId);
-            assocs.add(assoc);
-        }
         
         System.out.println("UsercpAction: " + emailNotify + emailNotifyDisc);
         

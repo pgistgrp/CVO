@@ -39,7 +39,7 @@ public interface SystemDAO extends BaseDAO {
     
     Collection getAllAssocs() throws Exception;
 
-    Collection getUserAssocs() throws Exception;
+    Collection getUserAssocs(Long ownerId) throws Exception;
 
     User getUserById(Long id) throws Exception;
     

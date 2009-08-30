@@ -145,24 +145,25 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
     
     
     
-    private static final String hql_getAllAssocs = "from Assoc a where a.deleted=? order by a.name";
+    private static final String hql_getAllAssocs = "from Assoc a where a.deleted=? and a.internal=true order by a.name";
     
     public Collection getAllAssocs() throws Exception {
         return getHibernateTemplate().find(hql_getAllAssocs, false);
     }//getAllAssocs()
     
     
-    private static final String hql_getUserAssocs = "from Assoc a where a.deleted=? and a.internal=? order by a.name";
+    private static final String hql_getUserAssocs = "from Assoc a where a.deleted=? and a.internal=? and a.owner.id=? order by a.id";
     
-    public Collection getUserAssocs() throws Exception {
+    public Collection getUserAssocs(Long ownerId) throws Exception {
         Query query = getSession().createQuery(hql_getUserAssocs);
         
         query.setBoolean(0, false);
         query.setBoolean(1, false);
+        query.setLong(2, ownerId);
+        query.setMaxResults(5);
         
         return query.list();
     }//getAllAssocs()
-    
     
     
     public User getUserById(Long id) throws Exception {

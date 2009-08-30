@@ -462,7 +462,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
         }
 
         return list;
-    }//getRoleList()
+    }//getAssocList()
     
     
     

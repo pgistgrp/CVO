@@ -63,7 +63,7 @@ public class UserProfileAction extends Action {
     			User u = profileService.getUserInfo(userId);
                 
                 Collection allAssocs = systemService.getAllAssocs();
-                Collection customAssocs = systemService.getUserAssocs();
+                Collection customAssocs = systemService.getUserAssocs(userId);
                 
     			Date date = profileService.getLastLogin(u.getId());
     			Collection concerns = profileService.getUserConcerns(userId);
