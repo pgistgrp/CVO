@@ -94,13 +94,23 @@ class Translator:
     def __init__(self, frm='', to='', delete='', keep=None):
         if len(to) == 1:
             to = to * len(frm)
-        self.trans = string.maketrans(frm, to)
-        if keep is None:
-            self.delete = delete
-        else:
-            self.delete = self.allchars.translate(self.allchars, keep.translate(self.allchars, delete))
+        
+        self.trans = {}
+        
+        for ch1, ch2 in zip(frm, to):
+            self.trans[ch1] = ch2
+        
+        for ch in delete:
+            self.trans[ch] = ''
+        
+        if keep:
+            for ch in keep:
+                self.trans[ch] = ch
     def __call__(self, s):
-        return s.translate(self.trans, self.delete)
+        for frm, to in self.trans.items():
+            s = s.replace(frm, to)
+        
+        return s
         
 """
 
