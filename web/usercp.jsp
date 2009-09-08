@@ -75,6 +75,7 @@ color:#31496B;
 #errors1, #errors2 {
 border:1px solid #F2AF27;
 background:#FFF1DC;
+
 padding:10px;
 color:#D85703;
 font-weight:bold;
@@ -113,7 +114,7 @@ function validateForm(form,formId){
 	var wcity = $F('wcity');
 	var state = "WA";//$F('state'); --%>
 	var hzip = $F('hzip');	
-	var fname = $F('fname');
+<%-- 	var fname = $F('fname'); --%>
 <%-- 	var wzip = $F('wzip');	 --%>
 	var mail = $F('mail');
 	var password1 = $F('password1');
@@ -155,7 +156,9 @@ function validateForm(form,formId){
 		if(errormsg1.length != 0){
 			errordiv1.style.display = "";
 			errordiv1.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg1 + '</ul>';
-		}	else {
+		}	
+	    else {
+
       $('profileForm').submit();
       		}
 
