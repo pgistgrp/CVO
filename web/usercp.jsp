@@ -102,29 +102,28 @@ function highlightErrors(inputDiv) {
 }
 
 function validateForm(form,formId){
-	
+
+
 	var errordiv1 = document.getElementById("errors1");
 	var errormsg1 = "";
 	var errordiv2 = document.getElementById("errors2");
 	var errormsg2 = "";
-
-	var address1 = $F('address1');
+	<%-- var address1 = $F('address1');
 	var hcity = $F('hcity');	
 	var wcity = $F('wcity');
-	var state = "WA";//$F('state');
+	var state = "WA";//$F('state'); --%>
 	var hzip = $F('hzip');	
-	var wzip = $F('wzip');	
-	
+	var fname = $F('fname');
+<%-- 	var wzip = $F('wzip');	 --%>
 	var mail = $F('mail');
 	var password1 = $F('password1');
-	var password2 = $F('password2');
-	
-	//var oldpw = "${user.password}"; // This gets the encrypted password, so it doesn't work.
+	var password2 = $F('password2');	
+<%-- 	//var oldpw = "${user.password}"; // This gets the encrypted password, so it doesn't work. --%>
 	var currentpw = $F('currentpw');
 	
 	if (formId == 1){
-		
-		if(address1.length==0) {
+			
+<%-- 		if(address1.length==0) {
 			errormsg1 = errormsg1 + "<li>Address line 1 cannot be blank</li>";
 			highlightErrors('address1');
 		}
@@ -142,23 +141,23 @@ function validateForm(form,formId){
 		if(state.length==0) {
 			errormsg1 = errormsg1 + "<li>State cannot be blank</li>";
 			highlightErrors('state');
-		}
+		} --%>
 		if(hzip.length < 5) {
-			errormsg1 = errormsg1 + "<li>Home ZIP code must be 5 digits long. <br/><span>We use this information to calculate the length of your commute.</span></li>";
+			errormsg1 = errormsg1 + "<li>Home ZIP code must be 5 digits long.</li>";
 			highlightErrors('hzip');
 		}
 	
-		if(wzip.length < 5) {
+<%-- 		if(wzip.length < 5) {
 			errormsg1 = errormsg1 + "<li>Work ZIP code must be 5 digits long. <br /><span>We use this information to calculate the length of your commute.</span></li>";
 			highlightErrors('wzip');
 		}
-		
+		 --%>
 		if(errormsg1.length != 0){
 			errordiv1.style.display = "";
 			errordiv1.innerHTML = '<h3>Please change the following:</h3><ul>' + errormsg1 + '</ul>';
 		}	else {
       $('profileForm').submit();
-		}
+      		}
 
 		
 	} else if (formId == 2) {
@@ -167,7 +166,7 @@ function validateForm(form,formId){
 			highlightErrors('mail');
 		}
 
-		/*if(currentpw.length != 0 && currentpw != oldpw) {
+<%-- 		/*if(currentpw.length != 0 && currentpw != oldpw) {
 		alert(oldpw);
 			errormsg2 = errormsg2 + "<li>Check that your Current Password is correct.</li>";
 			highlightErrors('currentpw');
@@ -176,7 +175,7 @@ function validateForm(form,formId){
 		/*if(password1.length > 0 && currentpw.length == 0) {
 			errormsg2 = errormsg2 + "<li>You must enter your Current Password before creating a New Password</li>";
 			highlightErrors('password1');
- 		}*/
+ 		}*/ --%>
 
 		if(password1.length > 0 && password1.length < 6) {
 			errormsg2 = errormsg2 + "<li>Your new password must be at least six characters.</li>";
@@ -262,11 +261,9 @@ function addNewAffiliation() {
 		 <html:hidden property="save" value="true"/>
 		<h3 class="headerColor" style="display:inline">Edit your participant profile information&nbsp;&nbsp;&nbsp;</h3>
 		<pg:url page="publicprofile.do" params="userId=${baseuser.id}">View your profile</pg:url>
-		<p>Here you can edit your Voicing Climate Concerns user profile. Some information
-			in your user profile will appear to all other participants,
-			but if a field is marked by this icon ( <img src="images/icon_private.png" /> )
-			it will be kept private. You can return to this page to edit your profile at any
-			time. Simply click "user settings" at the top of any page.</p>
+		<p>Here you can edit your Voicing Climate Concerns user profile. All information on this page is private except your affiliations, 
+		which will appear on your profile page for other users to see. You can return to this page to edit your profile at any
+			time. Simply click "Profile" at the top of any page.</p>
 		<!-- begin EDIT-PROFILE -->
 		
 		<div id="edit-profile" >
@@ -278,12 +275,85 @@ function addNewAffiliation() {
 			<div class="clearBoth"></div>
 			</p>
 			<fieldset id="commute">
-			<legend>My Associations</legend>
-			<div id="left" class="floatLeft">
-				<h3>Choose what best describes you, as a person:</h3>
-				<br />
+			<legend>Profile</legend>
+
+<%-- this is where the registration fields will be added --%>
+
+<div class="form-left">
+<%-- 		this section currently commented out because it does not actually edit db fields
+			<p>
+				<span class="label">First Name:</span>
+				<span class="value"><html:text property="firstname" styleId="fname" value="${user.firstname}"/></span>
+			</p>
+			<p>
+				<span class="label">Last Name:</span>
+				<span class="value"><html:text property="lastname" styleId="lname" value="${user.lastname}"/></span>
+			</p>
+			<p>
+				<span class="label">Age:</span>
+				<span class="value">
+          <select id="age">
+            <option value="0">Please select</option>
+            <option value="1">18 - 24</option>
+            <option value="2">25 - 34</option>
+            <option value="3">35 - 44</option>
+            <option value="4">45 - 54</option>
+            <option value="5">55 - 64</option>
+            <option value="6">65 and over</option>
+          </select>
+        </span>
+			</p>
+			<p>
+				<span class="label">Gender:</span>
+				<span class="value">
+          <select id="gender">
+            <option value="">Please select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </span>
+			</p>
+			<p>
+				<span class="label">Income Level:</span>
+				<span class="value">
+          <select id="income">
+            <option value="0">Please select</option>
+            <option value="1">Less than $25,000</option>
+            <option value="2">$25,000 to $49,999</option>
+            <option value="3">$50,000 to $74,999</option>
+            <option value="4">$75,000 to $99,999</option>
+            <option value="5">$100,000 to $149,999</option>
+            <option value="6">$150,000 or more</option>
+          </select>
+        </span>
+			</p>
+			<p>
+				<span class="label">Education Level:</span>
+				<span class="value">
+          <select id="education">
+            <option value="0">Please select</option>
+            <option value="1">Some Highschool</option>
+            <option value="2">Highschool Graduate</option>
+            <option value="3">Some College</option>
+            <option value="4">College Graduate</option>
+            <option value="5">Some Graduate School</option>
+            <option value="6">Graduate School Graduate</option>
+          </select>
+        </span>
+			</p> --%>
+
+			<p>
+				<span class="label">Home zip code:</span>
+				<span class="value"><html:text property="zipcode" styleId="hzip" value="${user.zipcode}"/></span>
+			</p>
+
+<%-- this is where the registration fields end --%>
+
+<%-- 			<div id="left" class="floatLeft">
+				<h3>Home location</h3>
+				<br /> --%>
                 
-				<div class="settings-col1"><small>Address line 1</small></div>
+				<%-- <div class="settings-col1"><small>Address line 1</small></div>
 				<div class="settings-col2">
 					<html:text property="address1" styleId="address1" value="${user.homeAddr}"/>
 					<img title="This will not be shown to other participants" src="images/icon_private.png" /> </div>
@@ -354,28 +424,43 @@ function addNewAffiliation() {
 						<html:option value="WI">Wisconsin</html:option>
 						<html:option value="WY">Wyoming</html:option>
 					</html:select>
-                </div>
-                    
-				<div class="clearBoth"></div>
+                </div> --%>
+
+
+
+<%--old formatting 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP code</small></div>
 				<div class="settings-col2">
 					<html:text property="zipcode" styleId="hzip" value="${user.zipcode}"/>
 				</div>
-                
-				<div class="clearBoth"></div>
+				<br /> --%>        
+
+<%-- workzipcode doesn't exist in registeragent.addsarpuser (this is why dawn got the error she got in usability
+test three.)  --%>
+
+<%-- 			<p>
+				<span class="label">Work zip code:</span>
+				<span class="value"><html:text property="workZipcode" styleId="wzip" value="${user.workZipcode}"/></span>
+			</p> --%>
+
+<%-- 				<div class="clearBoth"></div>
 				<h3>Work location</h3>
-				<div class="settings-col1"><small>City</small></div>
+				<br /> --%>
+<%-- 				<div class="settings-col1"><small>City</small></div>
 				<div class="settings-col2">
 					<html:text property="workCity" styleId="wcity" value="${user.workCity}"/>
-				</div>
-				<div class="clearBoth"></div>
+				</div> --%>
+<%-- 				<div class="clearBoth"></div>
 				<div class="settings-col1"><small>ZIP code</small></div>
 				<div class="settings-col2">
 					<html:text property="workZipcode" styleId="wzip" value="${user.workZipcode}"/>
 				</div>
         
 				<div class="clearBoth"></div>
-        
+				<br /> --%>
+	<h3>Please check all affiliations that apply:</h3>
+	<br />
+	<div class="clearBoth"></div>
         <div class="settings-col1"><small>Affiliations:</small></div>
         <div class="settings-col2">
             <c:set var="userAssocs" value="${user.assocs}" />
@@ -416,8 +501,8 @@ function addNewAffiliation() {
 		<html:form action="/usercp.do" styleId="settingsForm" method="POST">
 		<html:hidden property="save" value="true"/>
 		<!-- end EDIT-PROFILE -->
-		<h3 class="headerColor">View and edit your private user settings</h3>
-		<p>This information is private, and not shared with other participants. You can always return to this page to edit it in the future. </p>
+		<h3 class="headerColor">Edit your email and security settings</h3>
+		
 		<!-- begin EDIT-SETTINGS -->
 		<div id="edit-settings">
 		 

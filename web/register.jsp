@@ -312,7 +312,7 @@
         </span>
 			</p><br />
 			<p>
-        <span class="label">ZIP Code:</span>
+        <span class="label">Home zip code:</span>
         <span class="value"><input id="zip" type="text" size="5" maxlength="5"/></span>
 			</p><br />
 			<p>
@@ -339,7 +339,7 @@
     </div>
 		<div class="form-right">
 			<div id="errors" style="color:#D85703;font-weight:bold;"></div>
-			<p><strong>Privacy of your information:</strong>Your personal information is confidential. It will not be shared with anyone. Your email will be used to send you updates of the study progress. </p>
+			<p><strong>Privacy of your information:</strong>  Of the information gathered in this form, only your affiliations will be shared with other Voicing Climate Concerns users. All other information is confidential. It will not be shared with anyone. Your email will be used to send you updates of the study progress. </p>
 		</div>
 	</fieldset>
 	<fieldset>
@@ -364,7 +364,7 @@
 
 		</div>
 		<div class="form-right">
-			<p>You user name is how you will be identified by other participants on the Voicing Climate Concerns website. It may consist of a-z, 0-9, and underscores.</p>
+			<p>You login name is how you will be identified by other participants on the Voicing Climate Concerns website. It may consist of a-z, 0-9, and underscores.</p>
 		</div>
 	</fieldset>
 	<div id="step-bar" class="box5 padding5 clearfix" style="text-align:center;">

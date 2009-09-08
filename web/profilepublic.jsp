@@ -77,7 +77,7 @@ function getDiscussion(start, end) {
   <!-- End Global Headers -->
 <!-- Begin container - Main page content begins here -->
 <div id="container" class="clearfix">
-	<p><h3 class="headerColor" style="display:inline">VCC Participant Profile</h3>
+	<p><h3 class="headerColor" style="display:inline">VCC Participant Profile and Activity</h3>
 	<!-- start PROFILE-FIELDS section -->
 	<div id="profile-fields">
 		<div id="statistics" class="box9">
@@ -101,12 +101,47 @@ function getDiscussion(start, end) {
 		</p><br />
 		<div class="clearBoth"></div>
 
+<%-- brandon's code for printing assocs... --%>
+
+<p>
+			<span class="label">My Affiliations</span>
+	  <span class="value" id="affiliations" style="width:600px;">
+
+
+            <c:set var="userAssocs" value="${user.assocs}" />
+
+	    <c:choose>	
+		<c:when test="${fn:length(user.assocs) == 0}">
+			<p>This user has no associations at this time.</p>
+		</c:when>
+	    <c:otherwise>
+
+	      <c:forEach var="assoc" items="${allAssocs}" varStatus="loop">
+		  <pg:show condition="${fn:contains(userAssocs, assoc)}">
+			<li>${assoc.name}</li>
+		  </pg:show>
+	      </c:forEach>
+	      <c:forEach var="assoc" items="${customAssocs}" varStatus="loop">
+		  <pg:show condition="${fn:contains(userAssocs, assoc)}">
+			<li>${fn:escapeXml(assoc.name)}</li>
+		  </pg:show>
+	      </c:forEach>
+
+	    </c:otherwise>
+	    </c:choose>
+	  </span>
+		</p><br />
+        </div>
+<div class="clearBoth"></div>
+
+<%-- end of brandon's code for printing assocs... --%>
+
 		<p>
 			<span class="label">My Keywords</span>
 	  <span class="value" id="keywords" style="width:600px;">
 	  			<c:choose>	
 					<c:when test="${fn:length(tags) == 0}">
-						<p>This user has no concerns at this time.</p>
+						<p>This user has no keywords at this time.</p>
 					</c:when>
 					<c:otherwise>
 					<ul>

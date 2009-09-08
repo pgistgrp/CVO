@@ -66,28 +66,42 @@ public class ProfileAction extends Action {
 		String profileDesc = uform.getProfileDesc();
         long[] assocIDs = uform.getAssocs();
 
-        if (address1==null || "".equals(address1)) {
-            uform.setReason("Address is Required");
-            return mapping.findForward("usercp");
+//         if (address1==null || "".equals(address1)) {
+//             uform.setReason("Address is Required");
+//             return mapping.findForward("usercp");
+//         }
+
+	if (address1==null || "".equals(address1)) {
+        	address1 = "";
         }
 
         if (address2==null || "".equals(address2)) {
         	address2 = "";
         }
         
-        if (state==null || "".equals(state)) {
-            uform.setReason("state is Required");
-            return mapping.findForward("usercp");
-        }
+//         if (state==null || "".equals(state)) {
+//             uform.setReason("state is Required");
+//             return mapping.findForward("usercp");
+//         }
         
-        if (state.length()>2) {
-            uform.setReason("Please use a two digit state code.");
-            return mapping.findForward("usercp");
+	if (state==null || "".equals(state)) {
+        	state = "";
         }
+
+//         if (state.length()>2) {
+//             uform.setReason("Please use a two digit state code.");
+//             return mapping.findForward("usercp");
+//         }
         
-        if (homeCity==null || "".equals(homeCity)) {
-            uform.setReason("Home Location City is Required");
-            return mapping.findForward("usercp");
+
+
+//         if (homeCity==null || "".equals(homeCity)) {
+//             uform.setReason("Home Location City is Required");
+//             return mapping.findForward("usercp");
+//         }
+
+	if (homeCity==null || "".equals(homeCity)) {
+        	homeCity = "";
         }
         
         if (homeZipcode==null || "".equals(homeZipcode)) {
@@ -118,8 +132,9 @@ public class ProfileAction extends Action {
         try {
             System.out.println("===============> "+address2);
             System.out.println("====================> "+assocIDs);
-            systemService.editCurrentUser(address1, address2, state, homeCity, homeZipcode, workCity, workZipcode, vocation, primaryTransport, profileDesc, assocIDs);	            
-            uform.setReason("Your Profile Information has been updated.");
+            systemService.editCurrentUser(address1, address2, state, homeCity, homeZipcode, workCity, workZipcode, vocation, primaryTransport, profileDesc, assocIDs)	;            
+	    
+	    uform.setReason("Your Profile Information has been updated.");
             request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
             return mapping.findForward("usercp"); //Maybe redirect to different page  
         } catch (Exception e) {

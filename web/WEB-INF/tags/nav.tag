@@ -13,7 +13,7 @@
             <c:choose>
             <c:when test="${baseuser != null}">
                 <pg:hide roles="guest">
-                  <span><pg:url page="/usercp.do">User Settings</pg:url></span>
+                  <span><pg:url page="/usercp.do">Profile</pg:url></span>
                 </pg:hide>
                 <span><pg:url page="/logout.do">Log Out</pg:url></span>
             </c:when>
