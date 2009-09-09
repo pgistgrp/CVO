@@ -6,7 +6,7 @@
         <loginname>admin</loginname>
         <lastname>Internal User</lastname>
         <firstname>Internal User</firstname>
-        <password encrypted="false">admin</password>
+        <password encrypted="false">sarp2009</password>
         <email>moderator@climateconcerns.org</email>
         <gender>Male</gender>
         <roles>
@@ -25,7 +25,7 @@
         <loginname>moderator</loginname>
         <lastname>Internal User</lastname>
         <firstname>Internal User</firstname>
-        <password encrypted="false">moderator</password>
+        <password encrypted="false">sarp2009</password>
         <email>moderator@climateconcerns.org</email>
         <gender>Male</gender>
         <roles>

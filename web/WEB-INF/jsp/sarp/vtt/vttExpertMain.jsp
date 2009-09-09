@@ -337,7 +337,7 @@
     
     <br>
     
-    <p><b>Discussion about the categories:</b>
+    <p><b>Discussion about the categories (visible to data analysts only):</b>
     <div id="discussionBox" class="discussionBox"></div>
     
       <a id="newCommentAnchor" name="newCommentAnchor"></a>

@@ -117,7 +117,7 @@ def getBCTInfo():
     if bctInfo['numVotesAgree'] == 0:
         bctInfo['pctVotesAgree'] = 0.0
     else:
-        bctInfo['pctVotesAgree'] = float(bctInfo['numVotes']) / bctInfo['numVotesAgree'] * 100
+        bctInfo['pctVotesAgree'] = float(bctInfo['numVotesAgree']) / bctInfo['numVotes'] * 100
     bctInfo['numModChg'] = drtBctInfo.get('numModChg')
     
     # Return the bct information dictionary
@@ -182,7 +182,7 @@ def getCSTInfo():
     if cstInfo['numVotesAgree'] == 0:
         cstInfo['pctVotesAgree'] = 0.0
     else:
-        cstInfo['pctVotesAgree'] = float(cstInfo['numVotes']) / cstInfo['numVotesAgree'] * 100
+        cstInfo['pctVotesAgree'] = float(cstInfo['numVotesAgree']) / cstInfo['numVotes'] * 100
     cstInfo['numModChg'] = drtInfo['numModChg']
     
     # Return the CST Information dictionary
@@ -251,7 +251,7 @@ def getCHTInfo():
     if chtInfo['numVotesAgree'] == 0:
         chtInfo['pctVotesAgree'] = 0.0
     else:
-        chtInfo['pctVotesAgree'] = float(chtInfo['numVotes']) / chtInfo['numVotesAgree'] * 100
+        chtInfo['pctVotesAgree'] = float(chtInfo['numVotesAgree']) / chtInfo['numVotes'] * 100
     
     chtInfo['numModChg'] = drtInfo['numModChg']
     
@@ -328,7 +328,7 @@ def getVTTInfo():
     if vttInfo['numVotesAgree'] == 0:
         vttInfo['pctVotesAgree'] = 0.0
     else:
-        vttInfo['pctVotesAgree'] = float(vttInfo['numVotes']) / vttInfo['numVotesAgree'] * 100
+        vttInfo['pctVotesAgree'] = float(vttInfo['numVotesAgree']) / vttInfo['numVotes'] * 100
     
     vttInfo['numModChg'] = drtInfo['numModChg']
     
@@ -432,7 +432,7 @@ def getRankedIndicators():
         for ind in mUnSet:
             indName = ind.getName()
             if len(indName) == 0:
-                indName = "No Indicator provided"
+                indName = "Recommend none of the following"
             pathValues["indics"][indName] = dict()
             pathValues["indics"][indName]["unit"] = ""
             for unit in ind.getRecoFreqs().entrySet():
@@ -513,8 +513,11 @@ myfile.write('<p> This step allows users to develop indicators and units of meas
 myfile.write(createHTMLTable(vttInfo))
 
 myfile.write('<h4> Final Product: Ranked Indicators by theme</h4>\n')
-myfile.write('<p> This text needs to be generated.</p>\n')
+myfile.write('<p> This list presents all paths and indicators ranked by votes.  Paths are sorted by total number of votes.  Indicators are grouped by path, and sorted by number of votes.</p>\n')
 myfile.write('<table align="center" border="0" cellspacing="1" cellpadding="3" width="100%">\n')
+
+#the sorting of paths needs to change, see brandon's notes
+
 def compare_by (fieldname):
     def compare_two_dicts (a, b):
         return cmp(a[fieldname], b[fieldname])
@@ -528,7 +531,7 @@ for path, pathIndics in pathIndicUnits.iteritems():
         print "\t", indName
         indicVote = pathIndics["indics"][indName]["freq"]
         unit = pathIndics["indics"][indName]["unit"]
-        myfile.write('<tr><td>Indicator: ' + str(indName) + '</td><td>Unit: ' + str(unit) + '</td><td>Voted:' + str(indicVote) + '</td></tr>')
+        myfile.write('<tr><td>Indicator: ' + str(indName) + '</td><td>Unit: ' + str(unit) + '</td><td>Votes:' + str(indicVote) + '</td></tr>')
         
         
         

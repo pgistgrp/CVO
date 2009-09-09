@@ -91,7 +91,7 @@ Indicator: <span style="font-weight:bold; color:red;">${block.key.name}</span>
 </form>
 </div>
 <div style="clear:both;height:120px;overflow:none;">
-<b>Comment:</b><br>
+<b>Comment on this set of indicators (visible to data analysts only):</b><br>
 <c:if test="${isOwner==true}">
 <center>
   <textarea id="unitComment" style="width:95%;height:100px;">${comment.content}</textarea>

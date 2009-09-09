@@ -92,7 +92,7 @@ public class MUnitSet implements Comparable<MUnitSet> {
      * 
      * @hibernate.map table="sarp_munitset_unit_freq_map"
      * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="int" column="freq"
      */
     public Map<String, Integer> getFreqs() {
@@ -108,7 +108,7 @@ public class MUnitSet implements Comparable<MUnitSet> {
      * 
      * @hibernate.map table="sarp_munitset_unit_apprfreq_map"
      * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="int" column="freq"
      */
     public Map<String, Integer> getApprFreqs() {
@@ -126,7 +126,7 @@ public class MUnitSet implements Comparable<MUnitSet> {
      * 
      * @hibernate.map table="sarp_munitset_unit_availfreq_map"
      * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="int" column="freq"
      */
     public Map<String, Integer> getAvailFreqs() {
@@ -144,7 +144,7 @@ public class MUnitSet implements Comparable<MUnitSet> {
      * 
      * @hibernate.map table="sarp_munitset_unit_dupfreq_map"
      * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="int" column="freq"
      */
     public Map<String, Integer> getDupFreqs() {
@@ -162,7 +162,7 @@ public class MUnitSet implements Comparable<MUnitSet> {
      * 
      * @hibernate.map table="sarp_munitset_unit_recofreq_map"
      * @hibernate.collection-key column="munitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="int" column="freq"
      */
     public Map<String, Integer> getRecoFreqs() {

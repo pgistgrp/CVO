@@ -51,7 +51,7 @@
 <div id="container">
 	<h2 class="headerColor">Overview</h2> 
 	<p>From this page, a user can learn more about the Vulnerability Mapping project in general, as well as the two online experiments: 
-	Voicing Climate Concerns (VCC) experiment and the Deliberative Mapping of Vulnerabillty (DMV) experiment. 
+	Voicing Climate Concerns (VCC) experiment and the Deliberative Mapping of Vulnerability (DMV) experiment. 
 	The entire website is available to registered participants. <a href="register.do">Register now</a>.  A user can also link to the 
 	<a href="http://www.coastalatlas.net"title="Oregon Coastal Atlas">Oregon Coastal Atlas</a>.</p>
 	<!-- Begin explanation -->
@@ -62,7 +62,7 @@
 	Community vulnerability assessments provide an inventory the most salient concerns communities consider when undertaking 
 	adaptation planning about climate change.</p>
 	
-	<p>Voicing Climate Concerns (VCC) is a web site (<a href="www.climateconcerns.org">www.climateconcerns.org</a>) 
+	<p>Voicing Climate Concerns (VCC) is a web site (www.climateconcerns.org) 
 	that helps people develop, through a structured participation process, 
 	a shared understanding of their concerns about climate change and how to measure those concerns in terms of 
 	climate indicators and receptor indicators. Indicators are commonly defined as measurements that many people can understand. 
@@ -120,7 +120,7 @@
 	
 	<h3 class="headerColor">Voicing Climate Concerns Experiment Overview</h3>
 	<p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about climate change and 
-	variability along the Oregon Coast and analysts produce maps depicting those concerns contingent on availabity of data. 
+	variability along the Oregon Coast and analysts produce maps depicting those concerns contingent on availability of data. 
 	Voicing Climate Concerns facilitates citizen involvement, <a href="http://www.oregon.gov/LCD/docs/goals/goal1.pdf">goal 1</a> of 
 	<a href="http://www.oregon.gov/LCD/goals.shtml">Oregon's Statewide Planning Goals and Guidelines</a></p>
 	<p>

@@ -47,7 +47,7 @@ public class EUnitSet {
      * 
      * @hibernate.map table="sarp_eunitset_unit_appr_map"
      * @hibernate.collection-key column="eunitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="boolean" column="appr"
      */
     public Map<String, Boolean> getApprs() {
@@ -63,7 +63,7 @@ public class EUnitSet {
      * 
      * @hibernate.map table="sarp_eunitset_unit_avail_map"
      * @hibernate.collection-key column="eunitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="boolean" column="avail"
      */
     public Map<String, Boolean> getAvails() {
@@ -79,7 +79,7 @@ public class EUnitSet {
      * 
      * @hibernate.map table="sarp_eunitset_unit_dup_map"
      * @hibernate.collection-key column="eunitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="boolean" column="dup"
      */
     public Map<String, Boolean> getDups() {
@@ -95,7 +95,7 @@ public class EUnitSet {
      * 
      * @hibernate.map table="sarp_eunitset_unit_rec_map"
      * @hibernate.collection-key column="eunitset_id"
-     * @hibernate.collection-index column="unit" type="string" length="32"
+     * @hibernate.collection-index column="unit" type="string" length="255"
      * @hibernate.collection-element type="boolean" column="rec"
      */
     public Map<String, Boolean> getRecs() {
