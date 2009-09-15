@@ -383,7 +383,7 @@
     </div>
     
     <div id="col" style="overflow:auto;">
-      <div class="topMenu" style="clear:both;">Keywords/phrases related to concern cateogory </div>
+      <div class="topMenu" style="clear:both;">Keywords/phrases related to concern category </div>
       <div id="tags"></div>
     </div>
     

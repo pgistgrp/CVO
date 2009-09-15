@@ -655,7 +655,7 @@
       </p>
       <ol id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Review the list of keyphrases in the right-hand panel.</li>
-  <li>Type category label into box in left column. (Numbers and punction in category names will be ignored.) Assign a keyword from left column to category by clicking on the arrow pointing left.  Remove keyword from category by clicking on arrow in center column pointing right.</li>
+  <li>Type category label into box in left column. (Numbers and punctuation in category names will be ignored.) Assign a keyword from left column to category by clicking on the arrow pointing left.  Remove keyword from category by clicking on arrow in center column pointing right.</li>
   <li>Click &quot;<b>Publish</b>&quot; to share your categories with other users.</li>
   <li>Use the drop down menu to explore categories created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
   <li>Re-evaluate your own categories and edit or create new ones if necessary.</li>
