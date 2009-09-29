@@ -54,15 +54,16 @@
     <!-- <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="> -->
 	
     	<h2 class="headerColor">Frequently Asked Questions</h2>
-		<p>
+
         <h3>Can I participate in this experiment?</h3>
-        </p>
         <p>Any Oregon Coastal community stakeholders can participate in the experiment.</p>
         
-	<h3>How much should I contribute?</h3>
-        </p>
+        <h3>How much should I contribute?</h3>
         <p>You may contribute as many concerns, indicators, etc. as you feel comfortable with. 
-	We want to hear about what is important to you.</p> 
+        We want to hear about what is important to you.</p> 
+
+        <h3>Is this project associated with other climate change outreach project at Oregon State University? </h3>
+        <p>No, Voicing Climate Concerns is a separate project.</p>
 
        <h2 class="headerColor"></h2>
         <p>
