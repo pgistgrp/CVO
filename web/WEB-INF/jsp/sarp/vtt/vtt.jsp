@@ -359,18 +359,20 @@
 	<h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to develop indicators and units of measurement for each hierarchy path
-      <br>The indicators users develop will be combined with those of other users, voted on, included in the final report, and mapped in a subsequent workshop.</pg:termHighlight>
-      <p>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>
+					</pg:termHighlight>
+					<p>This sub-step enables users to develop fully qualified indicators. Fully qualified indicators are composed of the indicator labels plus units of measurement for each indicator, that is, indicator label + unit of measurement = fully qualified indicator. After Step 4a concludes, data specialists will comment on the recommended units of measurement.</p>
+					<p>Vote on a set of &ldquo;fully qualified&rdquo; indicators. Fully qualified indicators are composed of an indicator label that specifies 1) a climate condition, 2) something being affected, and 3) an actual unit of measurement. See more detailed instructions below about attaching an actual unit of measurement. After Step 4a concludes, data specialists will comment on the recommended units of measurement.</p>
+					<p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Click on a hierarchy path in the left column.  Choose a keyphrase to name the indicator for that path, or enter a name of your choice.  Enter a unit of measurement for your indicator.</li>
-	<li>Click &quot;<b>Save</b>&quot; after every indicator and unit of measurement you specify.  The indicator will appear in the right column.</li>
-	<li>Click &quot;<b>Publish</b>&quot; to share indicators and units of measurement with other users.</li>
-	<li>Use the drop down menu to explore indicators and units of measurement created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
-	<li>Re-evaluate your contributions and alter them if necessary.</li></pg:termHighlight>
-      </ol>
+								<li>Click on an indicator &ldquo;path&rdquo; in the left column. In the center column, choose a keyphrase from the original list to label the indicator or specify a new label as you choose. You can use the same label as in the right-most label of the path. Enter a unit of measurement for the indicator.</li>
+								<li>Click &quot;<b>Save</b>&quot; after every indicator and unit of measurement you specify. The indicator will appear in the right column.</li>
+								<li>Click &quot;<b>Publish</b>&quot; to share indicators and units of measurement with other users.&nbsp; As before, clicking &ldquo;publish&rdquo; would only have to be done once.</li>
+								<li>Use the drop down menu to explore indicators and units of measurement created by other users. Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
+								<li>Re-evaluate your contributions and alter them if necessary.</li>
+					</ol>
     </div>
 <!-- end of overview and instructions -->
 

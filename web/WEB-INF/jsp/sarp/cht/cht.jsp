@@ -334,20 +334,19 @@
       <p></p>
       </pg:show>
       <h3>Instruction overview</h3>
-      <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
-      <pg:narrow name="current"/>
-      <p><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">This sub-step enables users to build hierarchies, further refining relationships between group categories, from general to specific levels.<br>
-      The hierarchies users create will be separated into paths (see diagram at right), contextualizing specific categories within general categories, to be used in the next step.</pg:termHighlight></p>
-      <p>
+      <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" /><pg:narrow name="current"/>
+					<p>This sub-step enables users to identify indicator labels that should move forward for further consideration; that is, labels that are to have units of measurement assigned in Step 4. &nbsp;Decide which indicator labels should move forward to the next step. Indicator labels can specify a climate condition and a thing being affected, but also they have to be measurable. We recommend endorsing indicator labels that are specific and potentially measurable at the same time.</p>
+					<p>In addition, some participants might suggest that some of the indicator labels might be used to create indexes by combining two or more indicators.&nbsp; An index is an aggregation of indicators that can be represented as a two-tier hierarchy.&nbsp;</p>
+					<p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Choose categories to be <b>included</b> in your hierarchies by highlighting them and clicking the &quot;<b>+</b>&quot; button.</li>
-	<li>Using the arrow icons organize categories into hierarchies from general (at the left) to specific (at the right).  Any number of hierarchies is OK.  To remove a category, click the &quot;<em><b>-</b></em>&quot; button; all categories beneath and to the right will be removed.</li>
-	<li>Click &quot;<b>Publish</b>&quot; to share your hierarchies with other users.</li>
-	<li>Use the drop down menu to explore hierarchies created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
-	<li>Re-evaluate your own contributions and alter them if necessary.</li></pg:termHighlight>
-      </ol>
+								<li>In the bottom panel, choose an indicator label to be <b>included</b> in your &ldquo;recommended list&rdquo; by clicking on the label to highlight it. Then, click the &quot;<b>+</b>&quot; button.&nbsp; That action moves it up to the recommended list. To remove the label from your &ldquo;recommended&rdquo; list, click the label to highlight it. Then, click the &ldquo;-&ldquo; button.&nbsp; Repeat that add or remove process as many times as you want.&nbsp; Labels left in the bottom window will suggest to the group that they be &ldquo;left behind&rdquo; when moving forward with indicator units of measurement.&nbsp; &nbsp;</li>
+								<li>Click &quot;<b>Publish</b>&quot; button to share your recommended list with other users.&nbsp; Once the &ldquo;<b>Publish&rdquo; </b>button has been clicked<b>, </b>all changes you make will automatically be published, that is shared with other users.&nbsp; You can do this at any time.&nbsp; Remember, this is the list of indicators you want to see move forward to a vote in Step 3b.</li>
+								<li>If you wish to create an index label, you need to set indicator labels in a position just below the index label. To do that, use the up or down arrows to adjust the label positions until your sublabels are below the index label. Remember, you have to click to highlight a label before clicking on up or down arrows to move it. &nbsp;After two or more indicator labels are below the index label, then highlight one at a time, and click the right arrow button to move it to the right. Do this for each indicator label to participate in the index. One indent step to the right should be enough. Indicators will be used to compute an index (IF POSSIBLE) as determined by the data analysts based on compatibility of units of measure.</li>
+								<li>Use the drop down menu to explore lists of recommended indicator labels created by other users. Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
+								<li>Re-evaluate your own contributions and alter them as necessary.</li>
+					</ol>
     </div>
 <!-- end of overview and instructions -->
 

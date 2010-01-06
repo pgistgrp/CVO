@@ -117,46 +117,24 @@
 	(and perhaps combinations of indicators that we call indexes).  
 	Establishing level 1 vulnerability concerns can help provide recommendations and directions for online tool building 
 	that can address more details for climate change adaptation planning.</p>
-	
-	<h3 class="headerColor">Voicing Climate Concerns Experiment Overview</h3>
-	<p>Voicing Climate Concerns is an online activity in which participants brainstorm concerns about climate change and 
-	variability along the Oregon Coast and analysts produce maps depicting those concerns contingent on availability of data. 
-	Voicing Climate Concerns facilitates citizen involvement, <a href="http://www.oregon.gov/LCD/docs/goals/goal1.pdf">goal 1</a> of 
-	<a href="http://www.oregon.gov/LCD/goals.shtml">Oregon's Statewide Planning Goals and Guidelines</a></p>
-	<p>
-	
-    <p>
-    There are 5 steps to complete this experiment.  Following the execution of each step, participants
-    have the opportunity to review and comment about the group process.  As part of the review and 
-    comment process, participants vote on whether the group is ready to proceed to the next step
+			<h3 class="headerColor">Voicing Climate Concerns Experiment Overview</h3>
+			<p>Activities in Steps 1-5 enable participants to specify indicators about climate change impacts, including indicators for both climate conditions and receptor impacts.</p>
+			<p>
+    Step 1. Participants brainstorm climate concerns plus keywords/phrases for annotating concerns.	
     </p>
     
     <p>
-    In Step 1, participants brainstorm their concerns about climate change and attach key words or phrases
-    of their choosing to each of their concerns.
+    Step 2. Participants specify indicator labels that best represent the entire collection of keywords/phrases.
     </p>
     
     <p>
-    In Step 2, participants create categories by clustering the keywords and phrases they and the other
-    participants created in Step 1.
+    Step 3. Participants select indicator labels that should move forward in the process, 		as well as identify indicator labels that help generalize climate indicators as appropriate.
     </p>
-    
-    <p>
-    In Step 3, participants create hierarchies out of the climate concern categories they and other 
-    participants created in Step 2.
-    </p>
-    
-    <p>
-    In Step 4, participants develop indicators to address the concerns organized in step 3, drawing on 
-    information provided by data analysts.
-    </p>
-    
-    <p>
-    In Step 5, a report on the outcome of the experiment is generated, and participants will have 
-    the opportunity to review and comment on the report.
-    </p>
-		
-	<br />
+			<p>Step 4. Participants assign units of measurement to indicator labels, thereby suggesting ways of measuring climate conditions and receptor impacts.</p>
+			<p>Step 5. Partcipants review a report listing the indicators.</p>
+			<p>After completion of the entire process, the report will be provided to data analysts to direct their search for climate change data.</p>
+			<p>Throughout the 5-step process, each step includes a sub-step (a) involving individual work and a concurrent or following sub-step (b) that involves group assessment. We hope you find this overall process insightful and productive.</p>
+			<br />
 </div>
 	<!-- end container -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->

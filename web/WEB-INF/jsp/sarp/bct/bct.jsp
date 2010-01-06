@@ -599,19 +599,18 @@ function editTags(concernId){
       <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step allows users to specify concerns and associate them with meaningful keyphrases.<br>
-      The concerns and keyphrases users provide serve as the building blocks for the next sub-step, <i>assessing group keyphrases</i>, as well as for the entire process.</pg:termHighlight>
-      <p>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>
+				</pg:termHighlight>Write a climate concern in the box on the right and select or write your own keywords and keyphrases. &nbsp;Be specific. Try to use keywords and keyphrases that describe your concern about a climate change impact in terms of a) a changing climate condition and/or b) a place or thing actually being impacted.
+				<p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
-      <ol id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">
-	<li>Write a concern in the box on the right and click &quot;<b>Continue</b>&quot;.</li>
-	<li>Choose keywords extracted from your concern or enter your own in the space provided, and click submit.  (Users need at least 2 keyphrases per concern.)</li>
-	<li>Explore concerns and associated keyphrases submitted by other users using the search, browse or sort functionality provided in the blue bar.  Users can discuss concerns by submitting comments and indicate their agreement or disagreement by voting.</li>
-	<li>Re-evaluate your own concerns and edit or create new ones if necessary.</li>
-	</pg:termHighlight>
-      </ol>
+				<ol id="hiddenRM" style="display:none">
+							<li>Write a concern in the box on the right, and click &quot;<b>Continue</b>&quot;. Your concern text provides a collection of ideas from which to select keywords/phrases for climate change indicators.</li>
+							<li>Choose keywords or keyphrases extracted from your concern, or enter your own in the space provided. Users need at least 2 keywords or keyphrases per concern to make it work. &nbsp;Users can submit as many as desired. Click submit.</li>
+							<li>At your choice during, before, or after entering concerns, a user can explore concerns and associated keywords/phrases submitted by others. Search, browse or sort concerns and keywords with the functionality provided in the blue bar. Users can discuss concerns by submitting comments and indicate their agreement or disagreement by voting.</li>
+							<li>Re-evaluate your own concerns and edit or create new ones if necessary.</li>
+							<li>You can add as many concerns and associated keywords and/or keyphrases as you like. <b>Note:</b> one or more keyphrases will be used to compose an indicator label in Step 2. Therefore, the more keyphrases that are created the more opportunities there will be to create a diverse collection of indicator labels in Step 2.&nbsp;</li>
+				</ol>
     </div>
     <a name="filterJump"></a>
     <pg:show condition="${!bct.closed}">

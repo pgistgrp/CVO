@@ -96,13 +96,12 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <p>This sub-step presents the set of concerns and keyphrases from all users for discussion and agreement over the breadth and depth of concerns and keyphrases.</p>
-                            <p>When the group reaches agreement over the set of concerns and keyphrases, they become the building blocks for the next step, categorizing keyphrases.</p>
+                            <p>Explore other participant's keywords and keyphrases, make comments, then vote on moving forward to Step 2.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <ol id="hiddenRM" style="display:none">  <li>Explore the group's concerns and keyphrases using the tools provided (sort or filter).</li>
-			    	<li>Read others' comments and submit your own, to discuss the breadth and depth of the group's concerns and keyphrases.</li>
-				<li>Return to "Brainstorm Keyphrases" to edit or add concerns and keyphrases if necessary.</li>
-				<li>Vote to move forward when satisfied with the group's progress.</li>
+                            <ol id="hiddenRM" style="display:none">  <li>Explore the groups' concerns and keyphrases using the sort and filter tools provided.</li>
+			    	<li>Read others' comments and submit your own to discuss the breadth and depth of the group's concerns and keyphrases.</li>
+				<li>Return to "Brainstorm Keyphrases" to edit and/or add concerns and keyphrases as you wish.</li>
+				<li>Most importantly, "vote to move forward" when satisfied with the groups' results.</li>
 			    </ol>
                         ]]>
                     </property>
@@ -205,13 +204,12 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <p>This sub-step presents a set of 'group categories' synthesized from the contributions of all users for discussion and agreement.</p>
-                            <p>When the group reaches agreement over the set of group categories, they become the building blocks for the next step, building hierarchies using those categories.</p>
+                            <p>Explore other's indicator labels on keywords and keyphrases, make comments about how they specify a climate condition and something being affected, then vote on moving forward to Step 3.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <ol id="hiddenRM" style="display:none">  <li>Explore the group's group categories using the additional information provided.</li>
-			    	<li>Read others' comments and submit your own, to discuss the breadth and depth of the group categories.</li>
+                            <ol id="hiddenRM" style="display:none">  <li>Explore the set of indicator labels and make comments as you wish.</li>
+			    	<li>Read others' comments and submit your own to discuss the breadth and depth of the labels.</li>
 				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
-				<li>Vote to move forward when satisfied with the group's progress.</li></ol>
+				<li>Vote to move forward when satisfied with the groups' progress.</li></ol>
                         ]]>
                     </property>
                 </props>
@@ -361,13 +359,13 @@
                     <property name="overview">
                         <![CDATA[
 			    <h3 class="headerColor">Instruction overview</h3>
-                            <p>This sub-step presents a set of hierarchy paths from the contributions of all users for discussion and agreement.</p>
-                            <p>When the group reaches agreement over the set of hierarchy paths, they become the building blocks for the next step, specifying indicators for hierarchy paths.</p>
+                            <p>This sub-step presents the list of all indicator and index suggestions for group discussion and agreement.  A running vote suggests when to move the process forward.</p>
+                            <p>Explore other's indicator labels, make comments about how they are both specific and measurable, then vote on moving forward to Step 4.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <ol id="hiddenRM" style="display:none">  <li>Explore and vote on the group's hierarchy paths, sorting them based on how many users built them (frequency), number of votes, or alphabetically.  Vote counts are updated when users refresh the page.</li>
-			    <li>Read others' comments and submit your own, to discuss the breadth and depth of the group's hierarchy paths.</li>
+                            <ol id="hiddenRM" style="display:none">  <li>Explore the indicator list. Users can sort them based on how many users suggested each (frequency), number of votes, or alphabetically. Vote on each indicator to suggest it move forward, counts are updated when users refresh the page.</li>
+			    <li>Read others' comments and submit your own to discuss the breadth and depth of the group indicators.</li>
 			    <li>If the moderator provides announcements, vote your agreement or disagreement.</li>
-			    <li>Vote to move forward when satisfied with the group's progress.</li></ol>
+			    <li>In the upper right corner of page, vote to move the process forward to Step 4 when satisfied with the groups' progress.</li></ol>
                         ]]>
                     </property>
                 </props>
@@ -535,11 +533,11 @@
                     <property name="overview">
                         <![CDATA[
 			    <h3 class="headerColor">Instruction overview</h3>
-                            <p>This sub-step presents the indicators contributed by all users as well as additional information provided by data analysts for discussion and agreement.</p>
-                            <p>When the group reaches agreement over the appropriate indicator for each hierarchy path, they are included in the final report as the group's suggestion for a mapping and discussion activity in a subsequent workshop.</p>
+                            <p>This sub-step enables assessment of the indicators (labels and units) contributed by all users. The first assessment is performed by data specialists. A second assessment is performed by participants.</p>
+                            <p>Explore other participant's fully qualified indicators, make comments about how units of measurement have been assigned to them, then vote on moving forward to Step 4.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
-                            <ol id="hiddenRM" style="display:none">  <li>Click on each hierarchy path in the left column to explore the indicators specified for it and make your recommendation.  Click &quot;<b>Save</b>&quot; after each recommendation you make.</li>
-			    	<li>Read others' comments and submit your own to discuss the group's indicators.   The ratio in the 'selection' column displays the groups' yes votes on the given indicator in relation to all votes.</li>
+                            <ol id="hiddenRM" style="display:none">  <li>Click on each indicator path in the left column. Examine the indicator labels and units of measurement. Make a recommendation. Click "Save" after each recommendation you make.</li>
+			    	<li>Read others' comments and submit your own to discuss the indicators. The ratio (A/B) in the 'selection' column displays the groups' yes votes (A) for the given indicator in relation to all votes (B).</li>
 				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
 				<li>Vote to move forward when satisfied with the group's progress.</li></ol>
                         ]]>
@@ -704,15 +702,12 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <p>This step provides a summary of the activity in Steps 1-4 for discussion and agreement.</p>
-                            <p>When the group reaches agreement over the report, this phase of the research comes to an end  
-			    and the group's chosen indicators are suggested for a mapping and discussion activity in a subsequent workshop.</p>
+                            <p>This step provides a summary of the activity that occurred in Steps 1-4, and enables discussion and consensus building.  There is only one sub-step in this activity.  When the group reaches agreement over the report, the Voicing Climate Concerns experiment comes to an end, and data analyst will then start a data search.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             <ol id="hiddenRM" style="display:none">  
 				<li>Read the report.</li>
-			    	<li>Comment on the report using the form at the bottom of the web page. Comments can be of any nature.</li>
-				<li>Vote (at the top of the page) whether you agree or disagree to move forward to
-				end the experiment.</li>
+			    	<li>Comment on the report using the form at the bottom of the web page. Comments can be of any character, the more constructive the better.</li>
+				<li>	Vote (at the top right of the page) whether you agree or disagree to move forward and end the process.</li>
                         ]]>
                     </property>
                 </props>

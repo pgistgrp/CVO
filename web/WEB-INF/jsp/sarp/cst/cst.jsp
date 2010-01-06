@@ -648,17 +648,21 @@
       <h3>Instruction overview</h3>
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
-      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>This sub-step enables users to organize the group's keyphrases into labeled categories, generalizing specific contributions by theme.
-      <br>The categories users create will be used in the next step as the building blocks for thematic relationships which will be specified in the form of indicators.</pg:termHighlight>
+      <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>
+					Select a set of climate change impact concern keywords and keyphrases then label them using one or more words we will call an &ldquo;indicator label.&rdquo; <br>
+					Use not just your own keywords but others as well, and remember to include keywords specifying a) a changing climate condition and b) a place or thing actually being impacted.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
-        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Review the list of keyphrases in the right-hand panel.</li>
-  <li>Type category label into box in left column. (Numbers and punctuation in category names will be ignored.) Assign a keyword from left column to category by clicking on the arrow pointing left.  Remove keyword from category by clicking on arrow in center column pointing right.</li>
-  <li>Click &quot;<b>Publish</b>&quot; to share your categories with other users.</li>
-  <li>Use the drop down menu to explore categories created by other users.  Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
-  <li>Re-evaluate your own categories and edit or create new ones if necessary.</li>
+        <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Review the list of keywords/phrases in the right-hand column. We are looking for a good &ldquo;label&rdquo; to put on all of your selected concern keywords and keyphrases that emphasizes a climate condition and a place or thing being impacted. Remember to use keyword/phrases developed by everyone and not just your own.</li>
+						<li>Enter an indicator label by typing into the textbox at the top of the left-hand column. Note that typing numbers and punctuation in labels will be ignored. The indicator label you type can be a new word or a phrase, or it could be the same as keywords and/or phrases in the right column, you chose. Hit enter. Then, click on that label to activate it. </li>
+						<li>Assign a keyword/phrase from the right column to the center column by clicking on the arrow pointing left. Assign as many keywords/phrases with similar meanings (duplicate interpretation) from the right column to the center column to cull the list of keywords/phrases in right-column for duplicative meanings. It is really up to you whether you do this &ldquo;culling&rdquo;. However, at least one keyword/phrase should be placed in the center column.</li>
+						<li>You can remove a keyword from a category by clicking on the arrow in center column which points to the right.  Note that we want you to cluster just the keyphrases you think are similar to the indicator label you typed. We ARE interested in identifying the most representative labels for a common set of keywords/phrases, and ARE NOT interested in just general label. Making general labels is the opposite of what we seek in the sense that we want you to specify the climate change impact, the condition and the place or thing being impacted. Note that in Step 4 we will assign units of measure to these indicator labels.</li>
+						<li>Return to instruction 1, and complete instructions 1-4 for as many times as you think to develop indicator labels until you are satisfied.  </li>
+						<li>Click &quot;Publish&quot; to share your indicator labels with other users. Once you publish, all of your changes to indicator labels will automatically publish, so you do not have to worry about publishing after each change.</li>
+						<li>Use the drop down menu to explore indicator labels created by other users. Discuss the indicator label contributions by submitting comments at the bottom of the screen.</li>
+						<li>Re-evaluate your own categories and edit or create new ones if necessary.</li>
 </pg:termHighlight>
       </ol>
     </div>
@@ -767,7 +771,7 @@
     </div>
     <div id="col-option" style="display:none;"><span class="closeBox"><a href="javascript: new Effect.SlideDown('col-crud-options',{duration: .5}); void(0); new Effect.Fade('col-option'); void(0);">back to all options</a></span>
       <h4>Editing Options</h4>
-      Rename to: <form name="modifyCategory" action="" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
+      Rename to: <form name="modifyCategory" action="(EmptyReference!)" method="GET" onsubmit="javascript: modifySelectedCategory(); return false;"><input type="text" style="width: 50%;" id="selcatetext" onkeydown="checkaddcategory(event)"><input type="button" id="btnNewName" value="Modify" onclick="modifySelectedCategory();"></form><br>
     </div>
     </pg:show>
     <div id="spacer">
