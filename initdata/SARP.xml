@@ -96,11 +96,11 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <p>Explore other participant's keywords and keyphrases, make comments, then vote on moving forward to Step 2.</p>
+                            <p>Explore other participant's keywords and keyphrases. Make comments and discuss concerns. Vote on moving forward to Step 2 when satisfied.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             <ol id="hiddenRM" style="display:none">  <li>Explore the groups' concerns and keyphrases using the sort and filter tools provided.</li>
 			    	<li>Read others' comments and submit your own to discuss the breadth and depth of the group's concerns and keyphrases.</li>
-				<li>Return to "Brainstorm Keyphrases" to edit and/or add concerns and keyphrases as you wish.</li>
+				<li>Return to "Step 1a Brainstorm Keyphrases" to edit and/or add concerns and keyphrases as you wish.</li>
 				<li>Most importantly, "vote to move forward" when satisfied with the groups' results.</li>
 			    </ol>
                         ]]>
@@ -204,7 +204,7 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <p>Explore other's indicator labels on keywords and keyphrases, make comments about how they specify a climate condition and something being affected, then vote on moving forward to Step 3.</p>
+                            <p>Explore other participant's indicator labels for keywords and keyphrases. Make comments and discuss about how they specify a climate condition or something being affected. Vote on moving forward to Step 3 when satisfied.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             <ol id="hiddenRM" style="display:none">  <li>Explore the set of indicator labels and make comments as you wish.</li>
 			    	<li>Read others' comments and submit your own to discuss the breadth and depth of the labels.</li>
