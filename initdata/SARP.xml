@@ -140,9 +140,9 @@
                 </props>
             </declaration>
         </pgame>
-        <pgame name="pgame-sarp.cst" title="2a: Create Categories" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.cst" title="2a. Create Indicator Labels" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Individuals create concern categories using keyphrases</small>]]>
+              <![CDATA[<small>Individuals create indicator labels using keyphrases</small>]]>
             </description>
             <actionName>action-sarp.cst</actionName>
             <declaration>
@@ -183,9 +183,9 @@
             </declaration>
         </pgame>
         <!-- edited here -->
-        <pgame name="pgame-sarp.drt.cst" title="2b: Assess Categories" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.cst" title="2b. Assess Indicator Labels" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review and comment on progress with group categories</small>]]>
+              <![CDATA[<small>Review and comment on progress with indicator labels</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -295,9 +295,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.cht" title="3a Build Hierarchies" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.cht" title="3a. Endorse Labels and Build Index(es) as Needed" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Individuals build hierarchies using synthesized categories</small>]]>
+              <![CDATA[<small>Individuals select labels and build index(es) as needed</small>]]>
             </description>
             <actionName>action-sarp.cht</actionName>
             <declaration>
@@ -338,9 +338,9 @@
             </declaration>
         </pgame>
         
-        <pgame name="pgame-sarp.drt.cht" title="3b: Assess Hierarchies" auto="false" access="all" revisitable="true">
+        <pgame name="pgame-sarp.drt.cht" title="3b. Assess Indicator Labels and Index(es)" auto="false" access="all" revisitable="true">
             <description>
-              <![CDATA[<small>Review and comment on progress with group hierarchy paths</small>]]>
+              <![CDATA[<small>Review and comment on progress with indicator labels and index(es)</small>]]>
             </description>
             <actionName>action-sarp.drt</actionName>
             <declaration>
@@ -830,7 +830,7 @@
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-sarp.cst" description="Step 2: Categorize Keyphrases and Assess Category Progress">
+        <pmethod name="pmethod-sarp.cst" description="Step 2: Categorize Keyphrases and Indicator Label Progress">
             <declaration>
                 <ins>
                     <var name="pmethod.bct_id"/>
@@ -972,7 +972,7 @@
             </sequence>
         </pmethod>
         
-        <pmethod name="pmethod-sarp.cht" description="Step 3: Build Hierarchies and Assess Hierarchy Progress">
+        <pmethod name="pmethod-sarp.cht" description="Step 3: Endorse Indicator Labels and Assess Progress">
             <declaration>
                 <ins>
                     <var name="pmethod.cst_id"/>
@@ -1414,7 +1414,7 @@
             </sequence>
         </meeting>
         
-        <meeting name="meeting-sarp.cst" description="Step 2: Categorize Keyphrases and Assess Category Progress">
+        <meeting name="meeting-sarp.cst" description="Step 2: Categorize Keyphrases and Assess Indicator Label Progress">
             <declaration>
                 <ins>
                     <var name="meeting.bct_id"/>
