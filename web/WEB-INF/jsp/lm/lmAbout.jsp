@@ -22,7 +22,6 @@
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
-	<script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
 	</head>
 	<body>
 	<wf:nav />
@@ -35,8 +34,8 @@
             <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
             <div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-            <!--
             <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<!--
             <div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
@@ -376,10 +375,7 @@ demand for residential and commercial development and
 demands on public facilities.	
 
 
-<a href="images/vcc0Registration.flv" style="display:block;width:480px;height:360px"  id="player"> </a> 
-<script>
-			flowplayer("player", "scripts/flowplayer-3.1.5.swf");
-		</script>
+
 
 <h1 class="headerColor"><strong><em>..."</em></strong></h1></p>
 	<!-- the section below was the content of this page before it was changed to the OCMP content -->
@@ -586,8 +582,8 @@ demands on public facilities.
             <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">VCC</pg:url> </div>
             <div class="floatLeft headerButton currentBox"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-            <!--
             <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+            <!--
             <div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>

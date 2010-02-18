@@ -38,8 +38,8 @@
 		<div class="floatLeft headerButton currentBox"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
 		<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
 		<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-        <!--
 		<div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+        <!--
 		<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 		<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 		<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
@@ -120,7 +120,8 @@
 			<h3 class="headerColor">Voicing Climate Concerns Experiment Overview</h3>
 			<p>Activities in Steps 1-5 enable participants to specify indicators about climate change impacts, including indicators for both climate conditions and receptor impacts.</p>
 			<p>
-    Step 1. Participants brainstorm climate concerns plus keywords/phrases for annotating concerns.	
+    Step 1. Participants brainstorm climate concerns plus keywords/phrases for annotating concerns.
+	
     </p>
     
     <p>
@@ -128,7 +129,9 @@
     </p>
     
     <p>
-    Step 3. Participants select indicator labels that should move forward in the process, 		as well as identify indicator labels that help generalize climate indicators as appropriate.
+    Step 3. Participants select indicator labels that should move forward in the process, 
+	
+	as well as identify indicator labels that help generalize climate indicators as appropriate.
     </p>
 			<p>Step 4. Participants assign units of measurement to indicator labels, thereby suggesting ways of measuring climate conditions and receptor impacts.</p>
 			<p>Step 5. Partcipants review a report listing the indicators.</p>

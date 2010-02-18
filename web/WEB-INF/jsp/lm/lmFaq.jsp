@@ -38,8 +38,8 @@
             <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton currentBox"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-            <!--
             <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+            <!--
             <div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
@@ -84,8 +84,8 @@
             <div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmAbout.do">Climate Concerns</pg:url> </div>
             <div class="floatLeft headerButton currentBox"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
-            <!--
             <div class="floatLeft headerButton"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+            <!--
             <div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
             <div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>

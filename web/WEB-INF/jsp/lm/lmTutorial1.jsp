@@ -86,6 +86,7 @@ left:530px;
 	<script src="scripts/search.js" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
+	<script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
 	</head>
 	<body>
 	<!-- Begin the header - loaded from a separate file -->
@@ -101,19 +102,86 @@ left:530px;
 			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<!--
 			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+			-->
 		</div>
 	</div>
 	<!-- End header menu -->
 	<!-- #container is the container that wraps around all the main page content -->
 	<div id="container">
-		<div id="step-bar" class="box10 padding6 clearfix">
-				<p class="floatLeft" id="submit-button"><input type="button" value="Next Page" style="font-size:1.2em;" onclick="location.href='lmTutorial2.do'"/></p>
-				<p class="floatRight" id="step-progress">Page 1 of 2</p>
-		</div>
-		<h2>The "Tutorial" section is not being supported. Please register or return "Home."</h2>
+		<h2> How to register for Voicing Climate Concerns</h2>
+		<p>
+			<a href="images/vcc0Registration.flv" style="display:block;width:480px;height:360px"  id="step0"> </a> 
+			<script>
+				flowplayer("step0", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 1a: Brainstorm Keyphrases</h2>
+		<p>
+			<a href="images/vcc0Registration.flv" style="display:block;width:480px;height:360px"  id="player"> </a> 
+			<script>
+				flowplayer("player", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 1a: Brainstorm Keyphrases</h2>
+		<p>
+			<a href="images/vcc1aBrainstorm.flv" style="display:block;width:480px;height:360px"  id="step1a"> </a> 
+			<script>
+				flowplayer("step1a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 1b: Assess Keyphrases</h2>
+		<p>
+			<a href="images/vcc1bAssessKeyphrases.flv" style="display:block;width:480px;height:360px"  id="step1b"> </a> 
+			<script>
+				flowplayer("step1b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 2a: Create Indicator Labels</h2>
+		<p>
+			<a href="images/vcc2aIndicatorLabels.flv" style="display:block;width:480px;height:360px"  id="step2a"> </a> 
+			<script>
+				flowplayer("step2a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 2b: Assess Indicator Labels</h2>
+		<p>
+			<a href="images/vcc2bAssessIndicator.flv" style="display:block;width:480px;height:360px"  id="step2b"> </a> 
+			<script>
+				flowplayer("step2b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 3a: Endorse Labels and Build Index(es) as Needed</h2>
+		<p>
+			<a href="images/vcc3aEndorseLabels.flv" style="display:block;width:480px;height:360px"  id="step3a"> </a> 
+			<script>
+				flowplayer("step3a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 3b: Assess Indicator Labels and Index(es)</h2>
+		<p>
+			<a href="images/vcc3bAssessIndicatorIndexes.flv" style="display:block;width:480px;height:360px"  id="step3b"> </a> 
+			<script>
+				flowplayer("step3b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 4a: Develop Indicators</h2>
+		<p>
+			<a href="images/vcc4aDevelopIndicators.flv" style="display:block;width:480px;height:360px"  id="step4a"> </a> 
+			<script>
+				flowplayer("step4a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
+		<h2>Step 4b: Assess Indicators</h2>
+		<p>
+			<a href="images/vcc4bAssessIndicators.flv" style="display:block;width:480px;height:360px"  id="step4b"> </a> 
+			<script>
+				flowplayer("step4b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</p>
 		
 		
 	</div>
@@ -128,9 +196,11 @@ left:530px;
 			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
+			<!--
 			<div class="floatLeft headerButton"> <pg:url page="lmGallery.do">Maps</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="glossaryPublic.do">Glossary</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmResources.do">More Resources</pg:url> </div>
+			-->
 		</div>
 	</div>
 	<!-- End header menu -->
