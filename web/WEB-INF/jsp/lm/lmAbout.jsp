@@ -376,12 +376,10 @@ demand for residential and commercial development and
 demands on public facilities.	
 
 
-<a  
-			 href="images/vcc0Registration.flv"  
-			 style="display:block;width:480px;height:360px"  
-			 id="player"> 
-		</a> 
-
+<a href="images/vcc0Registration.flv" style="display:block;width:480px;height:360px"  id="player"> </a> 
+<script>
+			flowplayer("player", "scripts/flowplayer-3.1.5.swf");
+		</script>
 
 <h1 class="headerColor"><strong><em>..."</em></strong></h1></p>
 	<!-- the section below was the content of this page before it was changed to the OCMP content -->
