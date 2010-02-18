@@ -22,6 +22,7 @@
 	<script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 	<script type='text/javascript' src='/dwr/engine.js'></script>
 	<script type='text/javascript' src='/dwr/util.js'></script>
+	<script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
 	</head>
 	<body>
 	<wf:nav />
@@ -372,7 +373,17 @@ and therefore may attract “climate-refugees” seeking more optimum
 climate conditions. Coastal communities could thus experience increased
 in-migration, particularly retired persons, which would increase
 demand for residential and commercial development and
-demands on public facilities.	<h1 class="headerColor"><strong><em>..."</em></strong></h1></p>
+demands on public facilities.	
+
+
+<a  
+			 href="images/vcc0Registration.flv"  
+			 style="display:block;width:480px;height:360px"  
+			 id="player"> 
+		</a> 
+
+
+<h1 class="headerColor"><strong><em>..."</em></strong></h1></p>
 	<!-- the section below was the content of this page before it was changed to the OCMP content -->
 	<!-- <p>You should be concerned that what you <b>value</b> about the Oregon coast is <b>vulnerable</b> to the <b>impacts of climate change and variability.</b></p>
 				
