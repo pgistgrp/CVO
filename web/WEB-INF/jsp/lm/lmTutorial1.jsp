@@ -121,13 +121,6 @@ left:530px;
 		</p>
 		<h2>Step 1a: Brainstorm Keyphrases</h2>
 		<p>
-			<a href="images/vcc0Registration.flv" style="display:block;width:480px;height:360px"  id="player"> </a> 
-			<script>
-				flowplayer("player", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
-			</script>
-		</p>
-		<h2>Step 1a: Brainstorm Keyphrases</h2>
-		<p>
 			<a href="images/vcc1aBrainstorm.flv" style="display:block;width:480px;height:360px"  id="step1a"> </a> 
 			<script>
 				flowplayer("step1a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
