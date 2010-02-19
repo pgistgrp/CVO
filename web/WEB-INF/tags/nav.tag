@@ -22,6 +22,7 @@
             </c:otherwise>
             </c:choose>
             <span style="text-align:right"><a href="javascript:location.reload(true)">Reload Page</a>
+	    <span style="text-align:right"><a href="/lmTutorial1.do">Tutorial</a></span>
         </div>
 
         <!-- Begin Search -->
