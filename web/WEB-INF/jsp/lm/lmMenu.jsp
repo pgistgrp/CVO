@@ -117,27 +117,28 @@
 	(and perhaps combinations of indicators that we call indexes).  
 	Establishing level 1 vulnerability concerns can help provide recommendations and directions for online tool building 
 	that can address more details for climate change adaptation planning.</p>
-			<h3 class="headerColor">Voicing Climate Concerns Experiment Overview</h3>
-			<p>Activities in Steps 1-5 enable participants to specify indicators about climate change impacts, including indicators for both climate conditions and receptor impacts.</p>
-			<p>
+			
+	<h3 class="headerColor">Voicing Climate Concerns Experiment Overview</h3>
+
+	<img src="/images/vccWorkflow.png" width="112" height="347" align="right" style="padding:5px">
+	<p>Activities in Steps 1-5 enable participants to specify indicators about climate change impacts, including indicators for both climate conditions and receptor impacts.</p>
+	<p>
     Step 1. Participants brainstorm climate concerns plus keywords/phrases for annotating concerns.
-	
-    </p>
+	</p>
     
     <p>
     Step 2. Participants specify indicator labels that best represent the entire collection of keywords/phrases.
     </p>
     
     <p>
-    Step 3. Participants select indicator labels that should move forward in the process, 
-	
-	as well as identify indicator labels that help generalize climate indicators as appropriate.
+    Step 3. Participants select indicator labels that should move forward in the process, as well as identify indicator labels that help generalize climate indicators as appropriate.
     </p>
-			<p>Step 4. Participants assign units of measurement to indicator labels, thereby suggesting ways of measuring climate conditions and receptor impacts.</p>
+    <p>
+    Step 4. Participants assign units of measurement to indicator labels, thereby suggesting ways of measuring climate conditions and receptor impacts.</p>
 			<p>Step 5. Partcipants review a report listing the indicators.</p>
 			<p>After completion of the entire process, the report will be provided to data analysts to direct their search for climate change data.</p>
-			<p>Throughout the 5-step process, each step includes a sub-step (a) involving individual work and a concurrent or following sub-step (b) that involves group assessment. We hope you find this overall process insightful and productive.</p>
-			<br />
+			<p>Throughout the 5-step process, each step includes a sub-step (a) involving individual work and a concurrent or following sub-step (b) that involves group assessment. We hope you find this overall process insightful and productive.
+    </p>
 </div>
 	<!-- end container -->
 	<!-- Begin header menu - The wide ribbon underneath the logo -->
