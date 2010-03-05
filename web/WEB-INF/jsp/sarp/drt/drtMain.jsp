@@ -27,6 +27,8 @@
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/globalSnippits.js" type="text/javascript"></script>
+<script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
+
 
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>

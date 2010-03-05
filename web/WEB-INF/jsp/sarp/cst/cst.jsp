@@ -29,6 +29,8 @@
   <script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
   <script src="/scripts/tags.js" type="text/javascript"></script>
   <script src="scripts/search.js" type="text/javascript"></script>
+  <script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
+
   
   <!--DHTML XTree Libraries -->
   <script src="/scripts/dhtmlXTree/dhtmlXTree.js" type="text/javascript"></script>  
@@ -655,6 +657,8 @@
 					Use not just your own keywords but others as well. Don't forget to click the "Publish" button when done.</pg:termHighlight>
       <p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
+      	&nbsp; | &nbsp;
+        <a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Video tutorial</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
         <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">  <li>Review the list of keywords/phrases in the right-hand column. We are looking for good labels to characterize subsets of concern keywords and keyphrases that emphasize either a climate condition or a place or thing being impacted. Remember to use keyword/phrases developed by everyone and not just your own.</li>
@@ -667,6 +671,12 @@
 						<li>Re-evaluate your own categories and edit or create new ones if necessary.</li>
 </pg:termHighlight>
       </ol>
+      	<ol id="hiddenTut" style="display:none">
+      		<a href="images/vcc2aIndicatorLabels.flv" style="display:block;width:480px;height:360px"  id="step2a"> </a> 
+			<script>
+				flowplayer("step2a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+			</script>
+		</ol>
     </div>
     
     <pg:show condition="${!modtool}">

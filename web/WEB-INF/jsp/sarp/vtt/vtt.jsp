@@ -22,6 +22,8 @@
   <script src="/scripts/editor_simple.js" type="text/javascript"></script>
   <script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
   <script src="scripts/search.js" type="text/javascript"></script>
+  <script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
+
   
   <!--DWR and Component Interfaces -->
   <script type='text/javascript' src='/dwr/engine.js'></script>
@@ -365,6 +367,8 @@
 					<p>Vote on a set of &ldquo;fully qualified&rdquo; indicators. Fully qualified indicators are composed of an indicator label that specifies 1) a climate condition, 2) something being affected, and 3) an actual unit of measurement. See more detailed instructions below about attaching an actual unit of measurement. After Step 4a concludes, data specialists will comment on the recommended units of measurement.</p>
 					<p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
+      	&nbsp; | &nbsp;
+        <a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Video tutorial</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
 								<li>Click on an indicator &ldquo;path&rdquo; in the left column. In the center column, choose a keyphrase from the original list to label the indicator or specify a new label as you choose. You can use the same label as in the right-most label of the path. Enter a unit of measurement for the indicator.</li>
@@ -372,6 +376,12 @@
 								<li>Click &quot;<b>Publish</b>&quot; to share indicators and units of measurement with other users.&nbsp; As before, clicking &ldquo;publish&rdquo; would only have to be done once.</li>
 								<li>Use the drop down menu to explore indicators and units of measurement created by other users. Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
 								<li>Re-evaluate your contributions and alter them if necessary.</li>
+					</ol>
+					<ol id="hiddenTut" style="display:none">
+						<a href="images/vcc4aDevelopIndicators.flv" style="display:block;width:480px;height:360px"  id="step4a"> </a> 
+						<script>
+							flowplayer("step4a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+						</script>
 					</ol>
     </div>
 <!-- end of overview and instructions -->

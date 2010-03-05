@@ -5,7 +5,7 @@
 <table id="catTable" width="100%" cellpadding="2" cellspacing="0">
   <tr style="font-weight:bold;">
     <td>Label</td>
-    <td style="width:10%;">Frequency</td>
+    <td style="width:10%;"># of occurrences</td>
     <td style="width:10%;"># of Votes</td>
   </tr>
 <c:forEach var="path" items="${paths}" varStatus="loop">

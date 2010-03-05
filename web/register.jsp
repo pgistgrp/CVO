@@ -243,6 +243,15 @@
 		<p>Voicing Climate Concerns (VCC) is part of a research study at the University of Washington 
 		and Oregon State University. Before participating, please help us by filling in the information below.
 		To learn more about the study, click <a href="/lmMenu.do" target="_blank">here</a></p>
+		<p>
+        <a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Video tutorial</pg:termHighlight></a>
+      </p>
+      <ol id="hiddenTut" style="display:none">
+					<a href="images/vcc0Registration.flv" style="display:block;width:480px;height:360px"  id="step0"> </a> 
+					<script>
+						flowplayer("step0", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+					</script>
+				</ol>
 	</div>
 	<!-- end OVERVIEW -->
 	

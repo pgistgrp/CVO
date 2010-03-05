@@ -23,6 +23,8 @@
 <script src="scripts/prototype.js" type="text/javascript"></script>
 <script src="scripts/scriptaculous.js?load=effects,dragdrop" type="text/javascript"></script>
 <script src="scripts/search.js" type="text/javascript"></script>
+<script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
+
 <!-- End Site Wide JavaScript -->
 
 <!-- DWR JavaScript Libraries -->
@@ -603,6 +605,8 @@ function editTags(concernId){
 				</pg:termHighlight>Write a climate concern in the box on the right and select or write your own keywords and keyphrases. &nbsp;Be specific. Try to use keywords and keyphrases that describe your concern about a climate change impact in terms of a) a changing climate condition and/or b) a place or thing actually being impacted.
 				<p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
+        &nbsp; | &nbsp;
+        <a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Video tutorial</pg:termHighlight></a>
       </p>
 				<ol id="hiddenRM" style="display:none">
 							<li>Write a concern in the box on the right, and click &quot;<b>Continue</b>&quot;. Your concern text provides a collection of ideas from which to select keywords/phrases for climate change indicators.</li>
@@ -610,6 +614,12 @@ function editTags(concernId){
 							<li>At your choice during, before, or after entering concerns, a user can explore concerns and associated keywords/phrases submitted by others. Search, browse or sort concerns and keywords with the functionality provided in the blue bar. Users can discuss concerns by submitting comments and indicate their agreement or disagreement by voting.</li>
 							<li>Re-evaluate your own concerns and edit or create new ones if necessary.</li>
 							<li>You can add as many concerns and associated keywords and/or keyphrases as you like. <b>Note:</b> one or more keyphrases will be used to compose an indicator label in Step 2. Therefore, the more keyphrases that are created the more opportunities there will be to create a diverse collection of indicator labels in Step 2.&nbsp;</li>
+				</ol>
+				<ol id="hiddenTut" style="display:none">
+					<a href="images/vcc1aBrainstorm.flv" style="display:block;width:480px;height:360px"  id="step1a"> </a> 
+					<script>
+						flowplayer("step1a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+					</script>
 				</ol>
     </div>
     <a name="filterJump"></a>

@@ -23,6 +23,8 @@
   <script src="/scripts/editor_simple.js" type="text/javascript"></script>
   <script src="/scripts/scriptaculous.js?load=effects,controls" type="text/javascript"></script>
   <script src="scripts/search.js" type="text/javascript"></script>
+  <script type='text/javascript' src='/scripts/flowplayer-3.1.4.min.js'></script>
+
   
   <!--DWR and Component Interfaces -->
   <script type='text/javascript' src='/dwr/engine.js'></script>
@@ -339,6 +341,8 @@
 					<p>In addition, some participants might suggest that some of the indicator labels might be used to create indexes by combining two or more indicators.&nbsp; An index is an aggregation of indicators that can be represented as a two-tier hierarchy.&nbsp;</p>
 					<p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
+      	&nbsp; | &nbsp;
+        <a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Video tutorial</pg:termHighlight></a>
       </p>
       <ol id="hiddenRM" style="display:none">
 								<li>In the bottom panel, choose an indicator label to be <b>included</b> in your &ldquo;recommended list&rdquo; by clicking on the label to highlight it. Then, click the &quot;<b>+</b>&quot; button.&nbsp; That action moves it up to the recommended list. To remove the label from your &ldquo;recommended&rdquo; list, click the label to highlight it. Then, click the &ldquo;-&ldquo; button.&nbsp; Repeat that add or remove process as many times as you want.&nbsp; Labels left in the bottom window will suggest to the group that they be &ldquo;left behind&rdquo; when moving forward with indicator units of measurement.&nbsp; &nbsp;</li>
@@ -346,6 +350,12 @@
 								<li>If you wish to create an index label, you need to set indicator labels in a position just below the index label. To do that, use the up or down arrows to adjust the label positions until your sub-labels are below the index label. Remember, you have to click to highlight a label before clicking on up or down arrows to move it. &nbsp;After two or more indicator labels are below the index label, then highlight one at a time, and click the right arrow button to move it to the right. Do this for each indicator label to participate in the index. One indent step to the right should be enough. Indicators will be used to compute an index (IF POSSIBLE) as determined by the data analysts based on compatibility of units of measure.</li>
 								<li>Use the drop down menu to explore lists of recommended indicator labels created by other users. Discuss the contributions of each user by submitting comments at the bottom of the screen.</li>
 								<li>Re-evaluate your own contributions and alter them as necessary.</li>
+					</ol>
+					<ol id="hiddenTut" style="display:none">
+						<a href="images/vcc3aEndorseLabels.flv" style="display:block;width:480px;height:360px"  id="step3a"> </a> 
+						<script>
+							flowplayer("step3a", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+						</script>
 					</ol>
     </div>
 <!-- end of overview and instructions -->

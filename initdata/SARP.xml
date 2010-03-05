@@ -98,11 +98,19 @@
                             <h3 class="headerColor">Instruction overview</h3>
                             <p>Explore other participant's keywords and keyphrases. Make comments and discuss concerns. Vote on moving forward to Step 2 when satisfied.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
+                            &nbsp; | &nbsp;
+        					<a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false">Video tutorial</a>
                             <ol id="hiddenRM" style="display:none">  <li>Explore the groups' concerns and keyphrases using the sort and filter tools provided.</li>
 			    	<li>Read others' comments and submit your own to discuss the breadth and depth of the group's concerns and keyphrases.</li>
 				<li>Return to "Step 1a Brainstorm Keyphrases" to edit and/or add concerns and keyphrases as you wish.</li>
 				<li>Most importantly, "vote to move forward" when satisfied with the groups' results.</li>
 			    </ol>
+			    <ol id="hiddenTut" style="display:none">
+			    	<a href="images/vcc1bAssessKeyphrases.flv" style="display:block;width:480px;height:360px"  id="step1b"> </a> 
+					<script>
+						flowplayer("step1b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+					</script>
+				</ol>
                         ]]>
                     </property>
                 </props>
@@ -206,10 +214,18 @@
                             <h3 class="headerColor">Instruction overview</h3>
                             <p>Explore other participant's indicator labels for keywords and keyphrases. Make comments and discuss about how they specify a climate condition or something being affected. Vote on moving forward to Step 3 when satisfied.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
+                            &nbsp; | &nbsp;
+        					<a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false">Video tutorial</a>
                             <ol id="hiddenRM" style="display:none">  <li>Explore the set of indicator labels and make comments as you wish.</li>
 			    	<li>Read others' comments and submit your own to discuss the breadth and depth of the labels.</li>
 				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
 				<li>Vote to move forward when satisfied with the groups' progress.</li></ol>
+				<ol id="hiddenTut" style="display:none">
+					<a href="images/vcc2bAssessIndicator.flv" style="display:block;width:480px;height:360px"  id="step2b"> </a> 
+					<script>
+						flowplayer("step2b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+					</script>
+				</ol>
                         ]]>
                     </property>
                 </props>
@@ -362,10 +378,18 @@
                             <p>This sub-step presents the list of all indicator and index suggestions for group discussion and agreement.  A running vote suggests when to move the process forward.</p>
                             <p>Explore other's indicator labels, make comments about how they are both specific and measurable, then vote on moving forward to Step 4.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
+                            &nbsp; | &nbsp;
+        					<a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false">Video tutorial</a>
                             <ol id="hiddenRM" style="display:none">  <li>Explore the indicator list. Users can sort them based on how many users suggested each (frequency), number of votes, or alphabetically. Vote on each indicator to suggest it move forward, counts are updated when users refresh the page.</li>
 			    <li>Read others' comments and submit your own to discuss the breadth and depth of the group indicators.</li>
 			    <li>If the moderator provides announcements, vote your agreement or disagreement.</li>
 			    <li>In the upper right corner of page, vote to move the process forward to Step 4 when satisfied with the groups' progress.</li></ol>
+			    <ol id="hiddenTut" style="display:none">
+			    	<a href="images/vcc3bAssessIndicatorIndexes.flv" style="display:block;width:480px;height:360px"  id="step3b"> </a> 
+					<script>
+						flowplayer("step3b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+					</script>
+				</ol>
                         ]]>
                     </property>
                 </props>
@@ -536,10 +560,18 @@
                             <p>This sub-step enables assessment of the indicators (labels and units) contributed by all users. The first assessment is performed by data specialists. A second assessment is performed by participants.</p>
                             <p>Explore other participant's fully qualified indicators, make comments about how units of measurement have been assigned to them, then vote on moving forward to Step 4.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
+                            &nbsp; | &nbsp;
+        					<a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false">Video tutorial</a>
                             <ol id="hiddenRM" style="display:none">  <li>Click on each indicator path in the left column. Examine the indicator labels and units of measurement. Make a recommendation. Click "Save" after each recommendation you make.</li>
 			    	<li>Read others' comments and submit your own to discuss the indicators. The ratio (A/B) in the 'selection' column displays the groups' yes votes (A) for the given indicator in relation to all votes (B).</li>
 				<li>If the moderator provides announcements, vote your agreement or disagreement.</li>
 				<li>Vote to move forward when satisfied with the group's progress.</li></ol>
+				<ol id="hiddenTut" style="display:none">
+					<a href="images/vcc4bAssessIndicators.flv" style="display:block;width:480px;height:360px"  id="step4b"> </a> 
+					<script>
+						flowplayer("step4b", "scripts/flowplayer-3.1.5.swf", { clip: { autoPlay: false, autoBuffering: true} } );
+					</script>
+				</ol>
                         ]]>
                     </property>
                 </props>
