@@ -359,6 +359,7 @@
       <p></p>
       </pg:show>
 	<h3>Instruction overview</h3>
+	<img src="images/vccWorkflowStep4.png" width="112" height="239" style="float:right">
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>
