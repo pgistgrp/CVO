@@ -96,7 +96,7 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <img src="images/vccWorkflowStep1.png" width="112" height="163" style="float:right">
+                            <img src="images/vccWorkflowStep1.png" width="112" height="163" style="float:right; margin: 0 0 15px 15px; height: 178px;">
                             <p>Explore other participant's keywords and keyphrases. Make comments and discuss concerns. Vote on moving forward to Step 2 when satisfied.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             &nbsp; | &nbsp;
@@ -213,7 +213,7 @@
                     <property name="overview">
                         <![CDATA[
                             <h3 class="headerColor">Instruction overview</h3>
-                            <img src="images/vccWorkflowStep2.png" width="112" height="232" style="float:right">
+                            <img src="images/vccWorkflowStep2.png" width="112" height="232" style="float:right; margin: 0 0 15px 15px; height: 247px;">
                             <p>Explore other participant's indicator labels for keywords and keyphrases. Make comments and discuss about how they specify a climate condition or something being affected. Vote on moving forward to Step 3 when satisfied.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
                             &nbsp; | &nbsp;
@@ -377,7 +377,7 @@
                     <property name="overview">
                         <![CDATA[
 			    <h3 class="headerColor">Instruction overview</h3>
-			    <img src="images/vccWorkflowStep3.png" width="112" height="232" style="float:right">
+			    <img src="images/vccWorkflowStep3.png" width="112" height="232" style="float:right; margin: 0 0 15px 15px; height: 247px;">
                             <p>This sub-step presents the list of all indicator and index suggestions for group discussion and agreement.  A running vote suggests when to move the process forward.</p>
                             <p>Explore other's indicator labels, make comments about how they are both specific and measurable, then vote on moving forward to Step 4.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
@@ -560,7 +560,7 @@
                     <property name="overview">
                         <![CDATA[
 			    <h3 class="headerColor">Instruction overview</h3>
-			    <img src="images/vccWorkflowStep4.png" width="112" height="239" style="float:right">
+			    <img src="images/vccWorkflowStep4.png" width="112" height="239" style="float:right; margin: 0 0 15px 15px; height: 254px;">
                             <p>This sub-step enables assessment of the indicators (labels and units) contributed by all users. The first assessment is performed by data specialists. A second assessment is performed by participants.</p>
                             <p>Explore other participant's fully qualified indicators, make comments about how units of measurement have been assigned to them, then vote on moving forward to Step 4.</p>
                             <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false">Detailed instructions</a>
