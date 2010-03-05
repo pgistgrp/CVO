@@ -5,7 +5,7 @@
 <table id="catTable" width="100%" cellpadding="2" cellspacing="0">
   <tr style="font-weight:bold;">
     <td style="width:50%"><a href="javascript:infoObject.getPaths('title');">Label</a></td>
-    <td style="width:16%;"><a href="javascript:infoObject.getPaths('freq');"># of occurrences</a></td>
+    <td style="width:16%;"><a href="javascript:infoObject.getPaths('freq');"># of Occurrences</a></td>
     <td style="width:16%;"><a href="javascript:infoObject.getPaths('vote');"># of Votes</a></td>
     <td style="width:20%;"><a href="javascript:infoObject.getPaths('myvote');">Voting</a></td>
   </tr>
