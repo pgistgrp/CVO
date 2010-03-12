@@ -336,7 +336,7 @@
       <p></p>
       </pg:show>
       <h3>Instruction overview</h3>
-      <img src="images/vccWorkflowStep3.png" width="112" height="162" style="float:right; margin: 0 0 15px 15px; height: 177px; background-color: #ffffff;">
+      <img src="images/vccWorkflowStep3.png" width="112" height="162" style="float:right; margin: 0 0 15px 15px; background-color: #ffffff;">
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" /><pg:narrow name="current"/>
 					<p>Indicator labels can specify a climate condition OR a thing being affected, but also they have to be measurable. This sub-step enables users to identify indicator labels that should move forward for further consideration; that is, labels that are to have units of measurement assigned in Step 4. Decide which indicator labels should move forward to the next step. We recommend endorsing indicator labels that are specific and potentially measurable at the same time.</p>
 					<p>In addition, some participants might suggest that some of the indicator labels might be used to create indexes by combining two or more indicators.&nbsp; An index is an aggregation of indicators that can be represented as a two-tier hierarchy.&nbsp;</p>
