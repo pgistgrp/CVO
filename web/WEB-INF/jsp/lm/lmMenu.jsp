@@ -120,7 +120,7 @@
 			
 	<h3 class="headerColor">Voicing Climate Concerns Experiment Overview</h3>
 
-	<img src="/images/vccWorkflow.png" width="112" height="347" align="right" style="padding:5px">
+	<img src="/images/vccWorkflow.png" width="112" height="234" align="right" style="padding:5px">
 	<p>Activities in Steps 1-5 enable participants to specify indicators about climate change impacts, including indicators for both climate conditions and receptor impacts.</p>
 	<p>
     Step 1. Participants brainstorm climate concerns plus keywords/phrases for annotating concerns.

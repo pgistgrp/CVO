@@ -98,7 +98,7 @@ left:530px;
 			<div id="headerTitle" class="floatLeft">
 				<h3 class="headerColor">Learn More</h3>
 			</div>
-			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Menu</pg:url> </div>
+			<div class="floatLeft headerButton"> <pg:url page="lmMenu.do">Overview</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmAbout.do">About VCC</pg:url> </div>
 			<div class="floatLeft headerButton"> <pg:url page="lmFaq.do">FAQ</pg:url> </div>
 			<div class="floatLeft headerButton currentBox"> <pg:url page="lmTutorial1.do">Tutorial</pg:url> </div>
