@@ -3,11 +3,11 @@
 	"http://java.sun.com/j2ee/dtd/web-jsptaglibrary_1_2.dtd">
 
 <taglib>
-
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
   <short-name>pgist</short-name>
   <uri>http://www.pgist.org/pgtaglib</uri>
+  <display-name>PGIST tag library</display-name>
   <description>PGIST tag library</description>
 
   <function>
@@ -348,9 +348,12 @@
   
   <tag>
     <name>highlight</name>
-    <tagclass>org.pgist.tags.HighlightTag</tagclass>
-    <bodycontent>JSP</bodycontent>
+    <tag-class>org.pgist.tags.HighlightTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Highlight text in any content with specified CSS styles.</description>
+    <!-- 
     <info>Highlight text in any content with specified CSS styles.</info>
+    -->
     <attribute>
       <name>text</name>
       <required>true</required>
@@ -375,9 +378,12 @@
 
   <tag>
     <name>termHighlight</name>
-    <tagclass>org.pgist.tags.TermHighlightTag</tagclass>
-    <bodycontent>JSP</bodycontent>
+    <tag-class>org.pgist.tags.TermHighlightTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Highlight terms in any content with specified URL/CSS styles.</description>
+    <!-- 
     <info>Highlight terms in any content with specified URL/CSS styles.</info>
+    -->
     <attribute>
       <name>strategy</name>
       <required>false</required>
@@ -770,7 +776,4 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
-  
-
 </taglib>
-

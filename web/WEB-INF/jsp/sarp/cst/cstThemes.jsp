@@ -2,6 +2,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.pgist.org/pgtaglib" prefix="pg" %>
 <logic:iterate id="theme" name="themes">
 <div id="anotherPanel${theme.id}">
 	<div id="overviewheader${theme.id}"  class="accordionTabTitleBar ">Theme: ${pg:purify(theme.title)}</div>

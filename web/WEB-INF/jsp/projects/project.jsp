@@ -200,7 +200,7 @@ margin:.5em 0em .5em 1em;
                 <td>${objective.name}</td>
                 <td>${objective.grade}</td>
               </tr>
-            </c:foreach>
+           </c:foreach>
           </table>
         </div>
       </div>

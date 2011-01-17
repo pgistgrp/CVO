@@ -12,7 +12,8 @@
 * @author    Samuel Blume <sam at blueshoes dot org>
 * @author    Andrej Arn <andrej at blueshoes dot org>
 */
-<!--
+
+/*<!--
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!! Remove This Text if this code is in use !!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -23,6 +24,9 @@
 !!  - using the right mouse buton
 !!  - selecting text
 !!  - printing (?)
+*/
+
+
 var isNetscape = (navigator.appName.indexOf("Netscape") !=-1);function preventControlKeys(e) {
 var keyHit = (isNetscape) ? e.which : event.keyCode;switch(keyHit) {
 case 0: {
