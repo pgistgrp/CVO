@@ -234,7 +234,7 @@
 	<div id="register">
 	<!-- begin SIGN-IN -->
 	<div>
-		<p>Already have an account at ClimateConcerns.org? <a href="login.do">Sign in</a>.</p
+		<p>Already have an account at ClimateConcerns.org? <a href="login.do">Sign in</a>.</p>
 		<h3>Register for Voicing Climate Concerns</h3>
 	</div>
 	<!-- end  SIGN-IN -->

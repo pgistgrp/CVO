@@ -6,7 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="javascript" %>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 
 <!--####
 	Project: Let's Improve Transportation!
