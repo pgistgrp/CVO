@@ -178,7 +178,7 @@ margin:.5em 0em .5em 1em;
       </div>
       <div class="clearBoth"></div>
     </div>
-    <c:forEach var="criterion" items="${criteria}" varStatus="loop">
+    <c:ForEach var="criterion" items="${criteria}" varStatus="loop">
       <div class="criteriaListRow row">
         <div class="weighCriteriaCol1 floatLeft"><a href="#">
           <div class="floatLeft"><a href="javascript:expandList('objectives1','icon1');">
@@ -195,16 +195,16 @@ margin:.5em 0em .5em 1em;
               <td><strong>Objective</strong></td>
               <td><strong>Grade</strong></td>
             </tr>
-            <c:forEach var="objective" items="${criterion.objectives}" varStatus="loop">
+            <c:ForEach var="objective" items="${criterion.objectives}" varStatus="loop">
               <tr>
                 <td>${objective.name}</td>
                 <td>${objective.grade}</td>
               </tr>
-           </c:foreach>
+           </c:ForEach>
           </table>
         </div>
       </div>
-    </c:forEach>
+    </c:ForEach>
     <div class="criteriaListRow" style="padding:5px;">
       <p>Average grade based on equal weighting of all planning
         factors: ${alternative.criteria.equalWeights}<br />
