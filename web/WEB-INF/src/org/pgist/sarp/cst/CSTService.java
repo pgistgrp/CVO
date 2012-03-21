@@ -25,6 +25,8 @@ public interface CSTService {
     
     CategoryReference getCategoryReferenceById(Long categoryId) throws Exception;
     
+    CategoryReference getCategoryReferenceByName(Long cstId, String name) throws Exception;
+    
     CategoryReference addCategoryReference(Long cstId, Long parentId, String name) throws Exception;
 
     void copyCategoryReference(Long cstId, Long parentId, Long categoryId) throws Exception;

@@ -4,18 +4,19 @@
 <!-- Begin header menu - The wide ribbon underneath the logo -->
 <div id="headerMenu">
   <div id="headerContainer">
-    <div id="headerTitle" class="floatLeft">
-      <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
+     <div id="headerTitle" class="floatLeft">
+     <!-- <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       
       <c:set var="meeting" value="${requestScope['org.pgist.wfengine.MEETING']}" />
       <pg:narrow name="meeting" />
-      <h3 class="headerColor floatLeft" style="margin-top:0px;">${meeting.description}</h3>
+      <h3 class="headerColor floatLeft" style="margin-top:0px;">${meeting.description}</h3> -->
+      <h3 class="headerColor floatLeft" style="margin-top:0px;">CyberGIS Feedback</h3>
     </div>
 
     <!-- PARALLEL -->
 
-    <c:forEach var="serial" items="${requestScope['org.pgist.wfengine.SERIAL']}" varStatus="loop">
+   <!--  <c:forEach var="serial" items="${requestScope['org.pgist.wfengine.SERIAL']}" varStatus="loop">
     <pg:narrow name="SERIAL"/>
     <c:set var="running" value="${pg:contains(requestScope['org.pgist.wfengine.CONTEXT'].runningActivities, serial)}" />
     <c:set var="histories" value="${pg:contains(requestScope['org.pgist.wfengine.HISTORIES'], serial)}" />
@@ -32,10 +33,10 @@
         </c:choose>
       </div>
     </c:if>
-    </c:forEach>
+    </c:forEach> -->
     <!-- END PARALLEL -->
 
-  <div id="headerNext" class="floatRight box5"> <pg:url page="/userhome.do">Back to Agenda</pg:url> </div>
+ <!--   <div id="headerNext" class="floatRight box5"> <pg:url page="/userhome.do">Back to Agenda</pg:url> </div> -->
   </div>
   
 

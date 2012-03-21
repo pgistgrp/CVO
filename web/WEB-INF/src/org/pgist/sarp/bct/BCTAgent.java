@@ -3,12 +3,17 @@ package org.pgist.sarp.bct;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.directwebremoting.WebContextFactory;
+import org.pgist.sarp.cst.CST;
+import org.pgist.sarp.cst.CSTService;
+import org.pgist.sarp.cst.CategoryReference;
 import org.pgist.search.TextIndexer;
 import org.pgist.system.EmailSender;
 import org.pgist.system.SystemService;
@@ -19,6 +24,8 @@ import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 import org.pgist.util.StringUtil;
 import org.pgist.util.WebUtils;
+import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.WorkflowEngine;
 
 
 /**
@@ -43,6 +50,12 @@ public class BCTAgent {
     private EmailSender emailSender;
     
     private TextIndexer textIndexer;
+   
+    private CSTService cstService;
+    
+    private CST cst = null;
+ 
+    private WorkflowEngine engine;
     
     
     /**
@@ -80,7 +93,17 @@ public class BCTAgent {
     }
 
 
-    public void setTextIndexer(TextIndexer textIndexer) {
+    public void setCstService(CSTService cstService) {
+		this.cstService = cstService;
+	}
+
+    public void setEngine(WorkflowEngine engine) {
+        this.engine = engine;
+    }
+
+
+
+	public void setTextIndexer(TextIndexer textIndexer) {
         this.textIndexer = textIndexer;
     }
 
@@ -134,6 +157,7 @@ public class BCTAgent {
      *           <li>bctId - long int, the current BCT instance id</li>
      *           <li>concern - String, the new concern which user entered</li>
      *           <li>tags - String, a comma-separated tag list provided by current user</li>
+     *           <li>category - String, the category with which the concern is to be associated</li>
      *           <li>workflowId - long</li>
      *           <li>contextId - long</li>
      *           <li>activityId - long</li>
@@ -158,6 +182,9 @@ public class BCTAgent {
         map.put("successful", false);
 
         Long bctId = new Long((String) params.get("bctId"));
+        Long workflowId = new Long((String) wfinfo.get("workflowId"));
+        Long contextId = new Long((String) wfinfo.get("contextId"));
+        Long activityId = new Long((String) wfinfo.get("activityId"));
 
         String concernStr = (String) params.get("concern");
         if (concernStr == null || "".equals(concernStr.trim())) {
@@ -166,13 +193,42 @@ public class BCTAgent {
         }
 
         String tags = (String) params.get("tags");
-        
         Concern concern = null;
         
         try {
             concern = bctService.createConcern(bctId, concernStr, tags.split(","));
             map.put("concern", concern);
             map.put("successful", true);
+            
+            Long userId = WebUtils.currentUserId();
+            User user = userDAO.getUserById(userId, true, false);
+            
+            
+            Map result = engine.getURL(workflowId, contextId, activityId);
+            EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
+            Long cstId = new Long(inouts.getIntValue("cst_id"));
+            cst = cstService.getCSTById(cstId);
+            
+            //Check if category already added
+            CategoryReference rootref = cst.getCats().get(userId);
+            CategoryReference catRef = null;
+            String feedbackCategory = (String)params.get("category");
+            if (rootref==null) {
+            	rootref = cstService.setRootCatReference(cst, user);
+            	catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
+            }else{ 
+            	catRef = cstService.getCategoryReferenceByName(cst.getId(), feedbackCategory);
+            	if (catRef == null) catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
+            }
+            
+          //Add tags to category selected by user
+            SortedSet tagRefs = concern.getTags();
+            Iterator it = tagRefs.iterator();
+            while (it.hasNext()){
+            	TagReference tagRef = (TagReference)it.next();
+            	cstService.relateTagToCategory(bctId, catRef.getId(), tagRef.getId());
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
@@ -236,7 +292,7 @@ public class BCTAgent {
         Map map = new HashMap();
 
         Long bctId = new Long((String) params.get("bctId"));
-
+        
         if (!(bctId > 0)) {
             map.put("successful", new Boolean(false));
             map.put("reason", "No BCTId is given.");

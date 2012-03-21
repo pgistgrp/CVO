@@ -61,6 +61,10 @@
         <property name="systemService" ref="systemService"/>
         <property name="emailSender" ref="emailSender"/>
         <property name="textIndexer" ref="textIndexer"/>
+        <!-- Add for CyberGIS CST creation & pre-categorization of keywords -->
+        <property name="engine" ref="engine"/>
+        <property name="cstService" ref="cstService"/>
+        
     </bean>
 
 

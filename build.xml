@@ -177,6 +177,10 @@
         <WorkflowImporter definition="SARP.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
     </target>
     
+    <target name="SARP_CyberGIS">
+       		<taskdef name="WorkflowImporter" classname="org.pgist.tests.WorkflowImporter" classpathref="classpath" />
+         <WorkflowImporter definition="SARP-CyberGIS.xml" configPath="${temp}/WEB-INF/config" dataPath="${base}/initdata"/>
+    </target>
 
     <target name="hibernate" depends="compile">
         <taskdef name="TestHibernate" classname="org.pgist.tests.TestHibernate" classpathref="classpath">

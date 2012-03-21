@@ -3,7 +3,7 @@
     <td style="width:690px; height:20px;" nowrap>
       <b>Concerns</b>
       <div style="display:inline;padding-left:40px;">
-        Sort concerns by:
+        Sort feedback by:
         <select name="selectsort" id="selectsort" onChange="javascript:infoObject.getConcerns(1); ">
           <option value="1">Newest to oldest</option>
           <option value="2">Oldest to newest</option>

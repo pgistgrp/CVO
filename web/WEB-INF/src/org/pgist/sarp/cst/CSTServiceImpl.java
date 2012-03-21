@@ -88,6 +88,9 @@ public class CSTServiceImpl implements CSTService {
         return cstDAO.getCategoryReferenceById(categoryId);
     }//getCategoryReferenceById()
 
+    public CategoryReference getCategoryReferenceByName(Long cstId,String name) throws Exception {
+        return cstDAO.getCategoryReferenceByName(cstId, name);
+    }//getCategoryReferenceById()
 
     public Category getCategoryByName(String name) throws Exception {
         return cstDAO.getCategoryByName(name);

@@ -15,6 +15,7 @@
     
     <bean name="/login" class="org.pgist.system.LoginAction">
         <property name="systemService" ref="systemService"/>
+        <property name="registerService" ref="registerService"/>
     </bean>
     
     

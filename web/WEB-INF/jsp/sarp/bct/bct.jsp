@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Brainstorm Keyphrases</title>
+<title>CyberGIS Feedback</title>
 <!-- Site Wide CSS -->
 <style type="text/css" media="screen">
 @import "styles/lit.css";
@@ -51,13 +51,14 @@ var allNewConcernTags = new Array;
   bct.filterAnchor = "#filterJump";
   bct.divTagCloud = 'tagCloud';
   bct.divDiscussionTitle = "discussionTitle";
-  bct.discussionTitle = "All participants' concerns";
-  bct.discussionTitleOnChk = "Your concerns";
+  bct.discussionTitle = "All participants' feedback";
+  bct.discussionTitleOnChk = "Your feedback";
     
 //Input Element IDs
   bct.txtAddConcern = 'txtAddConcern';
   bct.btnContinueCont = 'btnContinueCont';
   bct.chbxMyConcerns = 'myconcerns';
+  bct.selectConcernCategory = 'selectConcernCategory';
   
 //Settings
   bct.currentPage = 0;
@@ -130,7 +131,7 @@ var allNewConcernTags = new Array;
   //ADD Concern Functions
   function validateForm(){
     if($(bct.txtAddConcern).value == "" ||$(bct.txtAddConcern).value  == $(bct.txtAddConcern).defaultValue ){ 
-        alert('Please fill in your concern above.');
+        alert('Please fill in your feedback above.');
         return false;
     }else{
         new Effect.BlindDown(bct.divTagNewConcern, {duration: 0.2});
@@ -161,6 +162,7 @@ var allNewConcernTags = new Array;
     var concernTags = new Array;
     var potentialTags = new Array;
     var concern = $(bct.txtAddConcern).value;
+    var category = $( bct.selectConcernCategory).value;
     
     if (validateForm()){  
       BCTAgent.prepareConcern({bctId:bct.bctId,concern:concern}, function(data) {
@@ -297,6 +299,7 @@ var allNewConcernTags = new Array;
     alert("You must use at least "+ bct.numTagsInNewConcern +" keywords/phrases");
     }else{
     var concern = $(bct.txtAddConcern).value;
+    var category = $(bct.selectConcernCategory).value;
     var newConcernSelectedTagsString = '';
     for (i=0; i<newConcernSelectedTagsArray.length; i++){
       newConcernSelectedTagsString += newConcernSelectedTagsArray[i] + ',';  
@@ -305,7 +308,7 @@ var allNewConcernTags = new Array;
     //alert('bctId:' + bctId + ', concern: ' + concern + ', tags: ' + newConcernSelectedTagsString);
     //alert(newConcernSelectedTagsString);
     
-    BCTAgent.saveConcern({bctId:bct.bctId,concern:concern,tags:newConcernSelectedTagsString},<pg:wfinfo/>, {
+    BCTAgent.saveConcern({bctId:bct.bctId,concern:concern,tags:newConcernSelectedTagsString,category:category},<pg:wfinfo/>, {
       callback:function(data){
         if (data.successful){
           getContextConcerns(bct.currentFilter, 0, true, bct.showOnlyMyConcerns, bct.currentSort);   
@@ -595,26 +598,26 @@ function editTags(concernId){
     <div id="overview" class="box2">
       <pg:show condition="${bct.closed}">  
       <h1 class="headerColor"><strong>This step is closed.</strong></h1>
-      <h3 class="headerColor">You can still browse, but you cannot create or edit concerns or comments.</h3>
+      <h3 class="headerColor">You can still browse, but you cannot create or edit feedback or comments.</h3>
       <p></p>
       </pg:show>  
       <h3>Instruction overview</h3>
-      <img src="images/vccWorkflowStep1.png" width="112" height="121" style="float:right; margin: 0 0 15px 15px; background-color: #ffffff;">
+      <!--  <img src="images/vccWorkflowStep1.png" width="112" height="121" style="float:right; margin: 0 0 15px 15px; background-color: #ffffff;">-->
       <c:set var="current" value="${requestScope['org.pgist.wfengine.CURRENT']}" />
       <pg:narrow name="current"/>
       <pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id="><br>
-				</pg:termHighlight>Write a climate concern in the box on the right and select or write your own keywords and keyphrases. &nbsp;Be specific. Try to use keywords and keyphrases that describe your concern about a climate change impact in terms of a) a changing climate condition and/or b) a place or thing actually being impacted.
+				</pg:termHighlight>Please enter your feedback in the box on the right and select or write your own keywords and keyphrases. &nbsp;Be specific. Try to use keywords and keyphrases that summarize your experience, issues, concerns, suggestions, etc... Your input is appreciated!
 				<p>
         <a href="#" onclick="Effect.toggle('hiddenRM','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Detailed instructions</pg:termHighlight></a>
-        &nbsp; | &nbsp;
-        <a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Video tutorial</pg:termHighlight></a>
+        <!--  &nbsp; | &nbsp;-->
+        <!-- <a href="#" onclick="Effect.toggle('hiddenTut','blind'); return false"><pg:termHighlight styleClass="glossHighlight" url="glossaryView.do?id=">Video tutorial</pg:termHighlight></a>-->
       </p>
 				<ol id="hiddenRM" style="display:none">
-							<li>Write a concern in the box on the right, and click &quot;<b>Continue</b>&quot;. Your concern text provides a collection of ideas from which to select keywords/phrases for climate change indicators.</li>
-							<li>Choose keywords or keyphrases extracted from your concern, or enter your own in the space provided. Users need at least 2 keywords or keyphrases per concern to make it work. &nbsp;Users can submit as many as desired. Click submit.</li>
-							<li>At your choice during, before, or after entering concerns, a user can explore concerns and associated keywords/phrases submitted by others. Search, browse or sort concerns and keywords with the functionality provided in the blue bar. Users can discuss concerns by submitting comments and indicate their agreement or disagreement by voting.</li>
-							<li>Re-evaluate your own concerns and edit or create new ones if necessary.</li>
-							<li>You can add as many concerns and associated keywords and/or keyphrases as you like. <b>Note:</b> one or more keyphrases will be used to compose an indicator label in Step 2. Therefore, the more keyphrases that are created the more opportunities there will be to create a diverse collection of indicator labels in Step 2.&nbsp;</li>
+							<li>Enter feedback in the box on the right, and click &quot;<b>Continue</b>&quot;. Your feedback text provides a collection of ideas from which to select keywords/phrases for CyberGIS metrics.</li>
+							<li>Choose keywords or keyphrases extracted from your feedback, or enter your own in the space provided. Users need at least 2 keywords or keyphrases. Users can submit as many as desired. Click submit.</li>
+							<li>At your choice during, before, or after entering feedback, a user can explore feedback and associated keywords/phrases submitted by others. Search, browse or sort feedback and keywords with the functionality provided in the blue bar. Users can discuss feedback by submitting comments and indicate their agreement or disagreement by voting.</li>
+							<li>Re-evaluate your own feedback and edit or provide new input if desired.</li>
+							<li>You can provide as much feedback and associated keywords and/or keyphrases as you like. <b>Note:</b> One or more keyphrases will be used to compose metrics. Therefore, the more keyphrases that are created the more opportunities there will be to create a diverse collection of metrics.&nbsp;</li>
 				</ol>
 				<ol id="hiddenTut" style="display:none">
 					<a href="images/vcc1aBrainstorm.flv" style="display:block;width:480px;height:360px"  id="step1a"> </a> 
@@ -625,31 +628,31 @@ function editTags(concernId){
     </div>
     <a name="filterJump"></a>
     <pg:show condition="${!bct.closed}">
-    <div id="discussion" style="background-image: url('images/addConcern.gif'); background-repeat: no-repeat; background-position: 730px 0;">
+    <div id="discussion" style="background-image: url('images/addFeedback.gif'); background-repeat: no-repeat; background-position: 730px 0;">
     </pg:show>
     <pg:show condition="${bct.closed}">
     <div id="discussion">
     </pg:show>
       <div id="discussionHeader">
         <div class="sectionTitle">
-          <h3 id="discussionTitle">All participants' concerns</h3>
+          <h3 id="discussionTitle">All participants' feedback</h3>
           <div id="filteredBy"></div>
           <input type="checkbox" id="myconcerns" onClick="checkMyConcerns();"/>
-          Show only my concerns </div>
+          Show only my feedback </div>
         
     
         <!-- Begin sorting menu -->
         <div id="sortingMenu" class="box4"> 
           <form style="display:inline" 
         action="javascript: customFilterAction($('txtCustomFilter').value);">
-            <span id="sm-left">Search concerns:
+            <span id="sm-left">Search feedback:
             <input type="text" id="txtCustomFilter" value="Add a filter" 
           onKeyUp="customFilter(this.value, event);"  onKeyUp="customFilter(this.value, event);" 
           onClick="javascript:if(this.value==this.defaultValue){this.value = ''}"/>
             </span> <span id="sm-middle"> <a href="javascript:getTagCloud();">Browse
             keywords</a> <a href="javascript:getTagCloud();"><img src="images/keyword-cloud.gif" alt="Click here for the Keyword Cloud" /></a></span>
           </form>
-          <span id="sm-right"> Sort concerns by:
+          <span id="sm-right"> Sort feedback by:
           <select name="selectsort" id="selectsort" 
         onChange="javascript:getContextConcerns(bct.currentFilter, 1, true, bct.showOnlyMyConcerns, this.value);  ">
             <option value="1">Newest to oldest</option>
@@ -680,11 +683,17 @@ function editTags(concernId){
       <pg:show condition="${!bct.closed}">
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
+        <select id="selectConcernCategory">
+        	<option value="CyberGIS Gateway">CyberGIS Gateway</option>
+        	<option value="Viewshed">Viewshed</option>
+         	<option value="Open Topography">Open Topography</option>
+        	<option value="Spatial Point Generator">Spatial Point Generator</option>
+      	</select>
         <h3>
-          <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Type in one concern about regional climate change. You can enter more later.</textarea>
+          <textarea id="txtAddConcern" style="width:100%; border: 1px solid #FFC978; height: 100px;" onClick="if(this.value==this.defaultValue){this.value = ''}">Share your feedback here. If you have multiple points, please enter one at a time to help us better structure your input.</textarea>
         </h3>
         <div id="tagNewConcern" class="box6 padding5" style="display:none;">
-          <h3>Keyword/phrase your concern</h3>
+          <h3>Keyword/phrase your feedback</h3>
     <p><a href="litfaq.jsp#whattag" target="_blank" class="glossHighlight" title="Think of keywords as labels for quick understanding.">What is a keyword?</a> <img src="images/external.png" alt="(new window)"></p>
           <p>Previously suggested keywords/phrases:</p>
           <ul id="addConcernTagsList" class="tagsList">
@@ -713,7 +722,7 @@ function editTags(concernId){
 <!-- end feedback form -->
 
 <!-- Start Global Headers  -->
-    <wf:subNav />
+    <!--<wf:subNav />-->
 <!-- End Global Headers -->
 
   <!-- Begin footer -->

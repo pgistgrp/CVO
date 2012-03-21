@@ -4,12 +4,12 @@
 <div id="header">
     <div id="header-wrap" class="clearBoth">
         <div id="header-logo">
-            <a href="/main.do"><img src="/images/mainlogo.png" alt="LIT LOGO" /></a>
+            <a href="/main.do"><img src="/images/mainlogoCyberGIS.gif" alt="CyberGIS LOGO" /></a>
         </div>
         
         <div id="header-navigation">
             <span><a href="main.do">Home</a></span>
-            <span><pg:url page="/lmMenu.do"  target="_blank">Overview</pg:url></span>
+           <!--  <span><pg:url page="/lmMenu.do"  target="_blank">Overview</pg:url></span>--> 
             <c:choose>
             <c:when test="${baseuser != null}">
                 <pg:hide roles="guest">
@@ -22,7 +22,7 @@
             </c:otherwise>
             </c:choose>
             <span style="text-align:right"><a href="javascript:location.reload(true)">Reload Page</a>
-	    <span style="text-align:right"><a href="/lmTutorial1.do">Tutorial</a></span>
+	    <!--  <span style="text-align:right"><a href="/lmTutorial1.do">Tutorial</a></span>-->
         </div>
 
         <!-- Begin Search -->

@@ -8,7 +8,7 @@
 
 <p align="right"><a href="javascript:Effect.BlindUp('tagCloud'); void(0);"><img src="/images/close1.gif" border="0" class="marginRight"></a></p>
 <h3>Browse All Discussion Keywords</h3>
-<p>"Keywords" are an easy way to explore the wide variety of discussion posts contributed by other participants. Simply click on a keyword to read concerns related to that idea. Click on a keyword below to browse concerns.</p>
+<p>"Keywords" are an easy way to explore the wide variety of discussion posts contributed by other participants. Simply click on a keyword to read feedback related to that idea. Click on a keyword below to browse feedback.</p>
 
 <!-- iterate through concern tags here -->	
 <ul class="tagsInline">

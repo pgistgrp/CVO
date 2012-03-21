@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- Begin Breadcrumbs -->
 <div id="breadCrumbs" class="clearBoth"> 
-    <pg:url page="/bctview.do" params="bctId=${bct.id}">Step 1a: Brainstorm</pg:url> &rarr; Comments about a concern
+    <pg:url page="/bctview.do" params="bctId=${bct.id}">Feedback</pg:url> &rarr; Comments about feedback
 </div>
 <!-- End Breadcrumbs -->
 
@@ -19,7 +19,7 @@
       <h2>${concern.numAgree} of ${concern.numVote}</h2>
       people agree so far</div>
     </span>
-    <p>Do you agree with this concern?</p>
+    <p>Do you agree with this feedback?</p>
     <span id="structure_question">
     <c:choose>
     <c:when test="${concern.object == null}">
@@ -67,7 +67,7 @@
     <!--end discussionTagsList -->
     <pg:show condition="${!bct.closed}">
     <c:if test="${baseuser.id == concern.author.id}">
-        <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Concern</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Keywords</a></div>
+        <div class="box6"> <strong>Author Actions:</strong> <a href="javascript:editConcernPopup(${concern.id});">Edit Feedback</a> &nbsp; <a href="javascript:editTagsPopup(${concern.id});">Edit Keywords</a></div>
     </c:if>
     </pg:show>
     <h1 id="discussionAuthor">-
@@ -85,8 +85,8 @@
     <p>
     <h3 class="headerColor">${fn:length(comments)}
       <c:choose>
-        <c:when test="${fn:length(comments) == 1}"> Comment about this concern </c:when>
-        <c:otherwise> Comments about this concern</c:otherwise>
+        <c:when test="${fn:length(comments) == 1}"> Comment about this feedback </c:when>
+        <c:otherwise> Comments about this feedback</c:otherwise>
       </c:choose>
     </h3>
     </p>

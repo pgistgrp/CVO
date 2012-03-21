@@ -15,6 +15,8 @@ public class CreateCSTTask implements WorkflowTask {
     
 	public static final String IN_BCT_ID = "bct_id";
 	
+	public static final String IN_CST_ID = "cst_id";
+	
     public static final String OUT_CST_ID = "cst_id";
     
     
@@ -39,8 +41,15 @@ public class CreateCSTTask implements WorkflowTask {
         String instruction = inouts.getProperty("instruction");
         
         Long bctId = new Long(inouts.getIntValue(IN_BCT_ID));
+        Long cstId;
+        CST cst;
         
-        CST cst = cstService.createCST(info.getWorkflow().getId(), bctId, name, purpose, instruction);
+        try{
+        	cstId = new Long(inouts.getIntValue(IN_CST_ID));
+        	cst = cstService.getCSTById(cstId);
+        }catch (Exception e){
+        	cst = cstService.createCST(info.getWorkflow().getId(), bctId, name, purpose, instruction);
+        }
         
         inouts.setIntValue(OUT_CST_ID, cst.getId().intValue());
     }//execute()

@@ -8,7 +8,7 @@
 
 <logic:equal name="showTitle" value="true">
 	<span class="closeBox">[ <a href="javascript:goPage(${setting.page});">Clear Filter</a> ]</span>
-	<br><span class="title_section">Concerns about: </span>
+	<br><span class="title_section">Feedback about: </span>
 		<span class="tagSize${tagRef.fontSize}"><a href="javascript:sideBar.changeCurrentFilter(${tagRef.id});">${tagRef.tag.name}</a></span>&nbsp;
 	<p></p>
 </logic:equal>

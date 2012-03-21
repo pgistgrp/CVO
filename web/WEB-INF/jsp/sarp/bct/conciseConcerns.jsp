@@ -8,7 +8,7 @@
 <c:choose>
   <c:when test="${fn:length(concerns) == 0}">
       <div class="discussion-left box8">
-        <p>No concerns, yet.</p>
+        <p>No feedback, yet.</p>
       </div>
   </c:when>
   <c:otherwise>
