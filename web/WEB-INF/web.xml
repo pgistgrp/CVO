@@ -171,6 +171,7 @@
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/feedback.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
+        <url-pattern>/workflow.do</url-pattern>
     </filter-mapping>
     
     <filter-mapping>
