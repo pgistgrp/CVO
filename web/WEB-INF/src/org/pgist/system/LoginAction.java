@@ -117,17 +117,19 @@ public class LoginAction extends Action {
         		putUserInSession(user, request, session);
      
              //Check if it's a intermediate login
-        		for (Cookie cookie : request.getCookies()) {
-        			if ("PG_INIT_URL".equals(cookie.getName())) {
-        				String initURL = cookie.getValue();
+        		if(request.getCookies()!=null){
+        			for (Cookie cookie : request.getCookies()) {
+        				if ("PG_INIT_URL".equals(cookie.getName())) {
+        					String initURL = cookie.getValue();
                     
-        				//Remove cookie
-        				cookie.setMaxAge(0);
-        				response.addCookie(cookie);
+        					//Remove cookie
+        					cookie.setMaxAge(0);
+        					response.addCookie(cookie);
                     
-        				if (initURL!=null && initURL.length()>0) {
-                        //Redirect to the initial URL
-        					return new ActionForward(initURL, true);
+        					if (initURL!=null && initURL.length()>0) {
+        						//Redirect to the initial URL
+        						return new ActionForward(initURL, true);
+        					}
         				}
         			}
         		}
@@ -182,10 +184,11 @@ public class LoginAction extends Action {
     		  String contextId = request.getParameter("contextId");
     		  String activityId = request.getParameter("activityId");
     	
-    		  af = new ActionForward(request.getAttribute("httpPrefix")
-    			+ "/workflow.do?workflowId=" + workflowId 
+    		  af = new ActionForward(request.getAttribute("httpsPrefix")
+    			+ mapping.findForward("workflow").getPath()
+    			+ "?workflowId=" + workflowId 
     			+ "&contextId=" + contextId 
-    			+ "&activityId=" + activityId, //do not append jsessionid, page will not load
+    			+ "&activityId=" + activityId,
                 true);
     	  }else{
     		  af = new ActionForward(
@@ -207,7 +210,7 @@ public class LoginAction extends Action {
 		formparams.add(new BasicNameValuePair("auth_request", "default"));
 		formparams.add(new BasicNameValuePair("username", request.getParameter("username")));
 		formparams.add(new BasicNameValuePair("remote_addr", request.getRemoteAddr()));
-		//formparams.add(new BasicNameValuePair("remote_addr", "71.212.96.183"));
+		//formparams.add(new BasicNameValuePair("remote_addr", "71.212.56.105"));
 		
 		String url = this.getServlet().getInitParameter("APIURL")+"token";
 		String resultString = executePut(url, formparams);
