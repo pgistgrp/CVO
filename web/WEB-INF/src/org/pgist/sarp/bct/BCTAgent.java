@@ -193,6 +193,8 @@ public class BCTAgent {
         }
 
         String tags = (String) params.get("tags");
+        String category = (String)params.get("category");
+        tags = tags + category; //add category as keyword so it can be used to filter feedback
         Concern concern = null;
         
         try {
@@ -212,7 +214,7 @@ public class BCTAgent {
             //Check if category already added
             CategoryReference rootref = cst.getCats().get(userId);
             CategoryReference catRef = null;
-            String feedbackCategory = (String)params.get("category");
+            String feedbackCategory = category;
             if (rootref==null) {
             	rootref = cstService.setRootCatReference(cst, user);
             	catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);

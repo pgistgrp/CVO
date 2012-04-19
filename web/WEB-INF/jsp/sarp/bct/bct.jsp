@@ -63,7 +63,7 @@ var allNewConcernTags = new Array;
 //Settings
   bct.currentPage = 0;
   bct.currentSort = 1; //Initial sorting
-  bct.currentFilter = '';  //Default tag filter
+  bct.currentFilter = '';
   bct.numTagsInNewConcern = 2;
   bct.concernsPerPage = 8;
   bct.showOnlyMyConcerns = false; 
@@ -84,6 +84,7 @@ var allNewConcernTags = new Array;
     type = (bct.showOnlyMyConcerns) ? "owner" : "all"; //determine type
     bct.currentPage = page; //set current page
     bct.currentSort = sorting; 
+    bct.currentFilter = $(bct.selectConcernCategory).value;//allow user to change filter but keep 'universal filter' as selected category
     
       //  alert("bct: " + bct.bctId + " filter: " + filter + " count: " + bct.concernsPerPage + " page: " + page + " sorting: " + bct.currentSort + " type: " + type);
     BCTAgent.getContextConcerns({bctId: bct.bctId,filter: filter, count: bct.concernsPerPage, page: page, sorting: bct.currentSort, type: type},<pg:wfinfo/>, {
@@ -378,7 +379,7 @@ var allNewConcernTags = new Array;
         if (data.successful){
               var tagName = data.tag.name;
               getContextConcerns(tagName, 0, true, bct.showOnlyMyConcerns, bct.currentSort);
-              bct.currentFilter = tagName;
+              //bct.currentFilter = tagName;
                     
               $(bct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + tagName + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
             }else{
@@ -390,8 +391,9 @@ var allNewConcernTags = new Array;
         }
         });
     }else{  
-      bct.currentFilter='';
-      getContextConcerns('', 0, true, bct.showOnlyMyConcerns, bct.currentSort);
+     //go back to selected category
+      bct.currentFilter= bct.currentFilter = $(bct.selectConcernCategory).value;
+      getContextConcerns(bct.currentFilter, 0, true, bct.showOnlyMyConcerns, bct.currentSort);
       $(bct.divFilteredBy).innerHTML = '';
       
     }
@@ -683,7 +685,7 @@ function editTags(concernId){
       <pg:show condition="${!bct.closed}">
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
-        <select id="selectConcernCategory">
+        <select id="selectConcernCategory" onChange="javascript:getContextConcerns(this.value, 1, false, bct.showOnlyMyConcerns, bct.currentSort);  ">
         	<option value="CyberGIS Gateway">CyberGIS Gateway</option>
         	<option value="Viewshed">Viewshed</option>
          	<option value="Open Topography">Open Topography</option>
@@ -733,7 +735,8 @@ function editTags(concernId){
   
    
   <script type="text/javascript">
-    getContextConcerns('', 1, false, bct.showOnlyMyConcerns, bct.currentSort);
+    getContextConcerns($(bct.selectConcernCategory).value, 1, false, bct.showOnlyMyConcerns, bct.currentSort);
+    //$(bct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + bct.currentFilter + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
   </script>
   </body>
 </html>

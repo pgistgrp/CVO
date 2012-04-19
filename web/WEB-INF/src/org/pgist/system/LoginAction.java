@@ -22,6 +22,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
@@ -74,7 +75,8 @@ public class LoginAction extends Action {
     ) throws java.lang.Exception {
         
         //Create new session
-        HttpSession session = request.getSession(true);
+        //HttpSession session = request.getSession(true);
+    	HttpSession session = request.getSession(false);
         
         //Check to see if CyberGIS request
         if(!(request.getParameter("domain")==null)){
@@ -86,7 +88,7 @@ public class LoginAction extends Action {
         			return mapping.findForward("loginPage");
         		}else{
         			putUserInSession(user, request, session);
-        			return doForward(mapping, request, session);
+        			return doForward(mapping, request, response, session);
         		}
         	}else
         		return mapping.findForward("loginPage");
@@ -133,8 +135,8 @@ public class LoginAction extends Action {
         				}
         			}
         		}
-            
-        		return doForward(mapping, request, session);
+        		
+        		return doForward(mapping, request, response, session);
             
         	} else if(!user.checkPassword(password)){
         		request.setAttribute("reason", "Your Password is Invalid. Please Try Again.");
@@ -175,7 +177,7 @@ public class LoginAction extends Action {
           request.setAttribute("PGIST_SERVICE_SUCCESSFUL", true);
     }
     
-    private ActionForward doForward(ActionMapping mapping,HttpServletRequest request, HttpSession session){
+    private ActionForward doForward(ActionMapping mapping,HttpServletRequest request, HttpServletResponse response, HttpSession session){
     	ActionForward af; 
     	
     	//Check to see if feedback/BCT direct call otherwise go to main.jsp
@@ -184,12 +186,18 @@ public class LoginAction extends Action {
     		  String contextId = request.getParameter("contextId");
     		  String activityId = request.getParameter("activityId");
     	
-    		  af = new ActionForward(request.getAttribute("httpsPrefix")
+    		  af = new ActionForward(request.getAttribute("httpPrefix")
     			+ mapping.findForward("workflow").getPath()
     			+ "?workflowId=" + workflowId 
     			+ "&contextId=" + contextId 
     			+ "&activityId=" + activityId,
                 true);
+    		  
+    		  //appending jsessionid didn't work to maintain session, need to add cookie!
+    		  Cookie cookie = new Cookie("JSESSIONID", session.getId());
+              cookie.setMaxAge(-1);
+              response.addCookie(cookie);
+    		  
     	  }else{
     		  af = new ActionForward(
                 request.getAttribute("httpPrefix")
