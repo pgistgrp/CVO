@@ -8,7 +8,7 @@
         </div>
         
         <div id="header-navigation">
-            <span><a href="main.do">Home</a></span>
+           <!-- <span><a href="main.do">Home</a></span>-->
            <!--  <span><pg:url page="/lmMenu.do"  target="_blank">Overview</pg:url></span>--> 
             <c:choose>
             <c:when test="${baseuser != null}">
