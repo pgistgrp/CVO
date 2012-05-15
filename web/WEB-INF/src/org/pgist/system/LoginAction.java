@@ -197,6 +197,12 @@ public class LoginAction extends Action {
     		  Cookie cookie = new Cookie("JSESSIONID", session.getId());
               cookie.setMaxAge(-1);
               response.addCookie(cookie);
+              
+              //also need to set cybergis context for feedback
+              String cybergiscontext = request.getParameter("cybergiscontext");
+              Cookie cookie2 = new Cookie("CYBERGISCONTEXT", cybergiscontext);
+              cookie.setMaxAge(-1);
+              response.addCookie(cookie2);
     		  
     	  }else{
     		  af = new ActionForward(
