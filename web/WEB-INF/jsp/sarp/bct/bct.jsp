@@ -75,6 +75,30 @@ var allNewConcernTags = new Array;
 
 //END Global Variables
 
+  
+function setSelectConcernCategory (){
+	var element = document.getElementById('selectConcernCategory');
+    var cybergiscontext = getCookie("CYBERGISCONTEXT");
+	element.value = cybergiscontext;
+}
+
+
+
+function getCookie(cookie){
+	cName = "";
+	pCOOKIES = new Array();
+	pCOOKIES = document.cookie.split('; ');
+	for(bb = 0; bb < pCOOKIES.length; bb++){
+		NmeVal  = new Array();
+		NmeVal  = pCOOKIES[bb].split('=');
+		if(NmeVal[0] == cookie){
+			cName = unescape(NmeVal[1]);
+		}
+	}
+	return cName;
+}
+
+
   function getContextConcerns(filter, page, jump, showMyConcerns, sorting){
     //alert("filter" + filter + " page: " + page + " jump: " + jump + " showMyConcerns: " + showMyConcerns + " sorting: " + sorting)
     if(jump){
@@ -686,7 +710,7 @@ function editTags(concernId){
       <div id="colRight" class="floatLeft box6 colRight">
         <!-- right col -->
         <select id="selectConcernCategory" onChange="javascript:getContextConcerns(this.value, 1, false, bct.showOnlyMyConcerns, bct.currentSort);  ">
-        	<option value="CyberGIS Gateway">CyberGIS Gateway</option>
+        	<option value="CyberGIS Gateway General">CyberGIS Gateway General</option>
         	<option value="Viewshed">Viewshed</option>
          	<option value="Open Topography">Open Topography</option>
         	<option value="Spatial Point Generator">Spatial Point Generator</option>
@@ -735,6 +759,8 @@ function editTags(concernId){
   
    
   <script type="text/javascript">
+  	//get CyberGIS Context from session cookie and set as selectConcernCategory value
+  	setSelectConcernCategory();
     getContextConcerns($(bct.selectConcernCategory).value, 1, false, bct.showOnlyMyConcerns, bct.currentSort);
     //$(bct.divFilteredBy).innerHTML = '<h3 class="contrast1">Filtered By: ' + bct.currentFilter + ' <a href="javascript: changeCurrentFilter(\'\');"><img src="images/close.gif" alt="clear filter" /></a>';
   </script>
