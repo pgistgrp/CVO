@@ -711,7 +711,7 @@ function editTags(concernId){
         <!-- right col -->
         <select id="selectConcernCategory" onChange="javascript:getContextConcerns(this.value, 1, false, bct.showOnlyMyConcerns, bct.currentSort);  ">
         	<option value="CyberGIS Gateway General">CyberGIS Gateway General</option>
-        	<option value="Viewshed">Viewshed</option>
+        	<option value="viewshed">Viewshed</option>
          	<option value="Open Topography">Open Topography</option>
         	<option value="Spatial Point Generator">Spatial Point Generator</option>
       	</select>
