@@ -290,7 +290,7 @@ public class BCTAgent {
      *         </ul>
      * @throws Exception
      */
-    public Map getConcerns(HttpServletRequest request, Map params) {
+    public Map getConcerns(Map params, HttpServletRequest request) {
         Map map = new HashMap();
 
         Long bctId = new Long((String) params.get("bctId"));
@@ -410,7 +410,7 @@ public class BCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map getTagCloud(HttpServletRequest request, Map params) {
+    public Map getTagCloud(Map params, HttpServletRequest request) {
         Map map = new HashMap();
         
         int type = -1;
@@ -553,7 +553,7 @@ public class BCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map getConcernsByTag(HttpServletRequest request, Map params) {
+    public Map getConcernsByTag(Map params, HttpServletRequest request) {
         Map map = new HashMap();
 
         Long tagRefId = null;
@@ -825,7 +825,7 @@ public class BCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map searchTags(HttpServletRequest request, Map params) {
+    public Map searchTags(Map params, HttpServletRequest request) {
         Map map = new HashMap();
 
         BCT bct = null;
@@ -943,7 +943,7 @@ public class BCTAgent {
      *   </ul>
      * 
      */
-    public Map getContextConcerns(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map getContextConcerns(Map params, Map wfinfo,HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1034,7 +1034,7 @@ public class BCTAgent {
      *   </ul>
      * 
      */
-    public Map getConciseConcerns(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map getConciseConcerns(Map params, Map wfinfo, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1130,7 +1130,7 @@ public class BCTAgent {
      *   </ul>
      * 
      */
-    public Map getConciseTags(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map getConciseTags(Map params, Map wfinfo, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -1254,7 +1254,7 @@ public class BCTAgent {
      *     </li>
      *   </ul>
      */
-    public Map getConcernComments(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map getConcernComments(Map params, Map wfinfo, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
