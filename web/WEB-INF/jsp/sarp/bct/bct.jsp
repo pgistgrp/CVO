@@ -111,7 +111,7 @@ function getCookie(cookie){
     bct.currentFilter = $(bct.selectConcernCategory).value;//allow user to change filter but keep 'universal filter' as selected category
     
       //  alert("bct: " + bct.bctId + " filter: " + filter + " count: " + bct.concernsPerPage + " page: " + page + " sorting: " + bct.currentSort + " type: " + type);
-    BCTAgent.getContextConcerns({bctId: bct.bctId,filter: filter, count: bct.concernsPerPage, page: page, sorting: bct.currentSort, type: type},<pg:wfinfo/>, {
+    BCTAgent.getContextConcerns({bctId: bct.bctId,filter: filter, count: bct.concernsPerPage, page: page, sorting: bct.currentSort, type: type},<pg:wfinfo/>,{
       callback:function(data){
           if (data.successful){
             $(bct.divDiscussionCont).innerHTML = data.html;
