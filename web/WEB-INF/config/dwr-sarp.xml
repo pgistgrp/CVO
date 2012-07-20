@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.ltd.uk/dwr/dwr20.dtd">
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr//dwr30.dtd">
 
 <dwr>
 
@@ -39,8 +39,6 @@
     <convert converter="bean" match="org.pgist.sarp.cst.CategoryInfo">
       <param name="include" value="id, catRef, users, alias, tagsDiff, jaccardScores, freqSet, freqName, freqNameAndSet"/>
     </convert>
-
-    <convert converter="bean" match="org.pgist.sarp.bct.Theme"/>
 
     <convert converter="bean" match="org.pgist.glossary.Term">
       <param name="exclude" value="relatedTerms"/>
@@ -250,10 +248,13 @@
   </allow>
 
 
-  <signatures>
-    <![CDATA[
-    ]]>
-  </signatures>
+ <signatures>
+  <![CDATA[
+  import java.util.Map;
+  import org.pgist.sarp.bct.BCTAgent;
+  BCTAgent.getContextConcerns(Map<String> params, Map<String> wfinfo);
+  ]]>
+</signatures>
 
 
 </dwr>
