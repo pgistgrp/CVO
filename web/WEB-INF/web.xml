@@ -23,13 +23,12 @@
         <param-name>org.pgist.CONFIG_DIR</param-name>
         <param-value>/WEB-INF/config</param-value>
     </context-param>
-
     <context-param>
         <param-name>org.pgist.GMAP_KEY</param-name>
-        <param-value>@google.mapKey@</param-value>
+        <param-value>ABQIAAAAkcU1Vr-vuD237857XPSzIRT2yXp_ZAY8_ufC3CFXhHIE1NvwkxR5fyl53ssUTCOGBDlC_xyrSxl2Ug</param-value>
     </context-param>
     
-    
+    <!--
     <filter>
         <filter-name>StaticPageFilter</filter-name>
         <filter-class>org.pgist.web.StaticPageFilter</filter-class>
@@ -50,11 +49,11 @@
         <filter-class>org.pgist.web.SecurityFilter</filter-class>
         <init-param>
             <param-name>http-port</param-name>
-            <param-value>@tomcat.port.http@</param-value>
+            <param-value>8080</param-value>
         </init-param>
         <init-param>
             <param-name>https-port</param-name>
-            <param-value>@tomcat.port.https@</param-value>
+            <param-value>8443</param-value>
         </init-param>
         <init-param>
             <param-name>https-url</param-name>
@@ -130,13 +129,13 @@
         <filter-class>org.pgist.wfengine.web.WorkflowFilter</filter-class>
     </filter>
     
-    <!--filter-mapping>
+    <filter-mapping>
         <filter-name>StaticPageFilter</filter-name>
         <servlet-name>action</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
         <url-pattern>*.html</url-pattern>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping-->
+    </filter-mapping>
     
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
@@ -171,39 +170,39 @@
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/feedback.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
-        <url-pattern>/workflow.do</url-pattern>
+	  <url-pattern>/workflow.do</url-pattern>
     </filter-mapping>
-    
+   
     <filter-mapping>
         <filter-name>CheckRoleFilter</filter-name>
-        <!-- Moderator tool (log data viewer) -->
+        
         <url-pattern>/dwr/call/plaincall/PESAgent.getLogs.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/PESAgent.getUsers.dwr</url-pattern>
-        <!-- Others -->
+       
         <url-pattern>/gaTesting.do</url-pattern>
-        <!-- Agenda -->
+        
         <url-pattern>/agendaManager.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.createInstance.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.nextStep.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.startWorkflow.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/WorkflowAgent.setOpenAccess.dwr</url-pattern>
-        <!-- Situation Templates -->
+       
         <url-pattern>/templateSelect.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/OtherAgent.setSituationTemplate.dwr</url-pattern>
-        <!-- Tag Management -->
+        
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.createStopWord.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.createTag.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteStopWord.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/TaggingAgent.deleteTag.dwr</url-pattern>
-        <!-- Glossary Managemenet -->
+        
         <url-pattern>/glossaryManage.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.acceptTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteComment.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.deleteTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.rejectTerm.dwr</url-pattern>
         <url-pattern>/dwr/call/plaincall/GlossaryManageAgent.saveTerm.dwr</url-pattern>
-        <!-- System -->
+        
         <url-pattern>/usermgr.do</url-pattern>
         <url-pattern>/feedback.do</url-pattern>
         <url-pattern>/dwr/call/plaincall/SystemAgent.getAllUsers.dwr</url-pattern>
@@ -255,7 +254,7 @@
         <url-pattern>/packageMgr.do</url-pattern>
         <url-pattern>/packageVote.do</url-pattern>
     </filter-mapping>
-    
+    -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -318,9 +317,21 @@
             <param-name>debug</param-name>
             <param-value>true</param-value>
         </init-param>
+		   <init-param>
+      		<param-name>accessLogLevel</param-name>
+      		<param-value>CALL</param-value>
+    	</init-param>
+		 <init-param>
+      		<param-name>allowScriptTagRemoting</param-name>
+      		<param-value>true</param-value>
+    	</init-param>
+		<init-param>
+			<param-name>jsonpEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
         <init-param>
             <param-name>scriptSessionTimeout</param-name>
-            <param-value>@tomcat.session.timeout@</param-value>
+            <param-value>360</param-value>
         </init-param>
     </servlet>
     
@@ -337,7 +348,7 @@
     
     <session-config>
         <!-- Session timeout is in minutes -->
-        <session-timeout>@tomcat.session.timeout@</session-timeout>
+        <session-timeout>360</session-timeout>
     </session-config>
     
     
