@@ -128,12 +128,13 @@ public class BCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map prepareConcern(Map params) {
+    public Map prepareConcern(String concernParam) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
-            String concern = (String) params.get("concern");
+            //String concern = (String) params.get("concern");
+        	String concern = concernParam;
             
             String[][] tags = bctService.getSuggestedTags(concern);
             
@@ -144,7 +145,7 @@ public class BCTAgent {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+             
         return map;
     }//prepareConcern()
 
