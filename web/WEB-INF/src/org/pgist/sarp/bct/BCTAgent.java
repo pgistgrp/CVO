@@ -128,12 +128,44 @@ public class BCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
+    public Map prepareConcern(Map params) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        try {
+            String concern = (String) params.get("concern");
+        	//String concern = concernParam;
+            
+            String[][] tags = bctService.getSuggestedTags(concern);
+            
+            map.put("tags", tags[0]);
+            map.put("potentialtags", tags[1]);
+            
+            map.put("successful", new Boolean(true));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+             
+        return map;
+    }//prepareConcern()
+    /**
+     * Method necessary for ExtJS JSONP communication, DWR cannot unmarshal Map object.
+     * Analyze the given concern, extract and return the recognized tags from it.
+     *
+     * @param concernParam 
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>tags - a string array each element is name for an existing tag</li>
+     *           <li>potentialtags - a string array each element is a possible tag name</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
     public Map prepareConcern(String concernParam) {
         Map map = new HashMap();
         map.put("successful", false);
         
         try {
-            //String concern = (String) params.get("concern");
         	String concern = concernParam;
             
             String[][] tags = bctService.getSuggestedTags(concern);
@@ -148,7 +180,6 @@ public class BCTAgent {
              
         return map;
     }//prepareConcern()
-
 
     /**
      * Save the given new concern and its tags to the system.
@@ -206,9 +237,10 @@ public class BCTAgent {
             Long userId = WebUtils.currentUserId();
             User user = userDAO.getUserById(userId, true, false);
             
-            
             Map result = engine.getURL(workflowId, contextId, activityId);
             EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
+            
+            
             Long cstId = new Long(inouts.getIntValue("cst_id"));
             cst = cstService.getCSTById(cstId);
             
@@ -257,7 +289,131 @@ public class BCTAgent {
         
         return map;
     }//saveConcern()
+    /**
+     * Method necessary for ExtJS JSONP communication, DWR cannot unmarshal Map object.
+     * Save the given new concern and its tags to the system.
+     *
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>concern - A newly created Concern object</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map saveConcern(String concernStr, String tagList, String category, String workflow, String context, String activity) {
+        Map map = new HashMap();
+        map.put("successful", false);
 
+        Long workflowId = new Long((String) workflow);
+        Long contextId = new Long((String) context);
+        Long activityId = new Long((String) activity);
+        
+
+        if (concernStr == null || "".equals(concernStr.trim())) {
+            map.put("reason", "concern can not be empty.");
+            return map;
+        }
+
+        String tags = tagList + category; //add category as keyword so it can be used to filter feedback
+        Concern concern = null;
+        
+        try {
+    
+        	Map result = engine.getURL(workflowId, contextId, activityId);
+            EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
+            Long bctId = new Long(inouts.getIntValue("bct_id"));
+            Long cstId = new Long(inouts.getIntValue("cst_id"));
+            cst = cstService.getCSTById(cstId);
+            
+        	concern = bctService.createConcern(bctId, concernStr, tags.split(","));
+            map.put("concern", concern);
+            map.put("successful", true);
+            
+            Long userId = WebUtils.currentUserId();
+            User user = userDAO.getUserById(userId, true, false);
+            
+            
+            //Check if category already added
+            CategoryReference rootref = cst.getCats().get(userId);
+            CategoryReference catRef = null;
+            String feedbackCategory = category;
+            if (rootref==null) {
+            	rootref = cstService.setRootCatReference(cst, user);
+            	catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
+            }else{ 
+            	catRef = cstService.getCategoryReferenceByName(cst.getId(), feedbackCategory);
+            	if (catRef == null) catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
+            }
+            
+          //Add tags to category selected by user
+            SortedSet tagRefs = concern.getTags();
+            Iterator it = tagRefs.iterator();
+            while (it.hasNext()){
+            	TagReference tagRef = (TagReference)it.next();
+            	cstService.relateTagToCategory(bctId, catRef.getId(), tagRef.getId());
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+        }
+        
+        if (concern!=null) {
+            /*
+             * Indexing with Lucene.
+             */
+            try {
+                String url = String.format(
+                    "concern.do?workflowId=%s&contextId=%s&activityId=%s&id=%s",
+                    workflow,
+                    context,
+                    activity,
+                    concern.getId()
+                );
+                textIndexer.enqueue(workflow, "concern", "indexing", concern.getId(), url);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return map;
+    }//saveConcern()
+    
+    
+    /**
+     * Shortcut method for SPT beta, bct id is passed in instead of being retrieve from workflow, also ignoring category
+     *
+     * @return A map contains:<br>
+     *         <ul>
+     *           <li>successful - a boolean value denoting if the operation succeeds</li>
+     *           <li>concern - A newly created Concern object</li>
+     *           <li>reason - reason why operation failed (valid when successful==false)</li>
+     *         </ul>
+     */
+    public Map saveConcern(String concernStr, String tagList, String bct) {
+        Map map = new HashMap();
+        map.put("successful", false);
+
+
+        if (concernStr == null || "".equals(concernStr.trim())) {
+            map.put("reason", "concern can not be empty.");
+            return map;
+        }
+
+        Concern concern = null;
+     	try {
+        	Long bctId = new Long((String)bct);
+        	concern = bctService.createConcern(bctId, concernStr, tagList.split(","));
+        	map.put("concern", concern);
+            map.put("successful", true);
+		} catch (Exception e) {
+			map.put("reason", e.getMessage());
+		}
+         
+        return map;
+    }//saveConcern()
+    
+    
 
     /**
      * Get concerns conform to given conditions.
