@@ -1,13 +1,45 @@
 package org.pgist.system;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpException;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.directwebremoting.WebContextFactory;
+import org.directwebremoting.WebContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.pgist.users.User;
+import org.pgist.users.UserInfo;
 import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 
@@ -28,6 +60,10 @@ public class SystemAgent {
     
     private EmailSender emailSender;
     
+    private RegisterService registerService;
+    
+    private Properties props = new Properties();
+    
     
     /**
      * This is not an AJAX service method.
@@ -42,9 +78,16 @@ public class SystemAgent {
     public void setEmailSender(EmailSender emailSender) {
         this.emailSender = emailSender;
     }
+    
+    public void setRegisterService(RegisterService registerService) {
+        this.registerService = registerService;
+    }
 
+    public void setProps(Properties props) {
+        this.props = props;
+    }
 
-    /*
+    /*  
      * ------------------------------------------------------------------------
      */
     
@@ -154,6 +197,52 @@ public class SystemAgent {
         return map;
     }//getFeedbacks()
     
+    /**
+     * Get user by name or create one on the fly
+     * 
+     * @return User
+     */
+    
+    public Map loadUserByName(String loginname, String token, String domain){
+    	Map map = new HashMap();
+    	try{
+	    	User user = systemService.getUserByName(loginname, true, false);
+	    	
+	    	//For CyberGIS, instantiate new user on the fly
+	    	if (user == null & domain.equals("cybergis")){
+	    		String [] assocs = {"CyberGIS"};
+	    		Long newUserId = registerService.addSarpUser(loginname, loginname, loginname+"@cybergis.org", "0", "M", "0", "0", "", loginname, "cybergis", "", new HashSet(Arrays.asList(assocs)));
+	    		user = systemService.getUserById(newUserId);
+	    	}
+	    	
+	    	/*If a security token is provided verify it, this needs to be made more robust for multiple integration scenarios.
+	    	 *Currently specific to CyberGIS.
+	    	 */
+	    	if (token != null){
+	    		String result = verifyToken (loginname, token);
+	    		JSONObject jsonObject = new JSONObject(result);
+	    		String status = jsonObject.getString("status");
+	    		
+	    		if(status.equals("error")){
+	    			map.put("successful", new Boolean(false));
+	    			String errorMsg = "CyberGIS SSO failed. " + jsonObject.getJSONObject("result").getString("message");
+	        		map.put("error", errorMsg);
+	        		return map;
+	    		}
+	    	}
+	    	
+	    	//added for ExtJS Implementation because much of the code uses WebUtils to access user
+	    	UserInfo userInfo = new UserInfo(user);
+	    	WebUtils.setCurrentUser(userInfo);
+	    	map.put("successful", new Boolean(true));
+    	}
+    	catch(Exception e){
+    		map.put("successful", new Boolean(false));
+    		map.put("error", e.getMessage());
+	    }
+    	
+    	return map;
+    }
     
     /**
      * Get a list of all the users
@@ -1144,6 +1233,87 @@ public class SystemAgent {
         
         return result;
 	}//addNewAffiliation()
+	
+	//The following methods are for CyberGIS Token Service
+	private String verifyToken(String loginname, String token)
+	throws KeyManagementException, HttpException,
+	NoSuchAlgorithmException, IOException, JSONException {
+		WebContext ctx = WebContextFactory.get();
+		HttpServletRequest req = ctx.getHttpServletRequest();
+		
+		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+		formparams.add(new BasicNameValuePair("token", token));
+		formparams.add(new BasicNameValuePair("consumer", props.getProperty("CONSUMER_ID")));
+		formparams.add(new BasicNameValuePair("auth_request", "default"));
+		formparams.add(new BasicNameValuePair("username", loginname));
+		formparams.add(new BasicNameValuePair("remote_addr", req.getRemoteAddr()));
+		//formparams.add(new BasicNameValuePair("remote_addr", "208.54.32.146"));
+		String url = props.getProperty("APIURL")+"token";
+		String resultString = executePut(url, formparams);
+		
+		return resultString;
+}
+    
+
+	private String executePut(String url, List<NameValuePair> formparams)
+	throws HttpException, IOException, KeyManagementException,
+	NoSuchAlgorithmException {
+		HttpPut method = new HttpPut(url);
+		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, "UTF-8");
+		method.setEntity(entity);
+		return executeMethod(method);
+	}
+
+	
+	private String getQueryString(List<NameValuePair> formparams) {
+		StringBuffer buffer = new StringBuffer();
+		for (NameValuePair nv : formparams) {
+			buffer.append("&").append(URLEncoder.encode(nv.getName())).append("=")
+					.append(URLEncoder.encode(nv.getValue()));
+		}
+		if (buffer.length() > 0) {
+			return buffer.substring(1);
+		} else {
+			return null;
+		}
+	}
+
+	private String executeMethod(HttpRequestBase method) throws HttpException,
+			IOException, KeyManagementException, NoSuchAlgorithmException {
+		SSLContext ctx = SSLContext.getInstance("TLS");
+		ctx.init(new KeyManager[0],
+				new TrustManager[] { new DefaultTrustManager() },
+				new SecureRandom());
+		SSLContext.setDefault(ctx);
+		HttpClient client = new DefaultHttpClient();
+		HttpResponse response = client.execute(method);
+		HttpEntity resEntity = response.getEntity();
+		String responseString = "";
+		if(resEntity!=null){
+			BufferedReader br = new BufferedReader(new InputStreamReader(resEntity.getContent()));
+			String line = "";
+			while((line=br.readLine())!=null){
+				responseString += line;
+			}
+		}
+		return responseString;
+	}
+
+	private class DefaultTrustManager implements X509TrustManager {
+
+		public void checkClientTrusted(X509Certificate[] arg0, String arg1)
+				throws CertificateException {
+		}
+
+		public void checkServerTrusted(X509Certificate[] arg0, String arg1)
+				throws CertificateException {
+		}
+
+		public X509Certificate[] getAcceptedIssuers() {
+			return null;
+		}
+
+	}
 	
 	
 }//class SystemAgent
