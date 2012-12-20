@@ -28,6 +28,24 @@
         <param-value>ABQIAAAAkcU1Vr-vuD237857XPSzIRT2yXp_ZAY8_ufC3CFXhHIE1NvwkxR5fyl53ssUTCOGBDlC_xyrSxl2Ug</param-value>
     </context-param>
     
+    
+     <filter>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <servlet-name>action</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+        <url-pattern>/agendaManager.do</url-pattern>
+        <url-pattern>/usermgr.do</url-pattern>
+        <url-pattern>/templateSelect.do</url-pattern>
+        <url-pattern>/catsTree.do</url-pattern>
+        <url-pattern>/cstview.do</url-pattern>
+        <url-pattern>/tagging.do</url-pattern>
+        <url-pattern>/glossaryManage.do</url-pattern>
+    </filter-mapping>
     <!--
     <filter>
         <filter-name>StaticPageFilter</filter-name>
@@ -36,12 +54,6 @@
             <param-name>page</param-name>
             <param-value>/index-static.html</param-value>
         </init-param>
-    </filter>
-    
-    
-    <filter>
-        <filter-name>OpenSessionInViewFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
     </filter>
     
     <filter>
@@ -137,18 +149,6 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
     
-    <filter-mapping>
-        <filter-name>OpenSessionInViewFilter</filter-name>
-        <servlet-name>action</servlet-name>
-        <url-pattern>/dwr/*</url-pattern>
-        <url-pattern>/agendaManager.do</url-pattern>
-        <url-pattern>/usermgr.do</url-pattern>
-        <url-pattern>/templateSelect.do</url-pattern>
-        <url-pattern>/catsTree.do</url-pattern>
-        <url-pattern>/cstview.do</url-pattern>
-        <url-pattern>/tagging.do</url-pattern>
-        <url-pattern>/glossaryManage.do</url-pattern>
-    </filter-mapping>
     
     <filter-mapping>
         <filter-name>security filter</filter-name>
