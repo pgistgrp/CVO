@@ -15,10 +15,15 @@
             <include method="createInstance"/>
             <include method="getWorkflows"/>
             <include method="getWorkflow"/>
+            <include method="getOpenWorkflows"/>
             <include method="startWorkflow"/>
             <include method="nextStep"/>
             <include method="setOpenAccess"/>
         </create>
+        
+        <convert converter="bean" match="org.pgist.wfengine.OpenWorkflow">
+        	<param name="include" value="name, id"/>
+        </convert>
 
 
     </allow>
