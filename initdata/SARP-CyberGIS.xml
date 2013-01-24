@@ -138,6 +138,7 @@
             <declaration>
                 <ins>
                     <var name="bct_id"/>
+                    <!--Added because CST created during brainstorming in order to assign concerns to predefined topics (e.g. Gateway elements)--> 
                     <var name="cst_id"/>
                 </ins>
                 <outs>
