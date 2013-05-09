@@ -134,7 +134,6 @@ public class BCTAgent {
         
         try {
             String concern = (String) params.get("concern");
-        	//String concern = concernParam;
             
             String[][] tags = bctService.getSuggestedTags(concern);
             
@@ -303,25 +302,24 @@ public class BCTAgent {
     public Map saveConcern(String concernStr, String tagList, String category, String workflow, String context, String activity) {
         Map map = new HashMap();
         map.put("successful", false);
-
-        Long workflowId = new Long((String) workflow);
-        Long contextId = new Long((String) context);
-        Long activityId = new Long((String) activity);
         
 
         if (concernStr == null || "".equals(concernStr.trim())) {
             map.put("reason", "concern can not be empty.");
             return map;
         }
-
+        
         String tags = tagList + category; //add category as keyword so it can be used to filter feedback
         Concern concern = null;
         
+        Long workflowId = new Long(workflow);
+    	Long contextId = new Long (context);
+    	Long activityId = new Long (activity);
+        
         try {
-    
         	Map result = engine.getURL(workflowId, contextId, activityId);
             EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
-            Long bctId = new Long(inouts.getIntValue("bct_id"));
+            Long bctId = new Long(inouts.getIntValue("bctId"));
             Long cstId = new Long(inouts.getIntValue("cst_id"));
             cst = cstService.getCSTById(cstId);
             
@@ -365,12 +363,12 @@ public class BCTAgent {
             try {
                 String url = String.format(
                     "concern.do?workflowId=%s&contextId=%s&activityId=%s&id=%s",
-                    workflow,
-                    context,
-                    activity,
+                    workflowId.toString(),
+                    contextId.toString(),
+                    activityId.toString(),
                     concern.getId()
                 );
-                textIndexer.enqueue(workflow, "concern", "indexing", concern.getId(), url);
+                textIndexer.enqueue(workflowId.toString(), "concern", "indexing", concern.getId(), url);
             } catch(Exception e) {
                 e.printStackTrace();
             }
