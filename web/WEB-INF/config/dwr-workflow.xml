@@ -25,6 +25,10 @@
         	<param name="include" value="name, id"/>
         </convert>
 
+  		<convert converter="bean" match="org.pgist.wfengine.WorkflowAgendaItem">
+        	<param name="include" value="workflowId, type, status, description, title, contextId, activityId, beginTime, endTime, pgameActivityList"/>
+        </convert>
+       
 
     </allow>
 

@@ -223,8 +223,8 @@ public class LoginAction extends Action {
 		formparams.add(new BasicNameValuePair("consumer", this.getServlet().getInitParameter("CONSUMER_ID")));
 		formparams.add(new BasicNameValuePair("auth_request", "default"));
 		formparams.add(new BasicNameValuePair("username", request.getParameter("username")));
-		formparams.add(new BasicNameValuePair("remote_addr", request.getRemoteAddr()));
-		//formparams.add(new BasicNameValuePair("remote_addr", "71.212.56.105"));
+		//formparams.add(new BasicNameValuePair("remote_addr", request.getRemoteAddr()));
+		formparams.add(new BasicNameValuePair("remote_addr", "24.143.98.140"));
 		
 		String url = this.getServlet().getInitParameter("APIURL")+"token";
 		String resultString = executePut(url, formparams);
