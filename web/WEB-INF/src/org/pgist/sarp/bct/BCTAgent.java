@@ -1,9 +1,11 @@
 package org.pgist.sarp.bct;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -26,6 +28,7 @@ import org.pgist.util.StringUtil;
 import org.pgist.util.WebUtils;
 import org.pgist.wfengine.EnvironmentInOuts;
 import org.pgist.wfengine.WorkflowEngine;
+import org.pgist.wfengine.util.Utils;
 
 
 /**
@@ -209,7 +212,8 @@ public class BCTAgent {
      *         </ul>
      */
     public Map saveConcern(Map params, Map wfinfo) {
-        Map map = new HashMap();
+        String category = null;
+    	Map map = new HashMap();
         map.put("successful", false);
 
         Long bctId = new Long((String) params.get("bctId"));
@@ -224,8 +228,12 @@ public class BCTAgent {
         }
 
         String tags = (String) params.get("tags");
-        String category = (String)params.get("category");
-        tags = tags + category; //add category as keyword so it can be used to filter feedback
+        
+        if (params.get("category") != null){
+        	category = (String)params.get("category");
+        	tags = tags + category;//add category as keyword so it can be used to filter feedback
+        }
+        
         Concern concern = null;
         
         try {
@@ -233,40 +241,43 @@ public class BCTAgent {
             map.put("concern", concern);
             map.put("successful", true);
             
-            Long userId = WebUtils.currentUserId();
-            User user = userDAO.getUserById(userId, true, false);
-            
-            Map result = engine.getURL(workflowId, contextId, activityId);
-            EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
-            
-            
-            Long cstId = new Long(inouts.getIntValue("cst_id"));
-            cst = cstService.getCSTById(cstId);
-            
-            //Check if category already added
-            CategoryReference rootref = cst.getCats().get(userId);
-            CategoryReference catRef = null;
-            String feedbackCategory = category;
-            if (rootref==null) {
-            	rootref = cstService.setRootCatReference(cst, user);
-            	catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
-            }else{ 
-            	catRef = cstService.getCategoryReferenceByName(cst.getId(), feedbackCategory);
-            	if (catRef == null) catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
-            }
-            
-          //Add tags to category selected by user
-            SortedSet tagRefs = concern.getTags();
-            Iterator it = tagRefs.iterator();
-            while (it.hasNext()){
-            	TagReference tagRef = (TagReference)it.next();
-            	cstService.relateTagToCategory(bctId, catRef.getId(), tagRef.getId());
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("reason", e.getMessage());
-        }
+            if (category != null){
+	            Long userId = WebUtils.currentUserId();
+	            User user = userDAO.getUserById(userId, true, false);
+	            
+	            Map result = engine.getURL(workflowId, contextId, activityId);
+	            EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
+	            
+	            
+	            Long cstId = new Long(inouts.getIntValue("cst_id"));
+	            cst = cstService.getCSTById(cstId);
+	            
+	            
+	            //Check if category already added
+	            CategoryReference rootref = cst.getCats().get(userId);
+	            CategoryReference catRef = null;
+	            String feedbackCategory = category;
+	            if (rootref==null) {
+	            	rootref = cstService.setRootCatReference(cst, user);
+	            	catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
+	            }else{ 
+	            	catRef = cstService.getCategoryReferenceByName(cst.getId(), feedbackCategory);
+	            	if (catRef == null) catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
+	            }
+	            
+	          //Add tags to category selected by user
+	            SortedSet tagRefs = concern.getTags();
+	            Iterator it = tagRefs.iterator();
+	            while (it.hasNext()){
+	            	TagReference tagRef = (TagReference)it.next();
+	            	cstService.relateTagToCategory(bctId, catRef.getId(), tagRef.getId());
+	            }
+            }   
+	      } catch (Exception e) {
+	            e.printStackTrace();
+	            map.put("reason", e.getMessage());
+	      }
+        
         
         if (concern!=null) {
             /*
@@ -299,7 +310,7 @@ public class BCTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map saveConcern(String concernStr, String tagList, String category, String workflow, String context, String activity) {
+    public Map saveConcern(String concernStr, String tagList, String workflow, String context, String activity) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -309,7 +320,6 @@ public class BCTAgent {
             return map;
         }
         
-        String tags = tagList + category; //add category as keyword so it can be used to filter feedback
         Concern concern = null;
         
         Long workflowId = new Long(workflow);
@@ -320,36 +330,9 @@ public class BCTAgent {
         	Map result = engine.getURL(workflowId, contextId, activityId);
             EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
             Long bctId = new Long(inouts.getIntValue("bctId"));
-            Long cstId = new Long(inouts.getIntValue("cst_id"));
-            cst = cstService.getCSTById(cstId);
             
-        	concern = bctService.createConcern(bctId, concernStr, tags.split(","));
-            map.put("concern", concern);
+        	concern = bctService.createConcern(bctId, concernStr, tagList.split(","));
             map.put("successful", true);
-            
-            Long userId = WebUtils.currentUserId();
-            User user = userDAO.getUserById(userId, true, false);
-            
-            
-            //Check if category already added
-            CategoryReference rootref = cst.getCats().get(userId);
-            CategoryReference catRef = null;
-            String feedbackCategory = category;
-            if (rootref==null) {
-            	rootref = cstService.setRootCatReference(cst, user);
-            	catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
-            }else{ 
-            	catRef = cstService.getCategoryReferenceByName(cst.getId(), feedbackCategory);
-            	if (catRef == null) catRef = cstService.addCategoryReference(cst.getId(), rootref.getId(), feedbackCategory);
-            }
-            
-          //Add tags to category selected by user
-            SortedSet tagRefs = concern.getTags();
-            Iterator it = tagRefs.iterator();
-            while (it.hasNext()){
-            	TagReference tagRef = (TagReference)it.next();
-            	cstService.relateTagToCategory(bctId, catRef.getId(), tagRef.getId());
-            }
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -377,42 +360,6 @@ public class BCTAgent {
         return map;
     }//saveConcern()
     
-    
-    /**
-     * Shortcut method for SPT beta, bct id is passed in instead of being retrieve from workflow, also ignoring category
-     *
-     * @return A map contains:<br>
-     *         <ul>
-     *           <li>successful - a boolean value denoting if the operation succeeds</li>
-     *           <li>concern - A newly created Concern object</li>
-     *           <li>reason - reason why operation failed (valid when successful==false)</li>
-     *         </ul>
-     */
-    public Map saveConcern(String concernStr, String tagList, String bct) {
-        Map map = new HashMap();
-        map.put("successful", false);
-
-
-        if (concernStr == null || "".equals(concernStr.trim())) {
-            map.put("reason", "concern can not be empty.");
-            return map;
-        }
-
-        Concern concern = null;
-     	try {
-        	Long bctId = new Long((String)bct);
-        	concern = bctService.createConcern(bctId, concernStr, tagList.split(","));
-        	map.put("concern", concern);
-            map.put("successful", true);
-		} catch (Exception e) {
-			map.put("reason", e.getMessage());
-		}
-         
-        return map;
-    }//saveConcern()
-    
-    
-
     /**
      * Get concerns conform to given conditions.
      *
@@ -1151,7 +1098,58 @@ public class BCTAgent {
         
         return map;
     }//getContextConcerns()
-    
+
+    /**
+     * SPT Implementation - Get concerns in current BCT context. Similar to getContextConcerns(Map, Map, HttPRequest)
+     * however, simplified, to use client-side ExtJS Grid functionality for filter, sort, etc
+     * @param String bctid
+     *   
+     * @param wfinfo A map contains:
+     *   <ul>
+     *   <li>workflowId - long</li>
+     *   <li>contextId - long</li>
+     *   <li>activityId - long</li>
+     * </ul>
+     * 
+     * @return A list of Concern objects, each concern's "object" field may be a YesNoVoting object, or null.</li>
+     * 
+     */
+    public Collection getContextConcerns(String workflow, String context, String activity) {
+        Collection concerns = null;
+    	BCT bct = null;
+        
+    	Long workflowId = new Long(workflow);
+    	Long contextId = new Long (context);
+    	Long activityId = new Long (activity);
+    	
+        try {
+        	Map result = engine.getURL(workflowId, contextId, activityId);
+            EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
+            Long bctId = new Long(inouts.getIntValue("bctId"));
+            bct = bctService.getBCTById(bctId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        try {
+        	//Setting to defaults, will sort, filter etc on client side
+            int sorting = 0; //Default (newest created/replied)
+            String type = "all";
+            
+            PageSetting setting = new PageSetting();
+            setting.setRowOfPage(-1);
+            setting.setPage(1);
+            
+            concerns = bctService.getContextConcerns(bct, setting, null, type, sorting);
+            
+              
+        } catch (Exception e) {
+            e.printStackTrace();
+                
+        }
+        
+        return concerns;
+    }//getContextConcerns()
     
     /**
      * Get conerns in concise format in current BCT context.
