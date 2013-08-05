@@ -4,7 +4,7 @@
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
    version="2.5">
 
-    <display-name>CVO Test Application</display-name>
+    <display-name>CyberGIS Collaboratory</display-name>
     
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -46,15 +46,15 @@
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
     </filter-mapping>
-    <!--
-    <filter>
+    
+    <!--<filter>
         <filter-name>StaticPageFilter</filter-name>
         <filter-class>org.pgist.web.StaticPageFilter</filter-class>
         <init-param>
             <param-name>page</param-name>
             <param-value>/index-static.html</param-value>
         </init-param>
-    </filter>
+    </filter>-->
     
     <filter>
         <filter-name>security filter</filter-name>
@@ -140,14 +140,14 @@
         <filter-name>WorkflowFilter</filter-name>
         <filter-class>org.pgist.wfengine.web.WorkflowFilter</filter-class>
     </filter>
-    
+    <!--
     <filter-mapping>
         <filter-name>StaticPageFilter</filter-name>
         <servlet-name>action</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
         <url-pattern>*.html</url-pattern>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
+    </filter-mapping> -->
     
     
     <filter-mapping>
@@ -158,7 +158,8 @@
     <filter-mapping>
         <filter-name>pgist filter</filter-name>
         <servlet-name>action</servlet-name>
-        <url-pattern>/dwr/*</url-pattern>
+        <url-pattern>/dwr/call/*</url-pattern>
+        <url-pattern>/dwr/interface/*</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
         <url-pattern>/main.jsp</url-pattern>
         <url-pattern>/gaTesting.do</url-pattern>
@@ -170,7 +171,6 @@
         <url-pattern>/tagging.do</url-pattern>
         <url-pattern>/feedback.do</url-pattern>
         <url-pattern>/glossaryManage.do</url-pattern>
-	  <url-pattern>/workflow.do</url-pattern>
     </filter-mapping>
    
     <filter-mapping>
@@ -254,7 +254,7 @@
         <url-pattern>/packageMgr.do</url-pattern>
         <url-pattern>/packageVote.do</url-pattern>
     </filter-mapping>
-    -->
+    
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -313,7 +313,7 @@
             <param-name>config-workflow</param-name>
             <param-value>/WEB-INF/config/dwr-workflow.xml</param-value>
         </init-param>
-        <init-param>
+       <init-param>
             <param-name>debug</param-name>
             <param-value>true</param-value>
         </init-param>
@@ -353,7 +353,6 @@
     
     
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     
