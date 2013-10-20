@@ -17,7 +17,11 @@
     </convert>
 
     <convert converter="bean" match="org.pgist.sarp.bct.Concern">
-      <param name="include" value="id, content, author, createTime, deleted, tags"/>
+      <param name="include" value="id, content, author, createTime, deleted, tags, replies, views"/>
+    </convert>
+    
+     <convert converter="bean" match="org.pgist.sarp.bct.ConcernComment">
+      <param name="include" value="id, title, content, author, createTime, concern"/>
     </convert>
 
     <convert converter="bean" match="org.pgist.tagging.Tag">
