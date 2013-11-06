@@ -217,7 +217,7 @@ public interface BCTService {
     ConcernComment createConcernComment(Long workflowId, Long concernId, String title, String content, String[] tags) throws Exception;
     
     
-    ConcernComment editConcernComment(Long commentId, String title, String content, String[] tags) throws Exception;
+    ConcernComment editConcernComment(Long commentId, String title, String content) throws Exception;
     
     
     void deleteConcernComment(Long commentId) throws Exception;

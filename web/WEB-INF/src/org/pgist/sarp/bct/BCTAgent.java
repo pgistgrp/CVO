@@ -1587,21 +1587,6 @@ public class BCTAgent {
     
     /**
      * Edit the given concern comment.
-     * 
-     * @param params A map contains:
-     *   <ul>
-     *     <li>commentId - int, id of the ConcernComment object. Required.</li>
-     *     <li>title - string, title of the concern comment. Required.</li>
-     *     <li>content - string, content of the concern comment. Required.</li>
-     *     <li>tags - string, comma separated tag name list. Required.</li>
-     *   </ul>
-     *   
-     * @param wfinfo A map contains:
-     *   <ul>
-     *     <li>workflowId - long</li>
-     *     <li>contextId - long</li>
-     *     <li>activityId - long</li>
-     *   </ul>
      *   
      * @return A map contains:<br>
      *   <ul>
@@ -1609,6 +1594,52 @@ public class BCTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
+    public Map editConcernComment(String commentID, String editedContent, String workflowid) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long commentId = null;
+
+        try {
+            commentId = new Long(commentID);
+        } catch (Exception e) {
+            map.put("reason", "commentId is required.");
+            return map;
+        }
+        
+        String title = "SPT comment";
+        String content = editedContent;
+        content = content.trim();
+        
+        if (content==null || content.length()==0 ) {
+            map.put("reason", "content can't be empty");
+            return map;
+        }
+        
+        ConcernComment comment = null;
+        
+        try {
+            comment = bctService.editConcernComment(commentId, title, content);
+            
+            /*
+             * indexing with lucene
+             */
+            try {
+                textIndexer.enqueue(null, "concern-comment", "reindexing", commentId);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//editConcernComment()
+    
     public Map editConcernComment(Map params, Map wfinfo) {
         Map map = new HashMap();
         map.put("successful", false);
@@ -1638,13 +1669,10 @@ public class BCTAgent {
             return map;
         }
         
-        String tagStr = (String) params.get("tags");
-        String[] tags = StringUtil.splitCSL(tagStr);
-        
         ConcernComment comment = null;
         
         try {
-            comment = bctService.editConcernComment(commentId, title, content, tags);
+            comment = bctService.editConcernComment(commentId, title, content);
             
             /*
              * indexing with lucene
@@ -1716,6 +1744,41 @@ public class BCTAgent {
         return map;
     }//deleteComment()
     
+    public Map deleteConcernComment(String commentID) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long commentId = null;
+
+        try {
+            commentId = new Long(commentID);
+        } catch (Exception e) {
+            map.put("reason", "commentId is required.");
+            return map;
+        }
+        
+        try {
+        	ConcernComment comment = bctService.getConcernCommentById(commentId);
+            bctService.deleteConcernComment(commentId);
+            
+            /*
+             * indexing with lucene
+             */
+            try {
+                textIndexer.enqueue(null, "concern-comment", "removing", commentId);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteComment()
     
     /**
      * Set voting to the given concern comment.

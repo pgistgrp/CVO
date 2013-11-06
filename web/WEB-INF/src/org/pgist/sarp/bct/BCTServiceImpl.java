@@ -411,31 +411,20 @@ public class BCTServiceImpl implements BCTService {
     }//createConcernComment()
 
 
-    public ConcernComment editConcernComment(Long commentId, String title, String content, String[] tags) throws Exception {
+    public ConcernComment editConcernComment(Long commentId, String title, String content) throws Exception {
         ConcernComment comment = bctDAO.getConcernCommentById(commentId);
         
         if (comment==null) throw new Exception("can't find the specified comment");
             
         User owner = userDAO.getUserById(WebUtils.currentUserId(), true, false);
         
-        if (owner.getId().equals(comment.getAuthor().getId())) {
+        if (!owner.getId().equals(comment.getAuthor().getId())) {
             throw new Exception("You are not the owner of this comment");
         }
         
         comment.setTitle(title);
-        comment.getTags().clear();
-        
-        for (String tagStr : tags) {
-            Tag tag = analyzer.getTag(tagStr.trim());
-            
-            if (tag==null) {
-                tag = tagDAO.addTag(tagStr.trim(), Tag.STATUS_CANDIDATE, true);
-            } else {
-                tag = tagDAO.getTagByName(tag.getName());
-            }
-            
-            comment.getTags().add(tag);
-        }
+        comment.setContent(content);
+        comment.setCreateTime(new Date());
         
         bctDAO.save(comment);
         
