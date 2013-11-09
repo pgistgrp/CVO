@@ -314,12 +314,6 @@ public class BCTAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-
-        if (concernStr == null || "".equals(concernStr.trim())) {
-            map.put("reason", "concern can not be empty.");
-            return map;
-        }
-        
         Concern concern = null;
         
         Long workflowId = new Long(workflow);
@@ -337,24 +331,6 @@ public class BCTAgent {
         } catch (Exception e) {
             e.printStackTrace();
             map.put("reason", e.getMessage());
-        }
-        
-        if (concern!=null) {
-            /*
-             * Indexing with Lucene.
-             */
-            try {
-                String url = String.format(
-                    "concern.do?workflowId=%s&contextId=%s&activityId=%s&id=%s",
-                    workflowId.toString(),
-                    contextId.toString(),
-                    activityId.toString(),
-                    concern.getId()
-                );
-                textIndexer.enqueue(workflowId.toString(), "concern", "indexing", concern.getId(), url);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
         }
         
         return map;
@@ -781,7 +757,50 @@ public class BCTAgent {
         
         return map;
     }//editConcern()
-
+    
+    //SPT Implementation
+    public Map editConcern(String concernIdStr, String concernStr, String tagList) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long concernId = null;
+        Concern concern = null;
+        
+        String newConcern = concernStr;
+        
+        try {
+            concernId = new Long(concernIdStr);
+            concern = bctService.getConcernById(concernId);
+        } catch (Exception e) {
+            map.put("successful", new Boolean(false));
+            map.put("reason",
+                        "failed to extract concern object with id " + concernId);
+            return map;
+        }
+        
+        //Check if the current user is the author of this concern.
+        try {
+       
+            concern.setContent(newConcern);
+            concern.setCreateTime(new Date());
+            bctService.save(concern);
+            map.put("successful", true);
+                
+            /*
+             * indexing with lucene
+             */
+            try {
+                textIndexer.enqueue(null, "concern", "reindexing", concern.getId());
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+          
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+        }
+        
+        return map;
+    }//editConcern()
 
     /**
      * Delete the given Concern object. Before delete, the current user will be check if he is the author of
@@ -830,6 +849,33 @@ public class BCTAgent {
         
         return map;
     }//deleteConcern()
+    
+    public Map deleteConcern(String concernIdStr) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long concernId = new Long(concernIdStr);
+        try{    
+	        bctService.deleteConcern(concernId);
+	        
+	        map.put("successful", new Boolean(true));
+	        
+	        /*
+	         * indexing with lucene
+	         */
+	        try {
+	            textIndexer.enqueue(null, "concern", "removing", concernId);
+	        } catch(Exception e) {
+	            e.printStackTrace();
+	        }
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        return map;
+    }//deleteConcern()
+
 
 
     /**
@@ -1145,7 +1191,7 @@ public class BCTAgent {
     }//getContextConcerns()
     
     /**
-     * Get conerns in concise format in current BCT context.
+     * Get concerns in concise format in current BCT context.
      * 
      * @param params A map contains:
      *   <ul>
@@ -1594,19 +1640,12 @@ public class BCTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map editConcernComment(String commentID, String editedContent, String workflowid) {
+    public Map editConcernComment(String commentID, String editedContent) {
         Map map = new HashMap();
         map.put("successful", false);
         
-        Long commentId = null;
+        Long commentId = new Long(commentID);
 
-        try {
-            commentId = new Long(commentID);
-        } catch (Exception e) {
-            map.put("reason", "commentId is required.");
-            return map;
-        }
-        
         String title = "SPT comment";
         String content = editedContent;
         content = content.trim();
@@ -1748,14 +1787,7 @@ public class BCTAgent {
         Map map = new HashMap();
         map.put("successful", false);
         
-        Long commentId = null;
-
-        try {
-            commentId = new Long(commentID);
-        } catch (Exception e) {
-            map.put("reason", "commentId is required.");
-            return map;
-        }
+        Long commentId = new Long(commentID);
         
         try {
         	ConcernComment comment = bctService.getConcernCommentById(commentId);
