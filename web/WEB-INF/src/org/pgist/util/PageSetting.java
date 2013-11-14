@@ -99,7 +99,7 @@ public class PageSetting {
 
     public void setRowOfPage(int rowOfPage) {
         this.rowOfPage = rowOfPage;
-        if (this.rowOfPage<=0) this.rowOfPage = 20;
+        //if (this.rowOfPage<=0) this.rowOfPage = 20;
     }
 
 

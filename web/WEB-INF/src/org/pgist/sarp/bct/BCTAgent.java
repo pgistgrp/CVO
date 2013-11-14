@@ -759,17 +759,14 @@ public class BCTAgent {
     }//editConcern()
     
     //SPT Implementation
-    public Map editConcern(String concernIdStr, String concernStr, String tagList) {
+    public Map editConcern(String concernID, String editedConcern, String tagList) {
         Map map = new HashMap();
         map.put("successful", false);
         
-        Long concernId = null;
+        Long concernId = concernId = new Long(concernID);
         Concern concern = null;
         
-        String newConcern = concernStr;
-        
         try {
-            concernId = new Long(concernIdStr);
             concern = bctService.getConcernById(concernId);
         } catch (Exception e) {
             map.put("successful", new Boolean(false));
@@ -778,13 +775,17 @@ public class BCTAgent {
             return map;
         }
         
-        //Check if the current user is the author of this concern.
         try {
        
-            concern.setContent(newConcern);
+            concern.setContent(editedConcern);
             concern.setCreateTime(new Date());
             bctService.save(concern);
             map.put("successful", true);
+            
+            //for SPT editing concern and tags in one step
+            Map editTagsResult = editTags(concernID, tagList);
+            if((Boolean)editTagsResult.get("successful")== false)
+            	map.put("tags_reason", editTagsResult.get("reason"));
                 
             /*
              * indexing with lucene
@@ -950,6 +951,34 @@ public class BCTAgent {
         return map;
     }//editTags()
 
+    //SPT implementation
+    public Map editTags(String concernID, String tagStr) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Concern concern = null;
+        Long concernId = new Long((String)concernID);
+        try {
+            concern = bctService.getConcernById(concernId);
+        } catch (Exception e) {
+        	map.put("reason","failed to extract concern object with id " + concernId);
+            return map;
+        }
+
+        //Check if the current user is the author of this concern.
+        try {
+            String tags[] = null;
+            tags = tagStr.trim().split(",");
+            concern.setCreateTime(new Date());
+            bctService.editConcernTags(concern, tags);
+            map.put("successful", true);
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+            return map;
+        }
+
+        return map;
+    }//editTags()
     
     /**
      * Search all matched tags in the given BCT by tag name. Approximate match is used for the tag string.
@@ -1399,6 +1428,27 @@ public class BCTAgent {
         }
         
         boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+        
+        try {
+            bctService.setVotingOnConcern(id, agree);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVoting()
+    
+    public Map setVoting(String concernID, String vote) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long id = new Long(concernID);
+        
+        boolean agree = "true".equalsIgnoreCase(vote);
         
         try {
             bctService.setVotingOnConcern(id, agree);
