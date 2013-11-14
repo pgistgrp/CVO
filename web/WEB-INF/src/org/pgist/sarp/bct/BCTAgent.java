@@ -1904,5 +1904,27 @@ public class BCTAgent {
         return map;
     }//setConcernCommentVoting()
     
+    //SPT Implementation
+    public Map setConcernCommentVoting(String commentID, String vote) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long id = new Long(commentID);
+        
+        boolean agree = "true".equalsIgnoreCase(vote);
+        
+        try {
+            bctService.setVotingOnConcernComment(id, agree);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setConcernCommentVoting()
+    
 
 }//class BCTAgent
