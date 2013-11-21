@@ -172,7 +172,7 @@ public class SystemAgent {
      *     </li>
      *   </ul>
      */
-    public Map getFeedbacks(HttpServletRequest request, Map params) {
+    public Map getFeedbacks(Map params, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -213,12 +213,16 @@ public class SystemAgent {
 	    		String [] assocs = {"CyberGIS"};
 	    		Long newUserId = registerService.addSarpUser(loginname, loginname, loginname+"@cybergis.org", "0", "M", "0", "0", "", loginname, "cybergis", "", new HashSet(Arrays.asList(assocs)));
 	    		user = systemService.getUserById(newUserId);
+	    	}else if(user == null & domain.equals("csf")){
+	    		String [] assocs = {"CSF"};
+	    		Long newUserId = registerService.addSarpUser(loginname, loginname, loginname+"@asu.edu", "0", "M", "0", "0", "", loginname, "csf", "", new HashSet(Arrays.asList(assocs)));
+	    		user = systemService.getUserById(newUserId);
 	    	}
 	    	
 	    	/*If a security token is provided verify it, this needs to be made more robust for multiple integration scenarios.
 	    	 *Currently specific to CyberGIS.
 	    	 */
-	    	if (token != null){
+	    	if (!token.equals("null")){
 	    		String result = verifyToken (loginname, token);
 	    		JSONObject jsonObject = new JSONObject(result);
 	    		String status = jsonObject.getString("status");
@@ -255,7 +259,7 @@ public class SystemAgent {
      *     <li>html - system_users.jsp</li>
      *   </ul>
      */
-	public Map getAllUsers(HttpServletRequest request, Map params) {		
+	public Map getAllUsers(Map params, HttpServletRequest request) {		
 		Map map = new HashMap();
         map.put("successful", false);
 		
@@ -288,7 +292,7 @@ public class SystemAgent {
      *     <li>html - system_users.jsp</li>
      *   </ul>
      */
-    public Map getAllAssocs(HttpServletRequest request, Map params) {        
+    public Map getAllAssocs(Map params, HttpServletRequest request) {        
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -505,7 +509,7 @@ public class SystemAgent {
      *     <li>html - html file system_user.jsp</li>
      *   </ul>
      */
-	public Map getEnabledUsers(HttpServletRequest request, Map params) {
+	public Map getEnabledUsers(Map params, HttpServletRequest request) {
 		Map map = new HashMap();
         map.put("successful", false);
 		
@@ -535,7 +539,7 @@ public class SystemAgent {
      *     <li>html - html file system_lockeduser.jsp</li>
      *   </ul>
      */
-	public Map getDisabledUsers(HttpServletRequest request, Map params) {
+	public Map getDisabledUsers(Map params, HttpServletRequest request) {
 		Map map = new HashMap();
         map.put("successful", false);
 		
@@ -725,7 +729,7 @@ public class SystemAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-	public Map createQuotaStats(HttpServletRequest request, Map params) {
+	public Map createQuotaStats(Map params, HttpServletRequest request) {
 		Map map = new HashMap();
 		map.put("successful", false);
 		
@@ -922,7 +926,7 @@ public class SystemAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-	public Map getAllCounties(HttpServletRequest request, Map params) throws Exception {
+	public Map getAllCounties(Map params, HttpServletRequest request) throws Exception {
 		Map map = new HashMap();
 		map.put("successful", false);
         
@@ -1137,7 +1141,7 @@ public class SystemAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-	public Map getAnnouncements(HttpServletRequest request, Map params) throws Exception {
+	public Map getAnnouncements(Map params, HttpServletRequest request) throws Exception {
 		Map map = new HashMap();
 		map.put("successful", false);
 		
@@ -1246,8 +1250,8 @@ public class SystemAgent {
 		formparams.add(new BasicNameValuePair("consumer", props.getProperty("CONSUMER_ID")));
 		formparams.add(new BasicNameValuePair("auth_request", "default"));
 		formparams.add(new BasicNameValuePair("username", loginname));
-		//formparams.add(new BasicNameValuePair("remote_addr", req.getRemoteAddr()));
-		formparams.add(new BasicNameValuePair("remote_addr", "71.85.121.220"));
+		formparams.add(new BasicNameValuePair("remote_addr", req.getRemoteAddr()));
+		//formparams.add(new BasicNameValuePair("remote_addr", "71.85.121.220"));
 		String url = props.getProperty("APIURL")+"token";
 		String resultString = executePut(url, formparams);
 		
