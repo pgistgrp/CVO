@@ -163,7 +163,7 @@ public class BCTServiceImpl implements BCTService {
          * the author of the concern always agrees.
          */
         systemDAO.setVoting(YesNoVoting.TYPE_CONCERN, c.getId(), true);
-        bctDAO.increaseVoting(c, true);
+        bctDAO.increaseVoting(c, true, null);
         
         return c;
     } //createConcern()
@@ -359,11 +359,14 @@ public class BCTServiceImpl implements BCTService {
 
 
     public boolean setVotingOnConcern(Long id, boolean agree) throws Exception {
-        if (!systemDAO.setVoting(YesNoVoting.TYPE_CONCERN, id, agree)) return false;
+    	//save original voting status before setting vote so know if new or changed vote
+    	YesNoVoting originalVote = systemDAO.getVoting(YesNoVoting.TYPE_CONCERN, id);
+    	
+    	if (!systemDAO.setVoting(YesNoVoting.TYPE_CONCERN, id, agree)) return false;
         
         Concern concern = bctDAO.getConcernById(id);
         
-        bctDAO.increaseVoting(concern, agree);
+        bctDAO.increaseVoting(concern, agree, originalVote);
         
         return true;
     }//setVotingOnConcern()
@@ -405,7 +408,7 @@ public class BCTServiceImpl implements BCTService {
          * the author of the comment always agrees.
          */
         systemDAO.setVoting(YesNoVoting.TYPE_COMMENT, comment.getId(), true);
-        bctDAO.increaseVoting(comment, true);
+        bctDAO.increaseVoting(comment, true, null);
         
         return comment;
     }//createConcernComment()
@@ -457,11 +460,14 @@ public class BCTServiceImpl implements BCTService {
 
 
     public boolean setVotingOnConcernComment(Long id, boolean agree) throws Exception {
-        if (!systemDAO.setVoting(YesNoVoting.TYPE_COMMENT, id, agree)) return false;
+    	//save original voting status before setting vote so know if new or changed vote
+    	YesNoVoting originalVote = systemDAO.getVoting(YesNoVoting.TYPE_COMMENT, id);
+    	
+    	if (!systemDAO.setVoting(YesNoVoting.TYPE_COMMENT, id, agree)) return false;
         
         ConcernComment comment = bctDAO.getConcernCommentById(id);
         
-        bctDAO.increaseVoting(comment, agree);
+        bctDAO.increaseVoting(comment, agree, originalVote);
         
         return true;
     }//setVotingOnConcernComment()

@@ -87,15 +87,17 @@ public class SystemDAOImpl extends BaseDAOImpl implements SystemDAO {
 
     public boolean setVoting(int targetType, Long targetId, boolean agree) throws Exception {
         YesNoVoting voting = getVoting(targetType, targetId);
-        if (voting!=null) return false;
+        if (voting!=null && voting.isVoting() == agree) return false;
         
         User user = (User) load(User.class, WebUtils.currentUserId());
         
-        voting = new YesNoVoting();
+        if(voting == null){
+        	voting = new YesNoVoting();
+        	voting.setTargetType(targetType);
+        	voting.setTargetId(targetId);
+        	voting.setOwner(user);
+        }
         
-        voting.setTargetType(targetType);
-        voting.setTargetId(targetId);
-        voting.setOwner(user);
         voting.setVoting(agree);
         
         save(voting);

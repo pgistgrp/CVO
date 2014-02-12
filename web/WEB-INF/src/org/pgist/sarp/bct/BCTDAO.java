@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.pgist.system.BaseDAO;
+import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.PageSetting;
 
@@ -160,8 +161,8 @@ public interface BCTDAO extends BaseDAO {
     Collection getContextConcerns(BCT bct, PageSetting setting, String filter, String type, int sorting) throws Exception;
 
     
-    void increaseVoting(Concern concern, boolean agree) throws Exception;
-
+    void increaseVoting(Concern concern, boolean agree, YesNoVoting originalVote) throws Exception;
+   
 
     void increaseReplies(Concern concern) throws Exception;
     
@@ -175,7 +176,7 @@ public interface BCTDAO extends BaseDAO {
     Collection getConcernComments(Long concernId, PageSetting setting) throws Exception;
 
 
-    void increaseVoting(ConcernComment comment, boolean agree) throws Exception;
+    void increaseVoting(ConcernComment comment, boolean agree, YesNoVoting originalVote) throws Exception;
 
 
     void increaseViews(Long concernId) throws Exception;

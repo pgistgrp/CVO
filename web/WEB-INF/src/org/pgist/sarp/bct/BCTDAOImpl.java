@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.hibernate.Query;
 import org.pgist.system.BaseDAOImpl;
+import org.pgist.system.YesNoVoting;
 import org.pgist.users.User;
 import org.pgist.util.DBMetaData;
 import org.pgist.util.PageSetting;
@@ -457,14 +458,24 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
     
     private static final String hql_increaseVoting_12 = "update Concern c set c.numAgree=c.numAgree+1 where c.id=?";
     
+    private static final String hql_decreaseVoting_13 = "update Concern c set c.numAgree=c.numAgree-1 where c.id=?";
     
-    public void increaseVoting(Concern concern, boolean agree) throws Exception {
-        getSession().createQuery(hql_increaseVoting_11).setLong(0, concern.getId()).executeUpdate();
-        if (agree) {
-            getSession().createQuery(hql_increaseVoting_12).setLong(0, concern.getId()).executeUpdate();
-        }
+    
+    public void increaseVoting(Concern concern, boolean agree, YesNoVoting originalVote) throws Exception {
+    	if (originalVote == null){
+    		if (agree) {
+    			getSession().createQuery(hql_increaseVoting_12).setLong(0, concern.getId()).executeUpdate();
+    		}
+    		getSession().createQuery(hql_increaseVoting_11).setLong(0, concern.getId()).executeUpdate();
+    	}else{ //just changing vote, don't increase numVote
+    		if (agree) {
+    			getSession().createQuery(hql_increaseVoting_12).setLong(0, concern.getId()).executeUpdate();
+    		}else
+    			getSession().createQuery(hql_decreaseVoting_13).setLong(0, concern.getId()).executeUpdate();
+    	} 
+    		
     }//increaseVoting()
-
+   
 
     private static final String hql_increaseReplies = "update Concern set replies=replies+1 where id=?";
     
@@ -530,12 +541,21 @@ public class BCTDAOImpl extends BaseDAOImpl implements BCTDAO {
     
     private static final String hql_increaseConcernCommentVoting_12 = "update GenericComment c set c.numAgree=c.numAgree+1 where c.id=?";
     
+    private static final String hql_decreaseConcernCommentVoting_13 = "update GenericComment c set c.numAgree=c.numAgree-1 where c.id=?";
     
-    public void increaseVoting(ConcernComment comment, boolean agree) throws Exception {
-        getSession().createQuery(hql_increaseConcernCommentVoting_11).setLong(0, comment.getId()).executeUpdate();
-        if (agree) {
-            getSession().createQuery(hql_increaseConcernCommentVoting_12).setLong(0, comment.getId()).executeUpdate();
-        }
+    
+    public void increaseVoting(ConcernComment comment, boolean agree, YesNoVoting originalVote) throws Exception {
+        if (originalVote == null){
+    		if (agree) {
+    			getSession().createQuery(hql_increaseConcernCommentVoting_12).setLong(0, comment.getId()).executeUpdate();
+    		}
+    		getSession().createQuery(hql_increaseConcernCommentVoting_11).setLong(0, comment.getId()).executeUpdate();
+    	}else{ //just changing vote, don't increase numVote
+    		if (agree) {
+    			getSession().createQuery(hql_increaseConcernCommentVoting_12).setLong(0, comment.getId()).executeUpdate();
+    		}else
+    			getSession().createQuery(hql_decreaseConcernCommentVoting_13).setLong(0, comment.getId()).executeUpdate();
+    	} 
     }//increaseVoting()
 
 
