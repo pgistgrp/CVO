@@ -176,7 +176,7 @@ public class DRTAgent {
      *     <li>page - page number of the returned page</li>
      *   </ul>
      */
-    public Map getComments(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map getComments(Map params, Map wfinfo, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -215,6 +215,34 @@ public class DRTAgent {
         return map;
     }//getComments()
     
+    //SPT implementation
+    public Collection getComments(String workflow, String context, String activity) {
+    	Collection <Comment> comments = null;
+    	
+    	Long workflowId = new Long(workflow);
+    	Long contextId = new Long (context);
+    	Long activityId = new Long (activity);
+        
+        try {
+        	Map result = engine.getURL(workflowId, contextId, activityId);
+            EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
+            Long bctId = new Long(inouts.getIntValue("bctId"));
+            
+            InfoObject object = drtService.getInfoObjectByTargetId(bctId);
+     
+        	PageSetting setting = new PageSetting();
+            setting.setRowOfPage(-1);
+            setting.setPage(1);
+        	
+            comments = drtService.getComments(object.getId(), setting);
+
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        
+        return comments;
+    }//getComments()
+    
     
     /**
      * Create a DRT comment for the given drt id.
@@ -239,7 +267,7 @@ public class DRTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map createComment(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map createComment(Map params, Map wfinfo, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -301,6 +329,55 @@ public class DRTAgent {
         return map;
     }//createComment()
     
+    
+    //SPT Implementation
+    public Map createComment(String workflow, String context, String activity, String title, String commentTxt) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long workflowId = new Long(workflow);
+    	Long contextId = new Long (context);
+    	Long activityId = new Long (activity);
+        
+        try {
+        	Map result = engine.getURL(workflowId, contextId, activityId);
+            EnvironmentInOuts inouts = (EnvironmentInOuts)result.get("inouts");
+            Long bctId = new Long(inouts.getIntValue("bctId"));
+            InfoObject object = drtService.getInfoObjectByTargetId(bctId);
+        	
+        	if (commentTxt.length()>8192) throw new Exception("content can't exceeds 8192 chars");
+            
+            Comment comment = drtService.createComment(workflowId, object.getId(), title, commentTxt, false);
+            
+//            if (comment!=null) {
+//                // sending email
+//                try {
+//                    Set<User> recipients = drtService.getThreadUsers(oid);
+//                    String url = "workflow.do?workflowId="+workflowId+"&contextId="+contextId+"&activityId="+activityId;
+//                    emailSender.enqueue(recipients, WebUtils.currentUserId(), url);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                
+//                /*
+//                 * Indexing with Lucene.
+//                 */
+//                try {
+//                    textIndexer.enqueue(wfinfo, "drt-comment", "indexing", comment.getId());
+//                } catch(Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+            
+            map.put("successful", true);
+            
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//createComment()
     
     /**
      * Delete the given Comment object. Only used by moderator.
@@ -369,6 +446,50 @@ public class DRTAgent {
         return map;
     }//deleteComment()
     
+    //SPT Implementation
+    public Map deleteComment(String commentId) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long cid = null;
+        Comment comment = null;
+        
+        try {
+        	cid = new Long((String) commentId);
+          
+            comment = drtService.getCommentById(cid);
+            if (comment==null) {
+                map.put("reason", "no such Comment object");
+                return map;
+            }
+            
+            //check if it's moderator, TODO
+            if (comment.getAuthor().getId().equals(WebUtils.currentUserId())) {
+                drtService.deleteComment(comment);
+                
+                /*
+                 * indexing with lucene
+                 */
+                try {
+                    textIndexer.enqueue(null, "drt-comment", "removing", cid);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                map.put("reason", "You are not the owner of this comment");
+                return map;
+            }
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//deleteComment()
+    
+    
     
     /**
      * Set the voting choice on the given InfoObject object.
@@ -425,6 +546,40 @@ public class DRTAgent {
         return map;
     }//setVotingOnInfoObject()
     
+    //SPT Implementation
+    public Map setVotingOnInfoObject(String objectId, String vote) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long oid = new Long((String) objectId);
+        
+        
+        boolean agree = "true".equalsIgnoreCase((String) vote);
+        
+        try {
+        	InfoObject infoObject = null;
+        	
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_INFOOBJ, oid);
+            if (voting!=null) {
+            	infoObject = drtService.getInfoObjectById(oid);
+            } else {
+            	infoObject = drtService.setVotingOnInfoObject(oid, agree);
+            }
+            
+            map.put("numAgree", infoObject.getNumAgree());
+            map.put("numVote", infoObject.getNumVote());
+            map.put("voted", true);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVotingOnInfoObject()
+    
     
     /**
      * Set the voting choice on the given Comment object.
@@ -456,6 +611,39 @@ public class DRTAgent {
         }
         
         boolean agree = "true".equalsIgnoreCase((String) params.get("agree"));
+        
+        try {
+        	Comment comment = null;
+        	
+            YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, cid);
+            if (voting!=null) {
+            	comment = drtService.getCommentById(cid);
+            } else {
+            	comment = drtService.setVotingOnComment(cid, agree);
+            }
+            
+            map.put("numAgree", comment.getNumAgree());
+            map.put("numVote", comment.getNumVote());
+            map.put("voted", true);
+            
+            map.put("successful", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("reason", e.getMessage());
+            return map;
+        }
+        
+        return map;
+    }//setVotingOnComment()
+    
+    //SPT Implementation
+    public Map setVotingOnComment(String commentId, String vote) {
+        Map map = new HashMap();
+        map.put("successful", false);
+        
+        Long cid = new Long((String) commentId);
+        
+        boolean agree = "true".equalsIgnoreCase((String) vote);
         
         try {
         	Comment comment = null;
@@ -571,7 +759,7 @@ public class DRTAgent {
      *     </li>
      *   </ul>
      */
-    public Map getAnnouncements(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map getAnnouncements(Map params, Map wfinfo, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -633,7 +821,7 @@ public class DRTAgent {
      *     <li>reason - reason why operation failed (valid when successful==false)</li>
      *   </ul>
      */
-    public Map createAnnouncement(HttpServletRequest request, Map params, Map wfinfo) {
+    public Map createAnnouncement(Map params, Map wfinfo, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -785,7 +973,7 @@ public class DRTAgent {
      *           <li>reason - reason why operation failed (valid when successful==false)</li>
      *         </ul>
      */
-    public Map getCategoryTags(HttpServletRequest request, Map params) {
+    public Map getCategoryTags(Map params, HttpServletRequest request) {
         Map map = new HashMap();
         map.put("successful", false);
         
@@ -804,5 +992,25 @@ public class DRTAgent {
         return map;
     } //getCategoryTags()
     
+    public Map loadInfoObject(String discussionComponentId){
+    	 Map map = new HashMap();
+         map.put("successful", false);
+         
+         Long oid = new Long((String) discussionComponentId);
+         
+         InfoObject infoObject = null;
+		try {
+			infoObject = drtService.getInfoObjectById(oid);
+			 if(infoObject != null){
+	        	 map.put("successful", true);
+	        	 map.put("infoObject", infoObject);
+	         }
+		} catch (Exception e) {
+		
+		}
+        
+         
+    	return map;
+    } 
     
 }//class DRTAgent
