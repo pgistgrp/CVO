@@ -27,6 +27,10 @@ public class Comment extends GenericComment implements Serializable {
     
     private Comment parent;
     
+    protected boolean voted;
+    
+    protected boolean agree;
+    
     
     /**
      * @return
@@ -72,6 +76,26 @@ public class Comment extends GenericComment implements Serializable {
 
 	public void setParent(Comment parent) {
 		this.parent = parent;
+	}
+
+
+	public void setVoted(boolean voted) {
+		this.voted = voted;
+	}
+
+
+	public boolean isVoted() {
+		return voted;
+	}
+
+
+	public void setAgree(boolean agree) {
+		this.agree = agree;
+	}
+
+
+	public boolean isAgree() {
+		return agree;
 	}
 
 

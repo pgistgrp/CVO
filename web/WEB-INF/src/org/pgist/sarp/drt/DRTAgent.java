@@ -19,6 +19,8 @@ import org.pgist.util.PageSetting;
 import org.pgist.util.WebUtils;
 import org.pgist.wfengine.EnvironmentHandler;
 import org.pgist.wfengine.EnvironmentInOuts;
+import org.pgist.wfengine.OpenWorkflow;
+import org.pgist.wfengine.Workflow;
 import org.pgist.wfengine.WorkflowEngine;
 import org.pgist.wfengine.web.WorkflowUtils;
 
@@ -235,6 +237,16 @@ public class DRTAgent {
             setting.setPage(1);
         	
             comments = drtService.getComments(object.getId(), setting);
+            for (Comment one : (Collection<Comment>) comments) {
+                
+            	YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, one.getId());
+            	if (voting != null){
+            		one.setVoted(true);
+            		one.setAgree(voting.isVoting());
+            	}else{
+            		one.setVoted(false);
+            	}
+            }
 
         } catch (Exception e) {
         	e.printStackTrace();
@@ -649,16 +661,9 @@ public class DRTAgent {
         	Comment comment = null;
         	
             YesNoVoting voting = systemService.getVoting(YesNoVoting.TYPE_SARP_DRT_COMMENT, cid);
-            if (voting!=null) {
-            	comment = drtService.getCommentById(cid);
-            } else {
+            if (voting == null) {
             	comment = drtService.setVotingOnComment(cid, agree);
             }
-            
-            map.put("numAgree", comment.getNumAgree());
-            map.put("numVote", comment.getNumVote());
-            map.put("voted", true);
-            
             map.put("successful", true);
         } catch (Exception e) {
             e.printStackTrace();
