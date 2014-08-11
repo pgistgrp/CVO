@@ -1250,8 +1250,8 @@ public class SystemAgent {
 		formparams.add(new BasicNameValuePair("consumer", props.getProperty("CONSUMER_ID")));
 		formparams.add(new BasicNameValuePair("auth_request", "default"));
 		formparams.add(new BasicNameValuePair("username", loginname));
-		formparams.add(new BasicNameValuePair("remote_addr", req.getRemoteAddr()));
-		//formparams.add(new BasicNameValuePair("remote_addr", "71.85.121.220"));
+		//formparams.add(new BasicNameValuePair("remote_addr", req.getRemoteAddr()));
+		formparams.add(new BasicNameValuePair("remote_addr", "71.85.121.220"));
 		String url = props.getProperty("APIURL")+"token";
 		String resultString = executePut(url, formparams);
 		
