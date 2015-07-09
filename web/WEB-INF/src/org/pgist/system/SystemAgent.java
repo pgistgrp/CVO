@@ -203,7 +203,7 @@ public class SystemAgent {
      * @return User
      */
     
-    public Map loadUserByName(String loginname, String token, String domain){
+    public Map loadUserByName(String loginname, String token, String apihost, String domain){
     	Map map = new HashMap();
     	try{
 	    	User user = systemService.getUserByName(loginname, true, false);
@@ -223,7 +223,7 @@ public class SystemAgent {
 	    	 *Currently specific to CyberGIS.
 	    	 */
 	    	if (!token.equals("null")){
-	    		String result = verifyToken (loginname, token);
+	    		String result = verifyToken (loginname, token, apihost);
 	    		JSONObject jsonObject = new JSONObject(result);
 	    		String status = jsonObject.getString("status");
 	    		
@@ -1239,7 +1239,7 @@ public class SystemAgent {
 	}//addNewAffiliation()
 	
 	//The following methods are for CyberGIS Token Service
-	private String verifyToken(String loginname, String token)
+	private String verifyToken(String loginname, String token, String apihost)
 	throws KeyManagementException, HttpException,
 	NoSuchAlgorithmException, IOException, JSONException {
 		WebContext ctx = WebContextFactory.get();
@@ -1250,9 +1250,9 @@ public class SystemAgent {
 		formparams.add(new BasicNameValuePair("consumer", props.getProperty("CONSUMER_ID")));
 		formparams.add(new BasicNameValuePair("auth_request", "default"));
 		formparams.add(new BasicNameValuePair("username", loginname));
-		//formparams.add(new BasicNameValuePair("remote_addr", req.getRemoteAddr()));
-		formparams.add(new BasicNameValuePair("remote_addr", "71.85.121.220"));
-		String url = props.getProperty("APIURL")+"token";
+		formparams.add(new BasicNameValuePair("remote_addr", req.getRemoteAddr()));
+		//formparams.add(new BasicNameValuePair("remote_addr", "68.119.216.39"));
+		String url = "https://" + apihost + "/rest/token";
 		String resultString = executePut(url, formparams);
 		
 		return resultString;
