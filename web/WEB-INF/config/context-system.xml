@@ -178,7 +178,6 @@
         <property name="props">
                     <props>
                         <prop key="CONSUMER_ID">PGIST_jaE39ZDaf2</prop>
-                        <prop key="APIURL">https://dev-gisolve2.cigi.uiuc.edu:8443/home/rest/</prop>
                     </props>
        </property>
     </bean>
