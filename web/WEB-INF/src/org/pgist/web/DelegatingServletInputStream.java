@@ -3,6 +3,7 @@ package org.pgist.web;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 
 
@@ -53,6 +54,31 @@ public class DelegatingServletInputStream extends ServletInputStream {
     public String getContent() {
         return sb.toString();
     }
+
+
+	@Override
+	public boolean isFinished() {
+		try {
+			return proxy.available() == 0;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return true;
+		}
+	}
+
+
+	@Override
+	public boolean isReady() {
+		return true;
+	}
+
+
+	@Override
+	public void setReadListener(ReadListener arg0) {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }//class DelegatingServletInputStream
