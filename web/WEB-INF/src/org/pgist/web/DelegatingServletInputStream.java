@@ -56,7 +56,6 @@ public class DelegatingServletInputStream extends ServletInputStream {
     }
 
 
-	@Override
 	public boolean isFinished() {
 		try {
 			return proxy.available() == 0;
@@ -67,14 +66,11 @@ public class DelegatingServletInputStream extends ServletInputStream {
 		}
 	}
 
-
-	@Override
 	public boolean isReady() {
 		return true;
 	}
 
 
-	@Override
 	public void setReadListener(ReadListener arg0) {
 		// TODO Auto-generated method stub
 		
