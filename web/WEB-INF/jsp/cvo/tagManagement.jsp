@@ -24,7 +24,7 @@ $('overview').style.display = 'none'; $('slate').style.display = 'none'; $('bar'
 = 'none'; $('caughtException').style.display = 'block'; $('caughtException').innerHTML
 +='
 <p>If this problem persists, please 
-<A HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem>contact our webmaster</a></p>';
+<a HREF="mailto:webmaster@pgist.org?subject=LIT Website Problem">contact our webmaster</a></p>';
 }
 </script>
 </Head>
