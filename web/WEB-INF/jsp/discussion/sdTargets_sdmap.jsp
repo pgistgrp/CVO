@@ -26,11 +26,11 @@
 		
 		pgistmap.map.clearOverlays();
 	
-		for(i=0; i<pgistmap.projectList.length; i++){
+		for(i=0; i < pgistmap.projectList.length; i++){
 			if(pgistmap.projectList[i].fpids && pgistmap.projectList[i].fpids!=""){	
 				pgistmap.redrawProjectFootprint(pgistmap.projectList[i]);
 				
-				for(var j=0; j<pgistmap.projectList[i].bubblemarkers.length; j++){
+				for(var j=0; j < pgistmap.projectList[i].bubblemarkers.length; j++){
 					pgistmap.map.addOverlay(pgistmap.projectList[i].bubblemarkers[j]);
 				}			
 			}

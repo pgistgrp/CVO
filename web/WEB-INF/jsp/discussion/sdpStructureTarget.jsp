@@ -226,13 +226,13 @@
     }
     
     function renderProjects(){
-        for(var i=0;i<prjaltlist.length;i++){
+        for(var i=0;i < prjaltlist.length;i++){
             var p = prjaltlist[i];
             p["overlays"] = []; 
             if(p["fpids"] == "") continue;
             
             var geomkeys = p["fpids"].split(',');
-            for(var k=0; k<geomkeys.length; k++){
+            for(var k=0; k < geomkeys.length; k++){
                 var geomkey = '_'+geomkeys[k];
                 if(overlaypoints[geomkey] == null)continue;
                 
@@ -241,7 +241,7 @@
                 p["overlays"] = p["overlays"].concat(pgistmap.createOverlays(overlaypoints[geomkey]["coords"], 
                     overlaypoints[geomkey]["geotype"], transcolor, 2, 0.9, "", transicon));
                 
-                for(var j=0; j<p["overlays"].length; j++){
+                for(var j=0; j < p["overlays"].length; j++){
                     pgistmap.map.addOverlay( p["overlays"][j] );
                 }
             }
@@ -261,7 +261,7 @@
                 //data.trips is now an array of trips
                 pgistmap.disableMapLogger();
                 if(data.successful){
-                    for(var k=0; k<data.trips.length; k++)
+                    for(var k=0; k < data.trips.length; k++)
                     	{
                       travelPath.push( drawTrip(pgistmap, data.trips[k].coords) );
                       
@@ -288,7 +288,7 @@
     
     function drawTrip(pgmap, coords){
         var points= [];
-        for(i=0;i<coords.length; i=i+2){
+        for(i=0;i < coords.length; i=i+2){
             points[i/2] = new GPoint(coords[i], coords[i+1]);
         }
         var tripline = new GPolyline(points, "#0000FF", 6, 0.5);

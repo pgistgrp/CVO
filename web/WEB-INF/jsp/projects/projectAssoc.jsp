@@ -106,7 +106,7 @@
 	<h1>Define Projects for this Experiment</h1>
 	<p>Which projects are available for the "Let's Improve Transportation Challenge" experiment? Go to <a href="projectManage.do">manage projects</a> to add/remove projects.</p>
 	<form method="POST" name="publishProjects" action="projectDefine.do">
-		<input type="hidden" name="cctId" value="${cct.id}" /
+		<input type="hidden" name="cctId" value="${cct.id}" />
 		<input type="hidden" name="activity" value="save" />
 		<h3>All Projects</h3>
 		<ul id="projectsList">
