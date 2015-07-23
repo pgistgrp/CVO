@@ -2,7 +2,7 @@
 
 <project default="compile" basedir=".">
 
-    <property name="base" value="." />
+    <property name="base" value="C:/Git/cvo" />
     
     <property file="${base}/build.properties"/>
     
