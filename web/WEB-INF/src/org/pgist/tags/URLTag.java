@@ -77,6 +77,10 @@ public class URLTag extends SimpleTagSupport {
                 workflowId = (String) wfinfo.get("workflowId");
                 contextId = (String) wfinfo.get("contextId");
                 activityId = (String) wfinfo.get("activityId");
+            }else{
+            	workflowId = "";
+                contextId = "";
+                activityId = "";
             }
         }
         
