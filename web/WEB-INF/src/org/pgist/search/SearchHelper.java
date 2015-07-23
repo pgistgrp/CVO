@@ -24,10 +24,11 @@ public class SearchHelper {
     
     private String absolutePath;
     
-    private QueryParser parser = new QueryParser("contents", new StandardAnalyzer());
+    private QueryParser parser;
     
     
     public SearchHelper() {
+    	parser = new QueryParser("contents", new StandardAnalyzer());
     }
 
 
@@ -46,11 +47,6 @@ public class SearchHelper {
             absolutePath = contextPath + indexPath;
         }
         return new IndexSearcher(absolutePath);
-    }//getIndexSearcher()
-
-
-    public IndexSearcher getIndexSearcher(IndexReader reader) throws IOException {
-        return new IndexSearcher(reader);
     }//getIndexSearcher()
 
 
