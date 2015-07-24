@@ -71,18 +71,24 @@ public class URLTag extends SimpleTagSupport {
         String contextId = request.getParameter("contextId");
         String activityId = request.getParameter("activityId");
         
+      //new workflow may be initialized but other values are not and causes a NPE 
         if (workflowId==null) {
             Map wfinfo = (Map) request.getAttribute("wfinfo");
             if (wfinfo!=null) {
                 workflowId = (String) wfinfo.get("workflowId");
                 contextId = (String) wfinfo.get("contextId");
                 activityId = (String) wfinfo.get("activityId");
-            }else{
-            	workflowId = "";
-                contextId = "";
-                activityId = "";
+            }else {
+            	 workflowId = "";
+                 contextId = "";
+                 activityId = "";
             }
-        }
+        } else if (contextId == null){
+    	   contextId = "";
+    	   activityId = "";
+    	} else if (activityId == null) {
+    		activityId = "";
+    	}	   
         
         JspWriter writer = getJspContext().getOut();
         writer.write("<a href=\"");
